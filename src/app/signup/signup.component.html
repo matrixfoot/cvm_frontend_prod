@@ -1,0 +1,91 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+  
+
+<div class="bodycontainer">
+  <div id="loader" *ngIf="loading"></div>
+  
+<div class="container" *ngIf="!loading">
+   
+  
+<form  [formGroup]="signupForm">
+    <h2>Formulaire D'inscription</h2>
+   
+    <div class="input-container">
+        <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+       
+  <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
+    <option hidden >Entrer Votre Civilité</option>
+    <option value="Monsieur">Monsieur</option>
+    <option value="Madame">Madame</option>
+    <option value="Mademoiselle">Mademoiselle</option>
+  </select>
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="Entrer Votre Nom" id="lastname" formControlName="lastname" name="lastname">
+      </div>
+
+      <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" formControlName="firstname">
+      </div> 
+
+      <div class="input-container">
+        <i class="fa fa-fort-awesome icon"></i>
+        <input class="input-field" type="text" placeholder="Entrer Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
+      </div>  
+
+      <div class="input-container">
+        <i class="fa fa-fort-awesome icon" ></i> 
+       
+  <select  class="input-field" id="fonction" formControlName="fonction" >
+    <option hidden >Entrer Votre Fonction</option>
+    <option value="Monsieur">fonction1</option>
+    <option value="Madame">fonction2</option>
+    <option value="Mademoiselle">fonction3</option>
+  </select>
+    </div>
+
+
+    <div class="input-container">
+        <i class="fa fa-fort-awesome icon"></i>
+        <input class="input-field" type="text" placeholder="Entrer Nom Societe" id="nomsociete" formControlName="nomsociete">
+      </div>
+
+
+    <div class="input-container">
+        <i class="fa fa-fort-awesome icon" ></i> 
+       
+  <select  class="input-field" id="secteur" formControlName="secteur" >
+    <option hidden >Entrer Votre Secteur Activité</option>
+    <option value="Monsieur">secteur1</option>
+    <option value="Madame">sccteur2</option>
+    <option value="Mademoiselle">secteur3</option>
+  </select>
+    </div>
+    <div class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
+    </div>
+
+    <div class="input-container">
+      <i class="fa fa-envelope icon"></i>
+      <input class="input-field" type="text" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+    </div>
+  
+    <div class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" formControlName="password" required>
+    </div>
+  
+    <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
+  </form>
+  <p>{{ errorMessage }}</p>
+</div>
+</div>
+</body>
