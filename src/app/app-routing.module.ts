@@ -12,11 +12,15 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { WhoComponent } from './who/who.component';
 import { WhyComponent } from './why/why.component';
+import { ProfilComponent } from './profil/profil.component';
 const routes: Routes = [
   
    
     
   { path: 'login', component: LoginComponent,
+    
+},
+{ path: 'profil', component: ProfilComponent,
     
 },
 { path: 'home', component: HomeComponent,

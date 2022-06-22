@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-
+import { TokenStorageService } from '../services/token-storage.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
               private auth: AuthService,
+              private Auth: TokenStorageService,
               private router: Router,
               private authuser: UserService) { }
 
@@ -49,14 +50,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     
   }
 
-  onLogout() {
-    this.auth.logout();
-    this.router.navigate(['/' + this.partString + '/auth/login']);
+  logout(): void {
+    this.Auth.signOut();
+    window.location.reload();
   }
   
-  onBackToParts() {
-    this.router.navigate(['/default']);
-  }
+  
 
   ngOnDestroy() {
     this.modeSub.unsubscribe();

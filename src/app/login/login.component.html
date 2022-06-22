@@ -9,7 +9,11 @@
     <div id="loader" *ngIf="loading"></div>
     <div class="container" *ngIf="!loading">
       
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm" *ngIf="!isLoggedIn"
+      
+      (ngSubmit)="loginform.valid && onSubmit()"
+      
+      novalidate>
         <div class="row">
           <h2 style="text-align:center">Connectez vous avec vos réseaux sociaux ou manuellement</h2>
           <div class="vl">
@@ -41,7 +45,7 @@
         </div>
       </form>
     
-      <p>{{ errorMessage }}</p>
+      
     <div class="bottom-container">
       <div class="row">
         <div class="col">
@@ -52,5 +56,6 @@
         </div>
       </div>
     </div>
+    <p>{{ errorMessage }}</p>
   </div>
     </body>

@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { WhoComponent } from './who/who.component';
 import { WhyComponent } from './why/why.component';
 import { ContactComponent } from './home/contact/contact.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { ContactComponent } from './home/contact/contact.component';
     WhoComponent,
     WhyComponent,
     ContactComponent,
+    ProfilComponent,
     
     
   ],

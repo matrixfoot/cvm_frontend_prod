@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+authurllocal: 'http://localhost:3000/api/';
+const authurlcloud ='https://cvm-backend.herokuapp.com/api/'
 @Injectable({
   providedIn: 'root'
 })
@@ -11,6 +12,8 @@ export class AuthService {
   isAuth$ = new BehaviorSubject<boolean>(false);
   token: string;
   userId: string;
+  
+
   
   public userrole$ = new BehaviorSubject<string>('');
   
@@ -21,7 +24,7 @@ export class AuthService {
   createNewUser(email:string, password:string,  firstname:string,lastname:string,fonction:string,secteur:string,civilite:string,raisonsociale:string,nomsociete:string,clientcode: string,role:string) {
     return new Promise<void>((resolve, reject) => {
       this.http.post(
-        'https://cvm-backend.herokuapp.com/api/signup',
+        authurlcloud +'signup',
         { email: email, password: password, firstname:firstname, lastname:lastname,fonction:fonction,secteur:secteur,civilite:civilite,raisonsociale:raisonsociale,nomsociete:nomsociete,clientcode:clientcode, role:role })
         .subscribe(
           () => {
@@ -45,7 +48,7 @@ export class AuthService {
   login(email: string, password: string) {
     return new Promise<void>((resolve, reject) => {
       this.http.post(
-        'https://cvm-backend.herokuapp.com/api/login',
+        authurlcloud+'login',
         { email: email, password: password })
         .subscribe(
           (authData: {  role:string,accessToken: string, userId: string }) => {
@@ -65,9 +68,5 @@ export class AuthService {
     });
   }
 
-  logout() {
-    this.isAuth$.next(false);
-    this.userId = null;
-    this.token = null;
-  }
+
 }

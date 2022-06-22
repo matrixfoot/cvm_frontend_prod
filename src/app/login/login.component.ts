@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-
+import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +14,22 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   errorMessage: string;
+  isLoggedIn = false;
+  isLoginFailed = false;
+  role: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
+              private tokenStorage: TokenStorageService
               ) { }
 
   ngOnInit() {
-    this.auth.isAuth$.next(false);
-    this.auth.userId = '';
-    this.auth.token = '';
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.role = this.tokenStorage.getUser();
+    }
+    
    
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
@@ -37,9 +43,12 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.get('password').value;
     this.auth.login(email, password).then(
       () => {
-        this.loading = false;
-       
-        this.router.navigate(['']);
+        this.tokenStorage.saveToken(this.auth.token);
+        this.tokenStorage.saveUser(this.auth.userId);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.role = this.tokenStorage.getUser().role;
+        this.reloadPage();
         
       }
     ).catch(
@@ -49,5 +58,9 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
+  reloadPage(): void {
+    
+    this.router.navigate(['profil']);
+    
+  }
 }
