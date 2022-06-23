@@ -14,6 +14,9 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   loading = false;
   errorMessage: string;
+  isSuccessful = false;
+  isSignUpFailed = false;
+  
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -21,9 +24,7 @@ export class SignupComponent implements OnInit {
               ) { }
 
   ngOnInit() {
-    this.auth.isAuth$.next(false);
-    this.auth.userId = '';
-    this.auth.token = '';
+    
     this.signupForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
@@ -52,18 +53,21 @@ export class SignupComponent implements OnInit {
     const nomsociete = this.signupForm.get('nomsociete').value;
     const clientcode = this.signupForm.get('clientcode').value;
     const role = this.signupForm.get('role').value;
-    this.auth.createNewUser(email, password,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).then(
-      () => {
+    this.auth.register(email, password,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
+
+      next: data => {
+        console.log(data);
+        this.isSuccessful = true;
+        this.isSignUpFailed = false;
         this.loading = false;
-        
-          this.router.navigate(['']);
-        
+        this.router.navigate(['login']);
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        this.isSignUpFailed = true;
       }
-    ).catch(
-      (error) => {
-        this.loading = false;
-        this.errorMessage = error.message;
-      }
-    );
+    });
+
   }
+    
 }

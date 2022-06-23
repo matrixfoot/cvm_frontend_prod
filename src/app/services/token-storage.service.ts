@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 const TOKEN_KEY = 'x-access-token';
-const USER_KEY = 'userId';
+const USER_KEY = 'user';
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
-  constructor(private auth: AuthService) { }
+  constructor() { }
   signOut(): void {
     window.sessionStorage.clear();
   }

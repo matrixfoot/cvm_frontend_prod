@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   role: string;
+  email:string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser();
+      this.email=this.tokenStorage.getUser();
+      
     }
     
    
@@ -41,22 +44,25 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    this.auth.login(email, password).then(
-      () => {
-        this.tokenStorage.saveToken(this.auth.token);
-        this.tokenStorage.saveUser(this.auth.userId);
+
+    this.auth.login(email, password).subscribe({
+      next: data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.role = this.tokenStorage.getUser().role;
         this.reloadPage();
-        
-      }
-    ).catch(
-      (error) => {
+      },
+      error: err => {
         this.loading = false;
-        this.errorMessage = error.message;
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
       }
-    );
+    });
+
+
+    
   }
   reloadPage(): void {
     

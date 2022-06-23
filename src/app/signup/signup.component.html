@@ -11,7 +11,11 @@
 <div class="container" *ngIf="!loading">
    
   
-<form  [formGroup]="signupForm">
+<form  [formGroup]="signupForm" *ngIf="!isSuccessful"
+name="form"
+(ngSubmit)="signupform.valid && onSubmit()"
+
+novalidate>
     <h2>Formulaire D'inscription</h2>
    
     <div class="input-container">
@@ -86,6 +90,9 @@
     <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
   </form>
   <p>{{ errorMessage }}</p>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    Your registration is successful!
+  </div>
 </div>
 </div>
 </body>

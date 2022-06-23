@@ -7,9 +7,9 @@
 
   <body>
     <div id="loader" *ngIf="loading"></div>
-    <div class="container" *ngIf="!loading">
+    <div class="container" *ngIf="!loading && !isLoggedIn">
       
-      <form [formGroup]="loginForm" *ngIf="!isLoggedIn"
+      <form [formGroup]="loginForm" 
       
       (ngSubmit)="loginform.valid && onSubmit()"
       
@@ -36,12 +36,13 @@
             <div class="hide-md-lg">
               <p>Ou Connectez vous manuellement:</p>
             </div>
-    
-            <input type="email" formControlName="email" placeholder="Email" required>
+   
+            <input type="email" class="formcontrol" formControlName="email" placeholder="Email" required>
+            
             <input type="password" formControlName="password" placeholder="Mot De Passe" required>
             <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
-          </div>
           
+          </div>
         </div>
       </form>
     
@@ -57,5 +58,8 @@
       </div>
     </div>
     <p>{{ errorMessage }}</p>
+  </div>
+  <div class="alert alert-success" *ngIf="isLoggedIn">
+  Tu es déja connecté avec ton identifiant crypté: {{userId}
   </div>
     </body>

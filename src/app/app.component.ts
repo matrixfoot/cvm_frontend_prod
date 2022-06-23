@@ -13,8 +13,6 @@ export class AppComponent implements OnInit {
   title = 'cvm_frontend';
   ngOnInit() {
      
-    this.auth.isAuth$.next(false);
-    this.auth.userId = '';
-    this.auth.token = '';
+    
   }
 }

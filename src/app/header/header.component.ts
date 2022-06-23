@@ -4,7 +4,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { UserService } from '../services/users.service';
+
 
 @Component({
   selector: 'app-header',
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private auth: AuthService,
               private Auth: TokenStorageService,
               private router: Router,
-              private authuser: UserService) { }
+              ) { }
 
   ngOnInit() {
     
@@ -40,12 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     );
     
-    this.isAuthSub = this.auth.isAuth$.subscribe(
-      (auth) => {
-        this.isAuth = auth;
-       
-      }
-    );
+    
     
     
   }
