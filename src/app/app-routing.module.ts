@@ -13,6 +13,10 @@ import { SignupComponent } from './signup/signup.component';
 import { WhoComponent } from './who/who.component';
 import { WhyComponent } from './why/why.component';
 import { ProfilComponent } from './profil/profil.component';
+import { AdminBoardComponent } from './admin-board/admin-board.component';
+import { UserBoardComponent } from './user-board/user-board.component';
+import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
+import { ModifyUserComponent } from './modify-user/modify-user.component';
 const routes: Routes = [
   
    
@@ -21,6 +25,18 @@ const routes: Routes = [
     
 },
 { path: 'profil', component: ProfilComponent,
+    
+},
+{ path: 'modify-user/:id', component: ModifyUserComponent,
+    
+},
+{ path: 'admin-board', component: AdminBoardComponent,
+    
+},
+{ path: 'user-board', component: UserBoardComponent,
+    
+},
+{ path: 'moderator-board', component: ModeratorBoardComponent,
     
 },
 { path: 'home', component: HomeComponent,

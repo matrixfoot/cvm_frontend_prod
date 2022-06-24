@@ -23,6 +23,10 @@ import { WhoComponent } from './who/who.component';
 import { WhyComponent } from './why/why.component';
 import { ContactComponent } from './home/contact/contact.component';
 import { ProfilComponent } from './profil/profil.component';
+import { AdminBoardComponent } from './admin-board/admin-board.component';
+import { UserBoardComponent } from './user-board/user-board.component';
+import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
+import { ModifyUserComponent } from './modify-user/modify-user.component';
 
 
 @NgModule({
@@ -42,6 +46,10 @@ import { ProfilComponent } from './profil/profil.component';
     WhyComponent,
     ContactComponent,
     ProfilComponent,
+    AdminBoardComponent,
+    UserBoardComponent,
+    ModeratorBoardComponent,
+    ModifyUserComponent,
     
     
   ],

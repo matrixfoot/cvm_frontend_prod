@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   role: string;
   email:string;
+  firstname:string;
+  civilite: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.role = this.tokenStorage.getUser();
       this.email=this.tokenStorage.getUser();
-      
+      this.firstname=this.tokenStorage.getUser().Firstname;
+      this.civilite=this.tokenStorage.getUser().civilite;
     }
     
    
@@ -52,6 +55,8 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.role = this.tokenStorage.getUser().role;
+        this.firstname=this.tokenStorage.getUser().Firstname;
+        this.civilite=this.tokenStorage.getUser().civilite;
         this.reloadPage();
       },
       error: err => {
@@ -66,7 +71,7 @@ export class LoginComponent implements OnInit {
   }
   reloadPage(): void {
     
-    this.router.navigate(['profil']);
+    window.location.reload();
     
   }
 }

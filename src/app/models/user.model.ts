@@ -1,11 +1,11 @@
 export class User {
     
-  _id: string;
+  userId: string;
   email: string;
-  gender: string;
+  
   password: string;
-  firstname:String;
-  lastname:String;
+  Firstname:String;
+  Lastname:String;
   fonction:String;
   secteur:String;
   civilite:String;

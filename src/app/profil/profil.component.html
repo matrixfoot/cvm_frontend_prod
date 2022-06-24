@@ -1,25 +1,22 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-    <header class="jumbotron">
-      <h3>
-        <strong>{{ currentUser.email }}</strong> Profil
-      </h3>
-    </header>
-    <p>
-      <strong>Token:</strong>
-      {{ currentUser.accessToken }}
-      
-    </p>
-    <p>
-      <strong>Email:</strong>
-      {{ currentUser.email }}
-    </p>
-    <p>
-    <strong>Roles:</strong>
-    {{currentUser.role}}
-</p>
+
+
+  <body>
+
+    <h2>Informations générales</h2>
     
-      
-  </div>
-  <ng-template #loggedOut>
-    Please login.
-  </ng-template>
+    <div class="card">
+      <img src="../../assets/img_avatar.png" *ngIf="currentUser.civilite=='monsieur'" else alt="Avatar" style="width:30% ;height:30%">
+      <img src="../../assets/img_avatar2.png" *ngIf="currentUser.civilite!='monsieur'" alt="Avatar" style="width:30% ;height:30%">
+      <div class="container">
+        <h4>{{ currentUser.civilite }} <b>{{ currentUser.Firstname }} {{ currentUser.Lastname }}</b></h4> 
+        <p>{{ currentUser.fonction }}</p> 
+        
+        <p>{{ currentUser.secteur }}</p>
+        <p>{{ currentUser.nomsociete }}</p>
+        <p>{{ currentUser.email }}</p>
+        <h5>{{ currentUser.clientcode }}</h5>
+      </div>
+      <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
+    </div>
+    
+    </body>

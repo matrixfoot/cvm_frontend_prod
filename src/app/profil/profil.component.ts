@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
@@ -8,12 +9,17 @@ import { TokenStorageService } from '../services/token-storage.service';
 })
 export class ProfilComponent implements OnInit {
   currentUser: any;
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService,private router: Router,) { }
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    console.log(this.currentUser);
+    
+    
   }
-
+  getNavigation(link, id){
+      
+    this.router.navigate([link + '/' + id]);
+      
+  }
 }
 
 

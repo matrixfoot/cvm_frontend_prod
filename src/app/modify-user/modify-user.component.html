@@ -11,18 +11,14 @@
 <div class="container" *ngIf="!loading">
    
   
-<form  [formGroup]="signupForm" *ngIf="!isSuccessful"
-name="form"
-(ngSubmit)="signupform.valid && onSubmit()"
-
-novalidate>
-    <h2>Formulaire D'inscription</h2>
+<form  [formGroup]="userForm">
+    <h2>Formulaire De Modification Des Données Utilisateurs</h2>
    
     <div class="input-container">
         <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
        
   <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
-    <option hidden >Entrer Votre Civilité</option>
+    <option hidden >Modifier Votre Civilité</option>
     <option value="Monsieur">Monsieur</option>
     <option value="Madame">Madame</option>
     <option value="Mademoiselle">Mademoiselle</option>
@@ -31,24 +27,24 @@ novalidate>
 
     <div class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Nom" id="lastname" formControlName="lastname" name="lastname">
+        <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
       </div>
 
       <div class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" formControlName="firstname">
+        <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
       </div> 
 
       <div class="input-container">
         <i class="fa fa-fort-awesome icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
+        <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
       </div>  
 
       <div class="input-container">
         <i class="fa fa-fort-awesome icon" ></i> 
        
-  <select  class="input-field" id="fonction" formControlName="fonction" >
-    <option hidden >Entrer Votre Fonction</option>
+  <select  class="input-field" placeholder="Entrer Votre Nom" id="fonction" formControlName="fonction" name="fonction" >
+    <option hidden >Modifier Votre Fonction</option>
     <option value="fonction1">fonction1</option>
     <option value="fonction2">fonction2</option>
     <option value="fonction3">fonction3</option>
@@ -58,17 +54,17 @@ novalidate>
 
     <div class="input-container">
         <i class="fa fa-fort-awesome icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Nom Societe" id="nomsociete" formControlName="nomsociete">
+        <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
       </div>
 
 
     <div class="input-container">
         <i class="fa fa-fort-awesome icon" ></i> 
        
-  <select  class="input-field" id="secteur" formControlName="secteur" >
-    <option hidden >Entrer Votre Secteur Activité</option>
+  <select  class="input-field" id="secteur" formControlName="secteur" name="secteur">
+    <option hidden >Modifier Votre Secteur Activité</option>
     <option value="secteur1">secteur1</option>
-    <option value="sccteur2">sccteur2</option>
+    <option value="secteur2">secteur2</option>
     <option value="secteur3">secteur3</option>
   </select>
     </div>
@@ -79,19 +75,16 @@ novalidate>
 
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="text" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+      <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email">
     </div>
   
-    <div class="input-container">
-      <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" formControlName="password" required>
-    </div>
+    
   
-    <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
+    <button class="btn btn-success" (click)="onSubmit()" >Envoyer Modification</button>
   </form>
   <p>{{ errorMessage }}</p>
   <div class="alert alert-success" *ngIf="isSuccessful">
-    Your registration is successful!
+    Modificaion effectuée avec succès!!
   </div>
 </div>
 </div>
