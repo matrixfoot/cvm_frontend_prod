@@ -21,7 +21,7 @@ export class UserService {
 
     
     getAll() {
-        this.http.get('API_URL_cloud').subscribe(
+        this.http.get('https://cvm-backend.herokuapp.com/api/users/').subscribe(
           (users: User[]) => {
             if (users) {
               this.users = users;
@@ -44,7 +44,7 @@ export class UserService {
         return new Promise((resolve, reject) => {
           
 
-          this.http.get('API_URL_cloud:' + id).subscribe(
+          this.http.get('https://cvm-backend.herokuapp.com/api/users/' + id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -60,7 +60,7 @@ export class UserService {
           
             
           
-          this.http.put('https://cvm-backend.herokuapp.com/api/users/:'+ id, user).subscribe(
+          this.http.put('https://cvm-backend.herokuapp.com/api/users/'+ id, user).subscribe(
             (response) => {
               resolve(response);
             },

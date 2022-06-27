@@ -11,38 +11,32 @@ import { User } from '../models/user.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit{
 
-  public mode: string;
-  public part: number;
-  public partString: string;
-  public isAuth: boolean;
-  public currentrole:string;
-  private currentuser: User[]=[];
   
-
-  private modeSub: Subscription;
-  private currentrolesub: Subscription;
-  private partSub: Subscription;
-  private isAuthSub: Subscription;
+    private role: string;
+    isLoggedIn = false;
+    showAdminBoard = false;
+    showModeratorBoard = false;
+    username: string;
+    lastname: string;
 
   constructor(
-              private auth: AuthService,
+              
               private Auth: TokenStorageService,
-              private router: Router,
+              
               ) { }
 
   ngOnInit() {
     
-    this.currentrolesub = this.auth.userrole$.subscribe(
-      (currentrole) => {
-        this.currentrole = currentrole;
-      }
-    );
-    
-    
-    
-    
+    this.isLoggedIn = !!this.Auth.getToken();
+    if (this.isLoggedIn) {
+      const user = this.Auth.getUser();
+      this.role = user.role;
+      
+      this.username = user.Firstname;
+this.lastname= user.Lastname;
+    }
   }
 
   logout(): void {
@@ -52,10 +46,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   
   
 
-  ngOnDestroy() {
-    this.modeSub.unsubscribe();
-    this.partSub.unsubscribe();
-    this.isAuthSub.unsubscribe();
-  }
+ 
 
 }

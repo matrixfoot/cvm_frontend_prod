@@ -1,1 +1,48 @@
-<p>admin-board works!</p>
+<div class="container-fluid text-center">
+    <h2>Liste des Utilisateurs</h2>
+    <div class="users-grid" >
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            <th>UserId</th>
+            
+            <th>Email</th>
+            <th>Firstname</th>
+            
+            <th>Lastname</th>
+            <th>Fonction</th>
+            <th>Clientcode</th>
+            <th>Secteur</th>
+            <th>Raisonsociale</th>
+            <th>Role</th>
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users">
+      
+            <td>{{user._id}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.firstname}}</td>
+            
+      
+            <td>{{user.lastname}}</td>
+            <td>{{user.fonction}}</td>
+            <td>{{user.clientcode}}</td>
+            <td>{{user.secteur}}</td>
+            <td>{{user.raisonsociale}}</td>
+            <td>{{user.role}}</td>
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-user',user._id)">View</button></td>
+            
+              
+          </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>

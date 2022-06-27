@@ -17,6 +17,7 @@ import { AdminBoardComponent } from './admin-board/admin-board.component';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
 import { ModifyUserComponent } from './modify-user/modify-user.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 const routes: Routes = [
   
    
@@ -30,6 +31,7 @@ const routes: Routes = [
 { path: 'modify-user/:id', component: ModifyUserComponent,
     
 },
+{ path: 'view-user/:id', component: ViewUserComponent},
 { path: 'admin-board', component: AdminBoardComponent,
     
 },
@@ -48,6 +50,9 @@ const routes: Routes = [
 { path: 'login/signup', component: SignupComponent,
     
 },
+{ path: 'admin-board/profil', component: ProfilComponent,
+    
+},
 { path: 'why', component: WhyComponent,
     
 },
@@ -55,7 +60,7 @@ const routes: Routes = [
     
 },
 
-
+{ path: '', redirectTo: 'home', pathMatch: 'full' },
 {
   path: '', component: HomeComponent,
   children: [

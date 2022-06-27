@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
       this.email=this.tokenStorage.getUser();
       this.firstname=this.tokenStorage.getUser().Firstname;
       this.civilite=this.tokenStorage.getUser().civilite;
+      this.role=this.tokenStorage.getUser().role;
     }
     
    
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
       },
       error: err => {
         this.loading = false;
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.message;
         this.isLoginFailed = true;
       }
     });

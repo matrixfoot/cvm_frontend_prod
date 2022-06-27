@@ -12,7 +12,7 @@ export class ProfilComponent implements OnInit {
   constructor(private token: TokenStorageService,private router: Router,) { }
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    
+    console.log(this.currentUser.raisonsociale)
     
   }
   getNavigation(link, id){

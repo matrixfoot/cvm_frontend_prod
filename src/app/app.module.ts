@@ -27,6 +27,7 @@ import { AdminBoardComponent } from './admin-board/admin-board.component';
 import { UserBoardComponent } from './user-board/user-board.component';
 import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
 import { ModifyUserComponent } from './modify-user/modify-user.component';
+import { ViewUserComponent } from './view-user/view-user.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ModifyUserComponent } from './modify-user/modify-user.component';
     UserBoardComponent,
     ModeratorBoardComponent,
     ModifyUserComponent,
+    ViewUserComponent,
     
     
   ],
