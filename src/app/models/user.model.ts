@@ -4,8 +4,8 @@ export class User {
   email: string;
   
   password: string;
-  Firstname:String;
-  Lastname:String;
+  firstname:String;
+  lastname:String;
   fonction:String;
   secteur:String;
   civilite:String;

@@ -38,6 +38,7 @@ export class HeaderComponent implements OnInit{
 this.lastname= user.Lastname;
     }
   }
+  
 
   logout(): void {
     this.Auth.signOut();

@@ -18,6 +18,7 @@ import { UserBoardComponent } from './user-board/user-board.component';
 import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
 import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
+import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
 const routes: Routes = [
   
    
@@ -29,6 +30,9 @@ const routes: Routes = [
     
 },
 { path: 'modify-user/:id', component: ModifyUserComponent,
+    
+},
+{ path: 'modify-user-admin/:id', component: ModifyUserAdminComponent,
     
 },
 { path: 'view-user/:id', component: ViewUserComponent},

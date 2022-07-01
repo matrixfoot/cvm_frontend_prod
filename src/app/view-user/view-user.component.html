@@ -16,7 +16,9 @@
         <p>{{ user.email }}</p>
         <h5>{{ user.clientcode }}</h5>
       </div>
-      <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', user.userId)">Modifier</button>
+      <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', user.userId)">Modifier données utilisateur</button>
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
+      
     </div>
     
     </body>
