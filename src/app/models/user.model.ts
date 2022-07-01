@@ -2,7 +2,9 @@ export class User {
     
   userId: string;
   email: string;
-  
+  _id:string;
+  Firstname:string;
+  Lastname:string;
   password: string;
   firstname:String;
   lastname:String;

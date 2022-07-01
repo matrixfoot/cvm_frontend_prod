@@ -58,7 +58,6 @@
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
-              
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
             ]
           },
@@ -158,5 +157,8 @@
       }
     }
   },
-  "defaultProject": "cvm_frontend"
+  "defaultProject": "cvm_frontend",
+  "cli": {
+    "analytics": "d37da9c2-b728-4627-bce7-a28fdbc3b920"
+  }
 }
