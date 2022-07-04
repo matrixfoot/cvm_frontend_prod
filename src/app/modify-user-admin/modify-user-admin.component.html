@@ -41,15 +41,18 @@
       </div>  
 
       <div title="indiquer votre fonction"class="input-container">
-        <i class="fa fa-fort-awesome icon" ></i> 
-       
-  <select  class="input-field" placeholder="Entrer Votre Nom" id="fonction" formControlName="fonction" name="fonction" >
-    <option hidden >Modifier Votre Fonction</option>
-    <option value="fonction1">fonction1</option>
-    <option value="fonction2">fonction2</option>
-    <option value="fonction3">fonction3</option>
-  </select>
+        <i class="fa fa-fort-awesome icon" ></i>
+      <input class="input-field" type="text" id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
+<datalist id="fonctions">
+  <option>Volvo</option>
+  <option>Saab</option>
+  <option>Mercedes</option>
+  <option>Audi</option>
+</datalist>
+      
     </div>
+      
+      
 
 
     <div title="indiquer votre nomsociete"class="input-container">

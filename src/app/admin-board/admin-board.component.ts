@@ -45,7 +45,11 @@ export class AdminBoardComponent implements OnInit {
                 this.UserService.getUserById(id);
                 this.router.navigate([link + '/' + id]); 
               }
-
-             
+              getclients() {
+                return this.users.filter((user) => user.fonction !!== 'collaborateur');
+              }
+              getcollaborateurs() {
+                return this.users.filter((user) => user.fonction === 'collaborateur');
+              }
 }
   
