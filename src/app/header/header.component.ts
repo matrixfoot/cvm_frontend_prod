@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,6 +38,11 @@ export class HeaderComponent implements OnInit{
       this.username = user.Firstname;
 this.lastname= user.Lastname;
     }
+
+     
+    
+    
+  
   }
   
 

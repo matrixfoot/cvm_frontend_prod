@@ -26,15 +26,16 @@
               <li><a href="#">autres</a></li>
             </ul>
           </li>
-          <li><a  class="btn disabled"  *ngIf="!isLoggedIn"routerLink="who"   routerLinkActive="active" data-toggle="popover" data-trigger="hover" data-content="Some content">Qui sommes-nous? (veuillez vous inscrire/se connecter)</a></li>
+          
+          <li title=" (veuillez vous inscrire/se connecter)"><a  class="btn disabled"  *ngIf="!isLoggedIn"routerLink="who"   routerLinkActive="active" data-toggle="popover" data-trigger="hover" data-content="Some content">Qui sommes-nous?</a></li>
           <li><a  routerLink="who" *ngIf="isLoggedIn" routerLinkActive="active">Qui sommes-nous?</a></li>
           <li><a *ngIf="isLoggedIn" href="#clientspace">Espace clients</a></li>
-          <li><a class="btn disabled"  *ngIf="!isLoggedIn" href="#clientspace">Espace clients(veuillez vous inscrire/se connecter)</a></li>
+          <li title=" (veuillez vous inscrire/se connecter)"><a class="btn disabled"  *ngIf="!isLoggedIn" href="#clientspace">Espace clients</a></li>
           <li><a routerLink="why" *ngIf="isLoggedIn" routerLinkActive="active">Pourquoi MAcompta?</a></li>
-          <li><a class="btn disabled"  *ngIf="!isLoggedIn" routerLink="why" routerLinkActive="active">Pourquoi MAcompta?(veuillez vous inscrire/se connecter)</a></li>
+          <li title=" (veuillez vous inscrire/se connecter)"><a class="btn disabled"  *ngIf="!isLoggedIn" routerLink="why" routerLinkActive="active">Pourquoi MAcompta?</a></li>
           <li><a routerLink="/home/contact" fragment="contactid" target=”_blank” routerLinkActive="active">Contact</a></li>
           <li><a routerLink="why" *ngIf="isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
-          <li><a class="btn disabled"  *ngIf="!isLoggedIn" routerLink="why"routerLinkActive="active">Consultation en Ligne(veuillez vous inscrire/se connecter)</a></li>
+          <li title=" (veuillez vous inscrire/se connecter)"><a class="btn disabled"  *ngIf="!isLoggedIn" routerLink="why"routerLinkActive="active">Consultation en Ligne</a></li>
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tableau de bord <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Administrateur</a></li>
@@ -46,7 +47,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a routerLink="profil"  *ngIf="isLoggedIn" routerLinkActive="active">Profil {{username}} {{lastname}}</a></li>
-          <li><a class="btn disabled"  *ngIf="!isLoggedIn"  routerLink="profil"  routerLinkActive="active">Profil {{username}} {{lastname}} (veuillez vous inscrire/se connecter)</a></li>
+          <li title=" (veuillez vous inscrire/se connecter)"><a class="btn disabled"  *ngIf="!isLoggedIn"  routerLink="profil"  routerLinkActive="active">Profil {{username}} {{lastname}}</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="signup" routerLinkActive="active" > <span class="glyphicon glyphicon-user"></span>Inscription</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="login" routerLinkActive="active" > <span class="glyphicon glyphicon-log-in"></span>Connexion</a></li>
           <li class="nav-item">
