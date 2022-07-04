@@ -5,16 +5,16 @@
     <h2>Informations générales</h2>
     
     <div class="card">
-      <img src="../../assets/img_avatar.png" *ngIf="currentUser.civilite=='Monsieur'" else alt="Avatar" style="width:30% ;height:30%">
-      <img src="../../assets/img_avatar2.png" *ngIf="currentUser.civilite!='Monsieur'" alt="Avatar" style="width:30% ;height:30%">
+      <img src="../../assets/img_avatar.png" *ngIf="currentUser.civilite=='Monsieur'" else alt="Avatar" style="width:50% ;height:30%">
+      <img src="../../assets/img_avatar2.png" *ngIf="currentUser.civilite!='Monsieur'" alt="Avatar" style="width:50% ;height:30%">
       <div class="container">
-        <h4>{{ currentUser.civilite }} <b>{{ currentUser.Firstname }} {{ currentUser.Lastname }}</b></h4> 
-        <p>{{ currentUser.fonction }}</p> 
-        <p>{{ currentUser.raisonsociale }}</p>
-        <p>{{ currentUser.secteur }}</p>
-        <p>{{ currentUser.nomsociete }}</p>
-        <p>{{ currentUser.email }}</p>
-        <h5>{{ currentUser.clientcode }}</h5>
+        <h4 >Utilisateur connecté:</h4><hr><h4>{{ currentUser.civilite }} <b>  {{ currentUser.Firstname }} {{ currentUser.Lastname }}</b></h4> 
+        <h4>Fonction:<b>  {{ currentUser.fonction }}</b></h4>
+        <h4>Raisonsociale:<b>  {{ currentUser.raisonsociale }}</b></h4>
+        <h4>Secteur:<b>  {{ currentUser.secteur }}</b></h4>
+        <h4>Nomsociete:<b>  {{ currentUser.nomsociete }}</b></h4>
+        <h4>Email:<b>  {{ currentUser.email }}</b></h4>
+        <h4>Code client<b>  {{ currentUser.clientcode }}</b></h4>
       </div>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
     </div>
