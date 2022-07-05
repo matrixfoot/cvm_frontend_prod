@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { Route } from '@angular/compiler/src/core';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-modify-user-admin',
   templateUrl: './modify-user-admin.component.html',
@@ -13,9 +14,12 @@ import { Route } from '@angular/compiler/src/core';
 
 export class ModifyUserAdminComponent implements OnInit {
   public userForm: FormGroup;
+  public users: User[]=[];
+  public codeValue: string;
   public user: User;
-  
   public loading = false;
+  private usersSub: Subscription;
+  errormsg:string;
   constructor(private formBuilder: FormBuilder,
     
     private userservice: UserService,
@@ -55,9 +59,20 @@ export class ModifyUserAdminComponent implements OnInit {
       }
     );
 
+    this.usersSub = this.userservice.users$.subscribe(
+      (users) => {
+        this.users = users;
+        this.loading = false;
+        
+      },
+      (error) => {
+        this.loading = false;
+        console.log(error);
+        this.errormsg=error.message;
+      }
+    );
 
-
-
+    this.userservice.getAll();
   }
   onSubmit() {
     this.loading = true;
@@ -94,4 +109,7 @@ export class ModifyUserAdminComponent implements OnInit {
     window.location.reload();
     
   }
+  
+  
+  
 }
