@@ -16,6 +16,8 @@ export class ModifyUserAdminComponent implements OnInit {
   public userForm: FormGroup;
   public users: User[]=[];
   public codeValue: string;
+  public secteurValue: string;
+  public roleValue: string;
   public user: User;
   public loading = false;
   private usersSub: Subscription;

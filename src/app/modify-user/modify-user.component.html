@@ -41,14 +41,12 @@
       </div>  
 
       <div title="indiquer votre fonction"class="input-container">
-        <i class="fa fa-fort-awesome icon" ></i> 
-       
-  <select  class="input-field" placeholder="Entrer Votre Nom" id="fonction" formControlName="fonction" name="fonction" >
-    <option hidden >Modifier Votre Fonction</option>
-    <option value="fonction1">fonction1</option>
-    <option value="fonction2">fonction2</option>
-    <option value="fonction3">fonction3</option>
-  </select>
+        <i class="fa fa-fort-awesome icon" ></i>
+      <input class="input-field" type="text" [(ngModel)]="codeValue" id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
+  <datalist id="fonctions">
+  <option *ngFor="let user of users" [value]="user.fonction" >{{user.fonction}}</option>
+  </datalist>
+      
     </div>
 
 
@@ -58,15 +56,14 @@
       </div>
 
 
-    <div title="indiquer votre secteur"class="input-container">
+      <div title="indiquer votre secteur"class="input-container">
         <i class="fa fa-fort-awesome icon" ></i> 
        
-  <select  class="input-field" id="secteur" formControlName="secteur" name="secteur">
-    <option hidden >Modifier Votre Secteur Activité</option>
-    <option value="secteur1">secteur1</option>
-    <option value="secteur2">secteur2</option>
-    <option value="secteur3">secteur3</option>
-  </select>
+  
+    <input class="input-field" type="text" [(ngModel)]="secteurValue" id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
+  <datalist id="secteurs">
+  <option *ngFor="let user of users" [value]="user.secteur" >{{user.secteur}}</option>
+  </datalist>
     </div>
     <div title="indiquer votre clientcode"class="input-container">
       <i class="fa fa-user icon"></i>

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modify-user',
@@ -12,10 +13,15 @@ import { TokenStorageService } from '../services/token-storage.service';
   styleUrls: ['./modify-user.component.scss']
 })
 export class ModifyUserComponent implements OnInit {
-  public userForm: FormGroup;
+  public userForm: FormGroup; 
   public user: User;
-  
+  public users: User[]=[];
+  public codeValue: string;
+  public secteurValue: string;
+  public roleValue: string;
+  private usersSub: Subscription;
   public loading = false;
+  errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -45,9 +51,23 @@ export class ModifyUserComponent implements OnInit {
             });
             this.loading = false;
             
+            this.usersSub = this.userservice.users$.subscribe(
+              (users) => {
+                this.users = users;
+                this.loading = false;
+                
+              },
+              (error) => {
+                this.loading = false;
+                console.log(error);
+                this.errormsg=error.message;
+              }
+            );
+        
+            this.userservice.getAll();
+  
           }
-      
-
+          
 
 
 

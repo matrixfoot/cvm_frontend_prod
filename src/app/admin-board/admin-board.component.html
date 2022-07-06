@@ -4,13 +4,15 @@
 </head>
 <body>
   
-
-<div class="container-fluid">
-  <div class="col-lg-12">
+  
+<div class="container-fluid" >
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
     <div class="team-member">
       <h2>Liste des Clients</h2>
-      <hr>        
-      <div class="users-grid" style="overflow-x:auto;">
+      <hr>
+              
+      <div class="users-grid"  style="overflow-x:auto;">
 
         
         
@@ -18,7 +20,7 @@
           <thead>
           <tr>
       
-            <th>UserId</th>
+            
             <th>Email</th>
             <th>Prenom</th>
             <th>Nom</th>
@@ -33,7 +35,7 @@
           <tbody>
           <tr *ngFor="let user of getclients()">
       
-            <td>{{user._id}}</td>
+            
             <td>{{user.email}}</td>
             <td>{{user.firstname}}</td>
             
@@ -70,7 +72,7 @@
           <thead>
           <tr>
       
-            <th>UserId</th>
+            
             <th>Email</th>
             <th>Prenom</th>
             <th>Nom</th>
@@ -85,7 +87,7 @@
           <tbody>
           <tr *ngFor="let user of getcollaborateurs()">
       
-            <td>{{user._id}}</td>
+            
             <td>{{user.email}}</td>
             <td>{{user.firstname}}</td>
             

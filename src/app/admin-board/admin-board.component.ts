@@ -37,7 +37,7 @@ export class AdminBoardComponent implements OnInit {
                 );
                
                 this.UserService.getAll();
-                this.loading=false;
+                
               }
 
               getNavigation(link, id){

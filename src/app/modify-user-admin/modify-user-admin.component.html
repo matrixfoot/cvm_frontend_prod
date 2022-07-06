@@ -1,6 +1,5 @@
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+ 
 </head>
 <body>
 
@@ -12,7 +11,7 @@
  
 
 <form  [formGroup]="userForm">
-  <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+  <h2>Formulaire De Modification Des Données Utilisateurs</h2> 
  
   <div title="indiquer votre civilite"class="input-container">
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -61,17 +60,26 @@
   <div title="indiquer votre secteur"class="input-container">
       <i class="fa fa-fort-awesome icon" ></i> 
      
-<select  class="input-field" id="secteur" formControlName="secteur" name="secteur">
-  <option hidden >Modifier Votre Secteur Activité</option>
-  <option value="secteur1">secteur1</option>
-  <option value="secteur2">secteur2</option>
-  <option value="secteur3">secteur3</option>
-</select>
+
+  <input class="input-field" type="text" [(ngModel)]="secteurValue" id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
+<datalist id="secteurs">
+<option *ngFor="let user of users" [value]="user.secteur" >{{user.secteur}}</option>
+</datalist>
   </div>
   <div title="indiquer votre clientcode"class="input-container">
     <i class="fa fa-user icon"></i>
     <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
   </div>
+
+  <div title="indiquer votre role"class="input-container">
+    <i class="fa fa-fort-awesome icon" ></i> 
+   
+
+<input class="input-field" type="text" [(ngModel)]="roleValue" id="role" formControlName="role" name="role" list="roles" />
+<datalist id="roles">
+<option *ngFor="let user of users" [value]="user.role" >{{user.role}}</option>
+</datalist>
+</div>
 
   <div class="input-container">
     <i class="fa fa-envelope icon"></i>
