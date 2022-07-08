@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, Validators.required],
+      confirmpassword: [null, Validators.required],
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
       fonction: [null, Validators.required],
@@ -44,6 +45,7 @@ export class SignupComponent implements OnInit {
     this.loading = true;
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
+    const confirmpassword = this.signupForm.get('confirmpassword').value;
     const firstname = this.signupForm.get('firstname').value;
     const lastname = this.signupForm.get('lastname').value;
     const fonction = this.signupForm.get('fonction').value;
@@ -53,7 +55,7 @@ export class SignupComponent implements OnInit {
     const nomsociete = this.signupForm.get('nomsociete').value;
     const clientcode = this.signupForm.get('clientcode').value;
     const role = this.signupForm.get('role').value;
-    this.auth.register(email, password,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
+    this.auth.register(email, password,confirmpassword,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
 
       next: data => {
         console.log(data);

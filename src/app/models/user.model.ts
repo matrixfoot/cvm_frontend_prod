@@ -6,6 +6,7 @@ export class User {
   Firstname:string;
   Lastname:string;
   password: string;
+  confirmpassword: string;
   firstname:String;
   lastname:String;
   fonction:String;

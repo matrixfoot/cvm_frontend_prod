@@ -75,6 +75,10 @@ novalidate>
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" formControlName="password" required>
     </div>
+    <div class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="password" placeholder="Confirmez Votre Mot De Passe" id="confirmpassword" formControlName="confirmpassword" required>
+    </div>
   
     <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
   </form>
