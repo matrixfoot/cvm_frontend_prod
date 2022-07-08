@@ -29,6 +29,7 @@ export class AuthService {
       email, password, confirmpassword,firstname, lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode, role
     }, httpOptions);
   }
+  
 
   login(email: string, password: string) 
   : Observable<any> {
