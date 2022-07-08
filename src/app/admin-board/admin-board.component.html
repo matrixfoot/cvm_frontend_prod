@@ -59,8 +59,8 @@
     </div>
   </div>
 
-
-  <div class="col-lg-12">
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
     <div class="team-member">
       <h2>Liste des Collaborateurs</h2>
       <hr>        

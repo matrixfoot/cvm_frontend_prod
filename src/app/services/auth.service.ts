@@ -28,6 +28,7 @@ export class AuthService {
     return this.http.post(authurlcloud + 'signup', {
       email, password, confirmpassword,firstname, lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode, role
     }, httpOptions);
+    
   }
   
 

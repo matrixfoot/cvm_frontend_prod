@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -64,9 +65,10 @@ export class SignupComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['login']);
       },
-      error: err => {
+      error: error => {
+        console.log(error);
         this.loading = false;
-        this.errorMessage = err.message;
+        this.errorMessage = JSON.stringify(error.error) ;
         this.isSignUpFailed = true;
       }
     });

@@ -60,9 +60,9 @@ export class LoginComponent implements OnInit {
         this.civilite=this.tokenStorage.getUser().civilite;
         this.reloadPage();
       },
-      error: err => {
+      error: error => {
         this.loading = false;
-        this.errorMessage = err.message;
+        this.errorMessage = JSON.stringify(error.error);
         this.isLoginFailed = true;
       }
     });
