@@ -7,15 +7,21 @@ export class User {
   Lastname:string;
   password: string;
   confirmpassword: string;
-  firstname:String;
-  lastname:String;
+  firstname:string;
+  lastname:string;
   fonction:String;
-  secteur:String;
-  civilite:String;
-  raisonsociale:String;
-  nomsociete:String;
+  secteur:string;
+  civilite:string;
+  raisonsociale:string;
+  nomsociete:string;
   clientcode: string;
   role: string;
   accessToken: string;
+  verified:Date;
+  created:Date;
+  acceptTerms:Boolean;
+resetToken: Boolean;
+passwordReset:Boolean;
+updated: Date
     
   }

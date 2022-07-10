@@ -42,9 +42,9 @@
 
       <div title="indiquer votre fonction"class="input-container">
         <i class="fa fa-fort-awesome icon" ></i>
-      <input class="input-field" type="text" [(ngModel)]="codeValue" id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
+      <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Ancienne valeur:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
   <datalist id="fonctions">
-  <option *ngFor="let user of users" [value]="user.fonction" >{{user.fonction}}</option>
+  <option *ngFor="let user of users" [value]="user.fonction" >{{currentuser.fonction}}</option>
   </datalist>
       
     </div>
@@ -60,9 +60,9 @@
         <i class="fa fa-fort-awesome icon" ></i> 
        
   
-    <input class="input-field" type="text" [(ngModel)]="secteurValue" id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
+    <input class="input-field" type="text" [(ngModel)]="secteurValue" placeholder="Ancienne valeur:{{currentuser.secteur}}"id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
   <datalist id="secteurs">
-  <option *ngFor="let user of users" [value]="user.secteur" >{{user.secteur}}</option>
+  <option *ngFor="let user of users" [value]="user.secteur" ></option>
   </datalist>
     </div>
     <div title="indiquer votre clientcode"class="input-container">
@@ -75,11 +75,19 @@
       <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email">
     </div>
     
+    <div title="Modifier votre Mot de passe"class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="password" placeholder="Modifier votre Mot de passe" id="password" formControlName="password">
+    </div>
+    <div title="Confirmer votre Mot de passe"class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="password" placeholder="confirmer votre Mot de passe" id="confirmpassword" formControlName="confirmpassword">
+    </div>
     
   
     <button class="btn btn-success" (click)="onSubmit()" >Envoyer Modification</button>
   </form>
-  <p>{{ errorMessage }}</p>
+  <p>{{ errormsg }}</p>
   <div class="alert alert-success" *ngIf="isSuccessful">
     Modificaion effectuée avec succès!!
   </div>

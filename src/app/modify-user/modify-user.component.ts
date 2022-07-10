@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class ModifyUserComponent implements OnInit {
   public userForm: FormGroup; 
-  public user: User;
+  public currentuser: User;
   public users: User[]=[];
   public codeValue: string;
   public secteurValue: string;
@@ -32,22 +32,23 @@ export class ModifyUserComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.user = this.tokenStorage.getUser();
+    this.currentuser = this.tokenStorage.getUser();
     
             
             this.userForm = this.formBuilder.group({
               
-              role: [this.user.role, Validators.required],
-              firstname: [this.user.Firstname, Validators.required],
-              lastname: [this.user.Lastname, Validators.required],
-              email: [{value:this.user.email,disabled:true}, Validators.required],
-              fonction: [this.user.fonction, Validators.required],
-              password: [this.user.password, Validators.required],
-              secteur: [this.user.secteur, Validators.required],
-              civilite: [this.user.civilite, Validators.required],
-              raisonsociale: [this.user.raisonsociale, Validators.required],
-              nomsociete: [this.user.nomsociete, Validators.required],
-              clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
+              role: [this.currentuser.role, Validators.required],
+              firstname: [this.currentuser.Firstname, Validators.required],
+              lastname: [this.currentuser.Lastname, Validators.required],
+              email: [this.currentuser.email, Validators.required],
+              fonction: [this.currentuser.fonction, Validators.required],
+              password: [this.currentuser.password, Validators.required],
+              confirmpassword: [this.currentuser.confirmpassword, Validators.required],
+              secteur: [this.currentuser.secteur, Validators.required],
+              civilite: [this.currentuser.civilite, Validators.required],
+              raisonsociale: [this.currentuser.raisonsociale, Validators.required],
+              nomsociete: [this.currentuser.nomsociete, Validators.required],
+              clientcode: [{value:this.currentuser.clientcode,disabled:true}, Validators.required],
             });
             this.loading = false;
             
@@ -75,10 +76,11 @@ export class ModifyUserComponent implements OnInit {
   onSubmit() {
     this.loading = true;
     const user = new User();
-    user.userId = this.user.userId;
+    user.userId = this.currentuser.userId;
     user.role = this.userForm.get('role').value;
     user.email = this.userForm.get('email').value;
     user.password =this.userForm.get('password').value;
+    user.confirmpassword =this.userForm.get('confirmpassword').value;
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
@@ -87,7 +89,7 @@ export class ModifyUserComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(this.user.userId,user).then(
+    this.userservice.modifyUserById(this.currentuser.userId,user).then(
       () => {
         this.userForm.reset();
         this.loading = false;
@@ -98,9 +100,7 @@ export class ModifyUserComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        
-        
-      
+        this.errormsg = JSON.stringify(error.error) ;
         
       }
     );

@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
 
     this.auth.login(email, password).subscribe({
       next: data => {
+        
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
@@ -59,6 +60,7 @@ export class LoginComponent implements OnInit {
         this.firstname=this.tokenStorage.getUser().Firstname;
         this.civilite=this.tokenStorage.getUser().civilite;
         this.reloadPage();
+        
       },
       error: error => {
         this.loading = false;
