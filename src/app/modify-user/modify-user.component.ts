@@ -37,17 +37,17 @@ export class ModifyUserComponent implements OnInit {
             
             this.userForm = this.formBuilder.group({
               
-              role: [this.currentuser.role, Validators.required],
-              firstname: [this.currentuser.Firstname, Validators.required],
-              lastname: [this.currentuser.Lastname, Validators.required],
-              email: [this.currentuser.email, Validators.required],
-              fonction: [this.currentuser.fonction, Validators.required],
-              password: [this.currentuser.password, Validators.required],
-              confirmpassword: [this.currentuser.confirmpassword, Validators.required],
-              secteur: [this.currentuser.secteur, Validators.required],
-              civilite: [this.currentuser.civilite, Validators.required],
-              raisonsociale: [this.currentuser.raisonsociale, Validators.required],
-              nomsociete: [this.currentuser.nomsociete, Validators.required],
+              role: [this.currentuser.role,],
+              firstname: [this.currentuser.Firstname,],
+              lastname: [this.currentuser.Lastname,],
+              email: [this.currentuser.email,],
+              fonction: [this.currentuser.fonction,],
+              password: [null,],
+              confirmpassword: [null,],
+              secteur: [this.currentuser.secteur,],
+              civilite: [this.currentuser.civilite,],
+              raisonsociale: [this.currentuser.raisonsociale,],
+              nomsociete: [this.currentuser.nomsociete,],
               clientcode: [{value:this.currentuser.clientcode,disabled:true}, Validators.required],
             });
             this.loading = false;

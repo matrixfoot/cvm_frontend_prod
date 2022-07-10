@@ -9,8 +9,8 @@
       <img src="../../assets/img_avatar2.png" *ngIf="user.civilite!='Monsieur'" alt="Avatar" style="width:30% ;height:30%">
       <div class="container">
         <h4 >Utilisateur connecté:</h4><hr>
-        <h4>Crée le:<b>  {{ user.created }}</b></h4>
-        <h4>Dernière modification  le:<b>  {{ user.updated }}</b></h4>
+        <h4>Crée le(heure GMT):<b>  {{ user.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ user.updated }}</b></h4>
         <h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
         <h4>Fonction:<b>  {{ user.fonction }}</b></h4>
         <h4>Raisonsociale:<b>  {{ user.raisonsociale }}</b></h4>
