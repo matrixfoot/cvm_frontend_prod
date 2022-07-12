@@ -42,7 +42,7 @@
 
       <div title="indiquer votre fonction"class="input-container">
         <i class="fa fa-fort-awesome icon" ></i>
-      <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Ancienne valeur:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
+      <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Fonction actuelle:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
   <datalist id="fonctions">
   <option *ngFor="let user of users" [value]="user.fonction" >{{currentuser.fonction}}</option>
   </datalist>
@@ -60,7 +60,7 @@
         <i class="fa fa-fort-awesome icon" ></i> 
        
   
-    <input class="input-field" type="text" [(ngModel)]="secteurValue" placeholder="Ancienne valeur:{{currentuser.secteur}}"id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
+    <input class="input-field" type="text" [(ngModel)]="secteurValue" placeholder="Secteur Actuel:{{currentuser.secteur}}"id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
   <datalist id="secteurs">
   <option *ngFor="let user of users" [value]="user.secteur" ></option>
   </datalist>

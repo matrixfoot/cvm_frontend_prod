@@ -73,7 +73,7 @@ export class UserService {
    
     deleteUserById(id: string) {
       return new Promise((resolve, reject) => {
-        this.http.delete('API_URL_cloud'+ id).subscribe(
+        this.http.delete('https://cvm-backend.herokuapp.com/api/users/'+ id).subscribe(
           (response) => {
             resolve(response);
           },
