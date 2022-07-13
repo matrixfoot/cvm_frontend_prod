@@ -21,7 +21,8 @@
       </div>
       
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
-      
+      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer utilisateur</button>
+
     </div>
     
     </body>

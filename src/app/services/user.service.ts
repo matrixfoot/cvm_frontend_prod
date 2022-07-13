@@ -21,7 +21,7 @@ export class UserService {
 
     
     getAll() {
-        this.http.get('https://cvm-backend.herokuapp.com/api/users/').subscribe(
+        this.http.get(API_URL_cloud).subscribe(
           (users: User[]) => {
             if (users) {
               this.users = users;
@@ -44,7 +44,7 @@ export class UserService {
         return new Promise((resolve, reject) => {
           
 
-          this.http.get('https://cvm-backend.herokuapp.com/api/users/' + id).subscribe(
+          this.http.get(API_URL_cloud + id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -60,7 +60,7 @@ export class UserService {
           
             
           
-          this.http.put('https://cvm-backend.herokuapp.com/api/users/'+ id, user).subscribe(
+          this.http.put(API_URL_cloud+ id, user).subscribe(
             (response) => {
               resolve(response);
             },
@@ -73,7 +73,7 @@ export class UserService {
    
     deleteUserById(id: string) {
       return new Promise((resolve, reject) => {
-        this.http.delete('https://cvm-backend.herokuapp.com/api/users/'+ id).subscribe(
+        this.http.delete(API_URL_cloud+ id).subscribe(
           (response) => {
             resolve(response);
           },

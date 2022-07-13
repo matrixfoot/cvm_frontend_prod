@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-authurllocal: 'http://localhost:3000/api/';
-const authurlcloud ='https://cvm-backend.herokuapp.com/api/';
+const authurllocal= 'http://localhost:3000/api/users/';
+const authurlcloud ='https://cvm-backend.herokuapp.com/api/users/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };

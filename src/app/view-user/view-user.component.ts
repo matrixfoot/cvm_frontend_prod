@@ -13,7 +13,7 @@ import { UserService } from '../services/user.service';
 export class ViewUserComponent implements OnInit {
 
   public user: User;
-  
+  public errormsg:string;
   public loading: boolean;
   
   currentUser: any;
@@ -47,5 +47,24 @@ export class ViewUserComponent implements OnInit {
       
     this.router.navigate([link + '/' + id]);
       
+  }
+  onDelete() {
+    this.loading = true;
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.usersservice.deleteUserById(params.id).then(
+          () => {
+            this.loading = false;
+        
+        this.router.navigate(['']);
+          },
+          (error) => {
+            this.loading = false;
+            this.errormsg=error.error;
+            this.router.navigate(['']);
+          }
+        );
+      }
+    );
   }
   }

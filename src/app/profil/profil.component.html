@@ -19,6 +19,7 @@
         <h4>Code client<b>  {{ currentUser.clientcode }}</b></h4>
       </div>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
+      <button type="button" class="btn btn-danger"(click)="onDelete()">Supprimer</button>
     </div>
     
     </body>
