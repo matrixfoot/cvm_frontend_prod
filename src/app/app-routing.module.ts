@@ -15,7 +15,7 @@ import { WhyComponent } from './why/why.component';
 import { ProfilComponent } from './profil/profil.component';
 import { AdminBoardComponent } from './admin-board/admin-board.component';
 import { UserBoardComponent } from './user-board/user-board.component';
-import { ModeratorBoardComponent } from './moderator-board/moderator-board.component';
+import { SupervisorBoardComponent } from './supervisor-board/supervisor-board.component';
 import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
@@ -42,7 +42,7 @@ const routes: Routes = [
 { path: 'user-board', component: UserBoardComponent,
     
 },
-{ path: 'moderator-board', component: ModeratorBoardComponent,
+{ path: 'moderator-board', component: SupervisorBoardComponent,
     
 },
 { path: 'home', component: HomeComponent,
