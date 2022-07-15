@@ -82,5 +82,18 @@ export class UserService {
           }
         );
       });
-    }     
-}
+    }  
+    verifyEmail(token: string) 
+    {
+      return new Promise((resolve, reject) => {
+        this.http.post(API_URL_cloud+ 'verify-email', { token }).subscribe(
+          (response) => {
+            resolve(response);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      });
+    }
+  }

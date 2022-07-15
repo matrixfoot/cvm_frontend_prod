@@ -39,7 +39,7 @@
           <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tableau de bord <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Administrateur</a></li>
-              <li><a routerLink="moderator-board" *ngIf="role=='supervisor'"routerLinkActive="active">Modérateur</a></li>
+              <li><a routerLink="supervisor-board" *ngIf="role=='supervisor'"routerLinkActive="active">Superviseur</a></li>
               <li><a routerLink="user-board" *ngIf="role=='basic'"routerLinkActive="active">Utilisateur</a></li>
               
             </ul>

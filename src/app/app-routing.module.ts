@@ -19,6 +19,7 @@ import { SupervisorBoardComponent } from './supervisor-board/supervisor-board.co
 import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 const routes: Routes = [
   
    
@@ -36,13 +37,14 @@ const routes: Routes = [
     
 },
 { path: 'view-user/:id', component: ViewUserComponent},
+{ path: 'verify-email/:token', component: VerifyEmailComponent},
 { path: 'admin-board', component: AdminBoardComponent,
     
 },
 { path: 'user-board', component: UserBoardComponent,
     
 },
-{ path: 'moderator-board', component: SupervisorBoardComponent,
+{ path: 'supervisor-board', component: SupervisorBoardComponent,
     
 },
 { path: 'home', component: HomeComponent,
