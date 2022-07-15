@@ -6,4 +6,7 @@
     <div *ngIf="emailStatus == EmailStatus.Failed">
        Vérification échouée, vous pouvez passer par le lien<a routerLink="forgot-password">Mot de passe oublié</a> page.
     </div>
+    <div *ngIf="emailStatus == EmailStatus.Success">
+        {{successmsg}}
+     </div>
 </div>

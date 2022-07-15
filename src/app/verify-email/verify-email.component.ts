@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 
 import { UserService } from '../services/user.service';
 
 enum EmailStatus {
     Verifying,
-    Failed
+    Failed,
+    Success
 }
 
 @Component({ templateUrl: 'verify-email.component.html' })
@@ -15,6 +16,8 @@ export class VerifyEmailComponent implements OnInit {
     emailStatus = EmailStatus.Verifying;
     errormsg:string;
     successmsg:string;
+    token:string;
+    
 
     constructor(
         private route: ActivatedRoute,
@@ -24,15 +27,20 @@ export class VerifyEmailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        const token = this.route.snapshot.queryParams['token'];
-
+        this.route.params.subscribe(
+            (params:Params)=>{
+                this.token=params.token
+            }
+        )
+console.log(this.token);
         // remove token from url to prevent http referer leakage
         this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
 
-        this.accountService.verifyEmail(token).then(
-                (success) => {
-                    this.successmsg=JSON.stringify(success);
-                    this.router.navigate(['login'], { relativeTo: this.route });
+        this.accountService.verifyEmail(this.token).then(
+                (success:any) => {
+                    this.successmsg=JSON.stringify(success.message);
+                    this.emailStatus = EmailStatus.Success;
+                    
                 },
                 (error)=> {
                     this.emailStatus = EmailStatus.Failed;
