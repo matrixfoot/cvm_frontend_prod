@@ -96,4 +96,47 @@ export class UserService {
         );
       });
     }
+
+    forgotPassword(email: string) 
+  {
+    return new Promise((resolve, reject) => {
+      this.http.post(API_URL_cloud+ 'forgot-password', { email }).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  
+  validateResetToken(token: string) 
+  {
+    return new Promise((resolve, reject) => {
+      this.http.post(API_URL_cloud+ 'forgot-password', { token }).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  
+  resetPassword(token: string, password: string, confirmPassword: string) 
+
+  {
+    return new Promise((resolve, reject) => {
+      this.http.post(API_URL_cloud+ 'reset-password', { token, password, confirmPassword }).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
   }

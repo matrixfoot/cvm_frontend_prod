@@ -31,6 +31,8 @@ import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
 import { ServicesComponentComponent } from './services-component/services-component.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     ModifyUserAdminComponent,
     ServicesComponentComponent,
     VerifyEmailComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
     
     
   ],
