@@ -10,7 +10,9 @@ enum EmailStatus {
     Success
 }
 
-@Component({ templateUrl: 'verify-email.component.html' })
+@Component({ selector: 'app-verify-email',
+templateUrl: 'verify-email.component.html' ,
+styleUrls: ['./verify-email.component.scss']})
 export class VerifyEmailComponent implements OnInit {
     EmailStatus = EmailStatus;
     emailStatus = EmailStatus.Verifying;
@@ -51,5 +53,8 @@ export class VerifyEmailComponent implements OnInit {
     }
     onlogin(){
         this.router.navigate(['login']);
+    }
+    onforgot(){
+        this.router.navigate(['forgot-password']);
     }
 }

@@ -1,5 +1,12 @@
 
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body>
+    
 
 <div class="team-section">
 <div class="container">
@@ -7,12 +14,12 @@
 <div class="row">
 	<div class="col-lg-12" >
 	  <div class="team-member" *ngIf="emailStatus == EmailStatus.Success">
-		<div class="photo">
-		  <img src="" class="img-fluid" alt="image">
-		</div>          
+		<div class="icon-box-success">
+            <i class="material-icons">&#xE876;</i>
+        </div>	         
 		<h3>{{successmsg}}</h3>
 		<hr>
-		<button  class="btn btn-success" (click)="onlogin()"> <a routerLink="login">Connexion</a></button>
+		<button  class="button-green button5" (click)="onlogin()">Connexion</button>
 		
 	  </div>
 	</div>
@@ -22,13 +29,13 @@
   <div class="row">
 	<div class="col-lg-12" >
 	  <div class="team-member" *ngIf="emailStatus == EmailStatus.Failed">
-		<div class="photo">
-		  <img src="" class="img-fluid" alt="image">
-		</div>          
+		<div class="icon-box-failure">
+            <i class="material-icons">&#xE5CD;</i>
+        </div>         
 		<h3>Vérification échouée, vous pouvez passer par le lien ci-desous</h3>
 		<hr>
 		
-		<a routerLink="forgot-password">Mot de passe oublié</a>
+		<button  class="button-red button5" (click)="onforgot()">Mot de passe oublié</button>
 		
 	  </div>
 	</div>
@@ -36,6 +43,6 @@
   </div>
 </div>
 </div>
-
+</body>
 
 
