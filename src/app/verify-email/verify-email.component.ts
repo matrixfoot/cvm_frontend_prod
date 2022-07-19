@@ -27,6 +27,7 @@ export class VerifyEmailComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.emailStatus= EmailStatus.Verifying;
         this.route.params.subscribe(
             (params:Params)=>{
                 this.token=params.token
@@ -47,5 +48,8 @@ export class VerifyEmailComponent implements OnInit {
                     this.errormsg = JSON.stringify(error.error) ;
                 }
             );
+    }
+    onlogin(){
+        this.router.navigate(['login']);
     }
 }
