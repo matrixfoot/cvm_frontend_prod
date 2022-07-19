@@ -33,6 +33,7 @@ import { ServicesComponentComponent } from './services-component/services-compon
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CareerComponent } from './career/career.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
+    CareerComponent,
     
     
   ],

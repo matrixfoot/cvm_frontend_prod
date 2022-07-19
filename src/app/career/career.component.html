@@ -1,0 +1,38 @@
+
+<body>
+    <div class="container-xl">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="contact-form">
+                    <h1>Déposer votre candidature</h1>
+                    <p class="hint-text">Nous sommes dans l'attente d'excellents profils pour intégrer notre équipe</p>
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputFirstName">Prénom</label>
+                                    <input type="text" class="form-control" id="prenom" formControlName="prenom" placeholder="entrer votre prenom" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="inputLastName">Nom</label>
+                                    <input type="text" class="form-control" id="inputLastName" formControlName="nom" placeholder="entrer votre nom"required>
+                                </div>
+                            </div>
+                        </div>            
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="inputEmail" formControlName="email" placeholder="entrer votre email"required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMessage">Exprimez vous</label>
+                            <textarea class="form-control" id="inputMessage" rows="10" formControlName="description" placeholder="Présentez vous brièvement"required></textarea>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>

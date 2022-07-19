@@ -20,6 +20,7 @@ import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { CareerComponent } from './career/career.component';
 const routes: Routes = [
   
    
@@ -42,6 +43,9 @@ const routes: Routes = [
     
 },
 { path: 'user-board', component: UserBoardComponent,
+    
+},
+{ path: 'career', component: CareerComponent,
     
 },
 { path: 'supervisor-board', component: SupervisorBoardComponent,
