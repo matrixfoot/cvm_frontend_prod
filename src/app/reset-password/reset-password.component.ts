@@ -12,16 +12,22 @@ enum TokenStatus {
     Invalid
 }
 
-@Component({ templateUrl: 'reset-password.component.html' })
+@Component({
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.scss']
+  })
 export class ResetPasswordComponent implements OnInit {
     TokenStatus = TokenStatus;
     tokenStatus = TokenStatus.Validating;
     token = null;
-    form: FormGroup;
+    resetpasswordform: FormGroup;
     loading = false;
     submitted = false;
     errormsg:string;
     successmsg:string;
+    successmessage: string;
+    errormessage:string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -32,9 +38,9 @@ export class ResetPasswordComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.form = this.formBuilder.group({
+        this.resetpasswordform = this.formBuilder.group({
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.required],
+            confirmpassword: ['', Validators.required],
         }, {
             
         });
@@ -42,6 +48,7 @@ export class ResetPasswordComponent implements OnInit {
         this.route.params.subscribe(
           (params:Params)=>{
               this.token=params.token
+              console.log(this.token);
           }
       )
 
@@ -50,13 +57,13 @@ export class ResetPasswordComponent implements OnInit {
 
         this.accountService.validateResetToken(this.token).then(
           (success:any) => {
-              this.successmsg=JSON.stringify(success.message);
+              this.successmessage=JSON.stringify(success.message);
               this.tokenStatus = TokenStatus.Valid;
               
           },
           (error)=> {
               this.tokenStatus = TokenStatus.Invalid;
-              this.errormsg = JSON.stringify(error.error) ;
+              this.errormessage = JSON.stringify(error.error.error) ;
           }
       );
 
@@ -69,18 +76,15 @@ export class ResetPasswordComponent implements OnInit {
         // reset alerts on submit
       
 
-        // stop here if form is invalid
-        if (this.form.invalid) {
-            return;
-        }
+        
 
         this.loading = true;
-        const password = this.form.get('password').value;
-        const confirmpassword = this.form.get('confirmpassword').value;
+        const password = this.resetpasswordform.get('password').value;
+        const confirmpassword = this.resetpasswordform.get('confirmpassword').value;
         this.accountService.resetPassword(this.token, password, confirmpassword).then(
               (success:any) => {
                   this.successmsg=JSON.stringify(success.message);
-                  this.router.navigate(['../login'], { relativeTo: this.route });
+                  
                   
               },
               (error)=> {

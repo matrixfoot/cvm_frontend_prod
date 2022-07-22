@@ -114,7 +114,7 @@ export class UserService {
   validateResetToken(token: string) 
   {
     return new Promise((resolve, reject) => {
-      this.http.post(API_URL_cloud+ 'forgot-password', { token }).subscribe(
+      this.http.post(API_URL_cloud+ 'validate-reset-token', { token }).subscribe(
         (response) => {
           resolve(response);
         },

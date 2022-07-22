@@ -20,6 +20,8 @@ import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CareerComponent } from './career/career.component';
 const routes: Routes = [
   
@@ -39,6 +41,7 @@ const routes: Routes = [
 },
 { path: 'view-user/:id', component: ViewUserComponent},
 { path: 'verify-email/:token', component: VerifyEmailComponent},
+{ path: 'reset-password/:token', component: ResetPasswordComponent},
 { path: 'admin-board', component: AdminBoardComponent,
     
 },
@@ -58,6 +61,9 @@ const routes: Routes = [
     
 },
 { path: 'login/signup', component: SignupComponent,
+    
+},
+{ path: 'login/forgot-password', component: ForgotPasswordComponent,
     
 },
 { path: 'admin-board/profil', component: ProfilComponent,
