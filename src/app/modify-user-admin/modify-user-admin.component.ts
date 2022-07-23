@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { Route } from '@angular/compiler/src/core';
 import { Subscription } from 'rxjs';
+import { MustMatch } from '../_helpers/must-match.validator';
 @Component({
   selector: 'app-modify-user-admin',
   templateUrl: './modify-user-admin.component.html',
@@ -45,6 +46,10 @@ export class ModifyUserAdminComponent implements OnInit {
               role: [this.user.role, Validators.required],
               firstname: [this.user.firstname, Validators.required],
               lastname: [this.user.lastname, Validators.required],
+              confirmemail: [null,],
+              mobile: [this.user.mobile,],
+              confirmmobile: [null,],
+              usertype: [this.user.usertype,],
               email: [{value:this.user.email,disabled:true}, Validators.required],
               fonction: [this.user.fonction, Validators.required],
               password: [this.user.password, Validators.required],
@@ -53,6 +58,9 @@ export class ModifyUserAdminComponent implements OnInit {
               raisonsociale: [this.user.raisonsociale, Validators.required],
               nomsociete: [this.user.nomsociete, Validators.required],
               clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
+            },
+            {
+              validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
             });
             this.loading = false;
             
@@ -84,6 +92,8 @@ export class ModifyUserAdminComponent implements OnInit {
     user.email = this.userForm.get('email').value;
     user.password =this.userForm.get('password').value;
     user.firstname = this.userForm.get('firstname').value;
+    user.mobile = this.userForm.get('mobile').value;
+    user.usertype =this.userForm.get('usertype').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
     user.secteur = this.userForm.get('secteur').value;

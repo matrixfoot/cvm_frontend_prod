@@ -16,7 +16,7 @@ export class ProfilComponent implements OnInit {
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private usersservice: UserService) { }
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    console.log(this.currentUser.raisonsociale)
+    
     
   }
   getNavigation(link, id){
@@ -26,21 +26,20 @@ export class ProfilComponent implements OnInit {
   }
   onDelete() {
   this.loading = true;
-  this.route.params.subscribe(
-    (params: Params) => {
-      this.usersservice.deleteUserById(params.id).then(
-        () => {
-          this.loading = false;
-      
-      this.router.navigate(['']);
-        },
-        (error) => {
-          this.loading = false;
-          this.errormsg=error.error;
-          this.router.navigate(['']);
-        }
-      );
-    }
-  );
+  
+    
+      this.usersservice.deleteUserById(this.currentUser.userId)
+        
+      this.loading = false;
+      this.reloadPage();
+
+        
+    
+  
+}
+reloadPage(): void {
+    
+  window.location.reload();
+  
 }
 }

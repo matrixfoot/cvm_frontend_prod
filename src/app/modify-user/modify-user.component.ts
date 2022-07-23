@@ -6,6 +6,7 @@ import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Subscription } from 'rxjs';
+import { MustMatch } from '../_helpers/must-match.validator';
 
 @Component({
   selector: 'app-modify-user',
@@ -40,6 +41,10 @@ export class ModifyUserComponent implements OnInit {
               role: [this.currentuser.role,],
               firstname: [this.currentuser.Firstname,],
               lastname: [this.currentuser.Lastname,],
+              confirmemail: [null,Validators.required],
+              mobile: [this.currentuser.mobile,],
+              confirmmobile: [null,Validators.required],
+              usertype: [this.currentuser.usertype,],
               email: [this.currentuser.email,],
               fonction: [this.currentuser.fonction,],
               password: [null,],
@@ -49,6 +54,9 @@ export class ModifyUserComponent implements OnInit {
               raisonsociale: [this.currentuser.raisonsociale,],
               nomsociete: [this.currentuser.nomsociete,],
               clientcode: [{value:this.currentuser.clientcode,disabled:true}, Validators.required],
+            },
+            {
+              validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
             });
             this.loading = false;
             
@@ -80,6 +88,8 @@ export class ModifyUserComponent implements OnInit {
     user.role = this.userForm.get('role').value;
     user.email = this.userForm.get('email').value;
     user.password =this.userForm.get('password').value;
+    user.mobile = this.userForm.get('mobile').value;
+    user.usertype =this.userForm.get('usertype').value;
     user.confirmpassword =this.userForm.get('confirmpassword').value;
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;

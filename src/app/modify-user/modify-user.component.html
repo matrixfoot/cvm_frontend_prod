@@ -34,7 +34,16 @@
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
       </div> 
-
+      <div class="mobile-container">
+        <div class="input-container">
+          <i class="fa fa-phone icon"></i>
+          <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+        </div>
+        <div class="input-container">
+          <i class="fa fa-phone icon"></i>
+          <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+        </div>
+      </div>
       <div title="indiquer votre raisonsociale"class="input-container">
         <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
@@ -70,9 +79,15 @@
       <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
     </div>
 
-    <div title="indiquer votre email"class="input-container">
-      <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email">
+    <div class="email-container">
+      <div class="input-container">
+        <i class="fa fa-envelope icon"></i>
+        <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+      </div>
+      <div class="input-container">
+        <i class="fa fa-envelope icon"></i>
+        <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+      </div>
     </div>
     
     <div title="Modifier votre Mot de passe"class="input-container">

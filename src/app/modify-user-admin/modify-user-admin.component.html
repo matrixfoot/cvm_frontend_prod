@@ -12,7 +12,16 @@
 
 <form  [formGroup]="userForm">
   <h2>Formulaire De Modification Des Données Utilisateurs</h2> 
- 
+  <div title="indiquer votre type utilisateur" class="input-container">
+    <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+   
+<select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
+<option hidden >Entrer Votre Type Utilisateur</option>
+<option value="Client">Client</option>
+<option value="Collaborateur">Collaborateur</option>
+<option value="Candidat">Candidat</option>
+</select>
+</div>
   <div title="indiquer votre civilite"class="input-container">
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
      
@@ -81,10 +90,26 @@
 </datalist>
 </div>
 
+<div class="email-container">
   <div class="input-container">
     <i class="fa fa-envelope icon"></i>
-    <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email">
+    <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
   </div>
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+  </div>
+</div>
+<div class="mobile-container">
+  <div class="input-container">
+    <i class="fa fa-phone icon"></i>
+    <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+  </div>
+  <div class="input-container">
+    <i class="fa fa-phone icon"></i>
+    <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+  </div>
+</div>
   
   
 
