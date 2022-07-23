@@ -24,9 +24,9 @@ export class AuthService {
 
   
 
-  register(email:string, password:string,  confirmpassword:string, firstname:string,lastname:string,fonction:string,secteur:string,civilite:string,raisonsociale:string,nomsociete:string,clientcode: string,role:string): Observable<any> {
+  register(email:string, password:string,  confirmpassword:string, mobile:string,usertype:string,firstname:string,lastname:string,fonction:string,secteur:string,civilite:string,raisonsociale:string,nomsociete:string,clientcode: string,role:string): Observable<any> {
     return this.http.post(authurlcloud + 'signup', {
-      email, password, confirmpassword,firstname, lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode, role
+      email, password, confirmpassword,firstname, lastname,fonction,secteur,civilite,mobile,usertype,raisonsociale,nomsociete,clientcode, role
     }, httpOptions);
     
   }

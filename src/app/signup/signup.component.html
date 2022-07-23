@@ -17,6 +17,16 @@ name="form"
 
 novalidate>
     <h2>Formulaire D'inscription</h2>
+    <div title="indiquer votre type utilisateur" class="input-container">
+      <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+     
+<select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
+  <option hidden >Entrer Votre Type Utilisateur</option>
+  <option value="Client">Client</option>
+  <option value="Collaborateur">Collaborateur</option>
+  <option value="Candidat">Candidat</option>
+</select>
+  </div>
    
     <div title="indiquer votre civilité" class="input-container">
         <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -36,13 +46,14 @@ novalidate>
 
       <div title="indiquer votre prenom"class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" formControlName="firstname">
+        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" formControlName="firstname"name="firstname">
       </div> 
 
+       
       <div title="indiquer votre raisonsociale"class="input-container">
         <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Entrer Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
-      </div>  
+      </div>
 
       <div title="indiquer votre fonction"class="input-container">
         <i class="fa fa-fort-awesome icon" ></i> 
@@ -65,12 +76,27 @@ novalidate>
       <i class="fa fa-user icon"></i>
       <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
     </div>
-
+    <div class="mobile-container">
+      <div class="input-container">
+        <i class="fa fa-phone icon"></i>
+        <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+      </div>
+      <div class="input-container">
+        <i class="fa fa-phone icon"></i>
+        <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+      </div>
+    </div>
+<div class="email-container">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="text" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+      <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
     </div>
-  
+    <div class="input-container">
+      <i class="fa fa-envelope icon"></i>
+      <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+    </div>
+  </div>
+  <div class="password-container">
     <div class="input-container">
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" formControlName="password" required>
@@ -79,7 +105,7 @@ novalidate>
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Confirmez Votre Mot De Passe" id="confirmpassword" formControlName="confirmpassword" required>
     </div>
-  
+  </div>
     <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
   </form>
   <p>{{ errorMessage }}</p>

@@ -22,6 +22,7 @@ import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.component';
 import { CareerComponent } from './career/career.component';
 const routes: Routes = [
   
@@ -75,8 +76,11 @@ const routes: Routes = [
 { path: 'who', component: WhoComponent,
     
 },
+{ path: 'coming-soon', component: ComingSoonPageComponent,
+    
+},
 
-{ path: '', redirectTo: 'home', pathMatch: 'full' },
+{ path: '', redirectTo: 'coming-soon', pathMatch: 'full' },
 {
   path: '', component: HomeComponent,
   children: [

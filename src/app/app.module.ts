@@ -34,6 +34,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { CareerComponent } from './career/career.component';
+import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { CareerComponent } from './career/career.component';
     ForgotPasswordComponent,
     ResetPasswordComponent,
     CareerComponent,
+    ComingSoonPageComponent,
     
     
   ],
