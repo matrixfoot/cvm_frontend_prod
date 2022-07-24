@@ -29,7 +29,7 @@ import { SupervisorBoardComponent } from './supervisor-board/supervisor-board.co
 import { ModifyUserComponent } from './modify-user/modify-user.component';
 import { ViewUserComponent } from './view-user/view-user.component';
 import { ModifyUserAdminComponent } from './modify-user-admin/modify-user-admin.component';
-import { ServicesComponentComponent } from './services-component/services-component.component';
+
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -60,7 +60,7 @@ import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.com
     ModifyUserComponent,
     ViewUserComponent,
     ModifyUserAdminComponent,
-    ServicesComponentComponent,
+    
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
