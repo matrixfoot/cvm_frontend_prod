@@ -21,11 +21,12 @@ export class UserBoardComponent implements OnInit {
   loading=false;
   public condidates: Condidate[] = [];
   errormsg: string;
-  router: any;
+  
   constructor(
               
     private Auth: TokenStorageService,
-    private cond:CondidateService
+    private cond:CondidateService,
+    private router: Router
     
     ) { }
 
@@ -49,7 +50,7 @@ export class UserBoardComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        console.log(error);
+        
         this.errormsg=error.message;
       }
     );

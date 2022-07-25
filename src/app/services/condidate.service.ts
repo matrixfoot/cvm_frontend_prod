@@ -45,7 +45,7 @@ export class CondidateService {
               resolve(response);
             },
             (error) => {
-              reject(error);
+              reject(error); 
             }
           );
         });

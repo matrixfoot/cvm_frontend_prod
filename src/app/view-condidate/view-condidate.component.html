@@ -1,0 +1,26 @@
+
+
+  <body>
+
+    <h2>Informations générales</h2>
+    
+    <div class="card">
+      
+      <div class="container">
+        <h4 >Données Candidature:</h4><hr>
+        <h4>Crée le(heure GMT):<b>  {{ condidate.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ condidate.updated }}</b></h4>
+        <h4>Nom et Prénom:<b>  {{ condidate.firstname }} {{ condidate.lastname }}</b></h4> 
+        <h4>Mobile:<b>  {{ condidate.mobile }}</b></h4>
+        <h4>CV:<b>  {{ condidate.ficheUrl }}</b></h4>
+        <h4>Adresse:<b>  {{ condidate.adresse }}</b></h4>
+        <h4>Décision:<b>  {{ condidate.decision }}</b></h4>
+        <h4>Description:<b>  {{ condidate.description }}</b></h4>
+      </div>
+      
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Admin)</button>
+      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer candidature</button>
+
+    </div>
+    
+    </body>
