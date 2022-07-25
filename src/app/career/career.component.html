@@ -54,7 +54,7 @@
                             <input type="text" class="form-control" id="inputAdresse" formControlName="adresse" placeholder="entrer votre adresse"required>
                         </div>
                         <div class="form-group">
-                        <button class="btn btn-success" type="button" (click)="filePicker.click()">Ajouter Votre CV</button>
+                        
     <input type="file"  #filePicker (change)="onImagePick($event)"  class="form-control" accept="application/pdf">
     <div class="image-preview" *ngIf="imagePreview">
       <img [src]="imagePreview" alt="">

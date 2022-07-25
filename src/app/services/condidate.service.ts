@@ -36,15 +36,31 @@ export class CondidateService {
       emitCondidates() {
         this.condidates$.next(this.condidates);
       }
-    
       getCondidateById(id: string) {
         return new Promise((resolve, reject) => {
+          
+
           this.http.get(API_URL_cloud + id).subscribe(
             (response) => {
               resolve(response);
             },
             (error) => {
               reject(error);
+            }
+          );
+        });
+      }
+      getCondidate(email: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'condidate' ,{email}).subscribe(
+            (condidates: Condidate[]) => {
+              if (condidates) {
+                this.condidates = condidates;
+                this.emitCondidates();
+              }
+            },
+            (error) => {
+              console.log(error);
             }
           );
         });
@@ -57,7 +73,7 @@ export class CondidateService {
           const condidateData = new FormData();
           condidateData.append('condidate', JSON.stringify(condidate));
           condidateData.append('image', image, condidate.firstname);
-          this.http.post(API_URL_test+'createcondidate', condidateData).subscribe(
+          this.http.post(API_URL_cloud+'createcondidate', condidateData).subscribe(
             (response) => {
               resolve(response);
             },

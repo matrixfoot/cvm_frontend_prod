@@ -1,1 +1,51 @@
-<p>user-board works!</p>
+<div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member" *ngIf="usertype=='Candidat'">
+      <h2>Liste des Candidats</h2>
+      <hr>        
+      <div class="users-grid" style="overflow-x:auto;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th>Email</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Mobile</th>
+            <th>Decision</th>
+            <th>CV</th>
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let condidate of condidates">
+      
+            
+            <td>{{condidate.email}}</td>
+            <td>{{condidate.firstname}}</td>
+            
+      
+            <td>{{condidate.lastname}}</td>
+            <td>{{condidate.adresse}}</td>
+            <td>{{condidate.mobile}}</td>
+            <td>{{condidate.decision}}</td>
+            <td>{{condidate.ficheUrl}}</td>
+            
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-condidate',condidate._id)">Consulter</button></td>
+            
+          
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>

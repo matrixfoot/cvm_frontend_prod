@@ -9,6 +9,8 @@ export class User {
   confirmpassword: string;
   firstname:string;
   lastname:string;
+  mobile:string;
+  usertype:string;
   fonction:String;
   secteur:string;
   civilite:string;
