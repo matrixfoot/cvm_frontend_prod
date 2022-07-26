@@ -51,7 +51,7 @@ export class ModifyCondidateComponent implements OnInit {
           this.condidateForm = this.formBuilder.group({
             
             decision: [this.condidate.decision, Validators.required],
-            
+            motif: [this.condidate.motif, Validators.required],
           
           });
           this.loading = false;
@@ -67,7 +67,7 @@ onSubmit() {
   const condidate = new Condidate();
   
   condidate.decision =this.condidateForm.get('decision').value;
-  
+  condidate.motif =this.condidateForm.get('motif').value;
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
     () => {
       this.condidateForm.reset();

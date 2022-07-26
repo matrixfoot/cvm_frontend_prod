@@ -9,6 +9,7 @@ export class Condidate {
     mobile:String;
     adresse:string;
     decision:string;
+    motif:string;
     description:string;
     
     created:Date;

@@ -11,9 +11,15 @@ export class User {
   lastname:string;
   mobile:string;
   usertype:string;
-  fonction:String;
+  fonction:string;
   secteur:string;
   civilite:string;
+  natureactivite:string;
+  activite:string
+  sousactivite:string
+  regimefiscalimpot:string
+  regimefiscaltva:string
+  matriculefiscale:string
   raisonsociale:string;
   nomsociete:string;
   clientcode: string;
