@@ -35,7 +35,7 @@ export class ViewUserComponent implements OnInit {
           (user: User) => {
             this.loading = false;
             this.user = user;
-            console.log(user);
+            
             
           }
         );

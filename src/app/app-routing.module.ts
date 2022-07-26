@@ -25,6 +25,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.component';
 import { CareerComponent } from './career/career.component';
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
+import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
 const routes: Routes = [
   
    
@@ -36,6 +37,9 @@ const routes: Routes = [
     
 },
 { path: 'modify-user/:id', component: ModifyUserComponent,
+    
+},
+{ path: 'modify-condidate/:id', component: ModifyCondidateComponent,
     
 },
 { path: 'modify-user-admin/:id', component: ModifyUserAdminComponent,

@@ -12,7 +12,7 @@
         <h4>Dernière modification  le(heure GMT):<b>  {{ condidate.updated }}</b></h4>
         <h4>Nom et Prénom:<b>  {{ condidate.firstname }} {{ condidate.lastname }}</b></h4> 
         <h4>Mobile:<b>  {{ condidate.mobile }}</b></h4>
-        <h4>CV:<b>  {{ condidate.ficheUrl }}</b></h4>
+        <h4>CV:<b><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></b></h4>
         <h4>Adresse:<b>  {{ condidate.adresse }}</b></h4>
         <h4>Décision:<b>  {{ condidate.decision }}</b></h4>
         <h4>Description:<b>  {{ condidate.description }}</b></h4>

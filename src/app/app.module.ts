@@ -36,6 +36,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { CareerComponent } from './career/career.component';
 import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.component';
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
+import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { ViewCondidateComponent } from './view-condidate/view-condidate.componen
     CareerComponent,
     ComingSoonPageComponent,
     ViewCondidateComponent,
+    ModifyCondidateComponent,
     
     
   ],
