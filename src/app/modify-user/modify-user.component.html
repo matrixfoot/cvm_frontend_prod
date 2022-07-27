@@ -77,7 +77,7 @@
       <div title="indiquer votre nature d'activité"class="input-container"style="display:none"id="idactivitynature">
         
         <i class="fa fa-fort-awesome icon"></i>
-  <select  class="input-field" placeholder="Entrer Votre Nature Activité" id="activitynature" formControlName="activitynature" name="activitynature" >
+  <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
     <option hidden >Modifier Votre Nature Activité</option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option disabled value="Commerçant">Commerçant</option>
@@ -85,6 +85,10 @@
     <option disabled value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
     <option value="Autre">Autre</option>
   </select>
+    </div>
+    <div class="input-container"id="selectactivitynature"*ngIf="optionValue == 'Autre'">
+      <i class="fa fa-fort-awesome icon"></i>
+      <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
     </div>
     <div title="indiquer votre activité"class="input-container" style="display:none"id="idactivity">
         

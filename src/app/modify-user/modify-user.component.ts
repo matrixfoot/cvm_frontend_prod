@@ -22,6 +22,8 @@ export class ModifyUserComponent implements OnInit {
   public roleValue: string;
   private usersSub: Subscription;
   public loading = false;
+  public optionValue:any;
+
   
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
@@ -54,6 +56,7 @@ export class ModifyUserComponent implements OnInit {
               civilite: [this.currentuser.civilite,],
               raisonsociale: [this.currentuser.raisonsociale,],
               activitynature: [this.currentuser.natureactivite,],
+              selectactivitynature: [null,],
               activity: [this.currentuser.activite,],
               underactivity: [this.currentuser.sousactivite,],
               fiscalimpot: [this.currentuser.regimefiscalimpot,],
@@ -143,6 +146,7 @@ export class ModifyUserComponent implements OnInit {
        text.style.display = "none";
     }
   }
+  
   myFunction1() {
     var checkbox:any = document.getElementById("myCheck1");
     var text = document.getElementById("idfiscalmat");
