@@ -37,6 +37,7 @@ import { CareerComponent } from './career/career.component';
 import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.component';
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
 import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
+import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.co
     ComingSoonPageComponent,
     ViewCondidateComponent,
     ModifyCondidateComponent,
+    DeclareFiscalityComponent,
     
     
   ],

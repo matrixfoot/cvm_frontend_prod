@@ -19,6 +19,12 @@
         <h4>Nomsociete:<b>  {{ currentUser.nomsociete }}</b></h4>
         <h4>Email:<b>  {{ currentUser.email }}</b></h4>
         <h4>Code client<b>  {{ currentUser.clientcode }}</b></h4>
+        <h4>Nature Activité:<b>  {{ currentUser.natureactivite }}</b></h4>
+        <h4>Activité:<b>  {{ currentUser.activite }}</b></h4>
+        <h4>Sous-Activité:<b>  {{ currentUser.sousactivite }}</b></h4>
+        <h4>Régime fiscal en matières d'impôts directs:<b>  {{ currentUser.regimefiscalimpot }}</b></h4>
+        <h4>Régime fiscal en matières de TVA:<b>  {{ currentUser.regimefiscaltva }}</b></h4>
+        <h4>Matricule Fiscale:<b>  {{ currentUser.matriculefiscale }}</b></h4>
       </div>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
       <button type="button" class="btn btn-danger"(click)="onDelete()">Supprimer</button>

@@ -18,13 +18,13 @@
     <div class="checkbox-container">
       
       <div class="input-container">
-        <i class="fa fa-check icon"></i>
+        <i class="fa fa-user icon"></i>
         <label for="myCheck1">Ma Déclaration</label>
         <input type="checkbox" id="myCheck1" (click)="myFunction1()">
       </div>
       <div class="input-container">
-        <i class="fa fa-check icon"></i>
-        <label for="myCheck2">Une Déclaration Autrui</label>
+        <i class="fa fa-user icon"></i>
+        <label for="myCheck2">Une Déclaration D'Autrui</label>
         <input type="checkbox" id="myCheck2" (click)="myFunction2()">
       </div>
     </div>
@@ -33,12 +33,12 @@
     <div class="checkbox-container">
       
       <div class="input-container">
-        <i class="fa fa-check icon"></i>
+        <i class="fa fa-user icon"></i>
         <label for="myCheck3">Personne Physique</label>
         <input type="checkbox" id="myCheck3" (click)="myFunction3()">
       </div>
       <div class="input-container">
-        <i class="fa fa-check icon"></i>
+        <i class="fa fa-user icon"></i>
         <label for="myCheck4">Personne Morale</label>
         <input type="checkbox" id="myCheck4" (click)="myFunction4()">
       </div>
@@ -98,7 +98,7 @@
   <option value="Autre">Autre</option>
 </select>
   </div>
-  <div title="indiquer votre sous-activité"class="input-container"style="display:none"id="idnatureactivity">
+  <div title="indiquer votre sous-activité"class="input-container"style="display:none"id="idunderactivity">
         
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" formControlName="underactivity" name="underactivity" >
@@ -122,11 +122,11 @@
 <option value="Autre">Autre</option>
 </select>
 </div>
-<div class="input-container-disabled"style="display:none" id="idfiscaltvaassobli">
+<div class="input-container-disabled" id="idfiscaltvaassobli">
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
 </div>
-<div class="input-container"style="display:none"id="idfiscalmat">
+<div class="input-container-disabled"id="idfiscalmat">
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
 </div>

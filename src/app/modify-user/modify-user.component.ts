@@ -106,7 +106,8 @@ export class ModifyUserComponent implements OnInit {
     user.sousactivite =this.userForm.get('underactivity').value;
     user.regimefiscalimpot = this.userForm.get('fiscalimpot').value;
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
-    user.regimefiscaltva = this.userForm.get('fiscalimpot').value;
+    user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
+    user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;
     user.raisonsociale = this.userForm.get('raisonsociale').value;
@@ -144,11 +145,50 @@ export class ModifyUserComponent implements OnInit {
   }
   myFunction1() {
     var checkbox:any = document.getElementById("myCheck1");
-    var text = document.getElementById("fiscalmat");
+    var text = document.getElementById("idfiscalmat");
+    var text1 = document.getElementById("idactivitynature");
+    var text2 = document.getElementById("idactivity");
+    var text3 = document.getElementById("idunderactivity");
+    var text4 = document.getElementById("idfiscalimpot");
+    var text5 = document.getElementById("idfiscaltvaassobli");
     if (checkbox.checked == true){
-      text.style.display = "block";
+      text.style.display = "inline-flex";
+      text1.style.display = "inline-flex";
+      text2.style.display = "inline-flex";
+      text3.style.display = "inline-flex";
+      text4.style.display = "inline-flex";
+      text5.style.display = "inline-flex";
     } else {
        text.style.display = "none";
+       text1.style.display = "none";
+       text2.style.display = "none";
+       text3.style.display = "none";
+       text4.style.display = "none";
+       text5.style.display = "none";
+    }
+  }
+  myFunction3() {
+    var checkbox:any = document.getElementById("myCheck3");
+    var text = document.getElementById("idfiscalmat");
+    var text1 = document.getElementById("idactivitynature");
+    var text2 = document.getElementById("idactivity");
+    var text3 = document.getElementById("idunderactivity");
+    var text4 = document.getElementById("idfiscalimpot");
+    var text5 = document.getElementById("idfiscaltvaassobli");
+    if (checkbox.checked == true){
+      text.style.display = "inline-flex";
+      text1.style.display = "inline-flex";
+      text2.style.display = "inline-flex";
+      text3.style.display = "inline-flex";
+      text4.style.display = "inline-flex";
+      text5.style.display = "inline-flex";
+    } else {
+       text.style.display = "none";
+       text1.style.display = "none";
+       text2.style.display = "none";
+       text3.style.display = "none";
+       text4.style.display = "none";
+       text5.style.display = "none";
     }
   }
 }

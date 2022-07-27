@@ -3,9 +3,10 @@ h2{
 }
 
 .bodycontainer{
-  height: 1500px;
+  height: 100%;
   width: 100%;
   background-color: white;
+  margin-bottom: 30px;
 }
 .mobile-container{
   display: inline-flex;
@@ -46,7 +47,8 @@ div.container{
     }
     .input-container-disabled {
       display: none;
-      
+      width: 100%;
+      margin-bottom: 15px;
     }
     .gender_icon{
         

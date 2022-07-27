@@ -26,6 +26,8 @@ import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.com
 import { CareerComponent } from './career/career.component';
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
 import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
+import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
+
 const routes: Routes = [
   
    
@@ -34,6 +36,9 @@ const routes: Routes = [
     
 },
 { path: 'profil', component: ProfilComponent,
+    
+},
+{ path: 'declare-fiscality', component:DeclareFiscalityComponent,
     
 },
 { path: 'modify-user/:id', component: ModifyUserComponent,

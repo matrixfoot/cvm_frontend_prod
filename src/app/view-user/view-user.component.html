@@ -20,6 +20,12 @@
         <h4>Nomsociete:<b>  {{ user.nomsociete }}</b></h4>
         <h4>Email:<b>  {{ user.email }}</b></h4>
         <h4>Code client<b>  {{ user.clientcode }}</b></h4>
+        <h4>Nature Activité:<b>  {{ user.natureactivite }}</b></h4>
+        <h4>Activité:<b>  {{ user.activite }}</b></h4>
+        <h4>Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
+        <h4>Régime fiscal en matières d'impôts directs:<b>  {{ user.regimefiscalimpot }}</b></h4>
+        <h4>Régime fiscal en matières de TVA:<b>  {{ user.regimefiscaltva }}</b></h4>
+        <h4>Matricule Fiscale:<b>  {{ user.matriculefiscale }}</b></h4>
       </div>
       
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
