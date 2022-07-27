@@ -1,12 +1,17 @@
 h2{
     text-align: center;
 }
+
 .bodycontainer{
-  height: 1000px;
+  height: 1500px;
   width: 100%;
   background-color: white;
 }
 .mobile-container{
+  display: inline-flex;
+  width: 100%;
+}
+.checkbox-container{
   display: inline-flex;
   width: 100%;
 }
@@ -38,6 +43,10 @@ div.container{
       color: white;
       min-width: 50px;
       text-align: center;
+    }
+    .input-container-disabled {
+      display: none;
+      
     }
     .gender_icon{
         

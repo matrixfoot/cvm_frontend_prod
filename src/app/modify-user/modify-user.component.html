@@ -1,6 +1,7 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 </head>
 <body>
   
@@ -13,7 +14,36 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Modification Des Données Utilisateurs</h2>
-   
+    <label> Je Souhaite Déposer:</label>
+    <div class="checkbox-container">
+      
+      <div class="input-container">
+        <i class="fa fa-check icon"></i>
+        <label for="myCheck1">Ma Déclaration</label>
+        <input type="checkbox" id="myCheck1" (click)="myFunction1()">
+      </div>
+      <div class="input-container">
+        <i class="fa fa-check icon"></i>
+        <label for="myCheck2">Une Déclaration Autrui</label>
+        <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+      </div>
+    </div>
+    <div id="check2" style="display:none"> 
+    <label> Je Suis Une:</label>
+    <div class="checkbox-container">
+      
+      <div class="input-container">
+        <i class="fa fa-check icon"></i>
+        <label for="myCheck3">Personne Physique</label>
+        <input type="checkbox" id="myCheck3" (click)="myFunction3()">
+      </div>
+      <div class="input-container">
+        <i class="fa fa-check icon"></i>
+        <label for="myCheck4">Personne Morale</label>
+        <input type="checkbox" id="myCheck4" (click)="myFunction4()">
+      </div>
+    </div>
+  </div>
     <div class="input-container">
         <div title="indiquer votre civilité" class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
        
@@ -44,12 +74,68 @@
           <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
         </div>
       </div>
-      <div title="indiquer votre raisonsociale"class="input-container">
+      <div title="indiquer votre nature d'activité"class="input-container"style="display:none"id="idactivitynature">
+        
+        <i class="fa fa-fort-awesome icon"></i>
+  <select  class="input-field" placeholder="Entrer Votre Nature Activité" id="activitynature" formControlName="activitynature" name="activitynature" >
+    <option hidden >Modifier Votre Nature Activité</option>
+    <option value="Profession Libérale">Profession Libérale</option>
+    <option disabled value="Commerçant">Commerçant</option>
+    <option disabled value="Artisan">Artisan</option>
+    <option disabled value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
+    <option value="Autre">Autre</option>
+  </select>
+    </div>
+    <div title="indiquer votre activité"class="input-container" style="display:none"id="idactivity">
+        
+      <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" formControlName="activity" name="activity" >
+  <option hidden >Modifier Votre Activité</option>
+  <option disabled value="Médecin">Médecin</option>
+  <option value="Avocat">Avocat</option>
+  <option disabled value="Ingénieur">Ingénieur</option>
+  <option disabled value="Architechte">Architechte</option>
+  <option value="Autre">Autre</option>
+</select>
+  </div>
+  <div title="indiquer votre sous-activité"class="input-container"style="display:none"id="idnatureactivity">
+        
+    <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" formControlName="underactivity" name="underactivity" >
+<option hidden >Modifier Votre sous-Activité</option>
+
+<option value="Avocat">Avocat</option>
+<option value="Avocat à la cour d'appel">Avocat à la cour d'appel</option>
+<option value="Avocat à la cour de cassation">Avocat à la cour de cassation</option>
+<option value="Autre">Autre</option>
+</select>
+</div>
+<div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"style="display:none"id="idfiscalimpot">
+        
+  <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" formControlName="fiscalimpot" name="fiscalimpot" >
+<option hidden >Modifier Votre régime fiscal en matières d'impôts directs</option>
+
+
+<option value="Réel">Réel</option>
+<option value="Forfait D'assiette">Forfait D'assiette</option>
+<option value="Autre">Autre</option>
+</select>
+</div>
+<div class="input-container-disabled"style="display:none" id="idfiscaltvaassobli">
+  <i class="fa fa-fort-awesome icon"></i>
+  <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
+</div>
+<div class="input-container"style="display:none"id="idfiscalmat">
+  <i class="fa fa-fort-awesome icon"></i>
+  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
+</div>
+      <div title="indiquer votre raisonsociale"class="input-container-disabled">
         <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
       </div>  
 
-      <div title="indiquer votre fonction"class="input-container">
+      <div title="indiquer votre fonction"class="input-container-disabled" >
         <i class="fa fa-fort-awesome icon" ></i>
       <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Fonction actuelle:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
   <datalist id="fonctions">
@@ -59,13 +145,13 @@
     </div>
 
 
-    <div title="indiquer votre nomsociete"class="input-container">
+    <div title="indiquer votre nomsociete"class="input-container-disabled">
         <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
       </div>
 
 
-      <div title="indiquer votre secteur"class="input-container">
+      <div title="indiquer votre secteur"class="input-container-disabled">
         <i class="fa fa-fort-awesome icon" ></i> 
        
   

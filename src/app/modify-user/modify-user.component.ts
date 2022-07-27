@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CheckboxControlValueAccessor, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
@@ -22,6 +22,7 @@ export class ModifyUserComponent implements OnInit {
   public roleValue: string;
   private usersSub: Subscription;
   public loading = false;
+  
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
@@ -52,6 +53,12 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.currentuser.secteur,],
               civilite: [this.currentuser.civilite,],
               raisonsociale: [this.currentuser.raisonsociale,],
+              activitynature: [this.currentuser.natureactivite,],
+              activity: [this.currentuser.activite,],
+              underactivity: [this.currentuser.sousactivite,],
+              fiscalimpot: [this.currentuser.regimefiscalimpot,],
+              fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
+              fiscalmat: [this.currentuser.matriculefiscale,],
               nomsociete: [this.currentuser.nomsociete,],
               clientcode: [{value:this.currentuser.clientcode,disabled:true}, Validators.required],
             },
@@ -94,6 +101,12 @@ export class ModifyUserComponent implements OnInit {
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
+    user.natureactivite = this.userForm.get('activitynature').value;
+    user.activite =this.userForm.get('activity').value;
+    user.sousactivite =this.userForm.get('underactivity').value;
+    user.regimefiscalimpot = this.userForm.get('fiscalimpot').value;
+    user.matriculefiscale = this.userForm.get('fiscalmat').value;
+    user.regimefiscaltva = this.userForm.get('fiscalimpot').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;
     user.raisonsociale = this.userForm.get('raisonsociale').value;
@@ -119,5 +132,23 @@ export class ModifyUserComponent implements OnInit {
     
     window.location.reload();
     
+  }
+  myFunction2() {
+    var checkbox:any = document.getElementById("myCheck2");
+    var text = document.getElementById("check2");
+    if (checkbox.checked == true){
+      text.style.display = "block";
+    } else {
+       text.style.display = "none";
+    }
+  }
+  myFunction1() {
+    var checkbox:any = document.getElementById("myCheck1");
+    var text = document.getElementById("fiscalmat");
+    if (checkbox.checked == true){
+      text.style.display = "block";
+    } else {
+       text.style.display = "none";
+    }
   }
 }
