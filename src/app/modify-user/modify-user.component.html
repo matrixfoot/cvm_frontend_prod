@@ -14,30 +14,48 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+    <div id="check0" >
+      <label> Qu'est ce que vous voulez faire:(veuillez cocher pour afficher les sections convenables)</label>
+      <div class="checkbox-container">
+        
+        <div class="input-container" id="Check5">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck5">Modifier Mon Profil</label>
+          <input type="checkbox" id="myCheck5" (click)="myFunction5()">
+        </div>
+        <div class="input-container" id="Check6">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck6">Compléter Mon Profil</label>
+          <input type="checkbox" id="myCheck6" (click)="myFunction6()">
+        </div>
+      </div>
+    </div>
+    <div id="check1" style="display:none">
     <label> Je Souhaite Déposer:</label>
     <div class="checkbox-container">
       
-      <div class="input-container">
+      <div class="input-container" id="Check1">
         <i class="fa fa-user icon"></i>
         <label for="myCheck1">Ma Déclaration</label>
         <input type="checkbox" id="myCheck1" (click)="myFunction1()">
       </div>
-      <div class="input-container">
+      <div class="input-container" id="Check2">
         <i class="fa fa-user icon"></i>
         <label for="myCheck2">Une Déclaration D'Autrui</label>
         <input type="checkbox" id="myCheck2" (click)="myFunction2()">
       </div>
     </div>
+  </div>
     <div id="check2" style="display:none"> 
     <label> Je Suis Une:</label>
     <div class="checkbox-container">
       
-      <div class="input-container">
+      <div class="input-container" id="Check3">
         <i class="fa fa-user icon"></i>
         <label for="myCheck3">Personne Physique</label>
         <input type="checkbox" id="myCheck3" (click)="myFunction3()">
       </div>
-      <div class="input-container">
+      <div class="input-container" id="Check4">
         <i class="fa fa-user icon"></i>
         <label for="myCheck4">Personne Morale</label>
         <input type="checkbox" id="myCheck4" (click)="myFunction4()">
@@ -93,7 +111,7 @@
     <div title="indiquer votre activité"class="input-container" style="display:none"id="idactivity">
         
       <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" formControlName="activity" name="activity" >
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
   <option hidden >Modifier Votre Activité</option>
   <option disabled value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
@@ -102,10 +120,14 @@
   <option value="Autre">Autre</option>
 </select>
   </div>
+  <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
+    <i class="fa fa-fort-awesome icon"></i>
+    <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
+  </div>
   <div title="indiquer votre sous-activité"class="input-container"style="display:none"id="idunderactivity">
         
     <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" formControlName="underactivity" name="underactivity" >
+<select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
 <option hidden >Modifier Votre sous-Activité</option>
 
 <option value="Avocat">Avocat</option>
@@ -114,10 +136,14 @@
 <option value="Autre">Autre</option>
 </select>
 </div>
+<div class="input-container"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
+  <i class="fa fa-fort-awesome icon"></i>
+  <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
+</div>
 <div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"style="display:none"id="idfiscalimpot">
         
   <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" formControlName="fiscalimpot" name="fiscalimpot" >
+<select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
 <option hidden >Modifier Votre régime fiscal en matières d'impôts directs</option>
 
 
@@ -125,6 +151,10 @@
 <option value="Forfait D'assiette">Forfait D'assiette</option>
 <option value="Autre">Autre</option>
 </select>
+</div>
+<div class="input-container"id="selectfiscalimpot"*ngIf="option3Value == 'Autre'">
+  <i class="fa fa-fort-awesome icon"></i>
+  <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matières d'impôts directs" id="selectfiscalimpot" formControlName="selectfiscalimpot">
 </div>
 <div class="input-container-disabled" id="idfiscaltvaassobli">
   <i class="fa fa-fort-awesome icon"></i>

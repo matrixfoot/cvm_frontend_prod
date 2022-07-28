@@ -23,8 +23,9 @@ export class ModifyUserComponent implements OnInit {
   private usersSub: Subscription;
   public loading = false;
   public optionValue:any;
-
-  
+  public option1Value:any;
+  public option2Value:any;
+  public option3Value:any;
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
@@ -55,11 +56,14 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.currentuser.secteur,],
               civilite: [this.currentuser.civilite,],
               raisonsociale: [this.currentuser.raisonsociale,],
-              activitynature: [this.currentuser.natureactivite,],
+              activitynature: [{value:this.currentuser.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.currentuser.activite,],
+              selectactivity:[null,],
               underactivity: [this.currentuser.sousactivite,],
+              selectunderactivity:[null,],
               fiscalimpot: [this.currentuser.regimefiscalimpot,],
+              selectfiscalimpot:[null,],
               fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
               fiscalmat: [this.currentuser.matriculefiscale,],
               nomsociete: [this.currentuser.nomsociete,],
@@ -104,9 +108,13 @@ export class ModifyUserComponent implements OnInit {
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
+    if (this.userForm.get('activitynature').value=="Autre") return (user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value);
     user.natureactivite = this.userForm.get('activitynature').value;
+    if (this.userForm.get('activity').value=="Autre") return (user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value);
     user.activite =this.userForm.get('activity').value;
+    if (this.userForm.get('underactivity').value=="Autre") return (user.sousactivite = this.userForm.get('underactivity').value+'/'+this.userForm.get('selectunderactivity').value);
     user.sousactivite =this.userForm.get('underactivity').value;
+    if (this.userForm.get('fiscalimpot').value=="Autre") return (user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value);
     user.regimefiscalimpot = this.userForm.get('fiscalimpot').value;
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
@@ -137,18 +145,33 @@ export class ModifyUserComponent implements OnInit {
     window.location.reload();
     
   }
+  myFunction6() {
+    var checkbox:any = document.getElementById("myCheck6");
+    var text2 = document.getElementById("myCheck5");
+    var text = document.getElementById("check1");
+    if (checkbox.checked == true){
+      text.style.display = "block";
+      text2.style.display = "none";
+    } else {
+       text.style.display = "none";
+       text2.style.display = "block";
+    }
+  }
   myFunction2() {
     var checkbox:any = document.getElementById("myCheck2");
     var text = document.getElementById("check2");
+    var text3 = document.getElementById("myCheck1");
     if (checkbox.checked == true){
       text.style.display = "block";
+      text3.style.display = "none";
     } else {
        text.style.display = "none";
+       text3.style.display = "block";
     }
   }
-  
-  myFunction1() {
-    var checkbox:any = document.getElementById("myCheck1");
+  myFunction5() {
+    var checkbox:any = document.getElementById("myCheck5");
+    var text6 = document.getElementById("myCheck6");
     var text = document.getElementById("idfiscalmat");
     var text1 = document.getElementById("idactivitynature");
     var text2 = document.getElementById("idactivity");
@@ -162,6 +185,7 @@ export class ModifyUserComponent implements OnInit {
       text3.style.display = "inline-flex";
       text4.style.display = "inline-flex";
       text5.style.display = "inline-flex";
+      text6.style.display = "none"
     } else {
        text.style.display = "none";
        text1.style.display = "none";
@@ -169,10 +193,39 @@ export class ModifyUserComponent implements OnInit {
        text3.style.display = "none";
        text4.style.display = "none";
        text5.style.display = "none";
+       text6.style.display = "block"
+    }
+  }
+  myFunction1() {
+    var checkbox:any = document.getElementById("myCheck1");
+    var text6 = document.getElementById("myCheck2");
+    var text = document.getElementById("idfiscalmat");
+    var text1 = document.getElementById("idactivitynature");
+    var text2 = document.getElementById("idactivity");
+    var text3 = document.getElementById("idunderactivity");
+    var text4 = document.getElementById("idfiscalimpot");
+    var text5 = document.getElementById("idfiscaltvaassobli");
+    if (checkbox.checked == true){
+      text.style.display = "inline-flex";
+      text1.style.display = "inline-flex";
+      text2.style.display = "inline-flex";
+      text3.style.display = "inline-flex";
+      text4.style.display = "inline-flex";
+      text5.style.display = "inline-flex";
+      text6.style.display = "none";
+    } else {
+       text.style.display = "none";
+       text1.style.display = "none";
+       text2.style.display = "none";
+       text3.style.display = "none";
+       text4.style.display = "none";
+       text5.style.display = "none";
+       text6.style.display = "block";
     }
   }
   myFunction3() {
     var checkbox:any = document.getElementById("myCheck3");
+    var text6 = document.getElementById("myCheck4");
     var text = document.getElementById("idfiscalmat");
     var text1 = document.getElementById("idactivitynature");
     var text2 = document.getElementById("idactivity");
@@ -186,6 +239,7 @@ export class ModifyUserComponent implements OnInit {
       text3.style.display = "inline-flex";
       text4.style.display = "inline-flex";
       text5.style.display = "inline-flex";
+      text6.style.display = "none";
     } else {
        text.style.display = "none";
        text1.style.display = "none";
@@ -193,6 +247,19 @@ export class ModifyUserComponent implements OnInit {
        text3.style.display = "none";
        text4.style.display = "none";
        text5.style.display = "none";
+       text6.style.display = "block";
+    }
+  }
+  myFunction4() {
+    var checkbox:any = document.getElementById("myCheck4");
+    var text2 = document.getElementById("myCheck3");
+   
+    if (checkbox.checked == true){
+      
+      text2.style.display = "none";
+    } else {
+       
+       text2.style.display = "block";
     }
   }
 }
