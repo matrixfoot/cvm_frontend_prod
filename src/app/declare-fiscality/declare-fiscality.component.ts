@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 
@@ -10,7 +11,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./declare-fiscality.component.scss']
 })
 export class DeclareFiscalityComponent implements OnInit {
-
+  isLoggedIn=false
   loading=false;
   errormsg:string;
   natureactivite:string;
@@ -20,10 +21,13 @@ export class DeclareFiscalityComponent implements OnInit {
   regimefiscaltva:string;
   matriculefiscale:string;
   currentUser: any;
-  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private usersservice: UserService) { }
+  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private usersservice: UserService,) { }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
-    console.log(this.currentUser);
+    this.isLoggedIn = !!this.token.getToken();
+    if (this.isLoggedIn) {
+      this.currentUser = this.token.getUser();      
+    }
+    else (this.router.navigate(['login']));
     this.natureactivite=this.currentUser.natureactivite;
     this.activite=this.currentUser.activite;
     this.sousactivite=this.currentUser.sousactivite;
