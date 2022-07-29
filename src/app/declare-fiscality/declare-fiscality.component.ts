@@ -36,6 +36,43 @@ export class DeclareFiscalityComponent implements OnInit {
     this.matriculefiscale=this.currentUser.matriculefiscale;
     if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['modify-user/:'+this.currentUser.userId]))
   }
+    myFunction6() {
+      var checkbox:any = document.getElementById("myCheck6");
+      var text2 = document.getElementById("myCheck5");
+      var text3 = document.getElementById("myCheck7");
+      if (checkbox.checked == true){
+        text3.style.display = "none";
+        text2.style.display = "none";
+      } else {
+         text3.style.display = "block";
+         text2.style.display = "block";
+      }
+    }
+    myFunction7() {
+      var checkbox:any = document.getElementById("myCheck7");
+      var text2 = document.getElementById("myCheck5");
+      var text3 = document.getElementById("myCheck6");
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        text3.style.display = "none";
+      } else {
+         text2.style.display = "block";
+         text3.style.display = "block";
+      }
+    }
+    myFunction5() {
+      var checkbox:any = document.getElementById("myCheck5");
+      var text2 = document.getElementById("myCheck7");
+      var text3 = document.getElementById("myCheck6");
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        text3.style.display = "none";
+      } else {
+         text2.style.display = "block";
+         text3.style.display = "block";
+      }
+    }
+
  
 }
 
