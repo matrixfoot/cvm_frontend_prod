@@ -134,17 +134,17 @@ export class ModifyUserComponent implements OnInit {
         this.userForm.reset();
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
+        window.scrollTo(0, 0);
         this.tokenStorage.signOut();
         
-        this.router.navigate(['login']);
-        this.reloadPage();
+       
         
       },
       (error) => {
         this.loading = false;
         
         this.alertService.error(JSON.stringify(error.error.error) );
-        
+        window.scrollTo(0, 0);
         
       }
     );
