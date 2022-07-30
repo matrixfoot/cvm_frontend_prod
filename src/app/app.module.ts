@@ -38,6 +38,7 @@ import { ComingSoonPageComponent } from './coming-soon-page/coming-soon-page.com
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
 import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
 import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality
     ViewCondidateComponent,
     ModifyCondidateComponent,
     DeclareFiscalityComponent,
+    AlertComponent,
     
     
   ],

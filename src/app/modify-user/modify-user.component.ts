@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Subscription } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
+import { AlertService } from '../_helpers/alert.service';
 
 @Component({
   selector: 'app-modify-user',
@@ -33,7 +34,8 @@ export class ModifyUserComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private tokenStorage: TokenStorageService) {}
+    private tokenStorage: TokenStorageService,
+    private alertService: AlertService) {}
 
   ngOnInit() {
     this.loading = true;
@@ -97,6 +99,7 @@ export class ModifyUserComponent implements OnInit {
   
   onSubmit() {
     this.loading = true;
+    this.alertService.clear();
     const user = new User();
     user.userId = this.currentuser.userId;
     user.role = this.userForm.get('role').value;
@@ -108,14 +111,14 @@ export class ModifyUserComponent implements OnInit {
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
-    if (this.userForm.get('activitynature').value=="Autre") return (user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value);
-    user.natureactivite = this.userForm.get('activitynature').value;
-    if (this.userForm.get('activity').value=="Autre") return (user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value);
-    user.activite =this.userForm.get('activity').value;
-    if (this.userForm.get('underactivity').value=="Autre") return (user.sousactivite = this.userForm.get('underactivity').value+'/'+this.userForm.get('selectunderactivity').value);
-    user.sousactivite =this.userForm.get('underactivity').value;
-    if (this.userForm.get('fiscalimpot').value=="Autre") return (user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value);
-    user.regimefiscalimpot = this.userForm.get('fiscalimpot').value;
+    if (this.userForm.get('activitynature').value=="Autre") { user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value}
+    else  {user.natureactivite = this.userForm.get('activitynature').value};
+    if (this.userForm.get('activity').value=="Autre") {user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value}
+    else {user.activite =this.userForm.get('activity').value};
+    if (this.userForm.get('underactivity').value=="Autre") {user.sousactivite = this.userForm.get('underactivity').value+'/'+this.userForm.get('selectunderactivity').value}
+    else {user.sousactivite =this.userForm.get('underactivity').value};
+    if (this.userForm.get('fiscalimpot').value=="Autre") { user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value}
+    else {user.regimefiscalimpot = this.userForm.get('fiscalimpot').value};
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
@@ -128,10 +131,8 @@ export class ModifyUserComponent implements OnInit {
       () => {
         this.userForm.reset();
         this.loading = false;
-        this.tokenStorage.signOut();
-        
-        this.reloadPage();
-        this.router.navigate(['login']);
+        this.alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
+       
       },
       (error) => {
         this.loading = false;
