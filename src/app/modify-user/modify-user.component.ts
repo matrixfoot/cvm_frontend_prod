@@ -15,7 +15,8 @@ import { AlertService } from '../_helpers/alert.service';
   styleUrls: ['./modify-user.component.scss']
 })
 export class ModifyUserComponent implements OnInit {
-  public userForm: FormGroup; 
+  public userForm: FormGroup;
+  public isloggedin=false; 
   public currentuser: User;
   public users: User[]=[];
   public codeValue: string;
@@ -39,9 +40,9 @@ export class ModifyUserComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.currentuser = this.tokenStorage.getUser();
-    
-            
+     if (this.tokenStorage.getToken()){
+    this.isloggedin=true;
+      this.currentuser =this.tokenStorage.getUser()
             this.userForm = this.formBuilder.group({
               
               role: [this.currentuser.role,],
@@ -73,7 +74,8 @@ export class ModifyUserComponent implements OnInit {
             },
             {
               validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
-            });
+            })}
+            else {this.router.navigate(['login'])};
             this.loading = false;
             
             this.usersSub = this.userservice.users$.subscribe(
@@ -131,17 +133,23 @@ export class ModifyUserComponent implements OnInit {
       () => {
         this.userForm.reset();
         this.loading = false;
-        this.alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
-       
+        this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
+        this.tokenStorage.signOut();
+        
+        this.router.navigate(['login']);
+        this.reloadPage();
+        
       },
       (error) => {
         this.loading = false;
-        this.errormsg = JSON.stringify(error.error) ;
+        
+        this.alertService.error(JSON.stringify(error.error.error) );
+        
         
       }
     );
   }
-  reloadPage(): void {
+  reloadPage=async() => {
     
     window.location.reload();
     
