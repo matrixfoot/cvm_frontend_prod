@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
+import { AlertService } from '../_helpers/alert.service';
 import { UserService} from '../services/user.service';
 
 
@@ -34,6 +34,7 @@ export class ResetPasswordComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: UserService,
+        private alertService: AlertService
         
     ) { }
 
@@ -48,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
         this.route.params.subscribe(
           (params:Params)=>{
               this.token=params.token
-              console.log(this.token);
+              
           }
       )
 
@@ -57,13 +58,15 @@ export class ResetPasswordComponent implements OnInit {
 
         this.accountService.validateResetToken(this.token).then(
           (success:any) => {
-              this.successmessage=JSON.stringify(success.message);
+            this.alertService.success(success.message);
+            window.scrollTo(0, 0);
               this.tokenStatus = TokenStatus.Valid;
               
           },
           (error)=> {
               this.tokenStatus = TokenStatus.Invalid;
-              this.errormessage = JSON.stringify(error.error.error) ;
+              this.alertService.error(error.error.error);
+      window.scrollTo(0, 0); 
           }
       );
 
@@ -83,14 +86,16 @@ export class ResetPasswordComponent implements OnInit {
         const confirmpassword = this.resetpasswordform.get('confirmpassword').value;
         this.accountService.resetPassword(this.token, password, confirmpassword).then(
               (success:any) => {
-                  this.successmsg=JSON.stringify(success.message);
+                this.alertService.success(success.message);
+                window.scrollTo(0, 0);
                   
                   
               },
               (error)=> {
                 this.loading = false;
                   this.tokenStatus = TokenStatus.Invalid;
-                  this.errormsg = JSON.stringify(error.error) ;
+                  this.alertService.error(error.error.error);
+                  window.scrollTo(0, 0);
               }
           );
     }

@@ -39,6 +39,7 @@ import { ViewCondidateComponent } from './view-condidate/view-condidate.componen
 import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
 import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
 import { AlertComponent } from './alert/alert.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 @NgModule({
@@ -74,6 +75,7 @@ import { AlertComponent } from './alert/alert.component';
     ModifyCondidateComponent,
     DeclareFiscalityComponent,
     AlertComponent,
+    SearchBarComponent,
     
     
   ],

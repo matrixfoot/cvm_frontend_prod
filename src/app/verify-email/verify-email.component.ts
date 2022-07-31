@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-
+import { AlertService } from '../_helpers/alert.service';
 import { UserService } from '../services/user.service';
 
 enum EmailStatus {
@@ -25,7 +25,7 @@ export class VerifyEmailComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: UserService,
-        
+        private alertService: AlertService
     ) { }
 
     ngOnInit() {
@@ -41,13 +41,15 @@ export class VerifyEmailComponent implements OnInit {
 
         this.accountService.verifyEmail(this.token).then(
                 (success:any) => {
-                    this.successmsg=JSON.stringify(success.message);
+                    this.alertService.success(success.message);
+      window.scrollTo(0, 0);
                     this.emailStatus = EmailStatus.Success;
                     
                 },
                 (error)=> {
                     this.emailStatus = EmailStatus.Failed;
-                    this.errormsg = JSON.stringify(error.error) ;
+                    this.alertService.error(error.error.error);
+      window.scrollTo(0, 0);
                 }
             );
     }
