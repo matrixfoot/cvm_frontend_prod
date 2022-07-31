@@ -4,7 +4,10 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        background: #e74c3c !important;
+        background: grey;
+        }
+        .d-flex{
+            display: inline-flex;
         }
     
         .searchbar{
@@ -14,6 +17,7 @@
         background-color: #353b48;
         border-radius: 30px;
         padding: 10px;
+        display: inline-flex;
         }
     
         .search_input{
@@ -29,7 +33,7 @@
     
         .searchbar:hover > .search_input{
         padding: 0 10px;
-        width: 450px;
+        width: 200px;
         caret-color:red;
         transition: width 0.4s linear;
         }
