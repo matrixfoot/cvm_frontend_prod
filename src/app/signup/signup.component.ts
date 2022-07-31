@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { stringify } from 'querystring';
 import { MustMatch } from '../_helpers/must-match.validator';
-
+import { AlertService } from '../_helpers/alert.service';
 
 @Component({
   selector: 'app-signup',
@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
+              private alertService: AlertService
               ) { }
 
   ngOnInit() {
@@ -71,16 +72,18 @@ export class SignupComponent implements OnInit {
     this.auth.register(email, password,confirmpassword,mobile,usertype,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
 
       next: data => {
-        console.log(data);
+        this.alertService.success(data.message);
+        window.scrollTo(0, 0);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.loading = false;
         this.router.navigate(['login']);
       },
       error: error => {
-        console.log(error);
+        this.alertService.error(error.error.error);
+        window.scrollTo(0, 0);
         this.loading = false;
-        this.errorMessage = JSON.stringify(error.error) ;
+        
         this.isSignUpFailed = true;
       }
     });

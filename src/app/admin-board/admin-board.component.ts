@@ -70,7 +70,7 @@ export class AdminBoardComponent implements OnInit {
                 this.router.navigate([link + '/' + id]); 
               }
               getclients() {
-                return this.users.filter((user) => user.usertype !!== 'client');
+                return this.users.filter((user) => user.usertype !!== 'Client');
               }
               getcollaborateurs() {
                 return this.users.filter((user) => user.usertype === 'Collaborateur');

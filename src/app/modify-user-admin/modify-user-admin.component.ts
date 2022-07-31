@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { Route } from '@angular/compiler/src/core';
 import { Subscription } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
+import { AlertService } from '../_helpers/alert.service';
 @Component({
   selector: 'app-modify-user-admin',
   templateUrl: './modify-user-admin.component.html',
@@ -28,7 +29,8 @@ export class ModifyUserAdminComponent implements OnInit {
     private userservice: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private auth: AuthService) {}
+    private auth: AuthService,
+    private alertService: AlertService) {}
 
   ngOnInit() {
     this.loading = true;
@@ -102,14 +104,17 @@ export class ModifyUserAdminComponent implements OnInit {
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
     this.userservice.modifyUserById(user.userId,user).then(
-      () => {
+      (data:any) => {
         this.userForm.reset();
         this.loading = false;
+        this.alertService.success(data.message);
+      window.scrollTo(0, 0);
         this.router.navigate(['admin-board']);
       },
       (error) => {
         this.loading = false;
-        
+        this.alertService.error(error.error.error);
+      window.scrollTo(0, 0);
         
       
         

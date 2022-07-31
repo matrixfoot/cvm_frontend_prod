@@ -6,6 +6,7 @@ import { stringify } from 'querystring';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { Condidate } from '../models/condidate.model';
 import { mimeType } from '../_helpers/mime-type.validator';
+import { AlertService } from '../_helpers/alert.service';
 @Component({
   selector: 'app-career',
   templateUrl: './career.component.html',
@@ -21,7 +22,8 @@ export class CareerComponent implements OnInit {
   successmessage:string;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private cond: CondidateService) { }
+    private cond: CondidateService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
 
@@ -65,11 +67,13 @@ export class CareerComponent implements OnInit {
       (data:any) => {
         this.condidateform.reset();
         this.loading = false;
-        this.successmessage=data.message;
+        this.alertService.success('Création effectuée avec succès, veuillez vous connecter pour consulter votre demande');
+        window.scrollTo(0, 0);
       },
       (error) => {
         this.loading = false;
-        this.errorMessage = error.message;
+        this.alertService.error(error.error.error);
+        window.scrollTo(0, 0);
       }
     );
   }

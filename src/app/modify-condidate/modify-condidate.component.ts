@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { CondidateService } from '../services/condidate.service';
 import { Condidate } from '../models/condidate.model';
+import { AlertService } from '../_helpers/alert.service';
 
 @Component({
   selector: 'app-modify-condidate',
@@ -34,7 +35,8 @@ export class ModifyCondidateComponent implements OnInit {
     private router: Router,
     private cond: CondidateService,
     private auth: AuthService,
-    private tokenStorage: TokenStorageService) {}
+    private tokenStorage: TokenStorageService,
+    private alertService: AlertService) {}
 
 
  ngOnInit() {
@@ -69,14 +71,17 @@ onSubmit() {
   condidate.decision =this.condidateForm.get('decision').value;
   condidate.motif =this.condidateForm.get('motif').value;
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
-    () => {
+    (data:any) => {
       this.condidateForm.reset();
       this.loading = false;
+      this.alertService.success(data.message);
+      window.scrollTo(0, 0);
       this.router.navigate(['admin-board']);
     },
     (error) => {
       this.loading = false;
-      
+      this.alertService.error(error.error.error);
+      window.scrollTo(0, 0);
       
     
       

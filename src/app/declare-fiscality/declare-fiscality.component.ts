@@ -31,7 +31,7 @@ export class DeclareFiscalityComponent implements OnInit {
     this.natureactivite=this.currentUser.natureactivite;
     this.activite=this.currentUser.activite;
     this.sousactivite=this.currentUser.sousactivite;
-    console.log(this.sousactivite);
+    
     this.regimefiscalimpot=this.currentUser.regimefiscalimpot;
     this.matriculefiscale=this.currentUser.matriculefiscale;
     if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['modify-user/:'+this.currentUser.userId]))
