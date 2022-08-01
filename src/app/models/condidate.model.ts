@@ -11,7 +11,7 @@ export class Condidate {
     decision:string;
     motif:string;
     description:string;
-    
+    specialite:string;
     created:Date;
     
   updated: Date

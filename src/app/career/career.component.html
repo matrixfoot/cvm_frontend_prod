@@ -53,6 +53,19 @@
                             <label for="inputAdresse">Adresse</label>
                             <input type="text" class="form-control" id="inputAdresse" formControlName="adresse" placeholder="entrer votre adresse"required>
                         </div>
+                        <div  class="form-group">
+                            <label for="inputspecialite">Spécialité</label>
+                            <select  class="form-control" placeholder="Choisir Votre Spécialité" id="specialite" [(ngModel)]="optionValue"formControlName="specialite" name="specialite" >
+                            <option hidden >Choisir Votre Spécialité</option>
+                            <option value="Comptabilité">Comptabilité</option>
+                            <option value="Fiscalité">Fiscalité</option>
+                            <option value="Autre">Autre</option>
+                          </select>
+                          </div>
+                        <div id="selectspecialite"*ngIf="optionValue == 'Autre'">
+                        
+                            <input class="form-control" type="text" placeholder="Choisir Votre Spécialité" id="selectspecialite" formControlName="selectspecialite">
+                          </div>
                         <div class="form-group">
      <label for="inputCV">Attacher Votre CV</label>                   
     <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">

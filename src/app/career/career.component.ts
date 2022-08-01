@@ -16,7 +16,7 @@ export class CareerComponent implements OnInit {
   condidateform: FormGroup;
   loading = false;
   public imagePreview: string;
-  
+  public optionValue:any;
   fileUploaded = false;
   errorMessage: string;
   successmessage:string;
@@ -35,9 +35,9 @@ export class CareerComponent implements OnInit {
       confirmemail: [null, Validators.required],
       mobile: [null, Validators.required],
       confirmmobile: [null, Validators.required],
-      
+      specialite: [null, Validators.required],
       lastname: [null, Validators.required],
-      
+      selectspecialite: [null],
       adresse: [null,Validators.required],
       
       description: [null, Validators.required],
@@ -60,7 +60,8 @@ export class CareerComponent implements OnInit {
   condidate.lastname = this.condidateform.get('lastname').value;
   condidate.adresse = this.condidateform.get('adresse').value;
   condidate.description = this.condidateform.get('description').value;
-    
+  if (this.condidateform.get('specialite').value=="Autre") { condidate.specialite = this.condidateform.get('specialite').value+'/'+this.condidateform.get('selectspecialite').value}
+    else  {condidate.specialite = this.condidateform.get('specialite').value};  
     condidate.ficheUrl = '';
     
     this.cond.create(condidate, this.condidateform.get('image').value).then(
