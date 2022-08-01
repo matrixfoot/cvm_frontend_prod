@@ -139,4 +139,52 @@ export class UserService {
       );
     });
   }
+  getuserbyfirstname(firstname: string) 
+  {
+    
+      this.http.post(API_URL_cloud+ 'filteruserfirstname', { firstname }).subscribe(
+        (users: User[]) => {
+          if (users) {
+            this.users = users;
+            this.emitusers();
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    
+  }
+  getuserbylastname(lastname: string) 
+  {
+    
+      this.http.post(API_URL_cloud+ 'filteruserlastname', { lastname }).subscribe(
+        (users: User[]) => {
+          if (users) {
+            this.users = users;
+            this.emitusers();
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    
+  }
+  getuserbyemail(email: string) 
+  {
+    
+      this.http.post(API_URL_cloud+ 'filteruseremail', { email }).subscribe(
+        (users: User[]) => {
+          if (users) {
+            this.users = users;
+            this.emitusers();
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    
+  }
   }

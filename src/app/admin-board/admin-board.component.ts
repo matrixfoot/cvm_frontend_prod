@@ -7,26 +7,38 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { Condidate } from '../models/condidate.model';
 import { CondidateService } from '../services/condidate.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-admin-board',
   templateUrl: './admin-board.component.html',
   styleUrls: ['./admin-board.component.scss']
 })
 export class AdminBoardComponent implements OnInit {
-
+  public searchForm: FormGroup;
   public loading: boolean;
   public users: User[] = [];
   public condidates: Condidate[] = [];
   private condidatesSub: Subscription;
   private usersSub: Subscription;
   errormsg:string;
+  firstname:string;
+  lastname:string;
+  email:string;
   
 
-  constructor(
+  constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
               private router: Router) { }
               ngOnInit() {
+                this.searchForm = this.formBuilder.group({
+              
+                  lastname: [null,],
+                  firstname: [null,],
+                  email: [null,],
+                  
+                
+                })
                 this.loading = true;
                 this.condidatesSub = this.cond.condidates$.subscribe(
                   (condidates) => {
@@ -55,7 +67,7 @@ export class AdminBoardComponent implements OnInit {
                   }
                 );
                
-                this.UserService.getAll();
+                
                 
               }
 
@@ -78,5 +90,22 @@ export class AdminBoardComponent implements OnInit {
               getcondidates() {
                 return this.users.filter((user) => user.usertype === 'Candidat');
               }
+              getusersbyfirstname() {
+this.firstname=this.searchForm.get('firstname').value;
+                this.UserService.getuserbyfirstname(this.firstname)
+                 
+              }
+              getusersbylastname() {
+                this.lastname=this.searchForm.get('lastname').value;
+                                this.UserService.getuserbylastname(this.lastname)
+                                 
+                              }
+                              getusersbyemail() {
+                                this.loading=true;
+                                this.email=this.searchForm.get('email').value;
+                                                this.UserService.getuserbyemail(this.email);
+                                                this.loading=false;
+                                                 
+                                              }
 }
   

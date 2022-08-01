@@ -1,6 +1,6 @@
 
 <head>
-  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
   
@@ -11,7 +11,27 @@
     <div class="team-member">
       <h2>Liste des Clients</h2>
       <hr>
-        <app-search-bar></app-search-bar>      
+      <form [formGroup]="searchForm">
+       
+        <div class="searchbar">
+          
+          <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+         <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+        
+      </div>
+          <div class="searchbar">
+          
+            <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
+           <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+          <div class="searchbar">
+          
+              <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+             <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+            
+          </div>
+          </form>      
       <div class="users-grid"  style="overflow-x:auto;">
 
         
@@ -66,7 +86,27 @@
     <div class="team-member">
       <h2>Liste des Collaborateurs</h2>
       <hr>
-      <app-search-bar></app-search-bar>        
+      <form [formGroup]="searchForm">
+       
+        <div class="searchbar">
+          
+          <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+         <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+        
+      </div>
+          <div class="searchbar">
+          
+            <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
+           <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+          <div class="searchbar">
+          
+              <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+             <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+            
+          </div>
+          </form>       
       <div class="users-grid" style="overflow-x:auto;">
 
         
@@ -120,7 +160,7 @@
     <div class="team-member">
       <h2>Liste des Candidats</h2>
       <hr>
-      <app-search-bar></app-search-bar>        
+              
       <div class="users-grid" style="overflow-x:auto;">
 
         
@@ -174,7 +214,7 @@
     <div class="team-member">
       <h2>Liste des Candidatures</h2>
       <hr>
-      <app-search-bar></app-search-bar>        
+              
       <div class="users-grid" style="overflow-x:auto;">
 
         
