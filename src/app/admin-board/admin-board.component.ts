@@ -39,7 +39,7 @@ export class AdminBoardComponent implements OnInit {
                   
                 
                 })
-                this.loading = true;
+               
                 this.condidatesSub = this.cond.condidates$.subscribe(
                   (condidates) => {
                     this.condidates = condidates;
@@ -53,7 +53,7 @@ export class AdminBoardComponent implements OnInit {
                   }
                 );
                
-                this.cond.getCondidates();
+                
 
                 this.usersSub = this.UserService.users$.subscribe(
                   (users) => {
@@ -101,11 +101,33 @@ this.firstname=this.searchForm.get('firstname').value;
                                  
                               }
                               getusersbyemail() {
-                                this.loading=true;
+                                
                                 this.email=this.searchForm.get('email').value;
                                                 this.UserService.getuserbyemail(this.email);
-                                                this.loading=false;
+                                               
                                                  
                                               }
+                                              getall() {
+                                
+                                                
+                                                                this.UserService.getAll();
+                                                               
+                                                                 
+                                                              }                        
+           
+                getcondidatesbyemail() {
+                                                                                
+                                                                                this.email=this.searchForm.get('email').value;
+                                                                                                this.cond.getcondidatesbyemail(this.email);
+                                                                                                
+                                                                                                 
+                                                                                              }
+                                              getcondidatesall() {
+                                                                                
+                                                          
+                                                                  this.cond.getCondidates();
+                                                                                                                
+                                                                                                                 
+                                                                                                              }
 }
   

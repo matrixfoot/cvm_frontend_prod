@@ -31,6 +31,12 @@
              <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
             
           </div>
+          <div class="searchbar" style="float: right;">
+            
+            <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout">
+           <a class="search_icon"(click)="getall()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
           </form>      
       <div class="users-grid"  style="overflow-x:auto;">
 
@@ -86,27 +92,7 @@
     <div class="team-member">
       <h2>Liste des Collaborateurs</h2>
       <hr>
-      <form [formGroup]="searchForm">
-       
-        <div class="searchbar">
-          
-          <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
-         <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-        
-      </div>
-          <div class="searchbar">
-          
-            <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
-           <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-          
-        </div>
-          <div class="searchbar">
-          
-              <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
-             <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
             
-          </div>
-          </form>       
       <div class="users-grid" style="overflow-x:auto;">
 
         
@@ -216,7 +202,22 @@
       <hr>
               
       <div class="users-grid" style="overflow-x:auto;">
-
+        <form [formGroup]="searchForm">
+       
+          <div class="searchbar">
+            
+            <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+           <a class="search_icon"(click)="getcondidatesbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+        <div class="searchbar" style="float: right;">
+            
+          <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout">
+         <a class="search_icon"(click)="getcondidatesall()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+        
+      </div>
+            
+            </form> 
         
         
         <table class="table table-striped">
