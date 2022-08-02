@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   email:string;
   firstname:string;
   civilite: string;
-
+  lastname:string;
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       this.role = this.tokenStorage.getUser();
       this.email=this.tokenStorage.getUser();
       this.firstname=this.tokenStorage.getUser().Firstname;
+      this.lastname=this.tokenStorage.getUser().Lastname;
       this.civilite=this.tokenStorage.getUser().civilite;
       this.role=this.tokenStorage.getUser().role;
     }
@@ -58,8 +59,11 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.role = this.tokenStorage.getUser().role;
         this.firstname=this.tokenStorage.getUser().Firstname;
+        this.lastname=this.tokenStorage.getUser().Lastname;
         this.civilite=this.tokenStorage.getUser().civilite;
         this.reloadPage();
+        this.router.navigate(['profil']);
+ 
         
       },
       error: error => {

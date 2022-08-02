@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit{
     lastname: string;
 
   constructor(
-              
+    private router: Router,
               private Auth: TokenStorageService,
               
               ) { }
@@ -49,6 +49,7 @@ this.lastname= user.Lastname;
   logout(): void {
     this.Auth.signOut();
     window.location.reload();
+    this.router.navigate(['home']);
   }
   
   

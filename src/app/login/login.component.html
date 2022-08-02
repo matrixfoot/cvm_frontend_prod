@@ -59,7 +59,7 @@
     </div>
     <p>{{ errorMessage }}</p>
   </div>
-  <div class="alert alert-success" *ngIf="isLoggedIn">
-  Tu es déja connecté avec le rôle {{role}}
+  <div class="alert alert-success" *ngIf="isLoggedIn" routerLink="forgot-password">
+  Bienvenue {{civilite}} {{ firstname}} {{ lastname}}
   </div>
     </body>
