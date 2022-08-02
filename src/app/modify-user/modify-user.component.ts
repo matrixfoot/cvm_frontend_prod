@@ -156,7 +156,7 @@ export class ModifyUserComponent implements OnInit {
   }
   myFunction6() {
     var checkbox:any = document.getElementById("myCheck6");
-    var text2 = document.getElementById("myCheck5");
+    var text2 = document.getElementById("Check5");
     var text = document.getElementById("check1");
     if (checkbox.checked == true){
       text.style.display = "block";
@@ -169,7 +169,7 @@ export class ModifyUserComponent implements OnInit {
   myFunction2() {
     var checkbox:any = document.getElementById("myCheck2");
     var text = document.getElementById("check2");
-    var text3 = document.getElementById("myCheck1");
+    var text3 = document.getElementById("Check1");
     if (checkbox.checked == true){
       text.style.display = "block";
       text3.style.display = "none";
@@ -180,13 +180,25 @@ export class ModifyUserComponent implements OnInit {
   }
   myFunction5() {
     var checkbox:any = document.getElementById("myCheck5");
-    var text6 = document.getElementById("myCheck6");
+    var text6 = document.getElementById("Check6");
     var text = document.getElementById("idfiscalmat");
     var text1 = document.getElementById("idactivitynature");
     var text2 = document.getElementById("idactivity");
     var text3 = document.getElementById("idunderactivity");
     var text4 = document.getElementById("idfiscalimpot");
     var text5 = document.getElementById("idfiscaltvaassobli");
+    var text7 = document.getElementById("input1");
+    var text8 = document.getElementById("input2");
+    var text9 = document.getElementById("input3");
+    var text10 = document.getElementById("input4");
+    var text11 = document.getElementById("input5");
+    var text12 = document.getElementById("input6");
+    var text13 = document.getElementById("input7");
+    var text14 = document.getElementById("input8");
+    var text15= document.getElementById("input9");
+    var text16= document.getElementById("input10");
+    var text17= document.getElementById("input11");
+    var text18= document.getElementById("input12");
     if (checkbox.checked == true){
       text.style.display = "inline-flex";
       text1.style.display = "inline-flex";
@@ -194,6 +206,20 @@ export class ModifyUserComponent implements OnInit {
       text3.style.display = "inline-flex";
       text4.style.display = "inline-flex";
       text5.style.display = "inline-flex";
+      text7.style.display = "inline-flex";
+      text8.style.display = "inline-flex";
+      
+      text9.style.display = "inline-flex";
+      text10.style.display = "inline-flex";
+      text11.style.display = "inline-flex";
+      text12.style.display = "inline-flex";
+      text13.style.display = "inline-flex";
+      text14.style.display = "inline-flex";
+      text15.style.display = "inline-flex";
+      text16.style.display = "inline-flex";
+      text17.style.display = "inline-flex";
+      text18.style.display = "inline-flex";
+      
       text6.style.display = "none"
     } else {
        text.style.display = "none";
@@ -202,12 +228,25 @@ export class ModifyUserComponent implements OnInit {
        text3.style.display = "none";
        text4.style.display = "none";
        text5.style.display = "none";
+       text7.style.display = "none";
+      text8.style.display = "none";
+      
+      text9.style.display = "none";
+      text10.style.display = "none";
+      text11.style.display = "none";
+      text12.style.display = "none";
+      text13.style.display = "none";
+      text14.style.display = "none";
+      text15.style.display = "none";
+      text16.style.display = "none";
+      text17.style.display = "none";
+      text18.style.display = "none";
        text6.style.display = "block"
     }
   }
   myFunction1() {
     var checkbox:any = document.getElementById("myCheck1");
-    var text6 = document.getElementById("myCheck2");
+    var text6 = document.getElementById("Check2");
     var text = document.getElementById("idfiscalmat");
     var text1 = document.getElementById("idactivitynature");
     var text2 = document.getElementById("idactivity");
@@ -234,7 +273,7 @@ export class ModifyUserComponent implements OnInit {
   }
   myFunction3() {
     var checkbox:any = document.getElementById("myCheck3");
-    var text6 = document.getElementById("myCheck4");
+    var text6 = document.getElementById("Check4");
     var text = document.getElementById("idfiscalmat");
     var text1 = document.getElementById("idactivitynature");
     var text2 = document.getElementById("idactivity");
@@ -261,7 +300,7 @@ export class ModifyUserComponent implements OnInit {
   }
   myFunction4() {
     var checkbox:any = document.getElementById("myCheck4");
-    var text2 = document.getElementById("myCheck3");
+    var text2 = document.getElementById("Check3");
    
     if (checkbox.checked == true){
       

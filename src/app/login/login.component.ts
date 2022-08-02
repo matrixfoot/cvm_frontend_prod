@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         this.lastname=this.tokenStorage.getUser().Lastname;
         this.civilite=this.tokenStorage.getUser().civilite;
         this.reloadPage();
-        this.router.navigate(['profil']);
+        
  
         
       },

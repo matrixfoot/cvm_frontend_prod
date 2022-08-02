@@ -49,7 +49,7 @@ this.lastname= user.Lastname;
   logout(): void {
     this.Auth.signOut();
     window.location.reload();
-    this.router.navigate(['home']);
+    
   }
   
   

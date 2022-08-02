@@ -9,10 +9,10 @@
 <div class="bodycontainer">
   <div id="loader" *ngIf="loading"></div>
   
-<div class="container" *ngIf="!loading && isloggedin">
+<div class="container" *ngIf="!loading && isloggedin"> 
    
   
-<form  [formGroup]="userForm" *ngIf="currentuser">
+<form  [formGroup]="userForm">
     <h2>Formulaire De Modification Des Données Utilisateurs</h2>
     <div id="check0" >
       <label> Qu'est ce que vous voulez faire:(veuillez cocher pour afficher les sections convenables)</label>
@@ -62,7 +62,7 @@
       </div>
     </div>
   </div>
-    <div class="input-container">
+    <div class="input-container" style="display:none"id="input1">
         <div title="indiquer votre civilité" class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
        
   <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
@@ -73,16 +73,16 @@
   </select>
     </div>
 
-    <div title="indiquer votre nom"class="input-container">
+    <div title="indiquer votre nom"class="input-container" style="display:none" id="input2">
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
       </div>
 
-      <div title="indiquer votre prenom"class="input-container">
+      <div title="indiquer votre prenom"class="input-container" style="display:none" id=input3>
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
       </div> 
-      <div class="mobile-container">
+      <div class="mobile-container" style="display:none" id="input4">
         <div class="input-container">
           <i class="fa fa-phone icon"></i>
           <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
@@ -169,7 +169,7 @@
         <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
       </div>  
 
-      <div title="indiquer votre fonction"class="input-container-disabled" >
+      <div title="indiquer votre fonction"class="input-container-disabled" id="input5">
         <i class="fa fa-fort-awesome icon" ></i>
       <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Fonction actuelle:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
   <datalist id="fonctions">
@@ -179,13 +179,13 @@
     </div>
 
 
-    <div title="indiquer votre nomsociete"class="input-container-disabled">
+    <div title="indiquer votre nomsociete"class="input-container-disabled" id="input6">
         <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
       </div>
 
 
-      <div title="indiquer votre secteur"class="input-container-disabled">
+      <div title="indiquer votre secteur"class="input-container-disabled" id="input7">
         <i class="fa fa-fort-awesome icon" ></i> 
        
   
@@ -194,12 +194,12 @@
   <option *ngFor="let user of users" [value]="user.secteur" ></option>
   </datalist>
     </div>
-    <div title="indiquer votre clientcode"class="input-container">
+    <div title="indiquer votre clientcode"class="input-container" style="display:none"id="input8">
       <i class="fa fa-user icon"></i>
       <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
     </div>
 
-    <div class="email-container">
+    <div class="email-container" style="display:none" id="input9">
       <div class="input-container">
         <i class="fa fa-envelope icon"></i>
         <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
@@ -210,17 +210,17 @@
       </div>
     </div>
     
-    <div title="Modifier votre Mot de passe"class="input-container">
+    <div title="Modifier votre Mot de passe"class="input-container" style="display:none" id="input10">
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Modifier votre Mot de passe" id="password" formControlName="password">
     </div>
-    <div title="Confirmer votre Mot de passe"class="input-container">
+    <div title="Confirmer votre Mot de passe"class="input-container" style="display:none" id="input11">
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="confirmer votre Mot de passe" id="confirmpassword" formControlName="confirmpassword">
     </div>
     
   
-    <button class="btn btn-success" (click)="onSubmit()">Envoyer Modification</button>
+    <button class="btn btn-success" (click)="onSubmit()" style="display:none" id="input12">Envoyer Modification </button>
   </form>
   <p>{{ errormsg }}</p>
   <div class="alert alert-success" *ngIf="isSuccessful">
