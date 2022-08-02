@@ -107,7 +107,21 @@ export class CondidateService {
           );
         });
       }
-     
+      modifycondidateById(id: string, condidate: Condidate) {
+        return new Promise((resolve, reject) => {
+          
+            
+          
+          this.http.put(API_URL_cloud+ id, condidate).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
     
       deleteCondidate(id: string) {
         return new Promise((resolve, reject) => {
@@ -121,24 +135,4 @@ export class CondidateService {
           );
         });
       }
-      getcondidatesbyemail(email: string) 
-      {
-        
-          this.http.post(API_URL_cloud+ 'condidate', { email }).subscribe(
-            (condidates: Condidate[]) => {
-              if (condidates) {
-                this.condidates = condidates;
-                this.emitCondidates();
-              }
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        
-      }
     }
-
-    
-    
-  

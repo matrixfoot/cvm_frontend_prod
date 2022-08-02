@@ -118,7 +118,7 @@ this.firstname=this.searchForm.get('firstname').value;
                 getcondidatesbyemail() {
                                                                                 
                                                                                 this.email=this.searchForm.get('email').value;
-                                                                                                this.cond.getcondidatesbyemail(this.email);
+                                                                                                this.cond.getCondidate(this.email);
                                                                                                 
                                                                                                  
                                                                                               }

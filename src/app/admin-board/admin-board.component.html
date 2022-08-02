@@ -11,6 +11,7 @@
     <div class="team-member">
       <h2>Liste des Clients</h2>
       <hr>
+      <div class="container-fluid">
       <form [formGroup]="searchForm">
        
         <div class="searchbar">
@@ -37,7 +38,8 @@
            <a class="search_icon"(click)="getall()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
           
         </div>
-          </form>      
+          </form> 
+        </div>     
       <div class="users-grid"  style="overflow-x:auto;">
 
         
