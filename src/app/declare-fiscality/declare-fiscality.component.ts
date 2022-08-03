@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
+import { AlertService } from '../_helpers/alert.service';
 
 @Component({
   selector: 'app-declare-fiscality',
@@ -21,13 +22,13 @@ export class DeclareFiscalityComponent implements OnInit {
   regimefiscaltva:string;
   matriculefiscale:string;
   currentUser: any;
-  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private usersservice: UserService,) { }
+  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private alertService: AlertService,private usersservice: UserService,) { }
   ngOnInit() {
     this.isLoggedIn = !!this.token.getToken();
     if (this.isLoggedIn) {
       this.currentUser = this.token.getUser();      
     }
-    else (this.router.navigate(['login']));
+    else (this.alertService.warn('Veuillez compléter votre profil pour pouvoir déposer votre déclaration'),this.router.navigate(['login']));
     this.natureactivite=this.currentUser.natureactivite;
     this.activite=this.currentUser.activite;
     this.sousactivite=this.currentUser.sousactivite;

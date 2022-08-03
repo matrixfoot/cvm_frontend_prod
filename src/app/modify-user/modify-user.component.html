@@ -14,6 +14,10 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+    <div *ngIf="!currentuser.natureactivite || !currentuser.activite || !currentuser.sousactivite 
+  || !currentuser.regimefiscalimpot || !currentuser.matriculefiscale && currentuser.usertype=='Client'">
+   <h4 *ngIf="currentuser.usertype=='Client'"> Veuillez compléter votre profil  pour pouvoir bénéficier des services offerts par MaCompta</h4>
+  </div>
     <div id="check0" >
       <label> Qu'est ce que vous voulez faire:(veuillez cocher pour afficher les sections convenables)</label>
       <div class="checkbox-container">
