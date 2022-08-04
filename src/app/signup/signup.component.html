@@ -8,25 +8,25 @@
 <div class="bodycontainer">
   <div id="loader" *ngIf="loading"></div>
   
-<div class="container" *ngIf="!loading">
+<div class="container" *ngIf="!loading"> 
    
   
-<form  [formGroup]="signupForm" *ngIf="!isSuccessful"
-name="form"
-(ngSubmit)="signupform.valid && onSubmit()"
-
-novalidate>
+<form  [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <h2>Formulaire D'inscription</h2>
     <div title="indiquer votre type utilisateur" class="input-container">
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
      
-<select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
+<select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype"
+[ngClass]="{ 'is-invalid': submitted && f.usertype.errors }" >
   <option hidden >Entrer Votre Type Utilisateur</option>
   <option value="Client">Client</option>
   <option value="Collaborateur">Collaborateur</option>
   <option value="Candidat">Candidat</option>
 </select>
   </div>
+  <div *ngIf="submitted && f.usertype.errors" class="invalid-feedback">
+    <div *ngIf="f.usertype.errors.required">Type Utilisateur est obligatoire</div>
+</div>
    
     <div title="indiquer votre civilité" class="input-container">
         <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -41,14 +41,22 @@ novalidate>
 
     <div title="indiquer votre nom"class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Nom" id="lastname" formControlName="lastname" name="lastname">
+        <input class="input-field" type="text" placeholder="Entrer Votre Nom" id="lastname" 
+        formControlName="lastname" name="lastname" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }">
+       
       </div>
-
+      <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+        <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
+    </div>
       <div title="indiquer votre prenom"class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" formControlName="firstname"name="firstname">
+        <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" 
+        [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"formControlName="firstname"name="firstname">
+       
       </div> 
-
+      <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+        <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
+    </div>
        
       <div title="indiquer votre raisonsociale"class="input-container-disabled">
         <i class="fa fa-fort-awesome icon"></i>
@@ -74,39 +82,81 @@ novalidate>
     </div>
     <div title="indiquer votre clientcode"class="input-container">
       <i class="fa fa-user icon"></i>
-      <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
+      <input class="input-field" type="text" placeholder="code client" id="clientcode" 
+      [ngClass]="{ 'is-invalid': submitted && f.clientcode.errors }"formControlName="clientcode">
+     
     </div>
+    <div *ngIf="submitted && f.clientcode.errors" class="invalid-feedback">
+      <div *ngIf="f.clientcode.errors.required">Code Client Obligatoire</div>
+  </div>
     <div class="mobile-container">
       <div class="input-container">
         <i class="fa fa-phone icon"></i>
-        <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+        <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" 
+        [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"formControlName="mobile" required>
+       
       </div>
+      <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+        <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
+    </div>
       <div class="input-container">
         <i class="fa fa-phone icon"></i>
-        <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+        <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" 
+        [ngClass]="{ 'is-invalid': submitted && f.confirmmobile.errors }"formControlName="confirmmobile" required>
+        
       </div>
+      <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
+        <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
+        <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
+    </div>
     </div>
 <div class="email-container">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+      <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" 
+      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"formControlName="email" required>
+      
     </div>
+    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+      <div *ngIf="f.email.errors.required">Email Obligatoire</div>
+      <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
+  </div>
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
-      <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+      <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" 
+      [ngClass]="{ 'is-invalid': submitted && f.confirmemail.errors }"formControlName="confirmemail" required>
+     
+    </div>
+    <div *ngIf="submitted && f.confirmemail.errors" class="invalid-feedback">
+      <div *ngIf="f.confirmemail.errors.required">Email Obligatoire</div>
+      <div *ngIf="f.confirmemail.errors.email">Adresse Email non valides</div>
+      <div *ngIf="f.confirmemail.errors.mustMatch">Les Emails  ne sont pas identiques</div>
     </div>
   </div>
   <div class="password-container">
     <div class="input-container">
       <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" formControlName="password" required>
+      <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" 
+      [ngClass]="{ 'is-invalid': submitted && f.confirmemail.errors }"formControlName="password" required>
+     
     </div>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Mot de passe Obligatoire</div>
+      
+  </div>
     <div class="input-container">
       <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Confirmez Votre Mot De Passe" id="confirmpassword" formControlName="confirmpassword" required>
+      <input class="input-field" type="password" placeholder="Confirmez Votre Mot De Passe" id="confirmpassword" 
+      [ngClass]="{ 'is-invalid': submitted && f.confirmemail.errors }"formControlName="confirmpassword" required>
+     
+    </div>
+    <div *ngIf="submitted && f.confirmpassword.errors" class="invalid-feedback">
+      <div *ngIf="f.confirmpassword.errors.required">Mot de passe Obligatoire</div>
+      <div *ngIf="f.confirmpassword.errors.mustMatch">Les Mot de passe  ne sont pas identiques</div>
     </div>
   </div>
-    <button class="btn btn-success" (click)="onSignup()" [disabled]="signupForm.invalid">Inscription</button>
+    <button class="btn btn-success">Inscription</button>
+    <button class="btn btn-secondary" type="reset" (click)="onReset()">Annuler</button>
   </form>
   <p>{{ errorMessage }}</p>
   <div class="alert alert-success" *ngIf="isSuccessful">

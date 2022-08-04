@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
   errorMessage: string;
   isSuccessful = false;
   isSignUpFailed = false;
-  
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -49,10 +49,16 @@ export class SignupComponent implements OnInit {
     {
       validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
     });
+    this.signupForm.reset();
   }
+  get f() { return this.signupForm.controls; }
 
   onSignup() {
-    this.loading = true;
+    
+    this.submitted = true;
+    if (this.signupForm.invalid) {
+      return;
+  }
     const email = this.signupForm.get('email').value;
     
     const mobile = this.signupForm.get('mobile').value;
@@ -89,5 +95,8 @@ export class SignupComponent implements OnInit {
     });
 
   }
-    
+  onReset() {
+    this.submitted = false;
+    this.signupForm.reset();
+}
 }
