@@ -67,6 +67,9 @@ div.container{
     .input-field:focus {
       border: 2px solid dodgerblue;
     }
+    .error-container{
+      display: block;
+    }
     
     /* Set a style for the submit button */
     .btn {
@@ -80,7 +83,9 @@ div.container{
       opacity: 0.9;
       
     }
-    
+    .invalid-feedback{
+      color: red;
+    }
     
     /* Center the loader */
 #loader {

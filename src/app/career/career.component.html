@@ -6,18 +6,26 @@
                 <div class="contact-form">
                     <h1>Déposer votre candidature</h1>
                     <p class="hint-text">Nous sommes dans l'attente d'excellents profils pour intégrer notre équipe</p>
-                    <form [formGroup]="condidateform">
+                    <form [formGroup]="condidateform"(ngSubmit)="onSubmit()">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="firstname">Prénom</label>
-                                    <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="entrer votre prenom" required>
+                                    <input type="text" class="form-control" id="firstname" formControlName="firstname" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"placeholder="entrer votre prenom" required>
+                                </div>
+                                <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                                    <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="lastname">Nom</label>
-                                    <input type="text" class="form-control" id="lastname" formControlName="lastname" placeholder="entrer votre nom"required>
+                                    <input type="text" class="form-control" id="lastname" formControlName="lastname" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"placeholder="entrer votre nom"required>
+                                </div>
+                                <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
                                 </div>
                             </div>
                         </div>
@@ -25,13 +33,22 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="mobile">Mobile</label>
-                                    <input type="text" class="form-control" id="mobile" formControlName="mobile" placeholder="entrer votre mobile" required>
+                                    <input type="text" class="form-control" id="mobile" formControlName="mobile" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"placeholder="entrer votre mobile" required>
+                                </div>
+                                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                    <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="confirmmobile">Confirmer Mobile</label>
-                                    <input type="text" class="form-control" id="confirmmobile" formControlName="confirmmobile" placeholder="confimer votre mobile"required>
+                                    <input type="text" class="form-control" id="confirmmobile" formControlName="confirmmobile" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.confirmmobile.errors }"placeholder="confimer votre mobile"required>
+                                </div>
+                                <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
+                                    <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
                                 </div>
                             </div>
                         </div>
@@ -39,28 +56,47 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="inputEmail">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail" formControlName="email" placeholder="entrer votre email"required>
+                                    <input type="email" class="form-control" id="inputEmail" formControlName="email" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"placeholder="entrer votre email">
+                                </div>
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Email Obligatoire</div>
+                                    <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="inputConfirmEmail">Confirmer Email</label>
-                                    <input type="email" class="form-control" id="inputConfirmEmail" formControlName="confirmemail" placeholder="confimer votre email"required>
+                                    <input type="email" class="form-control" id="inputConfirmEmail" formControlName="confirmemail" 
+                                    [ngClass]="{ 'is-invalid': submitted && f.confirmemail.errors }"placeholder="confimer votre email">
                                 </div>
+                                <div *ngIf="submitted && f.confirmemail.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confirmemail.errors.required">Email Obligatoire</div>
+                                    <div *ngIf="f.confirmemail.errors.email">Adresse Email non valides</div>
+                                    <div *ngIf="f.confirmemail.errors.mustMatch">Les Emails  ne sont pas identiques</div>
+                                  </div>
                             </div>
                         </div>                
                         <div class="form-group">
                             <label for="inputAdresse">Adresse</label>
-                            <input type="text" class="form-control" id="inputAdresse" formControlName="adresse" placeholder="entrer votre adresse"required>
+                            <input type="text" class="form-control" id="inputAdresse" formControlName="adresse" 
+                            [ngClass]="{ 'is-invalid': submitted && f.adresse.errors }"placeholder="entrer votre adresse">
+                            <div *ngIf="submitted && f.adresse.errors" class="invalid-feedback">
+                                <div *ngIf="f.adresse.errors.required">Adresse Obligatoire</div>
+                            </div>
                         </div>
                         <div  class="form-group">
                             <label for="inputspecialite">Spécialité</label>
-                            <select  class="form-control" placeholder="Choisir Votre Spécialité" id="specialite" [(ngModel)]="optionValue"formControlName="specialite" name="specialite" >
+                            <select  class="form-control" placeholder="Choisir Votre Spécialité" id="specialite" [(ngModel)]="optionValue"
+                            [ngClass]="{ 'is-invalid': submitted && f.specialite.errors }"formControlName="specialite" name="specialite" >
                             <option hidden >Choisir Votre Spécialité</option>
                             <option value="Comptabilité">Comptabilité</option>
                             <option value="Fiscalité">Fiscalité</option>
                             <option value="Autre">Autre</option>
                           </select>
+                          <div *ngIf="submitted && f.specialite.errors" class="invalid-feedback">
+                            <div *ngIf="f.specialite.errors.required">Specialité Obligatoire</div>
+                        </div>
                           </div>
                         <div id="selectspecialite"*ngIf="optionValue == 'Autre'">
                         
@@ -68,17 +104,24 @@
                           </div>
                         <div class="form-group">
      <label for="inputCV">Attacher Votre CV</label>                   
-    <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+    <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" 
+    accept="application/pdf">
     <div class="image-preview" *ngIf="imagePreview">
       <img [src]="imagePreview" alt="">
     </div>
     <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+   
 </div>
                         <div class="form-group">
                             <label for="inputMessage">Exprimez vous</label>
-                            <textarea class="form-control" id="inputMessage" rows="10" formControlName="description" placeholder="Présentez vous brièvement"required></textarea>
+                            <textarea class="form-control" id="inputMessage" rows="10" formControlName="description" 
+                            [ngClass]="{ 'is-invalid': submitted && f.description.errors }"placeholder="Présentez vous brièvement"required></textarea>
+                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">Description Obligatoire</div>
+                            </div>
                         </div>
-                        <input type="submit" class="btn btn-primary" (click)="onSubmit()"value="Envoyer candidature">
+                        <input type="submit" class="btn btn-primary" value="Envoyer candidature">
+                        <input class="btn btn-secondary" type="reset" (click)="onReset()"value="Réinitialiser">
                         <p class="text-success" >{{successmessage}}</p>
                     </form>
                 </div>

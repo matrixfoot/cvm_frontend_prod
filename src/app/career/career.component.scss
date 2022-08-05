@@ -24,9 +24,21 @@ body {
 .contact-form .btn-primary:hover {
     background: #1c8cd7; 
 }
+.contact-form .btn-secondary {
+    min-width: 150px;
+    background: grey;
+    border: none;
+    color: white;
+}
+.contact-form .btn-primary:hover {
+    background: grey; 
+}
 .contact-form label {
     opacity: 0.9;
 }
+.invalid-feedback{
+    color: red;
+  }
 .contact-form textarea {
     resize: vertical;
 }

@@ -20,6 +20,7 @@ export class CareerComponent implements OnInit {
   fileUploaded = false;
   errorMessage: string;
   successmessage:string;
+  submitted = false;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private cond: CondidateService,
@@ -29,28 +30,34 @@ export class CareerComponent implements OnInit {
 
     
     this.condidateform = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       
-      firstname: [null, Validators.required],
-      confirmemail: [null, Validators.required],
-      mobile: [null, Validators.required],
-      confirmmobile: [null, Validators.required],
-      specialite: [null, Validators.required],
-      lastname: [null, Validators.required],
-      selectspecialite: [null],
-      adresse: [null,Validators.required],
+      firstname: ['', Validators.required],
+      confirmemail: ['', Validators.required],
+      mobile: ['', Validators.required],
+      confirmmobile: ['', Validators.required],
+      specialite: ['', Validators.required],
+      lastname: ['', Validators.required],
+      selectspecialite: [''],
+      adresse: ['',Validators.required],
       
-      description: [null, Validators.required],
-      image: [null, Validators.required, mimeType]
+      description: ['', Validators.required],
+      image: ['', Validators.required, mimeType]
       
     },
     {
       validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
     });
   }
+  get f() { return this.condidateform.controls; }
 
   onSubmit() {
     this.loading = true;
+    this.submitted = true;
+    if (this.condidateform.invalid) {
+      
+     return this.loading = false;
+  }
     const condidate = new Condidate();
   condidate.email = this.condidateform.get('email').value;
     
@@ -95,4 +102,8 @@ export class CareerComponent implements OnInit {
     reader.readAsDataURL(file);
     
   }
+  onReset() {
+    this.submitted = false;
+    this.condidateform.reset();
+}
 }

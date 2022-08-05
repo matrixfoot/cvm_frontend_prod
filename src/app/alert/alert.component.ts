@@ -39,7 +39,7 @@ export class AlertComponent implements OnInit, OnDestroy {
 
               // auto close alert if required
               if (alert.autoClose) {
-                  setTimeout(() => this.removeAlert(alert), 3000);
+                  setTimeout(() => this.removeAlert(alert), 20000);
               }
          });
 
@@ -68,7 +68,7 @@ export class AlertComponent implements OnInit, OnDestroy {
           // remove alert after faded out
           setTimeout(() => {
               this.alerts = this.alerts.filter(x => x !== alert);
-          }, 250);
+          }, 2000);
       } else {
           // remove alert
           this.alerts = this.alerts.filter(x => x !== alert);

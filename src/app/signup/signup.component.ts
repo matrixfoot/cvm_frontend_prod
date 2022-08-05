@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
     this.submitted = true;
     if (this.signupForm.invalid) {
       
-      this.loading = false;
+      return this.loading = false;
   }
     const email = this.signupForm.get('email').value;
     

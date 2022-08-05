@@ -90,37 +90,44 @@
       <div *ngIf="f.clientcode.errors.required">Code Client Obligatoire</div>
   </div>
     <div class="mobile-container">
+      <div class="error-container">
       <div class="input-container">
         <i class="fa fa-phone icon"></i>
         <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" 
-        [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"formControlName="mobile" required>
+        [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"formControlName="mobile">
        
       </div>
       <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
         <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
     </div>
+  </div>
+  <div class="error-container">
       <div class="input-container">
         <i class="fa fa-phone icon"></i>
         <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" 
-        [ngClass]="{ 'is-invalid': submitted && f.confirmmobile.errors }"formControlName="confirmmobile" required>
+        [ngClass]="{ 'is-invalid': submitted && f.confirmmobile.errors }"formControlName="confirmmobile">
         
       </div>
       <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
         <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
         <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
     </div>
+  </div>
     </div>
 <div class="email-container">
+  <div class="error-container">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
       <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" 
-      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"formControlName="email" required>
+      [ngClass]="{ 'is-invalid': submitted && f.email.errors }"formControlName="email">
       
     </div>
     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
       <div *ngIf="f.email.errors.required">Email Obligatoire</div>
       <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
   </div>
+</div>
+<div class="error-container">
     <div class="input-container">
       <i class="fa fa-envelope icon"></i>
       <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" 
@@ -133,7 +140,9 @@
       <div *ngIf="f.confirmemail.errors.mustMatch">Les Emails  ne sont pas identiques</div>
     </div>
   </div>
+  </div>
   <div class="password-container">
+    <div class="error-container">
     <div class="input-container">
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Entrez Votre Mot De Passe" id="password" 
@@ -144,6 +153,8 @@
       <div *ngIf="f.password.errors.required">Mot de passe Obligatoire</div>
       
   </div>
+</div>
+<div class="error-container">
     <div class="input-container">
       <i class="fa fa-key icon"></i>
       <input class="input-field" type="password" placeholder="Confirmez Votre Mot De Passe" id="confirmpassword" 
@@ -154,6 +165,7 @@
       <div *ngIf="f.confirmpassword.errors.required">Mot de passe Obligatoire</div>
       <div *ngIf="f.confirmpassword.errors.mustMatch">Les Mot de passe  ne sont pas identiques</div>
     </div>
+  </div>
   </div>
     <button class="btn btn-success">Inscription</button>
     <button class="btn btn-secondary" type="reset" (click)="onReset()">Annuler</button>
