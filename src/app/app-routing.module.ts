@@ -90,8 +90,11 @@ const routes: Routes = [
 { path: 'coming-soon', component: ComingSoonPageComponent,
     
 },
+{
+path:'',redirectTo:'home', pathMatch: 'full'
+},
 
-{ path: '', redirectTo: 'coming-soon', pathMatch: 'full' },
+{ path: '**', redirectTo: 'coming-soon' },
 {
   path: '', component: HomeComponent,
   children: [

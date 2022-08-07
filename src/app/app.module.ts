@@ -40,6 +40,7 @@ import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.co
 import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
 import { AlertComponent } from './alert/alert.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { DueDateTimelineComponent } from './due-date-timeline/due-date-timeline.component';
 
 
 @NgModule({
@@ -76,6 +77,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     DeclareFiscalityComponent,
     AlertComponent,
     SearchBarComponent,
+    DueDateTimelineComponent,
     
     
   ],
