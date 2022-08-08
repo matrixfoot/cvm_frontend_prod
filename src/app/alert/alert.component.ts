@@ -68,7 +68,7 @@ export class AlertComponent implements OnInit, OnDestroy {
           // remove alert after faded out
           setTimeout(() => {
               this.alerts = this.alerts.filter(x => x !== alert);
-          }, 2000);
+          }, 250);
       } else {
           // remove alert
           this.alerts = this.alerts.filter(x => x !== alert);
