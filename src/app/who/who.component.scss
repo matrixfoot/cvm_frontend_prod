@@ -1,8 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    width: fit-content;
+
+  }
+  .container-fluid{
+      height: 100%;
+      margin: 0;
+      padding: 0;
+  }
 .team-section {
     font-family: arial;
     text-align: center;
     padding: 70px 0px;
     background-color: #d0d5da;
+    height: 100%;
+    margin: 0;
 }
 
 .team-section h2 {

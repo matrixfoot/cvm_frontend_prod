@@ -96,7 +96,7 @@ const routes: Routes = [
 path:'',redirectTo:'home', pathMatch: 'full'
 },
 
-{ path: '**', redirectTo: 'coming-soon' },
+{ path: '*', redirectTo: 'coming-soon' },
 
 ]
 
