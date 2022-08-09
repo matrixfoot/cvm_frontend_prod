@@ -1,12 +1,23 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  width: 150px;
+}
 .actualitycarousel {
   background-color:lightgrey;
    margin: 0;
-   padding: 0;
+   padding: 800px 0;
    font-size: 25px;
-   
-   
+   height: 100%;
+  float: left;
+   max-width: 100%;
  
  }
+ #myCarousel{
+  transform: rotate(-90deg);
+  
+ }
+ 
 .carousel-control.right, .carousel-control.left {
   background-image: none;
   color: #f4511e;
@@ -23,6 +34,7 @@
    font-weight: 400;
    font-style: italic;
    margin: 70px 0;
+   text-align: center;
  }
  .item span {
    font-style: normal;
