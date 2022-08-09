@@ -133,11 +133,11 @@ export class ModifyUserComponent implements OnInit {
       () => {
         this.userForm.reset();
         this.loading = false;
-        this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil');
+        this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
         this.tokenStorage.signOut();
+        this.reloadPage();
         
-       
         
       },
       (error) => {
@@ -149,9 +149,9 @@ export class ModifyUserComponent implements OnInit {
       }
     );
   }
-  reloadPage=async() => {
+  reloadPage (){
+    setTimeout(() => window.location.reload(), 3000);
     
-    window.location.reload();
     
   }
   myFunction6() {

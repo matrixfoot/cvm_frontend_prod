@@ -1,25 +1,40 @@
 
        
-            <div class="container"*ngIf="usertype=='Client'">
+           
 
-                <div id="myCarousel" class="carousel slide vertical">
-                  <!-- Carousel items -->
-                  <div class="carousel-inner">
-                    <div class="active item">
-                      <h2>first due date</h2>
-                    </div>
-                    <div class="item">
-                      <h2>second due date</h2>
-                    </div>
-                    <div class="item">
-                      <h2>third due date</h2>
-                    </div>
-                  </div>
-                  
-                  <!-- Carousel nav -->
-                  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                  <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                  
-                </div>
+              <div class="actualitycarousel"*ngIf="usertype=='Client'">  
                 
+            <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+            
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <h4>"Echéance 1"<br><span>Autre commentaire</span></h4>
+                  </div>
+                  <div class="item">
+                    <h4>"Echéance 2"<br><span>Autre commentaire</span></h4>
+                  </div>
+                  <div class="item">
+                    <h4>"Echéance 3"<br><span>Autre commentaire</span></h4>
+                  </div>
+                </div>
+            
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Précédent</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Suivant</span>
+                </a>
               </div>
+            </div>
+                
+             

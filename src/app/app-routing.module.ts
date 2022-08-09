@@ -66,9 +66,11 @@ const routes: Routes = [
 { path: 'supervisor-board', component: SupervisorBoardComponent,
     
 },
-{ path: 'home', component: HomeComponent,
+
+  {path: 'home/contact', component :ContactComponent},
+  {path: 'home', component :HomeComponent},
     
-},
+
 { path: 'signup', component: SignupComponent,
     
 },
@@ -95,12 +97,7 @@ path:'',redirectTo:'home', pathMatch: 'full'
 },
 
 { path: '**', redirectTo: 'coming-soon' },
-{
-  path: '', component: HomeComponent,
-  children: [
-    {path: 'home/contact', component :ContactComponent},
-  ]
-}
+
 ]
 
 @NgModule({
