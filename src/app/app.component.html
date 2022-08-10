@@ -1,7 +1,8 @@
 <app-alert></app-alert>
 <app-header></app-header>
-<div class="left">
-<app-due-date-timeline ></app-due-date-timeline>
+<div class="left"*ngIf="usertype=='Client'">
+<app-due-date-timeline></app-due-date-timeline>
 <router-outlet></router-outlet>
 </div>
+<router-outlet *ngIf="usertype!=='Client'||!usertype"></router-outlet>
 <app-footer></app-footer>

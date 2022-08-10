@@ -92,11 +92,10 @@ const routes: Routes = [
 { path: 'coming-soon', component: ComingSoonPageComponent,
     
 },
-{
-path:'',redirectTo:'home', pathMatch: 'full'
-},
-
-{ path: '*', redirectTo: 'coming-soon' },
+{ path: '', pathMatch: 'full', redirectTo: 'home' },
+  
+  { path: '**', redirectTo: '/coming-soon' },
+  
 
 ]
 

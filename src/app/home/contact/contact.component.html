@@ -3,34 +3,38 @@
 
 <section id="contact">
   <div class="section-content">
-    <h1 class="section-header">Get in <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Touch with us</span></h1>
-    <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry</h3>
+    <h1 class="section-header"> <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Contatctez Nous</span></h1>
+    <h3>Nous vous garantissons l’excellence, la compétence et l’écoute engagée d’un partenaire</h3>
   </div>
   <div class="contact-section" style="text-align: center;">
   <div class="container">
     <form style="text-align: center;">
       <div class="col-md-6 form-line">
           <div class="form-group">
-            <label for="exampleInputUsername">Your name</label>
-            <input type="text" class="form-control" id="" placeholder=" Enter Name">
+            <label for="lastname">Nom</label>
+            <input type="text" class="form-control" formControlName="lastname" id="lastname" placeholder=" Entrez Votre Nom">
+          </div>
+          <div class="form-group">
+            <label for="firstname">Prenom</label>
+            <input type="text" class="form-control" formControlName="firstname" id="firstname" placeholder=" Entrez Votre Prenom">
           </div>
 <div class="form-group">
-            <label for="exampleInputEmail">Email Address</label>
-            <input type="email" class="form-control" id="exampleInputEmail" placeholder=" Enter Email id">
+            <label for="email">Adresse Email</label>
+            <input type="email" class="form-control" formControlName="email"id="email" placeholder=" Entrez Votre Email">
           </div>	
           <div class="form-group">
-            <label for="telephone">Mobile No.</label>
-            <input type="tel" class="form-control" id="telephone" placeholder=" Enter 10-digit mobile no.">
+            <label for="mobile">Numéro Mobile</label>
+            <input type="tel" class="form-control" id="mobile" formControlName="mobile"placeholder=" Entrez Votre Numéro Mobile">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for ="description"> Message</label>
-             <textarea  class="form-control" id="description" placeholder="Enter Your Message"></textarea>
+            <label for ="description"> Description</label>
+             <textarea  class="form-control" id="description" formControlName="description"placeholder="Rédiger Votre Message"></textarea>
           </div>
           <div>
 
-            <button type="button" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>  Send Message</button>
+            <button type="button" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>  Envoyer Message</button>
           </div>
           
       </div>

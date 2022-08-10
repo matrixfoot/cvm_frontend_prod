@@ -12,27 +12,27 @@
         </div>
         <ul class="nav navbar-nav">
           
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Documentation <span class="caret"></span></a>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" routerLink="Documentation">Documentation <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">comptables</a></li>
-              <li><a href="#">juridiques</a></li>
-              <li><a href="#">fiscales</a></li>
-              <li><a href="#">sociales</a></li>
-              <li><a href="#">autres</a></li>
+              <li><a routerLink="Documentation">comptables</a></li>
+              <li><a routerLink="Documentation">juridiques</a></li>
+              <li><a routerLink="Documentation">fiscales</a></li>
+              <li><a routerLink="Documentation">sociales</a></li>
+              <li><a routerLink="Documentation">autres</a></li>
             </ul>
           </li>
           
           <li title=" (veuillez vous inscrire/se connecter)"><a  routerLink="login"*ngIf="!isLoggedIn"routerLinkActive="active">Qui sommes-nous?</a></li>
           <li><a  routerLink="who" *ngIf="isLoggedIn" routerLinkActive="active">Qui sommes-nous?</a></li>
-          <li><a *ngIf="isLoggedIn" href="#clientspace">Espace clients</a></li>
+          <li><a *ngIf="isLoggedIn" routerLink="Documentation">Espace clients</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn" href="#clientspace">Espace clients</a></li>
           <li><a routerLink="why" *ngIf="isLoggedIn" routerLinkActive="active">Pourquoi MAcompta?</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn"  routerLinkActive="active">Pourquoi MAcompta?</a></li>
-          <li><a routerLink="/home/contact" fragment="contactid" target=”_blank” routerLinkActive="active">Contact</a></li>
-          <li><a routerLink="" *ngIf="isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
+          <li><a routerLink="/home/contact"  target=”_blank” routerLinkActive="active">Contact</a></li>
+          <li><a routerLink="Documentation" *ngIf="isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
           <li title=" (Cliquer pour intégrer l'équipe MaCompta)"><a routerLink="career"  routerLinkActive="active">Carrière</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Tableau de bord <span class="caret"></span></a>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"routerLink="Documentation">Tableau de bord <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Administrateur</a></li>
               <li><a routerLink="supervisor-board" *ngIf="role=='supervisor'"routerLinkActive="active">Superviseur</a></li>

@@ -48,10 +48,14 @@ this.lastname= user.Lastname;
 
   logout(): void {
     this.Auth.signOut();
-    window.location.reload();
+    this.reloadPage();
     
   }
-  
+  reloadPage (){
+    setTimeout(() => window.location.reload(), 3000);
+    
+    
+  }
   
 
  
