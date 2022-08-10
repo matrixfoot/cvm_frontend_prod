@@ -6,6 +6,7 @@
 
 
   <body>
+    <div class="container">
     <div id="loader" *ngIf="loading"></div>
     <div class="container" *ngIf="!loading && !isLoggedIn">
       
@@ -62,4 +63,5 @@
   <div class="alert alert-success" *ngIf="isLoggedIn" routerLink="forgot-password">
   Bienvenue {{civilite}} {{ firstname}} {{ lastname}}
   </div>
+</div>
     </body>
