@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
         this.firstname=this.tokenStorage.getUser().Firstname;
         this.lastname=this.tokenStorage.getUser().Lastname;
         this.civilite=this.tokenStorage.getUser().civilite;
+        this.router.navigate(['profil'])
         this.reloadPage();
         
  
@@ -78,7 +79,7 @@ export class LoginComponent implements OnInit {
   }
   reloadPage(): void {
     
-    window.location.reload();
+    setTimeout(() => window.location.reload(), 1000);
     
   }
 }

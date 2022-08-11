@@ -39,8 +39,8 @@ export class DeclareFiscalityComponent implements OnInit {
   }
     myFunction6() {
       var checkbox:any = document.getElementById("myCheck6");
-      var text2 = document.getElementById("myCheck5");
-      var text3 = document.getElementById("myCheck7");
+      var text2 = document.getElementById("Check5");
+      var text3 = document.getElementById("Check7");
       if (checkbox.checked == true){
         text3.style.display = "none";
         text2.style.display = "none";
@@ -51,8 +51,8 @@ export class DeclareFiscalityComponent implements OnInit {
     }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
-      var text2 = document.getElementById("myCheck5");
-      var text3 = document.getElementById("myCheck6");
+      var text2 = document.getElementById("Check5");
+      var text3 = document.getElementById("Check6");
       if (checkbox.checked == true){
         text2.style.display = "none";
         text3.style.display = "none";
@@ -63,8 +63,8 @@ export class DeclareFiscalityComponent implements OnInit {
     }
     myFunction5() {
       var checkbox:any = document.getElementById("myCheck5");
-      var text2 = document.getElementById("myCheck7");
-      var text3 = document.getElementById("myCheck6");
+      var text2 = document.getElementById("Check7");
+      var text3 = document.getElementById("Check6");
       if (checkbox.checked == true){
         text2.style.display = "none";
         text3.style.display = "none";
