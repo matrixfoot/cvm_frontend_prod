@@ -1,20 +1,22 @@
 html, body {
   height: 100%;
   margin: 0;
-  width: 150px;
+  width: 190px;
 }
 .actualitycarousel {
   background-color:lightgrey;
-   margin: 0;
+   height: 100%;
    
    font-size: 25px;
-   height: 100%;
-  float: left;
-   max-width: 100%;
+   
  
  }
  #myCarousel{
   transform: rotate(-90deg);
+  transform-origin: 800px 800px;
+  width:1600px;
+  position: absolute;
+  
   
  }
  
@@ -28,6 +30,7 @@ html, body {
  .carousel-indicators li.active {
    background-color: #f4511e;
  }
+ 
  .item h4 {
    font-size: 19px;
    line-height: 1.375em;
@@ -35,7 +38,9 @@ html, body {
    font-style: italic;
    margin: 70px 0;
    text-align: center;
+   
  }
  .item span {
    font-style: normal;
+   
  }
