@@ -13,9 +13,10 @@ html, body {
  }
  #myCarousel{
   transform: rotate(-90deg);
-  transform-origin: 800px 800px;
-  width:1600px;
+  transform-origin: 450px 450px;
+  width:900px;
   position: absolute;
+  
   
   
  }
@@ -40,6 +41,7 @@ html, body {
    text-align: center;
    
  }
+
  .item span {
    font-style: normal;
    
