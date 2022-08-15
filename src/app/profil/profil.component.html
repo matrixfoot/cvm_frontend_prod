@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <img src="../../assets/img_avatar.png" *ngIf="currentUser.civilite=='Monsieur'" else alt="Avatar" style="width:10% ;height:10%">
       <img src="../../assets/img_avatar2.png" *ngIf="currentUser.civilite!='Monsieur'" alt="Avatar" style="width:10% ;height:10%">
-      <div class="container">
+      <div class="container-fluid">
         <h4 >Utilisateur connecté:</h4><hr><h4>{{ currentUser.civilite }} <b>  {{ currentUser.Firstname }} {{ currentUser.Lastname }}</b></h4> 
         <h4>Crée le(heure GMT):<b>  {{ currentUser.created }}</b></h4>
         <h4>Dernière modificationle(heure GMT):<b>  {{ currentUser.updated }}</b></h4>
