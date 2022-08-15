@@ -1,5 +1,23 @@
 .left{
     display: flex;
-    height: 100%;
-    width: 100%;
+    
+    
 }
+.side {
+    flex: 10%;
+    background-color: lightgray;
+    
+  }
+  
+  /* Main column */
+  .main {
+    flex: 90%;
+    
+    padding: 20px;
+  }
+  @media screen and (max-width: 700px) {
+    .left {   
+      flex-direction: column;
+    }
+  }
+  
