@@ -6,12 +6,7 @@ h4{
   color: red;
 }
 
-.bodycontainer{
-  height: 100%;
-  width: 100%;
-  background-color: white;
-  margin-bottom: 30px;
-}
+
 .mobile-container{
   display: inline-flex;
   width: 100%;
@@ -24,9 +19,8 @@ h4{
   display: inline-flex;
   width: 100%;
 }
-div.container{
-    margin-top: 10%;
-      width: 50%;
+div.container-fluid{
+    
       background-color: rgba(187, 202, 202, 0.774);
       padding: 30px;
     }

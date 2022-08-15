@@ -1,11 +1,7 @@
 h2{
     text-align: center;
 }
-.bodycontainer{
-  height: 1000px;
-  width: 100%;
-  background-color: white;
-}
+
 .error-container{
   display: inline-flex;
   width: 100%;
@@ -22,9 +18,9 @@ h2{
   display: inline-flex;
   width: 100%;
 }
-div.container{
-    margin-top: 10%;
-      width: 50%;
+div.container-fluid{
+    
+      
       background-color: rgba(187, 202, 202, 0.774);
       padding: 30px;
     }
