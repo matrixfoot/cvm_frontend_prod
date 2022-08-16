@@ -56,6 +56,9 @@ textarea.form-control {
     height: 135px;
    /* margin-top: px;*/
 }
+.invalid-feedback{
+  color: red;
+}
 
 .submit{
   font-size: 1.1em;
@@ -67,4 +70,12 @@ textarea.form-control {
 }
 .btn{
   width: fit-content;
+}
+.btn-secondary {
+  font-size: 1.1em;
+  float: right;
+  
+  width: 150px;
+  background-color: transparent;
+  color: #fff;
 }
