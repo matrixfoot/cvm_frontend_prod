@@ -1,0 +1,141 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Subject, Observable } from 'rxjs';
+
+import { Contact } from '../models/contact.model';
+const API_URL_test = 'http://localhost:3000/api/contactreqs/';
+const API_URL_cloud= 'https://cvm-backend.herokuapp.com/api/contactreqs/'
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+@Injectable({ providedIn: 'root' })
+export class ContactService {
+    
+    
+    constructor(private http: HttpClient) { }
+    private contactreqs: Contact[] = [
+    
+    ];
+    public contactreqs$ = new Subject<Contact[]>();
+ 
+
+    getContactreqs() {
+        this.http.get(API_URL_cloud).subscribe(
+          (contactreqs: Contact[]) => {
+            if (contactreqs) {
+              this.contactreqs = contactreqs;
+              this.emitContactreqs();
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    
+      emitContactreqs() {
+        this.contactreqs$.next(this.contactreqs);
+      }
+      getContactreqById(id: string) {
+        return new Promise((resolve, reject) => {
+          
+
+          this.http.get(API_URL_cloud + id).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error); 
+            }
+          );
+        });
+      }
+      getContactreqssup(date: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'filtercontactreqsup' ,{date}).subscribe(
+            (contactreqs: Contact[]) => {
+              if (contactreqs) {
+                this.contactreqs = contactreqs;
+                this.emitContactreqs();
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+      }
+      getContactreqsinf(date: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'filtercontactreqinf' ,{date}).subscribe(
+            (contactreqs: Contact[]) => {
+              if (contactreqs) {
+                this.contactreqs = contactreqs;
+                this.emitContactreqs();
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+      }
+      
+    
+      create(contactreq: Contact, image: File) {
+        return new Promise((resolve, reject) => {
+          const contactreqData = new FormData();
+          contactreqData.append('contactreq', JSON.stringify(contactreq));
+          contactreqData.append('image', image, contactreq.firstname);
+          this.http.post(API_URL_cloud+'createcontactreq', contactreqData).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+    
+     
+    
+      modify(id: string, contactreq: Contact, image: File | string) {
+        return new Promise((resolve, reject) => {
+          let contactreqData: Contact | FormData;
+          if (typeof image === 'string') {
+            contactreq.ficheUrl = image;
+            contactreqData = contactreq;
+          } else {
+            contactreqData = new FormData();
+            contactreqData.append('contactreq', JSON.stringify(contactreq));
+            contactreqData.append('image', image, contactreq.email);
+          }
+          this.http.put(API_URL_cloud + id, contactreqData).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+      modifycontactreqById(id: string, contactreq: Contact) {
+        return new Promise((resolve, reject) => {
+          
+            
+          
+          this.http.put(API_URL_cloud+ id, contactreq).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+    
+      
+    }
