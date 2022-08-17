@@ -47,7 +47,7 @@ export class ContactComponent implements OnInit {
       
       
       description: ['', Validators.required],
-      image: ['', Validators.required, mimeType]
+      image: [null],
       
    
     });
@@ -59,7 +59,7 @@ export class ContactComponent implements OnInit {
     this.submitted = true;
     if (this.contactform.invalid) {
       
-     return (this.loading = false,console.log('i amhere'));
+     return (this.loading = false);
   }
     const contact = new Contact();
     contact.email = this.contactform.get('email').value;
@@ -72,7 +72,22 @@ export class ContactComponent implements OnInit {
     contact.description = this.contactform.get('description').value;
    
     contact.ficheUrl = '';
-    
+    if (this.contactform.get('image').value==null) {
+      
+      return ( this.cont.createwithoutimage(contact).then(
+        (data:any) => {
+          this.contactform.reset();
+          this.loading = false;
+          this.alertService.success('Votre requête a été envoyé avec succès!');
+          window.scrollTo(0, 0);
+        },
+        (error) => {
+          this.loading = false;
+          this.alertService.error(error.error.error);
+          window.scrollTo(0, 0);
+        }
+      ));
+   }
     this.cont.create(contact, this.contactform.get('image').value).then(
       (data:any) => {
         this.contactform.reset();

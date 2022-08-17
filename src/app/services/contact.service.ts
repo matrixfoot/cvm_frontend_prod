@@ -87,7 +87,20 @@ export class ContactService {
           const contactData = new FormData();
           contactData.append('contact', JSON.stringify(contact));
           contactData.append('image', image, contact.firstname);
-          this.http.post(API_URL_test+'createcontactreq', contactData).subscribe(
+          this.http.post(API_URL_cloud+'createcontactreq', contactData).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+      createwithoutimage(contact: Contact) {
+        return new Promise((resolve, reject) => {
+          
+          this.http.post(API_URL_cloud+'createcontactreqwithoutimage', contact).subscribe(
             (response) => {
               resolve(response);
             },
