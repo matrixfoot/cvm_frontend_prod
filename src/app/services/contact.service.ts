@@ -82,12 +82,12 @@ export class ContactService {
       }
       
     
-      create(contactreq: Contact, image: File) {
+      create(contact: Contact, image: File) {
         return new Promise((resolve, reject) => {
-          const contactreqData = new FormData();
-          contactreqData.append('contactreq', JSON.stringify(contactreq));
-          contactreqData.append('image', image, contactreq.firstname);
-          this.http.post(API_URL_cloud+'createcontactreq', contactreqData).subscribe(
+          const contactData = new FormData();
+          contactData.append('contact', JSON.stringify(contact));
+          contactData.append('image', image, contact.firstname);
+          this.http.post(API_URL_test+'createcontactreq', contactData).subscribe(
             (response) => {
               resolve(response);
             },

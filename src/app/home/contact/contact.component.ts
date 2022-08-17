@@ -47,7 +47,7 @@ export class ContactComponent implements OnInit {
       
       
       description: ['', Validators.required],
-      image: ['', mimeType]
+      image: ['', Validators.required, mimeType]
       
    
     });
@@ -59,21 +59,21 @@ export class ContactComponent implements OnInit {
     this.submitted = true;
     if (this.contactform.invalid) {
       
-     return this.loading = false;
+     return (this.loading = false,console.log('i amhere'));
   }
-    const contactreq = new Contact();
-    contactreq.email = this.contactform.get('email').value;
+    const contact = new Contact();
+    contact.email = this.contactform.get('email').value;
     
-    contactreq.mobile = this.contactform.get('mobile').value;
+    contact.mobile = this.contactform.get('mobile').value;
     
-    contactreq.firstname = this.contactform.get('firstname').value;
-    contactreq.lastname = this.contactform.get('lastname').value;
+    contact.firstname = this.contactform.get('firstname').value;
+    contact.lastname = this.contactform.get('lastname').value;
   
-    contactreq.description = this.contactform.get('description').value;
+    contact.description = this.contactform.get('description').value;
    
-    contactreq.ficheUrl = '';
+    contact.ficheUrl = '';
     
-    this.cont.create(contactreq, this.contactform.get('image').value).then(
+    this.cont.create(contact, this.contactform.get('image').value).then(
       (data:any) => {
         this.contactform.reset();
         this.loading = false;
