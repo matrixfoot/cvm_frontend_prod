@@ -40,7 +40,7 @@
         </div>
           </form> 
         </div>     
-      <div class="users-grid"  style="overflow-x:auto;">
+      <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
 
         
         
@@ -95,7 +95,7 @@
       <h2>Liste des Collaborateurs</h2>
       <hr>
             
-      <div class="users-grid" style="overflow-x:auto;">
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
 
         
         
@@ -149,7 +149,7 @@
       <h2>Liste des Candidats</h2>
       <hr>
               
-      <div class="users-grid" style="overflow-x:auto;">
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
 
         
         
@@ -203,7 +203,7 @@
       <h2>Liste des Candidatures</h2>
       <hr>
               
-      <div class="users-grid" style="overflow-x:auto;">
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
         <form [formGroup]="searchForm">
        
           <div class="searchbar">
@@ -255,6 +255,79 @@
             
             
             <td>  <button type="button" class="btn btn-success" (click)="getNavigationcondidates('view-condidate',condidate._id)">Consulter</button></td>
+            
+          
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+      <h2>Liste des Réclamations</h2>
+      <hr>
+              
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
+        <form [formGroup]="searchForm">
+       
+          <div class="searchbar">
+            
+            <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inférieur à:">
+           <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+        <div class="searchbar">
+            
+          <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="supérieur à:">
+         <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+        
+      </div>
+        <div class="searchbar" style="float: right;">
+            
+          <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout">
+         <a class="search_icon"(click)="getcontactsall()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+        
+      </div>
+            
+            </form> 
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th>Email</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Fichier Joint</th>
+            <th>Mobile</th>
+            <th>Description</th>
+            <th>Statut</th>
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let contact of contacts">
+      
+            
+            <td>{{contact.email}}</td>
+            <td>{{contact.firstname}}</td>
+            
+      
+            <td>{{contact.lastname}}</td>
+            <td><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fichier</a></td>
+            <td>{{contact.mobile}}</td>
+            <td>{{contact.description}}</td>
+            <td>{{contact.statut}}</td>
+            
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontactreqbyid('view-contactreq',contact._id)">Consulter</button></td>
             
           
           </tr>

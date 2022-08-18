@@ -41,6 +41,7 @@ import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality
 import { AlertComponent } from './alert/alert.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { DueDateTimelineComponent } from './due-date-timeline/due-date-timeline.component';
+import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { DueDateTimelineComponent } from './due-date-timeline/due-date-timeline.
     AlertComponent,
     SearchBarComponent,
     DueDateTimelineComponent,
+    ViewContactreqComponent,
     
     
   ],

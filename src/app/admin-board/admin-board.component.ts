@@ -6,7 +6,9 @@ import { Subscription } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { Condidate } from '../models/condidate.model';
+import { Contact } from '../models/contact.model';
 import { CondidateService } from '../services/condidate.service';
+import { ContactService } from '../services/contact.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-admin-board',
@@ -18,7 +20,9 @@ export class AdminBoardComponent implements OnInit {
   public loading: boolean;
   public users: User[] = [];
   public condidates: Condidate[] = [];
+  public contacts: Contact[] = [];
   private condidatesSub: Subscription;
+  private contactsSub: Subscription;
   private usersSub: Subscription;
   errormsg:string;
   firstname:string;
@@ -29,6 +33,7 @@ export class AdminBoardComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
+              private cont:ContactService,
               private router: Router) { }
               ngOnInit() {
                 this.searchForm = this.formBuilder.group({
@@ -39,7 +44,19 @@ export class AdminBoardComponent implements OnInit {
                   
                 
                 })
-               
+                this.contactsSub = this.cont.contactreqs$.subscribe(
+                  (contacts) => {
+                    this.contacts = contacts;
+                    
+                    this.loading = false;
+                  },
+                  (error) => {
+                    this.loading = false;
+                    
+                    this.errormsg = error.message;
+                  }
+                );
+
                 this.condidatesSub = this.cond.condidates$.subscribe(
                   (condidates) => {
                     this.condidates = condidates;
@@ -81,6 +98,11 @@ export class AdminBoardComponent implements OnInit {
                 this.cond.getCondidateById(id);
                 this.router.navigate([link + '/' + id]); 
               }
+              getNavigationcontacts(link, id){
+      
+                this.cont.getContactreqById(id);
+                this.router.navigate([link + '/' + id]); 
+              }
               getclients() {
                 return this.users.filter((user) => user.usertype === 'Client'); 
               }
@@ -91,7 +113,7 @@ export class AdminBoardComponent implements OnInit {
                 return this.users.filter((user) => user.usertype === 'Candidat');
               }
               getusersbyfirstname() {
-this.firstname=this.searchForm.get('firstname').value;
+                this.firstname=this.searchForm.get('firstname').value;
                 this.UserService.getuserbyfirstname(this.firstname)
                  
               }
@@ -99,35 +121,56 @@ this.firstname=this.searchForm.get('firstname').value;
                 this.lastname=this.searchForm.get('lastname').value;
                                 this.UserService.getuserbylastname(this.lastname)
                                  
-                              }
-                              getusersbyemail() {
+              }
+              getusersbyemail() {
                                 
-                                this.email=this.searchForm.get('email').value;
-                                                this.UserService.getuserbyemail(this.email);
+                this.email=this.searchForm.get('email').value;
+                this.UserService.getuserbyemail(this.email);
                                                
                                                  
-                                              }
-                                              getall() {
+              }
+              getall() {
                                 
                                                 
-                                                                this.UserService.getAll();
+                this.UserService.getAll();
                                                                
                                                                  
-                                                              }                        
+             }                        
            
-                getcondidatesbyemail() {
+              getcondidatesbyemail() {
                                                                                 
-                                                                                this.email=this.searchForm.get('email').value;
-                                                                                                this.cond.getCondidate(this.email);
+                this.email=this.searchForm.get('email').value;
+                this.cond.getCondidate(this.email);
                                                                                                 
                                                                                                  
-                                                                                              }
-                                              getcondidatesall() {
+             }
+              getcondidatesall() {
                                                                                 
                                                           
-                                                                  this.cond.getCondidates();
+                this.cond.getCondidates();
                                                                                                                 
                                                                                                                  
-                                                                                                              }
+             }
+            getcontactreqsbydateinf() {
+                                                                                
+              
+              this.cont.getContactreqsinf(this.searchForm.get('date').value);
+                                                                                              
+                                                                                               
+           }
+           getcontactreqsbydatesup() {
+                                                                                
+            
+            this.cont.getContactreqssup(this.searchForm.get('email').value);
+                                                                                            
+                                                                                             
+         }
+          getcontactsall() {
+                                                                              
+                                                        
+              this.cont.getContactreqs();
+                                                                                                              
+                                                                                                               
+           }
 }
   
