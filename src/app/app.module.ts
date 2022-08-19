@@ -42,6 +42,7 @@ import { AlertComponent } from './alert/alert.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { DueDateTimelineComponent } from './due-date-timeline/due-date-timeline.component';
 import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
+import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { ViewContactreqComponent } from './view-contactreq/view-contactreq.compo
     SearchBarComponent,
     DueDateTimelineComponent,
     ViewContactreqComponent,
+    ModifyContactreqComponent,
     
     
   ],

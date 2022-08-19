@@ -1,1 +1,25 @@
-<p>view-contactreq works!</p>
+
+
+  <body>
+
+    <h2>Informations générales</h2>
+    
+    <div class="card">
+      
+      <div class="container-fluid">
+        <h4 >Données Réclamation:</h4><hr>
+        <h4>Crée le(heure GMT):<b>  {{ contact.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ contact.updated }}</b></h4>
+        <h4>Nom et Prénom:<b>  {{ contact.firstname }} {{ contact.lastname }}</b></h4> 
+        <h4>Mobile:<b>  {{ contact.mobile }}</b></h4>
+        <h4>Fichier Joint:<b><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fiche</a></b></h4>
+        <h4>Statut:<b>  {{ contact.statut }}</b></h4>
+        <h4>Description:<b>  {{ contact.description }}</b></h4>
+      </div>
+      
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Admin)</button>
+      
+
+    </div>
+    
+    </body>

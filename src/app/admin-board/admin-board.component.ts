@@ -28,6 +28,7 @@ export class AdminBoardComponent implements OnInit {
   firstname:string;
   lastname:string;
   email:string;
+  date:Date;
   
 
   constructor(private formBuilder: FormBuilder,
@@ -41,7 +42,7 @@ export class AdminBoardComponent implements OnInit {
                   lastname: [null,],
                   firstname: [null,],
                   email: [null,],
-                  
+                  date: [null,],
                 
                 })
                 this.contactsSub = this.cont.contactreqs$.subscribe(
@@ -161,7 +162,7 @@ export class AdminBoardComponent implements OnInit {
            getcontactreqsbydatesup() {
                                                                                 
             
-            this.cont.getContactreqssup(this.searchForm.get('email').value);
+            this.cont.getContactreqssup(this.searchForm.get('date').value);
                                                                                             
                                                                                              
          }

@@ -27,6 +27,8 @@ import { CareerComponent } from './career/career.component';
 import { ViewCondidateComponent } from './view-condidate/view-condidate.component';
 import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.component';
 import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
+import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
+import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 
 const routes: Routes = [
   
@@ -47,11 +49,15 @@ const routes: Routes = [
 { path: 'modify-condidate/:id', component: ModifyCondidateComponent,
     
 },
+{ path: 'modify-contactreq/:id', component: ModifyContactreqComponent,
+    
+},
 { path: 'modify-user-admin/:id', component: ModifyUserAdminComponent,
     
 },
 { path: 'view-user/:id', component: ViewUserComponent},
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
+{ path: 'view-contactreq/:id', component: ViewContactreqComponent},
 { path: 'verify-email/:token', component: VerifyEmailComponent},
 { path: 'reset-password/:token', component: ResetPasswordComponent},
 { path: 'admin-board', component: AdminBoardComponent,

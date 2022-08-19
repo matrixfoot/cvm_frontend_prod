@@ -270,21 +270,26 @@
       <h2>Liste des Réclamations</h2>
       <hr>
               
-      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 400px;">
         <form [formGroup]="searchForm">
-       
-          <div class="searchbar">
+       <div class="dategroup">
+        <label for="date"> Réclamations Inférieur à:</label>
+          <div class="searchbar" title="chercher les réclamations avec la date de création inférieur à">
             
             <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inférieur à:">
            <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
           
         </div>
-        <div class="searchbar">
+      </div>
+      <div class="dategroup">
+        <label for="date"> Réclamations Supérieur à:</label>
+        <div class="searchbar"title="chercher les réclamations avec la date de création supérieur à">
             
           <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="supérieur à:">
          <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
         
       </div>
+    </div>
         <div class="searchbar" style="float: right;">
             
           <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout">
@@ -299,7 +304,7 @@
           <thead>
           <tr>
       
-            
+            <th>Date Création</th>
             <th>Email</th>
             <th>Prenom</th>
             <th>Nom</th>
@@ -314,7 +319,7 @@
           <tbody>
           <tr *ngFor="let contact of contacts">
       
-            
+            <td>{{contact.created}}</td>
             <td>{{contact.email}}</td>
             <td>{{contact.firstname}}</td>
             
@@ -327,7 +332,7 @@
             
             
             
-            <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontactreqbyid('view-contactreq',contact._id)">Consulter</button></td>
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontacts('view-contactreq',contact._id)">Consulter</button></td>
             
           
           </tr>
