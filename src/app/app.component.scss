@@ -7,13 +7,13 @@
     flex: 15%;
     background-color: lightgray;
     min-width: 190px;
-    
+    min-height: 500px;
   }
   
   /* Main column */
   .main {
     flex: 85%;
-    
+    min-height: 500px;
     padding: 20px;
   }
   @media screen and (max-width: 700px) {
