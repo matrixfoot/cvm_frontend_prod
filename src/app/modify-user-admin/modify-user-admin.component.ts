@@ -113,7 +113,7 @@ export class ModifyUserAdminComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.alertService.error(error.error.error);
+        this.alertService.error(error.error.message);
       window.scrollTo(0, 0);
         
       
