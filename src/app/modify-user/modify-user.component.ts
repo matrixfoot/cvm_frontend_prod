@@ -166,18 +166,7 @@ export class ModifyUserComponent implements OnInit {
        text2.style.display = "block";
     }
   }
-  myFunction2() {
-    var checkbox:any = document.getElementById("myCheck2");
-    var text = document.getElementById("check2");
-    var text3 = document.getElementById("Check1");
-    if (checkbox.checked == true){
-      text.style.display = "block";
-      text3.style.display = "none";
-    } else {
-       text.style.display = "none";
-       text3.style.display = "block";
-    }
-  }
+  
   myFunction5() {
     var checkbox:any = document.getElementById("myCheck5");
     var text6 = document.getElementById("Check6");
@@ -244,70 +233,5 @@ export class ModifyUserComponent implements OnInit {
        text6.style.display = "block"
     }
   }
-  myFunction1() {
-    var checkbox:any = document.getElementById("myCheck1");
-    var text6 = document.getElementById("Check2");
-    var text = document.getElementById("idfiscalmat");
-    var text1 = document.getElementById("idactivitynature");
-    var text2 = document.getElementById("idactivity");
-    var text3 = document.getElementById("idunderactivity");
-    var text4 = document.getElementById("idfiscalimpot");
-    var text5 = document.getElementById("idfiscaltvaassobli");
-    if (checkbox.checked == true){
-      text.style.display = "inline-flex";
-      text1.style.display = "inline-flex";
-      text2.style.display = "inline-flex";
-      text3.style.display = "inline-flex";
-      text4.style.display = "inline-flex";
-      text5.style.display = "inline-flex";
-      text6.style.display = "none";
-    } else {
-       text.style.display = "none";
-       text1.style.display = "none";
-       text2.style.display = "none";
-       text3.style.display = "none";
-       text4.style.display = "none";
-       text5.style.display = "none";
-       text6.style.display = "block";
-    }
-  }
-  myFunction3() {
-    var checkbox:any = document.getElementById("myCheck3");
-    var text6 = document.getElementById("Check4");
-    var text = document.getElementById("idfiscalmat");
-    var text1 = document.getElementById("idactivitynature");
-    var text2 = document.getElementById("idactivity");
-    var text3 = document.getElementById("idunderactivity");
-    var text4 = document.getElementById("idfiscalimpot");
-    var text5 = document.getElementById("idfiscaltvaassobli");
-    if (checkbox.checked == true){
-      text.style.display = "inline-flex";
-      text1.style.display = "inline-flex";
-      text2.style.display = "inline-flex";
-      text3.style.display = "inline-flex";
-      text4.style.display = "inline-flex";
-      text5.style.display = "inline-flex";
-      text6.style.display = "none";
-    } else {
-       text.style.display = "none";
-       text1.style.display = "none";
-       text2.style.display = "none";
-       text3.style.display = "none";
-       text4.style.display = "none";
-       text5.style.display = "none";
-       text6.style.display = "block";
-    }
-  }
-  myFunction4() {
-    var checkbox:any = document.getElementById("myCheck4");
-    var text2 = document.getElementById("Check3");
-   
-    if (checkbox.checked == true){
-      
-      text2.style.display = "none";
-    } else {
-       
-       text2.style.display = "block";
-    }
-  }
+  
 }

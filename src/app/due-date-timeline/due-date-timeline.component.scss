@@ -11,15 +11,7 @@ html, body {
    
  
  }
- #myCarousel{
-  transform: rotate(-90deg);
-  transform-origin: 200px 200px;
-  
-  position: absolute;
-  
-  
-  
- }
+ 
  
 .carousel-control.right, .carousel-control.left {
   background-image: none;
@@ -31,7 +23,6 @@ html, body {
  .carousel-indicators li.active {
    background-color: #f4511e;
  }
- 
  .item h4 {
    font-size: 19px;
    line-height: 1.375em;
@@ -39,10 +30,7 @@ html, body {
    font-style: italic;
    margin: 70px 0;
    text-align: center;
-   
  }
-
  .item span {
    font-style: normal;
-   
  }

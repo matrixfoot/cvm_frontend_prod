@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
         this.firstname=this.tokenStorage.getUser().Firstname;
         this.lastname=this.tokenStorage.getUser().Lastname;
         this.civilite=this.tokenStorage.getUser().civilite;
-        this.router.navigate(['profil'])
+        this.router.navigate(['home'])
         this.reloadPage();
         
  

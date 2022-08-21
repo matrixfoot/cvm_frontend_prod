@@ -8,9 +8,45 @@
 <body>
     
 
-<div class="container-fluid">
+<div class="container-fluid" style="text-align: center;">
     <h2 id="heading" style="text-align: center;">Déposer Votre Déclaration Fiscale</h2>
-                <p style="text-align: center;">Veuillez Cochez Le Type De Déclaration Que Vous Souhaitez Faire</p>
+    <div class="container-fluid">
+      <p style="text-align: center;">veuillez cocher pour afficher les sections convenables</p>
+    <div id="check1" class="checkbox-container">
+      
+      <div class="checkbox-container">
+        
+        <div class="input-container" id="Check1">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck1">Ma Déclaration</label>
+          <input type="checkbox" id="myCheck1" (click)="myFunction1()">
+        </div>
+        <div class="input-container" id="Check2">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck2">Une Déclaration D'Autrui</label>
+          <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+        </div>
+      </div>
+    </div>
+   </div>
+      <div id="check2" style="display: none;" class="checkbox-container"> 
+      
+      <div class="checkbox-container">
+        
+        <div class="input-container" id="Check3">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck3">Personne Physique</label>
+          <input type="checkbox" id="myCheck3" (click)="myFunction3()">
+        </div>
+        <div class="input-container" id="Check4">
+          <i class="fa fa-user icon"></i>
+          <label for="myCheck4">Personne Morale</label>
+          <input type="checkbox" id="myCheck4" (click)="myFunction4()">
+        </div>
+      </div>
+    </div> 
+           
+    <p style="text-align: center;">Veuillez Cochez Le Type De Déclaration Que Vous Souhaitez Faire</p>
                 <div class="checkbox-container">
         
                     <div class="input-container" id="Check7"> 
