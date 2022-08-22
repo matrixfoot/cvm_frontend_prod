@@ -6,9 +6,9 @@
 
 
   <body>
-    <div class="container">
+    <div class="container-fluid">
     <div id="loader" *ngIf="loading"></div>
-    <div class="container" *ngIf="!loading && !isLoggedIn">
+    <div class="container-fluid" *ngIf="!loading && !isLoggedIn">
       
       <form [formGroup]="loginForm" 
       
@@ -22,13 +22,13 @@
           </div>
     
           <div class="col">
-            <a href="#" class="fb btn">
+            <a href="#" class="fb btn" style="min-width: max-content;">
               <i class="fa fa-facebook fa-fw"></i> Connectez vous avec  Facebook
              </a>
-            <a href="#" class="twitter btn">
+            <a href="#" class="twitter btn" style="min-width: max-content;">
               <i class="fa fa-twitter fa-fw"></i> Connectez vous avec Twitter
             </a>
-            <a href="#" class="google btn"><i class="fa fa-google fa-fw">
+            <a href="#" class="google btn" style="min-width: max-content;"><i class="fa fa-google fa-fw">
               </i> Connectez vous avec  Google+
             </a>
           </div>

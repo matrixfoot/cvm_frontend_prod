@@ -29,6 +29,7 @@ import { ModifyCondidateComponent } from './modify-condidate/modify-condidate.co
 import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality.component';
 import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
 import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
+import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
 
 const routes: Routes = [
   
@@ -44,6 +45,9 @@ const routes: Routes = [
     
 },
 { path: 'modify-user/:id', component: ModifyUserComponent,
+    
+},
+{ path: 'complete-profil/:id', component: CompleteProfilComponent,
     
 },
 { path: 'modify-condidate/:id', component: ModifyCondidateComponent,

@@ -10,11 +10,17 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { AlertService } from '../_helpers/alert.service';
 
 @Component({
-  selector: 'app-modify-user',
-  templateUrl: './modify-user.component.html',
-  styleUrls: ['./modify-user.component.scss']
+  selector: 'app-complete-profil',
+  templateUrl: './complete-profil.component.html',
+  styleUrls: ['./complete-profil.component.scss']
 })
-export class ModifyUserComponent implements OnInit {
+export class CompleteProfilComponent implements OnInit {
+
+ 
+
+
+
+
   public userForm: FormGroup;
   public isloggedin=false; 
   public currentuser: User;
@@ -59,7 +65,7 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.currentuser.secteur,],
               civilite: [this.currentuser.civilite,],
               raisonsociale: [this.currentuser.raisonsociale,],
-              activitynature: [this.currentuser.natureactivite],
+              activitynature: [{value:this.currentuser.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.currentuser.activite,],
               selectactivity:[null,],
@@ -75,7 +81,6 @@ export class ModifyUserComponent implements OnInit {
             {
               validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
             })}
-            
             else {this.router.navigate(['login'])};
             this.loading = false;
             
@@ -93,10 +98,11 @@ export class ModifyUserComponent implements OnInit {
             );
         
             this.userservice.getAll();
-           
+  
           }
           
-          
+
+
 
   
   onSubmit() {
@@ -135,7 +141,7 @@ export class ModifyUserComponent implements OnInit {
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
-        
+        this.tokenStorage.signOut();
         this.reloadPage();
         
         
@@ -154,6 +160,84 @@ export class ModifyUserComponent implements OnInit {
     
     
   }
+  myFunction6() {
+    var checkbox:any = document.getElementById("myCheck6");
+    var text2 = document.getElementById("Check5");
+    var text = document.getElementById("check1");
+    if (checkbox.checked == true){
+      text.style.display = "block";
+      text2.style.display = "none";
+    } else {
+       text.style.display = "none";
+       text2.style.display = "block";
+    }
+  }
   
+  myFunction5() {
+    var checkbox:any = document.getElementById("myCheck5");
+    var text6 = document.getElementById("Check6");
+    var text = document.getElementById("idfiscalmat");
+    var text1 = document.getElementById("idactivitynature");
+    var text2 = document.getElementById("idactivity");
+    var text3 = document.getElementById("idunderactivity");
+    var text4 = document.getElementById("idfiscalimpot");
+    var text5 = document.getElementById("idfiscaltvaassobli");
+    var text7 = document.getElementById("input1");
+    var text8 = document.getElementById("input2");
+    var text9 = document.getElementById("input3");
+    var text10 = document.getElementById("input4");
+    var text11 = document.getElementById("input5");
+    var text12 = document.getElementById("input6");
+    var text13 = document.getElementById("input7");
+    var text14 = document.getElementById("input8");
+    var text15= document.getElementById("input9");
+    var text16= document.getElementById("input10");
+    var text17= document.getElementById("input11");
+    var text18= document.getElementById("input12");
+    if (checkbox.checked == true){
+      text.style.display = "inline-flex";
+      text1.style.display = "inline-flex";
+      text2.style.display = "inline-flex";
+      text3.style.display = "inline-flex";
+      text4.style.display = "inline-flex";
+      text5.style.display = "inline-flex";
+      text7.style.display = "inline-flex";
+      text8.style.display = "inline-flex";
+      
+      text9.style.display = "inline-flex";
+      text10.style.display = "inline-flex";
+      text11.style.display = "inline-flex";
+      text12.style.display = "inline-flex";
+      text13.style.display = "inline-flex";
+      text14.style.display = "inline-flex";
+      text15.style.display = "inline-flex";
+      text16.style.display = "inline-flex";
+      text17.style.display = "inline-flex";
+      text18.style.display = "inline-flex";
+      
+      text6.style.display = "none"
+    } else {
+       text.style.display = "none";
+       text1.style.display = "none";
+       text2.style.display = "none";
+       text3.style.display = "none";
+       text4.style.display = "none";
+       text5.style.display = "none";
+       text7.style.display = "none";
+      text8.style.display = "none";
+      
+      text9.style.display = "none";
+      text10.style.display = "none";
+      text11.style.display = "none";
+      text12.style.display = "none";
+      text13.style.display = "none";
+      text14.style.display = "none";
+      text15.style.display = "none";
+      text16.style.display = "none";
+      text17.style.display = "none";
+      text18.style.display = "none";
+       text6.style.display = "block"
+    }
+  }
   
 }

@@ -78,7 +78,8 @@ body {
   /* vertical line */
   .vl {
     position: absolute;
-    left: 50%;
+    margin-left: 40%;
+    
     transform: translate(-50%);
     border: 2px solid #ddd;
     height: 175px;
