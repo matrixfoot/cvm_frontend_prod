@@ -52,7 +52,7 @@
         
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
-    <option hidden >Modifier Votre Nature Activité</option>
+    <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option disabled value="Commerçant">Commerçant</option>
     <option disabled value="Artisan">Artisan</option>
@@ -68,7 +68,7 @@
         
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
-  <option hidden >Modifier Votre Activité</option>
+  <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
   <option disabled value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
   <option disabled value="Ingénieur">Ingénieur</option>
@@ -84,7 +84,7 @@
         
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
-<option hidden >Modifier Votre sous-Activité</option>
+  <option hidden [value]="currentuser.sousactivite">{{currentuser.sousactivite}}</option>
 
 <option value="Avocat">Avocat</option>
 <option value="Avocat à la cour d'appel">Avocat à la cour d'appel</option>
@@ -100,7 +100,7 @@
         
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
-<option hidden >Modifier Votre régime fiscal en matières d'impôts directs</option>
+  <option hidden [value]="currentuser.regimefiscalimpot">{{currentuser.regimefiscalimpot}}</option>
 
 
 <option value="Réel">Réel</option>

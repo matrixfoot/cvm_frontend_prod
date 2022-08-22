@@ -77,6 +77,10 @@ export class ModifyUserComponent implements OnInit {
             })}
             
             else {this.router.navigate(['login'])};
+            this.optionValue=this.currentuser.natureactivite;
+            this.option1Value=this.currentuser.activite;
+            this.option2Value=this.currentuser.sousactivite;
+            this.option3Value=this.currentuser.regimefiscalimpot;
             this.loading = false;
             
             this.usersSub = this.userservice.users$.subscribe(

@@ -9,98 +9,27 @@
 <div class="container-fluid">
   <div id="loader" *ngIf="loading"></div>
   
-<div class="container-fluid" *ngIf="!loading && isloggedin"> 
+<div class="container-fluid" *ngIf="!loading"> 
    
   
 <form  [formGroup]="userForm">
-    <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+    <h2>Formulaire De Complétude Du Profil Utilisateur</h2>
     <div *ngIf="!currentuser.natureactivite || !currentuser.activite || !currentuser.sousactivite 
   || !currentuser.regimefiscalimpot || !currentuser.matriculefiscale && currentuser.usertype=='Client'">
    <h4 *ngIf="currentuser.usertype=='Client'"> Veuillez compléter votre profil  pour pouvoir bénéficier des services offerts par MaCompta</h4>
   </div>
-    <div id="check0" >
-      <label> Qu'est ce que vous voulez faire:(veuillez cocher pour afficher les sections convenables)</label>
-      <div class="checkbox-container">
-        
-        <div class="input-container" id="Check5">
-          <i class="fa fa-user icon"></i>
-          <label for="myCheck5">Modifier Mon Profil</label>
-          <input type="checkbox" id="myCheck5" (click)="myFunction5()">
-        </div>
-        <div class="input-container" id="Check6">
-          <i class="fa fa-user icon"></i>
-          <label for="myCheck6">Compléter Mon Profil</label>
-          <input type="checkbox" id="myCheck6" (click)="myFunction6()">
-        </div>
-      </div>
-    </div>
-    <div id="check1" style="display:none">
-    <label> Je Souhaite Déposer:</label>
-    <div class="checkbox-container">
-      
-      <div class="input-container" id="Check1">
-        <i class="fa fa-user icon"></i>
-        <label for="myCheck1">Ma Déclaration</label>
-        <input type="checkbox" id="myCheck1" (click)="myFunction1()">
-      </div>
-      <div class="input-container" id="Check2">
-        <i class="fa fa-user icon"></i>
-        <label for="myCheck2">Une Déclaration D'Autrui</label>
-        <input type="checkbox" id="myCheck2" (click)="myFunction2()">
-      </div>
-    </div>
-  </div>
-    <div id="check2" style="display:none"> 
-    <label> Je Suis Une:</label>
-    <div class="checkbox-container">
-      
-      <div class="input-container" id="Check3">
-        <i class="fa fa-user icon"></i>
-        <label for="myCheck3">Personne Physique</label>
-        <input type="checkbox" id="myCheck3" (click)="myFunction3()">
-      </div>
-      <div class="input-container" id="Check4">
-        <i class="fa fa-user icon"></i>
-        <label for="myCheck4">Personne Morale</label>
-        <input type="checkbox" id="myCheck4" (click)="myFunction4()">
-      </div>
-    </div>
-  </div>
-    <div class="input-container" style="display:none"id="input1">
-        <div title="indiquer votre civilité" class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
-       
-  <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
-    <option hidden >Modifier Votre Civilité</option>
-    <option value="Monsieur">Monsieur</option>
-    <option value="Madame">Madame</option>
-    <option value="Mademoiselle">Mademoiselle</option>
-  </select>
-    </div>
+   
+   
+   
+   
 
-    <div title="indiquer votre nom"class="input-container" style="display:none" id="input2">
-        <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
-      </div>
-
-      <div title="indiquer votre prenom"class="input-container" style="display:none" id=input3>
-        <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
-      </div> 
-      <div class="mobile-container" style="display:none" id="input4">
-        <div class="input-container">
-          <i class="fa fa-phone icon"></i>
-          <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
-        </div>
-        <div class="input-container">
-          <i class="fa fa-phone icon"></i>
-          <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
-        </div>
-      </div>
-      <div title="indiquer votre nature d'activité"class="input-container"style="display:none"id="idactivitynature">
+   
+     
+      <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
         
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
-    <option hidden >Modifier Votre Nature Activité</option>
+    <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option disabled value="Commerçant">Commerçant</option>
     <option disabled value="Artisan">Artisan</option>
@@ -112,11 +41,11 @@
       <i class="fa fa-fort-awesome icon"></i>
       <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
     </div>
-    <div title="indiquer votre activité"class="input-container" style="display:none"id="idactivity">
+    <div title="indiquer votre activité"class="input-container" id="idactivity">
         
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
-  <option hidden >Modifier Votre Activité</option>
+  <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
   <option disabled value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
   <option disabled value="Ingénieur">Ingénieur</option>
@@ -128,11 +57,11 @@
     <i class="fa fa-fort-awesome icon"></i>
     <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
   </div>
-  <div title="indiquer votre sous-activité"class="input-container"style="display:none"id="idunderactivity">
+  <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
         
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
-<option hidden >Modifier Votre sous-Activité</option>
+  <option hidden [value]="currentuser.sousactivite">{{currentuser.sousactivite}}</option>
 
 <option value="Avocat">Avocat</option>
 <option value="Avocat à la cour d'appel">Avocat à la cour d'appel</option>
@@ -144,11 +73,11 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
 </div>
-<div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"style="display:none"id="idfiscalimpot">
+<div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"id="idfiscalimpot">
         
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
-<option hidden >Modifier Votre régime fiscal en matières d'impôts directs</option>
+<option hidden [value]="currentuser.regimefiscalimpot">{{currentuser.regimefiscalimpot}}</option>
 
 
 <option value="Réel">Réel</option>
@@ -168,63 +97,21 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
 </div>
-      <div title="indiquer votre raisonsociale"class="input-container-disabled">
-        <i class="fa fa-fort-awesome icon"></i>
-        <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
-      </div>  
+     
 
-      <div title="indiquer votre fonction"class="input-container-disabled" id="input5">
-        <i class="fa fa-fort-awesome icon" ></i>
-      <input class="input-field" type="text" [(ngModel)]="codeValue" placeholder="Fonction actuelle:{{currentuser.fonction}}"id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
-  <datalist id="fonctions">
-  <option *ngFor="let user of users" [value]="user.fonction" >{{currentuser.fonction}}</option>
-  </datalist>
-      
-    </div>
+     
 
 
-    <div title="indiquer votre nomsociete"class="input-container-disabled" id="input6">
-        <i class="fa fa-fort-awesome icon"></i>
-        <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
-      </div>
+   
 
 
-      <div title="indiquer votre secteur"class="input-container-disabled" id="input7">
-        <i class="fa fa-fort-awesome icon" ></i> 
-       
-  
-    <input class="input-field" type="text" [(ngModel)]="secteurValue" placeholder="Secteur Actuel:{{currentuser.secteur}}"id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
-  <datalist id="secteurs">
-  <option *ngFor="let user of users" [value]="user.secteur" ></option>
-  </datalist>
-    </div>
-    <div title="indiquer votre clientcode"class="input-container" style="display:none"id="input8">
-      <i class="fa fa-user icon"></i>
-      <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
-    </div>
+     
+   
 
-    <div class="email-container" style="display:none" id="input9">
-      <div class="input-container">
-        <i class="fa fa-envelope icon"></i>
-        <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
-      </div>
-      <div class="input-container">
-        <i class="fa fa-envelope icon"></i>
-        <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
-      </div>
-    </div>
-    
-    <div title="Modifier votre Mot de passe"class="input-container" style="display:none" id="input10">
-      <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="Modifier votre Mot de passe" id="password" formControlName="password">
-    </div>
-    <div title="Confirmer votre Mot de passe"class="input-container" style="display:none" id="input11">
-      <i class="fa fa-key icon"></i>
-      <input class="input-field" type="password" placeholder="confirmer votre Mot de passe" id="confirmpassword" formControlName="confirmpassword">
-    </div>
+   
     
   
-    <button class="btn btn-success" (click)="onSubmit()" style="display:none" id="input12">Envoyer Modification </button>
+    <button class="btn btn-success" (click)="onSubmit()" id="input12">Envoyer Modification </button>
   </form>
   <p>{{ errormsg }}</p>
   <div class="alert alert-success" *ngIf="isSuccessful">

@@ -26,6 +26,7 @@
         <h4>Régime fiscal en matières de TVA:<b>  {{ currentUser.regimefiscaltva }}</b></h4>
         <h4>Matricule Fiscale:<b>  {{ currentUser.matriculefiscale }}</b></h4>
       </div>
+      <button type="button" class="btn btn-success" (click)="getNavigation('complete-profil', currentUser.userId)">Compléter</button>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
       <button type="button" class="btn btn-danger"(click)="onDelete()">Supprimer</button>
     </div>
