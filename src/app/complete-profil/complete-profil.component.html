@@ -26,7 +26,7 @@
    
      
       <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
-        
+        <label for="activitynature"> Nature D'activité:</label>
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
     <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
@@ -38,11 +38,12 @@
   </select>
     </div>
     <div class="input-container"id="selectactivitynature"*ngIf="optionValue == 'Autre'">
+      <label for="activitynature"> Nature D'activité:</label>
       <i class="fa fa-fort-awesome icon"></i>
       <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
     </div>
     <div title="indiquer votre activité"class="input-container" id="idactivity">
-        
+      <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
   <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
@@ -54,11 +55,12 @@
 </select>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
+    <label for="activity"> Activité:</label> 
     <i class="fa fa-fort-awesome icon"></i>
     <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
   </div>
   <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
-        
+    <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
   <option hidden [value]="currentuser.sousactivite">{{currentuser.sousactivite}}</option>
@@ -70,11 +72,12 @@
 </select>
 </div>
 <div class="input-container"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
+  <label for="underactivity"> Sous-Activité:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
 </div>
 <div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"id="idfiscalimpot">
-        
+  <label for="fiscalimpot"> Régime Fiscal En Matières D'impôts Directs:</label>     
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
 <option hidden [value]="currentuser.regimefiscalimpot">{{currentuser.regimefiscalimpot}}</option>
@@ -86,14 +89,17 @@
 </select>
 </div>
 <div class="input-container"id="selectfiscalimpot"*ngIf="option3Value == 'Autre'">
+  <label for="fiscalimpot"> Régime Fiscal En Matières D'impôts Directs:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matières d'impôts directs" id="selectfiscalimpot" formControlName="selectfiscalimpot">
 </div>
 <div class="input-container-disabled" id="idfiscaltvaassobli">
+  <label for="fiscaltvaassobli"> Régime Fiscal En Matières D'impôts TVA:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
+  <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
 </div>

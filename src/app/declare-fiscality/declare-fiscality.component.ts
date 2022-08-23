@@ -35,7 +35,7 @@ export class DeclareFiscalityComponent implements OnInit {
     
     this.regimefiscalimpot=this.currentUser.regimefiscalimpot;
     this.matriculefiscale=this.currentUser.matriculefiscale;
-    if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['modify-user/:'+this.currentUser.userId]))
+    if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['complete-profil/:'+this.currentUser.userId]))
   }
     myFunction6() {
       var checkbox:any = document.getElementById("myCheck6");
