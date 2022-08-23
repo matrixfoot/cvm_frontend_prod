@@ -145,7 +145,7 @@ export class CompleteProfilComponent implements OnInit {
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
-        this.tokenStorage.signOut();
+        this.router.navigate(['home'])
         this.reloadPage();
         
         
