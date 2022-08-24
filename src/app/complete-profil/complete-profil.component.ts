@@ -73,6 +73,8 @@ export class CompleteProfilComponent implements OnInit {
             selectactivitynature: [null,],
             activity: [this.user.activite,],
             selectactivity:[null,],
+            adresseactivite: [this.user.adresseactivite,],
+            codepostal:[this.user.codepostal,],
             underactivity: [this.user.sousactivite,],
             selectunderactivity:[null,],
             fiscalimpot: [this.user.regimefiscalimpot,],
@@ -126,6 +128,8 @@ export class CompleteProfilComponent implements OnInit {
     else {user.regimefiscalimpot = this.userForm.get('fiscalimpot').value};
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
+    user.adresseactivite = this.userForm.get('adresseactivite').value;
+    user.codepostal = this.userForm.get('codepostal').value;
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;
@@ -136,10 +140,10 @@ export class CompleteProfilComponent implements OnInit {
       () => {
         this.userForm.reset();
         this.loading = false;
-        this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
+        this.alertService.success('Modification effectuée avec succès!', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
         this.router.navigate(['home'])
-        this.reloadPage();
+        
         
         
       },
@@ -157,84 +161,6 @@ export class CompleteProfilComponent implements OnInit {
     
     
   }
-  myFunction6() {
-    var checkbox:any = document.getElementById("myCheck6");
-    var text2 = document.getElementById("Check5");
-    var text = document.getElementById("check1");
-    if (checkbox.checked == true){
-      text.style.display = "block";
-      text2.style.display = "none";
-    } else {
-       text.style.display = "none";
-       text2.style.display = "block";
-    }
-  }
   
-  myFunction5() {
-    var checkbox:any = document.getElementById("myCheck5");
-    var text6 = document.getElementById("Check6");
-    var text = document.getElementById("idfiscalmat");
-    var text1 = document.getElementById("idactivitynature");
-    var text2 = document.getElementById("idactivity");
-    var text3 = document.getElementById("idunderactivity");
-    var text4 = document.getElementById("idfiscalimpot");
-    var text5 = document.getElementById("idfiscaltvaassobli");
-    var text7 = document.getElementById("input1");
-    var text8 = document.getElementById("input2");
-    var text9 = document.getElementById("input3");
-    var text10 = document.getElementById("input4");
-    var text11 = document.getElementById("input5");
-    var text12 = document.getElementById("input6");
-    var text13 = document.getElementById("input7");
-    var text14 = document.getElementById("input8");
-    var text15= document.getElementById("input9");
-    var text16= document.getElementById("input10");
-    var text17= document.getElementById("input11");
-    var text18= document.getElementById("input12");
-    if (checkbox.checked == true){
-      text.style.display = "inline-flex";
-      text1.style.display = "inline-flex";
-      text2.style.display = "inline-flex";
-      text3.style.display = "inline-flex";
-      text4.style.display = "inline-flex";
-      text5.style.display = "inline-flex";
-      text7.style.display = "inline-flex";
-      text8.style.display = "inline-flex";
-      
-      text9.style.display = "inline-flex";
-      text10.style.display = "inline-flex";
-      text11.style.display = "inline-flex";
-      text12.style.display = "inline-flex";
-      text13.style.display = "inline-flex";
-      text14.style.display = "inline-flex";
-      text15.style.display = "inline-flex";
-      text16.style.display = "inline-flex";
-      text17.style.display = "inline-flex";
-      text18.style.display = "inline-flex";
-      
-      text6.style.display = "none"
-    } else {
-       text.style.display = "none";
-       text1.style.display = "none";
-       text2.style.display = "none";
-       text3.style.display = "none";
-       text4.style.display = "none";
-       text5.style.display = "none";
-       text7.style.display = "none";
-      text8.style.display = "none";
-      
-      text9.style.display = "none";
-      text10.style.display = "none";
-      text11.style.display = "none";
-      text12.style.display = "none";
-      text13.style.display = "none";
-      text14.style.display = "none";
-      text15.style.display = "none";
-      text16.style.display = "none";
-      text17.style.display = "none";
-      text18.style.display = "none";
-       text6.style.display = "block"
-    }
-  }
   
 }

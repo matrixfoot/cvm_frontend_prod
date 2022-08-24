@@ -20,6 +20,8 @@ export class User {
   regimefiscalimpot:string
   regimefiscaltva:string
   matriculefiscale:string
+  adresseactivite:string
+  codepostal:string
   raisonsociale:string;
   nomsociete:string;
   clientcode: string;

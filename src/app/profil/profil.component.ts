@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { AlertService } from '../_helpers/alert.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-profil',
@@ -12,13 +13,17 @@ import { AlertService } from '../_helpers/alert.service';
 })
 export class ProfilComponent implements OnInit {
   loading=false;
+  user:User;
   errormsg:string;
   currentUser: any;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private alertService: AlertService,private usersservice: UserService) { }
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
-    
-    
+    this.usersservice.getUserById(this.currentUser.userId).then(
+      (user: User) => {
+        this.loading = false;
+        this.user = user;
+      });
   }
   getNavigation(link, id){
       

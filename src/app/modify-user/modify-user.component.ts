@@ -74,6 +74,8 @@ export class ModifyUserComponent implements OnInit {
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
             fiscalmat: [this.user.matriculefiscale,],
+            adresseactivite: [this.user.adresseactivite,],
+            codepostal:[this.user.codepostal,],
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
           },
@@ -124,6 +126,8 @@ export class ModifyUserComponent implements OnInit {
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.matriculefiscale = this.userForm.get('fiscalmat').value;
+    user.adresseactivite = this.userForm.get('adresseactivite').value;
+    user.codepostal = this.userForm.get('codepostal').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;
     user.raisonsociale = this.userForm.get('raisonsociale').value;
@@ -133,10 +137,10 @@ export class ModifyUserComponent implements OnInit {
       () => {
         this.userForm.reset();
         this.loading = false;
-        this.alertService.success('Modification effectuée avec succès, veuillez vous connecter pour consulter votre profil', { keepAfterRouteChange: true });
+        this.alertService.success('Modification effectuée avec succès!', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
+        this.router.navigate(['profil'])
         
-        this.reloadPage();
         
         
       },
