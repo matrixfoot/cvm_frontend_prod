@@ -43,7 +43,7 @@ export class DeclareFiscalityComponent implements OnInit {
     
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
-    if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['complete-profil/:'+this.currentUser.userId]))
+    if (!this.natureactivite||!this.activite||!this.sousactivite||!this.regimefiscalimpot||!this.matriculefiscale) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
             
             
           }

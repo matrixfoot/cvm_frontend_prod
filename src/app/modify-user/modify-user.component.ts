@@ -18,7 +18,7 @@ export class ModifyUserComponent implements OnInit {
   public userForm: FormGroup;
   public isloggedin=false; 
   public currentuser: User;
-  public users: User[]=[];
+  public user: User;
   public codeValue: string;
   public secteurValue: string;
   public roleValue: string;
@@ -41,62 +41,58 @@ export class ModifyUserComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
      if (this.tokenStorage.getToken()){
-    this.isloggedin=true;
+      this.isloggedin=true;
       this.currentuser =this.tokenStorage.getUser()
-            this.userForm = this.formBuilder.group({
+      this.userservice.getUserById(this.currentuser.userId).then(
+        (user: User) => {
+          this.loading = false;
+          this.user = user;
+          console.log(user)
+          this.userForm = this.formBuilder.group({
               
-              role: [this.currentuser.role,],
-              firstname: [this.currentuser.Firstname,],
-              lastname: [this.currentuser.Lastname,],
-              confirmemail: [null,Validators.required],
-              mobile: [this.currentuser.mobile,],
-              confirmmobile: [null,Validators.required],
-              usertype: [this.currentuser.usertype,],
-              email: [this.currentuser.email,],
-              fonction: [this.currentuser.fonction,],
-              password: [null,],
-              confirmpassword: [null,],
-              secteur: [this.currentuser.secteur,],
-              civilite: [this.currentuser.civilite,],
-              raisonsociale: [this.currentuser.raisonsociale,],
-              activitynature: [this.currentuser.natureactivite],
-              selectactivitynature: [null,],
-              activity: [this.currentuser.activite,],
-              selectactivity:[null,],
-              underactivity: [this.currentuser.sousactivite,],
-              selectunderactivity:[null,],
-              fiscalimpot: [this.currentuser.regimefiscalimpot,],
-              selectfiscalimpot:[null,],
-              fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-              fiscalmat: [this.currentuser.matriculefiscale,],
-              nomsociete: [this.currentuser.nomsociete,],
-              clientcode: [{value:this.currentuser.clientcode,disabled:true}, Validators.required],
-            },
-            {
-              validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
-            })}
+            role: [this.user.role,],
+            firstname: [this.user.firstname,],
+            lastname: [this.user.lastname,],
+            confirmemail: [null,Validators.required],
+            mobile: [this.user.mobile,],
+            confirmmobile: [null,Validators.required],
+            usertype: [this.user.usertype,],
+            email: [this.user.email,],
+            fonction: [this.user.fonction,],
+            password: [null,],
+            confirmpassword: [null,],
+            secteur: [this.user.secteur,],
+            civilite: [this.user.civilite,],
+            raisonsociale: [this.user.raisonsociale,],
+            activitynature: [{value:this.user.natureactivite,}],
+            selectactivitynature: [null,],
+            activity: [this.user.activite,],
+            selectactivity:[null,],
+            underactivity: [this.user.sousactivite,],
+            selectunderactivity:[null,],
+            fiscalimpot: [this.user.regimefiscalimpot,],
+            selectfiscalimpot:[null,],
+            fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
+            fiscalmat: [this.user.matriculefiscale,],
+            nomsociete: [this.user.nomsociete,],
+            clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
+          },
+          {
+            validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
+          })
+          this.optionValue=this.user.natureactivite;
+          this.option1Value=this.user.activite;
+          this.option2Value=this.user.sousactivite;
+          this.option3Value=this.user.regimefiscalimpot;
+          this.loading = false;
+          
+        }
+      )}
             
             else {this.router.navigate(['login'])};
-            this.optionValue=this.currentuser.natureactivite;
-            this.option1Value=this.currentuser.activite;
-            this.option2Value=this.currentuser.sousactivite;
-            this.option3Value=this.currentuser.regimefiscalimpot;
-            this.loading = false;
+           
             
-            this.usersSub = this.userservice.users$.subscribe(
-              (users) => {
-                this.users = users;
-                this.loading = false;
-                
-              },
-              (error) => {
-                this.loading = false;
-                console.log(error);
-                this.errormsg=error.message;
-              }
-            );
-        
-            this.userservice.getAll();
+           
            
           }
           
@@ -133,7 +129,7 @@ export class ModifyUserComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(this.currentuser.userId,user).then(
+    this.userservice.modifyUserById(user.userId,user).then(
       () => {
         this.userForm.reset();
         this.loading = false;

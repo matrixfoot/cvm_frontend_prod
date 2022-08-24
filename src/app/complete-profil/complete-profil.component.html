@@ -14,9 +14,9 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Complétude Du Profil Utilisateur</h2>
-    <div *ngIf="!currentuser.natureactivite || !currentuser.activite || !currentuser.sousactivite 
-  || !currentuser.regimefiscalimpot || !currentuser.matriculefiscale && currentuser.usertype=='Client'">
-   <h4 *ngIf="currentuser.usertype=='Client'"> Veuillez compléter votre profil  pour pouvoir bénéficier des services offerts par MaCompta</h4>
+    <div *ngIf="!user.natureactivite || !user.activite || !user.sousactivite 
+  || !user.regimefiscalimpot || !user.matriculefiscale && user.usertype=='Client'">
+   <h4 *ngIf="user.usertype=='Client'"> Veuillez compléter votre profil  pour pouvoir bénéficier des services offerts par MaCompta</h4>
   </div>
    
    
@@ -29,7 +29,7 @@
         <label for="activitynature"> Nature D'activité:</label>
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
-    <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
+    <option hidden [value]="user.natureactivite">{{user.natureactivite}}</option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option disabled value="Commerçant">Commerçant</option>
     <option disabled value="Artisan">Artisan</option>
@@ -46,7 +46,7 @@
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
-  <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
+  <option hidden [value]="user.activite">{{user.activite}}</option>
   <option disabled value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
   <option disabled value="Ingénieur">Ingénieur</option>
@@ -63,7 +63,7 @@
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
-  <option hidden [value]="currentuser.sousactivite">{{currentuser.sousactivite}}</option>
+  <option hidden [value]="user.sousactivite">{{user.sousactivite}}</option>
 
 <option value="Avocat">Avocat</option>
 <option value="Avocat à la cour d'appel">Avocat à la cour d'appel</option>
@@ -80,7 +80,7 @@
   <label for="fiscalimpot"> Régime Fiscal En Matières D'impôts Directs:</label>     
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
-<option hidden [value]="currentuser.regimefiscalimpot">{{currentuser.regimefiscalimpot}}</option>
+<option hidden [value]="user.regimefiscalimpot">{{user.regimefiscalimpot}}</option>
 
 
 <option value="Réel">Réel</option>
