@@ -44,6 +44,7 @@ import { DueDateTimelineComponent } from './due-date-timeline/due-date-timeline.
 import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
 import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
+import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { CompleteProfilComponent } from './complete-profil/complete-profil.compo
     ViewContactreqComponent,
     ModifyContactreqComponent,
     CompleteProfilComponent,
+    CalendarFiscalityComponent,
     
     
   ],

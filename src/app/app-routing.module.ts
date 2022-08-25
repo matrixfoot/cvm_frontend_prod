@@ -30,6 +30,7 @@ import { DeclareFiscalityComponent } from './declare-fiscality/declare-fiscality
 import { ViewContactreqComponent } from './view-contactreq/view-contactreq.component';
 import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
+import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
 
 const routes: Routes = [
   
@@ -42,6 +43,9 @@ const routes: Routes = [
     
 },
 { path: 'declare-fiscality', component:DeclareFiscalityComponent,
+    
+},
+{ path: 'calendar-fiscality', component:CalendarFiscalityComponent,
     
 },
 { path: 'modify-user/:id', component: ModifyUserComponent,
