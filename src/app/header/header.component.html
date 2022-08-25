@@ -44,6 +44,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a routerLink="profil"  *ngIf="isLoggedIn" routerLinkActive="active">Profil {{username}} {{lastname}}</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn"    routerLinkActive="active">Profil {{username}} {{lastname}}</a></li>
+          <li><a href class="nav-link" *ngIf="role=='admin'" routerLink="collab-create" routerLinkActive="active" > <span class="glyphicon glyphicon-user"></span>Ajouter collaborateur</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="signup" routerLinkActive="active" > <span class="glyphicon glyphicon-user"></span>Inscription</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="login" routerLinkActive="active" > <span class="glyphicon glyphicon-log-in"></span>Connexion</a></li>
           <li class="nav-item">

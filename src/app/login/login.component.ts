@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         this.loading = false;
-        this.errorMessage = JSON.stringify(error.error);
+        this.errorMessage = JSON.stringify(error.error.error);
         this.isLoginFailed = true;
       }
     });

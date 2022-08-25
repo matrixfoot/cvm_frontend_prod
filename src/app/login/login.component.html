@@ -42,7 +42,7 @@
             
             <input type="password" formControlName="password" placeholder="Mot De Passe" required>
             <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
-          
+            <p style="color: red;">{{ errorMessage }}</p>
           </div>
         </div>
       </form>
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <p>{{ errorMessage }}</p>
+    
   </div>
   <div class="alert alert-success" *ngIf="isLoggedIn" routerLink="forgot-password">
   Bienvenue {{civilite}} {{ firstname}} {{ lastname}}

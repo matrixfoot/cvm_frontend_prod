@@ -45,6 +45,7 @@ import { ViewContactreqComponent } from './view-contactreq/view-contactreq.compo
 import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
 import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
+import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscal
     ModifyContactreqComponent,
     CompleteProfilComponent,
     CalendarFiscalityComponent,
+    CollabUserCreateComponent,
     
     
   ],

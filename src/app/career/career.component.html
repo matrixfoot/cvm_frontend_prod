@@ -14,20 +14,22 @@
                                     <label for="firstname">Prénom</label>
                                     <input type="text" class="form-control" id="firstname" formControlName="firstname" 
                                     [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"placeholder="entrer votre prenom" required>
+                                    <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
+                                    </div>
                                 </div>
-                                <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
-                                    <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
-                                </div>
+                                
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="lastname">Nom</label>
                                     <input type="text" class="form-control" id="lastname" formControlName="lastname" 
                                     [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"placeholder="entrer votre nom"required>
+                                    <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
+                                    </div>
                                 </div>
-                                <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-                                    <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -36,21 +38,23 @@
                                     <label for="mobile">Mobile</label>
                                     <input type="text" class="form-control" id="mobile" formControlName="mobile" 
                                     [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"placeholder="entrer votre mobile" required>
+                                    <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                        <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
+                                    </div>
                                 </div>
-                                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
-                                    <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
-                                </div>
+                               
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="confirmmobile">Confirmer Mobile</label>
                                     <input type="text" class="form-control" id="confirmmobile" formControlName="confirmmobile" 
                                     [ngClass]="{ 'is-invalid': submitted && f.confirmmobile.errors }"placeholder="confimer votre mobile"required>
+                                    <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
+                                        <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
+                                        <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
+                                    </div>
                                 </div>
-                                <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
-                                    <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
-                                    <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="row">
@@ -59,23 +63,25 @@
                                     <label for="inputEmail">Email</label>
                                     <input type="email" class="form-control" id="inputEmail" formControlName="email" 
                                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }"placeholder="entrer votre email">
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email Obligatoire</div>
+                                        <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
+                                    </div>
                                 </div>
-                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                                    <div *ngIf="f.email.errors.required">Email Obligatoire</div>
-                                    <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
-                                </div>
+                                
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="inputConfirmEmail">Confirmer Email</label>
                                     <input type="email" class="form-control" id="inputConfirmEmail" formControlName="confirmemail" 
                                     [ngClass]="{ 'is-invalid': submitted && f.confirmemail.errors }"placeholder="confimer votre email">
+                                    <div *ngIf="submitted && f.confirmemail.errors" class="invalid-feedback">
+                                        <div *ngIf="f.confirmemail.errors.required">Email Obligatoire</div>
+                                        <div *ngIf="f.confirmemail.errors.email">Adresse Email non valides</div>
+                                        <div *ngIf="f.confirmemail.errors.mustMatch">Les Emails  ne sont pas identiques</div>
+                                      </div>
                                 </div>
-                                <div *ngIf="submitted && f.confirmemail.errors" class="invalid-feedback">
-                                    <div *ngIf="f.confirmemail.errors.required">Email Obligatoire</div>
-                                    <div *ngIf="f.confirmemail.errors.email">Adresse Email non valides</div>
-                                    <div *ngIf="f.confirmemail.errors.mustMatch">Les Emails  ne sont pas identiques</div>
-                                  </div>
+                               
                             </div>
                         </div>                
                         <div class="form-group">
@@ -107,6 +113,9 @@
      <label for="inputCV">Attacher Votre CV</label>                   
     <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" 
     accept="application/pdf">
+    <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+        <div *ngIf="f.image.errors.required">CV Obligatoire</div>
+    </div>
     <div class="image-preview" *ngIf="imagePreview">
       <img [src]="imagePreview" alt="">
     </div>

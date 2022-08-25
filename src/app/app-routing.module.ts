@@ -31,6 +31,7 @@ import { ViewContactreqComponent } from './view-contactreq/view-contactreq.compo
 import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq.component';
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
 import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
+import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
 
 const routes: Routes = [
   
@@ -86,6 +87,9 @@ const routes: Routes = [
     
 
 { path: 'signup', component: SignupComponent,
+    
+},
+{ path: 'collab-create', component: CollabUserCreateComponent,
     
 },
 { path: 'login/signup', component: SignupComponent,

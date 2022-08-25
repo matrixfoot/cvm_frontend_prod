@@ -110,6 +110,9 @@ export class AdminBoardComponent implements OnInit {
               getcollaborateurs() {
                 return this.users.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
               }
+              getconsultants() {
+                return this.users.filter((user) => user.usertype === ('Consultant'||'consultant')); 
+              }
               getcondidates() {
                 return this.users.filter((user) => user.usertype === 'Candidat');
               }

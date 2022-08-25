@@ -15,37 +15,41 @@
             <label for="lastname">Nom</label>
             <input type="text" class="form-control" formControlName="lastname" id="lastname" placeholder=" Entrez Votre Nom"
             [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"placeholder="entrer votre nom"required>
-          </div>
-          <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+            <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
               <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
+          </div>         
           </div>
+          
           
           <div class="form-group">
             <label for="firstname">Prenom</label>
             <input type="text" class="form-control" formControlName="firstname" id="firstname" placeholder=" Entrez Votre Prenom"
             [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"placeholder="entrer votre prenom" required>
-          </div>
-          <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+            <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
               <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
           </div>
+          </div>
+         
           
 <div class="form-group">
             <label for="email">Adresse Email</label>
             <input type="email" class="form-control" formControlName="email"id="email" placeholder=" Entrez Votre Email"
             [ngClass]="{ 'is-invalid': submitted && f.email.errors }"placeholder="entrer votre email">
-          </div>
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email Obligatoire</div>
               <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
           </div>
+          </div>
+         
           <div class="form-group">
             <label for="mobile">Numéro Mobile</label>
             <input type="tel" class="form-control" id="mobile" formControlName="mobile"placeholder=" Entrez Votre Numéro Mobile"
             [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"placeholder="entrer votre mobile" required>
-          </div>
-          <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
               <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
           </div>
+          </div>
+         
           <div class="form-group">
             <label for="inputfile">Attacher Fichier</label>                   
            <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" 
