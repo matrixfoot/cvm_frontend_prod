@@ -14,9 +14,10 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Complétude Du Profil Utilisateur</h2>
-    <div *ngIf="!user.natureactivite || !user.activite || !user.sousactivite 
-  || !user.regimefiscalimpot || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal ">
-   <h4 *ngIf="user.usertype=='Client'"> Veuillez renseigner les champs manquants  pour pouvoir bénéficier des services offerts par MaCompta</h4>
+    <div *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+    || !user.sousactivite || user.sousactivite=='Autre/null' || user.regimefiscalimpot=='Autre/null'
+    || !user.regimefiscalimpot || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal">
+   <h4 *ngIf="user.usertype=='Client'"> Veuillez renseigner les champs manquants avec des valeurs différents de null pour pouvoir bénéficier des services offerts par MaCompta</h4>
   </div>
    
    

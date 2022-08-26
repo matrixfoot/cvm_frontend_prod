@@ -15,8 +15,9 @@
     flex: 85%;
     min-height: 500px;
     padding: 20px;
+    overflow-x: hidden;
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 1200px) {
     .left {   
       flex-direction: column;
     }

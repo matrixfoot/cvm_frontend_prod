@@ -29,7 +29,8 @@
         <h4>Code Postal:<b>  {{ user.codepostal }}</b></h4>
       </div>
       <div *ngIf="user.usertype=='Client'"><button type="button" class="btn btn-success" (click)="getNavigation('complete-profil', currentUser.userId)" 
-      *ngIf="!user.natureactivite || !user.activite || !user.sousactivite 
+      *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+      || !user.sousactivite || user.sousactivite=='Autre/null' || user.regimefiscalimpot=='Autre/null'
       || !user.regimefiscalimpot || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal"
       >Compléter</button></div>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
