@@ -46,6 +46,7 @@ import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
 import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
 import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
+import { SortDirective } from './directive/sort.directive';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { CollabUserCreateComponent } from './collab-user-create/collab-user-crea
     CompleteProfilComponent,
     CalendarFiscalityComponent,
     CollabUserCreateComponent,
+    SortDirective,
     
     
   ],
