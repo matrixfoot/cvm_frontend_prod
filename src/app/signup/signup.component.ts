@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   submitted = false;
+  result:string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -50,12 +51,26 @@ export class SignupComponent implements OnInit {
       validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
     });
     this.signupForm.reset();
+    console.log(this.result)
+    
   }
   get f() { return this.signupForm.controls; }
-
+  
+  randomString(length) {
+    var randomChars1 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var randomChars2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    for ( var i = 0; i < length; i++ ) {
+        result += randomChars1.charAt(Math.floor(Math.random()* randomChars2.length))+randomChars2.charAt(Math.floor(Math.random() * randomChars2.length));
+    }
+    console.log(result)
+    return result;
+    
+}
   onSignup() {
     this.loading = true;
     this.submitted = true;
+
     if (this.signupForm.invalid) {
       
       return this.loading = false;
