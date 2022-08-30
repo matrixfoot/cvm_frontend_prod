@@ -92,13 +92,14 @@
     </div>
 
     <div *ngIf="submitted && f.clientcode.errors" class="invalid-feedback">
-      <div *ngIf="f.clientcode.errors.required">Code Client Obligatoire</div>
+      <div *ngIf="f.clientcode.errors.required">Veuillez générer votre code client</div>
   </div>
     <div title="indiquer votre clientcode"class="input-container">
       <label for="clientcode"> Code Client:</label>
       <i class="fa fa-user icon"></i>
-      <input class="input-field" type="text" placeholder="code client" id="clientcode" 
+      <input class="input-field" type="text" id="clientcode" 
       [ngClass]="{ 'is-invalid': submitted && f.clientcode.errors }"formControlName="clientcode">
+      <input type="button" value="Générer code client" (click)="randomString()">&nbsp;
      
     </div>
    

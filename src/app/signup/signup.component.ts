@@ -44,7 +44,7 @@ export class SignupComponent implements OnInit {
       civilite: [null,Validators.required],
       raisonsociale: [null],
       nomsociete: [null],
-      clientcode: [null, Validators.required],
+      clientcode: [{value:null, disabled: true}, Validators.required],
       role: [ {value: "basic", disabled: true},Validators.required],
     },
     {
@@ -58,13 +58,20 @@ export class SignupComponent implements OnInit {
   
   randomString() {
     var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-    var string_length = 3;
+    var string_length = 1;
     var randomstring = '';
+    var chars2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var string_length2 = 2;
+    var randomstring2 = '';
     for (var i=0; i<string_length; i++) {
       var rnum = Math.floor(Math.random() * chars.length);
       randomstring += chars.substring(rnum,rnum+1);
     }
-    this.signupForm.patchValue({clientcode: randomstring});
+    for (var j=0; j<string_length2; j++) {
+      var rnum2= Math.floor(Math.random() * chars2.length);
+      randomstring2 += chars2.substring(rnum2,rnum2+1);
+    }
+    this.signupForm.patchValue({clientcode: randomstring+randomstring2});
   }
   onSignup() {
     this.loading = true;
