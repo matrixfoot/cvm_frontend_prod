@@ -98,7 +98,7 @@
       <label for="clientcode"> Code Client:</label>
       <i class="fa fa-user icon"></i>
       <input class="input-field" type="text" id="clientcode" 
-      [ngClass]="{ 'is-invalid': submitted && f.clientcode.errors }"formControlName="clientcode">
+      [ngClass]="{ 'is-invalid': submitted && f.clientcode.errors }"formControlName="clientcode"disabled>
       <input type="button" value="Générer code client" (click)="randomString()">&nbsp;
      
     </div>

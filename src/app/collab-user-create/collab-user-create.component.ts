@@ -45,7 +45,7 @@ export class CollabUserCreateComponent implements OnInit {
       civilite: [null,Validators.required],
       raisonsociale: [null],
       nomsociete: [null],
-      clientcode: [{value:null, disabled: true}, Validators.required],
+      clientcode: [null, Validators.required],
       role: [ {value: "basic", disabled: true},Validators.required],
     },
     {

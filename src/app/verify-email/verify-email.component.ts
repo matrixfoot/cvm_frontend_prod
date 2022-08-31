@@ -55,7 +55,13 @@ export class VerifyEmailComponent implements OnInit {
     }
     onlogin(){
         this.router.navigate(['login']);
+        this.reloadPage();
     }
+    reloadPage (){
+        setTimeout(() => window.location.reload(), 3000);
+        
+        
+      }
     onforgot(){
         this.router.navigate(['forgot-password']);
     }
