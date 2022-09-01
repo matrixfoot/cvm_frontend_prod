@@ -75,7 +75,7 @@ export class UserService {
           
             
           
-          this.http.put(API_URL_cloud+'complete'+id, user).subscribe(
+          this.http.put(API_URL_cloud+'complete/'+id, user).subscribe(
             (response) => {
               resolve(response);
             },
