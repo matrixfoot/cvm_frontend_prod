@@ -136,7 +136,7 @@ export class CompleteProfilComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(this.currentuser.userId,user).then(
+    this.userservice.completeUserById(this.currentuser.userId,user).then(
       () => {
         this.userForm.reset();
         this.loading = false;
