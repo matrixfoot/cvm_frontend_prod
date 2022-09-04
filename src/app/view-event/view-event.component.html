@@ -32,7 +32,7 @@
             
             <td >{{event.title}}</td>
             <td>{{event.date}}</td>
-            <td>  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'"(click)="getNavigation('modify-event',event_id)">Modifier</button></td>     
+            <td>  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'"(click)="getNavigation('modify-event',event._id)">Modifier</button></td>     
             <td>  <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'"(click)="onDelete()">Supprimer</button></td>
             <td>  <button type="button" class="btn btn-info" (click)="goback('calendar-fiscality')">Retour Au Calendrier</button></td>
             
