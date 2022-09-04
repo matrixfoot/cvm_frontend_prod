@@ -32,6 +32,9 @@ import { ModifyContactreqComponent } from './modify-contactreq/modify-contactreq
 import { CompleteProfilComponent } from './complete-profil/complete-profil.component';
 import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
 import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
+import { AddEventComponent } from './calendar-fiscality/add-event/add-event.component';
+import { ViewEventComponent } from './view-event/view-event.component';
+import { ModifyEventComponent } from './modify-event/modify-event.component';
 
 const routes: Routes = [
   
@@ -49,6 +52,9 @@ const routes: Routes = [
 { path: 'calendar-fiscality', component:CalendarFiscalityComponent,
     
 },
+{ path: 'add-event', component:AddEventComponent,
+    
+},
 { path: 'modify-user/:id', component: ModifyUserComponent,
     
 },
@@ -64,9 +70,13 @@ const routes: Routes = [
 { path: 'modify-user-admin/:id', component: ModifyUserAdminComponent,
     
 },
+{ path: 'modify-event/:id', component: ModifyEventComponent,
+    
+},
 { path: 'view-user/:id', component: ViewUserComponent},
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
 { path: 'view-contactreq/:id', component: ViewContactreqComponent},
+{ path: 'view-event/:id', component: ViewEventComponent},
 { path: 'verify-email/:token', component: VerifyEmailComponent},
 { path: 'reset-password/:token', component: ResetPasswordComponent},
 { path: 'admin-board', component: AdminBoardComponent,

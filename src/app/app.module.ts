@@ -47,12 +47,22 @@ import { CompleteProfilComponent } from './complete-profil/complete-profil.compo
 import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscality.component';
 import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
 import { SortDirective } from './directive/sort.directive';
+import { AddEventComponent } from './calendar-fiscality/add-event/add-event.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction';
+import { ViewEventComponent } from './view-event/view-event.component';
+import { ModifyEventComponent } from './modify-event/modify-event.component';
 
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
     AppComponent,
-   
+    
     
     
     HeaderComponent,
@@ -90,6 +100,9 @@ import { SortDirective } from './directive/sort.directive';
     CalendarFiscalityComponent,
     CollabUserCreateComponent,
     SortDirective,
+    AddEventComponent,
+    ViewEventComponent,
+    ModifyEventComponent,
     
     
   ],
@@ -101,7 +114,7 @@ import { SortDirective } from './directive/sort.directive';
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    
+    FullCalendarModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

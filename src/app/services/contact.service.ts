@@ -139,7 +139,7 @@ export class ContactService {
           
             
           
-          this.http.put(API_URL_test+ id, contactreq).subscribe(
+          this.http.put(API_URL_cloud+ id, contactreq).subscribe(
             (response) => {
               resolve(response);
             },
