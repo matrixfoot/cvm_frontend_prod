@@ -13,21 +13,19 @@
     <div class="container-fluid">
        
       
-    <form  [formGroup]="condidateForm">
+    <form  [formGroup]="eventform">
         <h2>Formulaire D'ajout D'Evenements</h2>
        
         
         
     
-          <div title="indiquer votre décision"class="input-container">
-            <i class="fa fa-user icon"></i>
-            <input class="input-field" type="text" nbInput fullWidth id="title" placeholder="Titre" [(ngModel)]="event.title"
-            [ngModelOptions]="{standalone: true}" required>
+          <div title="indiquer nom évènement"class="input-container">
+            <i class="fa fa-event icon"></i>
+            <input type="text" class="form-control" formControlName="title" id="title" placeholder=" Entrez Evènement">
           </div> 
-          <div title="indiquer votre motif"class="input-container">
-            <i class="fa fa-user icon"></i>
-            <input class="input-field" type="date" nbInput fullWidth id="date" placeholder="Date" [(ngModel)]="event.date"
-            [ngModelOptions]="{standalone: true}" required>
+          <div title="indiquer date évènement"class="input-container">
+            <i class="fa fa-date icon"></i>
+            <input type="date" class="form-control" formControlName="date" id="date" placeholder=" Entrez Date Evenement">
           </div> 
          
         

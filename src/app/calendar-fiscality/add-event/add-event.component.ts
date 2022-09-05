@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ApiServiceService } from '../../services/event.service';
 import { Events } from '../../models/event.model';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-add-event',
@@ -12,26 +13,39 @@ import { Events } from '../../models/event.model';
 })
 export class AddEventComponent implements OnInit {
 
- 
-
+  eventform: FormGroup;
+  loading = false;
   event = {
     title: '',
     date: ''
   };
   error: any;
   constructor(
-    public http: HttpClient,
+    private formBuilder: FormBuilder,
+    
     private apiService: ApiServiceService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.eventform = this.formBuilder.group({
+      title: [''],
+      
+      date: [''],
+      
+     
+      
+   
+    });
   }
+  
   saveEvent() {
+    this.loading = true;
     const event  = new Events();
+    event.title = this.eventform.get('title').value;
     
-      event.title= this.event.title,
-      event.date= this.event.date,
+    event.date = this.eventform.get('date').value;
+      
       
     this.apiService.addEvent(event)
       .then(
@@ -44,19 +58,20 @@ export class AddEventComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500
             });
-            this.router.navigate(['/calendar']);
+            this.router.navigate(['calendar-fiscality']);
           }
         },
         err => {
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'Something went wrong',
-            showConfirmButton: false,
-            timer: 1500
+            title: JSON.stringify(err.error.error),
+            
+            
+            
+            timer: 3000
           });
-          this.event.title = '';
-          this.event.date = '';
+          
         });
   }
 }

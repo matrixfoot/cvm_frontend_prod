@@ -19,9 +19,9 @@
           <tbody>
           <tr *ngFor="let event of events">
       
-            
+            <td>{{event.date | date : "dd MMMM y"}}</td>
             <td > <a routerLink="calendar-fiscality" routerLinkActive="active"> {{event.title}}</a></td>
-            <td>{{event.date}}</td>
+            
             
       
            
