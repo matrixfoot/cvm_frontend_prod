@@ -50,16 +50,17 @@ export class AddEventComponent implements OnInit {
     this.apiService.addEvent(event)
       .then(
         (response: any) => {
-          if (response.type === 'success') {
+          this.eventform.reset();
+          this.loading=false;
             Swal.fire({
               position: 'center',
               icon: 'success',
               title: 'Your Event has been added successfully',
               showConfirmButton: false,
-              timer: 1500
+              timer: 3000
             });
             this.router.navigate(['calendar-fiscality']);
-          }
+          
         },
         err => {
           Swal.fire({
