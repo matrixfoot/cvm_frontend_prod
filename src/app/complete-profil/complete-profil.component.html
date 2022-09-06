@@ -17,7 +17,7 @@
     <div *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
     || !user.sousactivite || user.sousactivite=='Autre/null' || user.regimefiscalimpot=='Autre/null'
     || !user.regimefiscalimpot || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal">
-   <h4 *ngIf="user.usertype=='Client'"> Veuillez renseigner les champs manquants avec des valeurs différents de null pour pouvoir bénéficier des services offerts par MaCompta</h4>
+   <h4 *ngIf="user.usertype=='Client'"> Veuillez renseigner les champs manquants avec des valeurs non vides pour pouvoir bénéficier des services offerts par MaCompta</h4>
   </div>
    
    
@@ -32,10 +32,10 @@
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
     <option hidden [value]="user.natureactivite">{{user.natureactivite}}</option>
     <option value="Profession Libérale">Profession Libérale</option>
-    <option disabled value="Commerçant">Commerçant</option>
-    <option disabled value="Artisan">Artisan</option>
-    <option disabled value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
-    <option value="Autre">Autre</option>
+    <option hidden value="Commerçant">Commerçant</option>
+    <option hidden value="Artisan">Artisan</option>
+    <option hidden value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
+    <option  hidden value="Autre">Autre</option>
   </select>
     </div>
     <div class="input-container"id="selectactivitynature"*ngIf="optionValue == 'Autre'">
@@ -52,6 +52,8 @@
   <option value="Avocat">Avocat</option>
   <option disabled value="Ingénieur">Ingénieur</option>
   <option disabled value="Architechte">Architechte</option>
+  <option disabled value="médecin dentiste">médecin dentiste</option>
+  <option disabled value="médecin vétérinaire">médecin vétérinaire</option>
   <option value="Autre">Autre</option>
 </select>
   </div>
@@ -60,7 +62,7 @@
     <i class="fa fa-fort-awesome icon"></i>
     <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
   </div>
-  <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
+  <div title="indiquer votre sous-activité"class="input-container-hidden"id="idunderactivity">
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
@@ -72,7 +74,7 @@
 <option value="Autre">Autre</option>
 </select>
 </div>
-<div class="input-container"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
+<div class="input-container-hidden"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
   <label for="underactivity"> Sous-Activité:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
@@ -102,7 +104,11 @@
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
-  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
+  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
+  <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback">
+    <div *ngIf="f.fiscalmat.errors.pattern">Format Incorrecte</div>
+</div> 
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="adresseactivite"> Adresse D'activité:</label>

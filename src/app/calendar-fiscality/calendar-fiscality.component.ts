@@ -5,7 +5,7 @@ import { ApiServiceService } from '../services/event.service';
 import Swal from 'sweetalert2';
 import { Events } from '../models/event.model';
 import { Router } from '@angular/router';
-
+import frLocale from '@fullcalendar/core/locales/fr';
 @Component({
   selector: 'app-calendar-fiscality',
   templateUrl: './calendar-fiscality.component.html',
@@ -53,12 +53,19 @@ export class CalendarFiscalityComponent implements OnInit {
     this.apiService.getAllEvents().subscribe((data: any) => {
       const self = this;
       this.calendarOptions = {
-        initialView: 'dayGridMonth',
+        initialView: 'dayGridMonth,timeGridWeek,timeGridDay',
         selectable: true,
         editable: false,
+        displayEventTime: false,
+        locale: frLocale,
         // dateClick: this.handleDateClick.bind(this),
         select: this.handleDateClick.bind(this),
         events: data,
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay,dayGridlist'
+          },
         eventClick(evetData) {
           // tslint:disable-next-line:variable-name
           const event_id = evetData.event._def.extendedProps._id;

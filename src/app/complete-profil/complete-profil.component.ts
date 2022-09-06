@@ -30,10 +30,12 @@ export class CompleteProfilComponent implements OnInit {
   public roleValue: string;
   private usersSub: Subscription;
   public loading = false;
+  public submitted=true;
   public optionValue:any;
   public option1Value:any;
   public option2Value:any;
   public option3Value:any;
+  fiscalmatPattern = "^[1-9]{7}[A-Z]{1}AP\[0-9]{3}$";
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
@@ -80,7 +82,7 @@ export class CompleteProfilComponent implements OnInit {
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-            fiscalmat: [this.user.matriculefiscale,],
+            fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
           },
@@ -101,11 +103,16 @@ export class CompleteProfilComponent implements OnInit {
           }
           
 
-
+          get f() { return this.userForm.controls; }
 
   
   onSubmit() {
     this.loading = true;
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      
+     return (this.loading = false);
+  }
     this.alertService.clear();
     const user = new User();
     user.userId = this.user.userId;
@@ -150,7 +157,7 @@ export class CompleteProfilComponent implements OnInit {
       (error) => {
         this.loading = false;
         
-        this.alertService.error(JSON.stringify(error.error.message) );
+        this.alertService.error(JSON.stringify(error.error.error) );
         window.scrollTo(0, 0);
         
       }

@@ -59,8 +59,9 @@ export class AddEventComponent implements OnInit {
               showConfirmButton: false,
               timer: 3000
             });
-            this.router.navigate(['calendar-fiscality']);
-          
+            this.router.navigate(['calendar-fiscality'])
+            this.reloadPage();
+            
         },
         err => {
           Swal.fire({
@@ -74,5 +75,10 @@ export class AddEventComponent implements OnInit {
           });
           
         });
+  }
+  reloadPage (){
+    setTimeout(() => window.location.reload(), 3500);
+    
+    
   }
 }

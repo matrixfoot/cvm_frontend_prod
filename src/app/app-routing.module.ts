@@ -35,7 +35,7 @@ import { CollabUserCreateComponent } from './collab-user-create/collab-user-crea
 import { AddEventComponent } from './calendar-fiscality/add-event/add-event.component';
 import { ViewEventComponent } from './view-event/view-event.component';
 import { ModifyEventComponent } from './modify-event/modify-event.component';
-
+import { SettingsComponent } from './settings/settings.component';
 const routes: Routes = [
   
    
@@ -46,10 +46,16 @@ const routes: Routes = [
 { path: 'profil', component: ProfilComponent,
     
 },
+{ path: 'settings', component: SettingsComponent,
+    
+},
 { path: 'declare-fiscality', component:DeclareFiscalityComponent,
     
 },
 { path: 'calendar-fiscality', component:CalendarFiscalityComponent,
+    
+},
+{ path: 'settings/calendar-fiscality', component:CalendarFiscalityComponent,
     
 },
 { path: 'add-event', component:AddEventComponent,

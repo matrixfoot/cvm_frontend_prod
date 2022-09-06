@@ -147,7 +147,7 @@ export class ModifyUserComponent implements OnInit {
       (error) => {
         this.loading = false;
         
-        this.alertService.error(JSON.stringify(error.error.message) );
+        this.alertService.error(JSON.stringify(error.error.error) );
         window.scrollTo(0, 0);
         
       }

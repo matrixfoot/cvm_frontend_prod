@@ -53,6 +53,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import interactionPlugin from '@fullcalendar/interaction';
 import { ViewEventComponent } from './view-event/view-event.component';
 import { ModifyEventComponent } from './modify-event/modify-event.component';
+import { SettingsComponent } from './settings/settings.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -103,6 +104,7 @@ FullCalendarModule.registerPlugins([
     AddEventComponent,
     ViewEventComponent,
     ModifyEventComponent,
+    SettingsComponent,
     
     
   ],
