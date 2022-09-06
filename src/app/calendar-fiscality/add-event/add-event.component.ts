@@ -17,7 +17,8 @@ export class AddEventComponent implements OnInit {
   loading = false;
   event = {
     title: '',
-    date: ''
+    date: '',
+    description:''
   };
   error: any;
   constructor(
@@ -33,7 +34,7 @@ export class AddEventComponent implements OnInit {
       
       date: [''],
       
-     
+      description: [''],
       
    
     });
@@ -43,7 +44,7 @@ export class AddEventComponent implements OnInit {
     this.loading = true;
     const event  = new Events();
     event.title = this.eventform.get('title').value;
-    
+    event.description = this.eventform.get('description').value;
     event.date = this.eventform.get('date').value;
       
       

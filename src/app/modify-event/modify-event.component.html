@@ -26,7 +26,11 @@
         <i class="fa fa-date icon"></i>
         <input class="input-field" type="date"  id="date" formControlName="date">
       </div>
-     
+      <div title="indiquer nom évènement"class="input-container">
+        <i class="fa fa-user icon"></i>
+        <textarea  class="form-control" id="description" formControlName="description"placeholder="Entrez votre commentaire"
+         ></textarea>
+      </div> 
     
   
     <button class="btn btn-success" (click)="onSubmit()">Envoyer Modification</button>

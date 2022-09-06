@@ -50,6 +50,7 @@ export class ModifyEventComponent implements OnInit {
             
             title: [this.event.title],
             date: [this.event.date],
+            description: [this.event.description],
           
           });
           this.loading = false;
@@ -66,6 +67,7 @@ onSubmit() {
   
   event.title =this.eventForm.get('title').value;
   event.date =this.eventForm.get('date').value;
+  event.description =this.eventForm.get('description').value;
   this.apiservice.modifyeventById(this.event._id,event).then(
     (data:any) => {
       this.eventForm.reset();
