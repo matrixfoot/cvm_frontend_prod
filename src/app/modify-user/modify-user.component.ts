@@ -28,6 +28,8 @@ export class ModifyUserComponent implements OnInit {
   public option1Value:any;
   public option2Value:any;
   public option3Value:any;
+  public submitted=false;
+  fiscalmatPattern = "^[1-9]{7}[A-Z]{1}AP\[0-9]{3}$";
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
@@ -53,9 +55,9 @@ export class ModifyUserComponent implements OnInit {
             role: [this.user.role,],
             firstname: [this.user.firstname,],
             lastname: [this.user.lastname,],
-            confirmemail: [null,Validators.required],
+            confirmemail: [null],
             mobile: [this.user.mobile,],
-            confirmmobile: [null,Validators.required],
+            confirmmobile: [null],
             usertype: [this.user.usertype,],
             email: [this.user.email,],
             fonction: [this.user.fonction,],
@@ -73,15 +75,13 @@ export class ModifyUserComponent implements OnInit {
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-            fiscalmat: [this.user.matriculefiscale,],
+            fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,],
             nomsociete: [this.user.nomsociete,],
-            clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
+            clientcode: [{value:this.user.clientcode,disabled:true}],
           },
-          {
-            validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
-          })
+          )
           this.optionValue=this.user.natureactivite;
           this.option1Value=this.user.activite;
           this.option2Value=this.user.sousactivite;
@@ -98,11 +98,16 @@ export class ModifyUserComponent implements OnInit {
            
           }
           
-          
+          get f() { return this.userForm.controls; } 
 
   
   onSubmit() {
     this.loading = true;
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      
+     return this.loading = false;
+  }
     this.alertService.clear();
     const user = new User();
     user.userId = this.currentuser.userId;

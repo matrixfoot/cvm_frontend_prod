@@ -45,12 +45,12 @@
         <div class="input-container">
           <label for="civilite"> Numéro Mobile:</label>
           <i class="fa fa-phone icon"></i>
-          <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+          <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" >
         </div>
         <div class="input-container">
           <label for="civilite"> Confirmer Numéro Mobile:</label>
           <i class="fa fa-phone icon"></i>
-          <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+          <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" >
         </div>
       </div>
       <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
@@ -129,7 +129,11 @@
 <div class="input-container"id="idfiscalmat">
   <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
-  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat">
+  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
+  <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback">
+    <div *ngIf="f.fiscalmat.errors.pattern">Format Incorrecte</div>
+</div>
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="adresseactivite"> Adresse D'activité:</label>
@@ -185,12 +189,12 @@
       <div class="input-container">
         <label for="fiscalmat"> Email:</label>
         <i class="fa fa-envelope icon"></i>
-        <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+        <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" >
       </div>
       <div class="input-container">
         <label for="fiscalmat"> Confirmer Email:</label>
         <i class="fa fa-envelope icon"></i>
-        <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+        <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" >
       </div>
     </div>
     

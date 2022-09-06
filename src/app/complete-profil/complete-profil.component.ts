@@ -60,9 +60,9 @@ export class CompleteProfilComponent implements OnInit {
             role: [this.user.role,],
             firstname: [this.user.firstname,],
             lastname: [this.user.lastname,],
-            confirmemail: [null,Validators.required],
+            confirmemail: [null],
             mobile: [this.user.mobile,],
-            confirmmobile: [null,Validators.required],
+            confirmmobile: [null],
             usertype: [this.user.usertype,],
             email: [this.user.email,],
             fonction: [this.user.fonction,],
@@ -84,11 +84,9 @@ export class CompleteProfilComponent implements OnInit {
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
             fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
             nomsociete: [this.user.nomsociete,],
-            clientcode: [{value:this.user.clientcode,disabled:true}, Validators.required],
+            clientcode: [{value:this.user.clientcode,disabled:true},],
           },
-          {
-            validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
-          })
+         )
           this.optionValue=this.user.natureactivite;
           this.option1Value=this.user.activite;
           this.option2Value=this.user.sousactivite;
@@ -111,7 +109,7 @@ export class CompleteProfilComponent implements OnInit {
     this.submitted = true;
     if (this.userForm.invalid) {
       
-     return (this.loading = false);
+     return this.loading = false;
   }
     this.alertService.clear();
     const user = new User();
