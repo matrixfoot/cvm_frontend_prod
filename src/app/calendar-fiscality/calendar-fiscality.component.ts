@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// @ts-ignore
 import { CalendarOptions } from '@fullcalendar/angular';
 import { HttpClient } from '@angular/common/http';
 import { ApiServiceService } from '../services/event.service';
