@@ -65,6 +65,7 @@ export class AddEventComponent implements OnInit {
             
         },
         err => {
+          this.loading=false;
           Swal.fire({
             position: 'center',
             icon: 'error',
