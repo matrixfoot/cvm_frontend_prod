@@ -54,6 +54,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { ViewEventComponent } from './view-event/view-event.component';
 import { ModifyEventComponent } from './modify-event/modify-event.component';
 import { SettingsComponent } from './settings/settings.component';
+import { HttpErrorInterceptor } from './interceptors/error-interceptor';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -118,7 +119,11 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     FullCalendarModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
