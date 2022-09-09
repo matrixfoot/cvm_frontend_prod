@@ -91,54 +91,52 @@ export class DeclareFiscalityComponent implements OnInit {
          text3.style.display = "block";
       }
     }
-    myFunction1() {
-      var checkbox:any = document.getElementById("myCheck1");
-      var text6 = document.getElementById("Check2");
-      
+    myFunction8() {
+      var checkbox:any = document.getElementById("myCheck8");
+      var text2 = document.getElementById("fg1");
+      var text3 = document.getElementById("fg2");
+      var text4 = document.getElementById("fg3");
       if (checkbox.checked == true){
-        
-        text6.style.display = "none";
+        text3.style.display = "block";
+        text2.style.display = "block";
+        text4.style.display = "block";
       } else {
-         
-         text6.style.display = "block";
+         text3.style.display = "none";
+         text2.style.display = "none";
+         text4.style.display = "none";
       }
     }
-    myFunction3() {
-      var checkbox:any = document.getElementById("myCheck3");
-      var text6 = document.getElementById("Check4");
-      
+    myFunction9() {
+      var checkbox:any = document.getElementById("myCheck9");
+      var text2 = document.getElementById("fg4");
+      var text3 = document.getElementById("fg5");
+      var text4 = document.getElementById("fg6");
       if (checkbox.checked == true){
-        
-        text6.style.display = "none";
+        text3.style.display = "block";
+        text2.style.display = "block";
+        text4.style.display = "block";
       } else {
-         
-         text6.style.display = "block";
+         text3.style.display = "none";
+         text2.style.display = "none";
+         text4.style.display = "none";
       }
     }
-    myFunction4() {
-      var checkbox:any = document.getElementById("myCheck4");
-      var text2 = document.getElementById("Check3");
-     
+    myFunction10() {
+      var checkbox:any = document.getElementById("myCheck10");
+      var text2 = document.getElementById("fg7");
+      var text3 = document.getElementById("fg8");
+      var text4 = document.getElementById("fg9");
       if (checkbox.checked == true){
-        
-        text2.style.display = "none";
+        text3.style.display = "block";
+        text2.style.display = "block";
+        text4.style.display = "block";
       } else {
-         
-         text2.style.display = "block";
+         text3.style.display = "none";
+         text2.style.display = "none";
+         text4.style.display = "none";
       }
     }
-    myFunction2() {
-      var checkbox:any = document.getElementById("myCheck2");
-      var text = document.getElementById("check2");
-      var text3 = document.getElementById("Check1");
-      if (checkbox.checked == true){
-        text.style.display = "block";
-        text3.style.display = "none";
-      } else {
-         text.style.display = "none";
-         text3.style.display = "block";
-      }
-    }
+    
 }
 
 

@@ -29,7 +29,10 @@ export class ModifyUserComponent implements OnInit {
   public option2Value:any;
   public option3Value:any;
   public submitted=false;
-  fiscalmatPattern = "^[1-9]{7}[A-Z]{1}AP\[0-9]{3}$";
+  fiscalmatPattern = "^[1-9]{7}$";
+  fiscalmatletterPattern="^[A-Z]{1}$";
+  fiscalmatnumbersPattern="^[0-9]{3}$";
+
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
    
@@ -75,7 +78,10 @@ export class ModifyUserComponent implements OnInit {
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-            fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
+            fiscalmat: [this.user.matriculefiscale.split(' ')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7)]],
+            fiscalmatletter: [this.user.matriculefiscale.split(' ')[1],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1)]],
+            fiscalmatinchanged: [{value:"AP",disabled:true}],
+            fiscalmatnumbers: [this.user.matriculefiscale.split(' ')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3)]],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,],
             nomsociete: [this.user.nomsociete,],
@@ -128,9 +134,12 @@ export class ModifyUserComponent implements OnInit {
     else {user.sousactivite =this.userForm.get('underactivity').value};
     if (this.userForm.get('fiscalimpot').value=="Autre") { user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value}
     else {user.regimefiscalimpot = this.userForm.get('fiscalimpot').value};
-    user.matriculefiscale = this.userForm.get('fiscalmat').value;
+    user.matriculefiscale = this.userForm.get('fiscalmat').value+' '+this.userForm.get('fiscalmatletter').value+' '+this.userForm.get('fiscalmatinchanged').value+' '+this.userForm.get('fiscalmatnumbers').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
-    user.matriculefiscale = this.userForm.get('fiscalmat').value;
+    user.adresseactivite = this.userForm.get('adresseactivite').value;
+    user.codepostal = this.userForm.get('codepostal').value;
+    user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
+   
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
     user.secteur = this.userForm.get('secteur').value;

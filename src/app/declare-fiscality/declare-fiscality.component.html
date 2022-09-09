@@ -46,7 +46,7 @@
       </div>
     </div> 
            
-    <p style="text-align: center;">Veuillez Cochez Le Type De Déclaration Que Vous Souhaitez Faire</p>
+    <p style="text-align: center;" class="hidden">Veuillez Cochez Le Type De Déclaration Que Vous Souhaitez Faire</p>
                 <div class="checkbox-container">
         
                     <div class="input-container" id="Check7"> 
@@ -54,17 +54,35 @@
                       <label for="myCheck7">Déclaration Mensuelle</label>
                       <input type="checkbox" id="myCheck7" (click)="myFunction7()">
                     </div>
-                    <div class="input-container" id="Check5">
+                    <div class="hidden" id="Check5">
                         <i class="fa fa-user icon"></i>
                         <label for="myCheck5">Acompte Provisionnelle</label>
                         <input type="checkbox" id="myCheck5" (click)="myFunction5()">
                       </div>
-                    <div class="input-container" id="Check6">
+                    <div class="hidden" id="Check6">
                       <i class="fa fa-user icon"></i>
                       <label for="myCheck6">Déclaration Annuelle</label>
                       <input type="checkbox" id="myCheck6" (click)="myFunction6()">
                     </div>
                   </div>
+                  <div class="checkbox-container">
+        
+                     <div class="input-container" id="Check8"> 
+                       <i class="fa fa-euro icon"></i>
+                       <label for="myCheck8">Impôt type 1</label>
+                       <input type="checkbox" id="myCheck8" (click)="myFunction8()">
+                     </div>
+                     <div class="input-container" id="Check9">
+                         <i class="fa fa-euro icon"></i>
+                         <label for="myCheck9">Impôt type 2</label>
+                         <input type="checkbox" id="myCheck9" (click)="myFunction9()">
+                       </div>
+                     <div class="input-container" id="Check10">
+                       <i class="fa fa-euro icon"></i>
+                       <label for="myCheck10">Impôt type 3</label>
+                       <input type="checkbox" id="myCheck10" (click)="myFunction10()">
+                     </div>
+                   </div>
     <table class="table table-striped">
        <tbody>
           <tr>
@@ -73,44 +91,45 @@
                 <form class="well form-horizontal">
                     
                    <fieldset>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Full Name</label>
+                      <div class="form-group" id="fg1">
+                         <label class="col-md-4 control-label">Montant1</label>
                          <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
+                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                              <input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Address Line 1</label>
+                      <div class="form-group" id="fg2">
+                         <label class="col-md-4 control-label">Montant2</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Address Line 2</label>
+                      <div class="form-group" id="fg3">
+                         <label class="col-md-4 control-label">Montant3</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine2" name="addressLine2" placeholder="Address Line 2" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">City</label>
+                      <div class="form-group" id="fg4">
+                         <label class="col-md-4 control-label">Montant4</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">State/Province/Region</label>
+                      <div class="form-group" id="fg5">
+                         <label class="col-md-4 control-label">Montant5</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Postal Code/ZIP</label>
+                      <div class="form-group" id="fg6">
+                         <label class="col-md-4 control-label">Montant6</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Country</label>
+                      <div class="form-group" id="fg7">
+                         <label class="col-md-4 control-label">Montant7</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">
                                <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
@@ -120,84 +139,77 @@
                             </div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Email</label>
+                      <div class="form-group" id="fg8">
+                         <label class="col-md-4 control-label">Montant8</label>
                          <div class="col-md-8 inputGroupContainer">
                             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
                          </div>
                       </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Phone Number</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
+
+   
                    </fieldset>
                 </form>
              </td>
              <td colspan="1">
                 <form class="well form-horizontal">
-                   <fieldset>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Full Name</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span><input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Address Line 1</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Address Line 2</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine2" name="addressLine2" placeholder="Address Line 2" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">City</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">State/Province/Region</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Postal Code/ZIP</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Country</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                               <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
-                               <select class="selectpicker form-control">
-                                  <option>A really long option to push the menu over the edget</option>
-                               </select>
-                            </div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Email</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group">
-                         <label class="col-md-4 control-label">Phone Number</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span><input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                   </fieldset>
+                  <fieldset>
+                     <div class="form-group" id="fg9">
+                        <label class="col-md-4 control-label">Montant9</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                             <input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg10">
+                        <label class="col-md-4 control-label">Montant10</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg11">
+                        <label class="col-md-4 control-label">Montant11</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine2" name="addressLine2" placeholder="Address Line 2" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg12">
+                        <label class="col-md-4 control-label">Montant12</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg13">
+                        <label class="col-md-4 control-label">Montant13</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg14">
+                        <label class="col-md-4 control-label">Montant14</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg15">
+                        <label class="col-md-4 control-label">Montant15</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group">
+                              <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                              <select class="selectpicker form-control">
+                                 <option>A really long option to push the menu over the edget</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group"id="fg16">
+                        <label class="col-md-4 control-label">Montant16</label>
+                        <div class="col-md-8 inputGroupContainer">
+                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
+                        </div>
+                     </div>
+
+  
+                  </fieldset>
                 </form>
              </td>
           </tr>

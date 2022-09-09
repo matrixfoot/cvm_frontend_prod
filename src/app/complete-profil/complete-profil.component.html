@@ -101,14 +101,31 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
 </div>
+<div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback" style="color:red;float: right;">
+  <div *ngIf="f.fiscalmat.errors.pattern">1ère partie Incorrecte</div>
+  <div *ngIf="f.fiscalmat.errors.length">Saisissez uniquement 7 lettres</div>
+</div>
+<hr>
+<div *ngIf="submitted && f.fiscalmatletter.errors" class="invalid-feedback" style="color:red;float: right;">
+  <div *ngIf="f.fiscalmatletter.errors.pattern">2ème partie Incorrecte</div>
+  <div *ngIf="f.fiscalmatletter.errors.length">Saisissez uniquement 1 lettre</div>
+</div>
+<hr>
+<div *ngIf="submitted && f.fiscalmatnumbers.errors" class="invalid-feedback" style="color:red;float: right;">
+  <div *ngIf="f.fiscalmatnumbers.errors.pattern">3ème partie Incorrecte</div>
+  <div *ngIf="f.fiscalmatnumbers.errors.length">Saisissez uniquement 3 chiffres</div>
+</div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat"
   [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
-  <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback">
-    <div *ngIf="f.fiscalmat.errors.pattern">Format Incorrecte</div>
-</div> 
+  <input class="input-field" style="width: 40px;" type="text" placeholder="Saisissez Lettre" id="fiscalmatletter" formControlName="fiscalmatletter"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatletter.errors }">
+  <input class="input-field" type="text" style="width: 50px;" id="fiscalmatinchanged" formControlName="fiscalmatinchanged"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged.errors }">
+  <input class="input-field" type="text" style="width: 60px;" id="fiscalmatnumbers" formControlName="fiscalmatnumbers"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatnumbers.errors }">
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="adresseactivite"> Adresse D'activité:</label>
