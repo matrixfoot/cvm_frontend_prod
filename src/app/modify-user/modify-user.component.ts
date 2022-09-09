@@ -52,7 +52,8 @@ export class ModifyUserComponent implements OnInit {
         (user: User) => {
           this.loading = false;
           this.user = user;
-          console.log(user)
+          
+          if (this.user.matriculefiscale){
           this.userForm = this.formBuilder.group({
               
             role: [this.user.role,],
@@ -87,7 +88,44 @@ export class ModifyUserComponent implements OnInit {
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true}],
           },
-          )
+          )}
+          else {
+            this.userForm = this.formBuilder.group({
+              
+              role: [this.user.role,],
+              firstname: [this.user.firstname,],
+              lastname: [this.user.lastname,],
+              confirmemail: [null],
+              mobile: [this.user.mobile,],
+              confirmmobile: [null],
+              usertype: [this.user.usertype,],
+              email: [this.user.email,],
+              fonction: [this.user.fonction,],
+              password: [null,],
+              confirmpassword: [null,],
+              secteur: [this.user.secteur,],
+              civilite: [this.user.civilite,],
+              raisonsociale: [this.user.raisonsociale,],
+              activitynature: [{value:this.user.natureactivite,}],
+              selectactivitynature: [null,],
+              activity: [this.user.activite,],
+              selectactivity:[null,],
+              underactivity: [this.user.sousactivite,],
+              selectunderactivity:[null,],
+              fiscalimpot: [this.user.regimefiscalimpot,],
+              selectfiscalimpot:[null,],
+              fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
+              fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
+              fiscalmatletter: [null,[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1)]],
+              fiscalmatinchanged: [{value:"AP",disabled:true}],
+              fiscalmatnumbers: [null,[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3)]],
+              adresseactivite: [this.user.adresseactivite,],
+              codepostal:[this.user.codepostal,],
+              nomsociete: [this.user.nomsociete,],
+              clientcode: [{value:this.user.clientcode,disabled:true}],
+            },
+            )
+          }
           this.optionValue=this.user.natureactivite;
           this.option1Value=this.user.activite;
           this.option2Value=this.user.sousactivite;

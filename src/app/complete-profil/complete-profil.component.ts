@@ -57,22 +57,12 @@ export class CompleteProfilComponent implements OnInit {
         (user: User) => {
           this.loading = false;
           this.user = user;
+          if (this.user.matriculefiscale){
           this.userForm = this.formBuilder.group({
               
-            role: [this.user.role,],
-            firstname: [this.user.firstname,],
-            lastname: [this.user.lastname,],
-            confirmemail: [null],
-            mobile: [this.user.mobile,],
-            confirmmobile: [null],
-            usertype: [this.user.usertype,],
-            email: [this.user.email,],
-            fonction: [this.user.fonction,],
-            password: [null,],
-            confirmpassword: [null,],
-            secteur: [this.user.secteur,],
-            civilite: [this.user.civilite,],
-            raisonsociale: [this.user.raisonsociale,],
+           
+            
+           
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
@@ -91,7 +81,44 @@ export class CompleteProfilComponent implements OnInit {
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true},],
           },
+          )}
+          else {
+            this.userForm = this.formBuilder.group({
+              
+              role: [this.user.role,],
+              firstname: [this.user.firstname,],
+              lastname: [this.user.lastname,],
+              confirmemail: [null],
+              mobile: [this.user.mobile,],
+              confirmmobile: [null],
+              usertype: [this.user.usertype,],
+              email: [this.user.email,],
+              fonction: [this.user.fonction,],
+              password: [null,],
+              confirmpassword: [null,],
+              secteur: [this.user.secteur,],
+              civilite: [this.user.civilite,],
+              raisonsociale: [this.user.raisonsociale,],
+              activitynature: [{value:this.user.natureactivite,}],
+              selectactivitynature: [null,],
+              activity: [this.user.activite,],
+              selectactivity:[null,],
+              underactivity: [this.user.sousactivite,],
+              selectunderactivity:[null,],
+              fiscalimpot: [this.user.regimefiscalimpot,],
+              selectfiscalimpot:[null,],
+              fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
+              fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
+              fiscalmatletter: [null,[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1)]],
+              fiscalmatinchanged: [{value:"AP",disabled:true}],
+              fiscalmatnumbers: [null,[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3)]],
+              adresseactivite: [this.user.adresseactivite,],
+              codepostal:[this.user.codepostal,],
+              nomsociete: [this.user.nomsociete,],
+              clientcode: [{value:this.user.clientcode,disabled:true}],
+            },
          )
+        }
           this.optionValue=this.user.natureactivite;
           this.option1Value=this.user.activite;
           this.option2Value=this.user.sousactivite;
@@ -119,15 +146,8 @@ export class CompleteProfilComponent implements OnInit {
     this.alertService.clear();
     const user = new User();
     user.userId = this.user.userId;
-    user.role = this.userForm.get('role').value;
-    user.email = this.userForm.get('email').value;
-    user.password =this.userForm.get('password').value;
-    user.mobile = this.userForm.get('mobile').value;
-    user.usertype =this.userForm.get('usertype').value;
-    user.confirmpassword =this.userForm.get('confirmpassword').value;
-    user.firstname = this.userForm.get('firstname').value;
-    user.lastname = this.userForm.get('lastname').value;
-    user.fonction = this.userForm.get('fonction').value;
+   
+   
     if (this.userForm.get('activitynature').value=="Autre") { user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value}
     else  {user.natureactivite = this.userForm.get('activitynature').value};
     if (this.userForm.get('activity').value=="Autre") {user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value}
@@ -142,11 +162,7 @@ export class CompleteProfilComponent implements OnInit {
     user.codepostal = this.userForm.get('codepostal').value;
     
     
-    user.secteur = this.userForm.get('secteur').value;
-    user.civilite = this.userForm.get('civilite').value;
-    user.raisonsociale = this.userForm.get('raisonsociale').value;
-    user.nomsociete = this.userForm.get('nomsociete').value;
-    user.clientcode = this.userForm.get('clientcode').value;
+   
     this.userservice.completeUserById(this.currentuser.userId,user).then(
       () => {
         this.userForm.reset();

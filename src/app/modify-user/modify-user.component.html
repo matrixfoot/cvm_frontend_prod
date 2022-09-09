@@ -127,17 +127,17 @@
   <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
 </div>
 <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback" style="color:red;float: right;">
-  <div *ngIf="f.fiscalmat.errors.pattern">1ère partie Incorrecte</div>
+  <div *ngIf="f.fiscalmat.errors.pattern">Veuillez saisir les 7 premiers chiffres</div>
   <div *ngIf="f.fiscalmat.errors.length">Saisissez uniquement 7 lettres</div>
 </div>
 <hr>
 <div *ngIf="submitted && f.fiscalmatletter.errors" class="invalid-feedback" style="color:red;float: right;">
-  <div *ngIf="f.fiscalmatletter.errors.pattern">2ème partie Incorrecte</div>
+  <div *ngIf="f.fiscalmatletter.errors.pattern">veuillez saisir la lettre qui suit les chiffres</div>
   <div *ngIf="f.fiscalmatletter.errors.length">Saisissez uniquement 1 lettre</div>
 </div>
 <hr>
 <div *ngIf="submitted && f.fiscalmatnumbers.errors" class="invalid-feedback" style="color:red;float: right;">
-  <div *ngIf="f.fiscalmatnumbers.errors.pattern">3ème partie Incorrecte</div>
+  <div *ngIf="f.fiscalmatnumbers.errors.pattern">veuillez saisir les 3 derniers chiffres</div>
   <div *ngIf="f.fiscalmatnumbers.errors.length">Saisissez uniquement 3 chiffres</div>
 </div>
 <div class="input-container"id="idfiscalmat">
