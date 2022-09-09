@@ -45,7 +45,7 @@ export class DeclareFiscalityComponent implements OnInit {
     this.matriculefiscale=this.user.matriculefiscale;
     if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
     || !user.sousactivite || user.sousactivite=='Autre/null' || user.regimefiscalimpot=='Autre/null'
-    || !user.regimefiscalimpot || !user.matriculefiscale) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
+    || !user.regimefiscalimpot || user.matriculefiscale.length<16) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
             
             
           }
