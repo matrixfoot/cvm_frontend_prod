@@ -129,34 +129,37 @@
 <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback" style="color:red;float: right;">
   <div *ngIf="f.fiscalmat.errors.pattern">Veuillez saisir les 7 premiers chiffres</div>
   <div *ngIf="f.fiscalmat.errors.length">Saisissez uniquement 7 lettres</div>
+  <div *ngIf="f.fiscalmat.errors.required">1ère partie obligatoire</div>
 </div>
 <hr>
 <div *ngIf="submitted && f.fiscalmatletter.errors" class="invalid-feedback" style="color:red;float: right;">
   <div *ngIf="f.fiscalmatletter.errors.pattern">veuillez saisir la lettre qui suit les chiffres</div>
   <div *ngIf="f.fiscalmatletter.errors.length">Saisissez uniquement 1 lettre</div>
+  <div *ngIf="f.fiscalmatletter.errors.required">2ème partie obligatoire</div>
 </div>
 <hr>
 <div *ngIf="submitted && f.fiscalmatnumbers.errors" class="invalid-feedback" style="color:red;float: right;">
   <div *ngIf="f.fiscalmatnumbers.errors.pattern">veuillez saisir les 3 derniers chiffres</div>
   <div *ngIf="f.fiscalmatnumbers.errors.length">Saisissez uniquement 3 chiffres</div>
-</div>
-<div class="input-container"id="idfiscalmat">
-  <label for="fiscalmat"> Matricule Fiscale:</label>
-  <i class="fa fa-fort-awesome icon"></i>
-  <input class="input-field" type="text" placeholder="Modifier Votre Matricule Fiscale" id="fiscalmat" formControlName="fiscalmat"
-  [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
-  <input class="input-field" style="width: 40px;" type="text" placeholder="Saisissez Lettre" id="fiscalmatletter" formControlName="fiscalmatletter"
-  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatletter.errors }">
-  <input class="input-field" type="text" style="width: 50px;" id="fiscalmatinchanged" formControlName="fiscalmatinchanged"
-  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged.errors }">
-  <input class="input-field" type="text" style="width: 60px;" id="fiscalmatnumbers" formControlName="fiscalmatnumbers"
-  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatnumbers.errors }">
-  
+  <div *ngIf="f.fiscalmatnumbers.errors.required">3ème partie obligatoire</div>
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
-  <label for="adresseactivite"> Adresse D'activité:</label>
+  <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
-  <input class="input-field" type="text" placeholder="Modifier Votre Adresse D'activité" id="adresseactivite" formControlName="adresseactivite">
+  <input class="input-field" style="width: 25%;"type="text"  id="fiscalmat" formControlName="fiscalmat"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
+  <h2>/</h2>
+  <input class="input-field" style="width: 25%;" type="text"  id="fiscalmatletter" formControlName="fiscalmatletter"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatletter.errors }">
+  <h2>/</h2>
+  <input class="input-field" type="text" style="width: 12%;" id="fiscalmatinchanged" formControlName="fiscalmatinchanged"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged.errors }">
+  <h2>/</h2>
+  <input class="input-field" type="text" style="width: 12%;" id="fiscalmatinchanged2" formControlName="fiscalmatinchanged2"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged2.errors }">
+  <h2>/</h2>
+  <input class="input-field" type="text" style="width: 25%;" id="fiscalmatnumbers" formControlName="fiscalmatnumbers"
+  [ngClass]="{ 'is-invalid': submitted && f.fiscalmatnumbers.errors }" default='000'>
 </div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="codepostal"> Code Postal:</label>

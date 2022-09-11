@@ -10,6 +10,7 @@ import { Contact } from '../models/contact.model';
 import { CondidateService } from '../services/condidate.service';
 import { ContactService } from '../services/contact.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import {ExcelService} from '../services/excel.service';
 @Component({
   selector: 'app-admin-board',
   templateUrl: './admin-board.component.html',
@@ -35,7 +36,8 @@ export class AdminBoardComponent implements OnInit {
               private UserService: UserService,
               private cond:CondidateService,
               private cont:ContactService,
-              private router: Router) { }
+              private router: Router,
+              private excelService:ExcelService) { }
               ngOnInit() {
                 this.searchForm = this.formBuilder.group({
               
@@ -176,5 +178,8 @@ export class AdminBoardComponent implements OnInit {
                                                                                                               
                                                                                                                
            }
+           exportusersAsXLSX():void {
+            this.excelService.exportAsExcelFile(this.users, 'sample');
+          }
 }
   

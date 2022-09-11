@@ -15,7 +15,7 @@ import { AlertService } from '../_helpers/alert.service';
   styleUrls: ['./modify-user.component.scss']
 })
 export class ModifyUserComponent implements OnInit {
-  public userForm: FormGroup;
+  public userForm: FormGroup; 
   public isloggedin=false; 
   public currentuser: User;
   public user: User;
@@ -79,10 +79,11 @@ export class ModifyUserComponent implements OnInit {
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-            fiscalmat: [this.user.matriculefiscale.split(' ')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7)]],
-            fiscalmatletter: [this.user.matriculefiscale.split(' ')[1],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1)]],
-            fiscalmatinchanged: [{value:"AP",disabled:true}],
-            fiscalmatnumbers: [this.user.matriculefiscale.split(' ')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3)]],
+            fiscalmat: [this.user.matriculefiscale.split('/')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7),Validators.required]],
+            fiscalmatletter: [this.user.matriculefiscale.split('/')[1],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1),Validators.required]],
+            fiscalmatinchanged: [{value:"A",disabled:true}],
+            fiscalmatinchanged2: [{value:"P",disabled:true}],
+            fiscalmatnumbers: [this.user.matriculefiscale.split('/')[4],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,],
             nomsociete: [this.user.nomsociete,],
@@ -115,10 +116,11 @@ export class ModifyUserComponent implements OnInit {
               fiscalimpot: [this.user.regimefiscalimpot,],
               selectfiscalimpot:[null,],
               fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
-              fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern)]],
-              fiscalmatletter: [null,[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1)]],
-              fiscalmatinchanged: [{value:"AP",disabled:true}],
-              fiscalmatnumbers: [null,[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3)]],
+              fiscalmat: [this.user.matriculefiscale,[Validators.pattern(this.fiscalmatPattern),Validators.required]],
+              fiscalmatletter: [null,[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1),Validators.required]],
+              fiscalmatinchanged: [{value:"A",disabled:true}],
+              fiscalmatinchanged2: [{value:"P",disabled:true}],
+              fiscalmatnumbers: ["000",[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
               adresseactivite: [this.user.adresseactivite,],
               codepostal:[this.user.codepostal,],
               nomsociete: [this.user.nomsociete,],
@@ -172,7 +174,8 @@ export class ModifyUserComponent implements OnInit {
     else {user.sousactivite =this.userForm.get('underactivity').value};
     if (this.userForm.get('fiscalimpot').value=="Autre") { user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value}
     else {user.regimefiscalimpot = this.userForm.get('fiscalimpot').value};
-    user.matriculefiscale = this.userForm.get('fiscalmat').value+' '+this.userForm.get('fiscalmatletter').value+' '+this.userForm.get('fiscalmatinchanged').value+' '+this.userForm.get('fiscalmatnumbers').value;
+    user.matriculefiscale = this.userForm.get('fiscalmat').value+'/'+this.userForm.get('fiscalmatletter').value+'/'+this.userForm.get('fiscalmatinchanged').value+'/'
+    +this.userForm.get('fiscalmatinchanged2').value+'/'+this.userForm.get('fiscalmatnumbers').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
