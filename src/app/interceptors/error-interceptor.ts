@@ -7,6 +7,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { Injectable } from '@angular/core';
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+  loading:boolean;
   constructor(
     
     private router: Router,private Auth: TokenStorageService,
@@ -43,6 +44,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           })
         }
           else{
+            this.loading=false;
             Swal.fire({
               position: 'center',
               icon: 'error',

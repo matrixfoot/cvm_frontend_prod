@@ -56,7 +56,7 @@ export class AddEventComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Your Event has been added successfully',
+              title: 'évènement créé avec succès',
               showConfirmButton: false,
               timer: 3000
             });

@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
+import Swal from 'sweetalert2';
 import { AlertService } from '../_helpers/alert.service';
 @Component({
   selector: 'app-view-user',
@@ -56,19 +57,31 @@ export class ViewUserComponent implements OnInit {
     this.loading = true;
     this.route.params.subscribe(
       (params: Params) => {
-        this.usersservice.deleteUserById(params.id).then(
+        this.usersservice.getUserById(params.id).then(
           (data:any) => {
             this.loading = false;
-            this.alertService.success(data.message);
-            window.scrollTo(0, 0);
-        this.router.navigate(['admin-board']);
-          },
-          (error) => {
-            this.loading = false;
-            this.alertService.error(error.error.error);
-            window.scrollTo(0, 0);
-            this.router.navigate(['admin-board']);
+            Swal.fire({
+              title: 'Veuillez confirmer la suppression!',
+              
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmer',
+              
+            }).then((result) => {
+              if (result.value) {
+                this.usersservice.deleteUserById(params.id);
+                this.router.navigate(['admin-board']);
+              }
+  
+            }).catch(() => {
+              Swal.fire('opération non aboutie!');
+            });
+    
+        
           }
+          
         );
       }
     );
