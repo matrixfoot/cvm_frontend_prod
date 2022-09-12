@@ -38,6 +38,7 @@ export class ViewUserComponent implements OnInit {
           (user: User) => {
             this.loading = false;
             this.user = user;
+            
             this.alertService.info('Données Utilisateur Chargées Avec Succès');
             window.scrollTo(0, 0);
             

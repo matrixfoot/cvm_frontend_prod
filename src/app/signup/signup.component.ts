@@ -117,15 +117,7 @@ export class SignupComponent implements OnInit {
       },
       error: error => {
         this.loading=false;
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: JSON.stringify(error.error.error),
-            
-            
-            
-            timer: 3000
-          });
+          
       }
     });
 

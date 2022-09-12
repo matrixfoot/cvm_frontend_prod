@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { stringify } from 'querystring';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { AlertService } from '../_helpers/alert.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-collab-user-create',
@@ -97,19 +98,23 @@ export class CollabUserCreateComponent implements OnInit {
     this.auth.register(email, password,confirmpassword,mobile,usertype,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
 
       next: data => {
-        this.alertService.success(data.message);
-        window.scrollTo(0, 0);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'inscription réalisée avec succès, veuillez cliquer sur le lien de vérification envoyé à votre adresse Email pour pouvoir se connecter',
+          showConfirmButton: false,
+          timer: 10000
+        });
+        
+        
         this.loading = false;
-        this.router.navigate(['admin-board']);
+        this.router.navigate(['login']);
       },
       error: error => {
-        this.alertService.error(error.error.error);
-        window.scrollTo(0, 0);
-        this.loading = false;
-        
-        this.isSignUpFailed = true;
+        this.loading=false;
+          
       }
     });
 
