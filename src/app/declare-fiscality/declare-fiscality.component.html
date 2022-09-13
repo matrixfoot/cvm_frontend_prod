@@ -127,131 +127,60 @@
        <tbody>
           <tr>
              <td colspan="1">
-                
-                <form class="well form-horizontal">
+               <form [formGroup]="impotform" class="well form-horizontal" (ngSubmit)="logValue()">
+                  
                     
-                   <fieldset>
-                      <div class="form-group" id="fg1">
-                         <label class="col-md-4 control-label">Montant1</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                              <input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg2">
-                         <label class="col-md-4 control-label">Montant2</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg3">
-                         <label class="col-md-4 control-label">Montant3</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine2" name="addressLine2" placeholder="Address Line 2" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg4">
-                         <label class="col-md-4 control-label">Montant4</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg5">
-                         <label class="col-md-4 control-label">Montant5</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg6">
-                         <label class="col-md-4 control-label">Montant6</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-                      <div class="form-group" id="fg7">
-                         <label class="col-md-4 control-label">Montant7</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">
-                               <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
-                               <select class="selectpicker form-control">
-                                  <option>A really long option to push the menu over the edget</option>
-                               </select>
+                     <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
+                      <fieldset formArrayName="ammounts" 
+                        *ngFor="let ammount of ammountControls; let i = index;">
+                        <div [formGroupName]="i">
+                          <div class="row">
+                            <div class="col-6">
+                                <h4>Montant {{i + 1}}</h4>
                             </div>
-                         </div>
+                            <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Montant</label>
+                                    <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>Description</label>
+                                  <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                </div>
+                          </div>
+                          </div>
+                          
+                         
+                        </div>
+                    
+                      </fieldset>
+                
+                      <div class="text-right">
+                          <input type="submit" class="btn btn-success" value="Submit"/>
                       </div>
-                      <div class="form-group" id="fg8">
-                         <label class="col-md-4 control-label">Montant8</label>
-                         <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
-                         </div>
-                      </div>
-
-   
-                   </fieldset>
+                      
+                   
+                  
+                
                 </form>
+                
+               
              </td>
-             <td colspan="1">
-                <form class="well form-horizontal">
-                  <fieldset>
-                     <div class="form-group" id="fg9">
-                        <label class="col-md-4 control-label">Montant9</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                             <input id="fullName" name="fullName" placeholder="Full Name" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg10">
-                        <label class="col-md-4 control-label">Montant10</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine1" name="addressLine1" placeholder="Address Line 1" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg11">
-                        <label class="col-md-4 control-label">Montant11</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="addressLine2" name="addressLine2" placeholder="Address Line 2" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg12">
-                        <label class="col-md-4 control-label">Montant12</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="city" name="city" placeholder="City" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg13">
-                        <label class="col-md-4 control-label">Montant13</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="state" name="state" placeholder="State/Province/Region" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg14">
-                        <label class="col-md-4 control-label">Montant14</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span><input id="postcode" name="postcode" placeholder="Postal Code/ZIP" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg15">
-                        <label class="col-md-4 control-label">Montant15</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group">
-                              <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
-                              <select class="selectpicker form-control">
-                                 <option>A really long option to push the menu over the edget</option>
-                              </select>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="form-group"id="fg16">
-                        <label class="col-md-4 control-label">Montant16</label>
-                        <div class="col-md-8 inputGroupContainer">
-                           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span><input id="email" name="email" placeholder="Email" class="form-control" required="true" value="" type="text"></div>
-                        </div>
-                     </div>
-
-  
-                  </fieldset>
-                </form>
-             </td>
+             
+                
           </tr>
        </tbody>
     </table>

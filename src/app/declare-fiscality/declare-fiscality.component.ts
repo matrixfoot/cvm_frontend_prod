@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
@@ -24,9 +24,17 @@ export class DeclareFiscalityComponent implements OnInit {
   matriculefiscale:string;
   currentUser: any;
   user:User;
-  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private alertService: AlertService,private usersservice: UserService,) { }
+  impotform: FormGroup;
+  public ammounts: FormArray;
+
+  constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
+    private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
+      this.impotform = this.fb.group({
+        ammounts: this.fb.array([ this.createammount() ])
+     });
+    }
   ngOnInit() {
-    this.isLoggedIn = !!this.token.getToken();
+   this.isLoggedIn = !!this.token.getToken();
     
     if (this.isLoggedIn) {
       this.currentUser = this.token.getUser();      
@@ -55,18 +63,26 @@ export class DeclareFiscalityComponent implements OnInit {
     
    
   }
-    myFunction6() {
-      var checkbox:any = document.getElementById("myCheck6");
-      var text2 = document.getElementById("Check5");
-      var text3 = document.getElementById("Check7");
-      if (checkbox.checked == true){
-        text3.style.display = "none";
-        text2.style.display = "none";
-      } else {
-         text3.style.display = "block";
-         text2.style.display = "block";
-      }
-    }
+  get ammountControls() {
+    return this.impotform.get('ammounts')['controls'];
+  }
+
+  createammount(): FormGroup {
+    return this.fb.group({
+      title: '',
+      ammount: '',
+      description: ''
+    });
+  }
+
+  addammount(): void {
+    this.ammounts = this.impotform.get('ammounts') as FormArray;
+    this.ammounts.push(this.createammount());
+  }
+
+  removeammount(i: number) {
+    this.ammounts.removeAt(i);
+  }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
       var text2 = document.getElementById("Check5");
@@ -78,6 +94,9 @@ export class DeclareFiscalityComponent implements OnInit {
          text2.style.display = "block";
          text3.style.display = "block";
       }
+    }
+    logValue() {
+      console.log(this.ammounts.value);
     }
     myFunction5() {
       var checkbox:any = document.getElementById("myCheck5");
