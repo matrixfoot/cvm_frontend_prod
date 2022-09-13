@@ -39,6 +39,7 @@ export class ViewUserComponent implements OnInit {
             this.loading = false;
             this.user = user;
             
+            
             this.alertService.info('Données Utilisateur Chargées Avec Succès');
             window.scrollTo(0, 0);
             
@@ -73,6 +74,76 @@ export class ViewUserComponent implements OnInit {
             }).then((result) => {
               if (result.value) {
                 this.usersservice.deleteUserById(params.id);
+                this.router.navigate(['admin-board']);
+              }
+  
+            }).catch(() => {
+              Swal.fire('opération non aboutie!');
+            });
+    
+        
+          }
+          
+        );
+      }
+    );
+  }
+  onDesactivate() {
+    this.loading = true;
+    this.route.params.subscribe(
+      (params: Params) => {
+        
+        this.usersservice.getUserById(params.id).then(
+          (user: User) => {
+            this.loading = false;
+            this.user=user;
+            Swal.fire({
+              title: 'Veuillez confirmer la désactivation!',
+              
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmer',
+              
+            }).then((result) => {
+              if (result.value) {
+                this.usersservice.desactivateUser(params.id,user);
+                this.router.navigate(['admin-board']);
+              }
+  
+            }).catch(() => {
+              Swal.fire('opération non aboutie!');
+            });
+    
+        
+          }
+          
+        );
+      }
+    );
+  }
+  onactivate() {
+    this.loading = true;
+    this.route.params.subscribe(
+      (params: Params) => {
+        
+        this.usersservice.getUserById(params.id).then(
+          (user: User) => {
+            this.loading = false;
+            this.user=user;
+            Swal.fire({
+              title: 'Veuillez confirmer la restauration!',
+              
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmer',
+              
+            }).then((result) => {
+              if (result.value) {
+                this.usersservice.activateUser(params.id,user);
                 this.router.navigate(['admin-board']);
               }
   

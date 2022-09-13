@@ -108,7 +108,7 @@ export class SignupComponent implements OnInit {
           icon: 'success',
           title: 'inscription réalisée avec succès, veuillez cliquer sur le lien de vérification envoyé à votre adresse Email pour pouvoir se connecter',
           showConfirmButton: false,
-          timer: 10000
+          
         });
         
         

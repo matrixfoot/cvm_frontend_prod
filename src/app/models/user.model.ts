@@ -33,5 +33,6 @@ export class User {
 resetToken: Boolean;
 passwordReset:Boolean;
 updated: Date
+desactive:{statut: string, date:Date}
     
   }

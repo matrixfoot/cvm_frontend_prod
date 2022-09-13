@@ -12,6 +12,9 @@
         <h4>Crée le(heure GMT):<b>  {{ user.created }}</b></h4>
         <h4>Dernière modification  le(heure GMT):<b>  {{ user.updated }}</b></h4>
         <h4>Vérifié le(heure GMT):<b>  {{ user.verified }}</b></h4>
+        <h4 *ngIf="user.desactive">Statut du compte:<b *ngIf="user.desactive.statut===false">Compte actif</b><b *ngIf="user.desactive.statut===true">Compte Inactif</b></h4>
+        
+        <h4 *ngIf="user.desactive">date du statut(heure GMT):<b>  {{ user.desactive.date }}</b></h4>
         <h4>Mot de passe regénéré le(heure GMT):<b>  {{ user.resetToken }}</b></h4>
         <h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
         <h4>Mobile:<b>  {{ user.mobile }}</b></h4>
@@ -31,10 +34,16 @@
         <h4>Adresse D'activité:<b>  {{ user.adresseactivite}}</b></h4>
         <h4>Code Postal:<b>  {{ user.codepostal }}</b></h4>
       </div>
-      
+      <div class="btn-class">
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
-      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer utilisateur</button>
-
+      <button type="button" class="btn btn-danger"*ngIf="currentUser.role=='admin'"(click)="onDelete()">supprimer utilisateur</button>
+      <button type="button" class="btn btn-secondary"*ngIf="currentUser.role=='admin' && !user.desactive"(click)="onDesactivate()">Désactiver utilisateur</button>
+    </div>
+      <div class="btn-class"*ngIf="user.desactive">
+      
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && user.desactive.statut===false"(click)="onDesactivate()">Désactiver utilisateur</button>
+      <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.desactive.statut===true"(click)="onactivate()">Activer utilisateur</button>
+    </div>
     </div>
     
     </body>
