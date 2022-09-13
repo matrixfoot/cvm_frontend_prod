@@ -25,13 +25,16 @@ export class DeclareFiscalityComponent implements OnInit {
   currentUser: any;
   user:User;
   impotform: FormGroup;
-  public ammounts: FormArray;
-
+  impotform2: FormGroup;
+  public ammounts1: FormArray;
+  public ammounts2: FormArray;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
       this.impotform = this.fb.group({
-        ammounts: this.fb.array([ this.createammount() ])
-     });
+        ammounts1: this.fb.array([ this.createammount() ])
+     }),this.impotform2 = this.fb.group({
+      ammounts2: this.fb.array([ this.createammount() ])
+   })
     }
   ngOnInit() {
    this.isLoggedIn = !!this.token.getToken();
@@ -63,10 +66,12 @@ export class DeclareFiscalityComponent implements OnInit {
     
    
   }
-  get ammountControls() {
-    return this.impotform.get('ammounts')['controls'];
+  get ammountControls1() {
+    return this.impotform.get('ammounts1')['controls'];
   }
-
+  get ammountControls2() {
+    return this.impotform2.get('ammounts2')['controls'];
+  }
   createammount(): FormGroup {
     return this.fb.group({
       title: '',
@@ -75,13 +80,19 @@ export class DeclareFiscalityComponent implements OnInit {
     });
   }
 
-  addammount(): void {
-    this.ammounts = this.impotform.get('ammounts') as FormArray;
-    this.ammounts.push(this.createammount());
+  addammount1(): void {
+    this.ammounts1 = this.impotform.get('ammounts1') as FormArray;
+    this.ammounts1.push(this.createammount());
   }
-
-  removeammount(i: number) {
-    this.ammounts.removeAt(i);
+  addammount2(): void {
+    this.ammounts2 = this.impotform2.get('ammounts2') as FormArray;
+    this.ammounts2.push(this.createammount());
+  }
+  removeammount1(i: number) {
+    this.ammounts1.removeAt(i);
+  }
+  removeammount2(i: number) {
+    this.ammounts2.removeAt(i);
   }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
@@ -95,8 +106,11 @@ export class DeclareFiscalityComponent implements OnInit {
          text3.style.display = "block";
       }
     }
-    logValue() {
-      console.log(this.ammounts.value);
+    logValue1() {
+      console.log(this.ammounts1.value);
+    }
+    logValue2() {
+      console.log(this.ammounts2.value);
     }
     myFunction5() {
       var checkbox:any = document.getElementById("myCheck5");
@@ -112,32 +126,26 @@ export class DeclareFiscalityComponent implements OnInit {
     }
     myFunction8() {
       var checkbox:any = document.getElementById("myCheck8");
-      var text2 = document.getElementById("fg1");
-      var text3 = document.getElementById("fg2");
-      var text4 = document.getElementById("fg3");
+      var text2 = document.getElementById("form1");
+     
       if (checkbox.checked == true){
-        text3.style.display = "block";
         text2.style.display = "block";
-        text4.style.display = "block";
+        
       } else {
-         text3.style.display = "none";
          text2.style.display = "none";
-         text4.style.display = "none";
+         
       }
     }
     myFunction9() {
       var checkbox:any = document.getElementById("myCheck9");
-      var text2 = document.getElementById("fg4");
-      var text3 = document.getElementById("fg5");
-      var text4 = document.getElementById("fg6");
+      var text2 = document.getElementById("form2");
+     
       if (checkbox.checked == true){
-        text3.style.display = "block";
         text2.style.display = "block";
-        text4.style.display = "block";
+        
       } else {
-         text3.style.display = "none";
          text2.style.display = "none";
-         text4.style.display = "none";
+         
       }
     }
     myFunction10() {

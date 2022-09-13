@@ -127,19 +127,19 @@
        <tbody>
           <tr>
              <td colspan="1">
-               <form [formGroup]="impotform" class="well form-horizontal" (ngSubmit)="logValue()">
+               <form [formGroup]="impotform" class="well form-horizontal" (ngSubmit)="logValue1()" id="form1">
                   
                     
-                     <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
-                      <fieldset formArrayName="ammounts" 
-                        *ngFor="let ammount of ammountControls; let i = index;">
+                     <button type="button" class="btn btn-primary mb-2" (click)="addammount1()">Ajouter Montant</button>
+                      <fieldset formArrayName="ammounts1" 
+                        *ngFor="let ammount of ammountControls1; let i = index;">
                         <div [formGroupName]="i">
                           <div class="row">
                             <div class="col-6">
                                 <h4>Montant {{i + 1}}</h4>
                             </div>
                             <div class="col-6 text-right">
-                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount1(i)">Supprimer Montant</button>
                             </div>
                           </div>
                           <div class="row">
@@ -180,7 +180,59 @@
                
              </td>
              
-                
+             <td colspan="2">
+              <form [formGroup]="impotform2" class="well form-horizontal" (ngSubmit)="logValue2()" id="form2">
+                 
+                   
+                    <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Montant</button>
+                     <fieldset formArrayName="ammounts2" 
+                       *ngFor="let ammount of ammountControls2; let i = index;">
+                       <div [formGroupName]="i">
+                         <div class="row">
+                           <div class="col-6">
+                               <h4>Montant {{i + 1}}</h4>
+                           </div>
+                           <div class="col-6 text-right">
+                               <button type="button" class="btn btn-danger btn-sm" (click)="removeammount2(i)">Supprimer Montant</button>
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-6">
+                               <div class="form-group">
+                                   <label>Titre</label>
+                                   <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                 </div>
+                           </div>
+                           <div class="col-6">
+                               <div class="form-group">
+                                   <label>Montant</label>
+                                   <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                 </div>
+                           </div>
+                           <div class="col-6">
+                             <div class="form-group">
+                                 <label>Description</label>
+                                 <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                               </div>
+                         </div>
+                         </div>
+                         
+                        
+                       </div>
+                   
+                     </fieldset>
+               
+                     <div class="text-right">
+                         <input type="submit" class="btn btn-success" value="Submit"/>
+                     </div>
+                     
+                  
+                 
+               
+               </form>
+               
+              
+            </td>    
           </tr>
        </tbody>
     </table>
