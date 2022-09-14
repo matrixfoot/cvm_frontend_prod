@@ -6,6 +6,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { AlertService } from '../_helpers/alert.service';
 import { User } from '../models/user.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-declare-fiscality',
@@ -24,40 +25,71 @@ export class DeclareFiscalityComponent implements OnInit {
   matriculefiscale:string;
   currentUser: any;
   user:User;
-  impotform: FormGroup;
+  traitementsalaireform: FormGroup;
+  standardtraitementsalaireform: FormGroup;
   impotform2: FormGroup;
   public ammounts1: FormArray;
   public ammounts2: FormArray;
+  optionValue:any;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
-      this.impotform = this.fb.group({
+      this.traitementsalaireform = this.fb.group({
         ammounts1: this.fb.array([ this.createammount() ])
      }),this.impotform2 = this.fb.group({
       ammounts2: this.fb.array([ this.createammount() ])
    })
     }
   ngOnInit() {
-   this.isLoggedIn = !!this.token.getToken();
+    this.standardtraitementsalaireform =this.fb.group({
+      brutsalary: '',
+      imposalary: '',
+      retenuesalary: '',
+      solidaritycontribution: '',
+      choice:''
+      
+    });
+  this.isLoggedIn = !!this.token.getToken();
     
     if (this.isLoggedIn) {
       this.currentUser = this.token.getUser();      
     }
-    else (this.alertService.warn('Veuillez compléter votre profil pour pouvoir déposer votre déclaration'),this.router.navigate(['login']));
+    else (this.router.navigate(['login']));
     
-        this.usersservice.getUserById(this.currentUser.userId).then(
+  this.usersservice.getUserById(this.currentUser.userId).then(
           (user: User) => {
             this.loading = false;
             this.user = user;
             this.natureactivite=this.user.natureactivite;
-    this.activite=this.user.activite;
-    this.sousactivite=this.user.sousactivite;
+            this.activite=this.user.activite;
+            this.sousactivite=this.user.sousactivite;
     
-    this.regimefiscalimpot=this.user.regimefiscalimpot;
-    this.matriculefiscale=this.user.matriculefiscale;
+            this.regimefiscalimpot=this.user.regimefiscalimpot;
+            this.matriculefiscale=this.user.matriculefiscale;
     if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
     || user.regimefiscalimpot=='Autre/null'
     || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
             
+    if (user.regimefiscalimpot=='Réel')
+    {
+      Swal.fire({
+        title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité',
+        
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmer',
+        cancelButtonText: 'continer avec ce module',
+      }).then((result) => {
+        if (result.value) {
+          
+          this.router.navigate(['declare-comptabilite']);
+        }
+
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+    }
             
           }
         )
@@ -67,21 +99,24 @@ export class DeclareFiscalityComponent implements OnInit {
    
   }
   get ammountControls1() {
-    return this.impotform.get('ammounts1')['controls'];
+    return this.traitementsalaireform.get('ammounts1')['controls'];
   }
   get ammountControls2() {
     return this.impotform2.get('ammounts2')['controls'];
   }
   createammount(): FormGroup {
     return this.fb.group({
-      title: '',
-      ammount: '',
-      description: ''
+      brutsalary: '',
+      imposalary: '',
+      retenuesalary: '',
+      solidaritycontribution: '',
+      
+      
     });
   }
 
   addammount1(): void {
-    this.ammounts1 = this.impotform.get('ammounts1') as FormArray;
+    this.ammounts1 = this.traitementsalaireform.get('ammounts1') as FormArray;
     this.ammounts1.push(this.createammount());
   }
   addammount2(): void {
@@ -94,23 +129,23 @@ export class DeclareFiscalityComponent implements OnInit {
   removeammount2(i: number) {
     this.ammounts2.removeAt(i);
   }
+  logValue1() {
+    console.log(this.ammounts1.value);
+  }
+  logValue2() {
+    console.log(this.ammounts2.value);
+  }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
-      var text2 = document.getElementById("Check5");
-      var text3 = document.getElementById("Check6");
+      var text2 = document.getElementById("datelist");
+      var text3 = document.getElementById("impotlist");
       if (checkbox.checked == true){
-        text2.style.display = "none";
-        text3.style.display = "none";
+        text2.style.display = "flex";
+        text3.style.display = "flex";
       } else {
-         text2.style.display = "block";
-         text3.style.display = "block";
+         text2.style.display = "none";
+         text3.style.display = "none";
       }
-    }
-    logValue1() {
-      console.log(this.ammounts1.value);
-    }
-    logValue2() {
-      console.log(this.ammounts2.value);
     }
     myFunction5() {
       var checkbox:any = document.getElementById("myCheck5");
@@ -126,10 +161,10 @@ export class DeclareFiscalityComponent implements OnInit {
     }
     myFunction8() {
       var checkbox:any = document.getElementById("myCheck8");
-      var text2 = document.getElementById("form1");
+      var text2 = document.getElementById("retenuelist");
      
       if (checkbox.checked == true){
-        text2.style.display = "block";
+        text2.style.display = "flex";
         
       } else {
          text2.style.display = "none";
@@ -148,18 +183,22 @@ export class DeclareFiscalityComponent implements OnInit {
          
       }
     }
-    myFunction10() {
-      var checkbox:any = document.getElementById("myCheck10");
-      var text2 = document.getElementById("fg7");
-      var text3 = document.getElementById("fg8");
-      var text4 = document.getElementById("fg9");
+    myFunction13() {
+      var checkbox:any = document.getElementById("myCheck13");
+      var text2 = document.getElementById("traitementsalform");
+      var text3 = document.getElementById("ammounttable");
+      var text4 = document.getElementById("standardtraitementsalaireform");
+     
       if (checkbox.checked == true){
-        text3.style.display = "block";
+        
         text2.style.display = "block";
+        text3.style.display = "block";
         text4.style.display = "block";
+        
       } else {
-         text3.style.display = "none";
+         
          text2.style.display = "none";
+         text3.style.display = "none";
          text4.style.display = "none";
       }
     }

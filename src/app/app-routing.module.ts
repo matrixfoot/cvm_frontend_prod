@@ -36,6 +36,7 @@ import { AddEventComponent } from './calendar-fiscality/add-event/add-event.comp
 import { ViewEventComponent } from './view-event/view-event.component';
 import { ModifyEventComponent } from './modify-event/modify-event.component';
 import { SettingsComponent } from './settings/settings.component';
+import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
 const routes: Routes = [
   
    
@@ -50,6 +51,9 @@ const routes: Routes = [
     
 },
 { path: 'declare-fiscality', component:DeclareFiscalityComponent,
+    
+},
+{ path: 'declare-comptabilite', component:DeclareComptabiliteComponent,
     
 },
 { path: 'calendar-fiscality', component:CalendarFiscalityComponent,

@@ -66,7 +66,7 @@
                     </div>
                   </div>
 
-                  <div class="checkbox-container">
+                  <div class="checkbox-container" id="datelist">
                      <div class="input-container" id="Year"> 
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="year">Sélectionner année</label>
@@ -105,62 +105,177 @@
                       </div>
                    
                   </div>
-                  <div class="checkbox-container">
-        
-                     <div class="input-container" id="Check8"> 
-                       <i class="fa fa-euro icon"></i>
-                       <label for="myCheck8">Impôt type 1</label>
-                       <input type="checkbox" id="myCheck8" (click)="myFunction8()">
-                     </div>
-                     <div class="input-container" id="Check9">
-                         <i class="fa fa-euro icon"></i>
-                         <label for="myCheck9">Impôt type 2</label>
-                         <input type="checkbox" id="myCheck9" (click)="myFunction9()">
-                       </div>
-                     <div class="input-container" id="Check10">
-                       <i class="fa fa-euro icon"></i>
-                       <label for="myCheck10">Impôt type 3</label>
-                       <input type="checkbox" id="myCheck10" (click)="myFunction10()">
-                     </div>
-                   </div>
-    <table class="table table-striped">
+
+                  <table class="table table-striped">
+                    
+                    <tbody>
+                    <tr id="impotlist">
+                     <td> <div class="input-container" id="Check8"> 
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck8">Retenue à la source</label>
+                      <input type="checkbox" id="myCheck8" (click)="myFunction8()">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container" id="Check9">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck9">TFP</label>
+                      <input type="checkbox" id="myCheck9" (click)="myFunction9()">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container" id="Check10">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck10">Foprolos</label>
+                      <input type="checkbox" id="myCheck10" (click)="myFunction10()">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container" id="Check11">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck11">TVA</label>
+                      <input type="checkbox" id="myCheck11" (click)="myFunction11()">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-container" id="Check12">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck12">Droit de timbre</label>
+                      <input type="checkbox" id="myCheck12" (click)="myFunction12()">
+                    </div>
+                  </td>
+                  </tr>
+                  <tr id="retenuelist">
+                   <td>
+                    <div class="input-container" id="Check13"> 
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck13">Traitement et salaires</label>
+                      <input type="checkbox" id="myCheck13" (click)="myFunction13()">
+                    </div>
+                   </td>
+                   <td>
+                    <div class="input-container" id="Check14">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck14">Location, Commission, Courtage et vacation</label>
+                      <input type="checkbox" id="myCheck14" (click)="myFunction14()">
+                    </div>
+                   </td>
+                   <td>
+                    <div class="input-container" id="Check15">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck15">Honoraire</label>
+                      <input type="checkbox" id="myCheck15" (click)="myFunction15()">
+                    </div>
+                   </td>
+                   <td>
+                    <div class="input-container" id="Check16">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck16">Montant Supérieur à 1000dt</label>
+                      <input type="checkbox" id="myCheck16" (click)="myFunction16()">
+                    </div>
+                   </td>
+                   <td>
+                    <div class="input-container" id="Check17">
+                      <i class="fa fa-euro icon"></i>
+                      <label for="myCheck17">Autre</label>
+                      <input type="checkbox" id="myCheck17" (click)="myFunction17()">
+                    </div>
+                   </td>
+
+
+                  </tr>
+                    </tbody>
+                  </table>
+
+                   <hr>
+    <table class="table table-striped" id="ammounttable">
        <tbody>
           <tr>
              <td colspan="1">
-               <form [formGroup]="impotform" class="well form-horizontal" (ngSubmit)="logValue1()" id="form1">
-                  
-                    
-                     <button type="button" class="btn btn-primary mb-2" (click)="addammount1()">Ajouter Montant</button>
-                      <fieldset formArrayName="ammounts1" 
-                        *ngFor="let ammount of ammountControls1; let i = index;">
+               <form [formGroup]="traitementsalaireform" class="well form-horizontal" (ngSubmit)="logValue1()" id="traitementsalform">
+                <form [formGroup]="standardtraitementsalaireform" class="well form-horizontal" id="standardtraitementsalaireform">
+                <div class="row">
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label>Salaire Brut</label>
+                          <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
+                        </div>
+                  </div>
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label>Salaire Imposable</label>
+                          <input type="number" class="form-control" formControlName="imposalary" placeholder="Saisir le montant"/>
+                        </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                        <label>Retenue à la source</label>
+                        <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
+                      </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                      <label>Contribution sociale de solidarité</label>
+                      <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
+                    </div>
+              </div>
+              <div title="indiquer votre sous-activité"class="col-6">
+                <div class="form-group">
+                <label for="underactivity"> Avez vous d'autres retenues à la source à déclarer:</label>    
+                
+            <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="optionValue"formControlName="choice" name="choice" >
+            <option value="Oui"><a routerLink="#retenuelist">Oui</a></option>
+            <option value="Non">Non</option>
+            
+            </select>
+          </div>
+          <div class="hidden"id="selectunderactivity"*ngIf="optionValue == 'Oui'">
+            <a href="declare-fiscality/#retenuelist">Ajouter Autre types de retenues à la source</a>
+          </div>
+            </div>
+                </div>
+              </form>
+                <div class="hidden">
+                     <button type="button" class="btn btn-primary btn-sm" (click)="addammount1()">Ajouter Rubrique</button>
+                    </div> 
+                     <fieldset formArrayName="ammounts1" 
+                        *ngFor="let ammount of ammountControls1; let i = index;" class="hidden">
                         <div [formGroupName]="i">
                           <div class="row">
                             <div class="col-6">
-                                <h4>Montant {{i + 1}}</h4>
+                                <textarea class="center" rows="1" cols="50" style="resize:none;text-align: center;background-color: lightgrey;" 
+                                placeholder="veuillez renseigner l'intitulé de la rubrique"></textarea>
                             </div>
                             <div class="col-6 text-right">
-                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount1(i)">Supprimer Montant</button>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount1(i)">Supprimer Rubrique</button>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Titre</label>
-                                    <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                    <label>Salaire Brut</label>
+                                    <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
                                   </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Montant</label>
-                                    <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                    <label>Salaire Imposable</label>
+                                    <input type="number" class="form-control" formControlName="imposalary" placeholder="Saisir le montant"/>
                                   </div>
                             </div>
                             <div class="col-6">
                               <div class="form-group">
-                                  <label>Description</label>
-                                  <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                  <label>Retenue à la source</label>
+                                  <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
                                 </div>
                           </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                                <label>Contribution sociale de solidarité</label>
+                                <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
+                              </div>
+                        </div>
+                        
                           </div>
                           
                          
@@ -169,7 +284,7 @@
                       </fieldset>
                 
                       <div class="text-right">
-                          <input type="submit" class="btn btn-success" value="Submit"/>
+                          <input type="submit" class="btn btn-success" value="Valider déclaration"/>
                       </div>
                       
                    
@@ -197,25 +312,32 @@
                            </div>
                          </div>
                          <div class="row">
-                           <div class="col-6">
-                               <div class="form-group">
-                                   <label>Titre</label>
-                                   <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
-                                 </div>
-                           </div>
-                           <div class="col-6">
-                               <div class="form-group">
-                                   <label>Montant</label>
-                                   <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
-                                 </div>
-                           </div>
-                           <div class="col-6">
-                             <div class="form-group">
-                                 <label>Description</label>
-                                 <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
-                               </div>
-                         </div>
-                         </div>
+                          <div class="col-6">
+                              <div class="form-group">
+                                  <label>Salaire Brut</label>
+                                  <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
+                                </div>
+                          </div>
+                          <div class="col-6">
+                              <div class="form-group">
+                                  <label>Salaire Imposable</label>
+                                  <input type="number" class="form-control" formControlName="imposalary" placeholder="Saisir le montant"/>
+                                </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                                <label>Retenue à la source</label>
+                                <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
+                              </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                              <label>Contribution sociale de solidarité</label>
+                              <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
+                            </div>
+                      </div>
+                      
+                        </div>
                          
                         
                        </div>

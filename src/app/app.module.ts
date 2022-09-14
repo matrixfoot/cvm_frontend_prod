@@ -56,6 +56,7 @@ import { ModifyEventComponent } from './modify-event/modify-event.component';
 import { SettingsComponent } from './settings/settings.component';
 import { HttpErrorInterceptor } from './interceptors/error-interceptor';
 import { ExcelService } from './services/excel.service';
+import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -106,6 +107,7 @@ FullCalendarModule.registerPlugins([
     ViewEventComponent,
     ModifyEventComponent,
     SettingsComponent,
+    DeclareComptabiliteComponent,
     
     
   ],
