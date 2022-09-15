@@ -71,7 +71,7 @@
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="year">Sélectionner année</label>
                         <select id="year" name="year">
-                           <option>year</option>
+                           <option>Année</option>
                            <option value="2022">2022</option>
                            <option disabled value="2023">2023</option>
                            <option disabled value="2024">2024</option>
@@ -88,7 +88,7 @@
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="month">Sélectionner mois</label>
                         <select id="month" name="month">
-                           <option>month</option>
+                           <option>Mois</option>
                            <option value="janvier">(01) janvier</option>
                            <option value="février">(02) février</option>
                            <option value="mars">(03) Mars</option>
@@ -105,7 +105,7 @@
                       </div>
                    
                   </div>
-
+                  <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
                   <table class="table table-striped">
                     
                     <tbody>
@@ -144,117 +144,50 @@
                       <input type="checkbox" id="myCheck12" (click)="myFunction12()">
                     </div>
                   </td>
-                  </tr>
-                  <tr id="retenuelist">
-                   <td>
-                    <div class="input-container" id="Check13"> 
+                  <td>
+                    <div class="input-container" id="Check13">
                       <i class="fa fa-euro icon"></i>
-                      <label for="myCheck13">Traitement et salaires</label>
+                      <label for="myCheck13">TCL</label>
                       <input type="checkbox" id="myCheck13" (click)="myFunction13()">
                     </div>
-                   </td>
-                   <td>
-                    <div class="input-container" id="Check14">
-                      <i class="fa fa-euro icon"></i>
-                      <label for="myCheck14">Location, Commission, Courtage et vacation</label>
-                      <input type="checkbox" id="myCheck14" (click)="myFunction14()">
-                    </div>
-                   </td>
-                   <td>
-                    <div class="input-container" id="Check15">
-                      <i class="fa fa-euro icon"></i>
-                      <label for="myCheck15">Honoraire</label>
-                      <input type="checkbox" id="myCheck15" (click)="myFunction15()">
-                    </div>
-                   </td>
-                   <td>
-                    <div class="input-container" id="Check16">
-                      <i class="fa fa-euro icon"></i>
-                      <label for="myCheck16">Montant Supérieur à 1000dt</label>
-                      <input type="checkbox" id="myCheck16" (click)="myFunction16()">
-                    </div>
-                   </td>
-                   <td>
-                    <div class="input-container" id="Check17">
-                      <i class="fa fa-euro icon"></i>
-                      <label for="myCheck17">Autre</label>
-                      <input type="checkbox" id="myCheck17" (click)="myFunction17()">
-                    </div>
-                   </td>
-
-
+                  </td>
                   </tr>
+                 
                     </tbody>
                   </table>
+                </div>
 
                    <hr>
-    <table class="table table-striped" id="ammounttable">
-       <tbody>
-          <tr>
-             <td colspan="1">
-               <form [formGroup]="traitementsalaireform" class="well form-horizontal" (ngSubmit)="logValue1()" id="traitementsalform">
-                <form [formGroup]="standardtraitementsalaireform" class="well form-horizontal" id="standardtraitementsalaireform">
-                <div class="row">
-                  <div class="col-6">
-                      <div class="form-group">
-                          <label>Salaire Brut</label>
-                          <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                      <div class="form-group">
-                          <label>Salaire Imposable</label>
-                          <input type="number" class="form-control" formControlName="imposalary" placeholder="Saisir le montant"/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                        <label>Retenue à la source</label>
-                        <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
+                   <div class="container-fluid"id="tabcontainer">
+                    <mat-tab-group (selectedTabChange)="onTabClick($event)">
+  
+                      <mat-tab label="Retenue à la source" *ngIf="showretenuetab===true"> 
+                        <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist">
+                          <label for="retenuelist"> Retenue à la source sur:</label>
+                          <i class="fas fa-wallet icon-special"></i>
+                          <select #cricket (change)="update($event)"[(ngModel)]="optionValue">
+                          <option value="default"> </option>
+                          <option *ngFor="let retenue of retenues" [value]="retenue">
+                              {{retenue}}
+                          </option>
+                      </select>
                       </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group">
-                      <label>Contribution sociale de solidarité</label>
-                      <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
-                    </div>
-              </div>
-              <div title="indiquer votre sous-activité"class="col-6">
-                <div class="form-group">
-                <label for="underactivity"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                
-            <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="optionValue"formControlName="choice" name="choice" >
-            <option value="Oui"><a routerLink="#retenuelist">Oui</a></option>
-            <option value="Non">Non</option>
-            
-            </select>
-          </div>
-          <div class="hidden"id="selectunderactivity"*ngIf="optionValue == 'Oui'">
-            <a href="declare-fiscality/#retenuelist">Ajouter Autre types de retenues à la source</a>
-          </div>
-            </div>
-                </div>
-              </form>
-                <div class="hidden">
-                     <button type="button" class="btn btn-primary btn-sm" (click)="addammount1()">Ajouter Rubrique</button>
-                    </div> 
-                     <fieldset formArrayName="ammounts1" 
-                        *ngFor="let ammount of ammountControls1; let i = index;" class="hidden">
-                        <div [formGroupName]="i">
-                          <div class="row">
-                            <div class="col-6">
-                                <textarea class="center" rows="1" cols="50" style="resize:none;text-align: center;background-color: lightgrey;" 
-                                placeholder="veuillez renseigner l'intitulé de la rubrique"></textarea>
-                            </div>
-                            <div class="col-6 text-right">
-                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount1(i)">Supprimer Rubrique</button>
-                            </div>
-                          </div>
+                      <div class="input-container"id="selectretenue"*ngIf="optionValue == 'Autre'">
+                        <label for="retenue"> Retenue à la source sur:</label>
+                        <i class="fas fa-wallet icon-special"></i>
+                        <input class="input-field" type="text" placeholder="Renseigner l'intitulé de la rubrique" id="selectretenue" >
+                      </div>
+                      <hr>
+                      <div class="container-fluid">
+                      <form  [formGroup]="standardtraitementsalaireform">
+                        <h2>{{optionValue}}</h2>
+                        <fieldset>
+                          
                           <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Salaire Brut</label>
-                                    <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
+                                    <input type="number" class="form-control" formControlName="brutsalary" placeholder="Saisir le montant"/>
                                   </div>
                             </div>
                             <div class="col-6">
@@ -266,97 +199,58 @@
                             <div class="col-6">
                               <div class="form-group">
                                   <label>Retenue à la source</label>
-                                  <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
+                                  <input type="text" class="form-control" formControlName="retenuesalary" placeholder="Saisir le montant"/>
                                 </div>
                           </div>
                           <div class="col-6">
                             <div class="form-group">
                                 <label>Contribution sociale de solidarité</label>
-                                <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
+                                <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="Saisir le montant"/>
                               </div>
                         </div>
                         
                           </div>
-                          
-                         
-                        </div>
+                         </fieldset>
+                      </form>
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist">
+                        <label for="retenuelist">Avez vous d'autres retenues à la source à déclarer:</label>
+                        <i class="fas fa-wallet icon-special"></i>
+                        <select #cricket (change)="update($event)"[(ngModel)]="option2Value">
+                          <option value="default"> </option>
+                          <option *ngFor="let retenue of findfiltredretenue(retenues)" [value]="retenue">
+                              {{retenue}}
+                          </option>
+                      </select>
+                    </div>
+                    <div class="input-container"id="selectretenue"*ngIf="optionValue == 'Autre'">
+                      <label for="retenue"> Retenue à la source sur:</label>
+                      <i class="fas fa-wallet icon-special"></i>
+                      <input class="input-field" type="text" placeholder="Renseigner l'intitulé de la rubrique" id="selectretenue" >
+                    </div>
+                    </div>
+                      </mat-tab>
                     
-                      </fieldset>
-                
-                      <div class="text-right">
-                          <input type="submit" class="btn btn-success" value="Valider déclaration"/>
-                      </div>
+                      <mat-tab label="TFP" id="TFPtab"*ngIf="showtfptab===true">
+                        <p>This is SMS Setting</p>
+                      </mat-tab>
                       
-                   
-                  
-                
-                </form>
-                
-               
-             </td>
-             
-             <td colspan="2">
-              <form [formGroup]="impotform2" class="well form-horizontal" (ngSubmit)="logValue2()" id="form2">
-                 
-                   
-                    <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Montant</button>
-                     <fieldset formArrayName="ammounts2" 
-                       *ngFor="let ammount of ammountControls2; let i = index;">
-                       <div [formGroupName]="i">
-                         <div class="row">
-                           <div class="col-6">
-                               <h4>Montant {{i + 1}}</h4>
-                           </div>
-                           <div class="col-6 text-right">
-                               <button type="button" class="btn btn-danger btn-sm" (click)="removeammount2(i)">Supprimer Montant</button>
-                           </div>
-                         </div>
-                         <div class="row">
-                          <div class="col-6">
-                              <div class="form-group">
-                                  <label>Salaire Brut</label>
-                                  <input type="number" class="form-control" formControlName="brutsalary" placeholder="Indiquer Salaire Brute"/>
-                                </div>
-                          </div>
-                          <div class="col-6">
-                              <div class="form-group">
-                                  <label>Salaire Imposable</label>
-                                  <input type="number" class="form-control" formControlName="imposalary" placeholder="Saisir le montant"/>
-                                </div>
-                          </div>
-                          <div class="col-6">
-                            <div class="form-group">
-                                <label>Retenue à la source</label>
-                                <input type="text" class="form-control" formControlName="retenuesalary" placeholder="décrivez Ce Montant"/>
-                              </div>
-                        </div>
-                        <div class="col-6">
-                          <div class="form-group">
-                              <label>Contribution sociale de solidarité</label>
-                              <input type="text" class="form-control" formControlName="solidaritycontribution" placeholder="décrivez Ce Montant"/>
-                            </div>
-                      </div>
+                      <mat-tab label="FOPROLOS" id="FOPROLOStab"*ngIf="showfoprolostab===true">
+                        <p>This is Email Setting</p>
+                      </mat-tab>
                       
-                        </div>
-                         
-                        
-                       </div>
-                   
-                     </fieldset>
-               
-                     <div class="text-right">
-                         <input type="submit" class="btn btn-success" value="Submit"/>
-                     </div>
                      
-                  
-                 
-               
-               </form>
-               
-              
-            </td>    
-          </tr>
-       </tbody>
-    </table>
+                     <mat-tab label="TVA" id="TVAtab"*ngIf="showtvatab===true">
+                       <p>This is SMS Setting</p>
+                     </mat-tab>
+                     
+                     <mat-tab label="Droit De Timbre" id="Timbretab"*ngIf="showtimbretab===true">
+                       <p>This is Email Setting</p>
+                     </mat-tab>
+                     <mat-tab label="TCL" id="TCLtab"*ngIf="showtcltab===true">
+                      <p>This is Email Setting</p>
+                    </mat-tab>
+                    </mat-tab-group>
+                   </div>
+    
  </div>
 </body>

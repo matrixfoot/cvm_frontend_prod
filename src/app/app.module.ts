@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -57,6 +58,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { HttpErrorInterceptor } from './interceptors/error-interceptor';
 import { ExcelService } from './services/excel.service';
 import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
+
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
@@ -110,6 +112,7 @@ FullCalendarModule.registerPlugins([
     DeclareComptabiliteComponent,
     
     
+    
   ],
   imports: [
     BrowserModule,
@@ -119,6 +122,7 @@ FullCalendarModule.registerPlugins([
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    MatTabsModule,
     FullCalendarModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{

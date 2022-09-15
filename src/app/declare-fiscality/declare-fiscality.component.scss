@@ -17,7 +17,7 @@
   th, td {
     text-align: left;
     padding: 8px;
-    min-width: 150px;
+    min-width: 100px;
   }
   
   
@@ -36,6 +36,22 @@
     padding: 30px;
     
   }
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border: 2px solid dodgerblue;
+  }
+  .icon-special {
+      padding: 10px;
+      background: dodgerblue;
+      color: white;
+      min-width: 50px;
+      text-align: center;
+    }
   #Check9{
     padding-left: 50px;
   }
@@ -80,18 +96,13 @@ $color-text-lite: rgba(#4d4f5c,.5);
     }
 
 }
-#retenuelist{
-    display: none;
-}
 #impotlist{
     display: none;
 }
 #datelist{
     display: none;
 }
-#ammounttable{
-    display: none;
-}
-#traitementsalform{
+
+#tabcontainer{
 display: none;
 }
