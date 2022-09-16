@@ -26,8 +26,43 @@ export class DeclareFiscalityComponent implements OnInit {
   currentUser: any;
   user:User;
   standardtraitementsalaireform: FormGroup;
+  standardlocationresidentesphysiqueform: FormGroup;
+  standardlocationresidentesmoraleform: FormGroup;
+  standardlocationnonresidentesphysiquesform: FormGroup;
+  standardhonorairephysiquereelform:FormGroup;
+  standardhonorairephysiquenonreelform: FormGroup;
+  standardmontant15form: FormGroup;
+  standardmontant10form: FormGroup;
+  standardmontantindividuelform: FormGroup;
+  standardmontantautreform: FormGroup;
   optionValue:any;
   option2Value:any;
+  option3Value:any;
+  option4Value:any;
+  option5Value:any;
+  option6Value:any;
+  option7Value:any;
+  option8Value:any;
+  option9Value:any;
+  option10Value:any;
+  option11Value:any;
+  option12Value:any;
+  option13Value:any;
+  option14Value:any;
+  option15Value:any;
+  option16Value:any;
+  option17Value:any;
+  option18Value:any;
+  option19Value:any;
+  option20Value:any;
+  option21Value:any;
+  option22Value:any;
+  option23Value:any;
+  option24Value:any;
+  option25Value:any;
+  option26Value:any;
+  option27Value:any;
+  option28Value:any;
   message: string;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieure à 1000 dt', 'Autre'];
@@ -46,7 +81,70 @@ export class DeclareFiscalityComponent implements OnInit {
       imposalary: '',
       retenuesalary: '',
       solidaritycontribution: '',
-      choice:''
+      
+      
+    });
+    this.standardlocationresidentesphysiqueform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardlocationresidentesmoraleform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardlocationnonresidentesphysiquesform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardhonorairephysiquereelform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardhonorairephysiquenonreelform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardmontant15form =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardmontant10form =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardmontantindividuelform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardmontantautreform =this.fb.group({
+      brutammount: '',
+      quotion: '',
+      retenueammount: '',
+      netammount: '',
       
     });
   this.isLoggedIn = !!this.token.getToken();
@@ -107,7 +205,9 @@ export class DeclareFiscalityComponent implements OnInit {
     this.selected = e.target.value
   }
   findfiltredretenue(retenues: any[]): any[] {
-    return retenues.filter(p => p!==this.optionValue);
+    if (this.optionValue!=='Autre'){
+    return retenues.filter(p => p!==this.optionValue);}
+    else {return this.retenues}
   }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
