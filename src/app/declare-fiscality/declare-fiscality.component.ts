@@ -63,6 +63,19 @@ export class DeclareFiscalityComponent implements OnInit {
   option26Value:any;
   option27Value:any;
   option28Value:any;
+  option29Value:any;
+  option30Value:any;
+  option31Value:any;
+  option32Value:any;
+  option33Value:any;
+  option34Value:any;
+  option35Value:any;
+  option36Value:any;
+  option37Value:any;
+  option38Value:any;
+  option39Value:any;
+  option40Value:any;
+  option41Value:any;
   message: string;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieure à 1000 dt', 'Autre'];
@@ -207,6 +220,21 @@ export class DeclareFiscalityComponent implements OnInit {
   findfiltredretenue(retenues: any[]): any[] {
     if (this.optionValue!=='Autre'){
     return retenues.filter(p => p!==this.optionValue);}
+    else {return this.retenues}
+  }
+  findfiltredretenue2(retenues: any[]): any[] {
+    if (this.option3Value!=='Autre'){
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value);}
+    else {return this.retenues}
+  }
+  findfiltredretenue3(retenues: any[]): any[] {
+    if (this.option3Value!=='Autre'){
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value);}
+    else {return this.retenues}
+  }
+  findfiltredretenue4(retenues: any[]): any[] {
+    if (this.option3Value!=='Autre'){
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);}
     else {return this.retenues}
   }
     myFunction7() {
