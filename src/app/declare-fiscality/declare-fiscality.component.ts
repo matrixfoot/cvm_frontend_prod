@@ -76,6 +76,12 @@ export class DeclareFiscalityComponent implements OnInit {
   option39Value:any;
   option40Value:any;
   option41Value:any;
+  option42Value:any;
+  option43Value:any;
+  option44Value:any;
+  option45Value:any;
+  option46Value:any;
+  option47Value:any;
   message: string;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieure à 1000 dt', 'Autre'];
@@ -86,9 +92,17 @@ export class DeclareFiscalityComponent implements OnInit {
   showtvatab=false;
   showtimbretab=false;
   showtcltab=false;
+  autreform: FormGroup;
+  public ammounts: FormArray;
+
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
-    private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {}
+    private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
+      this.autreform = this.fb.group({
+        ammounts: this.fb.array([ this.createammount() ])
+     });
+    }
   ngOnInit() {
+    
     this.standardtraitementsalaireform =this.fb.group({
       brutsalary: '',
       imposalary: '',
@@ -210,6 +224,29 @@ export class DeclareFiscalityComponent implements OnInit {
     
    
   }
+  get ammountControls() {
+    return this.autreform.get('ammounts')['controls'];
+  }
+
+  createammount(): FormGroup {
+    return this.fb.group({
+      title: '',
+      ammount: '',
+      description: ''
+    });
+  }
+
+  addammount(): void {
+    this.ammounts = this.autreform.get('ammounts') as FormArray;
+    this.ammounts.push(this.createammount());
+  }
+
+  removeammount(i: number) {
+    this.ammounts.removeAt(i);
+  }
+  logValue() {
+    console.log(this.ammounts.value);
+  }
   
   onTabClick(event) {
    
@@ -218,24 +255,20 @@ export class DeclareFiscalityComponent implements OnInit {
     this.selected = e.target.value
   }
   findfiltredretenue(retenues: any[]): any[] {
-    if (this.optionValue!=='Autre'){
-    return retenues.filter(p => p!==this.optionValue);}
-    else {return this.retenues}
+    
+    return retenues.filter(p => p!==this.optionValue);
   }
   findfiltredretenue2(retenues: any[]): any[] {
-    if (this.option3Value!=='Autre'){
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value);}
-    else {return this.retenues}
+    
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value);
   }
   findfiltredretenue3(retenues: any[]): any[] {
-    if (this.option3Value!=='Autre'){
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value);}
-    else {return this.retenues}
+    
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value);
   }
   findfiltredretenue4(retenues: any[]): any[] {
-    if (this.option3Value!=='Autre'){
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);}
-    else {return this.retenues}
+    
+    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);
   }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");
