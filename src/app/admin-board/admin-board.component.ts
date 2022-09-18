@@ -4,6 +4,7 @@ import { first } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 import { User } from '../models/user.model';
+import { Userdeleted } from '../models/user-deleted.model';
 import { Router } from '@angular/router';
 import { Condidate } from '../models/condidate.model';
 import { Contact } from '../models/contact.model';
@@ -20,11 +21,14 @@ export class AdminBoardComponent implements OnInit {
   public searchForm: FormGroup;
   public loading: boolean;
   public users: User[] = [];
+  
+  public usersdeleted: Userdeleted[] = [];
   public condidates: Condidate[] = [];
   public contacts: Contact[] = [];
   private condidatesSub: Subscription;
   private contactsSub: Subscription;
   private usersSub: Subscription;
+  private usersdeletedSub: Subscription;
   errormsg:string;
   firstname:string;
   lastname:string;
@@ -86,7 +90,17 @@ export class AdminBoardComponent implements OnInit {
                     this.errormsg=error.message;
                   }
                 );
-               
+                this.usersdeletedSub = this.UserService.usersdeleted$.subscribe(
+                  (usersdeleted) => {
+                    this.usersdeleted = usersdeleted;
+                    this.loading = false;
+                  },
+                  (error) => {
+                    this.loading = false;
+                    console.log(error);
+                    this.errormsg=error.message;
+                  }
+                );
                 
                 
               }
@@ -94,6 +108,11 @@ export class AdminBoardComponent implements OnInit {
               getNavigationusers(link, id){
       
                 this.UserService.getUserById(id);
+                this.router.navigate([link + '/' + id]); 
+              }
+              getNavigationusersdeleted(link, id){
+      
+                this.UserService.getUserdeletedById(id);
                 this.router.navigate([link + '/' + id]); 
               }
               getNavigationcondidates(link, id){
@@ -106,8 +125,13 @@ export class AdminBoardComponent implements OnInit {
                 this.cont.getContactreqById(id);
                 this.router.navigate([link + '/' + id]); 
               }
+              
               getclients() {
-                return this.users.filter((user) => user.usertype === 'Client'); 
+                return this.users.filter((user) => (user.usertype === 'Client'&&!user.desactive.statut)); 
+              }
+              getclientsbloqued() {
+               
+                return (this.users.filter((user) => user.desactive.statut));
               }
               getcollaborateurs() {
                 return this.users.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
@@ -142,7 +166,13 @@ export class AdminBoardComponent implements OnInit {
                                                                
                                                                  
              }                        
-           
+             getalldeleted() {
+                                
+                                                
+              this.UserService.getAlldeleted();
+                                                             
+                                                               
+           } 
               getcondidatesbyemail() {
                                                                                 
                 this.email=this.searchForm.get('email').value;

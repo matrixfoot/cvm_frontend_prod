@@ -37,6 +37,7 @@ import { ViewEventComponent } from './view-event/view-event.component';
 import { ModifyEventComponent } from './modify-event/modify-event.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
+import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.component';
 const routes: Routes = [
   
    
@@ -84,6 +85,7 @@ const routes: Routes = [
     
 },
 { path: 'view-user/:id', component: ViewUserComponent},
+{ path: 'view-user-deleted/:id', component: ViewUserDeletedComponent},
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
 { path: 'view-contactreq/:id', component: ViewContactreqComponent},
 { path: 'view-event/:id', component: ViewEventComponent},

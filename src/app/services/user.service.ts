@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
+import { Userdeleted } from '../models/user-deleted.model';
 const API_URL_test = 'http://localhost:3000/api/users/';
 const API_URL_cloud= 'https://cvm-backend.herokuapp.com/api/users/'
 @Injectable({ providedIn: 'root' })
@@ -12,7 +13,11 @@ export class UserService {
     private users: User[] = [
     
     ];
+    private usersdeleted: Userdeleted[] = [
+    
+    ];
     public users$ = new Subject<User[]>();
+    public usersdeleted$ = new Subject<Userdeleted[]>();
  
 
 
@@ -33,9 +38,25 @@ export class UserService {
           }
         );
       }
-    
+      getAlldeleted() {
+        this.http.get(API_URL_cloud+'deletedusers/all/').subscribe(
+          (usersdeleted: Userdeleted[]) => {
+            if (usersdeleted) {
+              this.usersdeleted = usersdeleted;
+              
+              this.emitusersdeleted();
+            }
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
       emitusers() {
         this.users$.next(this.users);
+      }
+      emitusersdeleted() {
+        this.usersdeleted$.next(this.usersdeleted);
       }
    
     
@@ -54,7 +75,20 @@ export class UserService {
           );
         });
       }
-    
+      getUserdeletedById(id: string) {
+        return new Promise((resolve, reject) => {
+          
+
+          this.http.get(API_URL_cloud + 'deleteduser/'+id).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
       modifyUserById(id: string, user: User) {
         return new Promise((resolve, reject) => {
           
@@ -91,6 +125,36 @@ export class UserService {
             
           
           this.http.put(API_URL_cloud+'desactivate/'+id, user).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+      deletetemporarUser(id: string) {
+        return new Promise((resolve, reject) => {
+          
+            
+          
+          this.http.delete(API_URL_cloud+'temporardelete/'+id).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
+      restaureUser(id: string) {
+        return new Promise((resolve, reject) => {
+          
+            
+          
+          this.http.delete(API_URL_cloud+'restaure/'+id).subscribe(
             (response) => {
               resolve(response);
             },

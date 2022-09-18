@@ -123,6 +123,41 @@ export class ViewUserComponent implements OnInit {
       }
     );
   }
+  ondeletetemporar() {
+    this.loading = true;
+    this.route.params.subscribe(
+      (params: Params) => {
+        
+        this.usersservice.getUserById(params.id).then(
+          (user: User) => {
+            this.loading = false;
+            this.user=user;
+            Swal.fire({
+              title: 'Veuillez confirmer la suppression temporaire!',
+              
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmer',
+              
+            }).then((result) => {
+              if (result.value) {
+                this.usersservice.deletetemporarUser(params.id);
+                this.router.navigate(['admin-board']);
+              }
+  
+            }).catch(() => {
+              Swal.fire('opération non aboutie!');
+            });
+    
+        
+          }
+          
+        );
+      }
+    );
+  }
   onactivate() {
     this.loading = true;
     this.route.params.subscribe(

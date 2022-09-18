@@ -59,6 +59,7 @@
             <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
             <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
             <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+            
             <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
             
           </tr>
@@ -78,10 +79,137 @@
             <td>{{user.natureactivite}}</td>
             <td>{{user.activite}}</td>
             <td>{{user.sousactivite}}</td>
+            
             <td>{{user.role}}</td>
             
             
             <td>  <button type="button" class="btn btn-success" (click)="getNavigationusers('view-user',user._id)">Consulter</button></td>
+            
+              
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+      <h2>Liste des Clients bloqués</h2>
+      <hr>
+          
+      <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th scope="col">Email <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="email" ></i></th>
+            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="firstname"  ></i></th>
+            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="lastname" ></i></th>
+            <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
+            <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
+            <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
+            <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+            <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+            <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+            
+            <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of getclientsbloqued()">
+      
+            
+            <td>{{user.email}}</td>
+            <td>{{user.firstname}}</td>
+            
+      
+            <td>{{user.lastname}}</td>
+            <td >{{user.usertype}}</td>
+            <td>{{user.mobile}}</td>
+            <td>{{user.clientcode}}</td>
+            <td>{{user.natureactivite}}</td>
+            <td>{{user.activite}}</td>
+            <td>{{user.sousactivite}}</td>
+            
+            <td>{{user.role}}</td>
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigationusers('view-user',user._id)">Consulter</button></td>
+            
+              
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+      <h2>Liste des Clients supprimés temporairement</h2>
+      <hr>
+      <div class="container-fluid">
+       
+      <form [formGroup]="searchForm">
+       
+        
+          <div class="searchbar" style="float: right;">
+            
+            <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
+           <a class="search_icon"(click)="getalldeleted()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+          </form> 
+        </div>  
+      <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th scope="col">Email <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="email" ></i></th>
+            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="firstname"  ></i></th>
+            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="lastname" ></i></th>
+            <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="usertype" ></i></th>
+            <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="mobile" ></i></th>
+            <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="clientcode" ></i></th>
+            <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="natureactivite"></i></th>
+            <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="activite" ></i></th>
+            <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="sousactivite" ></i></th>
+            <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="role" ></i></th>
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let userdeleted of usersdeleted">
+      
+            
+            <td>{{userdeleted.email}}</td>
+            <td>{{userdeleted.firstname}}</td>
+            
+      
+            <td>{{userdeleted.lastname}}</td>
+            <td >{{userdeleted.usertype}}</td>
+            <td>{{userdeleted.mobile}}</td>
+            <td>{{userdeleted.clientcode}}</td>
+            <td>{{userdeleted.natureactivite}}</td>
+            <td>{{userdeleted.activite}}</td>
+            <td>{{userdeleted.sousactivite}}</td>
+            <td>{{userdeleted.role}}</td>
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigationusers('view-user-deleted',userdeleted._id)">Consulter</button></td>
             
               
           </tr>

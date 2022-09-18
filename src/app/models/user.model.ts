@@ -32,7 +32,8 @@ export class User {
   acceptTerms:Boolean;
 resetToken: Boolean;
 passwordReset:Boolean;
-updated: Date
-desactive:{statut: string, date:Date}
+updated: Date;
+desactive:{statut: string, date:Date};
+restaured:Date;
     
   }

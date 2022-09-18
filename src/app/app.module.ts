@@ -58,6 +58,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { HttpErrorInterceptor } from './interceptors/error-interceptor';
 import { ExcelService } from './services/excel.service';
 import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
+import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -110,6 +111,7 @@ FullCalendarModule.registerPlugins([
     ModifyEventComponent,
     SettingsComponent,
     DeclareComptabiliteComponent,
+    ViewUserDeletedComponent,
     
     
     

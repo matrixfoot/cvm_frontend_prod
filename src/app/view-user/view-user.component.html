@@ -34,12 +34,13 @@
         <h4>Adresse D'activité:<b>  {{ user.adresseactivite}}</b></h4>
         <h4>Code Postal:<b>  {{ user.codepostal }}</b></h4>
       </div>
-      <div class="btn-class">
+      <div class="container-fluid">
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
       <button type="button" class="btn btn-danger"*ngIf="currentUser.role=='admin'"(click)="onDelete()">supprimer utilisateur</button>
       <button type="button" class="btn btn-secondary"*ngIf="currentUser.role=='admin' && !user.desactive"(click)="onDesactivate()">Désactiver utilisateur</button>
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin'"(click)="ondeletetemporar()">Supprimer Temporairement utilisateur</button>
     </div>
-      <div class="btn-class"*ngIf="user.desactive">
+      <div class="container-fluid"*ngIf="user.desactive">
       
       <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && user.desactive.statut===false"(click)="onDesactivate()">Désactiver utilisateur</button>
       <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.desactive.statut===true"(click)="onactivate()">Activer utilisateur</button>
