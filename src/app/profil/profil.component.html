@@ -13,15 +13,15 @@
         <h4>Dernière modificationle(heure GMT):<b>  {{ user.updated }}</b></h4>
         <h4>Numéro mobile:<b>  {{ user.mobile }}</b></h4>
         <h4>Type utilisateur:<b>  {{ user.usertype }}</b></h4>
-        <h4>Fonction:<b>  {{ user.fonction }}</b></h4>
-        <h4>Raisonsociale:<b>  {{ user.raisonsociale }}</b></h4>
-        <h4>Secteur:<b>  {{ user.secteur }}</b></h4>
-        <h4>Nomsociete:<b>  {{ user.nomsociete }}</b></h4>
+        <h4 class="hidden">Fonction:<b>  {{ user.fonction }}</b></h4>
+        <h4 class="hidden">Raisonsociale:<b>  {{ user.raisonsociale }}</b></h4>
+        <h4 class="hidden">Secteur:<b>  {{ user.secteur }}</b></h4>
+        <h4 class="hidden">Nomsociete:<b>  {{ user.nomsociete }}</b></h4>
         <h4>Email:<b>  {{ user.email }}</b></h4>
         <h4>Code client<b>  {{ user.clientcode }}</b></h4>
         <h4>Nature Activité:<b>  {{ user.natureactivite }}</b></h4>
         <h4>Activité:<b>  {{ user.activite }}</b></h4>
-        <h4>Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
+        <h4 class="hidden">Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
         <h4>Régime fiscal en matières d'impôts directs:<b>  {{ user.regimefiscalimpot }}</b></h4>
         <h4>Régime fiscal en matières de TVA:<b>  {{ user.regimefiscaltva }}</b></h4>
         <h4>Matricule Fiscale:<b>  {{ user.matriculefiscale }}</b></h4>
@@ -30,8 +30,7 @@
       </div>
       <div *ngIf="user.usertype=='Client'"><button type="button" class="btn btn-success" (click)="getNavigation('complete-profil', currentUser.userId)" 
       *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || !user.sousactivite || user.sousactivite=='Autre/null' || user.regimefiscalimpot=='Autre/null'
-      || !user.regimefiscalimpot || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal"
+      || user.regimefiscalimpot=='Autre/null'|| !user.regimefiscalimpot || !user.matriculefiscale"
       >Compléter</button></div>
       <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
       

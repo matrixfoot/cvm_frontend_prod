@@ -113,28 +113,28 @@ export class DeclareFiscalityComponent implements OnInit {
     });
     this.standardlocationresidentesphysiqueform =this.fb.group({
       brutammount: '',
-      quotion: '',
+      quotion: [{value:"0.1",disabled:true}],
       retenueammount: '',
       netammount: '',
       
     });
     this.standardlocationresidentesmoraleform =this.fb.group({
       brutammount: '',
-      quotion: '',
+      quotion: [{value:"0.1",disabled:true}],
       retenueammount: '',
       netammount: '',
       
     });
     this.standardlocationnonresidentesphysiquesform =this.fb.group({
       brutammount: '',
-      quotion: '',
+      quotion: [{value:"0.15",disabled:true}],
       retenueammount: '',
       netammount: '',
       
     });
     this.standardhonorairephysiquereelform =this.fb.group({
       brutammount: '',
-      quotion: '',
+      quotion: [{value:"0.15",disabled:true}],
       retenueammount: '',
       netammount: '',
       
