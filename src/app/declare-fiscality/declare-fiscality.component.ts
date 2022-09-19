@@ -29,8 +29,10 @@ export class DeclareFiscalityComponent implements OnInit {
   standardlocationresidentesphysiqueform: FormGroup;
   standardlocationresidentesmoraleform: FormGroup;
   standardlocationnonresidentesphysiquesform: FormGroup;
+  standardlocationnonresidentesmoralesform:FormGroup;
   standardhonorairephysiquereelform:FormGroup;
   standardhonorairephysiquenonreelform: FormGroup;
+  standardhonorairegroupementsform:FormGroup;
   standardmontant15form: FormGroup;
   standardmontant10form: FormGroup;
   standardmontantindividuelform: FormGroup;
@@ -132,16 +134,30 @@ export class DeclareFiscalityComponent implements OnInit {
       netammount: '',
       
     });
-    this.standardhonorairephysiquereelform =this.fb.group({
+    this.standardlocationnonresidentesmoralesform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.15",disabled:true}],
       retenueammount: '',
       netammount: '',
       
     });
+    this.standardhonorairephysiquereelform =this.fb.group({
+      brutammount: '',
+      quotion: [{value:"0.03",disabled:true}],
+      retenueammount: '',
+      netammount: '',
+      
+    });
     this.standardhonorairephysiquenonreelform =this.fb.group({
       brutammount: '',
-      quotion: '',
+      quotion: [{value:"0.1",disabled:true}],
+      retenueammount: '',
+      netammount: '',
+      
+    });
+    this.standardhonorairegroupementsform =this.fb.group({
+      brutammount: '',
+      quotion: [{value:"0.03",disabled:true}],
       retenueammount: '',
       netammount: '',
       
