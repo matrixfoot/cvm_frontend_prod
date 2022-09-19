@@ -84,7 +84,7 @@ export class DeclareFiscalityComponent implements OnInit {
   option47Value:any;
   message: string;
   selectedTab: number = 0;
-  retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieure à 1000 dt', 'Autre'];
+  retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   selected = "----"
   showretenuetab=false;
   showtfptab=false;

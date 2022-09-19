@@ -578,7 +578,7 @@
   </form> 
 </div>
   <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="optionValue == 'montant supérieure à 1000 dt'">
+<div class="container-fluid"*ngIf="optionValue == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="optionValue !== 'Autre'">{{optionValue}}</h2>
     
   <div title="indiquer votre choix"class="col-6">
@@ -765,6 +765,52 @@
                     </div>
                     <hr>
                     <h2 *ngIf="option3Value == 'Autre'">{{option11Value}}</h2>
+                       <!-- autre form-->
+                      
+                       <div class="container-fluid"*ngIf="option3Value == 'Autre'">
+                         
+                        <form [formGroup]="autreform"(ngSubmit)="logValue()">
+                          
+                          <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
+                      <fieldset formArrayName="ammounts" 
+                        *ngFor="let ammount of ammountControls; let i = index;">
+                        <div [formGroupName]="i">
+                          <div class="row">
+                            <div class="col-6">
+                                <h4>Rubrique {{i + 1}}</h4>
+                                <div class="col-6 text-right">
+                                  <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                              </div>
+                            </div>
+                            <div class="container-fluid">
+                              <div class="col-6">
+                                  <div class="form-group">
+                                      <label>Titre</label>
+                                      <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                    </div>
+                              </div>
+                              <div class="col-6">
+                                  <div class="form-group">
+                                      <label>Montant</label>
+                                      <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                    </div>
+                              </div>
+                              <div class="col-6">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                  </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                          </fieldset>
+
+                          <div class="text-right">
+                              <input type="submit" class="hidden" value="Submit"/>
+                          </div>
+                        </form>
+                      </div>
                     <!-- traitement et salaires form-->
                     <div class="container-fluid"*ngIf="option3Value == 'traitement et salaires'">
                     <form  [formGroup]="standardtraitementsalaireform">
@@ -1118,7 +1164,7 @@
 </form> 
 </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option3Value == 'montant supérieure à 1000 dt'">
+<div class="container-fluid"*ngIf="option3Value == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="option3Value !== 'Autre'">{{option3Value}}</h2>
   
 <div title="indiquer votre choix"class="col-6">
@@ -1304,6 +1350,52 @@
                     </div>
                     <hr>
                     <h2 *ngIf="option19Value == 'Autre'">{{option20Value}}</h2>
+                    <!-- autre form-->
+                      
+                    <div class="container-fluid"*ngIf="option19Value == 'Autre'">
+                         
+                      <form [formGroup]="autreform"(ngSubmit)="logValue()">
+                        
+                        <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
+                    <fieldset formArrayName="ammounts" 
+                      *ngFor="let ammount of ammountControls; let i = index;">
+                      <div [formGroupName]="i">
+                        <div class="row">
+                          <div class="col-6">
+                              <h4>Rubrique {{i + 1}}</h4>
+                              <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                            </div>
+                          </div>
+                          <div class="container-fluid">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Montant</label>
+                                    <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>Description</label>
+                                  <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                        </fieldset>
+
+                        <div class="text-right">
+                            <input type="submit" class="hidden" value="Submit"/>
+                        </div>
+                      </form>
+                    </div>
                     <!-- traitement et salaires form-->
                     <div class="container-fluid"*ngIf="option19Value == 'traitement et salaires'">
                     <form  [formGroup]="standardtraitementsalaireform">
@@ -1657,7 +1749,7 @@
 </form> 
 </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option19Value == 'montant supérieure à 1000 dt'">
+<div class="container-fluid"*ngIf="option19Value == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="option19Value !== 'Autre'">{{option19Value}}</h2>
   
 <div title="indiquer votre choix"class="col-6">
@@ -1843,6 +1935,52 @@
                     </div>
                     <hr>
                     <h2 *ngIf="option29Value == 'Autre'">{{option29Value}}</h2>
+                    <!-- autre form-->
+                      
+                    <div class="container-fluid"*ngIf="option29Value == 'Autre'">
+                         
+                      <form [formGroup]="autreform"(ngSubmit)="logValue()">
+                        
+                        <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
+                    <fieldset formArrayName="ammounts" 
+                      *ngFor="let ammount of ammountControls; let i = index;">
+                      <div [formGroupName]="i">
+                        <div class="row">
+                          <div class="col-6">
+                              <h4>Rubrique {{i + 1}}</h4>
+                              <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                            </div>
+                          </div>
+                          <div class="container-fluid">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Montant</label>
+                                    <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>Description</label>
+                                  <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                        </fieldset>
+
+                        <div class="text-right">
+                            <input type="submit" class="hidden" value="Submit"/>
+                        </div>
+                      </form>
+                    </div>
                     <!-- traitement et salaires form-->
                     <div class="container-fluid"*ngIf="option29Value == 'traitement et salaires'">
                     <form  [formGroup]="standardtraitementsalaireform">
@@ -2196,7 +2334,7 @@
 </form> 
 </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option29Value == 'montant supérieure à 1000 dt'">
+<div class="container-fluid"*ngIf="option29Value == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="option29Value !== 'Autre'">{{option29Value}}</h2>
   
 <div title="indiquer votre choix"class="col-6">
@@ -2381,6 +2519,52 @@
                     </div>
                     <hr>
                     <h2 *ngIf="option40Value == 'Autre'">{{option40Value}}</h2>
+                    <!-- autre form-->
+                      
+                    <div class="container-fluid"*ngIf="option40Value == 'Autre'">
+                         
+                      <form [formGroup]="autreform"(ngSubmit)="logValue()">
+                        
+                        <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter Montant</button>
+                    <fieldset formArrayName="ammounts" 
+                      *ngFor="let ammount of ammountControls; let i = index;">
+                      <div [formGroupName]="i">
+                        <div class="row">
+                          <div class="col-6">
+                              <h4>Rubrique {{i + 1}}</h4>
+                              <div class="col-6 text-right">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(i)">Supprimer Montant</button>
+                            </div>
+                          </div>
+                          <div class="container-fluid">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Titre</label>
+                                    <input type="text" class="form-control" formControlName="title" placeholder="désignation montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Montant</label>
+                                    <input type="number" class="form-control" formControlName="ammount" placeholder="Saisir le montant"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>Description</label>
+                                  <input type="text" class="form-control" formControlName="description" placeholder="décrivez Ce Montant"/>
+                                </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                        </fieldset>
+
+                        <div class="text-right">
+                            <input type="submit" class="hidden" value="Submit"/>
+                        </div>
+                      </form>
+                    </div>
                     <!-- traitement et salaires form-->
                     <div class="container-fluid"*ngIf="option40Value == 'traitement et salaires'">
                     <form  [formGroup]="standardtraitementsalaireform">
@@ -2734,7 +2918,7 @@
 </form> 
 </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option40Value == 'montant supérieure à 1000 dt'">
+<div class="container-fluid"*ngIf="option40Value == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="option40Value !== 'Autre'">{{option40Value}}</h2>
   
 <div title="indiquer votre choix"class="col-6">
