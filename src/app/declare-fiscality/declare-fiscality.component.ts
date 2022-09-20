@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { AlertService } from '../_helpers/alert.service';
 import { User } from '../models/user.model';
 import Swal from 'sweetalert2';
+import { merge, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-declare-fiscality',
@@ -85,6 +86,7 @@ export class DeclareFiscalityComponent implements OnInit {
   option46Value:any;
   option47Value:any;
   message: string;
+  sub1:Subscription
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   selected = "----"
@@ -96,7 +98,43 @@ export class DeclareFiscalityComponent implements OnInit {
   showtcltab=false;
   autreform: FormGroup;
   public ammounts: FormArray;
-
+  standardtraitementsalairebrutsalary=0;
+  standardtraitementsalaireimposalary=0;
+  standardtraitementsalaireretenuesalary=0;
+  standardtraitementsalairesolidaritycontribution=0;
+  standardlocationresidentesphysiquebrutammount=0;
+  standardlocationresidentesphysiqueretenueammount=0;
+  standardlocationresidentesphysiquenetammount=0;
+  standardlocationresidentesmoralebrutammount=0;
+  standardlocationresidentesmoraleretenueammount=0;
+  standardlocationresidentesmoralenetammount=0;
+  standardlocationnonresidentesphysiquesbrutammount=0;
+  standardlocationnonresidentesphysiquesretenueammount=0;
+  standardlocationnonresidentesphysiquesnetammount=0;
+  standardlocationnonresidentesmoralesbrutammount=0;
+  standardlocationnonresidentesmoralesretenueammount=0;
+  standardlocationnonresidentesmoralesnetammount=0;
+  standardhonorairephysiquereelbrutammount=0;
+  standardhonorairephysiquereelretenueammount=0;
+  standardhonorairephysiquereelnetammount=0;
+  standardhonorairephysiquenonreelbrutammount=0;
+  standardhonorairephysiquenonreelretenueammount=0;
+  standardhonorairephysiquenonreelnetammount=0;
+  standardhonorairegroupementsbrutammount=0;
+  standardhonorairegroupementsretenueammount=0;
+  standardhonorairegroupementsnetammount=0;
+  standardmontant15brutammount=0;
+  standardmontant15retenueammount=0;
+  standardmontant15netammount=0;
+  standardmontant10brutammount=0;
+  standardmontant10retenueammount=0;
+  standardmontant10netammount=0;
+  standardmontantindividuelbrutammount=0;
+  standardmontantindividuelretenueammount=0;
+  standardmontantindividuelnetammount=0;
+  standardmontantautrebrutammount=0;
+  standardmontantautreretenueammount=0;
+  standardmontantautrenetammount=0;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
       this.autreform = this.fb.group({
@@ -120,6 +158,7 @@ export class DeclareFiscalityComponent implements OnInit {
       netammount: '',
       
     });
+    
     this.standardlocationresidentesmoraleform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.1",disabled:true}],
@@ -190,6 +229,12 @@ export class DeclareFiscalityComponent implements OnInit {
       netammount: '',
       
     });
+    this.sub1=merge(
+      this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
+      this.standardlocationresidentesphysiqueform.get('quotion').valueChanges
+    ).subscribe((res:any)=>{
+      this.calculateResultForm1()
+   })
   this.isLoggedIn = !!this.token.getToken();
     
     if (this.isLoggedIn) {
@@ -240,10 +285,20 @@ export class DeclareFiscalityComponent implements OnInit {
     
    
   }
+
   get ammountControls() {
     return this.autreform.get('ammounts')['controls'];
   }
-
+calculateResultForm1()
+  {
+    const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
+    const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
+    this.standardlocationresidentesphysiqueform.get('retenueammount').setValue(brutammount*quotion)
+  }
+  ngOnDestroy(){
+    this.sub1.unsubscribe()
+//    this.sub2.unsubscribe()
+  }
   createammount(): FormGroup {
     return this.fb.group({
       title: '',
