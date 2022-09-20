@@ -231,7 +231,8 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     });
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
-      this.standardlocationresidentesphysiqueform.get('quotion').valueChanges
+      this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+      this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
     ).subscribe((res:any)=>{
       this.calculateResultForm1()
    })
@@ -290,13 +291,25 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     return this.autreform.get('ammounts')['controls'];
   }
 calculateResultForm1()
+  {if (this.standardlocationresidentesphysiqueform.get('brutammount').value)
   {
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
     const retenueammount= (brutammount*quotion).toFixed(3);
+  
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount 
       });
+    }
+    else {
+      const netammount=+this.standardlocationresidentesphysiqueform.get('netammount').value
+      const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
+      const retenueammount= (netammount/((1-quotion)*quotion)).toFixed(3);
+  
+    this.standardlocationresidentesphysiqueform.patchValue({
+      retenueammount: retenueammount 
+      });
+    }
   }
   ngOnDestroy(){
     this.sub1.unsubscribe()
