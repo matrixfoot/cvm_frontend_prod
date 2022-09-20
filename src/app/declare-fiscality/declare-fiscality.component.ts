@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -14,7 +14,7 @@ import { merge, Subscription } from 'rxjs';
   templateUrl: './declare-fiscality.component.html',
   styleUrls: ['./declare-fiscality.component.scss']
 })
-export class DeclareFiscalityComponent implements OnInit {
+export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   isLoggedIn=false
   loading=false;
   errormsg:string;
@@ -103,7 +103,7 @@ export class DeclareFiscalityComponent implements OnInit {
   standardtraitementsalaireretenuesalary=0;
   standardtraitementsalairesolidaritycontribution=0;
   standardlocationresidentesphysiquebrutammount=0;
-  standardlocationresidentesphysiqueretenueammount=0;
+  standardlocationresidentesphysiqueretenueammount:number;
   standardlocationresidentesphysiquenetammount=0;
   standardlocationresidentesmoralebrutammount=0;
   standardlocationresidentesmoraleretenueammount=0;
@@ -293,7 +293,10 @@ calculateResultForm1()
   {
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-    this.standardlocationresidentesphysiqueform.get('retenueammount').setValue(brutammount*quotion)
+    const retenueammount= (brutammount*quotion).toFixed(3);
+    this.standardlocationresidentesphysiqueform.patchValue({
+      retenueammount: retenueammount 
+      });
   }
   ngOnDestroy(){
     this.sub1.unsubscribe()
