@@ -291,26 +291,36 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     return this.autreform.get('ammounts')['controls'];
   }
 calculateResultForm1()
-  {if (this.standardlocationresidentesphysiqueform.get('brutammount').value)
+  {if (+this.standardlocationresidentesphysiqueform.get('brutammount').value!==0)
   {
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-    const retenueammount= (brutammount*quotion).toFixed(3);
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount)
   
     this.standardlocationresidentesphysiqueform.patchValue({
-      retenueammount: retenueammount 
-      });
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardlocationresidentesphysiqueform.updateValueAndValidity();
     }
-    else {
+    else if (+this.standardlocationresidentesphysiqueform.get('netammount').value!==0)
+    {
       const netammount=+this.standardlocationresidentesphysiqueform.get('netammount').value
       const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-      const retenueammount= (netammount/((1-quotion)*quotion)).toFixed(3);
-  
-    this.standardlocationresidentesphysiqueform.patchValue({
-      retenueammount: retenueammount 
-      });
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount*+retenueammount).toFixed(3);
+      this.standardlocationresidentesphysiqueform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationresidentesphysiqueform.updateValueAndValidity();
     }
   }
+  onReset() {
+    
+    this.standardlocationresidentesphysiqueform.reset();
+}
   ngOnDestroy(){
     this.sub1.unsubscribe()
 //    this.sub2.unsubscribe()
