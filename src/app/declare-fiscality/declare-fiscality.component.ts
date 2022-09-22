@@ -28,6 +28,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   matriculefiscale:string;
   currentUser: any;
   user:User;
+  
   public decfisc: Decfiscmens;
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
@@ -778,8 +779,9 @@ calculateResultForm1()
   }
   onSubmit() {
     this.loading = true;
-    
+    this.decfisc.impottype1.type=''
     const decfiscmens = new Decfiscmens();
+    
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.currentUser.activite;
     decfiscmens.codepostal=this.currentUser.codepostal;

@@ -50,43 +50,14 @@ export class DecfiscmensService {
           );
         });
       }
-      getdecfiscmensssup(date: string) {
-        return new Promise((resolve, reject) => {
-          this.http.post(API_URL_cloud +'filterdecfiscmenssup' ,{date}).subscribe(
-            (decfiscmenss: Decfiscmens[]) => {
-              if (decfiscmenss) {
-                this.decfiscmenss = decfiscmenss;
-                this.emitdecfiscmenss();
-              }
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        });
-      }
-      getdecfiscmenssinf(date: string) {
-        return new Promise((resolve, reject) => {
-          this.http.post(API_URL_cloud +'filterdecfiscmensreqinf' ,{date}).subscribe(
-            (decfiscmenss: Decfiscmens[]) => {
-              if (decfiscmenss) {
-                this.decfiscmenss = decfiscmenss;
-                this.emitdecfiscmenss();
-              }
-            },
-            (error) => {
-              console.log(error);
-            }
-          );
-        });
-      }
+     
       
     
       
       create(decfiscmens: Decfiscmens) {
         return new Promise((resolve, reject) => {
           
-          this.http.post(API_URL_cloud+'createdecfiscmensreqwithoutimage', decfiscmens).subscribe(
+          this.http.post(API_URL_cloud+'createdecfiscmens', decfiscmens).subscribe(
             (response) => {
               resolve(response);
             },
