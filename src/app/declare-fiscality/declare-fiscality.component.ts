@@ -89,6 +89,14 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option46Value:any;
   option47Value:any;
   option48Value:any;
+  option49Value:any;
+  option50Value:any;
+  option51Value:any;
+  option52Value:any;
+  option53Value:any;
+  option54Value:any;
+  option55Value:any;
+  option56Value:any;
   message: string;
   sub1:Subscription;
   sub2:Subscription;
@@ -784,8 +792,8 @@ calculateResultForm1()
     decfiscmens.matriculefiscale=this.currentUser.matriculefiscale
     decfiscmens.registrecommerce=this.currentUser.registrecommerce
     decfiscmens.datearretactivite=this.currentUser.datearretactivite
-    decfiscmens.annee=this.option35Value
-    decfiscmens.mois=this.option45Value
+    decfiscmens.annee=this.option54Value
+    decfiscmens.mois=this.option55Value
     if (this.option48Value) 
     {
 decfiscmens.impottype1.type='Retenue à la source'
