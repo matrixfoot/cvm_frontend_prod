@@ -1,11 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
+import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import { User } from '../models/user.model';
+import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
 import { merge, Subscription } from 'rxjs';
 
@@ -26,6 +28,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   matriculefiscale:string;
   currentUser: any;
   user:User;
+  public decfisc: Decfiscmens;
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
   standardlocationresidentesmoraleform: FormGroup;
@@ -85,11 +88,30 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option45Value:any;
   option46Value:any;
   option47Value:any;
+  option48Value:any;
   message: string;
   sub1:Subscription;
   sub2:Subscription;
   sub3:Subscription;
   sub4:Subscription;
+  sub5:Subscription;
+  sub6:Subscription;
+  sub7:Subscription;
+  sub8:Subscription;
+  sub9:Subscription;
+  sub10:Subscription;
+  sub11:Subscription;
+  sub12:Subscription;
+  sub13:Subscription;
+  sub14:Subscription;
+  sub15:Subscription;
+  sub16:Subscription;
+  sub17:Subscription;
+  sub18:Subscription;
+  sub19:Subscription;
+  sub20:Subscription;
+  sub21:Subscription;
+  sub22:Subscription;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   selected = "----"
@@ -101,45 +123,9 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   showtcltab=false;
   autreform: FormGroup;
   public ammounts: FormArray;
-  standardtraitementsalairebrutsalary=0;
-  standardtraitementsalaireimposalary=0;
-  standardtraitementsalaireretenuesalary=0;
-  standardtraitementsalairesolidaritycontribution=0;
-  standardlocationresidentesphysiquebrutammount=0;
-  standardlocationresidentesphysiqueretenueammount:number;
-  standardlocationresidentesphysiquenetammount=0;
-  standardlocationresidentesmoralebrutammount=0;
-  standardlocationresidentesmoraleretenueammount=0;
-  standardlocationresidentesmoralenetammount=0;
-  standardlocationnonresidentesphysiquesbrutammount=0;
-  standardlocationnonresidentesphysiquesretenueammount=0;
-  standardlocationnonresidentesphysiquesnetammount=0;
-  standardlocationnonresidentesmoralesbrutammount=0;
-  standardlocationnonresidentesmoralesretenueammount=0;
-  standardlocationnonresidentesmoralesnetammount=0;
-  standardhonorairephysiquereelbrutammount=0;
-  standardhonorairephysiquereelretenueammount=0;
-  standardhonorairephysiquereelnetammount=0;
-  standardhonorairephysiquenonreelbrutammount=0;
-  standardhonorairephysiquenonreelretenueammount=0;
-  standardhonorairephysiquenonreelnetammount=0;
-  standardhonorairegroupementsbrutammount=0;
-  standardhonorairegroupementsretenueammount=0;
-  standardhonorairegroupementsnetammount=0;
-  standardmontant15brutammount=0;
-  standardmontant15retenueammount=0;
-  standardmontant15netammount=0;
-  standardmontant10brutammount=0;
-  standardmontant10retenueammount=0;
-  standardmontant10netammount=0;
-  standardmontantindividuelbrutammount=0;
-  standardmontantindividuelretenueammount=0;
-  standardmontantindividuelnetammount=0;
-  standardmontantautrebrutammount=0;
-  standardmontantautreretenueammount=0;
-  standardmontantautrenetammount=0;
+  
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
-    private alertService: AlertService,private usersservice: UserService,private fb: FormBuilder) {
+    private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder) {
       this.autreform = this.fb.group({
         ammounts: this.fb.array([ this.createammount() ])
      });
@@ -172,66 +158,67 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     this.standardlocationnonresidentesphysiquesform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.15",disabled:true}],
-      retenueammount: '',
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardlocationnonresidentesmoralesform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.15",disabled:true}],
-      retenueammount: '',
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardhonorairephysiquereelform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.03",disabled:true}],
-      retenueammount: '',
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardhonorairephysiquenonreelform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.1",disabled:true}],
-      retenueammount: '',
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardhonorairegroupementsform =this.fb.group({
       brutammount: '',
       quotion: [{value:"0.03",disabled:true}],
-      retenueammount: '',
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardmontant15form =this.fb.group({
       brutammount: '',
-      quotion: '',
-      retenueammount: '',
+      quotion: [{value:"0.01",disabled:true}],
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardmontant10form =this.fb.group({
       brutammount: '',
-      quotion: '',
-      retenueammount: '',
+      quotion: [{value:"0.005",disabled:true}],
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardmontantindividuelform =this.fb.group({
       brutammount: '',
-      quotion: '',
-      retenueammount: '',
+      quotion: [{value:"0.005",disabled:true}],
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
     this.standardmontantautreform =this.fb.group({
       brutammount: '',
-      quotion: '',
-      retenueammount: '',
+      quotion: [{value:"0.015",disabled:true}],
+      retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
     });
+    
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
       this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
@@ -259,6 +246,132 @@ this.sub4=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm4()
+})
+this.sub5=merge(
+  this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
+  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm5()
+})
+this.sub6=merge(
+  this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
+  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm6()
+})
+this.sub7=merge(
+  this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
+  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm7()
+})
+this.sub8=merge(
+  this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
+  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm8()
+})
+this.sub9=merge(
+  this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
+  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm9()
+})
+this.sub10=merge(
+  this.standardhonorairephysiquereelform.get('netammount').valueChanges,
+  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm10()
+})
+this.sub11=merge(
+  this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
+  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm11()
+})
+this.sub12=merge(
+  this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
+  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm12()
+})
+this.sub13=merge(
+  this.standardhonorairegroupementsform.get('brutammount').valueChanges,
+  this.standardhonorairegroupementsform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm13()
+})
+this.sub14=merge(
+  this.standardhonorairegroupementsform.get('netammount').valueChanges,
+  this.standardhonorairegroupementsform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm14()
+})
+this.sub15=merge(
+  this.standardmontant15form.get('brutammount').valueChanges,
+  this.standardmontant15form.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm15()
+})
+this.sub16=merge(
+  this.standardmontant15form.get('netammount').valueChanges,
+  this.standardmontant15form.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm16()
+})
+this.sub17=merge(
+  this.standardmontant10form.get('brutammount').valueChanges,
+  this.standardmontant10form.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm17()
+})
+this.sub18=merge(
+  this.standardmontant10form.get('netammount').valueChanges,
+  this.standardmontant10form.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm18()
+})
+this.sub19=merge(
+  this.standardmontantindividuelform.get('brutammount').valueChanges,
+  this.standardmontantindividuelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm19()
+})
+this.sub20=merge(
+  this.standardmontantindividuelform.get('netammount').valueChanges,
+  this.standardmontantindividuelform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm20()
+})
+this.sub21=merge(
+  this.standardmontantautreform.get('brutammount').valueChanges,
+  this.standardmontantautreform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm21()
+})
+this.sub22=merge(
+  this.standardmontantautreform.get('netammount').valueChanges,
+  this.standardmontantautreform.get('quotion').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm22()
 })
   this.isLoggedIn = !!this.token.getToken();
     
@@ -316,7 +429,7 @@ this.sub4=merge(
   }
 calculateResultForm1()
   {
-  
+    console.log(this.option48Value)
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
     const retenueammount=+ (+brutammount*+quotion).toFixed(3);
@@ -376,10 +489,427 @@ calculateResultForm1()
     
     
   }
+  calculateResultForm5()
+  {
+  
+    const brutammount=+this.standardlocationnonresidentesphysiquesform.get('brutammount').value
+    const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardlocationnonresidentesphysiquesform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm6()
+  {
+  
+    const netammount=+this.standardlocationnonresidentesphysiquesform.get('netammount').value
+      const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardlocationnonresidentesphysiquesform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm7()
+  {
+  
+    const brutammount=+this.standardlocationnonresidentesmoralesform.get('brutammount').value
+    const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardlocationnonresidentesmoralesform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm8()
+  {
+  
+    const netammount=+this.standardlocationnonresidentesmoralesform.get('netammount').value
+      const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardlocationnonresidentesmoralesform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm9()
+  {
+  
+    const brutammount=+this.standardhonorairephysiquereelform.get('brutammount').value
+    const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardhonorairephysiquereelform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardhonorairephysiquereelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm10()
+  {
+  
+    const netammount=+this.standardhonorairephysiquereelform.get('netammount').value
+      const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardhonorairephysiquereelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquereelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm11()
+  {
+  
+    const brutammount=+this.standardhonorairephysiquenonreelform.get('brutammount').value
+    const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardhonorairephysiquenonreelform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardhonorairephysiquenonreelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm12()
+  {
+  
+    const netammount=+this.standardhonorairephysiquenonreelform.get('netammount').value
+      const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardhonorairephysiquenonreelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquenonreelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm13()
+  {
+  
+    const brutammount=+this.standardhonorairegroupementsform.get('brutammount').value
+    const quotion=+this.standardhonorairegroupementsform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardhonorairegroupementsform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardhonorairegroupementsform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm14()
+  {
+  
+    const netammount=+this.standardhonorairegroupementsform.get('netammount').value
+      const quotion=+this.standardhonorairegroupementsform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardhonorairegroupementsform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairegroupementsform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm15()
+  {
+  
+    const brutammount=+this.standardmontant15form.get('brutammount').value
+    const quotion=+this.standardmontant15form.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardmontant15form.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardmontant15form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm16()
+  {
+  
+    const netammount=+this.standardmontant15form.get('netammount').value
+      const quotion=+this.standardmontant15form.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardmontant15form.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontant15form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm17()
+  {
+  
+    const brutammount=+this.standardmontant10form.get('brutammount').value
+    const quotion=+this.standardmontant10form.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardmontant10form.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardmontant10form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm18()
+  {
+  
+    const netammount=+this.standardmontant10form.get('netammount').value
+      const quotion=+this.standardmontant10form.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardmontant10form.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontant10form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm19()
+  {
+  
+    const brutammount=+this.standardmontantindividuelform.get('brutammount').value
+    const quotion=+this.standardmontantindividuelform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardmontantindividuelform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardmontantindividuelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm20()
+  {
+  
+    const netammount=+this.standardmontantindividuelform.get('netammount').value
+      const quotion=+this.standardmontantindividuelform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardmontantindividuelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontantindividuelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm21()
+  {
+  
+    const brutammount=+this.standardmontantautreform.get('brutammount').value
+    const quotion=+this.standardmontantautreform.get('quotion').value
+    const retenueammount=+ (+brutammount*+quotion).toFixed(3);
+  const netammount=+(+brutammount-+retenueammount).toFixed(3);
+  
+    this.standardmontantautreform.patchValue({
+      retenueammount: retenueammount, 
+        netammount: netammount},{emitEvent: false} 
+      );
+    this.standardmontantautreform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm22()
+  {
+  
+    const netammount=+this.standardmontantautreform.get('netammount').value
+      const quotion=+this.standardmontantautreform.get('quotion').value
+      const retenueammount=+ ((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ (+netammount+ +retenueammount).toFixed(3);
+      this.standardmontantautreform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontantautreform.updateValueAndValidity();
+    
+    
+  }
+  onSubmit() {
+    this.loading = true;
+    
+    const decfiscmens = new Decfiscmens();
+    decfiscmens.userId = this.currentUser.userId;
+    decfiscmens.activite=this.currentUser.activite;
+    decfiscmens.codepostal=this.currentUser.codepostal;
+    decfiscmens.adresse=this.currentUser.adresse
+    decfiscmens.firstname=this.currentUser.firstname
+    decfiscmens.lastname=this.currentUser.lastname
+    decfiscmens.raisonsociale=this.currentUser.raisonsociale
+    decfiscmens.codegenre=this.currentUser.codegenre
+    decfiscmens.codetva=this.currentUser.codetva
+    decfiscmens.matriculefiscale=this.currentUser.matriculefiscale
+    decfiscmens.registrecommerce=this.currentUser.registrecommerce
+    decfiscmens.datearretactivite=this.currentUser.datearretactivite
+    decfiscmens.annee=this.option35Value
+    decfiscmens.mois=this.option45Value
+    if (this.option48Value) 
+    {
+decfiscmens.impottype1.type='Retenue à la source'
+decfiscmens.impottype1.traitementetsalaire.salairebrut=this.standardtraitementsalaireform.get('brutsalary').value
+decfiscmens.impottype1.traitementetsalaire.salaireimposable=this.standardtraitementsalaireform.get('imposalary').value
+decfiscmens.impottype1.traitementetsalaire.retenuealasource=this.standardtraitementsalaireform.get('retenuesalary').value
+decfiscmens.impottype1.traitementetsalaire.contributionsociale=this.standardtraitementsalaireform.get('solidaritycontribution').value
+if (this.standardlocationresidentesphysiqueform.get('brutammount').value!==null)
+{
+decfiscmens.impottype1.location.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
+decfiscmens.impottype1.location.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
+decfiscmens.impottype1.location.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
+}
+if (this.standardlocationresidentesmoraleform.get('brutammount').value!==null)
+{
+decfiscmens.impottype1.location.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
+decfiscmens.impottype1.location.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
+decfiscmens.impottype1.location.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
+}
+if (this.standardlocationnonresidentesphysiquesform.get('brutammount').value!==null)
+{
+decfiscmens.impottype1.location.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
+decfiscmens.impottype1.location.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
+decfiscmens.impottype1.location.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
+}
+if (this.standardlocationnonresidentesmoralesform.get('brutammount').value!==null)
+{
+decfiscmens.impottype1.location.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
+decfiscmens.impottype1.location.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
+decfiscmens.impottype1.location.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+}
+if (this.standardhonorairephysiquereelform.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
+  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
+  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
+}
+if (this.standardhonorairephysiquenonreelform.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
+  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
+  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
+}
+if (this.standardhonorairegroupementsform.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
+  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairegroupementsform.get('netammount').value
+  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
+}
+if (this.standardmontant15form.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontant15form.get('brutammount').value
+  decfiscmens.impottype1.montant1000.montantnet=this.standardmontant15form.get('netammount').value
+  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontant15form.get('retenueammount').value  
+}
+if (this.standardmontant10form.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontant10form.get('brutammount').value
+  decfiscmens.impottype1.montant1000.montantnet=this.standardmontant10form.get('netammount').value
+  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontant10form.get('retenueammount').value  
+}
+if (this.standardmontantindividuelform.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontantindividuelform.get('brutammount').value
+  decfiscmens.impottype1.montant1000.montantnet=this.standardmontantindividuelform.get('netammount').value
+  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
+}
+if (this.standardmontantautreform.get('brutammount').value!==null)
+{
+  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontantautreform.get('brutammount').value
+  decfiscmens.impottype1.montant1000.montantnet=this.standardmontantautreform.get('netammount').value
+  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+}
+this.DecfiscmensService.create(decfiscmens).then(
+  (data:any) => {
+    
+    this.loading = false;
+    this.alertService.success('Votre requête a été envoyé avec succès!');
+    window.scrollTo(0, 0);
+  },
+  (error) => {
+    this.loading = false;
+    this.alertService.error(error.error.error);
+    window.scrollTo(0, 0);
+  }
+)
+    }
+        
+        
+        
+      
+  }
   ngOnDestroy(){
     this.sub1.unsubscribe()
+    this.sub2.unsubscribe()
+    this.sub3.unsubscribe()
+    this.sub4.unsubscribe()
+    this.sub5.unsubscribe()
+    this.sub6.unsubscribe()
+    this.sub7.unsubscribe()
+    this.sub8.unsubscribe()
+    this.sub9.unsubscribe()
+    this.sub10.unsubscribe()
+    this.sub11.unsubscribe()
+    this.sub12.unsubscribe()
+    this.sub13.unsubscribe()
+    this.sub14.unsubscribe()
+    this.sub15.unsubscribe()
+    this.sub16.unsubscribe()
+    this.sub17.unsubscribe()
+    this.sub18.unsubscribe()
+    this.sub19.unsubscribe()
+    this.sub20.unsubscribe()
+    this.sub21.unsubscribe()
+    this.sub22.unsubscribe()
 //    this.sub2.unsubscribe()
   }
+  onReset() {
+    
+    this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
+    
+}
   createammount(): FormGroup {
     return this.fb.group({
       title: '',

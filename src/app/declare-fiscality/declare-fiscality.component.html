@@ -52,17 +52,17 @@
                     <div class="input-container" id="Check7"> 
                       <i class="fa fa-user icon"></i>
                       <label for="myCheck7">Déclaration Mensuelle</label>
-                      <input type="checkbox" id="myCheck7" (click)="myFunction7()">
+                      <input type="checkbox" id="myCheck7" (click)="myFunction7()"[(ngModel)]="option55Value">
                     </div>
                     <div class="hidden" id="Check5">
                         <i class="fa fa-user icon"></i>
                         <label for="myCheck5">Acompte Provisionnelle</label>
-                        <input type="checkbox" id="myCheck5" (click)="myFunction5()">
+                        <input type="checkbox" id="myCheck5" (click)="myFunction5()"[(ngModel)]="option56Value">
                       </div>
                     <div class="hidden" id="Check6">
                       <i class="fa fa-user icon"></i>
                       <label for="myCheck6">Déclaration Annuelle</label>
-                      <input type="checkbox" id="myCheck6" (click)="myFunction6()">
+                      <input type="checkbox" id="myCheck6" (click)="myFunction6()"[(ngModel)]="option57Value">
                     </div>
                   </div>
 
@@ -70,7 +70,7 @@
                      <div class="input-container" id="Year"> 
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="year">Sélectionner année</label>
-                        <select id="year" name="year">
+                        <select id="year" name="year"[(ngModel)]="option54Value">
                            <option>Année</option>
                            <option value="2022">2022</option>
                            <option disabled value="2023">2023</option>
@@ -87,20 +87,20 @@
                       <div class="input-container" id="Month"> 
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="month">Sélectionner mois</label>
-                        <select id="month" name="month">
+                        <select id="month" name="month"[(ngModel)]="option53Value">
                            <option>Mois</option>
-                           <option value="janvier">(01) janvier</option>
-                           <option value="février">(02) février</option>
-                           <option value="mars">(03) Mars</option>
-                           <option value="avril">(04) avril</option>
-                           <option value="peut">(05) Mai</option>
-                           <option value="juin">(06) juin</option>
-                           <option value="juillet">(07) juillet</option>
-                           <option value="août">(08) août</option>
-                           <option value="septembre">(09) septembre</option>
-                           <option value="octobre">(10) octobre</option>
-                           <option value="novembre">(11) novembre</option>
-                           <option value="décembre">(12) décembre</option>
+                           <option value="janvier">(01)janvier</option>
+                           <option value="février">(02)février</option>
+                           <option value="mars">(03)Mars</option>
+                           <option value="avril">(04)avril</option>
+                           <option value="peut">(05)Mai</option>
+                           <option value="juin">(06)juin</option>
+                           <option value="juillet">(07)juillet</option>
+                           <option value="août">(08)août</option>
+                           <option value="septembre">(09)septembre</option>
+                           <option value="octobre">(10)octobre</option>
+                           <option value="novembre">(11)novembre</option>
+                           <option value="décembre">(12)décembre</option>
                        </select>
                       </div>
                    
@@ -113,42 +113,42 @@
                      <td> <div class="input-container" id="Check8"> 
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck8">Retenue à la source</label>
-                      <input type="checkbox" id="myCheck8" (click)="myFunction8()">
+                      <input type="checkbox" id="myCheck8" (click)="myFunction8()"[(ngModel)]="option48Value">
                     </div>
                   </td>
                   <td>
                     <div class="input-container" id="Check9">
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck9">TFP</label>
-                      <input type="checkbox" id="myCheck9" (click)="myFunction9()">
+                      <input type="checkbox" id="myCheck9" (click)="myFunction9()"[(ngModel)]="option49Value">
                     </div>
                   </td>
                   <td>
                     <div class="input-container" id="Check10">
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck10">Foprolos</label>
-                      <input type="checkbox" id="myCheck10" (click)="myFunction10()">
+                      <input type="checkbox" id="myCheck10" (click)="myFunction10()"[(ngModel)]="option50Value">
                     </div>
                   </td>
                   <td>
                     <div class="input-container" id="Check11">
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck11">TVA</label>
-                      <input type="checkbox" id="myCheck11" (click)="myFunction11()">
+                      <input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value">
                     </div>
                   </td>
                   <td>
                     <div class="input-container" id="Check12">
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck12">Droit de timbre</label>
-                      <input type="checkbox" id="myCheck12" (click)="myFunction12()">
+                      <input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value">
                     </div>
                   </td>
                   <td>
                     <div class="input-container" id="Check13">
                       <i class="fa fa-euro icon"></i>
                       <label for="myCheck13">TCL</label>
-                      <input type="checkbox" id="myCheck13" (click)="myFunction13()">
+                      <input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value">
                     </div>
                   </td>
                   </tr>
@@ -337,7 +337,7 @@
                               </div>
                               
                         </div>
-                        
+                        <button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
                           </div>
                          </fieldset>
                       </form>
