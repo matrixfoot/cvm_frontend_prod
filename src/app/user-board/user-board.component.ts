@@ -73,7 +73,7 @@ export class UserBoardComponent implements OnInit {
       }
     );
    
-    this.dec.getdecfiscmens(this.userId);
+    this.cond.getCondidate(this.email);
    
     this.decfiscmenssSub = this.dec.decfiscmenss$.subscribe(
       (decfiscmenss) => {
@@ -88,7 +88,7 @@ export class UserBoardComponent implements OnInit {
     );
    
     this.dec.getdecfiscmens(this.userId);
-    
+    console.log(this.userId)
     
   }
 
