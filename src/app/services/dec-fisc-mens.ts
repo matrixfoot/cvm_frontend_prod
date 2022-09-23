@@ -52,7 +52,7 @@ export class DecfiscmensService {
       }
       getdecfiscmens(userId: string) {
         return new Promise((resolve, reject) => {
-          this.http.post(API_URL_cloud +'decfiscmens' ,{userId}).subscribe(
+          this.http.post(API_URL_cloud  ,{userId}).subscribe(
             (decfiscmenss: Decfiscmens[]) => {
               if (decfiscmenss) {
                 this.decfiscmenss = decfiscmenss;
