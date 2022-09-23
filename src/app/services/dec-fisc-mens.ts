@@ -50,7 +50,21 @@ export class DecfiscmensService {
           );
         });
       }
-     
+      getdecfiscmens(userId: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'decfiscmens' ,{userId}).subscribe(
+            (decfiscmenss: Decfiscmens[]) => {
+              if (decfiscmenss) {
+                this.decfiscmenss = decfiscmenss;
+                this.emitdecfiscmenss();
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+      }
       
     
       

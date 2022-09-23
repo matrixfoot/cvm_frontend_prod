@@ -26,32 +26,35 @@ datearretactivite:string;
   impottype1: {
 type:string;
 traitementetsalaire:{
-salairebrut:number;
-salaireimposable:number;
-retenuealasource:number;
-contributionsociale:number;
+salairebrut:string;
+salaireimposable:string;
+retenuealasource:string;
+contributionsociale:string;
 }
 location:{
-    montantbrut:number;
-    taux:number;
-    montantnet:number;
-    montantretenue:number;
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
 }
 honoraire:{
-    montantbrut:number;
-    taux:number;
-    montantnet:number;
-    montantretenue:number;
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
 }
 montant1000:{
-    montantbrut:number;
-    taux:number;
-    montantnet:number;
-    montantretenue:number;
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
 }
 autre:{
     titre:string;
-    montant:number;
+    montant:string;
     description:string;
 }
   }

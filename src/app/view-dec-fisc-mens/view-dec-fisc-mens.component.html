@@ -1,0 +1,67 @@
+<div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+  <h2>Détails Déclaration</h2>
+    
+  <div class="card">
+    
+    <div class="container-fluid">
+      
+      <h4>Crée le(heure GMT):<b>  {{ decfiscmens.created }}</b></h4>
+      <h4>Dernière modification  le(heure GMT):<b>  {{ decfiscmens.updated }}</b></h4>
+      <h4>Nom et Prénom:<b>  {{ decfiscmens.firstname }} {{ decfiscmens.lastname }}</b></h4>
+      <h4>Raison Sociale:<b>  {{ decfiscmens.raisonsociale }}</b></h4>  
+      <h4>Registre de commerce:<b>  {{ decfiscmens.registrecommerce }}</b></h4>
+      <h4>Matricule Fiscale:<b>  {{ decfiscmens.matriculefiscale }}</b></h4>
+      <h4>Code TVA:<b>  {{ decfiscmens.codetva }}</b></h4>  
+      <h4>Code Genre:<b>  {{ decfiscmens.codegenre }}</b></h4>
+      <h4>Adresse:<b>  {{ decfiscmens.adresse }}</b></h4>
+      <h4>Statut:<b>  {{ decfiscmens.statut }}</b></h4>
+      <h4>Code Postal:<b>  {{ decfiscmens.codepostal }}</b></h4>
+      <h4>Activité:<b>  {{ decfiscmens.activite }}</b></h4>
+      <h4>Date d'arrêt d'activité:<b>  {{ decfiscmens.datearretactivite }}</b></h4>
+      <hr>
+      <h4>Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
+      <hr>
+      <h3>Type rubrique: traitement et salaire</h3>
+      <hr>
+      <h4>Salaire Brut:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salairebrut  }}</b></h4>
+      <h4>Salaire imposable:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salaireimposable }}</b></h4>  
+      <h4>Retenue à la source:<b>  {{ decfiscmens.impottype1.traitementetsalaire.retenuealasource }}</b></h4>
+      <h4>Contribution à l'aide sociale:<b>  {{ decfiscmens.impottype1.traitementetsalaire.contributionsociale }}</b></h4>
+      <hr>
+      <h3>Type rubrique: location, commission, courtage et vacation</h3>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.location.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location.montantnet }}</b></h4>
+      <hr>
+      <h3>Type rubrique: honoraire</h3>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire.montantnet }}</b></h4>
+      <hr>
+      <h3>Type rubrique: Montants supérieurs à 1000dt</h3>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.montant1000.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant1000.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant1000.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant1000.montantnet }}</b></h4>
+      <hr>
+      <h3>Type rubrique: Autre</h3>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.autre.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.autre.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.autre.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.autre.montantnet }}</b></h4>
+    </div>
+    
+    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Réclamation (Admin)</button>
+    
+ 
+  </div>
+</div>
+</div>

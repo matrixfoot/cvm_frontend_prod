@@ -51,5 +51,49 @@
       
     </div>
   </div>
-</div>  
+  
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member" *ngIf="usertype=='Client'">
+      <h2>Liste des Déclarations</h2>
+      <hr>        
+      <div class="users-grid" style="overflow-x:auto;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th>code</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>raison sociale</th>
+            <th>Statut</th>
+            
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let decfiscmens of decfiscmenss">
+      
+            
+            <td>{{decfiscmens._id}}</td>
+            <td>{{decfiscmens.firstname}}</td>
+            <td>{{decfiscmens.lastname}}</td>
+            <td>{{decfiscmens.raisonsociale}}</td>
+            <td>{{decfiscmens.statut}}</td>
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
+            
+          
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</div>    
 </body>

@@ -38,6 +38,8 @@ import { ModifyEventComponent } from './modify-event/modify-event.component';
 import { SettingsComponent } from './settings/settings.component';
 import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
 import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.component';
+import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-mens.component';
+import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 const routes: Routes = [
   
    
@@ -84,10 +86,14 @@ const routes: Routes = [
 { path: 'modify-event/:id', component: ModifyEventComponent,
     
 },
+{ path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,
+    
+},
 { path: 'view-user/:id', component: ViewUserComponent},
 { path: 'view-user-deleted/:id', component: ViewUserDeletedComponent},
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
 { path: 'view-contactreq/:id', component: ViewContactreqComponent},
+{ path: 'view-decfiscmens/:id', component: ViewDecFiscMensComponent},
 { path: 'view-event/:id', component: ViewEventComponent},
 { path: 'verify-email/:token', component: VerifyEmailComponent},
 { path: 'reset-password/:token', component: ResetPasswordComponent},

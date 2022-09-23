@@ -1,11 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TokenStorageService } from '../services/token-storage.service';
+
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { User } from '../models/user.model';
+
+
 import { CondidateService } from '../services/condidate.service';
 import { Condidate } from '../models/condidate.model';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { TokenStorageService } from '../services/token-storage.service';
+import { UserService } from '../services/user.service';
+import { DecfiscmensService } from '../services/dec-fisc-mens';
+import { Decfiscmens } from '../models/dec-fisc-mens';
 
 @Component({
   selector: 'app-user-board',
@@ -13,20 +19,29 @@ import { Condidate } from '../models/condidate.model';
   styleUrls: ['./user-board.component.scss']
 })
 export class UserBoardComponent implements OnInit {
-  private role: string;
+  role: string;
   isLoggedIn = false;
   private condidatesSub: Subscription;
+  private decfiscmenssSub: Subscription;
+  public decfiscmens: Decfiscmens;
+  public errormsg:string;
+  public loading: boolean;
   usertype: string;
   email: string;
-  loading=false;
+  userId:string;
+  
+  
   public condidates: Condidate[] = [];
-  errormsg: string;
+  public decfiscmenss: Decfiscmens[] = [];
+  
   
   constructor(
               
     private Auth: TokenStorageService,
     private cond:CondidateService,
-    private router: Router
+    private router: Router,
+    private dec: DecfiscmensService,
+    private route: ActivatedRoute,
     
     ) { }
 
@@ -38,6 +53,9 @@ export class UserBoardComponent implements OnInit {
       const user = this.Auth.getUser();
       this.usertype = user.usertype;
       this.email = user.email;
+      this.userId = user.userId;
+      this.role=user.role;
+
       
 
     
@@ -55,9 +73,22 @@ export class UserBoardComponent implements OnInit {
       }
     );
    
-    this.cond.getCondidate(this.email);
+    this.dec.getdecfiscmens(this.userId);
    
-  
+    this.decfiscmenssSub = this.dec.decfiscmenss$.subscribe(
+      (decfiscmenss) => {
+        this.decfiscmenss = decfiscmenss;
+        this.loading = false;
+      },
+      (error) => {
+        this.loading = false;
+        
+        this.errormsg=error.message;
+      }
+    );
+   
+    this.dec.getdecfiscmens(this.userId);
+    
     
   }
 

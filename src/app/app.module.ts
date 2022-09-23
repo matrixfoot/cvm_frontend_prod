@@ -59,6 +59,8 @@ import { HttpErrorInterceptor } from './interceptors/error-interceptor';
 import { ExcelService } from './services/excel.service';
 import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-comptabilite.component';
 import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.component';
+import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-mens.component';
+import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -112,6 +114,8 @@ FullCalendarModule.registerPlugins([
     SettingsComponent,
     DeclareComptabiliteComponent,
     ViewUserDeletedComponent,
+    ViewDecFiscMensComponent,
+    ModifyDecFiscMensComponent,
     
     
     
