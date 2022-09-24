@@ -886,8 +886,13 @@ this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {
     
     this.loading = false;
-    this.alertService.success('Votre requête a été envoyé avec succès!');
-    window.scrollTo(0, 0);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'déclaration créé avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration',
+      showConfirmButton: false,
+      timer: 3000
+    });
   },
   (error) => {
     this.loading = false;

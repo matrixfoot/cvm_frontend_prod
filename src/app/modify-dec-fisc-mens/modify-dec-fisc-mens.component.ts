@@ -10,6 +10,7 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modify-dec-fisc-mens',
@@ -79,8 +80,13 @@ onSubmit() {
     (data:any) => {
       this.decfiscmensForm.reset();
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
       this.router.navigate(['admin-board']);
     },
     (error) => {
