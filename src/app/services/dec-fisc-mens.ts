@@ -105,12 +105,12 @@ export class DecfiscmensService {
           );
         });
       }
-      modifydecfiscmensreqById(id: string, decfiscmensreq: Decfiscmens) {
+      modifydecfiscmensreqById(id: string, decfiscmens: Decfiscmens) {
         return new Promise((resolve, reject) => {
           
             
           
-          this.http.put(API_URL_cloud+ id, decfiscmensreq).subscribe(
+          this.http.put(API_URL_cloud+ id, decfiscmens).subscribe(
             (response) => {
               resolve(response);
             },

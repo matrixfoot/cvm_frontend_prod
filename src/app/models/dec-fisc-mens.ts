@@ -18,7 +18,8 @@ datearretactivite:string;
     codedeclaration:string;
     mois:string;
     annee:string;
-
+    statut:string;
+    motif:string;
     created:Date;
     
   updated: Date;
