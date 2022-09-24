@@ -25,6 +25,10 @@ export class User {
   raisonsociale:string;
   nomsociete:string;
   clientcode: string;
+  codegenre:string
+  codetva:string;
+  registrecommerce:string;
+  datearretactivite: string;
   role: string;
   accessToken: string;
   verified:Date;

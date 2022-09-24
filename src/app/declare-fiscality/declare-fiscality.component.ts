@@ -438,7 +438,7 @@ this.sub22=merge(
   }
 calculateResultForm1()
   {
-    console.log(this.option48Value)
+    
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
     const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
@@ -785,17 +785,17 @@ calculateResultForm1()
     location: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', }, honoraire: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
     montant1000: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
     decfiscmens.userId = this.currentUser.userId;
-    decfiscmens.activite=this.currentUser.activite;
-    decfiscmens.codepostal=this.currentUser.codepostal;
-    decfiscmens.adresse=this.currentUser.adresse
-    decfiscmens.firstname=this.currentUser.Firstname
-    decfiscmens.lastname=this.currentUser.Lastname
-    decfiscmens.raisonsociale=this.currentUser.raisonsociale
-    decfiscmens.codegenre=this.currentUser.codegenre
-    decfiscmens.codetva=this.currentUser.codetva
-    decfiscmens.matriculefiscale=this.currentUser.matriculefiscale
-    decfiscmens.registrecommerce=this.currentUser.registrecommerce
-    decfiscmens.datearretactivite=this.currentUser.datearretactivite
+    decfiscmens.activite=this.user.activite;
+    decfiscmens.codepostal=this.user.codepostal;
+    decfiscmens.adresse=this.user.adresseactivite
+    decfiscmens.firstname=this.user.firstname
+    decfiscmens.lastname=this.user.lastname
+    decfiscmens.raisonsociale=this.user.raisonsociale
+    decfiscmens.codegenre=this.user.codegenre
+    decfiscmens.codetva=this.user.codetva
+    decfiscmens.matriculefiscale=this.user.matriculefiscale
+    decfiscmens.registrecommerce=this.user.registrecommerce
+    decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
     decfiscmens.mois=this.option55Value
     if (this.option48Value) 
