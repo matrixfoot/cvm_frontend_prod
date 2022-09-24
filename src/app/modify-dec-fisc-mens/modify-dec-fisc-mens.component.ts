@@ -55,8 +55,8 @@ export class ModifyDecFiscMensComponent implements OnInit {
           
           this.decfiscmensForm = this.formBuilder.group({
             
-            statut: [this.decfiscmens.statut, Validators.required],
-            motif: [this.decfiscmens.motif, Validators.required],
+            statut: [this.decfiscmens.impottype1.statut, Validators.required],
+            motif: [this.decfiscmens.impottype1.motif, Validators.required],
           
           });
           this.loading = false;
@@ -70,9 +70,11 @@ export class ModifyDecFiscMensComponent implements OnInit {
 onSubmit() {
   this.loading = true;
   const decfiscmens = new Decfiscmens();
-  
-  decfiscmens.statut =this.decfiscmensForm.get('statut').value;
-  decfiscmens.motif =this.decfiscmensForm.get('motif').value;
+  decfiscmens.impottype1={ type: '',statut: '',motif: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+    location: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', }, honoraire: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+    montant1000: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.impottype1.statut =this.decfiscmensForm.get('statut').value;
+  decfiscmens.impottype1.motif =this.decfiscmensForm.get('motif').value;
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
       this.decfiscmensForm.reset();

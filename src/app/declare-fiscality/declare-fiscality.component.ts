@@ -781,7 +781,7 @@ calculateResultForm1()
     this.loading = true;
     
     const decfiscmens:Decfiscmens = new Decfiscmens();
-    decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+    decfiscmens.impottype1={ type: '',statut: '',motif: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
     location: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', }, honoraire: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
     montant1000: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
     decfiscmens.userId = this.currentUser.userId;

@@ -18,13 +18,14 @@ datearretactivite:string;
     codedeclaration:string;
     mois:string;
     annee:string;
-    statut:string;
-    motif:string;
+    
     created:Date;
     
   updated: Date;
 
   impottype1: {
+statut:string;
+motif:string;
 type:string;
 traitementetsalaire:{
 salairebrut:string;
