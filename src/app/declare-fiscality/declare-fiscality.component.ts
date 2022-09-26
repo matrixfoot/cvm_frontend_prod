@@ -150,6 +150,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub22:Subscription;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
+  choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
   showretenuetab=false;
   showtfptab=false;
@@ -1006,6 +1007,20 @@ this.DecfiscmensService.create(decfiscmens).then(
   findfiltredretenue4(retenues: any[]): any[] {
     
     return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);
+  }
+  findfiltredchoices(choices: any[]): any[] {
+    if ((this.option5Value==this.option58Value)||(this.option5Value==this.option61Value)){
+    return choices.filter(p => p!==this.option5Value)}
+    else if (this.option61Value==this.option58Value)
+    {
+      return choices.filter(p => p!==this.option61Value)};
+  }
+  findfiltredchoices2(choices: any[]): any[] {
+    if ((this.option12Value==this.option76Value)||(this.option12Value==this.option80Value)){
+    return choices.filter(p => p!==this.option12Value)}
+    else if (this.option76Value==this.option80Value)
+    {
+      return choices.filter(p => p!==this.option76Value)};
   }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");

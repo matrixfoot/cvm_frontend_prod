@@ -443,7 +443,573 @@
     
       </div>
      </fieldset>
-  </form>          
+  </form>
+  <!-- location, commission, courtage et vacation (1ère étape de décision)--> 
+  
+  <div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+                        <div class="form-group">
+                        <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+                        
+                    <select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+                      <option value="default"> </option>
+                    <option value="Oui">Oui</option>
+                    <option value="Non">Non</option>
+                    
+                    </select>
+                  </div>
+  </div>
+  <div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+    <div class="form-group">
+    <label for="choice"> Veuillez sélectionner un choix:</label>    
+    
+<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+  <option value="default"> </option>
+  <option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
+  <option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
+&& option59Value == 'personnes physiques' ">
+                    
+                    <fieldset>
+                      
+                      <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Montant Brut</label>
+                                <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                              </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Taux</label>
+                                <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                              </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                              <label>Montant Retenue à la source</label>
+                              <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+                            </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                            <label>Montant Net</label>
+                            <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+                          </div>
+                          
+                    </div>
+                    <button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+                    
+                      </div>
+                     </fieldset>
+                  </form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+                    
+<fieldset>
+  
+  <div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <label>Montant Brut</label>
+            <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label>Taux</label>
+            <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Montant Retenue à la source</label>
+          <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Net</label>
+        <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+
+  </div>
+ </fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+                    
+<fieldset>
+  
+  <div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <label>Montant Brut</label>
+            <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label>Taux</label>
+            <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Montant Retenue à la source</label>
+          <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Net</label>
+        <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+
+  </div>
+ </fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+                    
+<fieldset>
+  
+  <div class="row">
+    <div class="col-6">
+        <div class="form-group">
+            <label>Montant Brut</label>
+            <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label>Taux</label>
+            <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+          </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Montant Retenue à la source</label>
+          <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Net</label>
+        <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+
+  </div>
+ </fieldset>
+</form>
+<!-- location, commission, courtage et vacation (2ème étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+  <div class="form-group">
+  <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+  <div class="form-group">
+  <label for="choice"> Veuillez sélectionner un choix:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
+&& option62Value == 'personnes physiques' ">
+                  
+                  <fieldset>
+                    
+                    <div class="row">
+                      <div class="col-6">
+                          <div class="form-group">
+                              <label>Montant Brut</label>
+                              <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                            </div>
+                      </div>
+                      <div class="col-6">
+                          <div class="form-group">
+                              <label>Taux</label>
+                              <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                            </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                            <label>Montant Retenue à la source</label>
+                            <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+                          </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                          <label>Montant Net</label>
+                          <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+                        </div>
+                        
+                  </div>
+                  <button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+                  
+                    </div>
+                   </fieldset>
+                </form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (3ème étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+  <div class="form-group">
+  <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+  <div class="form-group">
+  <label for="choice"> Veuillez sélectionner un choix:</label>    
+  <select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+    <option value="default"> </option>
+    <option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+        {{choice}}
+    </option>
+</select> 
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
+&& option66Value == 'personnes physiques' ">
+                  
+                  <fieldset>
+                    
+                    <div class="row">
+                      <div class="col-6">
+                          <div class="form-group">
+                              <label>Montant Brut</label>
+                              <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                            </div>
+                      </div>
+                      <div class="col-6">
+                          <div class="form-group">
+                              <label>Taux</label>
+                              <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                            </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                            <label>Montant Retenue à la source</label>
+                            <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+                          </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                          <label>Montant Net</label>
+                          <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+                        </div>
+                        
+                  </div>
+                  <button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+                  
+                    </div>
+                   </fieldset>
+                </form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+                  
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+
+</div>
+</fieldset>
+</form>
                     </div>
 <!-- honoraires section-->
 <div class="container-fluid"*ngIf="optionValue == 'honoraire'">
@@ -577,8 +1143,269 @@
     
       </div>
      </fieldset>
-  </form> 
+    </form> 
+    <!-- honoraires section (1ère étape de décision)-->
+    <div title="indiquer votre choix"class="col-6">
+      <div class="form-group">
+      <label for="choice"> Veuillez sélectionner un choix:</label>    
+      
+  <select  class="input-field" id="choice" [(ngModel)]="option71Value" name="choice" >
+    <option value="default"> </option>
+    <option value="servis aux personnes physiques">servis aux personnes physiques</option>
+    <option value="servis aux sociétés et aux groupements"*ngIf="option8Value !== 'servis aux sociétés et aux groupements'">servis aux sociétés et aux groupements</option>
+  
+  </select>
+  </div>
+  </div>
+  <div title="indiquer votre choix"class="col-6" *ngIf="option71Value == 'servis aux personnes physiques'">
+  <div class="form-group">
+  <label for="choice"> Veuillez sélectionner un choix:</label>    
+  
+  <select  class="input-field" id="choice" [(ngModel)]="option72Value" name="choice" >
+  <option value="default"> </option>
+  <option value="soumises au régime réel"*ngIf="option9Value !== 'soumises au régime réel'">soumises au régime réel</option>
+  <option value="non soumises au régime réel"*ngIf="option9Value !== 'non soumises au régime réel'">non soumises au régime réel</option>
+  
+  </select>
+  </div>
+  </div>
+  
+  <!-- honoraires (servis aux personnes physiques et soumises au régime réel)form-->                    
+  <form  [formGroup]="standardhonorairephysiquereelform"*ngIf="option71Value == 'servis aux personnes physiques' 
+  && option72Value == 'soumises au régime réel' ">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+    </form>
+  <!-- honoraires (servis aux personnes physiques et soumises au régime non réel)form-->                    
+  <form  [formGroup]="standardhonorairephysiquenonreelform"*ngIf="option71Value == 'servis aux personnes physiques' 
+  && option72Value == 'non soumises au régime réel' ">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+    </form> 
+  <!-- honoraires (servis aux sociétés et aux groupements)form-->                    
+  <form  [formGroup]="standardhonorairegroupementsform"*ngIf="option71Value == 'servis aux sociétés et aux groupements'">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+      </form>
+      <!-- honoraires section (2ème étape de décision)-->
+    <div title="indiquer votre choix"class="col-6">
+      <div class="form-group">
+      <label for="choice"> Veuillez sélectionner un choix:</label>    
+      
+  <select  class="input-field" id="choice" [(ngModel)]="option73Value" name="choice" >
+    <option value="default"> </option>
+    <option value="servis aux personnes physiques"*ngIf="option71Value !== 'servis aux personnes physiques'||option8Value !== 'servis aux personnes physiques'">servis aux personnes physiques</option>
+    <option value="servis aux sociétés et aux groupements"*ngIf="option71Value !== 'servis aux sociétés et aux groupements'&&option8Value !== 'servis aux sociétés et aux groupements'">servis aux sociétés et aux groupements</option>
+  
+  </select>
+  </div>
+  </div>
+  <div title="indiquer votre choix"class="col-6" *ngIf="option73Value == 'servis aux personnes physiques'">
+  <div class="form-group">
+  <label for="choice"> Veuillez sélectionner un choix:</label>    
+  
+  <select  class="input-field" id="choice" [(ngModel)]="option74Value" name="choice" >
+  <option value="default"> </option>
+  <option value="soumises au régime réel"*ngIf="option9Value !== 'soumises au régime réel'&&option72Value !== 'soumises au régime réel'">soumises au régime réel</option>
+  <option value="non soumises au régime réel"*ngIf="option9Value !== 'non soumises au régime réel'&&option72Value !== 'non soumises au régime réel'">non soumises au régime réel</option>
+  
+  </select>
+  </div>
+  </div>
+  
+  <!-- honoraires (servis aux personnes physiques et soumises au régime réel)form-->                    
+  <form  [formGroup]="standardhonorairephysiquereelform"*ngIf="option73Value == 'servis aux personnes physiques' 
+  && option74Value == 'soumises au régime réel' ">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+    </form>
+  <!-- honoraires (servis aux personnes physiques et soumises au régime non réel)form-->                    
+  <form  [formGroup]="standardhonorairephysiquenonreelform"*ngIf="option73Value == 'servis aux personnes physiques' 
+  && option74Value == 'non soumises au régime réel' ">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+    </form> 
+  <!-- honoraires (servis aux sociétés et aux groupements)form-->                    
+  <form  [formGroup]="standardhonorairegroupementsform"*ngIf="option73Value == 'servis aux sociétés et aux groupements'">
+      
+      <fieldset>
+        
+        <div class="row">
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Montant Brut</label>
+                  <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+              <div class="form-group">
+                  <label>Taux</label>
+                  <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Montant Retenue à la source</label>
+                <input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+              </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+              <label>Montant Net</label>
+              <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+            </div>
+      </div>
+      
+        </div>
+       </fieldset>
+      </form>  
 </div>
+
   <!-- mont supérieures à 1000 dt section-->
 <div class="container-fluid"*ngIf="optionValue == 'montant supérieur à 1000 dt'">
   <h2 *ngIf="optionValue !== 'Autre'">{{optionValue}}</h2>
@@ -1029,6 +1856,572 @@
   
     </div>
    </fieldset>
+</form>
+<!-- location, commission, courtage et vacation (1ère étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option3Value">
+  <div class="form-group">
+  <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option75Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option75Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option76Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option76Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option77Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option13Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option13Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option76Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option78Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option14Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option14Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option76Value == 'servis aux personnes résidentes' 
+&& option77Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+    
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option76Value == 'servis aux personnes résidentes' && option77Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option76Value == 'servis aux personnes non résidentes' && option78Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option76Value == 'servis aux personnes non résidentes' && option77Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (2ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option76Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option79Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option79Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option80Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes"*ngIf="option12Value !== 'servis aux personnes résidentes' || option76Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option12Value !== 'servis aux personnes non résidentes' || option76Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option80Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option81Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option13Value !== 'personnes physiques' && option77Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option13Value !== 'personnes morales' && option77Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option80Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option82Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option14Value !== 'personnes physiques'&& option78Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option14Value !== 'personnes morales'&& option78Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option80Value == 'servis aux personnes résidentes' 
+&& option81Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option80Value == 'servis aux personnes résidentes' && option81Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option80Value == 'servis aux personnes non résidentes' && option82Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option80Value == 'servis aux personnes non résidentes' && option82Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (3ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option80Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option83Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option83Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+<select #cricket (change)="update($event)"[(ngModel)]="option84Value"class="input-field">
+<option value="default"> </option>
+<option *ngFor="let choice of findfiltredchoices2(choices)" [value]="choice">
+{{choice}}
+</option>
+</select> 
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option84Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option85Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option81Value !== 'personnes physiques' && option77Value !== 'personnes physiques'&& option13Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option81Value !== 'personnes morales' && option77Value !== 'personnes morales'&& option13Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option84Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option86Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option82Value !== 'personnes physiques' && option78Value !== 'personnes physiques'&& option14Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option82Value !== 'personnes morales' && option78Value !== 'personnes morales'&& option14Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option84Value == 'servis aux personnes résidentes' 
+&& option85Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option84Value == 'servis aux personnes résidentes' && option85Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option84Value == 'servis aux personnes non résidentes' && option86Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option84Value == 'servis aux personnes non résidentes' && option86Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
 </form>          
                   </div>
 <!-- honoraires section-->
@@ -1614,6 +3007,572 @@
   
     </div>
    </fieldset>
+</form>
+<!-- location, commission, courtage et vacation (1ère étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+  <div class="form-group">
+  <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
+&& option59Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+    
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (2ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
+&& option62Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (3ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+<select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+<option value="default"> </option>
+<option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+{{choice}}
+</option>
+</select> 
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
+&& option66Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
 </form>          
                   </div>
 <!-- honoraires section-->
@@ -2199,7 +4158,573 @@
   
     </div>
    </fieldset>
-</form>          
+</form> 
+<!-- location, commission, courtage et vacation (1ère étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+  <div class="form-group">
+  <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
+&& option59Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+    
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (2ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
+&& option62Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (3ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+<select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+<option value="default"> </option>
+<option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+{{choice}}
+</option>
+</select> 
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
+&& option66Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>         
                   </div>
 <!-- honoraires section-->
 <div class="container-fluid"*ngIf="option29Value == 'honoraire'">
@@ -2783,7 +5308,573 @@
   
     </div>
    </fieldset>
-</form>          
+</form> 
+<!-- location, commission, courtage et vacation (1ère étape de décision)--> 
+  
+<div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+  <div class="form-group">
+  <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+  
+<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
+&& option59Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+  <div class="col-6">
+      <div class="form-group">
+          <label>Montant Brut</label>
+          <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+      <div class="form-group">
+          <label>Taux</label>
+          <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+        </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Montant Retenue à la source</label>
+        <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Net</label>
+      <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+    </div>
+    
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (2ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<option value="default"> </option>
+<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
+&& option62Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (3ème étape de décision)--> 
+
+<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+<div class="form-group">
+<label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<option value="default"> </option>
+<option value="Oui">Oui</option>
+<option value="Non">Non</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+<select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+<option value="default"> </option>
+<option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+{{choice}}
+</option>
+</select> 
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div class="form-group">
+<label for="choice"> Veuillez sélectionner un choix:</label>    
+
+<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<option value="default"> </option>
+<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+
+</select>
+</div>
+</div>
+<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
+&& option66Value == 'personnes physiques' ">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+    <div class="form-group">
+        <label>Montant Brut</label>
+        <input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+    <div class="form-group">
+        <label>Taux</label>
+        <input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+      </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Montant Retenue à la source</label>
+      <input type="number "  class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+    </div>
+</div>
+<div class="col-6">
+<div class="form-group">
+    <label>Montant Net</label>
+    <input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+  </div>
+  
+</div>
+<button class="btn btn-secondary" type="button" (click)="onReset()">Réinitialiser</button>
+
+</div>
+</fieldset>
+</form>
+<!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>   
+<!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>       
+<!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Montant Brut</label>
+<input type="number" class="form-control" formControlName="brutammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="number" class="form-control" formControlName="quotion" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Retenue à la source</label>
+<input type="number" class="form-control" formControlName="retenueammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Montant Net</label>
+<input type="number" class="form-control" formControlName="netammount" placeholder="Saisir le montant"/>
+</div>
+</div>
+
+</div>
+</fieldset>
+</form>         
                   </div>
 <!-- honoraires section-->
 <div class="container-fluid"*ngIf="option40Value == 'honoraire'">
