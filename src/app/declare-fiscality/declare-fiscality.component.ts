@@ -125,6 +125,46 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option81Value:any;
   option82Value:any;
   option83Value:any;
+  option84Value:any;
+  option85Value:any;
+  option86Value:any;
+  option87Value:any;
+  option88Value:any;
+  option89Value:any;
+  option90Value:any;
+  option91Value:any;
+  option92Value:any;
+  option93Value:any;
+  option94Value:any;
+  option95Value:any;
+  option96Value:any;
+  option97Value:any;
+  option98Value:any;
+  option99Value:any;
+  option100Value:any;
+  option101Value:any;
+  option102Value:any;
+  option103Value:any;
+  option104Value:any;
+  option105Value:any;
+  option106Value:any;
+  option107Value:any;
+  option108Value:any;
+  option109Value:any;
+  option110Value:any;
+  option111Value:any;
+  option112Value:any;
+  option113Value:any;
+  option114Value:any;
+  option115Value:any;
+  option116Value:any;
+  option117Value:any;
+  option118Value:any;
+  option119Value:any;
+  option120Value:any;
+  option121Value:any;
+  option122Value:any;
+  option123Value:any;
   message: string;
   sub1:Subscription;
   sub2:Subscription;
@@ -1021,6 +1061,20 @@ this.DecfiscmensService.create(decfiscmens).then(
     else if (this.option76Value==this.option80Value)
     {
       return choices.filter(p => p!==this.option76Value)};
+  }
+  findfiltredchoices3(choices: any[]): any[] {
+    if ((this.option20Value==this.option88Value)||(this.option20Value==this.option92Value)){
+    return choices.filter(p => p!==this.option20Value)}
+    else if (this.option88Value==this.option92Value)
+    {
+      return choices.filter(p => p!==this.option88Value)};
+  }
+  findfiltredchoices4(choices: any[]): any[] {
+    if ((this.option31Value==this.option100Value)||(this.option31Value==this.option104Value)){
+    return choices.filter(p => p!==this.option31Value)}
+    else if (this.option100Value==this.option104Value)
+    {
+      return choices.filter(p => p!==this.option100Value)};
   }
     myFunction7() {
       var checkbox:any = document.getElementById("myCheck7");

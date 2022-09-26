@@ -3010,11 +3010,11 @@
 </form>
 <!-- location, commission, courtage et vacation (1ère étape de décision)--> 
   
-<div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option20Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
   
-<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option87Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -3022,11 +3022,11 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option87Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+<select  class="input-field" id="choice" [(ngModel)]="option88Value" name="choice">
 <option value="default"> </option>
 <option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
 <option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
@@ -3034,33 +3034,33 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option88Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option89Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option21Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option21Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option88Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option90Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option22Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option22Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
-&& option59Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option88Value == 'servis aux personnes résidentes' 
+&& option89Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -3096,7 +3096,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option88Value == 'servis aux personnes résidentes' && option89Value == 'personnes morales'">
 
 <fieldset>
 
@@ -3130,7 +3130,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option88Value == 'servis aux personnes non résidentes' && option90Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -3164,7 +3164,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option88Value == 'servis aux personnes non résidentes' && option90Value == 'personnes morales'">
 
 <fieldset>
 
@@ -3199,11 +3199,11 @@
 </form>
 <!-- location, commission, courtage et vacation (2ème étape de décision)--> 
 
-<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option88Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option91Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -3211,45 +3211,45 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option91Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<select  class="input-field" id="choice" [(ngModel)]="option92Value" name="choice">
 <option value="default"> </option>
-<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
-<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+<option value="servis aux personnes résidentes"*ngIf="option88Value !== 'servis aux personnes résidentes' || option20Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option88Value !== 'servis aux personnes non résidentes' || option20Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option92Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option93Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option89Value !== 'personnes physiques' && option21Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option89Value !== 'personnes morales' && option21Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option92Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option94Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option90Value !== 'personnes physiques'&& option22Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option90Value !== 'personnes morales'&& option22Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
-&& option62Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option92Value == 'servis aux personnes résidentes' 
+&& option93Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -3285,7 +3285,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option92Value == 'servis aux personnes résidentes' && option93Value == 'personnes morales'">
 
 <fieldset>
 
@@ -3319,7 +3319,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option92Value == 'servis aux personnes non résidentes' && option94Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -3353,7 +3353,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option92Value == 'servis aux personnes non résidentes' && option94Value == 'personnes morales'">
 
 <fieldset>
 
@@ -3388,11 +3388,11 @@
 </form>
 <!-- location, commission, courtage et vacation (3ème étape de décision)--> 
 
-<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option92Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option95Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -3400,44 +3400,44 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option95Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
-<select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+<select #cricket (change)="update($event)"[(ngModel)]="option96Value"class="input-field">
 <option value="default"> </option>
-<option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+<option *ngFor="let choice of findfiltredchoices3(choices)" [value]="choice">
 {{choice}}
 </option>
 </select> 
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option96Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option97Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option93Value !== 'personnes physiques' && option89Value !== 'personnes physiques'&& option21Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option93Value !== 'personnes morales' && option89Value !== 'personnes morales'&& option21Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option96Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option98Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option94Value !== 'personnes physiques' && option90Value !== 'personnes physiques'&& option22Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option94Value !== 'personnes morales' && option90Value !== 'personnes morales'&& option22Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
-&& option66Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option96Value == 'servis aux personnes résidentes' 
+&& option97Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -3473,7 +3473,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option96Value == 'servis aux personnes résidentes' && option97Value == 'personnes morales'">
 
 <fieldset>
 
@@ -3507,7 +3507,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option96Value == 'servis aux personnes non résidentes' && option98Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -3541,7 +3541,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option96Value == 'servis aux personnes non résidentes' && option98Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4161,11 +4161,11 @@
 </form> 
 <!-- location, commission, courtage et vacation (1ère étape de décision)--> 
   
-<div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option31Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
   
-<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option99Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -4173,11 +4173,11 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option99Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option58Value" name="choice">
+<select  class="input-field" id="choice" [(ngModel)]="option100Value" name="choice">
 <option value="default"> </option>
 <option value="servis aux personnes résidentes">servis aux personnes résidentes</option>
 <option value="servis aux personnes non résidentes">servis aux personnes non résidentes</option>
@@ -4185,33 +4185,33 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option100Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option59Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option101Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option6Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option6Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option32Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option32Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option58Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option100Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option60Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option102Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option7Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option7Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option33Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option33Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option58Value == 'servis aux personnes résidentes' 
-&& option59Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option100Value == 'servis aux personnes résidentes' 
+&& option101Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -4247,7 +4247,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option58Value == 'servis aux personnes résidentes' && option59Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option100Value == 'servis aux personnes résidentes' && option101Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4281,7 +4281,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option100Value == 'servis aux personnes non résidentes' && option102Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -4315,7 +4315,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option58Value == 'servis aux personnes non résidentes' && option60Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option100Value == 'servis aux personnes non résidentes' && option102Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4350,11 +4350,11 @@
 </form>
 <!-- location, commission, courtage et vacation (2ème étape de décision)--> 
 
-<div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option100Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option103Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -4362,45 +4362,45 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option103Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option61Value" name="choice">
+<select  class="input-field" id="choice" [(ngModel)]="option104Value" name="choice">
 <option value="default"> </option>
-<option value="servis aux personnes résidentes"*ngIf="option5Value !== 'servis aux personnes résidentes' || option58Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
-<option value="servis aux personnes non résidentes"*ngIf="option5Value !== 'servis aux personnes non résidentes' || option58Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
+<option value="servis aux personnes résidentes"*ngIf="option100Value !== 'servis aux personnes résidentes' || option31Value !== 'servis aux personnes résidentes'">servis aux personnes résidentes</option>
+<option value="servis aux personnes non résidentes"*ngIf="option100Value !== 'servis aux personnes non résidentes' || option31Value !== 'servis aux personnes non résidentes'">servis aux personnes non résidentes</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option104Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option62Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option105Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option59Value !== 'personnes physiques' && option6Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option59Value !== 'personnes morales' && option6Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option101Value !== 'personnes physiques' && option32Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option101Value !== 'personnes morales' && option32Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option61Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option104Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option63Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option106Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option60Value !== 'personnes physiques'&& option7Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option60Value !== 'personnes morales'&& option7Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option102Value !== 'personnes physiques'&& option33Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option102Value !== 'personnes morales'&& option33Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option61Value == 'servis aux personnes résidentes' 
-&& option62Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option104Value == 'servis aux personnes résidentes' 
+&& option105Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -4436,7 +4436,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option61Value == 'servis aux personnes résidentes' && option62Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option104Value == 'servis aux personnes résidentes' && option105Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4470,7 +4470,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option104Value == 'servis aux personnes non résidentes' && option106Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -4504,7 +4504,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option61Value == 'servis aux personnes non résidentes' && option63Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option104Value == 'servis aux personnes non résidentes' && option106Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4539,11 +4539,11 @@
 </form>
 <!-- location, commission, courtage et vacation (3ème étape de décision)--> 
 
-<div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
+<div title="indiquer votre choix"class="col-6"*ngIf="option104Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option107Value" name="choice" >
 <option value="default"> </option>
 <option value="Oui">Oui</option>
 <option value="Non">Non</option>
@@ -4551,44 +4551,44 @@
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option107Value=='Oui'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
-<select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
+<select #cricket (change)="update($event)"[(ngModel)]="option108Value"class="input-field">
 <option value="default"> </option>
-<option *ngFor="let choice of findfiltredchoices(choices)" [value]="choice">
+<option *ngFor="let choice of findfiltredchoices4(choices)" [value]="choice">
 {{choice}}
 </option>
 </select> 
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option108Value == 'servis aux personnes résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option66Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option109Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option62Value !== 'personnes physiques' && option6Value !== 'personnes physiques'&& option59Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option62Value !== 'personnes morales' && option6Value !== 'personnes morales'&& option59Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option105Value !== 'personnes physiques' && option101Value !== 'personnes physiques'&& option32Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option105Value !== 'personnes morales' && option101Value !== 'personnes morales'&& option32Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6" *ngIf="option65Value == 'servis aux personnes non résidentes'">
+<div title="indiquer votre choix"class="col-6" *ngIf="option108Value == 'servis aux personnes non résidentes'">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
-<select  class="input-field" id="choice" [(ngModel)]="option67Value" name="choice" >
+<select  class="input-field" id="choice" [(ngModel)]="option110Value" name="choice" >
 <option value="default"> </option>
-<option value="personnes physiques"*ngIf="option63Value !== 'personnes physiques' && option7Value !== 'personnes physiques'&& option60Value !== 'personnes physiques'">personnes physiques</option>
-<option value="personnes morales"*ngIf="option63Value !== 'personnes morales' && option7Value !== 'personnes morales'&& option60Value !== 'personnes morales'">personnes morales</option>
+<option value="personnes physiques"*ngIf="option106Value !== 'personnes physiques' && option102Value !== 'personnes physiques'&& option33Value !== 'personnes physiques'">personnes physiques</option>
+<option value="personnes morales"*ngIf="option106Value !== 'personnes morales' && option102Value !== 'personnes morales'&& option33Value !== 'personnes morales'">personnes morales</option>
 
 </select>
 </div>
 </div>
 <!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form-->                    
-<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option65Value == 'servis aux personnes résidentes' 
-&& option66Value == 'personnes physiques' ">
+<form  [formGroup]="standardlocationresidentesphysiqueform"*ngIf="option108Value == 'servis aux personnes résidentes' 
+&& option109Value == 'personnes physiques' ">
 
 <fieldset>
 
@@ -4624,7 +4624,7 @@
 </fieldset>
 </form>
 <!-- location, commission, courtage et vacation (résidents et personnes morales)form-->                    
-<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option65Value == 'servis aux personnes résidentes' && option66Value == 'personnes morales'">
+<form  [formGroup]="standardlocationresidentesmoraleform"*ngIf="option108Value == 'servis aux personnes résidentes' && option109Value == 'personnes morales'">
 
 <fieldset>
 
@@ -4658,7 +4658,7 @@
 </fieldset>
 </form>   
 <!-- location, commission, courtage et vacation (non résidentes et personnes physiques)form-->                    
-<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes physiques'">
+<form  [formGroup]="standardlocationnonresidentesphysiquesform"*ngIf="option108Value == 'servis aux personnes non résidentes' && option110Value == 'personnes physiques'">
 
 <fieldset>
 
@@ -4692,7 +4692,7 @@
 </fieldset>
 </form>       
 <!-- location, commission, courtage et vacation (non résidentes et personnes morales)form-->                    
-<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option65Value == 'servis aux personnes non résidentes' && option67Value == 'personnes morales'">
+<form  [formGroup]="standardlocationnonresidentesmoralesform"*ngIf="option108Value == 'servis aux personnes non résidentes' && option110Value == 'personnes morales'">
 
 <fieldset>
 
