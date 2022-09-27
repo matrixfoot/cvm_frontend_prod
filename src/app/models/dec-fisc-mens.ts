@@ -33,21 +33,77 @@ salaireimposable:string;
 retenuealasource:string;
 contributionsociale:string;
 }
-location:{
+location1:{
     type:string;
     montantbrut:string;
     taux:string;
     montantnet:string;
     montantretenue:string;
 }
-honoraire:{
+location2:{
     type:string;
     montantbrut:string;
     taux:string;
     montantnet:string;
     montantretenue:string;
 }
-montant1000:{
+location3:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+location4:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+honoraire1:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+honoraire2:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+honoraire3:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+montant10001:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+montant10002:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+montant10003:{
+    type:string;
+    montantbrut:string;
+    taux:string;
+    montantnet:string;
+    montantretenue:string;
+}
+montant10004:{
     type:string;
     montantbrut:string;
     taux:string;

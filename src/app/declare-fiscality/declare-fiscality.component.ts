@@ -165,6 +165,54 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option121Value:any;
   option122Value:any;
   option123Value:any;
+  option124Value:any;
+  option125Value:any;
+  option126Value:any;
+  option127Value:any;
+  option128Value:any;
+  option129Value:any;
+  option130Value:any;
+  option131Value:any;
+  option132Value:any;
+  option133Value:any;
+  option134Value:any;
+  option135Value:any;
+  option136Value:any;
+  option137Value:any;
+  option138Value:any;
+  option139Value:any;
+  option140Value:any;
+  option141Value:any;
+  option142Value:any;
+  option143Value:any;
+  option144Value:any;
+  option145Value:any;
+  option146Value:any;
+  option147Value:any;
+  option148Value:any;
+  option149Value:any;
+  option150Value:any;
+  option151Value:any;
+  option152Value:any;
+  option153Value:any;
+  option154Value:any;
+  option155Value:any;
+  option156Value:any;
+  option157Value:any;
+  option158Value:any;
+  option159Value:any;
+  option160Value:any;
+  option161Value:any;
+  option162Value:any;
+  option163Value:any;
+  option164Value:any;
+  option165Value:any;
+  option166Value:any;
+  option167Value:any;
+  option168Value:any;
+  option169Value:any;
+  option170Value:any;
+  
   message: string;
   sub1:Subscription;
   sub2:Subscription;
@@ -850,8 +898,12 @@ calculateResultForm1()
     
     const decfiscmens:Decfiscmens = new Decfiscmens();
     decfiscmens.impottype1={ type: '',statut: '',motif: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
-    location: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', }, honoraire: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-    montant1000: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+    location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+    location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+     honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
@@ -875,80 +927,80 @@ decfiscmens.impottype1.traitementetsalaire.retenuealasource=this.standardtraitem
 decfiscmens.impottype1.traitementetsalaire.contributionsociale=this.standardtraitementsalaireform.get('solidaritycontribution').value
 if (this.standardlocationresidentesphysiqueform.get('brutammount').value!=='')
 {
-decfiscmens.impottype1.location.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
-decfiscmens.impottype1.location.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
-decfiscmens.impottype1.location.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
-decfiscmens.impottype1.location.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
+decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
+decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
+decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
 }
 if (this.standardlocationresidentesmoraleform.get('brutammount').value!=='')
 {
-decfiscmens.impottype1.location.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
-decfiscmens.impottype1.location.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
-decfiscmens.impottype1.location.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
-decfiscmens.impottype1.location.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
+decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
+decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
+decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
 }
 if (this.standardlocationnonresidentesphysiquesform.get('brutammount').value!=='')
 {
-decfiscmens.impottype1.location.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
-decfiscmens.impottype1.location.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
-decfiscmens.impottype1.location.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
-decfiscmens.impottype1.location.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
+decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
+decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
+decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
 }
 if (this.standardlocationnonresidentesmoralesform.get('brutammount').value!=='')
 {
-decfiscmens.impottype1.location.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
-decfiscmens.impottype1.location.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
-decfiscmens.impottype1.location.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
-decfiscmens.impottype1.location.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
+decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
+decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
 }
 if (this.standardhonorairephysiquereelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire.type='honoraire servis aux personnes physiques soumises au régime réel'
-  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
-  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
-  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
+  decfiscmens.impottype1.honoraire1.type='honoraire servis aux personnes physiques soumises au régime réel'
+  decfiscmens.impottype1.honoraire1.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
+  decfiscmens.impottype1.honoraire1.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
+  decfiscmens.impottype1.honoraire1.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
 }
 if (this.standardhonorairephysiquenonreelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire.type='honoraire servis aux personnes physiques non soumises au régime réel'
-  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
-  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
-  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
+  decfiscmens.impottype1.honoraire2.type='honoraire servis aux personnes physiques non soumises au régime réel'
+  decfiscmens.impottype1.honoraire2.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
+  decfiscmens.impottype1.honoraire2.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
+  decfiscmens.impottype1.honoraire2.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
 }
 if (this.standardhonorairegroupementsform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire.type='honoraire servis aux sociétés et aux groupements'
-  decfiscmens.impottype1.honoraire.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
-  decfiscmens.impottype1.honoraire.montantnet=this.standardhonorairegroupementsform.get('netammount').value
-  decfiscmens.impottype1.honoraire.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
+  decfiscmens.impottype1.honoraire3.type='honoraire servis aux sociétés et aux groupements'
+  decfiscmens.impottype1.honoraire3.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
+  decfiscmens.impottype1.honoraire3.montantnet=this.standardhonorairegroupementsform.get('netammount').value
+  decfiscmens.impottype1.honoraire3.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
 }
 if (this.standardmontant15form.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant1000.type='Montants supérieurs à 1000dt établissements soumis à l\'i/s au taux de 15%'
-  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontant15form.get('brutammount').value
-  decfiscmens.impottype1.montant1000.montantnet=this.standardmontant15form.get('netammount').value
-  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontant15form.get('retenueammount').value  
+  decfiscmens.impottype1.montant10001.type='Montants supérieurs à 1000dt établissements soumis à l\'i/s au taux de 15%'
+  decfiscmens.impottype1.montant10001.montantbrut=this.standardmontant15form.get('brutammount').value
+  decfiscmens.impottype1.montant10001.montantnet=this.standardmontant15form.get('netammount').value
+  decfiscmens.impottype1.montant10001.montantretenue=this.standardmontant15form.get('retenueammount').value  
 }
 if (this.standardmontant10form.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant1000.type='Montants supérieurs à 1000dt établissements soumis à l\i/s au taux de 10%'
-  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontant10form.get('brutammount').value
-  decfiscmens.impottype1.montant1000.montantnet=this.standardmontant10form.get('netammount').value
-  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontant10form.get('retenueammount').value  
+  decfiscmens.impottype1.montant10002.type='Montants supérieurs à 1000dt établissements soumis à l\i/s au taux de 10%'
+  decfiscmens.impottype1.montant10002.montantbrut=this.standardmontant10form.get('brutammount').value
+  decfiscmens.impottype1.montant10002.montantnet=this.standardmontant10form.get('netammount').value
+  decfiscmens.impottype1.montant10002.montantretenue=this.standardmontant10form.get('retenueammount').value  
 }
 if (this.standardmontantindividuelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant1000.type='Montants supérieurs à 1000dt établissements individuels et éligible à la réduction des 2/3 des revenus'
-  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontantindividuelform.get('brutammount').value
-  decfiscmens.impottype1.montant1000.montantnet=this.standardmontantindividuelform.get('netammount').value
-  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
+  decfiscmens.impottype1.montant10003.type='Montants supérieurs à 1000dt établissements individuels et éligible à la réduction des 2/3 des revenus'
+  decfiscmens.impottype1.montant10003.montantbrut=this.standardmontantindividuelform.get('brutammount').value
+  decfiscmens.impottype1.montant10003.montantnet=this.standardmontantindividuelform.get('netammount').value
+  decfiscmens.impottype1.montant10003.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
 }
 if (this.standardmontantautreform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant1000.type='Montants supérieurs à 1000dt autre établissements'
-  decfiscmens.impottype1.montant1000.montantbrut=this.standardmontantautreform.get('brutammount').value
-  decfiscmens.impottype1.montant1000.montantnet=this.standardmontantautreform.get('netammount').value
-  decfiscmens.impottype1.montant1000.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+  decfiscmens.impottype1.montant10004.type='Montants supérieurs à 1000dt autre établissements'
+  decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
+  decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
+  decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
 }
 this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {

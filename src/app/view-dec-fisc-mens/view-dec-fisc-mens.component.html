@@ -18,7 +18,8 @@
       <h4>Code TVA:<b>  {{ decfiscmens.codetva }}</b></h4>  
       <h4>Code Genre:<b>  {{ decfiscmens.codegenre }}</b></h4>
       <h4>Adresse:<b>  {{ decfiscmens.adresse }}</b></h4>
-      <h4>Statut:<b>  {{ decfiscmens.impottype1.statut }}</b></h4>
+      <h4>Statut:<b>  {{ decfiscmens.statut }}</b></h4>
+      <h4>Motif:<b>  {{ decfiscmens.motif }}</b></h4>
       <h4>Code Postal:<b>  {{ decfiscmens.codepostal }}</b></h4>
       <h4>Activité:<b>  {{ decfiscmens.activite }}</b></h4>
       <h4>Date d'arrêt d'activité:<b>  {{ decfiscmens.datearretactivite }}</b></h4>
@@ -34,24 +35,72 @@
       <hr>
       <h3>Type rubrique: location, commission, courtage et vacation</h3>
       <hr>
-      <h4>Type:<b>  {{ decfiscmens.impottype1.location.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location.montantnet }}</b></h4>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.location1.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location1.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location1.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location1.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.location2.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location2.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location2.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location2.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.location3.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location3.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location3.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location3.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.location4.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location4.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location4.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location4.montantnet }}</b></h4>
       <hr>
       <h3>Type rubrique: honoraire</h3>
       <hr>
-      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire.montantnet }}</b></h4>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire1.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire1.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire1.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire1.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire2.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire2.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire2.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire2.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire3.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire3.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire3.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire3.montantnet }}</b></h4>
       <hr>
       <h3>Type rubrique: Montants supérieurs à 1000dt</h3>
       <hr>
-      <h4>Type:<b>  {{ decfiscmens.impottype1.montant1000.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant1000.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant1000.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant1000.montantnet }}</b></h4>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10001.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10001.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10001.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10001.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10002.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10002.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10002.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10002.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10003.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10003.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10003.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10003.montantnet }}</b></h4>
+      <hr>
+      <hr>
+      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10004.type  }}</b></h4>
+      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10004.montantbrut  }}</b></h4>
+      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10004.montantretenue }}</b></h4>  
+      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10004.montantnet }}</b></h4>
       <hr>
       <h3>Type rubrique: Autre</h3>
       <hr>
