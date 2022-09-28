@@ -88,16 +88,20 @@ export class UserBoardComponent implements OnInit {
         this.errormsg=error.message;
       }
     );
+    
     this.dec.getdecfiscmens(this.userId).then(
       (decfiscmens: Decfiscmens) => {
         this.loading = false;
         this.decfiscmens = decfiscmens;
         this.converteddate=this.addHours(this.decfiscmens.created);
+        this.decfiscmens.created=this.converteddate
+        
+        console.log(this.converteddate)
         
       }
     );
     
-
+    
     
   }
 
