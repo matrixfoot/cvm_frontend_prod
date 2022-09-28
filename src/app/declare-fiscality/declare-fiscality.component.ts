@@ -897,7 +897,7 @@ calculateResultForm1()
     this.loading = true;
     
     const decfiscmens:Decfiscmens = new Decfiscmens();
-    decfiscmens.impottype1={ type: '',statut: '',motif: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+    decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
     location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
     location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
      honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
@@ -1011,8 +1011,9 @@ this.DecfiscmensService.create(decfiscmens).then(
       icon: 'success',
       title: 'déclaration créé avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration',
       showConfirmButton: false,
-      timer: 3000
+      timer: 3000 
     });
+    this.router.navigate(['user-board'])
   },
   (error) => {
     this.loading = false;

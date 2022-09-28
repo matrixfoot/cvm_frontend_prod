@@ -29,6 +29,7 @@ export class UserBoardComponent implements OnInit {
   usertype: string;
   email: string;
   userId:string;
+  converteddate: Date;
   
   
   public condidates: Condidate[] = [];
@@ -79,6 +80,7 @@ export class UserBoardComponent implements OnInit {
       (decfiscmenss) => {
         this.decfiscmenss = decfiscmenss;
         this.loading = false;
+        
       },
       (error) => {
         this.loading = false;
@@ -86,9 +88,16 @@ export class UserBoardComponent implements OnInit {
         this.errormsg=error.message;
       }
     );
-   
-    this.dec.getdecfiscmens(this.userId);
-    console.log(this.userId)
+    this.dec.getdecfiscmens(this.userId).then(
+      (decfiscmens: Decfiscmens) => {
+        this.loading = false;
+        this.decfiscmens = decfiscmens;
+        this.converteddate=this.addHours(this.decfiscmens.created);
+        
+      }
+    );
+    
+
     
   }
 
@@ -97,7 +106,11 @@ export class UserBoardComponent implements OnInit {
     this.cond.getCondidateById(id);
     this.router.navigate([link + '/' + id]); 
   }
-     
+  addHours(date:Date) {
+    date.setTime(date.getTime() * 60 * 60 * 1000);
+  
+    return date;
+  }   
     
     
   

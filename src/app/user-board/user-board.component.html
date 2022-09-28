@@ -71,6 +71,7 @@
             <th>Nom</th>
             <th>raison sociale</th>
             <th>Statut</th>
+            <th>Date de création</th>
             
             
             
@@ -84,7 +85,8 @@
             <td>{{decfiscmens.firstname}}</td>
             <td>{{decfiscmens.lastname}}</td>
             <td>{{decfiscmens.raisonsociale}}</td>
-            <td>{{decfiscmens.impottype1.statut}}</td>
+            <td>{{decfiscmens.statut}}</td>
+            <td>{{decfiscmens.created}}</td>
             <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
             
           
