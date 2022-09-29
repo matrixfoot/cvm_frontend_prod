@@ -1009,15 +1009,15 @@ this.DecfiscmensService.create(decfiscmens).then(
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'déclaration créé avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration',
+      title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
       showConfirmButton: false,
-      timer: 3000 
+      timer: 6000 
     });
     this.router.navigate(['user-board'])
   },
   (error) => {
     this.loading = false;
-    this.alertService.error(error.error.error);
+    this.alertService.error('');
     window.scrollTo(0, 0);
   }
 )

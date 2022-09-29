@@ -86,7 +86,7 @@
             <td>{{decfiscmens.lastname}}</td>
             <td>{{decfiscmens.raisonsociale}}</td>
             <td>{{decfiscmens.statut}}</td>
-            <td>{{decfiscmens.created | date:'short':'+0100'}}</td>
+            <td>{{decfiscmens.created | customDate}}</td>
             <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
             
           

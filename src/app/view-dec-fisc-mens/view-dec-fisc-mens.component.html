@@ -7,7 +7,7 @@
     
     <div class="container-fluid">
       
-      <h4>Crée le(heure GMT):<b>  {{ decfiscmens.created }}</b></h4>
+      <h4>Crée le(heure GMT):<b>  {{ decfiscmens.created |customDate}}</b></h4>
       <h4>Dernière modification  le(heure GMT):<b>  {{ decfiscmens.updated }}</b></h4>
       <h4>Mois:<b>  {{ decfiscmens.mois }}</b></h4>  
       <h4>Année:<b>  {{ decfiscmens.annee }}</b></h4>
@@ -26,88 +26,123 @@
       <hr>
       <h4>Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.traitementetsalaire.salairebrut">
       <h3>Type rubrique: traitement et salaire</h3>
       <hr>
+      
       <h4>Salaire Brut:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salairebrut  }}</b></h4>
       <h4>Salaire imposable:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salaireimposable }}</b></h4>  
       <h4>Retenue à la source:<b>  {{ decfiscmens.impottype1.traitementetsalaire.retenuealasource }}</b></h4>
       <h4>Contribution à l'aide sociale:<b>  {{ decfiscmens.impottype1.traitementetsalaire.contributionsociale }}</b></h4>
+    </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.location1.type||decfiscmens.impottype1.location2.type||decfiscmens.impottype1.location3.type
+      ||decfiscmens.impottype1.location4.type">
       <h3>Type rubrique: location, commission, courtage et vacation</h3>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.location1.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.location1.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location1.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location1.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location1.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.location2.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.location2.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location2.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location2.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location2.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.location3.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.location3.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location3.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location3.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location3.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.location4.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.location4.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location4.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location4.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location4.montantnet }}</b></h4>
       <hr>
+    </div>
+    </div>
+    <div *ngIf="decfiscmens.impottype1.honoraire1.type||decfiscmens.impottype1.honoraire2.type||decfiscmens.impottype1.honoraire3.type">
       <h3>Type rubrique: honoraire</h3>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.honoraire1.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire1.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire1.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire1.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire1.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.honoraire2.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire2.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire2.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire2.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire2.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.honoraire3.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire3.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire3.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire3.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire3.montantnet }}</b></h4>
       <hr>
+      </div>
+      </div>
+      <div *ngIf="decfiscmens.impottype1.montant10001.type||decfiscmens.impottype1.montant10002.type||decfiscmens.impottype1.montant10003.type
+      ||decfiscmens.impottype1.montant10004.type">
       <h3>Type rubrique: Montants supérieurs à 1000dt</h3>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.montant10001.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.montant10001.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10001.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10001.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10001.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.montant10002.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.montant10002.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10002.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10002.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10002.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.montant10003.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.montant10003.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10003.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10003.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10003.montantnet }}</b></h4>
       <hr>
+      </div>
       <hr>
+      <div *ngIf="decfiscmens.impottype1.montant10004.type">
       <h4>Type:<b>  {{ decfiscmens.impottype1.montant10004.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10004.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10004.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10004.montantnet }}</b></h4>
       <hr>
+      </div>
+      <div *ngIf="decfiscmens.impottype1.autre.type">
       <h3>Type rubrique: Autre</h3>
       <hr>
       <h4>Type:<b>  {{ decfiscmens.impottype1.autre.type  }}</b></h4>
       <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.autre.montantbrut  }}</b></h4>
       <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.autre.montantretenue }}</b></h4>  
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.autre.montantnet }}</b></h4>
+    </div>
+    </div>
     </div>
     
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Réclamation (Admin)</button>

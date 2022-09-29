@@ -449,16 +449,10 @@
   <div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
                         <div class="form-group">
                         <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-                        
-                    <select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
-                      <option value="default"> </option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
-                    
-                    </select>
+                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice">Oui 
                   </div>
   </div>
-  <div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+  <div title="indiquer votre choix"class="col-6"*ngIf="option68Value">
     <div class="form-group">
     <label for="choice"> Veuillez sélectionner un choix:</label>    
     
@@ -638,16 +632,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice">Oui 
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -827,16 +816,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice">Oui 
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   <select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
@@ -1148,16 +1132,11 @@
     <div title="indiquer votre choix"class="col-6"*ngIf="option8Value">
       <div class="form-group">
       <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+      <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option111Value" name="choice">Oui
       
-      <select  class="input-field" id="choice" [(ngModel)]="option111Value" name="choice" >
-      <option value="default"> </option>
-      <option value="Oui">Oui</option>
-      <option value="Non">Non</option>
-      
-      </select>
       </div>
       </div>
-    <div title="indiquer votre choix"class="col-6"*ngIf="option111Value=='Oui'">
+    <div title="indiquer votre choix"class="col-6"*ngIf="option111Value">
       <div class="form-group">
       <label for="choice"> Veuillez sélectionner un choix:</label>    
       
@@ -1290,16 +1269,11 @@
       <div title="indiquer votre choix"class="col-6"*ngIf="option71Value">
         <div class="form-group">
         <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option112Value" name="choice">Oui
         
-        <select  class="input-field" id="choice" [(ngModel)]="option112Value" name="choice" >
-        <option value="default"> </option>
-        <option value="Oui">Oui</option>
-        <option value="Non">Non</option>
-        
-        </select>
         </div>
         </div>
-      <div title="indiquer votre choix"class="col-6"*ngIf="option112Value=='Oui'">
+      <div title="indiquer votre choix"class="col-6"*ngIf="option112Value">
       <div class="form-group">
       <label for="choice"> Veuillez sélectionner un choix:</label>    
       
@@ -1587,16 +1561,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option10Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option137Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option137Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option137Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option137Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -1749,16 +1718,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option138Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option165Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option165Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option165Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option165Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -1911,16 +1875,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option166Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option167Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option167Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option167Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option167Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -2075,18 +2034,13 @@
                       <div title="indiquer votre choix"class="col-6"*ngIf="optionValue ">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        
-                    <select  class="input-field" id="choice" [(ngModel)]="option4Value" name="choice" >
-                      <option value="default"> </option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
+                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option4Value" name="choice">Oui  
                     
-                    </select>
                   </div>
                 </div>
 <!-- 2ème étape de choice-->
 
-                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option4Value == 'Oui'">
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option4Value">
                         <label for="retenuelist">Retenue à la source sur:</label>
                         <i class="fas fa-wallet icon-special"></i>
                         <select #cricket (change)="update($event)"[(ngModel)]="option3Value">
@@ -2372,16 +2326,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option3Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option75Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option75Value" name="choice">Oui 
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option75Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option75Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -2561,16 +2510,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option76Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option79Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option79Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option79Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option79Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -2750,16 +2694,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option80Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option83Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option83Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option83Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option83Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 <select #cricket (change)="update($event)"[(ngModel)]="option84Value"class="input-field">
@@ -3071,16 +3010,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option15Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option113Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option113Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option113Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option113Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -3213,16 +3147,11 @@
   <div title="indiquer votre choix"class="col-6"*ngIf="option114Value">
     <div class="form-group">
     <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+    <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option116Value" name="choice">Oui
     
-    <select  class="input-field" id="choice" [(ngModel)]="option116Value" name="choice" >
-    <option value="default"> </option>
-    <option value="Oui">Oui</option>
-    <option value="Non">Non</option>
-    
-    </select>
     </div>
     </div>
-  <div title="indiquer votre choix"class="col-6"*ngIf="option116Value=='Oui'">
+  <div title="indiquer votre choix"class="col-6"*ngIf="option116Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -3509,16 +3438,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option17Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option143Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option143Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option143Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option143Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -3671,16 +3595,12 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option144Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option145Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option145Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
   
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option145Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option145Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -3833,16 +3753,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option146Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option147Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option147Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option147Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option147Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -3997,17 +3912,12 @@
                       <div title="indiquer votre choix"class="col-6"*ngIf="option3Value ">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        
-                    <select  class="input-field" id="choice" [(ngModel)]="option18Value" name="choice" >
-                      <option value="default"> </option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
-                    
-                    </select>
+                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option18Value" name="choice">Oui  
+                   
                   </div>
                 </div>
 <!-- 3ème étape de choice-->
-                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option18Value == 'Oui'">
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option18Value">
                         <label for="retenuelist">Retenue à la source sur:</label>
                         <i class="fas fa-wallet icon-special"></i>
                         <select #cricket (change)="update($event)"[(ngModel)]="option19Value">
@@ -4293,16 +4203,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option20Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option87Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option87Value" name="choice">Oui
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option87Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option87Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -4482,16 +4387,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option88Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option91Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option91Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option91Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option91Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -4671,16 +4571,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option92Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option95Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option95Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option95Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option95Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 <select #cricket (change)="update($event)"[(ngModel)]="option96Value"class="input-field">
@@ -4992,16 +4887,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option23Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option119Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option119Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option119Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option119Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -5134,16 +5024,11 @@
   <div title="indiquer votre choix"class="col-6"*ngIf="option120Value">
     <div class="form-group">
     <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+    <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option122Value" name="choice">Oui
     
-    <select  class="input-field" id="choice" [(ngModel)]="option122Value" name="choice" >
-    <option value="default"> </option>
-    <option value="Oui">Oui</option>
-    <option value="Non">Non</option>
-    
-    </select>
     </div>
     </div>
-  <div title="indiquer votre choix"class="col-6"*ngIf="option122Value=='Oui'">
+  <div title="indiquer votre choix"class="col-6"*ngIf="option122Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -5430,16 +5315,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option25Value">
   <div class="form-group">
   <label for="choice" style="color: red;">Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option143Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option143Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option143Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option143Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -5592,16 +5472,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option144Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
-  
-  <select  class="input-field" id="choice" [(ngModel)]="option149Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option149Value" name="choice">Oui
+ 
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option149Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option149Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -5754,16 +5629,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option150Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option151Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option151Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option151Value !== 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option151Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -5918,17 +5788,12 @@
                       <div title="indiquer votre choix"class="col-6"*ngIf="option19Value ">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        
-                    <select  class="input-field" id="choice" [(ngModel)]="option27Value" name="choice" >
-                      <option value="default"> </option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
+                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option27Value" name="choice">Oui  
                     
-                    </select>
                   </div>
                 </div>
 <!-- 4ème étape de choice-->
-                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option27Value == 'Oui'">
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option27Value">
                         <label for="retenuelist">Retenue à la source sur:</label>
                         <i class="fas fa-wallet icon-special"></i>
                         <select #cricket (change)="update($event)"[(ngModel)]="option29Value">
@@ -6214,16 +6079,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option31Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option99Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option99Value" name="choice">Oui
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option99Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option99Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -6403,16 +6263,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option100Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option103Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option103Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option103Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option103Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -6592,16 +6447,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option104Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option107Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option107Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option107Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option107Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 <select #cricket (change)="update($event)"[(ngModel)]="option108Value"class="input-field">
@@ -6913,16 +6763,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option34Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option125Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option125Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option125Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option125Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -7055,16 +6900,11 @@
   <div title="indiquer votre choix"class="col-6"*ngIf="option126Value">
     <div class="form-group">
     <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+    <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option128Value" name="choice">Oui
     
-    <select  class="input-field" id="choice" [(ngModel)]="option128Value" name="choice" >
-    <option value="default"> </option>
-    <option value="Oui">Oui</option>
-    <option value="Non">Non</option>
-    
-    </select>
     </div>
     </div>
-  <div title="indiquer votre choix"class="col-6"*ngIf="option128Value=='Oui'">
+  <div title="indiquer votre choix"class="col-6"*ngIf="option128Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -7351,16 +7191,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option36Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option153Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option153Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option153Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option153Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -7513,16 +7348,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option54Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option155Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option155Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option155Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option155Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -7675,16 +7505,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option156Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
-  
-  <select  class="input-field" id="choice" [(ngModel)]="option157Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option157Value" name="choice">Oui
+ 
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option157Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option157Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -7839,17 +7664,12 @@
                       <div title="indiquer votre choix"class="col-6"*ngIf="option29Value ">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        
-                    <select  class="input-field" id="choice" [(ngModel)]="option38Value" name="choice" >
-                      <option value="default"> </option>
-                    <option value="Oui">Oui</option>
-                    <option value="Non">Non</option>
+                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option38Value" name="choice">Oui 
                     
-                    </select>
                   </div>
                 </div>
 <!-- 5ème étape de choice-->
-                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option38Value == 'Oui'">
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option38Value">
                         <label for="retenuelist">Retenue à la source sur:</label>
                         <i class="fas fa-wallet icon-special"></i>
                         <select #cricket (change)="update($event)"[(ngModel)]="option40Value">
@@ -8134,16 +7954,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option5Value">
   <div class="form-group">
   <label for="choice"style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
-  
-<select  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option68Value" name="choice">Oui
 
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option68Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option68Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -8323,16 +8138,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option58Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option69Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option69Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option69Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 
@@ -8512,16 +8322,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option61Value">
 <div class="form-group">
 <label for="choice" style="color: red;"> Avez vous d'autres location, commission, courtage et vacation à déclarer:</label>    
+<input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice">Oui
 
-<select  class="input-field" id="choice" [(ngModel)]="option70Value" name="choice" >
-<option value="default"> </option>
-<option value="Oui">Oui</option>
-<option value="Non">Non</option>
-
-</select>
 </div>
 </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option70Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option70Value">
 <div class="form-group">
 <label for="choice"> Veuillez sélectionner un choix:</label>    
 <select #cricket (change)="update($event)"[(ngModel)]="option65Value"class="input-field">
@@ -8833,16 +8638,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option45Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option131Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option131Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option131Value=='Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option131Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -8975,16 +8775,11 @@
   <div title="indiquer votre choix"class="col-6"*ngIf="option132Value">
     <div class="form-group">
     <label for="choice" style="color: red;"> Avez vous d'autres honoraires à déclarer:</label>    
+    <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option134Value" name="choice">Oui
     
-    <select  class="input-field" id="choice" [(ngModel)]="option134Value" name="choice" >
-    <option value="default"> </option>
-    <option value="Oui">Oui</option>
-    <option value="Non">Non</option>
-    
-    </select>
     </div>
     </div>
-  <div title="indiquer votre choix"class="col-6"*ngIf="option134Value=='Oui'">
+  <div title="indiquer votre choix"class="col-6"*ngIf="option134Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -9271,16 +9066,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option47Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option159Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option159Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option159Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option159Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -9433,16 +9223,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option160Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option161Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option161Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option161Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option161Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -9595,16 +9380,11 @@
 <div title="indiquer votre choix"class="col-6"*ngIf="option162Value">
   <div class="form-group">
   <label for="choice" style="color: red;"> Avez vous d'autres montants supériers à 1000 à déclarer:</label>    
+  <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option163Value" name="choice">Oui
   
-  <select  class="input-field" id="choice" [(ngModel)]="option163Value" name="choice" >
-  <option value="default"> </option>
-  <option value="Oui">Oui</option>
-  <option value="Non">Non</option>
-  
-  </select>
   </div>
   </div>
-<div title="indiquer votre choix"class="col-6"*ngIf="option163Value == 'Oui'">
+<div title="indiquer votre choix"class="col-6"*ngIf="option163Value">
   <div class="form-group">
   <label for="choice"> Veuillez sélectionner un choix:</label>    
   
@@ -9754,7 +9534,7 @@
 </fieldset>
 </form>
 </div>
-<button class="btn btn-success" type="button" (click)="onSubmit()">Envoyer</button>
+<button class="btn btn-success" type="button" (click)="onSubmit()">Sauvegarder</button>
                    
                       </mat-tab>
                     

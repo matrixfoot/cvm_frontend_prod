@@ -14,7 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-
+import {CustomDatePipe} from './_helpers/custom.datepipe'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 
@@ -90,7 +90,7 @@ FullCalendarModule.registerPlugins([
     ModifyUserComponent,
     ViewUserComponent,
     ModifyUserAdminComponent,
-    
+    CustomDatePipe,
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,
