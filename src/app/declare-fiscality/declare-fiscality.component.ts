@@ -236,6 +236,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub20:Subscription;
   sub21:Subscription;
   sub22:Subscription;
+  sub23:Subscription;
   selectedTab: number = 0;
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
@@ -497,6 +498,15 @@ this.sub22=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm22()
+})
+this.sub23=merge(
+  
+  this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
+  this.standardtraitementsalaireform.get('imposalary').valueChanges,
+  this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm23()
 })
   this.isLoggedIn = !!this.token.getToken();
     
@@ -890,6 +900,24 @@ calculateResultForm1()
           brutammount: brutammount},{emitEvent: false} 
         );
       this.standardmontantautreform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm23()
+  {
+  
+    const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
+    const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
+    const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
+    const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
+    if (retenuesalary>brutsalary||imposalary>brutsalary||solidaritycontribution>brutsalary)
+    {this.standardtraitementsalaireform.patchValue({
+      retenuesalary: '', 
+        imposalary: '',
+      solidaritycontribution:''},{emitEvent: false} 
+      );}  
+      
+      this.standardtraitementsalaireform.updateValueAndValidity();
     
     
   }
