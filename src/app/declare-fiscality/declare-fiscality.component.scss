@@ -37,7 +37,7 @@
     
   }
   .input-field {
-    width: 100%;
+  
     padding: 10px;
     outline: none;
   }
@@ -69,7 +69,20 @@ p {
 $color-primary: rgba(67,66,93,255);
 $color-text: #43425d;
 $color-text-lite: rgba(#4d4f5c,.5);
-
+.form-control{
+  width: 25%;
+}
+.form-group{
+  display: flex;
+}
+.form-group label{
+  width: 250px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .login-container {
     font-family: "Source Sans Pro";
     

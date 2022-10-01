@@ -338,7 +338,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     });
     this.standardmontantautreform =this.fb.group({
       brutammount: '',
-      quotion: [{value:"0.015",disabled:true}],
+      quotion: [{value:"",disabled:true}],
       retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
