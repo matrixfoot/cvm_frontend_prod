@@ -159,6 +159,66 @@
 
                    <hr>
                    <div class="container-fluid"id="tabcontainer">
+      
+                        
+                      
+                      <br>
+                      
+                      
+                      <button
+                        style="margin: 50px; padding: 10px"
+                        type="button"
+                        class="btn btn-primary"
+                        (click)="openPopup()">Récapitulatif De La Déclaration
+                      </button>
+                      <div
+                        class="modal"
+                        tabindex="-1"
+                        role="dialog"
+                        [ngStyle]="{'display':displayStyle}">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Liste Des Montants Introduits</h4>
+                            </div>
+                            <div class="modal-body">
+                              <table class="table table-striped">
+                                <thead>
+                                  <tr>
+                                    <th>Nom Montant</th>
+                                    <th>Montant</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Total des retenues à la source</td>
+                                    <td>{{totalretenueammount | number| removeComma}}</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                    <td>Autre</td>
+                                    <td>Total</td>
+                                    
+                                  </tr>
+                                  <tr>
+                                    <td>Autre</td>
+                                    <td>Total</td>
+                                    
+                                  </tr>
+                                </tbody>
+                              </table>
+                        
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" 
+                                      (click)="closePopup()">
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <mat-tab-group (selectedTabChange)="onTabClick($event)">
                     <!-- retenue à la source tab -->
                     

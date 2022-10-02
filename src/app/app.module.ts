@@ -49,6 +49,7 @@ import { CalendarFiscalityComponent } from './calendar-fiscality/calendar-fiscal
 import { CollabUserCreateComponent } from './collab-user-create/collab-user-create.component';
 import { SortDirective } from './directive/sort.directive';
 import { TwoDigitDecimaNumberDirective } from './directive/TwoDigitDecimaNumber.directive';
+import { RemoveCommaPipe } from './pipes/pipe-number';
 
 import { AddEventComponent } from './calendar-fiscality/add-event/add-event.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
@@ -93,6 +94,7 @@ FullCalendarModule.registerPlugins([
     ViewUserComponent,
     ModifyUserAdminComponent,
     CustomDatePipe,
+    RemoveCommaPipe,
     VerifyEmailComponent,
     ForgotPasswordComponent,
     ResetPasswordComponent,

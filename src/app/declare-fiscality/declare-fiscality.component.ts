@@ -248,6 +248,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   showtimbretab=false;
   showtcltab=false;
   autreform: FormGroup;
+  totalretenueammount:number;
   public ammounts: FormArray;
   
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
@@ -557,6 +558,21 @@ this.sub23=merge(
       
     
    
+  }
+  displayStyle = "none";
+  
+  openPopup() {
+    this.displayStyle = "block";
+    this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
+    + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
+    + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+    + +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
+    + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
+    this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
+    this.standardmontantautreform.get('retenueammount').value
+  }
+  closePopup() {
+    this.displayStyle = "none";
   }
 
   get ammountControls() {
