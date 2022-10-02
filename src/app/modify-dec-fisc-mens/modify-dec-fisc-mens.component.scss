@@ -19,41 +19,11 @@ div.container-fluid{
         border: 3px solid #f1f1f1;
       }
     
-    /* Style the input container */
-    .input-container {
-      display: flex;
-      width: 100%;
-      margin-bottom: 15px;
-    }
+   
     
-    /* Style the form icons */
-    .icon {
-      padding: 10px;
-      background: dodgerblue;
-      color: white;
-      min-width: 50px;
-      text-align: center;
-    }
-    .gender_icon{
-        
-            padding: 10px;
-            background: dodgerblue;
-            color: white;
-            min-width: 50px;
-            text-align: center;
-          
-    }
+   
     
-    /* Style the input fields */
-    .input-field {
-      width: 100%;
-      padding: 10px;
-      outline: none;
-    }
     
-    .input-field:focus {
-      border: 2px solid dodgerblue;
-    }
     
     /* Set a style for the submit button */
     .btn {
@@ -98,3 +68,119 @@ div.container-fluid{
     .btn:hover {
       opacity: 1;
     }
+    
+.checkbox-container{
+  display: flex;
+  
+width: 100%;
+
+padding: 10px;
+
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  min-width: 100px;
+}
+
+
+.well{
+    display: none;
+}
+.container-fluid-disabled{
+  display: none;
+
+padding: 10px;
+text-align: center;
+}
+.input-container {
+  display: flex;
+  width: 100%;
+  padding: 30px;
+  
+}
+.input-field {
+
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+.icon-special {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+  }
+#Check9{
+  padding-left: 50px;
+}
+
+
+p {
+  color: grey
+}
+
+#heading {
+  text-transform: uppercase;
+  color: #673AB7;
+  font-weight: normal
+}
+$color-primary: rgba(67,66,93,255);
+$color-text: #43425d;
+$color-text-lite: rgba(#4d4f5c,.5);
+.form-control{
+width: 40%;
+}
+.form-group{
+display: flex;
+}
+.form-group label{
+width: 250px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.login-container {
+  font-family: "Source Sans Pro";
+  
+
+  .title, a {
+      color: $color-text;
+  }
+
+  .title {
+      font-weight: bold;
+      letter-spacing: 5px;
+  }
+
+  .tag {
+      color: $color-text-lite
+  }
+
+  .btn-main {
+      background: $color-primary;
+  }
+
+  .btn-main-outline {
+      border: 1px solid $color-primary
+  }
+
+}
+
+
+#tabcontainer{
+display: none;
+}
