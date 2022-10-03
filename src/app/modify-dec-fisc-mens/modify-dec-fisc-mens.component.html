@@ -37,7 +37,7 @@
 </div>
 <div id="loader" *ngIf="loading"></div>
   
-<div class="container-fluid" *ngIf="!loading && currentuser.usertype=='Client'">
+<div class="container-fluid" *ngIf="!loading && currentuser.usertype=='Client'&& currentuser.role!=='admin'">
   <h2>Formulaire De modification des déclarations mensuelles</h2>
   <p>Veuillez sélctionner le type d'impôt que vous voulez modifier</p>
     <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 200px;">
@@ -101,7 +101,7 @@
         
         
         <button
-          style="margin: 50px; padding: 10px"
+          style="margin: 50px; padding: 10px;"
           type="button"
           class="btn btn-primary"
           (click)="openPopup()">Récapitulatif De La Déclaration
@@ -10141,7 +10141,7 @@
 </fieldset>
 </form>
 </div>
-<button class="btn btn-success" type="button" *ngIf="option139Value||option38Value"(click)="onSubmit()">Sauvegarder</button>
+<button class="btn btn-success" type="button" *ngIf="option139Value||optionValue||option3Value||option19Value||option29Value||option40Value"(click)="onSubmitmodification()">Sauvegarder</button>
      
         </mat-tab>
       

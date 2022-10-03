@@ -1,29 +1,30 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { Subscription,merge } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
-import { merge, Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-modify-dec-fisc-mens',
   templateUrl: './modify-dec-fisc-mens.component.html',
   styleUrls: ['./modify-dec-fisc-mens.component.scss']
 })
-
+// @ts-ignore
 export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
 
  
 
   public decfiscmensForm: FormGroup; 
   public currentuser: User;
-  public decfiscmenss: Decfiscmens[]=[];
+  public user: User;
   public decfiscmens: Decfiscmens;
   public codeValue: string;
   public secteurValue: string;
@@ -31,17 +32,6 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
-  isLoggedIn=false
-  
-  
-  natureactivite:string;
-  activite:string;
-  sousactivite:string;
-  regimefiscalimpot:string;
-  regimefiscaltva:string;
-  matriculefiscale:string;
-  currentUser: any;
-  user:User;
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
   standardlocationresidentesmoraleform: FormGroup;
@@ -54,6 +44,19 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   standardmontant10form: FormGroup;
   standardmontantindividuelform: FormGroup;
   standardmontantautreform: FormGroup;
+  selectedTab: number = 0;
+  retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
+  choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
+  selected = "----"
+  showretenuetab=false;
+  showtfptab=false;
+  showfoprolostab=false;
+  showtvatab=false;
+  showtimbretab=false;
+  showtcltab=false;
+  autreform: FormGroup;
+  totalretenueammount:number;
+  public ammounts: FormArray;
   optionValue:any;
   option2Value:any;
   option3Value:any;
@@ -224,8 +227,6 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   option168Value:any;
   option169Value:any;
   option170Value:any;
-  
-  message: string;
   sub1:Subscription;
   sub2:Subscription;
   sub3:Subscription;
@@ -249,26 +250,12 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   sub21:Subscription;
   sub22:Subscription;
   sub23:Subscription;
-  selectedTab: number = 0;
-  retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
-  choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
-  selected = "----"
-  showretenuetab=false;
-  showtfptab=false;
-  showfoprolostab=false;
-  showtvatab=false;
-  showtimbretab=false;
-  showtcltab=false;
-  autreform: FormGroup;
-  totalretenueammount:number;
-  public ammounts: FormArray;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private dec: DecfiscmensService,
-
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
     private alertService: AlertService) {
@@ -280,8 +267,8 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
 
  ngOnInit() {
   this.loading = true;
-  this.currentuser =this.tokenStorage.getUser()  
-  
+  this.currentuser = this.tokenStorage.getUser();  
+  this.user=this.currentuser;
   this.route.params.subscribe(
     (params) => {
       this.dec.getDecfiscmensreqById(params.id).then(
@@ -295,322 +282,264 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
             motif: [this.decfiscmens.motif, Validators.required],
           
           });
+          this.standardtraitementsalaireform =this.formBuilder.group({
+            brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
+            imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
+            retenuesalary: [this.decfiscmens.impottype1.traitementetsalaire.retenuealasource],
+            solidaritycontribution: [this.decfiscmens.impottype1.traitementetsalaire.contributionsociale],
+            
+            
+          });
+          this.standardlocationresidentesphysiqueform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.location1.montantbrut],
+            quotion: [{value:"0.1",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.location1.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.location1.montantnet],
+            
+          });
+          
+          this.standardlocationresidentesmoraleform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.location2.montantbrut],
+            quotion: [{value:"0.1",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.location2.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.location2.montantnet],
+            
+          });
+          this.standardlocationnonresidentesphysiquesform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.location3.montantbrut],
+            quotion: [{value:"0.15",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.location3.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.location3.montantnet],
+            
+          });
+          this.standardlocationnonresidentesmoralesform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.location4.montantbrut],
+            quotion: [{value:"0.15",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.location4.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.location4.montantnet],
+            
+          });
+          this.standardhonorairephysiquereelform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
+            quotion: [{value:"0.03",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
+            
+          });
+          this.standardhonorairephysiquenonreelform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
+            quotion: [{value:"0.1",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
+            
+          });
+          this.standardhonorairegroupementsform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.honoraire3.montantbrut],
+            quotion: [{value:"0.03",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.honoraire3.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.honoraire3.montantnet],
+            
+          });
+          this.standardmontant15form =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.montant10001.montantbrut],
+            quotion: [{value:"0.01",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.montant10001.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.montant10001.montantnet],
+            
+          });
+          this.standardmontant10form =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.montant10002.montantbrut],
+            quotion: [{value:"0.005",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.montant10002.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.montant10002.montantnet],
+            
+          });
+          this.standardmontantindividuelform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.montant10003.montantbrut],
+            quotion: [{value:"0.005",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.montant10003.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.montant10003.montantnet],
+            
+          });
+          this.standardmontantautreform =this.formBuilder.group({
+            brutammount: [this.decfiscmens.impottype1.montant10004.montantbrut],
+            quotion: [{value:"0.0015",disabled:true}],
+            retenueammount: [{value:this.decfiscmens.impottype1.montant10004.montantretenue,disabled:true}],
+            netammount: [this.decfiscmens.impottype1.montant10004.montantnet],
+            
+          });
+          this.sub1=merge(
+            this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
+            this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+            
+          ).subscribe((res:any)=>{
+            this.calculateResultForm1()
+         })
+         this.sub2=merge(
+          this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
+          this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+          
+        ).subscribe((res:any)=>{
+          this.calculateResultForm2()
+        })
+        this.sub3=merge(
+        this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
+        this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm3()
+        })
+        this.sub4=merge(
+        this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
+        this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm4()
+        })
+        this.sub5=merge(
+        this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
+        this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm5()
+        })
+        this.sub6=merge(
+        this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
+        this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm6()
+        })
+        this.sub7=merge(
+        this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
+        this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm7()
+        })
+        this.sub8=merge(
+        this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
+        this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm8()
+        })
+        this.sub9=merge(
+        this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
+        this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm9()
+        })
+        this.sub10=merge(
+        this.standardhonorairephysiquereelform.get('netammount').valueChanges,
+        this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm10()
+        })
+        this.sub11=merge(
+        this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
+        this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm11()
+        })
+        this.sub12=merge(
+        this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
+        this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm12()
+        })
+        this.sub13=merge(
+        this.standardhonorairegroupementsform.get('brutammount').valueChanges,
+        this.standardhonorairegroupementsform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm13()
+        })
+        this.sub14=merge(
+        this.standardhonorairegroupementsform.get('netammount').valueChanges,
+        this.standardhonorairegroupementsform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm14()
+        })
+        this.sub15=merge(
+        this.standardmontant15form.get('brutammount').valueChanges,
+        this.standardmontant15form.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm15()
+        })
+        this.sub16=merge(
+        this.standardmontant15form.get('netammount').valueChanges,
+        this.standardmontant15form.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm16()
+        })
+        this.sub17=merge(
+        this.standardmontant10form.get('brutammount').valueChanges,
+        this.standardmontant10form.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm17()
+        })
+        this.sub18=merge(
+        this.standardmontant10form.get('netammount').valueChanges,
+        this.standardmontant10form.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm18()
+        })
+        this.sub19=merge(
+        this.standardmontantindividuelform.get('brutammount').valueChanges,
+        this.standardmontantindividuelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm19()
+        })
+        this.sub20=merge(
+        this.standardmontantindividuelform.get('netammount').valueChanges,
+        this.standardmontantindividuelform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm20()
+        })
+        this.sub21=merge(
+        this.standardmontantautreform.get('brutammount').valueChanges,
+        this.standardmontantautreform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm21()
+        })
+        this.sub22=merge(
+        this.standardmontantautreform.get('netammount').valueChanges,
+        this.standardmontantautreform.get('quotion').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm22()
+        })
+        this.sub23=merge(
+        
+        this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
+        this.standardtraitementsalaireform.get('imposalary').valueChanges,
+        this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
+        
+        ).subscribe((res:any)=>{
+        this.calculateResultForm23()
+        })
           this.loading = false;
           
         }
       );
     }
   );
-  this.standardtraitementsalaireform =this.formBuilder.group({
-    brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
-    imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
-    retenuesalary: [this.decfiscmens.impottype1.traitementetsalaire.retenuealasource],
-    solidaritycontribution: [this.decfiscmens.impottype1.traitementetsalaire.contributionsociale],
-    
-    
-  });
-  this.standardlocationresidentesphysiqueform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.location1.montantbrut],
-    quotion: [{value:"0.1",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.location1.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.location1.montantnet],
-    
-  });
   
-  this.standardlocationresidentesmoraleform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.location2.montantbrut],
-    quotion: [{value:"0.1",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.location2.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.location2.montantnet],
-    
-  });
-  this.standardlocationnonresidentesphysiquesform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.location3.montantbrut],
-    quotion: [{value:"0.15",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.location3.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.location3.montantnet],
-    
-  });
-  this.standardlocationnonresidentesmoralesform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.location4.montantbrut],
-    quotion: [{value:"0.15",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.location4.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.location4.montantnet],
-    
-  });
-  this.standardhonorairephysiquereelform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
-    quotion: [{value:"0.03",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
-    
-  });
-  this.standardhonorairephysiquenonreelform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
-    quotion: [{value:"0.1",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
-    
-  });
-  this.standardhonorairegroupementsform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.honoraire3.montantbrut],
-    quotion: [{value:"0.03",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.honoraire3.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.honoraire3.montantnet],
-    
-  });
-  this.standardmontant15form =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.montant10001.montantbrut],
-    quotion: [{value:"0.01",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.montant10001.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.montant10001.montantnet],
-    
-  });
-  this.standardmontant10form =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.montant10002.montantbrut],
-    quotion: [{value:"0.005",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.montant10002.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.montant10002.montantnet],
-    
-  });
-  this.standardmontantindividuelform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.montant10003.montantbrut],
-    quotion: [{value:"0.005",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.montant10003.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.montant10003.montantnet],
-    
-  });
-  this.standardmontantautreform =this.formBuilder.group({
-    brutammount: [this.decfiscmens.impottype1.montant10004.montantbrut],
-    quotion: [{value:"0.0015",disabled:true}],
-    retenueammount: [{value:this.decfiscmens.impottype1.montant10004.montantretenue,disabled:true}],
-    netammount: [this.decfiscmens.impottype1.montant10004.montantnet],
-    
-  });
-  
-  this.sub1=merge(
-    this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
-    this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
-    
-  ).subscribe((res:any)=>{
-    this.calculateResultForm1()
- })
- this.sub2=merge(
-  this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
-  this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm2()
-})
-this.sub3=merge(
-this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
-this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
 
-).subscribe((res:any)=>{
-this.calculateResultForm3()
-})
-this.sub4=merge(
-this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
-this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm4()
-})
-this.sub5=merge(
-this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
-this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm5()
-})
-this.sub6=merge(
-this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
-this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm6()
-})
-this.sub7=merge(
-this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
-this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm7()
-})
-this.sub8=merge(
-this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
-this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm8()
-})
-this.sub9=merge(
-this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
-this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm9()
-})
-this.sub10=merge(
-this.standardhonorairephysiquereelform.get('netammount').valueChanges,
-this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm10()
-})
-this.sub11=merge(
-this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
-this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm11()
-})
-this.sub12=merge(
-this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
-this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm12()
-})
-this.sub13=merge(
-this.standardhonorairegroupementsform.get('brutammount').valueChanges,
-this.standardhonorairegroupementsform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm13()
-})
-this.sub14=merge(
-this.standardhonorairegroupementsform.get('netammount').valueChanges,
-this.standardhonorairegroupementsform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm14()
-})
-this.sub15=merge(
-this.standardmontant15form.get('brutammount').valueChanges,
-this.standardmontant15form.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm15()
-})
-this.sub16=merge(
-this.standardmontant15form.get('netammount').valueChanges,
-this.standardmontant15form.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm16()
-})
-this.sub17=merge(
-this.standardmontant10form.get('brutammount').valueChanges,
-this.standardmontant10form.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm17()
-})
-this.sub18=merge(
-this.standardmontant10form.get('netammount').valueChanges,
-this.standardmontant10form.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm18()
-})
-this.sub19=merge(
-this.standardmontantindividuelform.get('brutammount').valueChanges,
-this.standardmontantindividuelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm19()
-})
-this.sub20=merge(
-this.standardmontantindividuelform.get('netammount').valueChanges,
-this.standardmontantindividuelform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm20()
-})
-this.sub21=merge(
-this.standardmontantautreform.get('brutammount').valueChanges,
-this.standardmontantautreform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm21()
-})
-this.sub22=merge(
-this.standardmontantautreform.get('netammount').valueChanges,
-this.standardmontantautreform.get('quotion').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm22()
-})
-this.sub23=merge(
-
-this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
-this.standardtraitementsalaireform.get('imposalary').valueChanges,
-this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
-
-).subscribe((res:any)=>{
-this.calculateResultForm23()
-})
 }
-onSubmit() {
-  this.loading = true;
-  const decfiscmens = new Decfiscmens();
-  decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
-  location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-  location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-   honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-   honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-   montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
-  decfiscmens.statut =this.decfiscmensForm.get('statut').value;
-  decfiscmens.motif =this.decfiscmensForm.get('motif').value;
-  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
-    (data:any) => {
-      this.decfiscmensForm.reset();
-      this.loading = false;
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'déclaration modifiée avec succès',
-        showConfirmButton: false,
-        timer: 3000
-      });
-      this.router.navigate(['admin-board']);
-    },
-    (error) => {
-      this.loading = false;
-      
-      window.scrollTo(0, 0);
-      
-    
-      
-    }
-  );
-}
-reloadPage(): void {
-  
-  window.location.reload();
-  
-}
-displayStyle = "none";
-  
-  openPopup() {
-    this.displayStyle = "block";
-    this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
-    + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
-    + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
-    + +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
-    + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
-    this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
-    this.standardmontantautreform.get('retenueammount').value
-  }
-  closePopup() {
-    this.displayStyle = "none";
-  }
-
-  get ammountControls() {
-    return this.autreform.get('ammounts')['controls'];
-  }
 calculateResultForm1()
   {
     
@@ -935,7 +864,7 @@ calculateResultForm1()
       );
     this.standardmontantautreform.updateValueAndValidity();
     
-    
+     
   }
   calculateResultForm22()
   {
@@ -970,33 +899,73 @@ calculateResultForm1()
     
     
   }
-  onSubmitmodification() {
-    this.loading = true;
+onSubmit() {
+  this.loading = true;
+  const decfiscmens = new Decfiscmens();
+  decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+  location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+  location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+   honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.statut =this.decfiscmensForm.get('statut').value;
+  decfiscmens.motif =this.decfiscmensForm.get('motif').value;
+  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+    (data:any) => {
+      this.decfiscmensForm.reset();
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.router.navigate(['admin-board']);
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);
+      
     
-    const decfiscmens:Decfiscmens = new Decfiscmens();
-    decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
-    location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-    location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-     honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-     honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-     montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
-    decfiscmens.userId = this.currentUser.userId;
-    decfiscmens.activite=this.user.activite;
-    decfiscmens.codepostal=this.user.codepostal;
-    decfiscmens.adresse=this.user.adresseactivite
-    decfiscmens.firstname=this.user.firstname
-    decfiscmens.lastname=this.user.lastname
-    decfiscmens.raisonsociale=this.user.raisonsociale
-    decfiscmens.codegenre=this.user.codegenre
-    decfiscmens.codetva=this.user.codetva
-    decfiscmens.matriculefiscale=this.user.matriculefiscale
-    decfiscmens.registrecommerce=this.user.registrecommerce
-    decfiscmens.datearretactivite=this.user.datearretactivite
-    decfiscmens.annee=this.option54Value
-    decfiscmens.mois=this.option55Value
-    if (this.option48Value) 
-    {
+      
+    }
+  );
+}
+reloadPage(): void {
+  
+  window.location.reload();
+  
+}
+onSubmitmodification() {
+  this.loading = true;
+  
+  const decfiscmens:Decfiscmens = new Decfiscmens();
+  decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+  location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+  location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+   honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.userId = this.decfiscmens.userId;
+  decfiscmens.activite=this.decfiscmens.activite;
+  decfiscmens.codepostal=this.decfiscmens.codepostal;
+  decfiscmens.adresse=this.decfiscmens.adresse
+  decfiscmens.firstname=this.decfiscmens.firstname
+  decfiscmens.lastname=this.decfiscmens.lastname
+  decfiscmens.raisonsociale=this.decfiscmens.raisonsociale
+  decfiscmens.codegenre=this.decfiscmens.codegenre
+  decfiscmens.codetva=this.decfiscmens.codetva
+  decfiscmens.matriculefiscale=this.decfiscmens.matriculefiscale
+  decfiscmens.registrecommerce=this.decfiscmens.registrecommerce
+  decfiscmens.datearretactivite=this.decfiscmens.datearretactivite
+  decfiscmens.annee=this.decfiscmens.annee
+  decfiscmens.mois=this.decfiscmens.mois
+  if (this.option48Value) 
+  {
 decfiscmens.impottype1.type='Retenue à la source'
 decfiscmens.impottype1.traitementetsalaire.salairebrut=this.standardtraitementsalaireform.get('brutsalary').value
 decfiscmens.impottype1.traitementetsalaire.salaireimposable=this.standardtraitementsalaireform.get('imposalary').value
@@ -1032,293 +1001,270 @@ decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresident
 }
 if (this.standardhonorairephysiquereelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire1.type='honoraire servis aux personnes physiques soumises au régime réel'
-  decfiscmens.impottype1.honoraire1.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
-  decfiscmens.impottype1.honoraire1.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
-  decfiscmens.impottype1.honoraire1.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
+decfiscmens.impottype1.honoraire1.type='honoraire servis aux personnes physiques soumises au régime réel'
+decfiscmens.impottype1.honoraire1.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
+decfiscmens.impottype1.honoraire1.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
+decfiscmens.impottype1.honoraire1.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
 }
 if (this.standardhonorairephysiquenonreelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire2.type='honoraire servis aux personnes physiques non soumises au régime réel'
-  decfiscmens.impottype1.honoraire2.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
-  decfiscmens.impottype1.honoraire2.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
-  decfiscmens.impottype1.honoraire2.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
+decfiscmens.impottype1.honoraire2.type='honoraire servis aux personnes physiques non soumises au régime réel'
+decfiscmens.impottype1.honoraire2.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
+decfiscmens.impottype1.honoraire2.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
+decfiscmens.impottype1.honoraire2.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
 }
 if (this.standardhonorairegroupementsform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.honoraire3.type='honoraire servis aux sociétés et aux groupements'
-  decfiscmens.impottype1.honoraire3.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
-  decfiscmens.impottype1.honoraire3.montantnet=this.standardhonorairegroupementsform.get('netammount').value
-  decfiscmens.impottype1.honoraire3.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
+decfiscmens.impottype1.honoraire3.type='honoraire servis aux sociétés et aux groupements'
+decfiscmens.impottype1.honoraire3.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
+decfiscmens.impottype1.honoraire3.montantnet=this.standardhonorairegroupementsform.get('netammount').value
+decfiscmens.impottype1.honoraire3.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
 }
 if (this.standardmontant15form.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant10001.type='Montants supérieurs à 1000dt établissements soumis à l\'i/s au taux de 15%'
-  decfiscmens.impottype1.montant10001.montantbrut=this.standardmontant15form.get('brutammount').value
-  decfiscmens.impottype1.montant10001.montantnet=this.standardmontant15form.get('netammount').value
-  decfiscmens.impottype1.montant10001.montantretenue=this.standardmontant15form.get('retenueammount').value  
+decfiscmens.impottype1.montant10001.type='Montants supérieurs à 1000dt établissements soumis à l\'i/s au taux de 15%'
+decfiscmens.impottype1.montant10001.montantbrut=this.standardmontant15form.get('brutammount').value
+decfiscmens.impottype1.montant10001.montantnet=this.standardmontant15form.get('netammount').value
+decfiscmens.impottype1.montant10001.montantretenue=this.standardmontant15form.get('retenueammount').value  
 }
 if (this.standardmontant10form.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant10002.type='Montants supérieurs à 1000dt établissements soumis à l\i/s au taux de 10%'
-  decfiscmens.impottype1.montant10002.montantbrut=this.standardmontant10form.get('brutammount').value
-  decfiscmens.impottype1.montant10002.montantnet=this.standardmontant10form.get('netammount').value
-  decfiscmens.impottype1.montant10002.montantretenue=this.standardmontant10form.get('retenueammount').value  
+decfiscmens.impottype1.montant10002.type='Montants supérieurs à 1000dt établissements soumis à l\i/s au taux de 10%'
+decfiscmens.impottype1.montant10002.montantbrut=this.standardmontant10form.get('brutammount').value
+decfiscmens.impottype1.montant10002.montantnet=this.standardmontant10form.get('netammount').value
+decfiscmens.impottype1.montant10002.montantretenue=this.standardmontant10form.get('retenueammount').value  
 }
 if (this.standardmontantindividuelform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant10003.type='Montants supérieurs à 1000dt établissements individuels et éligible à la réduction des 2/3 des revenus'
-  decfiscmens.impottype1.montant10003.montantbrut=this.standardmontantindividuelform.get('brutammount').value
-  decfiscmens.impottype1.montant10003.montantnet=this.standardmontantindividuelform.get('netammount').value
-  decfiscmens.impottype1.montant10003.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
+decfiscmens.impottype1.montant10003.type='Montants supérieurs à 1000dt établissements individuels et éligible à la réduction des 2/3 des revenus'
+decfiscmens.impottype1.montant10003.montantbrut=this.standardmontantindividuelform.get('brutammount').value
+decfiscmens.impottype1.montant10003.montantnet=this.standardmontantindividuelform.get('netammount').value
+decfiscmens.impottype1.montant10003.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
 }
 if (this.standardmontantautreform.get('brutammount').value!=='')
 {
-  decfiscmens.impottype1.montant10004.type='Montants supérieurs à 1000dt autre établissements'
-  decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
-  decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
-  decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+decfiscmens.impottype1.montant10004.type='Montants supérieurs à 1000dt autre établissements'
+decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
+decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
+decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
 }
-this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
-  (data:any) => {
-    
-    this.loading = false;
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'déclaration modifée avec succès! un email vous a été envoyer pour confirmer la modification de votre déclaration.',
-      showConfirmButton: false,
-      timer: 6000 
-    });
-    this.router.navigate(['user-board'])
-  },
-  (error) => {
-    this.loading = false;
-    this.alertService.error('');
-    window.scrollTo(0, 0);
-  }
-)
-    }
-        
-        
-        
-      
-  }
-  ngOnDestroy(){
-    this.sub1.unsubscribe()
-    this.sub2.unsubscribe()
-    this.sub3.unsubscribe()
-    this.sub4.unsubscribe()
-    this.sub5.unsubscribe()
-    this.sub6.unsubscribe()
-    this.sub7.unsubscribe()
-    this.sub8.unsubscribe()
-    this.sub9.unsubscribe()
-    this.sub10.unsubscribe()
-    this.sub11.unsubscribe()
-    this.sub12.unsubscribe()
-    this.sub13.unsubscribe()
-    this.sub14.unsubscribe()
-    this.sub15.unsubscribe()
-    this.sub16.unsubscribe()
-    this.sub17.unsubscribe()
-    this.sub18.unsubscribe()
-    this.sub19.unsubscribe()
-    this.sub20.unsubscribe()
-    this.sub21.unsubscribe()
-    this.sub22.unsubscribe()
-//    this.sub2.unsubscribe()
-  }
-  onReset() {
-    
-    this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
-    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
-    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
-    
-}
-  createammount(): FormGroup {
-    return this.formBuilder.group({
-      title: '',
-      ammount: '',
-      description: ''
-    });
-  }
-
-  addammount(): void {
-    this.ammounts = this.autreform.get('ammounts') as FormArray;
-    this.ammounts.push(this.createammount());
-  }
-
-  removeammount(i: number) {
-    this.ammounts.removeAt(i);
-  }
-  logValue() {
-    console.log(this.ammounts.value);
-  }
+this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+(data:any) => {
   
-  onTabClick(event) {
-   
+  this.loading = false;
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'déclaration modifiée avec succès! un email vous a été envoyer pour confirmer la modification de votre déclaration. vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+    showConfirmButton: false,
+    timer: 6000 
+  });
+  this.router.navigate(['user-board'])
+},
+(error) => {
+  this.loading = false;
+  this.alertService.error('');
+  window.scrollTo(0, 0);
+}
+)
   }
-  update(e){
-    this.selected = e.target.value
-  }
-  findfiltredretenue(retenues: any[]): any[] {
-    
-    return retenues.filter(p => p!==this.optionValue);
-  }
-  findfiltredretenue2(retenues: any[]): any[] {
-    
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value);
-  }
-  findfiltredretenue3(retenues: any[]): any[] {
-    
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value);
-  }
-  findfiltredretenue4(retenues: any[]): any[] {
-    
-    return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);
-  }
-  findfiltredchoices(choices: any[]): any[] {
-    if ((this.option5Value==this.option58Value)||(this.option5Value==this.option61Value)){
-    return choices.filter(p => p!==this.option5Value)}
-    else if (this.option61Value==this.option58Value)
-    {
-      return choices.filter(p => p!==this.option61Value)};
-  }
-  findfiltredchoices2(choices: any[]): any[] {
-    if ((this.option12Value==this.option76Value)||(this.option12Value==this.option80Value)){
-    return choices.filter(p => p!==this.option12Value)}
-    else if (this.option76Value==this.option80Value)
-    {
-      return choices.filter(p => p!==this.option76Value)};
-  }
-  findfiltredchoices3(choices: any[]): any[] {
-    if ((this.option20Value==this.option88Value)||(this.option20Value==this.option92Value)){
-    return choices.filter(p => p!==this.option20Value)}
-    else if (this.option88Value==this.option92Value)
-    {
-      return choices.filter(p => p!==this.option88Value)};
-  }
-  findfiltredchoices4(choices: any[]): any[] {
-    if ((this.option31Value==this.option100Value)||(this.option31Value==this.option104Value)){
-    return choices.filter(p => p!==this.option31Value)}
-    else if (this.option100Value==this.option104Value)
-    {
-      return choices.filter(p => p!==this.option100Value)};
-  }
-    myFunction7() {
-      var checkbox:any = document.getElementById("myCheck7");
-      var checkbox1:any = document.getElementById("myCheck8");
-      var checkbox2:any = document.getElementById("myCheck9");
-      var checkbox3:any = document.getElementById("myCheck10");
-      var checkbox4:any = document.getElementById("myCheck11");
-      var checkbox5:any = document.getElementById("myCheck12");
-      var checkbox6:any = document.getElementById("myCheck13");
-      var text2 = document.getElementById("datelist");
-      var text3 = document.getElementById("impotlist");
-      var text4 = document.getElementById("tabcontainer");
-      if (checkbox.checked == true){
-        text2.style.display = "flex";
-        text3.style.display = "flex";
-      } else {
-         text2.style.display = "none";
-         text3.style.display = "none";
-      }
-      if (checkbox1.checked == true || checkbox2.checked==true|| checkbox3.checked==true|| checkbox4.checked==true|| checkbox5.checked==true|| checkbox6.checked==true){
-        text4.style.display = "block";
-        
-      } else {
-         text4.style.display = "none";
-         
-      }
-    }
-    myFunction5() {
-      var checkbox:any = document.getElementById("myCheck5");
-      var text2 = document.getElementById("Check7");
-      var text3 = document.getElementById("Check6");
-      if (checkbox.checked == true){
-        text2.style.display = "none";
-        text3.style.display = "none";
-      } else {
-         text2.style.display = "block";
-         text3.style.display = "block";
-      }
-    }
-    myFunction8() {
-      var checkbox:any = document.getElementById("myCheck8");
-      var text2 = document.getElementById("tabcontainer");
       
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showretenuetab=true;
-      } else {
-         
-         this.showretenuetab=false;
-      }
-    }
-    myFunction9() {
-      var checkbox:any = document.getElementById("myCheck9");
-      var text2 = document.getElementById("tabcontainer");
+      
+      
+    
+}
+displayStyle = "none";
+openPopup() {
+  this.displayStyle = "block";
+  this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
+  + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
+  + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+  + +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
+  + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
+  this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
+  this.standardmontantautreform.get('retenueammount').value
+}
+closePopup() {
+  this.displayStyle = "none";
+}
+
+get ammountControls() {
+  return this.autreform.get('ammounts')['controls'];
+}
+createammount(): FormGroup {
+  return this.formBuilder.group({
+    title: '',
+    ammount: '',
+    description: ''
+  });
+}
+
+addammount(): void {
+  this.ammounts = this.autreform.get('ammounts') as FormArray;
+  this.ammounts.push(this.createammount());
+}
+
+removeammount(i: number) {
+  this.ammounts.removeAt(i);
+}
+onTabClick(event) {
+   
+}
+update(e){
+  this.selected = e.target.value
+}
+ngOnDestroy(){
+  this.sub1.unsubscribe()
+  this.sub2.unsubscribe()
+  this.sub3.unsubscribe()
+  this.sub4.unsubscribe()
+  this.sub5.unsubscribe()
+  this.sub6.unsubscribe()
+  this.sub7.unsubscribe()
+  this.sub8.unsubscribe()
+  this.sub9.unsubscribe()
+  this.sub10.unsubscribe()
+  this.sub11.unsubscribe()
+  this.sub12.unsubscribe()
+  this.sub13.unsubscribe()
+  this.sub14.unsubscribe()
+  this.sub15.unsubscribe()
+  this.sub16.unsubscribe()
+  this.sub17.unsubscribe()
+  this.sub18.unsubscribe()
+  this.sub19.unsubscribe()
+  this.sub20.unsubscribe()
+  this.sub21.unsubscribe()
+  this.sub22.unsubscribe()
+  this.sub23.unsubscribe()
+//    this.sub2.unsubscribe()
+}
+onReset() {
+  
+  this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
+  this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
+  this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
+  
+}
+findfiltredretenue(retenues: any[]): any[] {
+  
+  return retenues.filter(p => p!==this.optionValue);
+}
+findfiltredretenue2(retenues: any[]): any[] {
+  
+  return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value);
+}
+findfiltredretenue3(retenues: any[]): any[] {
+  
+  return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value);
+}
+findfiltredretenue4(retenues: any[]): any[] {
+  
+  return retenues.filter(p => p!==this.optionValue&& p!==this.option3Value&&p!==this.option19Value&&p!==this.option29Value);
+}
+findfiltredchoices(choices: any[]): any[] {
+  if ((this.option5Value==this.option58Value)||(this.option5Value==this.option61Value)){
+  return choices.filter(p => p!==this.option5Value)}
+  else if (this.option61Value==this.option58Value)
+  {
+    return choices.filter(p => p!==this.option61Value)};
+}
+findfiltredchoices2(choices: any[]): any[] {
+  if ((this.option12Value==this.option76Value)||(this.option12Value==this.option80Value)){
+  return choices.filter(p => p!==this.option12Value)}
+  else if (this.option76Value==this.option80Value)
+  {
+    return choices.filter(p => p!==this.option76Value)};
+}
+findfiltredchoices3(choices: any[]): any[] {
+  if ((this.option20Value==this.option88Value)||(this.option20Value==this.option92Value)){
+  return choices.filter(p => p!==this.option20Value)}
+  else if (this.option88Value==this.option92Value)
+  {
+    return choices.filter(p => p!==this.option88Value)};
+}
+findfiltredchoices4(choices: any[]): any[] {
+  if ((this.option31Value==this.option100Value)||(this.option31Value==this.option104Value)){
+  return choices.filter(p => p!==this.option31Value)}
+  else if (this.option100Value==this.option104Value)
+  {
+    return choices.filter(p => p!==this.option100Value)};
+}
+myFunction8() {
+  var checkbox:any = document.getElementById("myCheck8");
+  var text2 = document.getElementById("tabcontainer");
+  
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showretenuetab=true;
+  } else {
      
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showtfptab=true;
-        
-      } else {
-         
-         this.showtfptab=false;
-      }
-    }
-    myFunction10() {
-      var checkbox:any = document.getElementById("myCheck10");
-      var text2 = document.getElementById("tabcontainer");
+     this.showretenuetab=false;
+  }
+}
+myFunction9() {
+  var checkbox:any = document.getElementById("myCheck9");
+  var text2 = document.getElementById("tabcontainer");
+ 
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showtfptab=true;
+    
+  } else {
      
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showfoprolostab=true;
-        
-      } else {
-         
-         this.showfoprolostab=false;
-      }
-    }
-    myFunction11() {
-      var checkbox:any = document.getElementById("myCheck11");
-      var text2 = document.getElementById("tabcontainer");
+     this.showtfptab=false;
+  }
+}
+myFunction10() {
+  var checkbox:any = document.getElementById("myCheck10");
+  var text2 = document.getElementById("tabcontainer");
+ 
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showfoprolostab=true;
+    
+  } else {
      
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showtvatab=true;
-        
-      } else {
-         
-         this.showtvatab=false;
-      }
-    }
-    myFunction12() {
-      var checkbox:any = document.getElementById("myCheck12");
-      var text2 = document.getElementById("tabcontainer");
+     this.showfoprolostab=false;
+  }
+}
+myFunction11() {
+  var checkbox:any = document.getElementById("myCheck11");
+  var text2 = document.getElementById("tabcontainer");
+ 
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showtvatab=true;
+    
+  } else {
      
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showtimbretab=true;
-        
-      } else {
-         
-         this.showtimbretab=false;
-      }
-    }
-    myFunction13() {
-      var checkbox:any = document.getElementById("myCheck13");
-      var text2 = document.getElementById("tabcontainer");
+     this.showtvatab=false;
+  }
+}
+myFunction12() {
+  var checkbox:any = document.getElementById("myCheck12");
+  var text2 = document.getElementById("tabcontainer");
+ 
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showtimbretab=true;
+    
+  } else {
      
-      if (checkbox.checked == true){
-        text2.style.display = "block";
-        this.showtcltab=true;
-        
-      } else {
-         
-         this.showtcltab=false;
-      }
-    }
+     this.showtimbretab=false;
+  }
+}
+myFunction13() {
+  var checkbox:any = document.getElementById("myCheck13");
+  var text2 = document.getElementById("tabcontainer");
+ 
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+    this.showtcltab=true;
+    
+  } else {
+     
+     this.showtcltab=false;
+  }
+}
 }
