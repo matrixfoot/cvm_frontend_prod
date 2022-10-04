@@ -1,4 +1,6 @@
-
+$clouds: #ecf0f1;
+$midnight: #2c3e50;
+$wisteria: #8e44ad;
 .checkbox-container{
     display: flex;
     
@@ -19,6 +21,7 @@
     padding: 8px;
     min-width: 100px;
   }
+  
   
   
   .well{
@@ -118,4 +121,40 @@ input::-webkit-inner-spin-button {
 
 #tabcontainer{
 display: none;
+}
+.group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+label {
+  position: relative;
+  margin-right: 1em;
+  padding-left: 2em;
+  padding-right: 1em;
+  line-height: 2;
+  cursor: pointer;
+  &:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid white;
+    border-radius: .25em;
+    z-index: -1;
+  }
+}
+
+
+/* Transition */
+label,
+label::before {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
 }

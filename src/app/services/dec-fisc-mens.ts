@@ -118,7 +118,7 @@ export class DecfiscmensService {
               reject(error);
             }
           );
-        });
+        }); 
       }
       completedecfiscmensreqById(id: string, decfiscmens: Decfiscmens) {
         return new Promise((resolve, reject) => {
@@ -136,5 +136,28 @@ export class DecfiscmensService {
         });
       }
     
-      
+      deletedecfiscmensById(id: string) {
+        return new Promise((resolve, reject) => {
+          this.http.delete(API_URL_cloud+ id).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }  
+      deletedecfiscmenss() {
+        return new Promise((resolve, reject) => {
+          this.http.delete(API_URL_cloud).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
     }

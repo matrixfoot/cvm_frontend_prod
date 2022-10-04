@@ -7,34 +7,26 @@
 
 <div class="bodycontainer">
   <div id="loader" *ngIf="loading"></div>
-  
-<div class="container-fluid" *ngIf="!loading && currentuser.role=='admin'">
-   
-  
-<form  [formGroup]="decfiscmensForm">
-    <h2>Formulaire De validation des déclarations mensuelles</h2>
-   
-    
-    
-
-      <div title="indiquer votre décision"class="input-container">
-        <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Indiquer votre décision" id="statut" formControlName="statut"required>
-      </div> 
-      <div title="indiquer votre motif"class="input-container">
-        <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Indiquer votre motif" id="motif" formControlName="motif">
-      </div> 
-     
-    
-  
-    <button class="btn btn-success" (click)="onSubmit()">Envoyer Modification</button>
-  </form>
-  <p>{{ errormsg }}</p>
-  <div class="alert alert-success" *ngIf="isSuccessful">
-    Modificaion effectuée avec succès!!
-  </div>
-</div>
+   <div class="padding container-fluid d-flex justify-content-center"*ngIf="!loading && currentuser.role=='admin'">
+    <div class="col-lg-12">
+              <div class="free-quote bg-dark h-100">
+                <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
+                <form [formGroup]="decfiscmensForm">
+                  <div class="form-group">
+                    <label for="fq_name">Statut</label>
+                    <input type="text" class="form-control btn-block" placeholder="Indiquer votre décision" id="statut" formControlName="statut">
+                  </div>
+                  <div class="form-group">
+                    <label for="fq_email">Motif</label>
+                    <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motif" formControlName="motif"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+                  </div>
+                </form>
+              </div>
+            </div>
+            </div>
 <div id="loader" *ngIf="loading"></div>
   
 <div class="container-fluid" *ngIf="!loading && currentuser.usertype=='Client'&& currentuser.role!=='admin'">
