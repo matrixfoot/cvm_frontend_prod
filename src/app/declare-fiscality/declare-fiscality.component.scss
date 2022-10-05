@@ -20,6 +20,10 @@ $wisteria: #8e44ad;
     text-align: left;
     padding: 8px;
     min-width: 100px;
+    
+  }
+  #tvaform td input{
+    width: 100%;
   }
   
   
@@ -74,6 +78,7 @@ $color-text: #43425d;
 $color-text-lite: rgba(#4d4f5c,.5);
 .form-control{
   width: 40%;
+  
 }
 .form-group{
   display: flex;

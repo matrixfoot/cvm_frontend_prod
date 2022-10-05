@@ -10192,9 +10192,74 @@
                         <p>This is Email Setting</p>
                       </mat-tab>
                       
-                     
+                     <!-- TVA tab -->
                      <mat-tab label="TVA" id="TVAtab"*ngIf="showtvatab===true">
-                       <p>This is SMS Setting</p>
+                        <!-- 1ère étape de choice-->
+                        <div title="Sélectionner la rubrique convenable"class="input-container"id="tvalist">
+                          <label for="retenuelist">Sélectionner la rubrique TVA:</label>
+                          <i class="fas fa-wallet icon-special"></i>
+                          <select  class="input-field" id="choice" [(ngModel)]="option169Value" name="choice" >
+                            <option value="default"> </option>
+                            <option value="TVA collecté">TVA collecté</option>
+                            <option value="TVA récupérable" disabled>TVA récupérable</option>
+                            </select>
+                      </div>
+                      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height:auto;">
+                        <form  [formGroup]="standardtvacollecteform">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                        
+                              
+            <th>Type TVA</th>
+            <th>Montant Hors Taxes</th>
+            <th>Taux</th>
+            <th>Montant TVA</th>
+            <th>Montant TTC</th>
+            
+                             
+                              
+                            </tr>
+                            </thead>
+                          <tbody>
+                          <tr id="tvaform">
+                            <td>
+                              <p> TVA COLLECTE</p>
+                            </td>
+                             <td>  <div class="col-6">
+                              
+                                  
+                                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                              class="form-control"appTwoDigitDecimaNumber formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                
+                          </div></td>
+                          <td><div class="col-6">
+                            
+                                
+                                <input type="text" class="form-control" value="13%" disabled/>
+                              
+                        </div></td>
+                        <td><div class="col-6">
+                          
+                              
+                              <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                            class="form-control"appTwoDigitDecimaNumber formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                            
+                      </div></td>
+                      <td><div class="col-6">
+                        
+                            
+                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                            class="form-control"appTwoDigitDecimaNumber formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                          
+                      </div></td>
+                    
+                        </tr>
+                       
+                          </tbody>
+                        </table>
+                      </form>
+                      </div>
                      </mat-tab>
                      
                      <mat-tab label="Droit De Timbre" id="Timbretab"*ngIf="showtimbretab===true">

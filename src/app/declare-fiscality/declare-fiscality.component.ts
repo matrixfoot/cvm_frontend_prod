@@ -42,6 +42,15 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   standardmontant10form: FormGroup;
   standardmontantindividuelform: FormGroup;
   standardmontantautreform: FormGroup;
+  standardtvacollecteform: FormGroup;
+  standardtvarecuperableform: FormGroup;
+  standardlocationusagehabitationmeubleform: FormGroup;
+  standardlocationusagecommercialform: FormGroup;
+  standardlocationusageindustrielform: FormGroup;
+  standardlocationusageprofessionnelform: FormGroup;
+  standardlocationusageartisanalform: FormGroup;
+  standardoperationlotissementform: FormGroup;
+  standardinteretpercueform: FormGroup;
   optionValue:any;
   option2Value:any;
   option3Value:any;
@@ -212,6 +221,39 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option168Value:any;
   option169Value:any;
   option170Value:any;
+  option171Value:any;
+  option172Value:any;
+  option173Value:any;
+  option174Value:any;
+  option175Value:any;
+  option176Value:any;
+  option177Value:any;
+  option178Value:any;
+  option179Value:any;
+  option180Value:any;
+  option181Value:any;
+  option182Value:any;
+  option183Value:any;
+  option184Value:any;
+  option185Value:any;
+  option186Value:any;
+  option187Value:any;
+  option188Value:any;
+  option189Value:any;
+  option190Value:any;
+  option191Value:any;
+  option192Value:any;
+  option193Value:any;
+  option194Value:any;
+  option195Value:any;
+  option196Value:any;
+  option197Value:any;
+  option198Value:any;
+  option199Value:any;
+  option200Value:any;
+  option201Value:any;
+  option202Value:any;
+  option203Value:any;
   
   message: string;
   sub1:Subscription;
@@ -237,7 +279,17 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub21:Subscription;
   sub22:Subscription;
   sub23:Subscription;
+  sub24:Subscription;
+  sub25:Subscription;
+  sub26:Subscription;
+  sub27:Subscription;
+  sub28:Subscription;
+  sub29:Subscription;
+  sub30:Subscription;
+  sub31:Subscription;
   selectedTab: number = 0;
+  autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
+'location à usage artisanal','opérations de lotissement','intérêts perçus'];
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
@@ -345,7 +397,54 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
       netammount: '',
       
     });
-    
+    this.standardtvacollecteform =this.fb.group({
+      chiffreaffaireht: '',
+      taux: [{value:"0.13",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardlocationusagehabitationmeubleform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardlocationusagecommercialform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardlocationusageindustrielform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardlocationusageprofessionnelform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardlocationusageartisanalform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardoperationlotissementform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
+    this.standardinteretpercueform =this.fb.group({
+      ammountht: '',
+      taux: [{value:"0.19",disabled:true}],
+      tvaammount: [{value:"",disabled:true}],
+      ammountttc: [{value:"",disabled:true}],
+    });
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
       this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
@@ -508,6 +607,78 @@ this.sub23=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm23()
+})
+this.sub24=merge(
+  
+  this.standardtvacollecteform.get('chiffreaffaireht').valueChanges,
+  this.standardtvacollecteform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm24()
+})
+this.sub25=merge(
+  
+  this.standardlocationusagehabitationmeubleform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm25()
+})
+this.sub26=merge(
+  
+  this.standardlocationusagecommercialform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusagecommercialform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm26()
+})
+this.sub27=merge(
+  
+  this.standardlocationusageindustrielform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageindustrielform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm27()
+})
+this.sub28=merge(
+  
+  this.standardlocationusageprofessionnelform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageprofessionnelform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm28()
+})
+this.sub29=merge(
+  
+  this.standardlocationusageartisanalform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageartisanalform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm29()
+})
+this.sub30=merge(
+  
+  this.standardoperationlotissementform.get('chiffreaffaireht').valueChanges,
+  this.standardoperationlotissementform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm30()
+})
+this.sub31=merge(
+  
+  this.standardinteretpercueform.get('chiffreaffaireht').valueChanges,
+  this.standardinteretpercueform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm31()
 })
   this.isLoggedIn = !!this.token.getToken();
     
@@ -934,6 +1105,126 @@ calculateResultForm1()
       );}  
       
       this.standardtraitementsalaireform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm24()
+  {
+  
+    const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+    const taux=+this.standardtvacollecteform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardtvacollecteform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardtvacollecteform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm25()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('chiffreaffaireht').value
+    const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardlocationusagehabitationmeubleform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm26()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusagecommercialform.get('chiffreaffaireht').value
+    const taux=+this.standardlocationusagecommercialform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardlocationusagecommercialform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusagecommercialform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm27()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusageindustrielform.get('chiffreaffaireht').value
+    const taux=+this.standardlocationusageindustrielform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardlocationusageindustrielform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusageindustrielform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm28()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusageprofessionnelform.get('chiffreaffaireht').value
+    const taux=+this.standardlocationusageprofessionnelform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardlocationusageprofessionnelform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusageprofessionnelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm29()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusageartisanalform.get('chiffreaffaireht').value
+    const taux=+this.standardlocationusageartisanalform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardlocationusageartisanalform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusageartisanalform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm30()
+  {
+  
+    const chiffreaffaireht=+this.standardoperationlotissementform.get('chiffreaffaireht').value
+    const taux=+this.standardoperationlotissementform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardoperationlotissementform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardoperationlotissementform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm31()
+  {
+  
+    const chiffreaffaireht=+this.standardinteretpercueform.get('chiffreaffaireht').value
+    const taux=+this.standardinteretpercueform.get('taux').value
+    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      this.standardinteretpercueform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardinteretpercueform.updateValueAndValidity();
     
     
   }
