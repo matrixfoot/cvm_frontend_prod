@@ -51,6 +51,8 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   standardlocationusageartisanalform: FormGroup;
   standardoperationlotissementform: FormGroup;
   standardinteretpercueform: FormGroup;
+  standardtfpform:FormGroup;
+  standardfoprolosform: FormGroup;
   optionValue:any;
   option2Value:any;
   option3Value:any;
@@ -445,6 +447,22 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
       tvaammount: [{value:"",disabled:true}],
       ammountttc: [{value:"",disabled:true}],
     });
+    this.standardtfpform =this.fb.group({
+      basetfp: '',
+      taux: [{value:"0.02",disabled:true}],
+      avanceammount: '',
+      tfpapayer: [{value:"",disabled:true}],
+      salairesnonsoumistfp: '',
+      tfpammountmoisactuel: '',
+      tfpammountreportmoisprecedent: '',
+      tfpareporter: '',
+    });
+    this.standardfoprolosform =this.fb.group({
+      basefoprolos: '',
+      taux: [{value:"0.01",disabled:true}],
+      salairesnonsoumisfoprolos: '',
+      foprolosammount: '',
+    });
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
       this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
@@ -619,7 +637,7 @@ this.sub24=merge(
 })
 this.sub25=merge(
   
-  this.standardlocationusagehabitationmeubleform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
   this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
   
   
@@ -628,7 +646,7 @@ this.sub25=merge(
 })
 this.sub26=merge(
   
-  this.standardlocationusagecommercialform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusagecommercialform.get('ammountht').valueChanges,
   this.standardlocationusagecommercialform.get('taux').valueChanges,
   
   
@@ -637,7 +655,7 @@ this.sub26=merge(
 })
 this.sub27=merge(
   
-  this.standardlocationusageindustrielform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageindustrielform.get('ammountht').valueChanges,
   this.standardlocationusageindustrielform.get('taux').valueChanges,
   
   
@@ -646,7 +664,7 @@ this.sub27=merge(
 })
 this.sub28=merge(
   
-  this.standardlocationusageprofessionnelform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageprofessionnelform.get('ammountht').valueChanges,
   this.standardlocationusageprofessionnelform.get('taux').valueChanges,
   
   
@@ -655,7 +673,7 @@ this.sub28=merge(
 })
 this.sub29=merge(
   
-  this.standardlocationusageartisanalform.get('chiffreaffaireht').valueChanges,
+  this.standardlocationusageartisanalform.get('ammountht').valueChanges,
   this.standardlocationusageartisanalform.get('taux').valueChanges,
   
   
@@ -664,7 +682,7 @@ this.sub29=merge(
 })
 this.sub30=merge(
   
-  this.standardoperationlotissementform.get('chiffreaffaireht').valueChanges,
+  this.standardoperationlotissementform.get('ammountht').valueChanges,
   this.standardoperationlotissementform.get('taux').valueChanges,
   
   
@@ -673,7 +691,7 @@ this.sub30=merge(
 })
 this.sub31=merge(
   
-  this.standardinteretpercueform.get('chiffreaffaireht').valueChanges,
+  this.standardinteretpercueform.get('ammountht').valueChanges,
   this.standardinteretpercueform.get('taux').valueChanges,
   
   
@@ -1126,7 +1144,7 @@ calculateResultForm1()
   calculateResultForm25()
   {
   
-    const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('ammountht').value
     const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1141,7 +1159,7 @@ calculateResultForm1()
   calculateResultForm26()
   {
   
-    const chiffreaffaireht=+this.standardlocationusagecommercialform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardlocationusagecommercialform.get('ammountht').value
     const taux=+this.standardlocationusagecommercialform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1156,7 +1174,7 @@ calculateResultForm1()
   calculateResultForm27()
   {
   
-    const chiffreaffaireht=+this.standardlocationusageindustrielform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardlocationusageindustrielform.get('ammountht').value
     const taux=+this.standardlocationusageindustrielform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1171,7 +1189,7 @@ calculateResultForm1()
   calculateResultForm28()
   {
   
-    const chiffreaffaireht=+this.standardlocationusageprofessionnelform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardlocationusageprofessionnelform.get('ammountht').value
     const taux=+this.standardlocationusageprofessionnelform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1186,7 +1204,7 @@ calculateResultForm1()
   calculateResultForm29()
   {
   
-    const chiffreaffaireht=+this.standardlocationusageartisanalform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardlocationusageartisanalform.get('ammountht').value
     const taux=+this.standardlocationusageartisanalform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1201,7 +1219,7 @@ calculateResultForm1()
   calculateResultForm30()
   {
   
-    const chiffreaffaireht=+this.standardoperationlotissementform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardoperationlotissementform.get('ammountht').value
     const taux=+this.standardoperationlotissementform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1216,7 +1234,7 @@ calculateResultForm1()
   calculateResultForm31()
   {
   
-    const chiffreaffaireht=+this.standardinteretpercueform.get('chiffreaffaireht').value
+    const chiffreaffaireht=+this.standardinteretpercueform.get('ammountht').value
     const taux=+this.standardinteretpercueform.get('taux').value
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
