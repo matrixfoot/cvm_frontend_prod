@@ -394,7 +394,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     });
     this.standardmontantautreform =this.fb.group({
       brutammount: '',
-      quotion: [{value:"0.0015",disabled:true}],
+      quotion: [{value:"0.015",disabled:true}],
       retenueammount: [{value:"",disabled:true}],
       netammount: '',
       
@@ -1270,7 +1270,7 @@ calculateResultForm1()
     decfiscmens.registrecommerce=this.user.registrecommerce
     decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
-    decfiscmens.mois=this.option55Value
+    decfiscmens.mois=this.option171Value
     if (this.option48Value) 
     {
 decfiscmens.impottype1.type='Retenue à la source'
