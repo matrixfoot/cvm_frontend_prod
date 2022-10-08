@@ -289,6 +289,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub29:Subscription;
   sub30:Subscription;
   sub31:Subscription;
+  sub32:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -698,6 +699,7 @@ this.sub31=merge(
 ).subscribe((res:any)=>{
   this.calculateResultForm31()
 })
+
   this.isLoggedIn = !!this.token.getToken();
     
     if (this.isLoggedIn) {
@@ -1246,6 +1248,48 @@ calculateResultForm1()
     
     
   }
+  restartform()
+  {
+    this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['brutammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['netammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()
+    this.standardhonorairephysiquereelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquereelform.controls['netammount'].reset()
+    this.standardhonorairephysiquereelform.controls['retenueammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['netammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['retenueammount'].reset()
+    this.standardhonorairegroupementsform.controls['brutammount'].reset()
+    this.standardhonorairegroupementsform.controls['netammount'].reset()
+    this.standardhonorairegroupementsform.controls['retenueammount'].reset()
+    this.standardmontant15form.controls['brutammount'].reset()
+    this.standardmontant15form.controls['netammount'].reset()
+    this.standardmontant15form.controls['retenueammount'].reset()
+    this.standardmontant10form.controls['brutammount'].reset()
+    this.standardmontant10form.controls['netammount'].reset()
+    this.standardmontant10form.controls['retenueammount'].reset()
+    this.standardmontantindividuelform.controls['brutammount'].reset()
+    this.standardmontantindividuelform.controls['netammount'].reset()
+    this.standardmontantindividuelform.controls['retenueammount'].reset()
+    this.standardmontantautreform.controls['brutammount'].reset()
+    this.standardmontantautreform.controls['netammount'].reset()
+    this.standardmontantautreform.controls['retenueammount'].reset()
+    this.standardtraitementsalaireform.controls['brutsalary'].reset()
+    this.standardtraitementsalaireform.controls['imposalary'].reset()
+    this.standardtraitementsalaireform.controls['retenuesalary'].reset()
+    this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+    
+    
+  }
   onSubmit() {
     this.loading = true;
     
@@ -1405,13 +1449,6 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.sub22.unsubscribe()
 //    this.sub2.unsubscribe()
   }
-  onReset() {
-    
-    this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
-    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
-    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
-    
-}
   createammount(): FormGroup {
     return this.fb.group({
       title: '',
@@ -1437,6 +1474,132 @@ this.DecfiscmensService.create(decfiscmens).then(
   }
   update(e){
     this.selected = e.target.value
+    if(this.selected=='location, commission, courtage et vacation')
+    {this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['brutammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['netammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()}
+    else if(this.selected=='traitement et salaires')
+    {this.standardtraitementsalaireform.controls['brutsalary'].reset()
+    this.standardtraitementsalaireform.controls['imposalary'].reset()
+    this.standardtraitementsalaireform.controls['retenuesalary'].reset()
+    this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+
+    }
+    else if (this.selected=='honoraire')
+    {this.standardhonorairephysiquereelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquereelform.controls['netammount'].reset()
+    this.standardhonorairephysiquereelform.controls['retenueammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['netammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['retenueammount'].reset()
+    this.standardhonorairegroupementsform.controls['brutammount'].reset()
+    this.standardhonorairegroupementsform.controls['netammount'].reset()
+    this.standardhonorairegroupementsform.controls['retenueammount'].reset()}
+    else
+    {this.standardmontant15form.controls['brutammount'].reset()
+    this.standardmontant15form.controls['netammount'].reset()
+    this.standardmontant15form.controls['retenueammount'].reset()
+    this.standardmontant10form.controls['brutammount'].reset()
+    this.standardmontant10form.controls['netammount'].reset()
+    this.standardmontant10form.controls['retenueammount'].reset()
+    this.standardmontantindividuelform.controls['brutammount'].reset()
+    this.standardmontantindividuelform.controls['netammount'].reset()
+    this.standardmontantindividuelform.controls['retenueammount'].reset()
+    this.standardmontantautreform.controls['brutammount'].reset()
+    this.standardmontantautreform.controls['netammount'].reset()
+    this.standardmontantautreform.controls['retenueammount'].reset()}
+    
+    
+    
+  }
+  resetretenuealasourceall(){
+    
+    this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
+    this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['brutammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['netammount'].reset()
+    this.standardlocationresidentesmoraleform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesmoralesform.controls['retenueammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
+    this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()
+    
+    this.standardtraitementsalaireform.controls['brutsalary'].reset()
+    this.standardtraitementsalaireform.controls['imposalary'].reset()
+    this.standardtraitementsalaireform.controls['retenuesalary'].reset()
+    this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+
+    this.standardhonorairephysiquereelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquereelform.controls['netammount'].reset()
+    this.standardhonorairephysiquereelform.controls['retenueammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['brutammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['netammount'].reset()
+    this.standardhonorairephysiquenonreelform.controls['retenueammount'].reset()
+    this.standardhonorairegroupementsform.controls['brutammount'].reset()
+    this.standardhonorairegroupementsform.controls['netammount'].reset()
+    this.standardhonorairegroupementsform.controls['retenueammount'].reset()
+    this.standardmontant15form.controls['brutammount'].reset()
+    this.standardmontant15form.controls['netammount'].reset()
+    this.standardmontant15form.controls['retenueammount'].reset()
+    this.standardmontant10form.controls['brutammount'].reset()
+    this.standardmontant10form.controls['netammount'].reset()
+    this.standardmontant10form.controls['retenueammount'].reset()
+    this.standardmontantindividuelform.controls['brutammount'].reset()
+    this.standardmontantindividuelform.controls['netammount'].reset()
+    this.standardmontantindividuelform.controls['retenueammount'].reset()
+    this.standardmontantautreform.controls['brutammount'].reset()
+    this.standardmontantautreform.controls['netammount'].reset()
+    this.standardmontantautreform.controls['retenueammount'].reset()
+  }
+  resettfpall(){
+    this.standardtfpform.controls['basetfp'].reset()
+    this.standardtfpform.controls['avanceammount'].reset()
+    this.standardtfpform.controls['tfpapayer'].reset()
+    this.standardtfpform.controls['salairesnonsoumistfp'].reset()
+    this.standardtfpform.controls['tfpammountmoisactuel'].reset()
+    this.standardtfpform.controls['tfpammountreportmoisprecedent'].reset()
+    this.standardtfpform.controls['tfpareporter'].reset()
+  }
+  resetfoprolosall(){
+    this.standardfoprolosform.controls['basefoprolos'].reset()
+    this.standardtfpform.controls['salairesnonsoumisfoprolos'].reset()
+    this.standardtfpform.controls['foprolosammount'].reset()
+    
+  }
+  resettimbreall(){
+
+  }
+  resettclall(){
+
+  }
+  resettvaall(){
+    this.standardtvacollecteform.controls['chiffreaffaireht'].reset()
+    this.standardtvacollecteform.controls['tvaammount'].reset()
+    this.standardtvacollecteform.controls['ammountttc'].reset()
+    this.standardlocationusagehabitationmeubleform.controls['ammountht'].reset()
+    this.standardlocationusagehabitationmeubleform.controls['tvaammount'].reset()
+    this.standardlocationusagehabitationmeubleform.controls['ammountttc'].reset()
+    this.standardlocationusagecommercialform.controls['ammountht'].reset()
+    this.standardlocationusagecommercialform.controls['tvaammount'].reset()
+    this.standardlocationusagecommercialform.controls['ammountttc'].reset()
+    this.standardoperationlotissementform.controls['ammountht'].reset()
+    this.standardoperationlotissementform.controls['tvaammount'].reset()
+    this.standardoperationlotissementform.controls['ammountttc'].reset()
+    this.standardinteretpercueform.controls['ammountht'].reset()
+    this.standardinteretpercueform.controls['tvaammount'].reset()
+    this.standardinteretpercueform.controls['ammountttc'].reset()
   }
   findfiltredretenue(retenues: any[]): any[] {
     
@@ -1528,8 +1691,29 @@ this.DecfiscmensService.create(decfiscmens).then(
         text2.style.display = "block";
         this.showretenuetab=true;
       } else {
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt retenue à la source, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resetretenuealasourceall();
+            this.showretenuetab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+  
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
          
-         this.showretenuetab=false;
       }
     }
     myFunction9() {
@@ -1541,8 +1725,29 @@ this.DecfiscmensService.create(decfiscmens).then(
         this.showtfptab=true;
         
       } else {
-         
-         this.showtfptab=false;
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TFP, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resettfpall();
+            this.showtfptab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+  
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
+        
       }
     }
     myFunction10() {
@@ -1554,8 +1759,29 @@ this.DecfiscmensService.create(decfiscmens).then(
         this.showfoprolostab=true;
         
       } else {
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FOPROLOS, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resetfoprolosall();
+            this.showfoprolostab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+  
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
          
-         this.showfoprolostab=false;
       }
     }
     myFunction11() {
@@ -1567,8 +1793,28 @@ this.DecfiscmensService.create(decfiscmens).then(
         this.showtvatab=true;
         
       } else {
-         
-         this.showtvatab=false;
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TVA, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resettvaall();
+            this.showtvatab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
+      
       }
     }
     myFunction12() {
@@ -1580,8 +1826,28 @@ this.DecfiscmensService.create(decfiscmens).then(
         this.showtimbretab=true;
         
       } else {
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt droit de timbre, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resettimbreall();
+            this.showtimbretab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
          
-         this.showtimbretab=false;
       }
     }
     myFunction13() {
@@ -1593,8 +1859,167 @@ this.DecfiscmensService.create(decfiscmens).then(
         this.showtcltab=true;
         
       } else {
-         
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TCL, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resettclall();
+            this.showtcltab=false;
+          }
+          else{
+            checkbox.checked = true
+          }
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
          this.showtcltab=false;
+      }
+    }
+    myFunction14() {
+      var checkbox:any = document.getElementById("choice");
+      var text2 = document.getElementById("block2");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+        this.resetretenuealasourceall()
+      }
+    }
+    myFunction15() {
+      var checkbox:any = document.getElementById("choice1");
+      var text2 = document.getElementById("block1");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+      }
+    }
+    myFunction16() {
+      var checkbox:any = document.getElementById("choice2");
+      var text2 = document.getElementById("block4");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+        this.resetretenuealasourceall()
+
+      }
+    }
+    myFunction17() {
+      var checkbox:any = document.getElementById("choice3");
+      var text2 = document.getElementById("block3");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+      }
+    }
+    myFunction18() {
+      var checkbox:any = document.getElementById("choice4");
+      var text2 = document.getElementById("block6");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+        this.resetretenuealasourceall()
+
+      }
+    }
+    myFunction19() {
+      var checkbox:any = document.getElementById("choice5");
+      var text2 = document.getElementById("block5");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+      }
+    }
+    myFunction20() {
+      var checkbox:any = document.getElementById("choice6");
+      var text2 = document.getElementById("block8");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+        this.resetretenuealasourceall()
+
+      }
+    }
+    myFunction21() {
+      var checkbox:any = document.getElementById("choice7");
+      var text2 = document.getElementById("block7");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+      }
+    }
+    myFunction22() {
+      var checkbox:any = document.getElementById("choice8");
+      var text2 = document.getElementById("block10");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
+        this.resetretenuealasourceall()
+
+      }
+    }
+    myFunction23() {
+      var checkbox:any = document.getElementById("choice9");
+      var text2 = document.getElementById("block9");
+     
+      if (checkbox.checked == true){
+        text2.style.display = "none";
+        
+        
+      } else {
+         
+        text2.style.display = "block";
       }
     }
 }

@@ -113,27 +113,27 @@
                     <tbody>
                     <tr >
                       
-                     <td> 
+                     <td style="text-align: center;"> 
                         <input type="checkbox" id="myCheck8" (click)="myFunction8()"[(ngModel)]="option48Value" />
                         <label for="rb1">Retenue à La Source</label>
                      </td>
-                     <td>
+                     <td style="text-align: center;">
                         <input type="checkbox" id="myCheck9" (click)="myFunction9()"[(ngModel)]="option49Value" />
                         <label for="rb1">TFP</label>
                       </td>
-                      <td>
+                      <td style="text-align: center;">
                         <input type="checkbox" id="myCheck10"(click)="myFunction10()"[(ngModel)]="option50Value" />
                         <label for="rb1">Foprolos</label>
                       </td>
-                      <td>
+                      <td style="text-align: center;">
                         <input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" />
                         <label for="rb1">TVA</label>
                       </td>
-                      <td>
+                      <td style="text-align: center;">
                         <input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" />
                         <label for="rb1">Droit de timbre</label>
                       </td>
-                      <td>
+                      <td style="text-align: center;">
                         <input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" />
                         <label for="rb1">TCL</label>
                       </td>
@@ -146,13 +146,18 @@
 
                    <hr *ngIf="option55Value==true">
                    <div class="container-fluid"id="tabcontainer">
-                      <button
+                     
+                    <button id="savebutton" class="btn btn-success" type="button" *ngIf="option139Value||option38Value||option60Value||option61Value
+                    ||option62Value||option63Value"(click)="onSubmit()">Sauvegarder</button>
+                    <button id="resetbutton" class="btn btn-secondary" type="button" *ngIf="optionValue"(click)="restartform()">Réinitialiser tout</button>
+                    <button
                       id="recapbutton"
-                      *ngIf="showretenuetab===true||showtfptab===true||showfoprolostab===true||showtvatab===true||showtimbretab===true||showtcltab===true"
+                      *ngIf="optionValue"
                         type="button"
                         class="btn btn-primary"
-                        (click)="openPopup()">Récapitulatif De La Déclaration
+                        (click)="openPopup()">Récapitulatif
                       </button>
+                   
                       <div
                         class="modal"
                         tabindex="-1"
@@ -730,8 +735,8 @@
                       <div title="indiquer votre choix"class="col-6"*ngIf="optionValue ">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option4Value" name="choice">Oui  
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option139Value" name="choice">Non
+                        <div id="block1"><input type="checkbox"  id="choice"class="input-field"(click)="myFunction14()"  [(ngModel)]="option4Value">Oui</div>  
+                        <div id="block2"><input type="checkbox"  id="choice1"class="input-field" [(ngModel)]="option139Value"(click)="myFunction15()">Non</div>
                   </div>
                 </div>
 <!-- 2ème étape de choice-->
@@ -756,7 +761,7 @@
                     <h2 *ngIf="option3Value == 'Autre'">{{option11Value}}</h2>
                        <!-- autre form-->
                       
-                       <div class="container-fluid"*ngIf="option3Value == 'Autre'">
+                       <div class="container-fluid"*ngIf="option3Value == 'Autre' &&option4Value">
                          
                         <form [formGroup]="autreform"(ngSubmit)="logValue()">
                           
@@ -803,7 +808,7 @@
                       </div>
                      <!-- traitement et salaires form-->
                       
-                     <div class="container-fluid"*ngIf="option3Value == 'traitement et salaires'">
+                     <div class="container-fluid"*ngIf="option3Value == 'traitement et salaires' &&option4Value">
                       <form  [formGroup]="standardtraitementsalaireform">
                         
                         
@@ -847,7 +852,7 @@
                       </form>
                     </div>
 <!-- location, commission, courtage et vacation section-->
-                  <div class="container-fluid"*ngIf="option3Value == 'location, commission, courtage et vacation'">
+                  <div class="container-fluid"*ngIf="option3Value == 'location, commission, courtage et vacation'&&option4Value">
                       <fieldset>
                         <legend>{{option3Value}}</legend>
                       
@@ -998,7 +1003,7 @@
 
                   </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option3Value == 'honoraire'">
+<div class="container-fluid"*ngIf="option3Value == 'honoraire'&&option4Value">
 <fieldset>
   <legend>{{option3Value}}</legend>
 
@@ -1115,7 +1120,7 @@
     
       </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option3Value == 'montant supérieur à 1000 dt'">
+<div class="container-fluid"*ngIf="option3Value == 'montant supérieur à 1000 dt'&&option4Value">
 <fieldset>
   <legend>{{option3Value}}</legend>
 
@@ -1262,11 +1267,11 @@
 </div>                  
 <!-- 2èmee étape de décision-->
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                      <div title="indiquer votre choix"class="col-6"*ngIf="option3Value ">
+                      <div title="indiquer votre choix"class="col-6"*ngIf="option4Value">
                         <div class="form-group">
                         <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option18Value" name="choice">Oui  
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option139Value" name="choice">Non
+                        <div id="block3"><input type="checkbox"  class="input-field" id="choice2" (click)="myFunction16()"[(ngModel)]="option18Value" name="choice">Oui</div>  
+                        <div id="block4"><input type="checkbox"  class="input-field" id="choice3" (click)="myFunction17()"[(ngModel)]="option60Value" name="choice">Non</div>
                   </div>
                 </div>
 <!-- 3ème étape de choice-->
@@ -1290,7 +1295,7 @@
                     <h2 *ngIf="option19Value == 'Autre'">{{option20Value}}</h2>
                     <!-- autre form-->
                       
-                    <div class="container-fluid"*ngIf="option19Value == 'Autre'">
+                    <div class="container-fluid"*ngIf="option19Value == 'Autre'&&option18Value">
                          
                       <form [formGroup]="autreform"(ngSubmit)="logValue()">
                         
@@ -1337,7 +1342,7 @@
                     </div>
                     <!-- traitement et salaires form-->                 
                       
-                      <div class="container-fluid"*ngIf="option19Value == 'traitement et salaires'">
+                      <div class="container-fluid"*ngIf="option19Value == 'traitement et salaires'&&option18Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -1381,7 +1386,7 @@
                         </form>
                       </div>
 <!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option19Value == 'location, commission, courtage et vacation'">
+                    <div class="container-fluid"*ngIf="option19Value == 'location, commission, courtage et vacation'&&option18Value">
                         <fieldset>
                           <legend>{{option19Value}}</legend>
                         
@@ -1532,7 +1537,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option19Value == 'honoraire'">
+<div class="container-fluid"*ngIf="option19Value == 'honoraire'&&option18Value">
 <fieldset>
     <legend>{{option19Value}}</legend>
   
@@ -1649,7 +1654,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option19Value == 'montant supérieur à 1000 dt'">
+<div class="container-fluid"*ngIf="option19Value == 'montant supérieur à 1000 dt'&&option18Value">
 <fieldset>
     <legend>{{option19Value}}</legend>
   
@@ -1796,11 +1801,12 @@
 </div>                   
 <!-- 3èmee étape de décision-->
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                      <div title="indiquer votre choix"class="col-6"*ngIf="option19Value ">
+                      <div title="indiquer votre choix"class="col-6"*ngIf="option18Value">
                         <div class="form-group">
-                        <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option27Value" name="choice">Oui  
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option139Value" name="choice">Non
+                        <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label> 
+                        <div id="block5"><input type="checkbox"  class="input-field" id="choice4" (click)="myFunction18()"[(ngModel)]="option27Value" name="choice">Oui</div>  
+                          <div id="block6"><input type="checkbox"  class="input-field" id="choice5" (click)="myFunction19()"[(ngModel)]="option61Value" name="choice">Non</div>  
+                        
                   </div>
                 </div>
 <!-- 4ème étape de choice-->
@@ -1824,7 +1830,7 @@
                     <h2 *ngIf="option29Value == 'Autre'">{{option29Value}}</h2>
                     <!-- autre form-->
                       
-                    <div class="container-fluid"*ngIf="option29Value == 'Autre'">
+                    <div class="container-fluid"*ngIf="option29Value == 'Autre'&&option27Value">
                          
                       <form [formGroup]="autreform"(ngSubmit)="logValue()">
                         
@@ -1871,7 +1877,7 @@
                     </div>
                       <!-- traitement et salaires form-->
                       
-                      <div class="container-fluid"*ngIf="option29Value == 'traitement et salaires'">
+                      <div class="container-fluid"*ngIf="option29Value == 'traitement et salaires'&&option27Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -1915,7 +1921,7 @@
                         </form>
                       </div>
 <!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option29Value == 'location, commission, courtage et vacation'">
+                    <div class="container-fluid"*ngIf="option29Value == 'location, commission, courtage et vacation'&&option27Value">
                         <fieldset>
                           <legend>{{option29Value}}</legend>
                         
@@ -2066,7 +2072,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option29Value == 'honoraire'">
+<div class="container-fluid"*ngIf="option29Value == 'honoraire'&&option27Value">
 <fieldset>
     <legend>{{option29Value}}</legend>
   
@@ -2183,7 +2189,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option29Value == 'montant supérieur à 1000 dt'">
+<div class="container-fluid"*ngIf="option29Value == 'montant supérieur à 1000 dt'&&option27Value">
 <fieldset>
     <legend>{{option29Value}}</legend>
   
@@ -2330,11 +2336,12 @@
 </div>                   
 <!-- 4èmee étape de décision-->
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-                      <div title="indiquer votre choix"class="col-6"*ngIf="option29Value ">
+                      <div title="indiquer votre choix"class="col-6"*ngIf="option27Value">
                         <div class="form-group">
-                        <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>    
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option38Value" name="choice">Oui 
-                        <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option139Value" name="choice">Non
+                        <label for="choice"> Avez vous d'autres retenues à la source à déclarer:</label>
+                        <div id="block7"><input type="checkbox"  class="input-field" id="choice6" (click)="myFunction20()"[(ngModel)]="option38Value" name="choice">Oui</div>  
+                        <div id="block8"><input type="checkbox"  class="input-field" id="choice7" (click)="myFunction21()"[(ngModel)]="option62Value" name="choice">Non</div>     
+                        
                   </div>
                 </div>
 <!-- 5ème étape de choice-->
@@ -2357,7 +2364,7 @@
                     <h2 *ngIf="option40Value == 'Autre'">{{option40Value}}</h2>
                     <!-- autre form-->
                       
-                    <div class="container-fluid"*ngIf="option40Value == 'Autre'">
+                    <div class="container-fluid"*ngIf="option40Value == 'Autre'&&option38Value">
                          
                       <form [formGroup]="autreform"(ngSubmit)="logValue()">
                         
@@ -2404,7 +2411,7 @@
                     </div>
                       <!-- traitement et salaires form-->
                       
-                      <div class="container-fluid"*ngIf="option40Value == 'traitement et salaires'">
+                      <div class="container-fluid"*ngIf="option40Value == 'traitement et salaires'&&option38Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -2448,7 +2455,7 @@
                         </form>
                       </div>
 <!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option40Value == 'location, commission, courtage et vacation'">
+                    <div class="container-fluid"*ngIf="option40Value == 'location, commission, courtage et vacation'&&option38Value">
                         <fieldset>
                           <legend>{{option40Value}}</legend>
                         
@@ -2599,7 +2606,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option40Value == 'honoraire'">
+<div class="container-fluid"*ngIf="option40Value == 'honoraire'&&option38Value">
 <fieldset>
     <legend>{{option40Value}}</legend>
   
@@ -2716,7 +2723,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option40Value == 'montant supérieur à 1000 dt'">
+<div class="container-fluid"*ngIf="option40Value == 'montant supérieur à 1000 dt'&&option38Value">
 <fieldset>
     <legend>{{option40Value}}</legend>
   
@@ -3027,16 +3034,18 @@
     <!-- 1ère étape de décision-->
     <div title="indiquer votre choix"class="col-6"*ngIf="option169Value">
       <div class="form-group">
-      <label for="choice" style="color: red;"> Avez vous d'autres revenus accessoires soumis à la TVA:</label>    
-      <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option170Value" name="choice">Oui
-      <input type="checkbox"  class="input-field" id="choice" [(ngModel)]="option139Value" name="choice">Non
+      <label for="choice" style="color: red;"> Avez vous d'autres revenus accessoires soumis à la TVA:</label>
+      <div id="block9"><input type="checkbox"  class="input-field" id="choice8" (click)="myFunction22()"[(ngModel)]="option170Value" name="choice">Oui</div>  
+      <div id="block10"><input type="checkbox"  class="input-field" id="choice9" (click)="myFunction23()"[(ngModel)]="option63Value" name="choice">Non</div>     
+      
       </div>
       </div>
        
-                      <div class="users-grid" style="overflow-x:hidden;overflow-y: auto;height:auto;">
+                      <div class="users-grid" style="overflow-x:hidden;overflow-y: auto;height:auto;"*ngIf="option170Value">
                         <!-- location à usage d'habitation meublé form-->
-                        <h2 *ngIf="option170Value">Autres revenus accessoires soumis à la TVA</h2>
                         
+                        <fieldset>
+                          <legend>Autres revenus accessoires soumis à la TVA</legend>
                         <table class="table table-striped" *ngIf="option170Value">
                           <thead>
                             <tr>
@@ -3294,7 +3303,7 @@
                           </tbody>
                         
                         </table>
-                      
+                      </fieldset>
 
                       
                       </div>
@@ -3307,7 +3316,7 @@
                       <p>This is Email Setting</p>
                     </mat-tab>
                     </mat-tab-group>
-                    <button class="btn btn-success" type="button" *ngIf="option139Value||option38Value"(click)="onSubmit()">Sauvegarder</button>
+                    
                    </div>
                   </fieldset> 
  </div>
