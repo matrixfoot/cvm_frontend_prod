@@ -116,5 +116,100 @@ autre:{
     description:string;
 }
   }
-      
+  impottype2: {
+
+    type:string;
+    reporttvamoisprecedent:string;
+    tvacollecter:{
+    type:string;
+    chiffreaffaireht:string;
+    tvaammount:string;
+    ammountttc:string;
+    
     }
+    tvarecuperableimmobilier:{
+        type:string;
+    achatlocauxht:string;
+    achatlocauxtva:string;
+    
+    
+    }
+    tvarecuperableequipement:{
+        type:string;
+    achatlocauxht:string;
+    achatlocauxtva:string;
+    achatimporteht:string;
+    achatimportetva:string;
+    
+    
+    }
+    tvarecuperableautreachat:{
+        type:string;
+    achatlocauxht:string;
+    achatlocauxtva:string;
+    achatimporteht:string;
+    achatimportetva:string;
+    
+    
+    }
+    locationhabitationmeuble:{
+        type:string;
+        htammount:string;
+        tvaammount:string;
+        ttcammount:string;
+        }
+    locationusagecommercial:{
+        type:string;
+            htammount:string;
+            tvaammount:string;
+            ttcammount:string;
+            }
+    operationlotissement:{
+        type:string;
+                htammount:string;
+                tvaammount:string;
+                ttcammount:string;
+                }
+    interetpercue:{
+        type:string;
+                    htammount:string;
+                    tvaammount:string;
+                    ttcammount:string;
+                    }
+    autretvaspecial:{
+        type:string;
+                        htammount:string;
+                        tvaammount:string;
+                        ttcammount:string;
+                        }       
+    }
+    impottype3: {
+
+        type:string;
+        basetfp:string;
+        montanttfpmois:string;
+        reporttfpmoisprecedent:string;
+        montantavance:string;
+        tfppayer:string;
+        tfpreporter:string;
+        
+        }
+    impottype4: {
+
+            type:string;
+            basefoprolos:string;
+            montantfoprolos:string;
+            }
+    impottype5: {
+
+                type:string;
+                nombrenotehonoraire:string;
+                totaldroittimbre:string;
+                }
+    impottype6: {
+
+                    type:string;
+                    chiffreaffairettc:string;
+                    tclpayer:string;
+                    }
+}

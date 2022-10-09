@@ -1275,7 +1275,7 @@
                   </div>
                 </div>
 <!-- 3ème étape de choice-->
-                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option18Value">
+                      <div title="Sélectionner la rubrique convenable"class="input-container"id="retenuelist"*ngIf="option18Value=='true'">
                         <label for="retenuelist">Retenue à La Source sur:</label>
                         <i class="fas fa-wallet icon-special"></i>
                         <select #cricket (change)="update($event)"[(ngModel)]="option19Value">
@@ -2943,9 +2943,10 @@
                       <!-- FOPROLOS tab -->
                       <mat-tab label="FOPROLOS" id="FOPROLOStab"*ngIf="showfoprolostab===true">
                       <!-- FOPROLOSform -->
-                      <h2>FOPROLOS</h2>                    
+                      <fieldset>
+                        <legend> FOPROLOS</legend>                   
                       <form  [formGroup]="standardfoprolosform">
-                        <fieldset>
+                        
                       
                           <div class="row">
                             <div class="col-6">
@@ -2976,26 +2977,39 @@
                               </div>
                           </div> 
                           </div>
+                        </form>
                           </fieldset>
-                          </form>
+                          
                       </mat-tab>
                       
                      <!-- TVA tab -->
                      <mat-tab label="TVA" id="TVAtab"*ngIf="showtvatab===true">
                         <!-- 1ère étape de choice-->
+                        
+                        <div class="input-container">
+                          <div class="form-group"> 
+                          <label for="retenuelist">Renseigner votre report de TVA du mois précédant :</label>     
+                          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                     class="form-control"appTwoDigitDecimaNumber [(ngModel)]="option64Value" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                                    </div> 
+                 </div>
+                 
                         <div title="Sélectionner la rubrique convenable"class="input-container"id="tvalist">
                           <label for="retenuelist">Sélectionner la rubrique TVA:</label>
                           <i class="fas fa-wallet icon-special"></i>
                           <select  class="input-field" id="choice" [(ngModel)]="option169Value" name="choice" >
                             <option value="default"> </option>
                             <option value="TVA collecté">TVA collecté</option>
-                            <option value="TVA récupérable" disabled>TVA récupérable</option>
+                            <option value="TVA récupérable">TVA récupérable</option>
                             </select>
                       </div>
+                    
                       <!-- tva collecté form-->
                       <div class="container-fluid">
-                      <h2 *ngIf="option169Value == 'TVA collecté'">TVA Collecté</h2>                    
-<form  [formGroup]="standardtvacollecteform"*ngIf="option169Value == 'TVA collecté'">
+                      
+                      <fieldset *ngIf="option169Value == 'TVA collecté'">  
+                        <legend>TVA Collecté</legend>                 
+<form  [formGroup]="standardtvacollecteform">
   <fieldset>
 
     <div class="row">
@@ -3030,6 +3044,116 @@
     </div>
     </fieldset>
     </form>
+  </fieldset>
+  <fieldset *ngIf="option169Value == 'TVA récupérable'">  
+    <legend>TVA récupérable</legend>
+    <table class="table table-striped" >
+      
+      <col>
+      <colgroup span="2"></colgroup>
+      <colgroup span="2"></colgroup>
+      <thead>
+      <tr>
+        <td rowspan="2"></td>
+        <th colspan="2" scope="colgroup">Achats locaux</th>
+        <th colspan="2" scope="colgroup">Achats importés</th>
+      </tr>
+      <tr>
+        <th scope="col">Hors Taxes</th>
+        <th scope="col">TVA</th>
+        <th scope="col">Hors Taxes</th>
+        <th scope="col">TVA</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="tvaform" [formGroup]="standardtvarecuperableachatequipementform">
+        <th scope="row">Achat Equipements</th>
+         <td>  <div class="col-6">
+          
+              
+               <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                          class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+            
+      </div></td>
+      <td><div class="col-6">
+          
+              
+        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                   class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxtva" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+     
+</div></td>
+    <td><div class="col-6">
+      
+          
+          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                        class="form-control"appTwoDigitDecimaNumber formControlName="achatimporteht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+        
+  </div></td>
+  <td><div class="col-6">
+    
+        
+         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                        class="form-control"appTwoDigitDecimaNumber formControlName="achatimportetva" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+      
+  </div></td>
+
+    </tr>
+     
+    <tr id="tvaform" [formGroup]="standardtvarecuperableautreachatform">
+      <th scope="row">Autre Achats</th>
+       <td>  <div class="col-6">
+        
+            
+             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                        class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+          
+    </div></td>
+    <td><div class="col-6">
+        
+            
+      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                 class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxtva" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+   
+</div></td>
+  <td><div class="col-6">
+    
+        
+        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                      class="form-control"appTwoDigitDecimaNumber formControlName="achatimporteht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+      
+</div></td>
+<td><div class="col-6">
+  
+      
+       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                      class="form-control"appTwoDigitDecimaNumber formControlName="achatimportetva" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+    
+</div></td>
+
+  </tr>
+  <tr id="tvaform" [formGroup]="standardtvarecuperableimmobilierform">
+    <th scope="row">Achats Immobiliers</th>
+     <td>  <div class="col-6">
+      
+          
+           <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                      class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+        
+  </div></td>
+  <td><div class="col-6">
+      
+          
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                               class="form-control"appTwoDigitDecimaNumber formControlName="achatlocauxtva" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+ 
+</div></td>
+
+
+</tr>
+      </tbody>
+    
+    </table>
+</fieldset> 
   </div>
     <!-- 1ère étape de décision-->
     <div title="indiquer votre choix"class="col-6"*ngIf="option169Value">
@@ -3099,7 +3223,7 @@
                         <!-- location à usage commercial form-->
                         <tr id="tvaform" [formGroup]="standardlocationusagecommercialform">
                           <td>
-                            <p>TVA sur location à usage commercial</p>
+                            <p>TVA sur location à usage commercial, industriel, professionnel et artisanal</p>
                           </td>
                            <td>  <div class="col-6">
                             
@@ -3130,108 +3254,7 @@
                     </div></td>
                   
                       </tr>
-                      <!-- location à usage industriel -->
-                      <tr id="tvaform" [formGroup]="standardlocationusageindustrielform">
-                        <td>
-                          <p>TVA sur location à usage industriel</p>
-                        </td>
-                         <td>  <div class="col-6">
-                          
-                              
-                               <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                          class="form-control"appTwoDigitDecimaNumber formControlName="ammountht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                            
-                      </div></td>
-                      <td><div class="col-6">
-                        
-                            
-                            <input type="text" class="form-control" value="19%" disabled/>
-                          
-                    </div></td>
-                    <td><div class="col-6">
                       
-                          
-                          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                        class="form-control"appTwoDigitDecimaNumber formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                        
-                  </div></td>
-                  <td><div class="col-6">
-                    
-                        
-                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                        class="form-control"appTwoDigitDecimaNumber formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                      
-                  </div></td>
-                
-                    </tr>
-                    <!-- location à usage professionnel -->
-                    <tr id="tvaform" [formGroup]="standardlocationusageprofessionnelform">
-                      <td>
-                        <p>TVA sur location à usage professionnel</p>
-                      </td>
-                       <td>  <div class="col-6">
-                        
-                            
-                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                        class="form-control"appTwoDigitDecimaNumber formControlName="ammountht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                          
-                    </div></td>
-                    <td><div class="col-6">
-                      
-                          
-                          <input type="text" class="form-control" value="19%" disabled/>
-                        
-                  </div></td>
-                  <td><div class="col-6">
-                    
-                        
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                      class="form-control"appTwoDigitDecimaNumber formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                      
-                </div></td>
-                <td><div class="col-6">
-                  
-                      
-                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                      class="form-control"appTwoDigitDecimaNumber formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                    
-                </div></td>
-              
-                  </tr>
-                  <!-- location à usage artisanal -->
-                  <tr id="tvaform" [formGroup]="standardlocationusageartisanalform">
-                    <td>
-                      <p>TVA sur location à usage artisanal</p>
-                    </td>
-                     <td>  <div class="col-6">
-                      
-                          
-                           <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                      class="form-control"appTwoDigitDecimaNumber formControlName="ammountht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                        
-                  </div></td>
-                  <td><div class="col-6">
-                    
-                        
-                        <input type="text" class="form-control" value="19%" disabled/>
-                      
-                </div></td>
-                <td><div class="col-6">
-                  
-                      
-                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                    class="form-control"appTwoDigitDecimaNumber formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                    
-              </div></td>
-              <td><div class="col-6">
-                
-                    
-                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                    class="form-control"appTwoDigitDecimaNumber formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                  
-              </div></td>
-            
-                </tr>
                 <!-- opérations de lotissement   -->
                 <tr id="tvaform" [formGroup]="standardoperationlotissementform">
                   <td>
@@ -3300,6 +3323,46 @@
           </div></td>
         
             </tr>
+             <!-- autre tva special    -->
+             <tr id="tvaform" [formGroup]="standardautretvaspecialform">
+              <td>
+                <p>Autre TVA</p>
+              </td>
+               <td>  <div class="col-6">
+                
+                    
+                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                class="form-control"appTwoDigitDecimaNumber formControlName="ammountht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                  
+            </div></td>
+            <td><div class="col-6">
+              
+                  
+                  <input type="text" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="tauxpercent"/>
+                
+          </div></td>
+          <td class="hidden"><div class="col-6">
+              
+                  
+            <input type="text" class="form-control" formControlName="taux"/>
+          
+    </div></td>
+          <td><div class="col-6">
+            
+                
+                <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                              class="form-control"appTwoDigitDecimaNumber formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+              
+        </div></td>
+        <td><div class="col-6">
+          
+              
+               <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                              class="form-control"appTwoDigitDecimaNumber formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+            
+        </div></td>
+      
+          </tr>
                           </tbody>
                         
                         </table>
@@ -3310,10 +3373,68 @@
                      </mat-tab>
                      
                      <mat-tab label="Droit De Timbre" id="Timbretab"*ngIf="showtimbretab===true">
-                       <p>This is Email Setting</p>
+                      <fieldset>
+                        <legend> Droit de timbre</legend>                   
+                      <form  [formGroup]="standarddroittimbreform">
+                        
+                      
+                          <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Nomre de notes d'honoraires</label>
+                                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                    class="form-control"appTwoDigitDecimaNumber formControlName="nombrenotehonoraire" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Droit de timbre unitaire</label>
+                                    <input type="text" class="form-control" formControlName="taux"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>total du droit de timbre</label>
+                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                  class="form-control"appTwoDigitDecimaNumber formControlName="totaldroittimbre" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                </div>
+                          </div>
+                         
+                          </div>
+                        </form>
+                          </fieldset>
                      </mat-tab>
                      <mat-tab label="TCL" id="TCLtab"*ngIf="showtcltab===true">
-                      <p>This is Email Setting</p>
+                      <fieldset>
+                        <legend>TCL</legend>                   
+                      <form  [formGroup]="standardtclform">
+                        
+                      
+                          <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Chiffre d'affaire TTC</label>
+                                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                    class="form-control"appTwoDigitDecimaNumber formControlName="chiffreaffairettc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>taux</label>
+                                    <input type="text" class="form-control" value="0.2" disabled/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                  <label>TCL à payer</label>
+                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                  class="form-control"appTwoDigitDecimaNumber formControlName="tclapayer" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                </div>
+                          </div>
+                         
+                          </div>
+                        </form>
+                          </fieldset>
                     </mat-tab>
                     </mat-tab-group>
                     
