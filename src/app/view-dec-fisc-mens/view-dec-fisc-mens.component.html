@@ -143,6 +143,134 @@
       <h4>Montant Net:<b>  {{ decfiscmens.impottype1.autre.montantnet }}</b></h4>
     </div>
     </div>
+    <hr>
+    <h4 *ngIf="decfiscmens.impottype2.type">Type impôt:<b>  {{ decfiscmens.impottype2.type }}</b></h4>
+    <h4>Report TVA du mois précédent:<b>  {{ decfiscmens.impottype2.reporttvamoisprecedent }}</b></h4>
+      <hr>
+      <div *ngIf="decfiscmens.impottype2.tvacollecter.type">
+      <h3>Type rubrique: TVA à collecter</h3>
+      <hr>
+      
+      <h4>Chiffre d'affaire HT:<b>  {{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.tvacollecter.tvaammount }}</b></h4>  
+      <h4>Chiffre d'affaire TTC:<b>  {{ decfiscmens.impottype2.tvacollecter.ammountttc }}</b></h4>
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.tvarecuperableimmobilier.type">
+      <h3>Type rubrique: TVA récupérable sur les Achat immobilièrs	</h3>
+      <hr>
+      
+      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
+      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
+      
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.tvarecuperableequipement.type">
+      <h3>Type rubrique: TVA récupérable sur les Achat d'équipements	</h3>
+      <hr>
+      
+      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
+      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
+      <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimporteht  }}</b></h4>
+      <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimportetva }}</b></h4>
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.tvarecuperableautreachat.type">
+      <h3>Type rubrique: TVA récupérable sur les Autres Achats	</h3>
+      <hr>
+      
+      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  }}</b></h4>
+      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva }}</b></h4>  
+      <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  }}</b></h4>
+      <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva }}</b></h4>
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.locationhabitationmeuble.type">
+      <h3>Type rubrique: Autre revenus de location à usage d'habitation meublé	</h3>
+      <hr>
+      
+      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.htammount  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.tvaammount }}</b></h4>  
+      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.ttcammount  }}</b></h4>
+      
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.locationusagecommercial.type">
+      <h3>Type rubrique: Autre revenus de location à usage commercial, industriel, professionnel et artisanal	</h3>
+      <hr>
+      
+      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationusagecommercial.htammount  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationusagecommercial.tvaammount }}</b></h4>  
+      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationusagecommercial.ttcammount  }}</b></h4>
+      
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.operationlotissement.type">
+      <h3>Type rubrique: Autre revenus de location des opérations de lotissement	</h3>
+      <hr>
+      
+      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.operationlotissement.htammount  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.operationlotissement.tvaammount }}</b></h4>  
+      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.operationlotissement.ttcammount  }}</b></h4>
+      
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.interetpercue.type">
+      <h3>Type rubrique: Autre revenus de location des intêrets percus	</h3>
+      <hr>
+      
+      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.interetpercue.htammount  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.interetpercue.tvaammount }}</b></h4>  
+      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.interetpercue.ttcammount  }}</b></h4>
+      
+      
+    </div>
+    <hr>
+    <div *ngIf="decfiscmens.impottype2.autretvaspecial.type">
+      <h3>Type rubrique: Autre revenus spécials	</h3>
+      <hr>
+      
+      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.autretvaspecial.htammount  }}</b></h4>
+      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.autretvaspecial.tvaammount }}</b></h4>  
+      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.autretvaspecial.ttcammount  }}</b></h4>
+      
+      
+    </div>
+    <hr>
+    <h4 *ngIf="decfiscmens.impottype3.type">Type impôt:<b>  {{ decfiscmens.impottype3.type }}</b></h4>
+    
+      <hr>
+      <h4>Base de la TFP:<b>  {{ decfiscmens.impottype3.basetfp  }}</b></h4>
+      <h4>Montant de la TFP du mois:<b>  {{ decfiscmens.impottype3.montanttfpmois }}</b></h4>  
+      <h4>Report du TFP du mois précédent :<b>  {{ decfiscmens.impottype3.reporttfpmoisprecedent }}</b></h4>
+      <h4>Montant de l'avance:<b>  {{ decfiscmens.impottype3.montantavance  }}</b></h4>
+      <h4>TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
+      <h4>TFP à reporter:<b>  {{ decfiscmens.impottype3.tfpreporter }}</b></h4>
+      <hr>
+      <h4 *ngIf="decfiscmens.impottype4.type">Type impôt:<b>  {{ decfiscmens.impottype4.type }}</b></h4>
+      
+        <hr>
+        <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype4.basefoprolos  }}</b></h4>
+        <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype4.montantfoprolos }}</b></h4>
+        <hr>
+        <h4 *ngIf="decfiscmens.impottype5.type">Type impôt:<b>  {{ decfiscmens.impottype5.type }}</b></h4>
+        
+          <hr>
+          <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
+          <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
+          <hr>
+          <h4 *ngIf="decfiscmens.impottype6.type">Type impôt:<b>  {{ decfiscmens.impottype6.type }}</b></h4>
+          
+            <hr>
+            <h4>Chiffre affaire ttc:<b>  {{ decfiscmens.impottype6.chiffreaffairettc  }}</b></h4>
+            <h4>TCL à payer:<b>  {{ decfiscmens.impottype6.tclpayer }}</b></h4>     
     </div>
     
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>

@@ -296,6 +296,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub32:Subscription;
   sub33:Subscription;
   sub34:Subscription;
+  sub35:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -462,14 +463,14 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
       ammountttc: [{value:"",disabled:true}],
     });
     this.standardtfpform =this.fb.group({
-      basetfp: '',
+      basetfp: [{value:"",disabled:true}],
       taux: [{value:"0.02",disabled:true}],
       avanceammount: '',
       tfpapayer: [{value:"",disabled:true}],
       salairesnonsoumistfp: '',
-      tfpammountmoisactuel: '',
+      tfpammountmoisactuel: [{value:"",disabled:true}],
       tfpammountreportmoisprecedent: '',
-      tfpareporter: '',
+      tfpareporter: [{value:"",disabled:true}],
     });
     this.standardfoprolosform =this.fb.group({
       basefoprolos: '',
@@ -722,6 +723,16 @@ this.sub34=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm34()
+})
+this.sub35=merge(
+  
+  this.standardtfpform.get('salairesnonsoumistfp').valueChanges,
+  this.standardtfpform.get('taux').valueChanges,
+  this.standardtfpform.get('basetfp').valueChanges,
+  this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
+  this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
+).subscribe((res:any)=>{
+  this.calculateResultForm35()
 })
   this.isLoggedIn = !!this.token.getToken();
     
@@ -1238,12 +1249,14 @@ calculateResultForm1()
   
     const chiffreaffaireht=+this.standardautretvaspecialform.get('ammountht').value
     const tauxpercent=+this.standardautretvaspecialform.get('tauxpercent').value
+    
     if (tauxpercent>100)
-    {this.standardautretvaspecialform.patchValue({
+    return (
+      this.standardautretvaspecialform.patchValue({
      tauxpercent:'',
      tvaammount: '', 
      ammountttc:''},{emitEvent: false} 
-      );} 
+      )) 
     const taux=+tauxpercent/100
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1279,6 +1292,28 @@ calculateResultForm1()
         },{emitEvent: false} 
         );
       this.standardtclform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm35()
+  {
+  
+    const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
+    const taux=+this.standardtfpform.get('taux').value
+    const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
+    const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
+    const basetfp=+ Math.floor((+salairesbrutsrs-+salairesnonsoumistfp)*1000)/1000;
+    const montanttfpmois=+ Math.floor(+basetfp*+taux);
+    const tfpapayer=+ Math.floor((+montanttfpmois-+reporttfpmoisprecedent)*1000)/1000;
+    const tfpareporter=+ Math.floor((+reporttfpmoisprecedent-+montanttfpmois)*1000)/1000;
+      this.standardtfpform.patchValue({
+        basetfp: basetfp,
+        tfpammountmoisactuel: montanttfpmois,
+        tfpapayer: tfpapayer,
+        tfpareporter:tfpareporter,
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
     
     
   }
