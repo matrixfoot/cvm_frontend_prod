@@ -68,7 +68,7 @@ export class CompleteProfilComponent implements OnInit {
             activity: [this.user.activite,],
             selectactivity:[null,],
             adresseactivite: [this.user.adresseactivite,],
-            codepostal:[this.user.codepostal,],
+            codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
             underactivity: [this.user.sousactivite,],
             selectunderactivity:[null,],
             fiscalimpot: [this.user.regimefiscalimpot,],
@@ -115,7 +115,7 @@ export class CompleteProfilComponent implements OnInit {
               fiscalmatinchanged2: [{value:"P",disabled:true}],
               fiscalmatnumbers: ["000",[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
               adresseactivite: [this.user.adresseactivite,],
-              codepostal:[this.user.codepostal,],
+              codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
               nomsociete: [this.user.nomsociete,],
               clientcode: [{value:this.user.clientcode,disabled:true}],
             },
@@ -191,6 +191,15 @@ export class CompleteProfilComponent implements OnInit {
     
     
   }
-  
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   
 }

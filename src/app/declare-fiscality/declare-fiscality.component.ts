@@ -297,6 +297,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   sub33:Subscription;
   sub34:Subscription;
   sub35:Subscription;
+  sub36:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -473,7 +474,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
       tfpareporter: [{value:"",disabled:true}],
     });
     this.standardfoprolosform =this.fb.group({
-      basefoprolos: '',
+      basefoprolos: [{value:'',disabled:true}],
       taux: [{value:"0.01",disabled:true}],
       salairesnonsoumisfoprolos: '',
       foprolosammount: '',
@@ -486,7 +487,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     this.standardtclform =this.fb.group({
       chiffreaffairettc: '',
       taux: [{value:"0.002",disabled:true}],
-      tclapayer: '',
+      tclapayer: [{value:'',disabled:true}],
     });
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
@@ -643,7 +644,7 @@ this.sub22=merge(
   this.calculateResultForm22()
 })
 this.sub23=merge(
-  
+  this.standardtraitementsalaireform.get('brutsalary').valueChanges,
   this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
   this.standardtraitementsalaireform.get('imposalary').valueChanges,
   this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
@@ -733,6 +734,15 @@ this.sub35=merge(
   this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
 ).subscribe((res:any)=>{
   this.calculateResultForm35()
+})
+this.sub36=merge(
+  
+  this.standardfoprolosform.get('salairesnonsoumisfoprolos').valueChanges,
+  this.standardfoprolosform.get('taux').valueChanges,
+  this.standardfoprolosform.get('basefoprolos').valueChanges,
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm36()
 })
   this.isLoggedIn = !!this.token.getToken();
     
@@ -1148,16 +1158,23 @@ calculateResultForm1()
   {
   
     const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
+    const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
+    const salairesnonsoumisfoprolos=+this.standardtfpform.get('salairesnonsoumisfoprolos').value
     const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
     const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
     const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
+    const basetfp=+ Math.floor((+brutsalary-+salairesnonsoumistfp)*1000)/1000;
+    const basefoprolos=+ Math.floor((+brutsalary-+salairesnonsoumisfoprolos)*1000)/1000;
     if (retenuesalary>brutsalary||imposalary>brutsalary||solidaritycontribution>brutsalary)
     {this.standardtraitementsalaireform.patchValue({
       retenuesalary: '', 
         imposalary: '',
       solidaritycontribution:''},{emitEvent: false} 
       );}  
-      
+      this.standardtfpform.patchValue({basetfp:basetfp},{emitEvent: false})
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos},{emitEvent: false})
+      this.standardtfpform.updateValueAndValidity();
+      this.standardfoprolosform.updateValueAndValidity();
       this.standardtraitementsalaireform.updateValueAndValidity();
     
     
@@ -1303,7 +1320,7 @@ calculateResultForm1()
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
     const basetfp=+ Math.floor((+salairesbrutsrs-+salairesnonsoumistfp)*1000)/1000;
-    const montanttfpmois=+ Math.floor(+basetfp*+taux);
+    const montanttfpmois=+ Math.floor(+basetfp* +taux);
     const tfpapayer=+ Math.floor((+montanttfpmois-+reporttfpmoisprecedent)*1000)/1000;
     const tfpareporter=+ Math.floor((+reporttfpmoisprecedent-+montanttfpmois)*1000)/1000;
       this.standardtfpform.patchValue({
@@ -1314,6 +1331,26 @@ calculateResultForm1()
         },{emitEvent: false} 
         );
       this.standardtfpform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm36()
+  {
+  
+    const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
+    const taux=+this.standardfoprolosform.get('taux').value
+    const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+    
+    const basefoprolos=+ Math.floor((+salairesbrutsrs-+salairesnonsoumisfoprolos)*1000)/1000;
+    const montantfoprolos=+ Math.floor(+basefoprolos* +taux);
+    
+      this.standardfoprolosform.patchValue({
+        basefoprolos: basefoprolos,
+        foprolosammount: montantfoprolos,
+        
+        },{emitEvent: false} 
+        );
+      this.standardfoprolosform.updateValueAndValidity();
     
     
   }

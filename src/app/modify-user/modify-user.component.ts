@@ -32,6 +32,7 @@ export class ModifyUserComponent implements OnInit {
   fiscalmatPattern = "^[1-9]{7}$";
   fiscalmatletterPattern="^[A-Z]{1}$";
   fiscalmatnumbersPattern="^[0-9]{3}$";
+  codepostalPattern: "^[a-zA-Z0-9]+{4}$"
 
   errormsg:string;
   constructor(private formBuilder: FormBuilder,
@@ -85,7 +86,7 @@ export class ModifyUserComponent implements OnInit {
             fiscalmatinchanged2: [{value:"P",disabled:true}],
             fiscalmatnumbers: [this.user.matriculefiscale.split('/')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             adresseactivite: [this.user.adresseactivite,],
-            codepostal:[this.user.codepostal,],
+            codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true}],
           },
@@ -122,7 +123,7 @@ export class ModifyUserComponent implements OnInit {
               fiscalmatinchanged2: [{value:"P",disabled:true}],
               fiscalmatnumbers: ["000",[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
               adresseactivite: [this.user.adresseactivite,],
-              codepostal:[this.user.codepostal,],
+              codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
               nomsociete: [this.user.nomsociete,],
               clientcode: [{value:this.user.clientcode,disabled:true}],
             },
@@ -213,6 +214,15 @@ export class ModifyUserComponent implements OnInit {
     
     
   }
-  
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   
 }

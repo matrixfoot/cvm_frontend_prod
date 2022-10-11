@@ -141,10 +141,16 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre Adresse D'activité" id="adresseactivite" formControlName="adresseactivite">
 </div>
+<div *ngIf="submitted && f.codepostal.errors" class="invalid-feedback" style="color:red;float: right;">
+  
+  <div>Code Postal en 4 caractères</div>
+  
+</div>
 <div class="input-container-disabled"id="idfiscalmat">
   <label for="codepostal"> Code Postal:</label>
   <i class="fa fa-fort-awesome icon"></i>
-  <input class="input-field" type="text" placeholder="Modifier Votre Code Postal" id="codepostal" formControlName="codepostal">
+  <input class="input-field" type="text" (keypress)="keyPressNumbers($event)" placeholder="Modifier Votre Code Postal" 
+  [ngClass]="{ 'is-invalid': submitted && f.codepostalerrors }"id="codepostal" formControlName="codepostal">
 </div>
      
 
