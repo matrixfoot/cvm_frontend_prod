@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
+import { ExcelService } from '../services/generate.excel.service';
 
 @Component({
   selector: 'app-view-dec-fisc-mens',
@@ -25,7 +26,9 @@ public decfiscmens: Decfiscmens;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private dec: DecfiscmensService,
-    private token: TokenStorageService){}
+    private token: TokenStorageService,
+    private excelService: ExcelService
+    ){}
 
   
   ngOnInit() {
@@ -84,4 +87,8 @@ public decfiscmens: Decfiscmens;
       }
     );
   }
+  generateExcel() {
+    this.excelService.generateExcel();
+  }
+  
   }

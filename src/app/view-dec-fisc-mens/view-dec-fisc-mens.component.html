@@ -244,6 +244,7 @@
       
     </div>
     <hr>
+    <div *ngIf="decfiscmens.impottype3.type">
     <h4 *ngIf="decfiscmens.impottype3.type">Type impôt:<b>  {{ decfiscmens.impottype3.type }}</b></h4>
     
       <hr>
@@ -254,28 +255,36 @@
       <h4>TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
       <h4>TFP à reporter:<b>  {{ decfiscmens.impottype3.tfpreporter }}</b></h4>
       <hr>
+    </div>
+    <div *ngIf="decfiscmens.impottype4.type">
       <h4 *ngIf="decfiscmens.impottype4.type">Type impôt:<b>  {{ decfiscmens.impottype4.type }}</b></h4>
       
         <hr>
         <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype4.basefoprolos  }}</b></h4>
         <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype4.montantfoprolos }}</b></h4>
         <hr>
+      </div>
+      <div *ngIf="decfiscmens.impottype5.type">
         <h4 *ngIf="decfiscmens.impottype5.type">Type impôt:<b>  {{ decfiscmens.impottype5.type }}</b></h4>
         
           <hr>
           <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
           <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
           <hr>
+        </div>
+        <div *ngIf="decfiscmens.impottype6.type">
           <h4 *ngIf="decfiscmens.impottype6.type">Type impôt:<b>  {{ decfiscmens.impottype6.type }}</b></h4>
           
             <hr>
             <h4>Chiffre affaire ttc:<b>  {{ decfiscmens.impottype6.chiffreaffairettc  }}</b></h4>
-            <h4>TCL à payer:<b>  {{ decfiscmens.impottype6.tclpayer }}</b></h4>     
+            <h4>TCL à payer:<b>  {{ decfiscmens.impottype6.tclpayer }}</b></h4>
+          </div>     
     </div>
     
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
     <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
- 
+    <button type="button" class="btn btn-danger"(click)="generateExcel()"> Générer Déclaration</button>
+
   </div>
 </div>
 </div>

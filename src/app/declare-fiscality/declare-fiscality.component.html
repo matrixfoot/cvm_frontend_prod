@@ -147,16 +147,12 @@
                    <hr *ngIf="option55Value==true">
                    <div class="container-fluid"id="tabcontainer">
                      
-                    <button id="savebutton" class="btn btn-success" type="button" *ngIf="option139Value||option38Value||option60Value||option61Value
-                    ||option62Value||option63Value"(click)="onSubmit()">Sauvegarder</button>
-                    <button id="resetbutton" class="btn btn-secondary" type="button" *ngIf="optionValue"(click)="restartform()">Réinitialiser tout</button>
-                    <button
-                      id="recapbutton"
-                      *ngIf="optionValue"
-                        type="button"
-                        class="btn btn-primary"
-                        (click)="openPopup()">Récapitulatif
-                      </button>
+                    <button id="savebutton" class="btn btn-success" *ngIf="option48Value===true||option49Value===true||option50Value===true||option51Value===true||option51Value===true||option52Value===true||option53Value===true"
+                    type="button" (click)="onSubmit()">Sauvegarder</button>
+                    <button id="resetbutton" class="btn btn-secondary" type="button" (click)="restartform()"
+                    *ngIf="option48Value===true||option49Value===true||option50Value===true||option51Value===true||option51Value===true||option52Value===true||option53Value===true">Réinitialiser tout</button>
+                    <button id="recapbutton" type="button"class="btn btn-primary"(click)="openPopup()"
+                    *ngIf="option48Value===true||option49Value===true||option50Value===true||option51Value===true||option51Value===true||option52Value===true||option53Value===true">Récapitulatif</button>
                    
                       <div
                         class="modal"
@@ -2997,7 +2993,7 @@
                         <div title="Sélectionner la rubrique convenable"class="input-container"id="tvalist">
                           <label for="retenuelist">Sélectionner la rubrique TVA:</label>
                           <i class="fas fa-wallet icon-special"></i>
-                          <select  class="input-field" id="choice" [(ngModel)]="option169Value" name="choice" >
+                          <select  class="input-field" id="choice" [(ngModel)]="option169Value" (change)="update($event)" name="choice" >
                             <option value="default"> </option>
                             <option value="TVA collecté">TVA collecté</option>
                             <option value="TVA récupérable">TVA récupérable</option>
@@ -3421,7 +3417,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>taux</label>
-                                    <input type="text" class="form-control" value="0.2" disabled/>
+                                    <input type="text" class="form-control" value="0.2%" disabled/>
                                   </div>
                             </div>
                             <div class="col-6">

@@ -104,12 +104,12 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   option45Value:any;
   option46Value:any;
   option47Value:any;
-  option48Value:any;
-  option49Value:any;
-  option50Value:any;
-  option51Value:any;
-  option52Value:any;
-  option53Value:any;
+  option48Value=false;
+  option49Value=false;
+  option50Value=false;
+  option51Value=false;
+  option52Value=false;
+  option53Value=false;
   option54Value:any;
   option55Value:any;
   option56Value:any;
@@ -1159,7 +1159,7 @@ calculateResultForm1()
   
     const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
-    const salairesnonsoumisfoprolos=+this.standardtfpform.get('salairesnonsoumisfoprolos').value
+    const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
     const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
     const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
     const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
@@ -1188,7 +1188,7 @@ calculateResultForm1()
     
     const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
-      const tclapayer=+ Math.floor((+ammountttc*+taux)*1000)/1000;
+      const tclapayer=+ Math.floor((+ammountttc*+taux2)*1000)/1000;
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1302,12 +1302,26 @@ calculateResultForm1()
   {
   
     const chiffreaffairettc=+this.standardtvacollecteform.get('ammountttc').value
+    const chiffreaffairettcbis=+this.standardtclform.get('chiffreaffairettc').value
     const taux=+this.standardtclform.get('taux').value
+    if (chiffreaffairettc)
+    {
     const tclapayer=+ Math.floor((+chiffreaffairettc*+taux)*1000)/1000;
+  
       this.standardtclform.patchValue({
         tclapayer: tclapayer,
         },{emitEvent: false} 
         );
+      }
+    if (chiffreaffairettcbis)
+      {
+        const tclapayer=+ Math.floor((+chiffreaffairettcbis*+taux)*1000)/1000;
+  
+      this.standardtclform.patchValue({
+        tclapayer: tclapayer,
+        },{emitEvent: false} 
+        );
+      }
       this.standardtclform.updateValueAndValidity();
     
     
@@ -1803,6 +1817,8 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardhonorairegroupementsform.controls['brutammount'].reset()
     this.standardhonorairegroupementsform.controls['netammount'].reset()
     this.standardhonorairegroupementsform.controls['retenueammount'].reset()}
+    else if (this.selected=='TVA collecté')
+    {this.resettvaall()}
     else
     {this.standardmontant15form.controls['brutammount'].reset()
     this.standardmontant15form.controls['netammount'].reset()
@@ -1873,8 +1889,8 @@ this.DecfiscmensService.create(decfiscmens).then(
   }
   resetfoprolosall(){
     this.standardfoprolosform.controls['basefoprolos'].reset()
-    this.standardtfpform.controls['salairesnonsoumisfoprolos'].reset()
-    this.standardtfpform.controls['foprolosammount'].reset()
+    this.standardfoprolosform.controls['salairesnonsoumisfoprolos'].reset()
+    this.standardfoprolosform.controls['foprolosammount'].reset()
     
   }
   resettimbreall(){
@@ -2002,6 +2018,7 @@ this.DecfiscmensService.create(decfiscmens).then(
       if (checkbox.checked == true){
         text2.style.display = "block";
         this.showretenuetab=true;
+        this.option48Value=true;
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt retenue à la source, voulez vous continuer?',
@@ -2017,9 +2034,11 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resetretenuealasourceall();
             this.showretenuetab=false;
+            this.option48Value=false
           }
           else{
             checkbox.checked = true
+            this.option48Value=true
           }
   
         }).catch(() => {
@@ -2031,11 +2050,12 @@ this.DecfiscmensService.create(decfiscmens).then(
     myFunction9() {
       var checkbox:any = document.getElementById("myCheck9");
       var text2 = document.getElementById("tabcontainer");
-     
+      
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.showtfptab=true;
         
+        this.showtfptab=true;
+        this.option49Value=true;
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TFP, voulez vous continuer?',
@@ -2051,9 +2071,13 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resettfpall();
             this.showtfptab=false;
+            this.option49Value=false;
+
           }
           else{
             checkbox.checked = true
+            this.option49Value=true;
+
           }
   
         }).catch(() => {
@@ -2065,11 +2089,13 @@ this.DecfiscmensService.create(decfiscmens).then(
     myFunction10() {
       var checkbox:any = document.getElementById("myCheck10");
       var text2 = document.getElementById("tabcontainer");
-     
+      
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.showfoprolostab=true;
         
+        this.showfoprolostab=true;
+        this.option50Value=true;
+
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FOPROLOS, voulez vous continuer?',
@@ -2085,9 +2111,13 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resetfoprolosall();
             this.showfoprolostab=false;
+            this.option50Value=false;
+
           }
           else{
             checkbox.checked = true
+            this.option50Value=true;
+
           }
   
         }).catch(() => {
@@ -2102,8 +2132,10 @@ this.DecfiscmensService.create(decfiscmens).then(
      
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.showtvatab=true;
         
+        this.showtvatab=true;
+        this.option51Value=true;
+
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TVA, voulez vous continuer?',
@@ -2119,9 +2151,13 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resettvaall();
             this.showtvatab=false;
+            this.option51Value=false;
+
           }
           else{
             checkbox.checked = true
+            this.option51Value=true;
+
           }
         }).catch(() => {
           Swal.fire('opération non aboutie!');
@@ -2132,11 +2168,13 @@ this.DecfiscmensService.create(decfiscmens).then(
     myFunction12() {
       var checkbox:any = document.getElementById("myCheck12");
       var text2 = document.getElementById("tabcontainer");
-     
+      
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.showtimbretab=true;
         
+        this.showtimbretab=true;
+        this.option52Value=true;
+
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt droit de timbre, voulez vous continuer?',
@@ -2152,9 +2190,13 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resettimbreall();
             this.showtimbretab=false;
+            this.option52Value=false;
+
           }
           else{
             checkbox.checked = true
+            this.option52Value=true;
+
           }
         }).catch(() => {
           Swal.fire('opération non aboutie!');
@@ -2165,11 +2207,13 @@ this.DecfiscmensService.create(decfiscmens).then(
     myFunction13() {
       var checkbox:any = document.getElementById("myCheck13");
       var text2 = document.getElementById("tabcontainer");
-     
+      
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.showtcltab=true;
         
+        this.showtcltab=true;
+        this.option53Value=true;
+
       } else {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TCL, voulez vous continuer?',
@@ -2185,14 +2229,19 @@ this.DecfiscmensService.create(decfiscmens).then(
             
             this.resettclall();
             this.showtcltab=false;
+            this.option53Value=false;
+
           }
           else{
             checkbox.checked = true
+            this.option53Value=true
           }
         }).catch(() => {
           Swal.fire('opération non aboutie!');
         });
-         this.showtcltab=false;
+        
+         
+
       }
     }
     myFunction14() {
