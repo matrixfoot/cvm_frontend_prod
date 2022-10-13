@@ -1729,29 +1729,6 @@ this.DecfiscmensService.create(decfiscmens).then(
       
   }
   ngOnDestroy(){
-    Swal.fire({
-      title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt retenue à la source, voulez vous continuer?',
-      
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Réinitialiser',
-      cancelButtonText: 'Annuler',
-    }).then((result) => {
-      if (result.value) {
-        
-        this.resetretenuealasourceall();
-        this.showretenuetab=false;
-        this.option48Value=false
-      }
-      else{
-        
-      }
-
-    }).catch(() => {
-      Swal.fire('opération non aboutie!');
-    });
     this.sub1.unsubscribe()
     this.sub2.unsubscribe()
     this.sub3.unsubscribe()
