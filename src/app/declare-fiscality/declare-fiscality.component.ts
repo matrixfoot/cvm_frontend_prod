@@ -10,13 +10,13 @@ import { User } from '../models/user.model';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
 import { merge, Subscription } from 'rxjs';
-
+import { CanComponentDeactivate } from '../services/auth-guard.service';
 @Component({
   selector: 'app-declare-fiscality',
   templateUrl: './declare-fiscality.component.html',
   styleUrls: ['./declare-fiscality.component.scss']
 })
-export class DeclareFiscalityComponent implements OnInit,OnDestroy {
+export class DeclareFiscalityComponent implements OnInit,OnDestroy,CanComponentDeactivate {
   isLoggedIn=false
   loading=false;
   errormsg:string;
@@ -28,7 +28,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
   matriculefiscale:string;
   currentUser: any;
   user:User;
-  
+  saved=true;
   decfiscmens:Decfiscmens;
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
@@ -795,7 +795,9 @@ this.sub36=merge(
    
   }
   displayStyle = "none";
-  
+  canDeactivate() {
+    return this.saved;
+  }
   openPopup() {
     this.displayStyle = "block";
     this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
@@ -1706,7 +1708,7 @@ if(this.option53Value)
 
 this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {
-    
+    this.saved=false;
     this.loading = false;
     Swal.fire({
       position: 'center',

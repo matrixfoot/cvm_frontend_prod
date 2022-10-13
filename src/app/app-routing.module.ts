@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 
-import { AuthGuard } from './services/auth-guard.service';
+import { CanDeactivateGuard } from './services/auth-guard.service';
 import { ContactComponent } from './home/contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -53,7 +53,7 @@ const routes: Routes = [
 { path: 'settings', component: SettingsComponent,
     
 },
-{ path: 'declare-fiscality', component:DeclareFiscalityComponent,
+{ path: 'declare-fiscality', component:DeclareFiscalityComponent,canDeactivate: [CanDeactivateGuard]
     
 },
 { path: 'declare-comptabilite', component:DeclareComptabiliteComponent,
@@ -153,7 +153,7 @@ const routes: Routes = [
     RouterModule
   ],
   providers: [
-    AuthGuard
+    CanDeactivateGuard
   ]
 })
 export class AppRoutingModule {}

@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from './auth.service';
+import { CanDeactivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
+export interface CanComponentDeactivate {
+ canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-
-  constructor(private auth: AuthService,
-              
-              private router: Router) {}
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return Observable.create(
-      (observer) => {
-        
-      }
-    );
+@Injectable({
+  providedIn: 'root',
+})
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate(component: CanComponentDeactivate) {
+    if (component.canDeactivate()) {
+      return confirm('Veuillez vous assurer de la sauvegarde de toutes vos donnés avant de quitter la page de la déclaration fiscale');
+    } else {
+      return true;
+    }
   }
 }
