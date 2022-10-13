@@ -74,10 +74,11 @@ export class DecfiscmensService {
           this.http.post(API_URL_cloud+'createdecfiscmens', decfiscmens).subscribe(
             (response) => {
               resolve(response);
+
             },
             (error) => {
               reject(error);
-            }
+            },
           );
         });
       }

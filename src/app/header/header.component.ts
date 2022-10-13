@@ -4,6 +4,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import Swal from 'sweetalert2';
 
 
 
@@ -47,8 +48,29 @@ this.lastname= user.Lastname;
   
 
   logout(): void {
-    this.Auth.signOut();
+    Swal.fire({
+      title: 'Vous êtes sur le point de se déconnecter, est ce que vous avez vérifier l\'enregistrement de tous vos données en cours de saisie?',
+      
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Réinitialiser',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        this.Auth.signOut();
     this.reloadPage();
+        
+      }
+      else{
+        
+      }
+
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
     
   }
   reloadPage (){

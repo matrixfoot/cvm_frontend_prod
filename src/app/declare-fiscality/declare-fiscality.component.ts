@@ -481,7 +481,7 @@ export class DeclareFiscalityComponent implements OnInit,OnDestroy {
     });
     this.standarddroittimbreform =this.fb.group({
       nombrenotehonoraire: '',
-      taux: [{value:"0.600",disabled:true}],
+      taux: [{value:"0.6",disabled:true}],
       totaldroittimbre: '',
     });
     this.standardtclform =this.fb.group({
@@ -818,8 +818,8 @@ calculateResultForm1()
     
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount, 
@@ -834,8 +834,8 @@ calculateResultForm1()
   
     const netammount=+this.standardlocationresidentesphysiqueform.get('netammount').value
       const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardlocationresidentesphysiqueform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -849,8 +849,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardlocationresidentesmoraleform.get('brutammount').value
     const quotion=+this.standardlocationresidentesmoraleform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardlocationresidentesmoraleform.patchValue({
       retenueammount: retenueammount, 
@@ -865,8 +865,8 @@ calculateResultForm1()
   
     const netammount=+this.standardlocationresidentesmoraleform.get('netammount').value
       const quotion=+this.standardlocationresidentesmoraleform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardlocationresidentesmoraleform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -880,8 +880,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardlocationnonresidentesphysiquesform.get('brutammount').value
     const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-    const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardlocationnonresidentesphysiquesform.patchValue({
       retenueammount: retenueammount, 
@@ -896,8 +896,8 @@ calculateResultForm1()
   
     const netammount=+this.standardlocationnonresidentesphysiquesform.get('netammount').value
       const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardlocationnonresidentesphysiquesform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -911,8 +911,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardlocationnonresidentesmoralesform.get('brutammount').value
     const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardlocationnonresidentesmoralesform.patchValue({
       retenueammount: retenueammount, 
@@ -927,8 +927,8 @@ calculateResultForm1()
   
     const netammount=+this.standardlocationnonresidentesmoralesform.get('netammount').value
       const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardlocationnonresidentesmoralesform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -942,8 +942,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardhonorairephysiquereelform.get('brutammount').value
     const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardhonorairephysiquereelform.patchValue({
       retenueammount: retenueammount, 
@@ -958,8 +958,8 @@ calculateResultForm1()
   
     const netammount=+this.standardhonorairephysiquereelform.get('netammount').value
       const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardhonorairephysiquereelform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -973,8 +973,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardhonorairephysiquenonreelform.get('brutammount').value
     const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-    const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardhonorairephysiquenonreelform.patchValue({
       retenueammount: retenueammount, 
@@ -989,8 +989,8 @@ calculateResultForm1()
   
     const netammount=+this.standardhonorairephysiquenonreelform.get('netammount').value
       const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardhonorairephysiquenonreelform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1004,8 +1004,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardhonorairegroupementsform.get('brutammount').value
     const quotion=+this.standardhonorairegroupementsform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-    const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardhonorairegroupementsform.patchValue({
       retenueammount: retenueammount, 
@@ -1020,8 +1020,8 @@ calculateResultForm1()
   
     const netammount=+this.standardhonorairegroupementsform.get('netammount').value
       const quotion=+this.standardhonorairegroupementsform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardhonorairegroupementsform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1035,8 +1035,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardmontant15form.get('brutammount').value
     const quotion=+this.standardmontant15form.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardmontant15form.patchValue({
       retenueammount: retenueammount, 
@@ -1051,8 +1051,8 @@ calculateResultForm1()
   
     const netammount=+this.standardmontant15form.get('netammount').value
       const quotion=+this.standardmontant15form.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardmontant15form.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1066,8 +1066,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardmontant10form.get('brutammount').value
     const quotion=+this.standardmontant10form.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardmontant10form.patchValue({
       retenueammount: retenueammount, 
@@ -1082,8 +1082,8 @@ calculateResultForm1()
   
     const netammount=+this.standardmontant10form.get('netammount').value
       const quotion=+this.standardmontant10form.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardmontant10form.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1097,8 +1097,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardmontantindividuelform.get('brutammount').value
     const quotion=+this.standardmontantindividuelform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardmontantindividuelform.patchValue({
       retenueammount: retenueammount, 
@@ -1113,8 +1113,8 @@ calculateResultForm1()
   
     const netammount=+this.standardmontantindividuelform.get('netammount').value
       const quotion=+this.standardmontantindividuelform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardmontantindividuelform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1128,8 +1128,8 @@ calculateResultForm1()
   
     const brutammount=+this.standardmontantautreform.get('brutammount').value
     const quotion=+this.standardmontantautreform.get('quotion').value
-    const retenueammount=+ Math.floor((brutammount*quotion)*1000)/1000;
-  const netammount=+ Math.floor((brutammount-retenueammount)*1000)/1000;
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardmontantautreform.patchValue({
       retenueammount: retenueammount, 
@@ -1144,8 +1144,8 @@ calculateResultForm1()
   
     const netammount=+this.standardmontantautreform.get('netammount').value
       const quotion=+this.standardmontantautreform.get('quotion').value
-      const retenueammount=+ Math.floor(((+netammount*+quotion)/(1-+quotion))*1000)/1000;
-      const brutammount=+ Math.floor((+netammount+ +retenueammount)*1000)/1000
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardmontantautreform.patchValue({
         retenueammount: retenueammount, 
           brutammount: brutammount},{emitEvent: false} 
@@ -1163,8 +1163,8 @@ calculateResultForm1()
     const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
     const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
     const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
-    const basetfp=+ Math.floor((+brutsalary-+salairesnonsoumistfp)*1000)/1000;
-    const basefoprolos=+ Math.floor((+brutsalary-+salairesnonsoumisfoprolos)*1000)/1000;
+    const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
+    const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
     if (retenuesalary>brutsalary||imposalary>brutsalary||solidaritycontribution>brutsalary)
     {this.standardtraitementsalaireform.patchValue({
       retenuesalary: '', 
@@ -1186,12 +1186,13 @@ calculateResultForm1()
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
     
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
-      const tclapayer=+ Math.floor((+ammountttc*+taux2)*1000)/1000;
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
-          ammountttc: ammountttc},{emitEvent: false} 
+          ammountttc: ammountttc
+        },{emitEvent: false} 
         );
       this.standardtvacollecteform.updateValueAndValidity();
       this.standardtclform.patchValue({
@@ -1205,8 +1206,8 @@ calculateResultForm1()
   
     const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('ammountht').value
     const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.standardlocationusagehabitationmeubleform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1220,8 +1221,8 @@ calculateResultForm1()
   
     const chiffreaffaireht=+this.standardlocationusagecommercialform.get('ammountht').value
     const taux=+this.standardlocationusagecommercialform.get('taux').value
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.standardlocationusagecommercialform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1236,8 +1237,8 @@ calculateResultForm1()
   
     const chiffreaffaireht=+this.standardoperationlotissementform.get('ammountht').value
     const taux=+this.standardoperationlotissementform.get('taux').value
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.standardoperationlotissementform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1251,8 +1252,8 @@ calculateResultForm1()
   
     const chiffreaffaireht=+this.standardinteretpercueform.get('ammountht').value
     const taux=+this.standardinteretpercueform.get('taux').value
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.standardinteretpercueform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1275,8 +1276,8 @@ calculateResultForm1()
      ammountttc:''},{emitEvent: false} 
       )) 
     const taux=+tauxpercent/100
-    const tvaammount=+ Math.floor((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.floor((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.standardautretvaspecialform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc,taux: taux},{emitEvent: false} 
@@ -1290,7 +1291,7 @@ calculateResultForm1()
   
     const nombrenotehonoraire=+this.standarddroittimbreform.get('nombrenotehonoraire').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    const totaldroittimbre=+ Math.floor((+nombrenotehonoraire*+taux)*1000)/1000;
+    const totaldroittimbre=+ ((+nombrenotehonoraire* +taux).toFixed(3));
       this.standarddroittimbreform.patchValue({
         totaldroittimbre: totaldroittimbre,},{emitEvent: false} 
         );
@@ -1306,7 +1307,7 @@ calculateResultForm1()
     const taux=+this.standardtclform.get('taux').value
     if (chiffreaffairettc)
     {
-    const tclapayer=+ Math.floor((+chiffreaffairettc*+taux)*1000)/1000;
+    const tclapayer=+ ((+chiffreaffairettc*+taux).toFixed(3));
   
       this.standardtclform.patchValue({
         tclapayer: tclapayer,
@@ -1315,7 +1316,7 @@ calculateResultForm1()
       }
     if (chiffreaffairettcbis)
       {
-        const tclapayer=+ Math.floor((+chiffreaffairettcbis*+taux)*1000)/1000;
+        const tclapayer=+ ((+chiffreaffairettcbis*+taux).toFixed(3));
   
       this.standardtclform.patchValue({
         tclapayer: tclapayer,
@@ -1333,10 +1334,10 @@ calculateResultForm1()
     const taux=+this.standardtfpform.get('taux').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-    const basetfp=+ Math.floor((+salairesbrutsrs-+salairesnonsoumistfp)*1000)/1000;
-    const montanttfpmois=+ Math.floor(+basetfp* +taux);
-    const tfpapayer=+ Math.floor((+montanttfpmois-+reporttfpmoisprecedent)*1000)/1000;
-    const tfpareporter=+ Math.floor((+reporttfpmoisprecedent-+montanttfpmois)*1000)/1000;
+    const basetfp=+ ((+salairesbrutsrs-+salairesnonsoumistfp).toFixed(3));
+    const montanttfpmois=+ (+basetfp* +taux);
+    const tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
+    const tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
       this.standardtfpform.patchValue({
         basetfp: basetfp,
         tfpammountmoisactuel: montanttfpmois,
@@ -1355,8 +1356,8 @@ calculateResultForm1()
     const taux=+this.standardfoprolosform.get('taux').value
     const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
     
-    const basefoprolos=+ Math.floor((+salairesbrutsrs-+salairesnonsoumisfoprolos)*1000)/1000;
-    const montantfoprolos=+ Math.floor(+basefoprolos* +taux);
+    const basefoprolos=+ ((+salairesbrutsrs-+salairesnonsoumisfoprolos).toFixed(3));
+    const montantfoprolos=+ (+basefoprolos* +taux);
     
       this.standardfoprolosform.patchValue({
         basefoprolos: basefoprolos,
@@ -1370,6 +1371,7 @@ calculateResultForm1()
   }
   restartform()
   {
+    this.loading = true;
     this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -1685,8 +1687,8 @@ if(this.option49Value)
 if(this.option50Value)
 {
   decfiscmens.impottype4.type='FOPROLOS'
-  decfiscmens.impottype4.basefoprolos=this.standardtfpform.get('basefoprolos').value
-  decfiscmens.impottype4.montantfoprolos=this.standardtfpform.get('foprolosammount').value
+  decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
+  decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
 }
 
 if(this.option52Value)
@@ -1713,12 +1715,11 @@ this.DecfiscmensService.create(decfiscmens).then(
       showConfirmButton: false,
       timer: 6000 
     });
-    this.router.navigate(['user-board'])
+    this.router.navigate(['modify-decfiscmens/'+data.data._id])
   },
   (error) => {
     this.loading = false;
-    this.alertService.error('');
-    window.scrollTo(0, 0);
+    
   }
 )
     
@@ -1728,6 +1729,29 @@ this.DecfiscmensService.create(decfiscmens).then(
       
   }
   ngOnDestroy(){
+    Swal.fire({
+      title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt retenue à la source, voulez vous continuer?',
+      
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Réinitialiser',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        
+        this.resetretenuealasourceall();
+        this.showretenuetab=false;
+        this.option48Value=false
+      }
+      else{
+        
+      }
+
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
     this.sub1.unsubscribe()
     this.sub2.unsubscribe()
     this.sub3.unsubscribe()
@@ -2247,7 +2271,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     myFunction14() {
       var checkbox:any = document.getElementById("choice");
       var text2 = document.getElementById("block2");
-     console.log(this.option4Value)
+     
       if (checkbox.checked == true){
         text2.style.display = "none";
         
@@ -2264,7 +2288,7 @@ this.DecfiscmensService.create(decfiscmens).then(
           cancelButtonText: 'Annuler',
         }).then((result) => {
           if (result.value) {
-            console.log(this.option4Value)
+            
 
             this.resetretenuealasourceall()
             text2.style.display = "block";
