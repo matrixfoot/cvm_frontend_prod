@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit{
   constructor(
     private router: Router,
               private Auth: TokenStorageService,
-              
+             
               ) { }
 
   ngOnInit() {
@@ -48,15 +48,36 @@ this.lastname= user.Lastname;
   
 
   logout(): void {
-   
-        this.Auth.signOut();
+    Swal.fire({
+      title: 'Vous êtes sur le point de se déconnecter, voulez vous continuer?',
+      
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Se Déconnecter',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+     
+    this.Auth.signOut();
+    this.router.navigate(['login']);  
     this.reloadPage();
+      }
+      else{
+        
+      }
+
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
         
     
     
   }
   reloadPage (){
-    setTimeout(() => window.location.reload(), 3000);
+    setTimeout(() => window.location.reload(), 1000);
     
     
   }

@@ -48,12 +48,12 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   retenues: Array<string> = ['location, commission, courtage et vacation', 'traitement et salaires', 'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
-  showretenuetab=false;
-  showtfptab=false;
-  showfoprolostab=false;
-  showtvatab=false;
-  showtimbretab=false;
-  showtcltab=false;
+  showretenuetab=true;
+  showtfptab=true;
+  showfoprolostab=true;
+  showtvatab=true;
+  showtimbretab=true;
+  showtcltab=true;
   autreform: FormGroup;
   totalretenueammount:number;
   public ammounts: FormArray;

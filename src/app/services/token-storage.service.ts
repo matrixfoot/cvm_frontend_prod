@@ -3,15 +3,17 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 const TOKEN_KEY = 'x-access-token';
 const USER_KEY = 'user';
+
 @Injectable({
   providedIn: 'root'
 })
 export class TokenStorageService {
+  saved=false
   constructor(private router: Router,) { }
   signOut(): void {
-    
+    console.log(this.saved)
     window.localStorage.clear();
-    this.router.navigate(['home']);
+    this.saved=true
     
   }
   public saveToken(token: string): void {

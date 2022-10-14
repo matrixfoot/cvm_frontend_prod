@@ -50,9 +50,7 @@
           <li><a href class="nav-link" *ngIf="role=='admin'" routerLink="collab-create" routerLinkActive="active" > <span class="glyphicon glyphicon-user"></span>Ajouter collaborateur</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="signup" routerLinkActive="active" > <span class="glyphicon glyphicon-user"></span>Inscription</a></li>
           <li><a href class="nav-link" *ngIf="!isLoggedIn" routerLink="login" routerLinkActive="active" > <span class="glyphicon glyphicon-log-in"></span>Connexion</a></li>
-          <li class="nav-item">
-            <a href class="nav-link" *ngIf="isLoggedIn" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span>Déconnexion</a>
-          </li>
+          <li><a id="logoutbutton" *ngIf="isLoggedIn" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span>Déconnexion</a></li>
         </ul>
       </div>
     </nav>

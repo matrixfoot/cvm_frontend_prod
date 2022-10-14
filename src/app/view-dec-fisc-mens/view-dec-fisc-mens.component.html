@@ -24,7 +24,7 @@
       <h4>Activité:<b>  {{ decfiscmens.activite }}</b></h4>
       <h4>Date d'arrêt d'activité:<b>  {{ decfiscmens.datearretactivite }}</b></h4>
       <hr>
-      <h4>Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
+      <h4 *ngIf="decfiscmens.impottype1.type">Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
       <hr>
       <div *ngIf="decfiscmens.impottype1.traitementetsalaire.salairebrut">
       <h3>Type rubrique: traitement et salaire</h3>
@@ -145,7 +145,7 @@
     </div>
     <hr>
     <h4 *ngIf="decfiscmens.impottype2.type">Type impôt:<b>  {{ decfiscmens.impottype2.type }}</b></h4>
-    <h4>Report TVA du mois précédent:<b>  {{ decfiscmens.impottype2.reporttvamoisprecedent }}</b></h4>
+    <h4 *ngIf="decfiscmens.impottype2.reporttvamoisprecedent">Report TVA du mois précédent:<b>  {{ decfiscmens.impottype2.reporttvamoisprecedent }}</b></h4>
       <hr>
       <div *ngIf="decfiscmens.impottype2.tvacollecter.type">
       <h3>Type rubrique: TVA à collecter</h3>
