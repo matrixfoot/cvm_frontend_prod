@@ -181,6 +181,7 @@ autre:{
                         htammount:string;
                         tvaammount:string;
                         ttcammount:string;
+                        taux:string
                         }       
     }
     impottype3: {
@@ -190,6 +191,7 @@ autre:{
         montanttfpmois:string;
         reporttfpmoisprecedent:string;
         montantavance:string;
+        salairesnonsoumistfp:string;
         tfppayer:string;
         tfpreporter:string;
         
@@ -199,6 +201,7 @@ autre:{
             type:string;
             basefoprolos:string;
             montantfoprolos:string;
+            salairesnonsoumisfoprolos:string
             }
     impottype5: {
 
