@@ -1491,7 +1491,12 @@ reloadPage(): void {
 onSubmitmodification() {
   this.loading = true;
     const decfiscmens:Decfiscmens = new Decfiscmens();
-   
+    decfiscmens.impottype1.type=''
+    decfiscmens.impottype2.type=''
+    decfiscmens.impottype3.type=''
+    decfiscmens.impottype4.type=''
+    decfiscmens.impottype5.type=''
+    decfiscmens.impottype6.type=''
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
