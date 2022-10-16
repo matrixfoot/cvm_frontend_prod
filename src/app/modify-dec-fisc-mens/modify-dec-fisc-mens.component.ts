@@ -65,6 +65,12 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   standardfoprolosform: FormGroup;
   standarddroittimbreform: FormGroup;
   standardtclform: FormGroup;
+  standardretenue: FormGroup;
+  standardtva: FormGroup;
+  standardtfp1form:FormGroup;
+  standardfoprolos1form: FormGroup;
+  standarddroittimbre1form: FormGroup;
+  standardtcl1form: FormGroup;
   optionValue:any;
   option2Value:any;
   option3Value:any;
@@ -366,20 +372,20 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
             this.showretenuetab=true
             this.showretenueverif=true
           }
-          if (this.decfiscmens.impottype2.type)
+          if (this.decfiscmens.impottype3.type)
           {
             this.option49Value=true
             
             this.showtfptab=true
             this.showtfpverif=true
           }
-          if (this.decfiscmens.impottype3.type)
+          if (this.decfiscmens.impottype4.type)
           {
             this.option50Value=true
             this.showfoprolostab=true
             this.showfoprolosverif=true
           }
-          if (this.decfiscmens.impottype4.type)
+          if (this.decfiscmens.impottype2.type)
           {
             this.option51Value=true
             this.showtvatab=true
@@ -397,6 +403,24 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
             this.showtcltab=true
             this.showtclverif=true
           }
+          this.standardretenue =this.formBuilder.group({
+            type: [this.decfiscmens.impottype1.type],
+          });
+          this.standardtva =this.formBuilder.group({
+            type: [this.decfiscmens.impottype2.type],
+          });
+          this.standardtfp1form =this.formBuilder.group({
+            type: [this.decfiscmens.impottype3.type],
+          });
+          this.standardfoprolos1form =this.formBuilder.group({
+            type: [this.decfiscmens.impottype4.type],
+          });
+          this.standarddroittimbre1form =this.formBuilder.group({
+            type: [this.decfiscmens.impottype5.type],
+          });
+          this.standardtcl1form =this.formBuilder.group({
+            type: [this.decfiscmens.impottype6.type],
+          });
           this.standardtraitementsalaireform =this.formBuilder.group({
             brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
             imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
@@ -1491,12 +1515,6 @@ reloadPage(): void {
 onSubmitmodification() {
   this.loading = true;
     const decfiscmens:Decfiscmens = new Decfiscmens();
-    decfiscmens.impottype1.type=''
-    decfiscmens.impottype2.type=''
-    decfiscmens.impottype3.type=''
-    decfiscmens.impottype4.type=''
-    decfiscmens.impottype5.type=''
-    decfiscmens.impottype6.type=''
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
