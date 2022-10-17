@@ -318,7 +318,13 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   showtimbreverif=false;
   showtclverif=false;
   autreform: FormGroup;
-  totalretenueammount:number;
+  totalretenueammount=0;
+  totaltfpammount=0;
+  totalfoprolosammount=0;
+  totaltvaammount=0;
+  totaltimbreammount=0;
+  totaltclammount=0;
+  totaldeclaration=0;
   public ammounts: FormArray;
   
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
@@ -828,6 +834,7 @@ canDeactivate():boolean {
     + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
     this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
     this.standardmontantautreform.get('retenueammount').value
+this.totaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
   }
   closePopup() {
     this.displayStyle = "none";
@@ -1196,12 +1203,24 @@ calculateResultForm1()
     const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
 
     
-    if (retenuesalary+imposalary+solidaritycontribution>=brutsalary)
+    if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
+    {
+      Swal.fire({
+      title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => 
     {this.standardtraitementsalaireform.patchValue({
+
+      brutsalary: '',
       retenuesalary: '', 
         imposalary: '',
       solidaritycontribution:''},{emitEvent: false} 
-      );}  
+      );
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    })
+      }  
       this.standardtfpform.patchValue({basetfp:basetfp,tfpammountmoisactuel:tfpammountmoisactuel},{emitEvent: false})
       this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
       this.standardtfpform.updateValueAndValidity();
@@ -1436,10 +1455,13 @@ calculateResultForm1()
     this.standardmontantautreform.controls['brutammount'].reset()
     this.standardmontantautreform.controls['netammount'].reset()
     this.standardmontantautreform.controls['retenueammount'].reset()
-    this.standardtraitementsalaireform.controls['brutsalary'].reset()
-    this.standardtraitementsalaireform.controls['imposalary'].reset()
-    this.standardtraitementsalaireform.controls['retenuesalary'].reset()
-    this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+    this.standardtraitementsalaireform.patchValue({
+
+      brutsalary: '',
+      retenuesalary: '', 
+        imposalary: '',
+      solidaritycontribution:''},{emitEvent: false} 
+      );
     this.resetfoprolosall()
     this.resettclall()
     this.resettfpall()
