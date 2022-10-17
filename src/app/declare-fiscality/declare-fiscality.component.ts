@@ -816,6 +816,7 @@ canDeactivate():boolean {
 } 
   
   setThreeNumberDecimal($event) {
+    $event.target.value = $event.target.value ? $event.target.value : 0;
     $event.target.value = parseFloat($event.target.value).toFixed(3);
   }
   openPopup() {
@@ -840,8 +841,8 @@ calculateResultForm1()
     
     const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-    const retenueammount=+ ((brutammount*quotion).toFixed(3));
-  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+    const retenueammount=+((brutammount*quotion).toFixed(3));
+  const netammount=+((brutammount-retenueammount).toFixed(3));
   
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount, 
@@ -849,6 +850,8 @@ calculateResultForm1()
       );
     this.standardlocationresidentesphysiqueform.updateValueAndValidity();
     
+
+
     
   }
   calculateResultForm2()

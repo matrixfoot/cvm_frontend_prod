@@ -141,7 +141,7 @@ FullCalendarModule.registerPlugins([
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
-  },ExcelService,CanDeactivateGuard],
+  },ExcelService,CanDeactivateGuard,RemoveCommaPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
