@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { Component, OnInit, OnDestroy, HostListener, Injectable } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -11,14 +12,14 @@ import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
-
+import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
 @Component({
   selector: 'app-modify-dec-fisc-mens',
   templateUrl: './modify-dec-fisc-mens.component.html',
   styleUrls: ['./modify-dec-fisc-mens.component.scss']
 })
 // @ts-ignore
-export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
+export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implements OnInit,OnDestroy {
 
  
 
@@ -31,7 +32,7 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   regimefiscalimpot:string;
   regimefiscaltva:string;
   matriculefiscale:string;
-  currentUser: any;
+  
   currentuser: any;
 
   user:User;
@@ -331,7 +332,13 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
   showtimbreverif=false;
   showtclverif=false;
   autreform: FormGroup;
-  totalretenueammount:number;
+  totalretenueammount=0;
+  totaltfpammount=0;
+  totalfoprolosammount=0;
+  totaltvaammount=0;
+  totaltimbreammount=0;
+  totaltclammount=0;
+  totaldeclaration=0;
   public ammounts: FormArray;
   constructor(private formBuilder: FormBuilder,
    
@@ -342,6 +349,7 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
     private alertService: AlertService) {
+      super();
       this.autreform = this.formBuilder.group({
         ammounts: this.formBuilder.array([ this.createammount() ])
      });
@@ -365,6 +373,8 @@ export class ModifyDecFiscMensComponent implements OnInit,OnDestroy {
             motif: [this.decfiscmens.motif, Validators.required],
           
           });
+          this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
+          
           if (this.decfiscmens.impottype1.type)
           {
             this.option48Value=true
@@ -850,9 +860,11 @@ this.sub36=merge(
     }
   );
   
-
+    this.tokenStorage.saved=false
 }
+
 setThreeNumberDecimal($event) {
+  $event.target.value = $event.target.value ? $event.target.value : 0;
   $event.target.value = parseFloat($event.target.value).toFixed(3);
 }
 
@@ -1215,12 +1227,24 @@ calculateResultForm23()
   const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
 
   
-  if (retenuesalary+imposalary+solidaritycontribution>=brutsalary)
-  {this.standardtraitementsalaireform.patchValue({
-    retenuesalary: '', 
-      imposalary: '',
-    solidaritycontribution:''},{emitEvent: false} 
-    );}  
+  if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
+    {
+      Swal.fire({
+      title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => 
+    {this.standardtraitementsalaireform.patchValue({
+
+      brutsalary: '',
+      retenuesalary: '', 
+        imposalary: '',
+      solidaritycontribution:''},{emitEvent: false} 
+      );
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    })
+      }   
     this.standardtfpform.patchValue({basetfp:basetfp,tfpammountmoisactuel:tfpammountmoisactuel},{emitEvent: false})
     this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
     this.standardtfpform.updateValueAndValidity();
@@ -1385,7 +1409,7 @@ calculateResultForm35()
   const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
   const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
   const basetfp=+ ((+salairesbrutsrs-+salairesnonsoumistfp).toFixed(3));
-  const montanttfpmois=+ (+basetfp* +taux);
+  const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
   const tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
   const tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
     this.standardtfpform.patchValue({
@@ -1407,7 +1431,7 @@ calculateResultForm36()
   const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
   
   const basefoprolos=+ ((+salairesbrutsrs-+salairesnonsoumisfoprolos).toFixed(3));
-  const montantfoprolos=+ (+basefoprolos* +taux);
+  const montantfoprolos=+ (+basefoprolos* +taux).toFixed(3);
   
     this.standardfoprolosform.patchValue({
       basefoprolos: basefoprolos,
@@ -1455,10 +1479,13 @@ restartform()
   this.standardmontantautreform.controls['brutammount'].reset()
   this.standardmontantautreform.controls['netammount'].reset()
   this.standardmontantautreform.controls['retenueammount'].reset()
-  this.standardtraitementsalaireform.controls['brutsalary'].reset()
-  this.standardtraitementsalaireform.controls['imposalary'].reset()
-  this.standardtraitementsalaireform.controls['retenuesalary'].reset()
-  this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+  this.standardtraitementsalaireform.patchValue({
+
+    brutsalary: '',
+    retenuesalary: '', 
+      imposalary: '',
+    solidaritycontribution:''},{emitEvent: false} 
+    );
   this.resetfoprolosall()
   this.resettclall()
   this.resettfpall()
@@ -1470,17 +1497,118 @@ restartform()
 onSubmit() {
   this.loading = true;
   const decfiscmens = new Decfiscmens();
-  decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
-  location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-  location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
-   honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-   honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
-   montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.impottype1={ type: this.decfiscmens.impottype1.type, traitementetsalaire: { salairebrut:this.decfiscmens.impottype1.traitementetsalaire.salairebrut, 
+    salaireimposable: this.decfiscmens.impottype1.traitementetsalaire.salaireimposable, retenuealasource:this.decfiscmens.impottype1.traitementetsalaire.retenuealasource,
+    contributionsociale:this.decfiscmens.impottype1.traitementetsalaire.contributionsociale, }, 
+  location1: { type: this.decfiscmens.impottype1.location1.type,montantbrut:this.decfiscmens.impottype1.location1.montantbrut, taux:this.decfiscmens.impottype1.location1.taux,
+     montantnet:this.decfiscmens.impottype1.location1.montantnet, montantretenue:this.decfiscmens.impottype1.location1.montantretenue, },
+     location2: { type: this.decfiscmens.impottype1.location2.type,montantbrut:this.decfiscmens.impottype1.location2.montantbrut, taux:this.decfiscmens.impottype1.location2.taux,
+      montantnet:this.decfiscmens.impottype1.location2.montantnet, montantretenue:this.decfiscmens.impottype1.location2.montantretenue, },
+      location3: { type: this.decfiscmens.impottype1.location3.type,montantbrut:this.decfiscmens.impottype1.location3.montantbrut, taux:this.decfiscmens.impottype1.location3.taux,
+        montantnet:this.decfiscmens.impottype1.location3.montantnet, montantretenue:this.decfiscmens.impottype1.location3.montantretenue, },
+        location4: { type: this.decfiscmens.impottype1.location4.type,montantbrut:this.decfiscmens.impottype1.location4.montantbrut, taux:this.decfiscmens.impottype1.location4.taux,
+          montantnet:this.decfiscmens.impottype1.location4.montantnet, montantretenue:this.decfiscmens.impottype1.location4.montantretenue, },
+   honoraire1: {  type:this.decfiscmens.impottype1.honoraire1.type,montantbrut:this.decfiscmens.impottype1.honoraire1.montantbrut, taux:this.decfiscmens.impottype1.honoraire1.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire1.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire1.montantretenue,},
+
+   honoraire2: {  type:this.decfiscmens.impottype1.honoraire2.type,montantbrut:this.decfiscmens.impottype1.honoraire2.montantbrut, taux:this.decfiscmens.impottype1.honoraire2.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire2.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire2.montantretenue,},
+
+   honoraire3: {  type:this.decfiscmens.impottype1.honoraire3.type,montantbrut:this.decfiscmens.impottype1.honoraire3.montantbrut, taux:this.decfiscmens.impottype1.honoraire3.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire3.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire3.montantretenue,},
+     montant10001: {  type:this.decfiscmens.impottype1.montant10001.type,montantbrut:this.decfiscmens.impottype1.montant10001.montantbrut, taux:this.decfiscmens.impottype1.montant10001.taux,
+    montantnet:this.decfiscmens.impottype1.montant10001.montantnet, montantretenue:this.decfiscmens.impottype1.montant10001.montantretenue,},
+   montant10002: {  type:this.decfiscmens.impottype1.montant10002.type,montantbrut:this.decfiscmens.impottype1.montant10002.montantbrut,taux:this.decfiscmens.impottype1.montant10002.taux,
+     montantnet:this.decfiscmens.impottype1.montant10002.montantnet, montantretenue:this.decfiscmens.impottype1.montant10002.montantretenue,},
+     montant10003: {  type:this.decfiscmens.impottype1.montant10003.type,montantbrut:this.decfiscmens.impottype1.montant10003.montantbrut, taux:this.decfiscmens.impottype1.montant10003.taux,
+       montantnet:this.decfiscmens.impottype1.montant10003.montantnet, montantretenue:this.decfiscmens.impottype1.montant10003.montantretenue,}, 
+  montant10004: {  type:this.decfiscmens.impottype1.montant10004.type,montantbrut:this.decfiscmens.impottype1.montant10004.montantbrut, taux:this.decfiscmens.impottype1.montant10004.taux,
+    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.impottype2={ type:this.decfiscmens.impottype2.type,reporttvamoisprecedent:this.decfiscmens.impottype2.reporttvamoisprecedent,tvacollecter:{
+    type:this.decfiscmens.impottype2.tvacollecter.type,
+    chiffreaffaireht:this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht,
+    tvaammount:this.decfiscmens.impottype2.tvacollecter.tvaammount,
+    ammountttc:this.decfiscmens.impottype2.tvacollecter.ammountttc,
+    
+    },tvarecuperableimmobilier:{
+        type:this.decfiscmens.impottype2.tvarecuperableimmobilier.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva,
+    
+    
+    },
+    tvarecuperableequipement:{
+        type:this.decfiscmens.impottype2.tvarecuperableequipement.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva,
+    achatimporteht:this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht,
+    achatimportetva:this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva,
+    
+    
+    },
+    tvarecuperableautreachat:{
+        type:this.decfiscmens.impottype2.tvarecuperableautreachat.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva,
+    achatimporteht:this.decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht,
+    achatimportetva:this.decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva,
+    
+    
+    },
+    locationhabitationmeuble:{
+        type:this.decfiscmens.impottype2.locationhabitationmeuble.type,
+        htammount:this.decfiscmens.impottype2.locationhabitationmeuble.htammount,
+        tvaammount:this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount,
+        ttcammount:this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount,
+        },
+    locationusagecommercial:{
+      type:this.decfiscmens.impottype2.locationusagecommercial.type,
+      htammount:this.decfiscmens.impottype2.locationusagecommercial.htammount,
+      tvaammount:this.decfiscmens.impottype2.locationusagecommercial.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.locationusagecommercial.ttcammount,
+            },
+    operationlotissement:{
+      type:this.decfiscmens.impottype2.operationlotissement.type,
+      htammount:this.decfiscmens.impottype2.operationlotissement.htammount,
+      tvaammount:this.decfiscmens.impottype2.operationlotissement.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.operationlotissement.ttcammount,
+                },
+    interetpercue:{
+      type:this.decfiscmens.impottype2.interetpercue.type,
+      htammount:this.decfiscmens.impottype2.interetpercue.htammount,
+      tvaammount:this.decfiscmens.impottype2.interetpercue.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.interetpercue.ttcammount,
+                    },
+    autretvaspecial:{
+      type:this.decfiscmens.impottype2.autretvaspecial.type,
+      htammount:this.decfiscmens.impottype2.autretvaspecial.htammount,
+      tvaammount:this.decfiscmens.impottype2.autretvaspecial.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.autretvaspecial.ttcammount,
+                        taux:this.decfiscmens.impottype2.autretvaspecial.taux,
+                        }    }
+                        decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
+                          basetfp:this.decfiscmens.impottype3.basetfp,
+                          montanttfpmois:this.decfiscmens.impottype3.montantavance,
+                          reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
+                          montantavance:this.decfiscmens.impottype3.montantavance,
+                          tfppayer:this.decfiscmens.impottype3.tfppayer,
+                          tfpreporter:this.decfiscmens.impottype3.tfpreporter,
+                          salairesnonsoumistfp:this.decfiscmens.impottype3.salairesnonsoumistfp}
+                          decfiscmens.impottype4={ type:this.decfiscmens.impottype4.type,
+                          basefoprolos:this.decfiscmens.impottype4.basefoprolos,
+                          montantfoprolos:this.decfiscmens.impottype4.montantfoprolos,
+                          salairesnonsoumisfoprolos:this.decfiscmens.impottype4.salairesnonsoumisfoprolos}
+                          decfiscmens.impottype5={ type:this.decfiscmens.impottype5.type,
+                          nombrenotehonoraire:this.decfiscmens.impottype5.nombrenotehonoraire,
+              totaldroittimbre:this.decfiscmens.impottype5.totaldroittimbre,}
+              decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
+              chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
+              tclpayer:this.decfiscmens.impottype6.tclpayer,}
   decfiscmens.statut =this.decfiscmensForm.get('statut').value;
   decfiscmens.motif =this.decfiscmensForm.get('motif').value;
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
+      this.tokenStorage.saved=true;
       this.decfiscmensForm.reset();
       this.loading = false;
       Swal.fire({
@@ -1503,8 +1631,424 @@ onSubmit() {
   );
 }
 onSend() {
+  this.loading = true;
+  const decfiscmens:Decfiscmens = new Decfiscmens();
+  decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+  location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+  location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+   honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+   montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
+    type:'',
+    chiffreaffaireht:'',
+    tvaammount:'',
+    ammountttc:'',
+    
+    },tvarecuperableimmobilier:{
+        type:'',
+    achatlocauxht:'',
+    achatlocauxtva:'',
+    
+    
+    },
+    tvarecuperableequipement:{
+        type:'',
+    achatlocauxht:'',
+    achatlocauxtva:'',
+    achatimporteht:'',
+    achatimportetva:'',
+    
+    
+    },
+    tvarecuperableautreachat:{
+        type:'',
+    achatlocauxht:'',
+    achatlocauxtva:'',
+    achatimporteht:'',
+    achatimportetva:'',
+    
+    
+    },
+    locationhabitationmeuble:{
+        type:'',
+        htammount:'',
+        tvaammount:'',
+        ttcammount:'',
+        },
+    locationusagecommercial:{
+        type:'',
+            htammount:'',
+            tvaammount:'',
+            ttcammount:'',
+            },
+    operationlotissement:{
+        type:'',
+                htammount:'',
+                tvaammount:'',
+                ttcammount:'',
+                },
+    interetpercue:{
+        type:'',
+                    htammount:'',
+                    tvaammount:'',
+                    ttcammount:'',
+                    },
+    autretvaspecial:{
+        type:'',
+                        htammount:'',
+                        tvaammount:'',
+                        ttcammount:'',
+                        taux:'',
+                        }    }
+                        decfiscmens.impottype3={ type:'',
+                          basetfp:'',
+                          montanttfpmois:'',
+                          reporttfpmoisprecedent:'',
+                          montantavance:'',
+                          tfppayer:'',
+                          tfpreporter:'',
+                          salairesnonsoumistfp:''}
+                          decfiscmens.impottype4={ type:'',
+                          basefoprolos:'',
+                          montantfoprolos:'',
+                          salairesnonsoumisfoprolos:''}
+                          decfiscmens.impottype5={ type:'',
+                          nombrenotehonoraire:'',
+              totaldroittimbre:'',}
+              decfiscmens.impottype6={ type:'',
+              chiffreaffairettc:'',
+              tclpayer:'',}
+  decfiscmens.userId = this.currentuser.userId;
+  decfiscmens.activite=this.user.activite;
+  decfiscmens.codepostal=this.user.codepostal;
+  decfiscmens.adresse=this.user.adresseactivite
+  decfiscmens.firstname=this.user.firstname
+  decfiscmens.lastname=this.user.lastname
+  decfiscmens.raisonsociale=this.user.raisonsociale
+  decfiscmens.codegenre=this.user.codegenre
+  decfiscmens.codetva=this.user.codetva
+  decfiscmens.matriculefiscale=this.user.matriculefiscale
+  decfiscmens.registrecommerce=this.user.registrecommerce
+  decfiscmens.datearretactivite=this.user.datearretactivite
+  decfiscmens.annee=this.option54Value
+  decfiscmens.mois=this.option171Value
   
-      this.router.navigate(['user-board']);
+  if (this.option48Value) 
+  {
+    if (this.option48Value&&!this.option65Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot retenue à la source',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if (this.standardtraitementsalaireform.get('brutsalary').value!==null)
+    {
+decfiscmens.impottype1.type='Retenue à la source'
+decfiscmens.impottype1.traitementetsalaire.salairebrut=this.standardtraitementsalaireform.get('brutsalary').value
+decfiscmens.impottype1.traitementetsalaire.salaireimposable=this.standardtraitementsalaireform.get('imposalary').value
+decfiscmens.impottype1.traitementetsalaire.retenuealasource=this.standardtraitementsalaireform.get('retenuesalary').value
+decfiscmens.impottype1.traitementetsalaire.contributionsociale=this.standardtraitementsalaireform.get('solidaritycontribution').value
+    }
+if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
+decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
+decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
+}
+if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
+decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
+decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
+}
+if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
+decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
+decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
+}
+if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
+decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
+decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+}
+if (this.standardhonorairephysiquereelform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.honoraire1.type='honoraire servis aux personnes physiques soumises au régime réel'
+decfiscmens.impottype1.honoraire1.montantbrut=this.standardhonorairephysiquereelform.get('brutammount').value
+decfiscmens.impottype1.honoraire1.montantnet=this.standardhonorairephysiquereelform.get('netammount').value
+decfiscmens.impottype1.honoraire1.montantretenue=this.standardhonorairephysiquereelform.get('retenueammount').value  
+}
+if (this.standardhonorairephysiquenonreelform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.honoraire2.type='honoraire servis aux personnes physiques non soumises au régime réel'
+decfiscmens.impottype1.honoraire2.montantbrut=this.standardhonorairephysiquenonreelform.get('brutammount').value
+decfiscmens.impottype1.honoraire2.montantnet=this.standardhonorairephysiquenonreelform.get('netammount').value
+decfiscmens.impottype1.honoraire2.montantretenue=this.standardhonorairephysiquenonreelform.get('retenueammount').value  
+}
+if (this.standardhonorairegroupementsform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.honoraire3.type='honoraire servis aux sociétés et aux groupements'
+decfiscmens.impottype1.honoraire3.montantbrut=this.standardhonorairegroupementsform.get('brutammount').value
+decfiscmens.impottype1.honoraire3.montantnet=this.standardhonorairegroupementsform.get('netammount').value
+decfiscmens.impottype1.honoraire3.montantretenue=this.standardhonorairegroupementsform.get('retenueammount').value  
+}
+if (this.standardmontant15form.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.montant10001.type='Montants supérieurs à 1000dt établissements soumis à l\'i/s au taux de 15%'
+decfiscmens.impottype1.montant10001.montantbrut=this.standardmontant15form.get('brutammount').value
+decfiscmens.impottype1.montant10001.montantnet=this.standardmontant15form.get('netammount').value
+decfiscmens.impottype1.montant10001.montantretenue=this.standardmontant15form.get('retenueammount').value  
+}
+if (this.standardmontant10form.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.montant10002.type='Montants supérieurs à 1000dt établissements soumis à l\i/s au taux de 10%'
+decfiscmens.impottype1.montant10002.montantbrut=this.standardmontant10form.get('brutammount').value
+decfiscmens.impottype1.montant10002.montantnet=this.standardmontant10form.get('netammount').value
+decfiscmens.impottype1.montant10002.montantretenue=this.standardmontant10form.get('retenueammount').value  
+}
+if (this.standardmontantindividuelform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.montant10003.type='Montants supérieurs à 1000dt établissements individuels et éligible à la réduction des 2/3 des revenus'
+decfiscmens.impottype1.montant10003.montantbrut=this.standardmontantindividuelform.get('brutammount').value
+decfiscmens.impottype1.montant10003.montantnet=this.standardmontantindividuelform.get('netammount').value
+decfiscmens.impottype1.montant10003.montantretenue=this.standardmontantindividuelform.get('retenueammount').value  
+}
+if (this.standardmontantautreform.get('netammount').value!==null)
+{
+decfiscmens.impottype1.type='Retenue à la source'
+
+decfiscmens.impottype1.montant10004.type='Montants supérieurs à 1000dt autre établissements'
+decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
+decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
+decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+}
+}
+if(this.option51Value)
+{
+if (this.option51Value&&!this.option68Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot TVA ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+
+if (this.standardtvacollecteform.get('chiffreaffaireht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.tvacollecter.type='TVA collecté'
+decfiscmens.impottype2.tvacollecter.chiffreaffaireht=this.standardtvacollecteform.get('chiffreaffaireht').value
+decfiscmens.impottype2.tvacollecter.tvaammount=this.standardtvacollecteform.get('tvaammount').value
+decfiscmens.impottype2.tvacollecter.ammountttc=this.standardtvacollecteform.get('ammountttc').value
+}
+if (this.standardtvarecuperableautreachatform.get('achatlocauxht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.tvarecuperableautreachat.type='TVA récupérable pour les autres achats'
+decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht=this.standardtvarecuperableautreachatform.get('achatlocauxht').value
+decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva=this.standardtvarecuperableautreachatform.get('achatlocauxtva').value
+decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht=this.standardtvarecuperableautreachatform.get('achatimporteht').value
+decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva=this.standardtvarecuperableautreachatform.get('achatimportetva').value
+}
+if (this.standardtvarecuperableequipementform.get('achatlocauxht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.tvarecuperableequipement.type='TVA récupérable pour les achats d\'équipements'
+decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht=this.standardtvarecuperableequipementform.get('achatlocauxht').value
+decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva=this.standardtvarecuperableequipementform.get('achatlocauxtva').value
+decfiscmens.impottype2.tvarecuperableequipement.achatimporteht=this.standardtvarecuperableequipementform.get('achatimporteht').value
+decfiscmens.impottype2.tvarecuperableequipement.achatimportetva=this.standardtvarecuperableequipementform.get('achatimportetva').value
+}
+if (this.standardtvarecuperableimmobilierform.get('achatlocauxht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.tvarecuperableimmobilier.type='TVA récupérable pour les achats immobiliers'
+decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht=this.standardtvarecuperableimmobilierform.get('achatlocauxht').value
+decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva=this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+}
+if (this.standardlocationusagehabitationmeubleform.get('ammountht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.locationhabitationmeuble.type='TVA sur location à usage d\'habitation meublé'
+decfiscmens.impottype2.locationhabitationmeuble.htammount=this.standardlocationusagehabitationmeubleform.get('ammountht').value
+decfiscmens.impottype2.locationhabitationmeuble.tvaammount=this.standardlocationusagehabitationmeubleform.get('tvaammount').value
+decfiscmens.impottype2.locationhabitationmeuble.ttcammount=this.standardlocationusagehabitationmeubleform.get('ammountttc').value
+}
+if (this.standardlocationusagecommercialform.get('ammountht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.locationusagecommercial.type='TVA sur location à usage commercial, industriel, professionnel et artisanal'
+decfiscmens.impottype2.locationusagecommercial.htammount=this.standardlocationusagecommercialform.get('ammountht').value
+decfiscmens.impottype2.locationusagecommercial.tvaammount=this.standardlocationusagecommercialform.get('tvaammount').value
+decfiscmens.impottype2.locationusagecommercial.ttcammount=this.standardlocationusagecommercialform.get('ammountttc').value
+}
+if (this.standardoperationlotissementform.get('ammountht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.operationlotissement.type='TVA sur opérations de lotissement'
+decfiscmens.impottype2.operationlotissement.htammount=this.standardoperationlotissementform.get('ammountht').value
+decfiscmens.impottype2.operationlotissement.tvaammount=this.standardoperationlotissementform.get('tvaammount').value
+decfiscmens.impottype2.operationlotissement.ttcammount=this.standardoperationlotissementform.get('ammountttc').value
+}
+if (this.standardinteretpercueform.get('ammountht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.interetpercue.type='TVA sur intêrets percus'
+decfiscmens.impottype2.interetpercue.htammount=this.standardinteretpercueform.get('ammountht').value
+decfiscmens.impottype2.interetpercue.tvaammount=this.standardinteretpercueform.get('tvaammount').value
+decfiscmens.impottype2.interetpercue.ttcammount=this.standardinteretpercueform.get('ammountttc').value
+}
+if (this.standardautretvaspecialform.get('ammountht').value!==null)
+{decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
+decfiscmens.impottype2.autretvaspecial.type='TVA sur autres revenus'
+decfiscmens.impottype2.autretvaspecial.htammount=this.standardautretvaspecialform.get('ammountht').value
+decfiscmens.impottype2.autretvaspecial.tvaammount=this.standardautretvaspecialform.get('tvaammount').value
+decfiscmens.impottype2.autretvaspecial.ttcammount=this.standardautretvaspecialform.get('ammountttc').value
+
+decfiscmens.impottype2.autretvaspecial.taux=this.standardautretvaspecialform.get('taux').value
+}
+}
+if(this.option49Value)
+
+{
+if (this.option49Value&&!this.option66Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot TFP ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if (this.standardtfpform.get('basetfp').value!==null)
+    {
+decfiscmens.impottype3.type='TFP'
+decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
+decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
+decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
+decfiscmens.impottype3.reporttfpmoisprecedent=this.standardtfpform.get('tfpammountreportmoisprecedent').value
+decfiscmens.impottype3.tfppayer=this.standardtfpform.get('tfpapayer').value
+decfiscmens.impottype3.tfpreporter=this.standardtfpform.get('tfpareporter').value
+decfiscmens.impottype3.salairesnonsoumistfp=this.standardtfpform.get('salairesnonsoumistfp').value
+}
+}
+if(this.option50Value)
+{
+if (this.option50Value&&!this.option67Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot FOPROLOS ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if (this.standardfoprolosform.get('basefoprolos').value!==null)
+    {
+decfiscmens.impottype4.type='FOPROLOS'
+decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
+decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
+decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+
+}
+}
+if(this.option52Value)
+{
+if (this.option52Value&&!this.option69Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot Droit De Timbre ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if(this.standarddroittimbreform.get('nombrenotehonoraire').value!==null)
+    {
+decfiscmens.impottype5.type='Droit de timbre'
+decfiscmens.impottype5.nombrenotehonoraire=this.standarddroittimbreform.get('nombrenotehonoraire').value
+decfiscmens.impottype5.totaldroittimbre=this.standarddroittimbreform.get('totaldroittimbre').value
+}
+}
+if(this.option53Value)
+{
+if (this.option53Value&&!this.option70Value)
+return (
+  Swal.fire({
+  title: 'veuillez confirmer l\'impot TCL ',
+  icon: 'error',
+  confirmButtonColor: '#3085d6',
+}).then((result) => {this.loading=false
+}).catch(() => {
+  Swal.fire('opération non aboutie!')
+}))
+if(this.standardtclform.get('chiffreaffairettc').value!==null)
+{
+decfiscmens.impottype6.type='TCL'
+decfiscmens.impottype6.chiffreaffairettc=this.standardtclform.get('chiffreaffairettc').value
+decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
+} 
+}
+this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+(data:any) => {
+this.tokenStorage.saved=true;
+this.loading = false;
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'déclaration modifiée avec succès! un email vous a été envoyer pour confirmer la modification de votre déclaration. vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+  showConfirmButton: false,
+  timer: 6000 
+});
+this.router.navigate(['user-board']);
+},
+(error) => {
+this.loading = false;
+this.alertService.error('');
+window.scrollTo(0, 0);
+}
+)
+
+     
    
 }
 reloadPage(): void {
@@ -1515,6 +2059,93 @@ reloadPage(): void {
 onSubmitmodification() {
   this.loading = true;
     const decfiscmens:Decfiscmens = new Decfiscmens();
+    decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+    location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+    location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+     honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+    decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
+      type:'',
+      chiffreaffaireht:'',
+      tvaammount:'',
+      ammountttc:'',
+      
+      },tvarecuperableimmobilier:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      
+      
+      },
+      tvarecuperableequipement:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      achatimporteht:'',
+      achatimportetva:'',
+      
+      
+      },
+      tvarecuperableautreachat:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      achatimporteht:'',
+      achatimportetva:'',
+      
+      
+      },
+      locationhabitationmeuble:{
+          type:'',
+          htammount:'',
+          tvaammount:'',
+          ttcammount:'',
+          },
+      locationusagecommercial:{
+          type:'',
+              htammount:'',
+              tvaammount:'',
+              ttcammount:'',
+              },
+      operationlotissement:{
+          type:'',
+                  htammount:'',
+                  tvaammount:'',
+                  ttcammount:'',
+                  },
+      interetpercue:{
+          type:'',
+                      htammount:'',
+                      tvaammount:'',
+                      ttcammount:'',
+                      },
+      autretvaspecial:{
+          type:'',
+                          htammount:'',
+                          tvaammount:'',
+                          ttcammount:'',
+                          taux:'',
+                          }    }
+                          decfiscmens.impottype3={ type:'',
+                            basetfp:'',
+                            montanttfpmois:'',
+                            reporttfpmoisprecedent:'',
+                            montantavance:'',
+                            tfppayer:'',
+                            tfpreporter:'',
+                            salairesnonsoumistfp:''}
+                            decfiscmens.impottype4={ type:'',
+                            basefoprolos:'',
+                            montantfoprolos:'',
+                            salairesnonsoumisfoprolos:''}
+                            decfiscmens.impottype5={ type:'',
+                            nombrenotehonoraire:'',
+                totaldroittimbre:'',}
+                decfiscmens.impottype6={ type:'',
+                chiffreaffairettc:'',
+                tclpayer:'',}
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
@@ -1825,7 +2456,7 @@ if(this.option53Value)
 }
 this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
 (data:any) => {
-  
+  this.tokenStorage.saved=true;
   this.loading = false;
   Swal.fire({
     position: 'center',
@@ -1845,6 +2476,13 @@ this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
   }
       
 displayStyle = "none";
+canDeactivate():boolean {  
+  if(this.tokenStorage.saved)
+  {
+    return true;
+  }
+  return false;
+} 
 openPopup() {
   this.displayStyle = "block";
   this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
@@ -1854,6 +2492,8 @@ openPopup() {
   + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
+  this.totaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
+
 }
 closePopup() {
   this.displayStyle = "none";

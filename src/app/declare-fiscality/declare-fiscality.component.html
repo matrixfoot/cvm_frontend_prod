@@ -2994,7 +2994,7 @@
                             <div class="form-group">
                                 <label>TFP à reporter</label>
                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                  class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                  class="form-control"appTwoDigitDecimaNumber (click)="setThreeNumberDecimal($event)" formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                               </div>
                           </div>
                           

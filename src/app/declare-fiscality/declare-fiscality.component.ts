@@ -1709,7 +1709,8 @@ if(this.option51Value)
       }))
   
 if (this.standardtvacollecteform.get('chiffreaffaireht').value!==null)
-{decfiscmens.impottype2.type='TVA'
+{
+  decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=this.standardtvacollecteform.get('chiffreaffaireht').value
