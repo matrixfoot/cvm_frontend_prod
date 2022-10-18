@@ -358,8 +358,9 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
 
  ngOnInit() {
   this.loading = true;
-  this.currentuser = this.tokenStorage.getUser();  
+  this.currentuser = this.tokenStorage.getUser();
   this.user=this.currentuser;
+  this.tokenStorage.saved=false;
   this.route.params.subscribe(
     (params) => {
       this.dec.getDecfiscmensreqById(params.id).then(
@@ -374,7 +375,9 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           
           });
           this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
-          
+          this.option171Value=this.decfiscmens.mois
+          this.option54Value=this.decfiscmens.annee
+
           if (this.decfiscmens.impottype1.type)
           {
             this.option48Value=true
@@ -854,13 +857,10 @@ this.sub36=merge(
   this.calculateResultForm36()
 })
           this.loading = false;
-          
         }
       );
     }
   );
-  
-    this.tokenStorage.saved=false
 }
 
 setThreeNumberDecimal($event) {
@@ -2476,7 +2476,7 @@ this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
   }
       
 displayStyle = "none";
-canDeactivate():boolean {  
+canDeactivate():boolean {
   if(this.tokenStorage.saved)
   {
     return true;

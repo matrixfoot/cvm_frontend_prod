@@ -9,5 +9,7 @@ export abstract class ComponentCanDeactivate {
         if (!this.canDeactivate()) {
             $event.returnValue =true;
         }
+        
     }
+    
 }

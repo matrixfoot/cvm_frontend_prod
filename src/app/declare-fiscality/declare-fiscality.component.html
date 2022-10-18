@@ -202,14 +202,16 @@
                         [ngStyle]="{'display':displayStyle}">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
-                            <div class="modal-header">
-                              <h4 class="modal-title">Liste Des Montants Introduits</h4>
+                            <div class="modal-header" style="text-align: center;">
+                              <h4 class="modal-title">Liste Des Impôts Introduits</h4>
+                              <div> <label for=""> Mois:<strong> {{option171Value}}</strong></label>
+                                <label for=""> Année:<strong> {{option54Value}}</strong></label></div>
                             </div>
                             <div class="modal-body">
                               <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th>Nom Montant</th>
+                                    <th>Type Impôt</th>
                                     <th>Montant</th>
                                     
                                   </tr>
