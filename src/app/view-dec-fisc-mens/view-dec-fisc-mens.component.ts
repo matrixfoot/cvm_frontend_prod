@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
+import { Injectable } from '@angular/core';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { TokenStorageService } from '../services/token-storage.service';
@@ -89,7 +90,41 @@ public decfiscmens: Decfiscmens;
     );
   }
   generateExcel() {
-    this.excelService.generateExcel();
+    
+    //Excel Title, Header, Data
+    const title = 'Déclaration Mensuelle du mois de ' + this.decfiscmens.mois + ' pour l\'année ' + this.decfiscmens.annee;
+    const header = ["Year", "Month", "Make", "Model", "Quantity", "Pct"]
+    const data = [
+      
+    ];
+
+    //Create workbook and worksheet
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet('Déclaration Mensuelle');
+//Merge Cells
+worksheet.mergeCells(`A1:F1`);
+worksheet.mergeCells(`D6:F6`);
+    //Add Row and formatting
+    
+    worksheet.addRow([]);
+    
+    var row = worksheet.getRow(6);
+    row.getCell('D').value = 'التصريح الشهري بالأداءات';
+    var row = worksheet.getRow(8);
+    row.getCell('G').value ='السنة';
+    row.getCell('F').value =this.decfiscmens.annee;
+    row.getCell('L').value ='الشهر';
+    row.getCell('J').value =this.decfiscmens.mois;
+    row.getCell('T').value ='رمز التصريح';
+    row.getCell('N').value =this.decfiscmens._id;
+
+
+    //Generate Excel File with given name
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, 'déclaration mensuelle.xlsx');
+    })
+
   }
   
   }
