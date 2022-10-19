@@ -367,7 +367,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
         (decfiscmens: Decfiscmens) => {
           
           this.decfiscmens = decfiscmens;
-          
+          this.tokenStorage.saved=false;
           this.decfiscmensForm = this.formBuilder.group({
             
             statut: [this.decfiscmens.statut, Validators.required],
@@ -1214,20 +1214,22 @@ calculateResultForm23()
 {
 
   const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
-  const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
-  const tauxtfp=+this.standardtfpform.get('taux').value
+    const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
+    const tauxtfp=+this.standardtfpform.get('taux').value
+    const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
 
-  const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
-  const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
-  const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
-  const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
-  const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
-  const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
-  const foprolosammount=+ ((+basefoprolos-+salairesnonsoumisfoprolos).toFixed(3));
-  const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
-
-  
-  if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
+    const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+    const retenuesalary=+this.standardtraitementsalaireform.get('retenuesalary').value
+    const imposalary=+this.standardtraitementsalaireform.get('imposalary').value
+    const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
+    const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
+    const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
+    const foprolosammount=+ ((+basefoprolos-+salairesnonsoumisfoprolos).toFixed(3));
+    const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
+    const tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
+    const tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
+    
+    if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
     {
       Swal.fire({
       title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
@@ -1244,12 +1246,32 @@ calculateResultForm23()
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
-      }   
-    this.standardtfpform.patchValue({basetfp:basetfp,tfpammountmoisactuel:tfpammountmoisactuel},{emitEvent: false})
-    this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
-    this.standardtfpform.updateValueAndValidity();
-    this.standardfoprolosform.updateValueAndValidity();
-    this.standardtraitementsalaireform.updateValueAndValidity();
+      }  
+      if (tfpapayer<0)
+      {
+        this.standardtfpform.patchValue({
+          basetfp: basetfp,
+          tfpammountmoisactuel: tfpammountmoisactuel,
+          tfpapayer:'',
+          tfpareporter:tfpareporter,
+          },{emitEvent: false} 
+          );
+        this.standardtfpform.updateValueAndValidity();
+      }
+      else if (tfpapayer>0)
+      {
+        this.standardtfpform.patchValue({
+          basetfp: basetfp,
+          tfpammountmoisactuel: tfpammountmoisactuel,
+          tfpapayer: tfpapayer,
+          tfpareporter:'',
+          },{emitEvent: false} 
+          );
+        this.standardtfpform.updateValueAndValidity();
+      }
+      this.standardfoprolosform.updateValueAndValidity();
+      this.standardtraitementsalaireform.updateValueAndValidity();
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
   
   
 }
@@ -1412,14 +1434,28 @@ calculateResultForm35()
   const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
   const tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
   const tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+  if (tfpapayer<0)
+  {
     this.standardtfpform.patchValue({
       basetfp: basetfp,
       tfpammountmoisactuel: montanttfpmois,
-      tfpapayer: tfpapayer,
+      tfpapayer:'',
       tfpareporter:tfpareporter,
       },{emitEvent: false} 
       );
     this.standardtfpform.updateValueAndValidity();
+  }
+  else if (tfpapayer>0)
+  {
+    this.standardtfpform.patchValue({
+      basetfp: basetfp,
+      tfpammountmoisactuel: montanttfpmois,
+      tfpapayer: tfpapayer,
+      tfpareporter:'',
+      },{emitEvent: false} 
+      );
+    this.standardtfpform.updateValueAndValidity();
+  }
   
   
 }
@@ -3469,8 +3505,8 @@ Swal.fire({
         }
         else{
           this.loading=false
-          checkbox.checked = true
-          this.option65Value=true
+          checkbox.checked = false
+          this.option65Value=false
           this.option48Value=false
           this.showretenuetab=false
         }
@@ -3514,8 +3550,8 @@ Swal.fire({
         else{
           this.loading=false
 
-          checkbox.checked = true
-          this.option66Value=true
+          checkbox.checked = false
+          this.option66Value=false
           this.option49Value=false
           this.showtfptab=false
         }
@@ -3558,8 +3594,8 @@ Swal.fire({
         else{
           this.loading=false
 
-          checkbox.checked = true
-          this.option67Value=true
+          checkbox.checked = false
+          this.option67Value=false
           this.option50Value=false
           this.showfoprolostab=false
         }
@@ -3603,8 +3639,8 @@ Swal.fire({
         else{
           this.loading=false
 
-          checkbox.checked = true
-          this.option68Value=true
+          checkbox.checked = false
+          this.option68Value=false
           this.option51Value=false
           this.showtvatab=false
         }
@@ -3646,8 +3682,8 @@ Swal.fire({
         else{
           this.loading=false
 
-          checkbox.checked = true
-          this.option69Value=true
+          checkbox.checked = false
+          this.option69Value=false
           this.option52Value=false
           this.showtimbretab=false
         }
@@ -3688,8 +3724,8 @@ Swal.fire({
         else{
           this.loading=false
 
-          checkbox.checked = true
-          this.option70Value=true
+          checkbox.checked = false
+          this.option70Value=false
           this.option53Value=false
           this.showtcltab=false
         }

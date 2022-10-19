@@ -252,8 +252,10 @@
       <h4>Montant de la TFP du mois:<b>  {{ decfiscmens.impottype3.montanttfpmois }}</b></h4>  
       <h4>Report du TFP du mois précédent :<b>  {{ decfiscmens.impottype3.reporttfpmoisprecedent }}</b></h4>
       <h4>Montant de l'avance:<b>  {{ decfiscmens.impottype3.montantavance  }}</b></h4>
-      <h4>TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
-      <h4>TFP à reporter:<b>  {{ decfiscmens.impottype3.tfpreporter }}</b></h4>
+      <h4 *ngIf="decfiscmens.impottype3.tfppayer">TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
+      <h4 *ngIf="decfiscmens.impottype3.tfpreporter">TFP à reporter:<b>  ({{ decfiscmens.impottype3.tfpreporter }})</b></h4>
+      <h4 *ngIf="decfiscmens.impottype3.tfppayer">P</h4>
+      <h4 *ngIf="decfiscmens.impottype3.tfpreporter">R</h4>
       <hr>
     </div>
     <div *ngIf="decfiscmens.impottype4.type">
@@ -268,8 +270,8 @@
         <h4 *ngIf="decfiscmens.impottype5.type">Type impôt:<b>  {{ decfiscmens.impottype5.type }}</b></h4>
         
           <hr>
-          <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
-          <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
+          <h4>Nombre de note d'honoraires :<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
+          <h4>Total du droit de timbre:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
           <hr>
         </div>
         <div *ngIf="decfiscmens.impottype6.type">

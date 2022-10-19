@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-
-
-
-
 import { CanDeactivateGuard } from './services/auth-guard.service';
 import { ContactComponent } from './home/contact/contact.component';
 import { HomeComponent } from './home/home.component';
@@ -86,7 +81,7 @@ const routes: Routes = [
 { path: 'modify-event/:id', component: ModifyEventComponent,
     
 },
-{ path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,
+{ path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,canDeactivate: [CanDeactivateGuard]
     
 },
 { path: 'view-user/:id', component: ViewUserComponent},

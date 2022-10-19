@@ -21,7 +21,8 @@ export class ViewDecFiscMensComponent implements OnInit {
 public decfiscmens: Decfiscmens;
   public errormsg:string;
   public loading: boolean;
-  
+  public tfpapyer: any
+  public tfpareporter: any
   currentUser: any;
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -41,8 +42,8 @@ public decfiscmens: Decfiscmens;
           (decfiscmens: Decfiscmens) => {
             this.loading = false;
             this.decfiscmens = decfiscmens;
-            
-            
+            this.tfpapyer=this.decfiscmens.impottype3.tfppayer
+            this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
           }
         );
       }

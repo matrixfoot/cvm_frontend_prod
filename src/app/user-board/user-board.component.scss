@@ -29,6 +29,8 @@ h2{
   th, td {
     text-align: left;
     padding: 8px;
+    min-width: 100px; 
+
   }
   
   tr:nth-child(even){background-color: #f2f2f2}
