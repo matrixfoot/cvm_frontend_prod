@@ -16,6 +16,7 @@ export class Decfiscmens {
     firstname:string;
     lastname:string;
     codedeclaration:string;
+    nature:string;
     mois:string;
     annee:string;
     statut:string;

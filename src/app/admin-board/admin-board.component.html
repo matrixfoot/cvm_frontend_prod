@@ -121,7 +121,9 @@
           <tr>
       
             
+            
             <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="_id" ></i></th>
+            <th scope="col">Nature <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="nature"  ></i></th>
             <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
             <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
             <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="firstname"  ></i></th>
@@ -137,6 +139,7 @@
       
             
             <td>{{decfiscmens._id}}</td>
+            <td>{{decfiscmens.nature}}</td>
             <td>{{decfiscmens.mois}}</td>
             <td>{{decfiscmens.annee}}</td>
             <td>{{decfiscmens.firstname}}</td>

@@ -275,7 +275,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option201Value:any;
   option202Value:any;
   option203Value:any;
-  
+  nature:any;
   message: string;
   sub1:Subscription;
   sub2:Subscription;
@@ -339,6 +339,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   totaltimbreammount=0;
   totaltclammount=0;
   totaldeclaration=0;
+  preptotaldeclaration=0;
+  minimumperceptionammount=5;
   public ammounts: FormArray;
   constructor(private formBuilder: FormBuilder,
    
@@ -368,6 +370,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           
           this.decfiscmens = decfiscmens;
           this.tokenStorage.saved=false;
+          this.nature=this.decfiscmens.nature
           this.decfiscmensForm = this.formBuilder.group({
             
             statut: [this.decfiscmens.statut, Validators.required],
@@ -2529,7 +2532,16 @@ openPopup() {
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
   this.totaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
-
+  this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
+  if (this.preptotaldeclaration- this.minimumperceptionammount <= 0)
+  
+  {
+    this.totaldeclaration=this.minimumperceptionammount-this.preptotaldeclaration
+  } 
+  else 
+  {
+    this.totaldeclaration=this.preptotaldeclaration
+  }
 }
 closePopup() {
   this.displayStyle = "none";

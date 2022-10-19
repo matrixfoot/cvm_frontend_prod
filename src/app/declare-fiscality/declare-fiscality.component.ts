@@ -325,6 +325,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   totaltimbreammount=0;
   totaltclammount=0;
   totaldeclaration=0;
+  preptotaldeclaration=0;
+  minimumperceptionammount=5;
   public ammounts: FormArray;
   
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
@@ -834,8 +836,17 @@ canDeactivate():boolean {
     + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
     this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
     this.standardmontantautreform.get('retenueammount').value
-this.totaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
-  }
+this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
+if (this.preptotaldeclaration- this.minimumperceptionammount <= 0)
+
+{
+  this.totaldeclaration=this.minimumperceptionammount-this.preptotaldeclaration
+} 
+else 
+{
+  this.totaldeclaration=this.preptotaldeclaration
+}
+}
   closePopup() {
     this.displayStyle = "none";
   }
@@ -1611,7 +1622,10 @@ calculateResultForm1()
     decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
     decfiscmens.mois=this.option171Value
-    
+    if (this.option55Value)
+    {
+    decfiscmens.nature='Déclaration Mensuelle'
+    }
     if (this.option48Value) 
     {
       if (this.option48Value&&!this.option65Value)
