@@ -10,6 +10,8 @@ import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
 import { ExcelService } from '../services/generate.excel.service';
+import * as logoFile from '../_helpers/declogo';
+
 
 @Component({
   selector: 'app-view-dec-fisc-mens',
@@ -101,6 +103,16 @@ public decfiscmens: Decfiscmens;
     //Create workbook and worksheet
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Déclaration Mensuelle');
+    let logo = workbook.addImage({
+      base64: logoFile.impotlogoBase64,
+      extension: 'png',
+});
+worksheet.addImage(logo, 'A1:C3');
+let logo2 = workbook.addImage({
+  base64: logoFile.ministerelogoBase64,
+  extension: 'png',
+});
+worksheet.addImage(logo2, 'J1:L3');
 //Merge Cells
 worksheet.mergeCells(`A1:F1`);
 worksheet.mergeCells(`D6:F6`);
