@@ -168,7 +168,8 @@
                         </tr>
                         <tr *ngIf="showtvatab===true">
                           <td> TVA</td>
-                          <td>{{totaltvaammount | number:'1.3-3'| removeComma}}</td>
+                          <td *ngIf="totaltvaammount == 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / ({{totalreporttvaammount}}) / <strong> R</strong></td>
+                          <td *ngIf="totaltvaammount > 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / <strong> P</strong></td>
                           
                         </tr>
                         <tr *ngIf="showtimbretab===true">

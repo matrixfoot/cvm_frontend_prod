@@ -1306,7 +1306,7 @@ calculateResultForm23()
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc
@@ -2558,9 +2558,9 @@ openPopup() {
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
   
-this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ +
-this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ +
-this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
++this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
++this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
 this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
 if (this.preptotaltvaammount >= this.option64Value)
 {
@@ -2569,7 +2569,7 @@ this.totaltvaammount=this.preptotaltvaammount-this.option64Value
 else 
 {
 this.totaltvaammount=0
-this.totalreporttvaammount=this.preptotaltvaammount-this.option64Value
+this.totalreporttvaammount=this.option64Value-this.preptotaltvaammount
 }
   this.totalfoprolosammount=this.foprolosapayer
   if (this.tfpapayer >= 0)

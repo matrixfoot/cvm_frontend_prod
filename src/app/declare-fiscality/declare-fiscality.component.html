@@ -236,7 +236,8 @@
                                   <tr *ngIf="showtvatab===true">
                                     <td> TVA</td>
                                     <td>{{totaltvaammount | number:'1.3-3'| removeComma}}</td>
-                                    
+                                    <td *ngIf="totaltvaammount == 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / ({{totalreporttvaammount}}) / <strong> R</strong></td>
+                                    <td *ngIf="totaltvaammount > 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / <strong> P</strong></td>
                                   </tr>
                                   <tr *ngIf="showtimbretab===true">
                                     <td> Droit De Timbre</td>
@@ -2994,10 +2995,10 @@
                               </div>
                           </div>
                           <div class="col-6">
-                            <div class="form-group">
+                            <div class="form-group"(click)="setThreeNumberDecimal($event)">
                                 <label>TFP à reporter</label>
                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                  class="form-control"appTwoDigitDecimaNumber (click)="setThreeNumberDecimal($event)" formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                  class="form-control"appTwoDigitDecimaNumber  formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                               </div>
                           </div>
                           
