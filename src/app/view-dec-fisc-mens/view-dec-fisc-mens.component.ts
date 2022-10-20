@@ -128,7 +128,7 @@ worksheet.mergeCells(`D6:F6`);
     row.getCell('L').value ='الشهر';
     row.getCell('J').value =this.decfiscmens.mois;
     row.getCell('T').value ='رمز التصريح';
-    row.getCell('N').value =this.decfiscmens._id;
+    row.getCell('N').value ='';
 
 
     //Generate Excel File with given name

@@ -332,17 +332,26 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   showtimbreverif=false;
   showtclverif=false;
   autreform: FormGroup;
+  foprolosapayer=0.000
+  tfpapayer=0.000
+  tfpareporter=0.000
   totalretenueammount=0;
   totaltfpammount=0;
   totalfoprolosammount=0;
+  totalreporttvaammount=0;
+  preptotaltvaammount=0;
   totaltvaammount=0;
   totaltimbreammount=0;
   totaltclammount=0;
   totaldeclaration=0;
+  minimumperceptionammount=0;
   preptotaldeclaration=0;
-  minimumperceptionammount=5;
+  prepminimumperceptionammount=0.000;
+  tvacollecte=0.000
+  tvarecuperable=0.000
   public ammounts: FormArray;
   constructor(private formBuilder: FormBuilder,
+  
    
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -362,6 +371,15 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   this.loading = true;
   this.currentuser = this.tokenStorage.getUser();
   this.user=this.currentuser;
+  if (this.user.regimefiscalimpot=='Réel')  
+  {
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (this.user.regimefiscalimpot=='Forfait D\'assiette') 
+  {
+   this.prepminimumperceptionammount=5.000
+
+  }
   this.tokenStorage.saved=false;
   this.route.params.subscribe(
     (params) => {
@@ -1214,9 +1232,9 @@ calculateResultForm22()
   
 }
 calculateResultForm23()
-{
-
-  const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
+  {
+  
+    const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const tauxtfp=+this.standardtfpform.get('taux').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
@@ -1229,8 +1247,8 @@ calculateResultForm23()
     const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
     const foprolosammount=+ ((+basefoprolos-+salairesnonsoumisfoprolos).toFixed(3));
     const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
-    const tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
-    const tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
+    this.tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
+    this.tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
     
     if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
     {
@@ -1250,23 +1268,23 @@ calculateResultForm23()
       Swal.fire('opération non aboutie!')
     })
       }  
-      if (tfpapayer<0)
+      if (this.tfpapayer<0)
       {
         this.standardtfpform.patchValue({
           basetfp: basetfp,
           tfpammountmoisactuel: tfpammountmoisactuel,
           tfpapayer:'',
-          tfpareporter:tfpareporter,
+          tfpareporter:this.tfpareporter,
           },{emitEvent: false} 
           );
         this.standardtfpform.updateValueAndValidity();
       }
-      else if (tfpapayer>0)
+      else if (this.tfpapayer>0)
       {
         this.standardtfpform.patchValue({
           basetfp: basetfp,
           tfpammountmoisactuel: tfpammountmoisactuel,
-          tfpapayer: tfpapayer,
+          tfpapayer: this.tfpapayer,
           tfpareporter:'',
           },{emitEvent: false} 
           );
@@ -1275,213 +1293,220 @@ calculateResultForm23()
       this.standardfoprolosform.updateValueAndValidity();
       this.standardtraitementsalaireform.updateValueAndValidity();
       this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
-  
-  
-}
-calculateResultForm24()
-{
 
-  const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-  const taux=+this.standardtvacollecteform.get('taux').value
-  const taux2=+this.standardtclform.get('taux').value
-  
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
-    this.standardtvacollecteform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc
-      },{emitEvent: false} 
-      );
-    this.standardtvacollecteform.updateValueAndValidity();
-    this.standardtclform.patchValue({
-      
-      chiffreaffairettc:ammountttc,tclapayer:tclapayer},{emitEvent: false} 
-      );
-      this.standardtclform.updateValueAndValidity();
-}
-calculateResultForm25()
-{
-
-  const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('ammountht').value
-  const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    this.standardlocationusagehabitationmeubleform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc},{emitEvent: false} 
-      );
-    this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm26()
-{
-
-  const chiffreaffaireht=+this.standardlocationusagecommercialform.get('ammountht').value
-  const taux=+this.standardlocationusagecommercialform.get('taux').value
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    this.standardlocationusagecommercialform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc},{emitEvent: false} 
-      );
-    this.standardlocationusagecommercialform.updateValueAndValidity();
-  
-  
-}
-
-calculateResultForm30()
-{
-
-  const chiffreaffaireht=+this.standardoperationlotissementform.get('ammountht').value
-  const taux=+this.standardoperationlotissementform.get('taux').value
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    this.standardoperationlotissementform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc},{emitEvent: false} 
-      );
-    this.standardoperationlotissementform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm31()
-{
-
-  const chiffreaffaireht=+this.standardinteretpercueform.get('ammountht').value
-  const taux=+this.standardinteretpercueform.get('taux').value
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    this.standardinteretpercueform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc},{emitEvent: false} 
-      );
-    this.standardinteretpercueform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm32()
-{
-
-  const chiffreaffaireht=+this.standardautretvaspecialform.get('ammountht').value
-  const tauxpercent=+this.standardautretvaspecialform.get('tauxpercent').value
-  
-  if (tauxpercent>100)
-  return (
-    this.standardautretvaspecialform.patchValue({
-   tauxpercent:'',
-   tvaammount: '', 
-   ammountttc:''},{emitEvent: false} 
-    )) 
-  const taux=+tauxpercent/100
-  const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
-    const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-    this.standardautretvaspecialform.patchValue({
-      tvaammount: tvaammount, 
-        ammountttc: ammountttc,taux: taux},{emitEvent: false} 
-      );
-    this.standardautretvaspecialform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm33()
-{
-
-  const nombrenotehonoraire=+this.standarddroittimbreform.get('nombrenotehonoraire').value
-  const taux=+this.standarddroittimbreform.get('taux').value
-  const totaldroittimbre=+ ((+nombrenotehonoraire* +taux).toFixed(3));
-    this.standarddroittimbreform.patchValue({
-      totaldroittimbre: totaldroittimbre,},{emitEvent: false} 
-      );
-    this.standarddroittimbreform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm34()
-{
-
-  const chiffreaffairettc=+this.standardtvacollecteform.get('ammountttc').value
-  const chiffreaffairettcbis=+this.standardtclform.get('chiffreaffairettc').value
-  const taux=+this.standardtclform.get('taux').value
-  if (chiffreaffairettc)
+    
+  }
+  calculateResultForm24()
   {
-  const tclapayer=+ ((+chiffreaffairettc*+taux).toFixed(3));
-
-    this.standardtclform.patchValue({
-      tclapayer: tclapayer,
-      },{emitEvent: false} 
-      );
-    }
-  if (chiffreaffairettcbis)
+  
+    const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux2=+this.standardtclform.get('taux').value
+    
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardtvacollecteform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc
+        },{emitEvent: false} 
+        );
+      this.standardtvacollecteform.updateValueAndValidity();
+      this.standardtclform.patchValue({
+        
+        chiffreaffairettc:ammountttc,tclapayer:tclapayer},{emitEvent: false} 
+        );
+        this.standardtclform.updateValueAndValidity();
+  }
+  calculateResultForm25()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusagehabitationmeubleform.get('ammountht').value
+    const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardlocationusagehabitationmeubleform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm26()
+  {
+  
+    const chiffreaffaireht=+this.standardlocationusagecommercialform.get('ammountht').value
+    const taux=+this.standardlocationusagecommercialform.get('taux').value
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardlocationusagecommercialform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusagecommercialform.updateValueAndValidity();
+    
+    
+  }
+  
+  calculateResultForm30()
+  {
+  
+    const chiffreaffaireht=+this.standardoperationlotissementform.get('ammountht').value
+    const taux=+this.standardoperationlotissementform.get('taux').value
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardoperationlotissementform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardoperationlotissementform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm31()
+  {
+  
+    const chiffreaffaireht=+this.standardinteretpercueform.get('ammountht').value
+    const taux=+this.standardinteretpercueform.get('taux').value
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardinteretpercueform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardinteretpercueform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm32()
+  {
+  
+    const chiffreaffaireht=+this.standardautretvaspecialform.get('ammountht').value
+    const tauxpercent=+this.standardautretvaspecialform.get('tauxpercent').value
+    
+    if (tauxpercent>100)
+    return (
+      this.standardautretvaspecialform.patchValue({
+     tauxpercent:'',
+     tvaammount: '', 
+     ammountttc:''},{emitEvent: false} 
+      )) 
+    const taux=+tauxpercent/100
+    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      this.tvacollecte=this.tvacollecte+tvaammount
+      this.standardautretvaspecialform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc,taux: taux},{emitEvent: false} 
+        );
+      this.standardautretvaspecialform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm33()
+  {
+  
+    const nombrenotehonoraire=+this.standarddroittimbreform.get('nombrenotehonoraire').value
+    const taux=+this.standarddroittimbreform.get('taux').value
+    this.totaltimbreammount=+ ((+nombrenotehonoraire* +taux).toFixed(3));
+      this.standarddroittimbreform.patchValue({
+        totaldroittimbre: this.totaltimbreammount,},{emitEvent: false} 
+        );
+      this.standarddroittimbreform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm34()
+  {
+  
+    const chiffreaffairettc=+this.standardtvacollecteform.get('ammountttc').value
+    const chiffreaffairettcbis=+this.standardtclform.get('chiffreaffairettc').value
+    const taux=+this.standardtclform.get('taux').value
+    if (chiffreaffairettc)
     {
-      const tclapayer=+ ((+chiffreaffairettcbis*+taux).toFixed(3));
-
-    this.standardtclform.patchValue({
-      tclapayer: tclapayer,
-      },{emitEvent: false} 
-      );
+    this.totaltclammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
+  
+      this.standardtclform.patchValue({
+        tclapayer: this.totaltclammount,
+        },{emitEvent: false} 
+        );
+      }
+    if (chiffreaffairettcbis)
+      {
+        this.totaltclammount=+ ((+chiffreaffairettcbis*+taux).toFixed(3));
+  
+      this.standardtclform.patchValue({
+        tclapayer: this.totaltclammount,
+        },{emitEvent: false} 
+        );
+      }
+      this.standardtclform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm35()
+  {
+  
+    const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
+    const taux=+this.standardtfpform.get('taux').value
+    const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
+    const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
+    const basetfp=+ ((+salairesbrutsrs-+salairesnonsoumistfp).toFixed(3));
+    const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
+    this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
+    this.tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+    if (this.tfpapayer<0)
+    {
+      this.standardtfpform.patchValue({
+        basetfp: basetfp,
+        tfpammountmoisactuel: montanttfpmois,
+        tfpapayer:'',
+        tfpareporter:this.tfpareporter,
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
     }
-    this.standardtclform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm35()
-{
-
-  const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
-  const taux=+this.standardtfpform.get('taux').value
-  const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
-  const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-  const basetfp=+ ((+salairesbrutsrs-+salairesnonsoumistfp).toFixed(3));
-  const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
-  const tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
-  const tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
-  if (tfpapayer<0)
-  {
-    this.standardtfpform.patchValue({
-      basetfp: basetfp,
-      tfpammountmoisactuel: montanttfpmois,
-      tfpapayer:'',
-      tfpareporter:tfpareporter,
-      },{emitEvent: false} 
-      );
-    this.standardtfpform.updateValueAndValidity();
-  }
-  else if (tfpapayer>0)
-  {
-    this.standardtfpform.patchValue({
-      basetfp: basetfp,
-      tfpammountmoisactuel: montanttfpmois,
-      tfpapayer: tfpapayer,
-      tfpareporter:'',
-      },{emitEvent: false} 
-      );
-    this.standardtfpform.updateValueAndValidity();
-  }
-  
-  
-}
-calculateResultForm36()
-{
-
-  const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
-  const taux=+this.standardfoprolosform.get('taux').value
-  const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
-  
-  const basefoprolos=+ ((+salairesbrutsrs-+salairesnonsoumisfoprolos).toFixed(3));
-  const montantfoprolos=+ (+basefoprolos* +taux).toFixed(3);
-  
-    this.standardfoprolosform.patchValue({
-      basefoprolos: basefoprolos,
-      foprolosammount: montantfoprolos,
+    else if (this.tfpapayer>0)
+    {
+      this.standardtfpform.patchValue({
+        basetfp: basetfp,
+        tfpammountmoisactuel: montanttfpmois,
+        tfpapayer: this.tfpapayer,
+        tfpareporter:'',
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
+    }
       
-      },{emitEvent: false} 
-      );
-    this.standardfoprolosform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm36()
+  {
   
-  
-}
+    const salairesbrutsrs=+this.standardtraitementsalaireform.get('brutsalary').value
+    const taux=+this.standardfoprolosform.get('taux').value
+    const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+    
+    const basefoprolos=+ ((+salairesbrutsrs-+salairesnonsoumisfoprolos).toFixed(3));
+    this.foprolosapayer=+ (+basefoprolos* +taux).toFixed(3);
+    
+      this.standardfoprolosform.patchValue({
+        basefoprolos: basefoprolos,
+        foprolosammount: this.foprolosapayer,
+        
+        },{emitEvent: false} 
+        );
+      this.standardfoprolosform.updateValueAndValidity();
+    
+    
+  }
 restartform()
 {
   this.loading = true;
@@ -2524,6 +2549,7 @@ canDeactivate():boolean {
 } 
 openPopup() {
   this.displayStyle = "block";
+
   this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
   + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
   + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -2531,17 +2557,43 @@ openPopup() {
   + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
-  this.totaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
-  this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
-  if (this.preptotaldeclaration- this.minimumperceptionammount <= 0)
   
+this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ +
+this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ +
+this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
+if (this.preptotaltvaammount >= this.option64Value)
+{
+this.totaltvaammount=this.preptotaltvaammount-this.option64Value
+}
+else 
+{
+this.totaltvaammount=0
+this.totalreporttvaammount=this.preptotaltvaammount-this.option64Value
+}
+  this.totalfoprolosammount=this.foprolosapayer
+  if (this.tfpapayer >= 0)
   {
-    this.totaldeclaration=this.minimumperceptionammount-this.preptotaldeclaration
+  this.totaltfpammount= this.tfpapayer
   } 
   else 
   {
-    this.totaldeclaration=this.preptotaldeclaration
+    this.totaltfpammount= 0
   }
+this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
+if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+
+{
+this.totaldeclaration=5.000
+this.minimumperceptionammount=5.000-this.preptotaldeclaration
+
+} 
+else 
+{
+this.totaldeclaration=this.preptotaldeclaration
+this.minimumperceptionammount=0.000
+
+}
 }
 closePopup() {
   this.displayStyle = "none";
