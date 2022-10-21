@@ -35,6 +35,8 @@ import { DeclareComptabiliteComponent } from './declare-comptabilite/declare-com
 import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.component';
 import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-mens.component';
 import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
+import { CreateReportComponent } from './create-report/create-report.component';
+
 const routes: Routes = [
   
    
@@ -46,6 +48,9 @@ const routes: Routes = [
     
 },
 { path: 'settings', component: SettingsComponent,
+    
+},
+{ path: 'create-report', component: CreateReportComponent,
     
 },
 { path: 'declare-fiscality', component:DeclareFiscalityComponent,canDeactivate: [CanDeactivateGuard]

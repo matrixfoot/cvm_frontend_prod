@@ -2562,7 +2562,7 @@ this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxt
 +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
 +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
 this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
-if (this.preptotaltvaammount >= this.option64Value)
+if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
 {
 this.totaltvaammount=this.preptotaltvaammount-this.option64Value
 }

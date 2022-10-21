@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 import { ExcelService } from '../services/generate.excel.service';
 import * as logoFile from '../_helpers/declogo';
 
-
 @Component({
   selector: 'app-view-dec-fisc-mens',
   templateUrl: './view-dec-fisc-mens.component.html',
@@ -20,7 +19,12 @@ import * as logoFile from '../_helpers/declogo';
 })
 export class ViewDecFiscMensComponent implements OnInit {
 
- 
+  arrayBuffer:any;
+  file:File;
+  incomingfile(event) 
+    {
+    this.file= event.target.files[0]; 
+    }
 public decfiscmens: Decfiscmens;
   public errormsg:string;
   public loading: boolean;
@@ -91,6 +95,9 @@ public decfiscmens: Decfiscmens;
       }
     );
   }
+  Upload() {
+    this.router.navigate(['create-report']);
+}
   generateExcel() {
     
     //Excel Title, Header, Data
@@ -112,7 +119,7 @@ let logo2 = workbook.addImage({
   base64: logoFile.ministerelogoBase64,
   extension: 'png',
 });
-worksheet.addImage(logo2, 'J1:L3');
+worksheet.addImage(logo2, 'J1:P3');
 //Merge Cells
 worksheet.mergeCells(`A1:F1`);
 worksheet.mergeCells(`D6:F6`);
@@ -121,16 +128,30 @@ worksheet.mergeCells(`D6:F6`);
     worksheet.addRow([]);
     
     var row = worksheet.getRow(6);
-    row.getCell('D').value = 'التصريح الشهري بالأداءات';
+    row.getCell('D').value = ':التصريح الشهري بالأداءات';
     var row = worksheet.getRow(8);
-    row.getCell('G').value ='السنة';
+    row.getCell('G').value =':السنة';
     row.getCell('F').value =this.decfiscmens.annee;
-    row.getCell('L').value ='الشهر';
+    row.getCell('L').value =':الشهر';
     row.getCell('J').value =this.decfiscmens.mois;
-    row.getCell('T').value ='رمز التصريح';
+    row.getCell('T').value =':رمز التصريح';
     row.getCell('N').value ='';
-
-
+    var row = worksheet.getRow(10);
+    row.getCell('D').value =':رمز الصنف';
+    row.getCell('H').value =':رمز الأداء على القيمة المضافة';
+    row.getCell('L').value =':المعرف الجبائي';
+    row.getCell('P').value =':السجل التجاري';
+    var row = worksheet.getRow(11);
+    row.getCell('L').value= this.decfiscmens.matriculefiscale;
+    var row = worksheet.getRow(13);
+    row.getCell('P').value= ':الاسم واللقب أوالاسم الاجتماعي'
+    var row = worksheet.getRow(14);
+    row.getCell('P').value =':العنوان أو المقر الاجتماعي';
+    var row = worksheet.getRow(15);
+    row.getCell('H').value =':الترقيم البريدي';
+    var row = worksheet.getRow(17);
+    row.getCell('P').value =': النشـــــــــاط';
+    row.getCell('L').value =':تاريخ توقيف النشاط';
     //Generate Excel File with given name
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

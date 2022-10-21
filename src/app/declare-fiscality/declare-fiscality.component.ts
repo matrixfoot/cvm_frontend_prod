@@ -859,7 +859,7 @@ this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxt
 +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
 +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
 this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
-if (this.preptotaltvaammount >= this.option64Value)
+if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
 {
   this.totaltvaammount=this.preptotaltvaammount-this.option64Value
 }
@@ -2194,6 +2194,11 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardtvarecuperableautreachatform.controls['achatlocauxtva'].reset()
     this.standardtvarecuperableautreachatform.controls['achatimporteht'].reset()
     this.standardtvarecuperableautreachatform.controls['achatimportetva'].reset()
+    this.option64Value=0;
+    this.tvacollecte=0.000
+    this.tvarecuperable=0.000
+    this.totalreporttvaammount=0;
+    this.preptotaltvaammount=0;
   }
   findfiltredretenue(retenues: any[]): any[] {
     
@@ -3063,6 +3068,11 @@ Swal.fire({
     myFunction27() {
       var checkbox:any = document.getElementById("myCheck27");
       if (checkbox.checked == true){
+        this.option64Value=0.000;
+        this.tvacollecte=0.000
+        this.tvarecuperable=0.000
+        this.totalreporttvaammount=0.000;
+        this.preptotaltvaammount=0.000;
         if (this.standardtvacollecteform.get('chiffreaffaireht').value==null&&this.standardlocationusagehabitationmeubleform.get('ammountht').value==null
         &&this.standardlocationusagecommercialform.get('ammountht').value==null&&this.standardoperationlotissementform.get('ammountht').value==null&&
         this.standardinteretpercueform.get('ammountht').value==null&&this.standardautretvaspecialform.get('ammountht').value==null&&

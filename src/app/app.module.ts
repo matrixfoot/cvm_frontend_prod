@@ -65,6 +65,7 @@ import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.
 import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-mens.component';
 import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 import { CanDeactivateGuard } from './services/auth-guard.service';
+import { CreateReportComponent } from './create-report/create-report.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -122,6 +123,7 @@ FullCalendarModule.registerPlugins([
     ViewUserDeletedComponent,
     ViewDecFiscMensComponent,
     ModifyDecFiscMensComponent,
+    CreateReportComponent,
     
     
     
@@ -135,7 +137,8 @@ FullCalendarModule.registerPlugins([
     MatProgressSpinnerModule,
     HttpClientModule,
     MatTabsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{
     provide: HTTP_INTERCEPTORS,
