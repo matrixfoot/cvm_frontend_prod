@@ -15,7 +15,6 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";  
 import * as GC from '@grapecity/spread-sheets';
 import * as Excel from '@grapecity/spread-excelio';
-import '@grapecity/spread-sheets-charts';
 import {saveAs} from 'file-saver';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';

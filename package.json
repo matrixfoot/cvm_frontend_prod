@@ -35,9 +35,7 @@
     "@ngu/carousel": "^5.0.0",
     "@popperjs/core": "^2.11.5",
     "@sweetalert2/ngx-sweetalert2": "^11.0.0",
-    "@syncfusion/ej2-angular-spreadsheet": "^20.3.50",
-    "@syncfusion/ej2-base": "^20.3.50",
-    "@syncfusion/ej2-spreadsheet": "^20.3.50",
+    
     "@types/jquery": "^3.5.14",
     "bootstrap": "^3.4.1",
     "core-js": "^3.2.1",

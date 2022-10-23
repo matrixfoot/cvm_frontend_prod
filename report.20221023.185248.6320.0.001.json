@@ -4,16 +4,15 @@
     "reportVersion": 2,
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20221023.005153.11708.0.001.json",
-    "dumpEventTime": "2022-10-23T00:51:54Z",
-    "dumpEventTimeStamp": "1666482714177",
-    "processId": 11708,
+    "filename": "report.20221023.185248.6320.0.001.json",
+    "dumpEventTime": "2022-10-23T18:52:50Z",
+    "dumpEventTimeStamp": "1666547570046",
+    "processId": 6320,
     "threadId": null,
     "cwd": "C:\\Users\\USER\\cvm\\cvm_frontend",
     "commandLine": [
-      "node",
-      "C:\\Users\\USER\\AppData\\Roaming\\npm\\\\node_modules\\@angular\\cli\\bin\\ng",
-      "serve"
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\USER\\cvm\\cvm_frontend\\node_modules\\jest-worker\\build\\workers\\processChild.js"
     ],
     "nodejsVersion": "v12.16.2",
     "wordSize": 32,
@@ -52,20 +51,20 @@
       {
         "model": "Pentium(R) Dual-Core CPU       T4400  @ 2.20GHz",
         "speed": 2194,
-        "user": 155349508,
+        "user": 163432638,
         "nice": 0,
-        "sys": 163044835,
-        "idle": 1472649408,
-        "irq": 2200394
+        "sys": 170630867,
+        "idle": 1521833591,
+        "irq": 2313619
       },
       {
         "model": "Pentium(R) Dual-Core CPU       T4400  @ 2.20GHz",
         "speed": 2194,
-        "user": 168163352,
+        "user": 177491604,
         "nice": 0,
-        "sys": 168700823,
-        "idle": 1454178172,
-        "irq": 2420495
+        "sys": 176209837,
+        "idle": 1502194250,
+        "irq": 2528370
       }
     ],
     "networkInterfaces": [
@@ -115,10 +114,10 @@
   "nativeStack": [
   ],
   "javascriptHeap": {
-    "totalMemory": 524849152,
-    "totalCommittedMemory": 524849152,
-    "usedMemory": 513994348,
-    "availableMemory": 12366028,
+    "totalMemory": 523214848,
+    "totalCommittedMemory": 523214848,
+    "usedMemory": 516407136,
+    "availableMemory": 12908728,
     "memoryLimit": 530579456,
     "heapSpaces": {
       "read_only_space": {
@@ -129,68 +128,68 @@
         "available": 0
       },
       "new_space": {
-        "memorySize": 5242880,
-        "committedMemory": 5242880,
-        "capacity": 2620040,
-        "used": 568340,
-        "available": 2051700
+        "memorySize": 5767168,
+        "committedMemory": 5767168,
+        "capacity": 2882044,
+        "used": 1415824,
+        "available": 1466220
       },
       "old_space": {
-        "memorySize": 336162816,
-        "committedMemory": 336162816,
-        "capacity": 335339464,
-        "used": 333375480,
-        "available": 1963984
+        "memorySize": 416641024,
+        "committedMemory": 416641024,
+        "capacity": 416103904,
+        "used": 414996912,
+        "available": 1106992
       },
       "code_space": {
-        "memorySize": 2785280,
-        "committedMemory": 2785280,
-        "capacity": 2299584,
-        "used": 2299584,
-        "available": 0
+        "memorySize": 688128,
+        "committedMemory": 688128,
+        "capacity": 651264,
+        "used": 562400,
+        "available": 88864
       },
       "map_space": {
-        "memorySize": 3936256,
-        "committedMemory": 3936256,
-        "capacity": 1575600,
-        "used": 1575600,
+        "memorySize": 790528,
+        "committedMemory": 790528,
+        "capacity": 475440,
+        "used": 475440,
         "available": 0
       },
       "large_object_space": {
-        "memorySize": 175878144,
-        "committedMemory": 175878144,
-        "capacity": 175645372,
-        "used": 175645372,
+        "memorySize": 99016704,
+        "committedMemory": 99016704,
+        "capacity": 98932220,
+        "used": 98932220,
         "available": 0
       },
       "code_large_object_space": {
-        "memorySize": 581632,
-        "committedMemory": 581632,
-        "capacity": 507360,
-        "used": 507360,
+        "memorySize": 49152,
+        "committedMemory": 49152,
+        "capacity": 1728,
+        "used": 1728,
         "available": 0
       },
       "new_large_object_space": {
         "memorySize": 0,
         "committedMemory": 0,
-        "capacity": 2620040,
+        "capacity": 2882044,
         "used": 0,
-        "available": 2620040
+        "available": 2882044
       }
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 350.347,
-    "kernelCpuSeconds": 34.413,
-    "cpuConsumptionPercent": 3.48957,
-    "maxRss": 626286592,
+    "userCpuSeconds": 92.18,
+    "kernelCpuSeconds": 3.525,
+    "cpuConsumptionPercent": 49.0795,
+    "maxRss": 564736000,
     "pageFaults": {
-      "IORequired": 994500,
+      "IORequired": 316207,
       "IONotRequired": 0
     },
     "fsActivity": {
-      "reads": 8012,
-      "writes": 11
+      "reads": 899,
+      "writes": 45
     }
   },
   "libuv": [
@@ -198,17 +197,20 @@
   "workers": [
   ],
   "environmentVariables": {
-    "=C:": "C:\\Users\\USER\\cvm\\cvm_frontend",
     "ALLUSERSPROFILE": "C:\\ProgramData",
     "APPDATA": "C:\\Users\\USER\\AppData\\Roaming",
     "BROWSERSLIST_IGNORE_OLD_DATA": "1",
+    "COLORTERM": "truecolor",
     "CommonProgramFiles": "C:\\Program Files\\Common Files",
     "COMPUTERNAME": "PC-1",
     "ComSpec": "C:\\Windows\\system32\\cmd.exe",
     "dp0": "C:\\Users\\USER\\AppData\\Roaming\\npm\\",
+    "FORCE_COLOR": "1",
     "FP_NO_HOST_CHECK": "NO",
     "HOMEDRIVE": "C:",
     "HOMEPATH": "\\Users\\USER",
+    "JEST_WORKER_ID": "1",
+    "LANG": "fr_FR.UTF-8",
     "LOCALAPPDATA": "C:\\Users\\USER\\AppData\\Local",
     "LOGONSERVER": "\\\\PC-1",
     "NUMBER_OF_PROCESSORS": "2",
@@ -229,16 +231,14 @@
     "SystemDrive": "C:",
     "SystemRoot": "C:\\Windows",
     "TEMP": "C:\\Users\\USER\\AppData\\Local\\Temp",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.43.2",
     "TMP": "C:\\Users\\USER\\AppData\\Local\\Temp",
     "USERDOMAIN": "PC-1",
     "USERNAME": "USER",
     "USERPROFILE": "C:\\Users\\USER",
     "WEBPACK_DEV_SERVER": "true",
     "windir": "C:\\Windows",
-    "TERM_PROGRAM": "vscode",
-    "TERM_PROGRAM_VERSION": "1.43.2",
-    "LANG": "fr_FR.UTF-8",
-    "COLORTERM": "truecolor",
     "_prog": "node"
   },
   "sharedObjects": [
@@ -281,12 +281,8 @@
     "C:\\Windows\\system32\\bcryptprimitives.dll",
     "C:\\Windows\\system32\\dhcpcsvc.DLL",
     "C:\\Windows\\system32\\dhcpcsvc6.DLL",
-    "C:\\Windows\\system32\\cryptbase.dll",
-    "C:\\Windows\\system32\\DNSAPI.dll",
-    "C:\\Windows\\system32\\rasadhlp.dll",
-    "C:\\Windows\\System32\\fwpuclnt.dll",
-    "C:\\Windows\\system32\\apphelp.dll",
     "C:\\Windows\\system32\\NLAapi.dll",
+    "C:\\Windows\\system32\\DNSAPI.dll",
     "C:\\Windows\\System32\\winrnr.dll",
     "C:\\Windows\\system32\\napinsp.dll",
     "C:\\Windows\\system32\\pnrpnsp.dll"
