@@ -294,15 +294,5 @@
 </div>
 
 
-<div class='maincontainer'  *ngIf="maincontainer">
-    <gc-spread-sheets [backColor]="spreadBackColor" [hostStyle]="hostStyle" (workbookInitialized)="workbookInit($event)">
-    </gc-spread-sheets>
-    
-    <div class='exportExcel'>
-        <p>Save Excel File</p>
-        <button (click)="onClickMe($event)">Générer déclaration!</button>
-    </div>
-    <button class="hidden" (click)="load()">Generate PDF</button>  
 
-    </div>
 </div>

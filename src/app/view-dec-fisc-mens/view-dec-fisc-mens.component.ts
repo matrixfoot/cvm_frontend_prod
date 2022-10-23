@@ -13,8 +13,7 @@ import { ExcelService } from '../services/generate.excel.service';
 import * as logoFile from '../_helpers/declogo';
 import pdfMake from "pdfmake/build/pdfmake";  
 import pdfFonts from "pdfmake/build/vfs_fonts";  
-import * as GC from '@grapecity/spread-sheets';
-import * as Excel from '@grapecity/spread-excelio';
+
 import {saveAs} from 'file-saver';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
@@ -48,16 +47,14 @@ public decfiscmens: Decfiscmens;
     width: '95vw',
     height: '80vh'
   };
-  private spread;
-  private excelIO;
+  
   constructor(private router: Router,
     private route: ActivatedRoute,
     private dec: DecfiscmensService,
     private token: TokenStorageService,
     private excelService: ExcelService
     
-    ){this.spread = new GC.Spread.Sheets.Workbook(); 
-      this.excelIO = new Excel.IO();}
+    ){}
 
   
   ngOnInit() {
@@ -79,28 +76,7 @@ public decfiscmens: Decfiscmens;
   }
   
     
-  workbookInit(args: any) {
-    const self = this;
-    self.spread = args.spread;
-    const sheet = self.spread.getActiveSheet();
-    sheet.options.isProtected = true;
-    sheet.getCell(0, 0).text( ':التصريح الشهري بالأداءات').foreColor('blue');
-    sheet.getCell(1, 0).value(this.decfiscmens.annee).foreColor('blue');
-    sheet.getCell(2, 0).text('Test Excel').foreColor('blue');
-    sheet.getCell(3, 0).text('Test Excel').foreColor('blue');
-    sheet.getCell(0, 1).text('Test Excel').foreColor('blue');
-    sheet.getCell(1, 1).text('Test Excel').foreColor('blue');
-    sheet.getCell(2, 1).text('Test Excel').foreColor('blue');
-    sheet.getCell(3, 1).text('Test Excel').foreColor('blue');
-    sheet.getCell(0, 2).text('Test Excel').foreColor('blue');
-    sheet.getCell(1, 2).text('Test Excel').foreColor('blue');
-    sheet.getCell(2, 2).text('Test Excel').foreColor('blue');
-    sheet.getCell(3, 2).text('Test Excel').foreColor('blue');
-    sheet.getCell(0, 3).text('Test Excel').foreColor('blue');
-    sheet.getCell(1, 3).text('Test Excel').foreColor('blue');
-    sheet.getCell(2, 3).text('Test Excel').foreColor('blue');
-    sheet.getCell(3, 3).text('Test Excel').foreColor('blue');
-  }
+ 
   generatePDF() {  
     let docDefinition = {  
       header: 'C#Corner PDF Header',  
@@ -158,46 +134,11 @@ public decfiscmens: Decfiscmens;
         .then((response) => {
           response.blob().then((fileBlob) => { // convert the excel file to blob
           let file = new File([fileBlob], "Sample.xlsx"); //convert the blob into file
-          self.excelIO.open(file, (json: any) => {
-            self.spread.fromJSON(json, {});
-            const sheet = self.spread.getActiveSheet();
-        sheet.options.isProtected = true;
-        sheet.getCell(1, 0).value(this.decfiscmens.annee).foreColor('blue');
-            setTimeout(() => {
-              alert('load successfully');
-            }, 0);
-          }, (error: any) => {
-            alert('load fail');
-          });          })
+                   })
         })
         self.maincontainer=true
     }
-  onFileChange(args: any) {
-    const self = this, file = args.srcElement && args.srcElement.files && args.srcElement.files[0];
-    if (self.spread && file) {
-      self.excelIO.open(file, (json: any) => {
-        self.spread.fromJSON(json, {});
-        const sheet = self.spread.getActiveSheet();
-    sheet.options.isProtected = true;
-    sheet.getCell(1, 0).value(this.decfiscmens.annee).foreColor('blue');
-        setTimeout(() => {
-          alert('load successfully');
-        }, 0);
-      }, (error: any) => {
-        alert('load fail');
-      });
-    }
-  }
-  onClickMe(args: any) {
-  const self = this;
-  const filename = 'exportExcel.xlsx';
-  const json = JSON.stringify(self.spread.toJSON());
-  self.excelIO.save(json, function (blob) {
-    saveAs(blob, filename);
-  }, function (error: any) {
-    console.log(error);
-  });
-}
+ 
   getNavigation(link, id){
       
     this.router.navigate([link + '/' + id]);

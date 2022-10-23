@@ -813,11 +813,11 @@ this.sub36=merge(
         Swal.fire('opération non aboutie!');
       });
     }
-       if (user.regimefiscalimpot=='Réel')  
+       if (user.regimefiscalimpot==='Réel')  
        {
         this.prepminimumperceptionammount=10.000
        }  
-       else if (user.regimefiscalimpot=='Forfait D\'assiette') 
+       else if (user.regimefiscalimpot==='Forfait D\'assiette') 
        {
         this.prepminimumperceptionammount=5.000
 
@@ -881,8 +881,8 @@ this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +thi
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
-  this.totaldeclaration=5.000
-  this.minimumperceptionammount=5.000-this.preptotaldeclaration
+  this.totaldeclaration=this.prepminimumperceptionammount
+  this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
 
 } 
 else 

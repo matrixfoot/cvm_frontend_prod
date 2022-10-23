@@ -66,7 +66,6 @@ import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-men
 import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 import { CanDeactivateGuard } from './services/auth-guard.service';
 import { CreateReportComponent } from './create-report/create-report.component';
-import { SpreadSheetsModule } from "@grapecity/spread-sheets-angular";
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -139,7 +138,6 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     MatTabsModule,
     FullCalendarModule,
-    SpreadSheetsModule,
     
     
   ],
