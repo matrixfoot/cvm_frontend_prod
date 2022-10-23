@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';  
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; 
   
-import pdfMake from "pdfmake/build/pdfmake";  
-import pdfFonts from "pdfmake/build/vfs_fonts";  
-pdfMake.vfs = pdfFonts.pdfMake.vfs;  
+
 
 
 @Component({
@@ -15,13 +14,30 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 
 export class CreateReportComponent{
-  generatePDF() {  
-    let docDefinition = {  
-      header: 'C#Corner PDF Header',  
-      content: 'Sample PDF generated with Angular and PDFMake for C#Corner Blog'  
-    };  
-   
-    pdfMake.createPdf(docDefinition).open();  
-  }  
+ 
+  uploadedFiles: Array<File>;
 
+  constructor(private http : HttpClient){
+
+  }
+  
+  ngOnInit(){
+    
+  }
+
+  fileChange(element){
+    this.uploadedFiles = element.target.files;
+  }
+
+  upload(){
+    let formData = new FormData();
+    for(var i = 0; i < this.uploadedFiles.length; i++) {
+        formData.append("uploads[]", this.uploadedFiles[i], this.uploadedFiles[i].name);
+    }
+    this.http.post('/api/upload', formData)
+    .subscribe((response)=>{
+      console.log('response receved is ', response);
+    })
+  }
+  
 }

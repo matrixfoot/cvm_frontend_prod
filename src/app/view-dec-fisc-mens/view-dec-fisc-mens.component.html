@@ -286,8 +286,23 @@
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
     <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
     <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
-    <button type="button" class="btn btn-danger"(click)="generateExcel()"> Générer Déclaration</button>
-    <button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+    <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
+    <div><button (click)="load2()">Visualiser Déclaration</button>  </div>
+
+    <button type="button" class="hidden" (click)="Upload()" >Générer Déclaration(PDF)</button>
   </div>
 </div>
+
+
+<div class='maincontainer'  *ngIf="maincontainer">
+    <gc-spread-sheets [backColor]="spreadBackColor" [hostStyle]="hostStyle" (workbookInitialized)="workbookInit($event)">
+    </gc-spread-sheets>
+    
+    <div class='exportExcel'>
+        <p>Save Excel File</p>
+        <button (click)="onClickMe($event)">Générer déclaration!</button>
+    </div>
+    <button class="hidden" (click)="load()">Generate PDF</button>  
+
+    </div>
 </div>
