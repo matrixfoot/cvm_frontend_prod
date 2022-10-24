@@ -733,6 +733,13 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
            <fieldset>
          
              <div class="row">
+               <div class="col-6" *ngIf="showtfpsalairebrut===true">
+                 <div class="form-group">
+                     <label>Total des Salaires Bruts</label>
+                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)"  formControlName="tfpsalairebrut" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                   </div>
+             </div>
                <div class="col-6">
                    <div class="form-group"(click)="setThreeNumberDecimal($event)">
                        <label>Base De La TFP</label>
@@ -741,7 +748,7 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                      </div>
                </div>
                <div class="col-6">
-                   <div class="form-group" (click)="setThreeNumberDecimal($event)">
+                   <div class="form-group" >
                        <label>Taux</label>
                        <input type="text" class="form-control" value="2%" disabled/>
                      </div>
@@ -782,10 +789,10 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                  </div>
              </div>
              <div class="col-6">
-               <div class="form-group">
+               <div class="form-group"(click)="setThreeNumberDecimal($event)">
                    <label>TFP à reporter</label>
                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                     class="form-control"appTwoDigitDecimaNumber (click)="setThreeNumberDecimal($event)" formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                     class="form-control"appTwoDigitDecimaNumber  formControlName="tfpareporter" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                  </div>
              </div>
              
@@ -794,46 +801,53 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
              </form>
          </mat-tab>
          <!-- FOPROLOS tab -->
-            <mat-tab label="FOPROLOS" id="FOPROLOStab"*ngIf="showfoprolostab===true">
-            <!-- FOPROLOSform -->
-            <fieldset>
-              <legend> FOPROLOS</legend>                   
-            <form  [formGroup]="standardfoprolosform">
-              
-            
-                <div class="row">
-                  <div class="col-6">
-                      <div class="form-group"(click)="setThreeNumberDecimal($event)">
-                          <label>Base Du FOPROLOS</label>
-                          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"appTwoDigitDecimaNumber  formControlName="basefoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                      <div class="form-group">
-                          <label>Taux</label>
-                          <input type="text" class="form-control" value="1%" disabled/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group">
-                        <label>Salaires non soumis au FOPROLOS</label>
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                        class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumisfoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                      </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group">
-                      <label>Montant du FOPROLOS</label>
-                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                        class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="foprolosammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                    </div>
-                </div> 
-                </div>
-              </form>
-                </fieldset>
-                
-            </mat-tab>
+         <mat-tab label="FOPROLOS" id="FOPROLOStab"*ngIf="showfoprolostab===true">
+         <!-- FOPROLOSform -->
+         <fieldset>
+           <legend> FOPROLOS</legend>                   
+         <form  [formGroup]="standardfoprolosform">
+           
+         
+             <div class="row">
+               <div class="col-6" *ngIf="showfoprolossalairebrut===true">
+                 <div class="form-group">
+                     <label>Total des salaires bruts</label>
+                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)"  formControlName="foprolossalairebrut" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                   </div>
+             </div>
+               <div class="col-6">
+                   <div class="form-group"(click)="setThreeNumberDecimal($event)">
+                       <label>Base Du FOPROLOS</label>
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                       class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="basefoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                     </div>
+               </div>
+               <div class="col-6">
+                   <div class="form-group">
+                       <label>Taux</label>
+                       <input type="text" class="form-control" value="1%" disabled/>
+                     </div>
+               </div>
+               <div class="col-6">
+                 <div class="form-group">
+                     <label>Salaires non soumis au FOPROLOS</label>
+                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumisfoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                   </div>
+             </div>
+             <div class="col-6">
+               <div class="form-group">
+                   <label>Montant du FOPROLOS</label>
+                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="foprolosammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                 </div>
+             </div> 
+             </div>
+           </form>
+             </fieldset>
+             
+         </mat-tab>
             
            <!-- TVA tab -->
            <mat-tab label="TVA" id="TVAtab"*ngIf="showtvatab===true">
