@@ -1309,9 +1309,10 @@ calculateResultForm1()
           );
         this.standardtfpform.updateValueAndValidity();
       }
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
+
       this.standardfoprolosform.updateValueAndValidity();
       this.standardtraitementsalaireform.updateValueAndValidity();
-      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
 
     
   }
@@ -1455,6 +1456,8 @@ calculateResultForm1()
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
+        this.standardtclform.updateValueAndValidity();
+
       }
     if (chiffreaffairettcbis)
       {
@@ -1464,8 +1467,9 @@ calculateResultForm1()
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
+        this.standardtclform.updateValueAndValidity();
+
       }
-      this.standardtclform.updateValueAndValidity();
     
     
   }
@@ -1704,6 +1708,7 @@ calculateResultForm1()
                           }    }
                           decfiscmens.impottype3={ type:'',
                             basetfp:'',
+                            tfpsalairebrut:'',
                             montanttfpmois:'',
                             reporttfpmoisprecedent:'',
                             montantavance:'',
@@ -1711,6 +1716,7 @@ calculateResultForm1()
                             tfpreporter:'',
                             salairesnonsoumistfp:''}
                             decfiscmens.impottype4={ type:'',
+                            foprolossalairebrut:'',
                             basefoprolos:'',
                             montantfoprolos:'',
                             salairesnonsoumisfoprolos:''}
@@ -1964,6 +1970,7 @@ if(this.option49Value)
       if (this.standardtfpform.get('basetfp').value!==null)
       {
   decfiscmens.impottype3.type='TFP'
+    decfiscmens.impottype3.tfpsalairebrut=this.standardtfpform.get('tfpsalairebrut').value
   decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
   decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
   decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
@@ -1988,6 +1995,7 @@ if(this.option50Value)
       if (this.standardfoprolosform.get('basefoprolos').value!==null)
       {
   decfiscmens.impottype4.type='FOPROLOS'
+  decfiscmens.impottype4.foprolossalairebrut=this.standardfoprolosform.get('foprolossalairebrut').value
   decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
   decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
   decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
@@ -2497,6 +2505,8 @@ declareneanttcl()
       var text2 = document.getElementById("tabcontainer");
 
       if (checkbox.checked == true){
+        if (this.option49Value==true||this.option50Value==true)
+        {
         Swal.fire({
           title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TFP et FOPROLOS, voulez vous continuer?',
           
@@ -2528,7 +2538,17 @@ declareneanttcl()
           }
   
         })
-
+      }
+      else
+      {
+        this.resetretenuealasourceall()
+        
+        text2.style.display = "block";
+        this.showretenuetab=true;
+        this.option48Value=true;
+        this.showretenueverif=true;
+        this.option65Value=false;
+      }
       } else {
         this.showtfpsalairebrut=true
         this.showfoprolossalairebrut=true

@@ -600,9 +600,9 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     });
     this.standardtfpform =this.formBuilder.group({
       basetfp: [{value:"",disabled:true}],
+      tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
       taux: [{value:"0.02",disabled:true}],
       avanceammount: '',
-      tfpsalairebrut: '',
       tfpapayer: [{value:"",disabled:true}],
       salairesnonsoumistfp: '',
       tfpammountmoisactuel: [{value:"",disabled:true}],
@@ -611,11 +611,10 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     });
     this.standardfoprolosform =this.formBuilder.group({
       basefoprolos: [{value:'',disabled:true}],
+      foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
       taux: [{value:"0.01",disabled:true}],
       salairesnonsoumisfoprolos: '',
       foprolosammount: '',
-      foprolossalairebrut: '',
-
     });
     this.standarddroittimbreform =this.formBuilder.group({
       nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
@@ -1297,9 +1296,9 @@ calculateResultForm23()
           );
         this.standardtfpform.updateValueAndValidity();
       }
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
       this.standardfoprolosform.updateValueAndValidity();
       this.standardtraitementsalaireform.updateValueAndValidity();
-      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
 
     
   }
@@ -1443,6 +1442,8 @@ calculateResultForm23()
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
+        this.standardtclform.updateValueAndValidity();
+
       }
     if (chiffreaffairettcbis)
       {
@@ -1452,8 +1453,9 @@ calculateResultForm23()
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
+        this.standardtclform.updateValueAndValidity();
+
       }
-      this.standardtclform.updateValueAndValidity();
     
     
   }
@@ -1712,6 +1714,7 @@ onSubmit() {
                         }    }
                         decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
                           basetfp:this.decfiscmens.impottype3.basetfp,
+                                                    tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
                           montanttfpmois:this.decfiscmens.impottype3.montantavance,
                           reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
                           montantavance:this.decfiscmens.impottype3.montantavance,
@@ -1720,6 +1723,7 @@ onSubmit() {
                           salairesnonsoumistfp:this.decfiscmens.impottype3.salairesnonsoumistfp}
                           decfiscmens.impottype4={ type:this.decfiscmens.impottype4.type,
                           basefoprolos:this.decfiscmens.impottype4.basefoprolos,
+                          foprolossalairebrut:this.decfiscmens.impottype4.foprolossalairebrut,
                           montantfoprolos:this.decfiscmens.impottype4.montantfoprolos,
                           salairesnonsoumisfoprolos:this.decfiscmens.impottype4.salairesnonsoumisfoprolos}
                           decfiscmens.impottype5={ type:this.decfiscmens.impottype5.type,
@@ -1829,6 +1833,7 @@ onSend() {
                         decfiscmens.impottype3={ type:'',
                           basetfp:'',
                           montanttfpmois:'',
+                          tfpsalairebrut:'',
                           reporttfpmoisprecedent:'',
                           montantavance:'',
                           tfppayer:'',
@@ -1836,6 +1841,7 @@ onSend() {
                           salairesnonsoumistfp:''}
                           decfiscmens.impottype4={ type:'',
                           basefoprolos:'',
+                          foprolossalairebrut:'',
                           montantfoprolos:'',
                           salairesnonsoumisfoprolos:''}
                           decfiscmens.impottype5={ type:'',
@@ -2254,6 +2260,7 @@ onSubmitmodification() {
                           }    }
                           decfiscmens.impottype3={ type:'',
                             basetfp:'',
+                            tfpsalairebrut:'',
                             montanttfpmois:'',
                             reporttfpmoisprecedent:'',
                             montantavance:'',
@@ -2262,6 +2269,7 @@ onSubmitmodification() {
                             salairesnonsoumistfp:''}
                             decfiscmens.impottype4={ type:'',
                             basefoprolos:'',
+                            foprolossalairebrut:'',
                             montantfoprolos:'',
                             salairesnonsoumisfoprolos:''}
                             decfiscmens.impottype5={ type:'',
@@ -3105,6 +3113,8 @@ this.standardtclform.patchValue({
     var text2 = document.getElementById("tabcontainer");
 
     if (checkbox.checked == true){
+      if (this.option49Value==true||this.option50Value==true)
+      {
       Swal.fire({
         title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TFP et FOPROLOS, voulez vous continuer?',
         
@@ -3136,7 +3146,17 @@ this.standardtclform.patchValue({
         }
 
       })
-
+    }
+    else
+    {
+      this.resetretenuealasourceall()
+      
+      text2.style.display = "block";
+      this.showretenuetab=true;
+      this.option48Value=true;
+      this.showretenueverif=true;
+      this.option65Value=false;
+    }
     } else {
       this.showtfpsalairebrut=true
       this.showfoprolossalairebrut=true

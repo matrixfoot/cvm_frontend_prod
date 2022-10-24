@@ -725,8 +725,8 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
          
             </mat-tab>
           
-           <!-- TFP tab -->
-           <mat-tab label="TFP" id="TFPtab"*ngIf="showtfptab===true">
+          <!-- TFP tab -->
+          <mat-tab label="TFP" id="TFPtab"*ngIf="showtfptab===true">
             <!-- TFP form form-->
          <h2>TFP</h2>                    
          <form  [formGroup]="standardtfpform">
@@ -739,6 +739,13 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                      class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)"  formControlName="tfpsalairebrut" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                    </div>
+             </div>
+             <div class="col-6">
+               <div class="form-group">
+                   <label>Salaires Non Soumis TFP</label>
+                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumistfp" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                 </div>
              </div>
                <div class="col-6">
                    <div class="form-group"(click)="setThreeNumberDecimal($event)">
@@ -754,26 +761,21 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                      </div>
                </div>
                <div class="col-6">
+                 <div class="form-group"(click)="setThreeNumberDecimal($event)">
+                     <label>Montant de la TFP du mois</label>
+                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                       class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tfpammountmoisactuel" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                   </div>
+               </div>
+               <div class="col-6">
                  <div class="form-group">
                      <label>Montant De L'avance</label>
                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                      class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="avanceammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                    </div>
              </div>
-             <div class="col-6">
-               <div class="form-group">
-                   <label>Salaires Non Soumis TFP</label>
-                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumistfp" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                 </div>
-             </div>
-             <div class="col-6">
-               <div class="form-group"(click)="setThreeNumberDecimal($event)">
-                   <label>Montant de la TFP du mois</label>
-                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tfpammountmoisactuel" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                 </div>
-             </div>
+             
+             
              <div class="col-6">
                <div class="form-group">
                    <label>Report du TFP du mois précédent</label>

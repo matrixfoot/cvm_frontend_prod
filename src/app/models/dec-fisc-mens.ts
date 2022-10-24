@@ -188,6 +188,7 @@ autre:{
     impottype3: {
 
         type:string;
+        tfpsalairebrut:string;
         basetfp:string;
         montanttfpmois:string;
         reporttfpmoisprecedent:string;
@@ -200,6 +201,7 @@ autre:{
     impottype4: {
 
             type:string;
+            foprolossalairebrut:string;
             basefoprolos:string;
             montantfoprolos:string;
             salairesnonsoumisfoprolos:string
