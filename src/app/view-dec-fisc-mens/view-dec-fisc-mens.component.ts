@@ -88,7 +88,7 @@ public decfiscmens: Decfiscmens;
 
   load(){
     const self =this
-    var url = "https://docs.google.com/spreadsheets/d/19-f2UjNpWFbP1y3jDJXuBUKYVpx-nFj-/edit?usp=sharing&ouid=102282925063695236255&rtpof=true&sd=true";
+    var url = "https://res.cloudinary.com/dfodbn7qv/raw/upload/v1666542457/jwobokudq4bih0xp4j9u.xlsx";
     var oReq = new XMLHttpRequest();
     oReq.open("GET", url, true);
     oReq.responseType = "arraybuffer";
