@@ -854,37 +854,65 @@ canDeactivate():boolean {
   }
   openPopup() {
     this.displayStyle = "block";
-
-    this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
-    + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
-    + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
-    + +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
-    + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
-    this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
-    this.standardmontantautreform.get('retenueammount').value
-    
-this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
-+this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
-+this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
-this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
-if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
+if (this.option48Value)
 {
-  this.totaltvaammount=this.preptotaltvaammount-this.option64Value
+  this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
+  + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
+  + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+  + +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
+  + +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
+  this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
+  this.standardmontantautreform.get('retenueammount').value
 }
-else 
+else if (!this.option48Value)
 {
-this.totaltvaammount=0
-this.totalreporttvaammount=this.option64Value-this.preptotaltvaammount
+  this.totalretenueammount=0
+}    
+if (this.option51Value)
+{
+  this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
+  +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
+  +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+  this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
+  if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
+  {
+    this.totaltvaammount=this.preptotaltvaammount-this.option64Value
+  }
+  else 
+  {
+  this.totaltvaammount=0
+  this.totalreporttvaammount=this.option64Value-this.preptotaltvaammount
+  }
+}   
+else if (!this.option51Value)
+{
+  this.totaltvaammount=0
+  this.totalreporttvaammount=0
 }
-    this.totalfoprolosammount=this.foprolosapayer
-    if (this.tfpapayer >= 0)
+if (this.option50Value)
+{
+  this.totalfoprolosammount=this.foprolosapayer
+}
+else if (!this.option50Value)
+{
+  this.totalfoprolosammount=0
+}
+    if (this.option49Value)
     {
-    this.totaltfpammount= this.tfpapayer
-    } 
-    else 
-    {
-      this.totaltfpammount= 0
+      if (this.tfpapayer >= 0)
+      {
+      this.totaltfpammount= this.tfpapayer
+      } 
+      else 
+      {
+        this.totaltfpammount= 0
+      }
     }
+    else if (!this.option49Value)
+    {
+      this.totaltfpammount=0
+    }
+    
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
