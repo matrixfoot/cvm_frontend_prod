@@ -3024,6 +3024,7 @@
                         
                       
                           <div class="row">
+                            
                             <div class="col-6" *ngIf="showfoprolossalairebrut===true">
                               <div class="form-group">
                                   <label>Total des salaires bruts</label>
@@ -3031,6 +3032,13 @@
                                   class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)"  formControlName="foprolossalairebrut" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                                 </div>
                           </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                                <label>Salaires non soumis au FOPROLOS</label>
+                                <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumisfoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                              </div>
+                        </div>
                             <div class="col-6">
                                 <div class="form-group"(click)="setThreeNumberDecimal($event)">
                                     <label>Base Du FOPROLOS</label>
@@ -3044,13 +3052,7 @@
                                     <input type="text" class="form-control" value="1%" disabled/>
                                   </div>
                             </div>
-                            <div class="col-6">
-                              <div class="form-group">
-                                  <label>Salaires non soumis au FOPROLOS</label>
-                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                  class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="salairesnonsoumisfoprolos" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                                </div>
-                          </div>
+                            
                           <div class="col-6">
                             <div class="form-group">
                                 <label>Montant du FOPROLOS</label>
