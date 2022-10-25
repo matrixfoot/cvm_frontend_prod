@@ -1326,7 +1326,7 @@ calculateResultForm1()
     
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
+      this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
       this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1336,7 +1336,7 @@ calculateResultForm1()
       this.standardtvacollecteform.updateValueAndValidity();
       this.standardtclform.patchValue({
         
-        chiffreaffairettc:ammountttc,tclapayer:tclapayer},{emitEvent: false} 
+        chiffreaffairettc:ammountttc,tclapayer:this.totaltclammount},{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
   }
@@ -2549,6 +2549,8 @@ declareneanttcl()
         this.option48Value=true;
         this.showretenueverif=true;
         this.option65Value=false;
+        this.showtfpsalairebrut=false
+        this.showfoprolossalairebrut=false
       }
       } else {
         this.showtfpsalairebrut=true
