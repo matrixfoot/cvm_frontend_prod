@@ -2792,7 +2792,6 @@ Swal.fire({
       
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.resettclall()
         this.showtcltab=true;
         this.option53Value=true;
         this.showtclverif=true;
