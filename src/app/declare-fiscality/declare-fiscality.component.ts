@@ -1515,12 +1515,25 @@ calculateResultForm1()
     const taux=+this.standardtfpform.get('taux').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-    if (salairesbrutstfp)
+    const tfpavanceammount=+this.standardtfpform.get('avanceammount').value
+    if (tfpavanceammount<reporttfpmoisprecedent)
+    {
+      this.standardtfpform.patchValue({
+        tfpammountreportmoisprecedent: '',
+        avanceammount: '',
+        tfpapayer: this.tfpapayer,
+        tfpareporter: this.tfpareporter,
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
+    }
+    else if (salairesbrutstfp)
     {
     const basetfp=+ ((+salairesbrutstfp-+salairesnonsoumistfp).toFixed(3));
     const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
     this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
     this.tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+   
     if (this.tfpapayer<0)
     {
       this.standardtfpform.patchValue({
@@ -1550,6 +1563,7 @@ calculateResultForm1()
       const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
       this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
       this.tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+      
       if (this.tfpapayer<0)
     {
       this.standardtfpform.patchValue({
@@ -2218,10 +2232,10 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
     this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()
     
-    this.standardtraitementsalaireform.controls['brutsalary'].reset()
     this.standardtraitementsalaireform.controls['imposalary'].reset()
     this.standardtraitementsalaireform.controls['retenuesalary'].reset()
     this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+    this.standardtraitementsalaireform.controls['brutsalary'].reset()
 
     this.standardhonorairephysiquereelform.controls['brutammount'].reset()
     this.standardhonorairephysiquereelform.controls['netammount'].reset()

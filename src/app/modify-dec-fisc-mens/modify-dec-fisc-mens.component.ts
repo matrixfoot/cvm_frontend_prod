@@ -413,6 +413,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             
             this.showretenuetab=true
             this.showretenueverif=true
+            this.showfoprolossalairebrut=false;
+            this.showtfpsalairebrut=false;
           }
           if (this.decfiscmens.impottype3.type)
           {
@@ -604,8 +606,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       tvaammount: [{value:this.decfiscmens.impottype2.autretvaspecial.tvaammount,disabled:true}],
       ammountttc: [{value:this.decfiscmens.impottype2.autretvaspecial.ttcammount,disabled:true}],
     });
-    if (this.decfiscmens.impottype3.tfpsalairebrut)
-    {
+    
       this.standardtfpform =this.formBuilder.group({
         basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
         tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
@@ -617,23 +618,6 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
         tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
         tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
       });
-    }
-    if (!this.decfiscmens.impottype3.tfpsalairebrut)
-    {
-      this.standardtfpform =this.formBuilder.group({
-        basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
-        tfpsalairebrut: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
-        taux: [{value:"0.02",disabled:true}],
-        avanceammount: this.decfiscmens.impottype3.montantavance,
-        tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
-        salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
-        tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
-        tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
-        tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
-      });
-    }
-    if (this.decfiscmens.impottype3.tfpsalairebrut)
-    {
       this.standardfoprolosform =this.formBuilder.group({
         basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
         foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
@@ -641,17 +625,6 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
         salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
         foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
       });
-    }
-    if (!this.decfiscmens.impottype3.tfpsalairebrut)
-    {
-      this.standardfoprolosform =this.formBuilder.group({
-        basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
-        foprolossalairebrut: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
-        taux: [{value:"0.01",disabled:true}],
-        salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
-        foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
-      });
-    }
     this.standarddroittimbreform =this.formBuilder.group({
       nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
       taux: [{value:"0.6",disabled:true}],
@@ -907,6 +880,7 @@ this.sub35=merge(
   this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
   this.standardtfpform.get('tfpsalairebrut').valueChanges,
   this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
+  this.standardtfpform.get('avanceammount').valueChanges,
 ).subscribe((res:any)=>{
   this.calculateResultForm35()
 })
@@ -1511,12 +1485,23 @@ calculateResultForm23()
     const taux=+this.standardtfpform.get('taux').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-    if (salairesbrutstfp)
+    const tfpavanceammount=+this.standardtfpform.get('avanceammount').value
+    if (tfpavanceammount<reporttfpmoisprecedent)
+    {
+      this.standardtfpform.patchValue({
+        tfpammountreportmoisprecedent: '',
+        avanceammount: '',
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
+    }
+    else if (salairesbrutstfp)
     {
     const basetfp=+ ((+salairesbrutstfp-+salairesnonsoumistfp).toFixed(3));
     const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
     this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
     this.tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+   
     if (this.tfpapayer<0)
     {
       this.standardtfpform.patchValue({
@@ -1546,6 +1531,7 @@ calculateResultForm23()
       const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
       this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
       this.tfpareporter=+ ((+reporttfpmoisprecedent-+montanttfpmois).toFixed(3));
+      
       if (this.tfpapayer<0)
     {
       this.standardtfpform.patchValue({
@@ -2872,10 +2858,10 @@ resetretenuealasourceall(){
   this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()
   
-  this.standardtraitementsalaireform.controls['brutsalary'].reset()
   this.standardtraitementsalaireform.controls['imposalary'].reset()
   this.standardtraitementsalaireform.controls['retenuesalary'].reset()
   this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
+  this.standardtraitementsalaireform.controls['brutsalary'].reset()
 
   this.standardhonorairephysiquereelform.controls['brutammount'].reset()
   this.standardhonorairephysiquereelform.controls['netammount'].reset()
