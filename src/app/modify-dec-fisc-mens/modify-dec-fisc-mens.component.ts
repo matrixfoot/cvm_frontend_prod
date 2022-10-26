@@ -908,346 +908,337 @@ setThreeNumberDecimal($event) {
 
 
 calculateResultForm1()
-{
-  
-  const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
-  const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardlocationresidentesphysiqueform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardlocationresidentesphysiqueform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm2()
-{
-
-  const netammount=+this.standardlocationresidentesphysiqueform.get('netammount').value
+  {
+    
+    const brutammount=+this.standardlocationresidentesphysiqueform.get('brutammount').value
     const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
-    const retenueammount=((+netammount*+quotion)/(1-+quotion)).toFixed(3);
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+((brutammount*quotion).toFixed(3));
+  const netammount=+((brutammount-retenueammount).toFixed(3));
+  
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationresidentesphysiqueform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm3()
-{
+    
 
-  const brutammount=+this.standardlocationresidentesmoraleform.get('brutammount').value
-  const quotion=+this.standardlocationresidentesmoraleform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
 
-  this.standardlocationresidentesmoraleform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardlocationresidentesmoraleform.updateValueAndValidity();
+    
+  }
+  calculateResultForm2()
+  {
   
+    const netammount=+this.standardlocationresidentesphysiqueform.get('netammount').value
+      const quotion=+this.standardlocationresidentesphysiqueform.get('quotion').value
+      const retenueammount=((+netammount*+quotion)/(1-+quotion)).toFixed(3);
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardlocationresidentesphysiqueform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationresidentesphysiqueform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm3()
+  {
   
-}
-calculateResultForm4()
-{
-
-  const netammount=+this.standardlocationresidentesmoraleform.get('netammount').value
+    const brutammount=+this.standardlocationresidentesmoraleform.get('brutammount').value
     const quotion=+this.standardlocationresidentesmoraleform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardlocationresidentesmoraleform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationresidentesmoraleform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm4()
+  {
   
+    const netammount=+this.standardlocationresidentesmoraleform.get('netammount').value
+      const quotion=+this.standardlocationresidentesmoraleform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardlocationresidentesmoraleform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationresidentesmoraleform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm5()
+  {
   
-}
-calculateResultForm5()
-{
-
-  const brutammount=+this.standardlocationnonresidentesphysiquesform.get('brutammount').value
-  const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-  const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardlocationnonresidentesphysiquesform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm6()
-{
-
-  const netammount=+this.standardlocationnonresidentesphysiquesform.get('netammount').value
+    const brutammount=+this.standardlocationnonresidentesphysiquesform.get('brutammount').value
     const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardlocationnonresidentesphysiquesform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm6()
+  {
   
+    const netammount=+this.standardlocationnonresidentesphysiquesform.get('netammount').value
+      const quotion=+this.standardlocationnonresidentesphysiquesform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardlocationnonresidentesphysiquesform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm7()
+  {
   
-}
-calculateResultForm7()
-{
-
-  const brutammount=+this.standardlocationnonresidentesmoralesform.get('brutammount').value
-  const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardlocationnonresidentesmoralesform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm8()
-{
-
-  const netammount=+this.standardlocationnonresidentesmoralesform.get('netammount').value
+    const brutammount=+this.standardlocationnonresidentesmoralesform.get('brutammount').value
     const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardlocationnonresidentesmoralesform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount} 
       );
-    this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm8()
+  {
   
+    const netammount=+this.standardlocationnonresidentesmoralesform.get('netammount').value
+      const quotion=+this.standardlocationnonresidentesmoralesform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardlocationnonresidentesmoralesform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm9()
+  {
   
-}
-calculateResultForm9()
-{
-
-  const brutammount=+this.standardhonorairephysiquereelform.get('brutammount').value
-  const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardhonorairephysiquereelform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardhonorairephysiquereelform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm10()
-{
-
-  const netammount=+this.standardhonorairephysiquereelform.get('netammount').value
+    const brutammount=+this.standardhonorairephysiquereelform.get('brutammount').value
     const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardhonorairephysiquereelform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairephysiquereelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm10()
+  {
   
+    const netammount=+this.standardhonorairephysiquereelform.get('netammount').value
+      const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardhonorairephysiquereelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquereelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm11()
+  {
   
-}
-calculateResultForm11()
-{
-
-  const brutammount=+this.standardhonorairephysiquenonreelform.get('brutammount').value
-  const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-  const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardhonorairephysiquenonreelform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardhonorairephysiquenonreelform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm12()
-{
-
-  const netammount=+this.standardhonorairephysiquenonreelform.get('netammount').value
+    const brutammount=+this.standardhonorairephysiquenonreelform.get('brutammount').value
     const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardhonorairephysiquenonreelform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairephysiquenonreelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm12()
+  {
   
+    const netammount=+this.standardhonorairephysiquenonreelform.get('netammount').value
+      const quotion=+this.standardhonorairephysiquenonreelform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardhonorairephysiquenonreelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquenonreelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm13()
+  {
   
-}
-calculateResultForm13()
-{
-
-  const brutammount=+this.standardhonorairegroupementsform.get('brutammount').value
-  const quotion=+this.standardhonorairegroupementsform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-  const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardhonorairegroupementsform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardhonorairegroupementsform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm14()
-{
-
-  const netammount=+this.standardhonorairegroupementsform.get('netammount').value
+    const brutammount=+this.standardhonorairegroupementsform.get('brutammount').value
     const quotion=+this.standardhonorairegroupementsform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+    const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardhonorairegroupementsform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairegroupementsform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm14()
+  {
   
+    const netammount=+this.standardhonorairegroupementsform.get('netammount').value
+      const quotion=+this.standardhonorairegroupementsform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardhonorairegroupementsform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardhonorairegroupementsform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm15()
+  {
   
-}
-calculateResultForm15()
-{
-
-  const brutammount=+this.standardmontant15form.get('brutammount').value
-  const quotion=+this.standardmontant15form.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardmontant15form.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardmontant15form.updateValueAndValidity();
-  
-  
-}
-calculateResultForm16()
-{
-
-  const netammount=+this.standardmontant15form.get('netammount').value
+    const brutammount=+this.standardmontant15form.get('brutammount').value
     const quotion=+this.standardmontant15form.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardmontant15form.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontant15form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm16()
+  {
   
+    const netammount=+this.standardmontant15form.get('netammount').value
+      const quotion=+this.standardmontant15form.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardmontant15form.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontant15form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm17()
+  {
   
-}
-calculateResultForm17()
-{
-
-  const brutammount=+this.standardmontant10form.get('brutammount').value
-  const quotion=+this.standardmontant10form.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardmontant10form.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardmontant10form.updateValueAndValidity();
-  
-  
-}
-calculateResultForm18()
-{
-
-  const netammount=+this.standardmontant10form.get('netammount').value
+    const brutammount=+this.standardmontant10form.get('brutammount').value
     const quotion=+this.standardmontant10form.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardmontant10form.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontant10form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm18()
+  {
   
+    const netammount=+this.standardmontant10form.get('netammount').value
+      const quotion=+this.standardmontant10form.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardmontant10form.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontant10form.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm19()
+  {
   
-}
-calculateResultForm19()
-{
-
-  const brutammount=+this.standardmontantindividuelform.get('brutammount').value
-  const quotion=+this.standardmontantindividuelform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardmontantindividuelform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardmontantindividuelform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm20()
-{
-
-  const netammount=+this.standardmontantindividuelform.get('netammount').value
+    const brutammount=+this.standardmontantindividuelform.get('brutammount').value
     const quotion=+this.standardmontantindividuelform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardmontantindividuelform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontantindividuelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm20()
+  {
   
+    const netammount=+this.standardmontantindividuelform.get('netammount').value
+      const quotion=+this.standardmontantindividuelform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardmontantindividuelform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontantindividuelform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm21()
+  {
   
-}
-calculateResultForm21()
-{
-
-  const brutammount=+this.standardmontantautreform.get('brutammount').value
-  const quotion=+this.standardmontantautreform.get('quotion').value
-  const retenueammount=+ ((brutammount*quotion).toFixed(3));
-const netammount=+ ((brutammount-retenueammount).toFixed(3));
-
-  this.standardmontantautreform.patchValue({
-    retenueammount: retenueammount, 
-      netammount: netammount},{emitEvent: false} 
-    );
-  this.standardmontantautreform.updateValueAndValidity();
-  
-  
-}
-calculateResultForm22()
-{
-
-  const netammount=+this.standardmontantautreform.get('netammount').value
+    const brutammount=+this.standardmontantautreform.get('brutammount').value
     const quotion=+this.standardmontantautreform.get('quotion').value
-    const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
-    const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+    const retenueammount=+ ((brutammount*quotion).toFixed(3));
+  const netammount=+ ((brutammount-retenueammount).toFixed(3));
+  
     this.standardmontantautreform.patchValue({
       retenueammount: retenueammount, 
-        brutammount: brutammount},{emitEvent: false} 
+        netammount: netammount} 
       );
-    this.standardmontantautreform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm22()
+  {
   
-  
-}
+    const netammount=+this.standardmontantautreform.get('netammount').value
+      const quotion=+this.standardmontantautreform.get('quotion').value
+      const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
+      const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
+      this.standardmontantautreform.patchValue({
+        retenueammount: retenueammount, 
+          brutammount: brutammount},{emitEvent: false} 
+        );
+      this.standardmontantautreform.updateValueAndValidity();
+    
+    
+  }
 calculateResultForm23()
   {
   
@@ -1493,15 +1484,14 @@ calculateResultForm23()
       confirmButtonColor: '#3085d6',
     }).then((result) => 
     { this.standardtfpform.patchValue({
-      tfpammountreportmoisprecedent: '',
-      avanceammount: '',
-      },{emitEvent: false} 
+      tfpammountreportmoisprecedent: '0',
+      avanceammount: '0',
+      } 
       );
-    this.standardtfpform.updateValueAndValidity();
+   
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
-     
     }
     else if (salairesbrutstfp)
     {

@@ -852,6 +852,10 @@ canDeactivate():boolean {
     $event.target.value = $event.target.value ? $event.target.value : 0;
     $event.target.value = parseFloat($event.target.value).toFixed(3);
   }
+  convertThreeNumberDecimal() {
+    parseFloat(this.standardlocationresidentesphysiqueform.get('retenueammount').value).toFixed(3)
+    console.log(this.standardlocationresidentesphysiqueform.get('retenueammount').value)
+  }
   openPopup() {
     this.displayStyle = "block";
 if (this.option48Value)
@@ -945,9 +949,8 @@ calculateResultForm1()
   
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationresidentesphysiqueform.updateValueAndValidity();
     
 
 
@@ -978,9 +981,8 @@ calculateResultForm1()
   
     this.standardlocationresidentesmoraleform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationresidentesmoraleform.updateValueAndValidity();
     
     
   }
@@ -1009,9 +1011,8 @@ calculateResultForm1()
   
     this.standardlocationnonresidentesphysiquesform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
     
     
   }
@@ -1040,9 +1041,8 @@ calculateResultForm1()
   
     this.standardlocationnonresidentesmoralesform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount} 
       );
-    this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
     
     
   }
@@ -1071,9 +1071,8 @@ calculateResultForm1()
   
     this.standardhonorairephysiquereelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairephysiquereelform.updateValueAndValidity();
     
     
   }
@@ -1102,9 +1101,8 @@ calculateResultForm1()
   
     this.standardhonorairephysiquenonreelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairephysiquenonreelform.updateValueAndValidity();
     
     
   }
@@ -1133,9 +1131,8 @@ calculateResultForm1()
   
     this.standardhonorairegroupementsform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardhonorairegroupementsform.updateValueAndValidity();
     
     
   }
@@ -1164,9 +1161,8 @@ calculateResultForm1()
   
     this.standardmontant15form.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontant15form.updateValueAndValidity();
     
     
   }
@@ -1195,9 +1191,8 @@ calculateResultForm1()
   
     this.standardmontant10form.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontant10form.updateValueAndValidity();
     
     
   }
@@ -1226,9 +1221,8 @@ calculateResultForm1()
   
     this.standardmontantindividuelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount}
       );
-    this.standardmontantindividuelform.updateValueAndValidity();
     
     
   }
@@ -1257,9 +1251,8 @@ calculateResultForm1()
   
     this.standardmontantautreform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount},{emitEvent: false} 
+        netammount: netammount} 
       );
-    this.standardmontantautreform.updateValueAndValidity();
     
     
   }
@@ -1523,11 +1516,11 @@ calculateResultForm1()
       confirmButtonColor: '#3085d6',
     }).then((result) => 
     { this.standardtfpform.patchValue({
-      tfpammountreportmoisprecedent: '',
-      avanceammount: '',
-      },{emitEvent: false} 
+      tfpammountreportmoisprecedent: '0',
+      avanceammount: '0',
+      } 
       );
-    this.standardtfpform.updateValueAndValidity();
+   
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
