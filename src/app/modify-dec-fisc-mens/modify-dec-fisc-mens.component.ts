@@ -1487,13 +1487,21 @@ calculateResultForm23()
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
     const tfpavanceammount=+this.standardtfpform.get('avanceammount').value
     if (tfpavanceammount<reporttfpmoisprecedent)
-    {
-      this.standardtfpform.patchValue({
-        tfpammountreportmoisprecedent: '',
-        avanceammount: '',
-        },{emitEvent: false} 
-        );
-      this.standardtfpform.updateValueAndValidity();
+    {Swal.fire({
+      title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => 
+    { this.standardtfpform.patchValue({
+      tfpammountreportmoisprecedent: '',
+      avanceammount: '',
+      },{emitEvent: false} 
+      );
+    this.standardtfpform.updateValueAndValidity();
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    })
+     
     }
     else if (salairesbrutstfp)
     {
@@ -2888,10 +2896,10 @@ resetretenuealasourceall(){
 resettfpall(){
   this.standardtfpform.controls['tfpsalairebrut'].reset()
   this.standardtfpform.controls['basetfp'].reset()
+  this.standardtfpform.controls['tfpammountreportmoisprecedent'].reset()
   this.standardtfpform.controls['avanceammount'].reset()
   this.standardtfpform.controls['salairesnonsoumistfp'].reset()
   this.standardtfpform.controls['tfpammountmoisactuel'].reset()
-  this.standardtfpform.controls['tfpammountreportmoisprecedent'].reset()
 
 }
 resetfoprolosall(){
