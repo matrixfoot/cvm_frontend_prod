@@ -1293,7 +1293,7 @@ calculateResultForm1()
     const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
     const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
     const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
-    const foprolosammount=+ ((+basefoprolos * +tauxfoprolos).toFixed(3));
+    this.foprolosapayer=+ ((+basefoprolos * +tauxfoprolos).toFixed(3));
     const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
     this.tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
     this.tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
@@ -1312,9 +1312,16 @@ calculateResultForm1()
         imposalary: '',
       solidaritycontribution:''},{emitEvent: false} 
       );
+      this.standardtraitementsalaireform.updateValueAndValidity();
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
+      }
+      if (this.foprolosapayer>0)
+      {
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:this.foprolosapayer},{emitEvent: false})
+
+      this.standardfoprolosform.updateValueAndValidity();
       }  
       if (this.tfpapayer<0)
       {
@@ -1327,7 +1334,7 @@ calculateResultForm1()
           );
         this.standardtfpform.updateValueAndValidity();
       }
-      else if (this.tfpapayer>0)
+    if (this.tfpapayer>0)
       {
         this.standardtfpform.patchValue({
           basetfp: basetfp,
@@ -1338,9 +1345,7 @@ calculateResultForm1()
           );
         this.standardtfpform.updateValueAndValidity();
       }
-      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
-
-      this.standardfoprolosform.updateValueAndValidity();
+      
       this.standardtraitementsalaireform.updateValueAndValidity();
 
     
@@ -1481,7 +1486,7 @@ calculateResultForm1()
     {
     this.totaltclammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
   
-      this.standardtclform.patchValue({
+      this.standardtclform.patchValue({chiffreaffairettc:chiffreaffairettc,
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
@@ -1510,7 +1515,7 @@ calculateResultForm1()
     const taux=+this.standardtfpform.get('taux').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-    if (+salairesbrutstfp!==0)
+    if (salairesbrutstfp)
     {
     const basetfp=+ ((+salairesbrutstfp-+salairesnonsoumistfp).toFixed(3));
     const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
@@ -1527,7 +1532,7 @@ calculateResultForm1()
         );
       this.standardtfpform.updateValueAndValidity();
     }
-    else if (this.tfpapayer>0)
+    if (this.tfpapayer>0)
     {
       this.standardtfpform.patchValue({
         basetfp: basetfp,
@@ -1556,7 +1561,7 @@ calculateResultForm1()
         );
       this.standardtfpform.updateValueAndValidity();
     }
-    else if (this.tfpapayer>0)
+    if (this.tfpapayer>=0)
     {
       this.standardtfpform.patchValue({
         basetfp: basetfp,
@@ -2244,18 +2249,15 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardtfpform.controls['tfpsalairebrut'].reset()
     this.standardtfpform.controls['basetfp'].reset()
     this.standardtfpform.controls['avanceammount'].reset()
-    this.standardtfpform.controls['tfpapayer'].reset()
     this.standardtfpform.controls['salairesnonsoumistfp'].reset()
     this.standardtfpform.controls['tfpammountmoisactuel'].reset()
     this.standardtfpform.controls['tfpammountreportmoisprecedent'].reset()
-    this.standardtfpform.controls['tfpareporter'].reset()
 
   }
   resetfoprolosall(){
     this.standardfoprolosform.controls['foprolossalairebrut'].reset()
     this.standardfoprolosform.controls['basefoprolos'].reset()
     this.standardfoprolosform.controls['salairesnonsoumisfoprolos'].reset()
-    this.standardfoprolosform.controls['foprolosammount'].reset()
 
     
   }
@@ -2265,7 +2267,6 @@ this.DecfiscmensService.create(decfiscmens).then(
   }
   resettclall(){
     this.standardtclform.controls['chiffreaffairettc'].reset()
-    this.standardtclform.controls['tclapayer'].reset()
   }
   resettvaall(){
     this.standardtvacollecteform.controls['chiffreaffaireht'].reset()
@@ -2594,10 +2595,9 @@ Swal.fire({
           cancelButtonText: 'Annuler',
         }).then((result) => {
           if (result.value) {
-            
             this.resetretenuealasourceall();
-            this.resettfpall();
-            this.resetfoprolosall();
+            this.resettfpall()
+            this.resetfoprolosall()
             this.showretenuetab=false;
             this.option48Value=false
             this.showretenueverif=false;
@@ -2621,7 +2621,6 @@ Swal.fire({
       
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.resettfpall()
         this.showtfptab=true;
         this.option49Value=true;
         this.showtfpverif=true;
@@ -2665,7 +2664,6 @@ Swal.fire({
       
       if (checkbox.checked == true){
         text2.style.display = "block";
-        this.resetfoprolosall()
         this.showfoprolostab=true;
         this.option50Value=true;
         this.showfoprolosverif=true;

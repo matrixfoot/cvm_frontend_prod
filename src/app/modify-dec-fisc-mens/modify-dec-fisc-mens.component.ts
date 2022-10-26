@@ -391,6 +391,11 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           this.decfiscmens = decfiscmens;
           this.tokenStorage.saved=false;
           this.nature=this.decfiscmens.nature
+          this.tfpapayer=+this.decfiscmens.impottype3.tfppayer
+          this.tfpareporter=+this.decfiscmens.impottype3.tfpreporter
+          this.foprolosapayer=+this.decfiscmens.impottype4.montantfoprolos
+          this.totaltclammount=+this.decfiscmens.impottype6.tclpayer
+          this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
           this.decfiscmensForm = this.formBuilder.group({
             
             statut: [this.decfiscmens.statut, Validators.required],
@@ -400,6 +405,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
           this.option171Value=this.decfiscmens.mois
           this.option54Value=this.decfiscmens.annee
+          
 
           if (this.decfiscmens.impottype1.type)
           {
@@ -558,8 +564,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     this.standardtvarecuperableequipementform =this.formBuilder.group({
       achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
       achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
-      achatimporteht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
-      achatimportetva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
+      achatimporteht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht],
+      achatimportetva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht],
     });
     this.standardtvarecuperableimmobilierform =this.formBuilder.group({
       achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht],
@@ -598,24 +604,54 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       tvaammount: [{value:this.decfiscmens.impottype2.autretvaspecial.tvaammount,disabled:true}],
       ammountttc: [{value:this.decfiscmens.impottype2.autretvaspecial.ttcammount,disabled:true}],
     });
-    this.standardtfpform =this.formBuilder.group({
-      basetfp: [{value:"",disabled:true}],
-      tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
-      taux: [{value:"0.02",disabled:true}],
-      avanceammount: '',
-      tfpapayer: [{value:"",disabled:true}],
-      salairesnonsoumistfp: '',
-      tfpammountmoisactuel: [{value:"",disabled:true}],
-      tfpammountreportmoisprecedent: '',
-      tfpareporter: [{value:"",disabled:true}],
-    });
-    this.standardfoprolosform =this.formBuilder.group({
-      basefoprolos: [{value:'',disabled:true}],
-      foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
-      taux: [{value:"0.01",disabled:true}],
-      salairesnonsoumisfoprolos: '',
-      foprolosammount: '',
-    });
+    if (this.decfiscmens.impottype3.tfpsalairebrut)
+    {
+      this.standardtfpform =this.formBuilder.group({
+        basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
+        tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
+        taux: [{value:"0.02",disabled:true}],
+        avanceammount: this.decfiscmens.impottype3.montantavance,
+        tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
+        salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
+        tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
+        tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
+        tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
+      });
+    }
+    if (!this.decfiscmens.impottype3.tfpsalairebrut)
+    {
+      this.standardtfpform =this.formBuilder.group({
+        basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
+        tfpsalairebrut: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
+        taux: [{value:"0.02",disabled:true}],
+        avanceammount: this.decfiscmens.impottype3.montantavance,
+        tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
+        salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
+        tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
+        tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
+        tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
+      });
+    }
+    if (this.decfiscmens.impottype3.tfpsalairebrut)
+    {
+      this.standardfoprolosform =this.formBuilder.group({
+        basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
+        foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
+        taux: [{value:"0.01",disabled:true}],
+        salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
+        foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
+      });
+    }
+    if (!this.decfiscmens.impottype3.tfpsalairebrut)
+    {
+      this.standardfoprolosform =this.formBuilder.group({
+        basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
+        foprolossalairebrut: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
+        taux: [{value:"0.01",disabled:true}],
+        salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
+        foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
+      });
+    }
     this.standarddroittimbreform =this.formBuilder.group({
       nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
       taux: [{value:"0.6",disabled:true}],
@@ -626,6 +662,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       taux: [{value:"0.002",disabled:true}],
       tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
     });
+    
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
       this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
@@ -1252,7 +1289,7 @@ calculateResultForm23()
     const solidaritycontribution=+this.standardtraitementsalaireform.get('solidaritycontribution').value
     const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
     const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
-    const foprolosammount=+ ((+basefoprolos * +tauxfoprolos).toFixed(3));
+    this.foprolosapayer=+ ((+basefoprolos * +tauxfoprolos).toFixed(3));
     const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
     this.tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
     this.tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
@@ -1271,9 +1308,16 @@ calculateResultForm23()
         imposalary: '',
       solidaritycontribution:''},{emitEvent: false} 
       );
+      this.standardtraitementsalaireform.updateValueAndValidity();
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
+      }
+      if (this.foprolosapayer>0)
+      {
+      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:this.foprolosapayer},{emitEvent: false})
+
+      this.standardfoprolosform.updateValueAndValidity();
       }  
       if (this.tfpapayer<0)
       {
@@ -1286,7 +1330,7 @@ calculateResultForm23()
           );
         this.standardtfpform.updateValueAndValidity();
       }
-      else if (this.tfpapayer>0)
+    if (this.tfpapayer>0)
       {
         this.standardtfpform.patchValue({
           basetfp: basetfp,
@@ -1297,9 +1341,7 @@ calculateResultForm23()
           );
         this.standardtfpform.updateValueAndValidity();
       }
-      this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:foprolosammount},{emitEvent: false})
-
-      this.standardfoprolosform.updateValueAndValidity();
+      
       this.standardtraitementsalaireform.updateValueAndValidity();
 
     
@@ -1440,7 +1482,7 @@ calculateResultForm23()
     {
     this.totaltclammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
   
-      this.standardtclform.patchValue({
+      this.standardtclform.patchValue({chiffreaffairettc:chiffreaffairettc,
         tclapayer: this.totaltclammount,
         },{emitEvent: false} 
         );
@@ -1469,7 +1511,7 @@ calculateResultForm23()
     const taux=+this.standardtfpform.get('taux').value
     const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
     const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
-    if (+salairesbrutstfp!==0)
+    if (salairesbrutstfp)
     {
     const basetfp=+ ((+salairesbrutstfp-+salairesnonsoumistfp).toFixed(3));
     const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
@@ -1486,7 +1528,7 @@ calculateResultForm23()
         );
       this.standardtfpform.updateValueAndValidity();
     }
-    else if (this.tfpapayer>0)
+    if (this.tfpapayer>0)
     {
       this.standardtfpform.patchValue({
         basetfp: basetfp,
@@ -1515,7 +1557,7 @@ calculateResultForm23()
         );
       this.standardtfpform.updateValueAndValidity();
     }
-    else if (this.tfpapayer>0)
+    if (this.tfpapayer>=0)
     {
       this.standardtfpform.patchValue({
         basetfp: basetfp,
@@ -2638,6 +2680,9 @@ if (this.option51Value)
 this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
 +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
 +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+this.tvacollecte=+this.standardtvacollecteform.get('tvaammount').value+ +this.standardlocationusagehabitationmeubleform.get('tvaammount').value+ 
++this.standardlocationusagecommercialform.get('tvaammount').value+ +this.standardoperationlotissementform.get('tvaammount').value+ +this.standardinteretpercueform.get('tvaammount').value+ 
++this.standardautretvaspecialform.get('tvaammount').value
 this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
 if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
 {
@@ -2858,18 +2903,15 @@ resettfpall(){
   this.standardtfpform.controls['tfpsalairebrut'].reset()
   this.standardtfpform.controls['basetfp'].reset()
   this.standardtfpform.controls['avanceammount'].reset()
-  this.standardtfpform.controls['tfpapayer'].reset()
   this.standardtfpform.controls['salairesnonsoumistfp'].reset()
   this.standardtfpform.controls['tfpammountmoisactuel'].reset()
   this.standardtfpform.controls['tfpammountreportmoisprecedent'].reset()
-  this.standardtfpform.controls['tfpareporter'].reset()
 
 }
 resetfoprolosall(){
   this.standardfoprolosform.controls['foprolossalairebrut'].reset()
   this.standardfoprolosform.controls['basefoprolos'].reset()
   this.standardfoprolosform.controls['salairesnonsoumisfoprolos'].reset()
-  this.standardfoprolosform.controls['foprolosammount'].reset()
 
   
 }
@@ -2879,7 +2921,6 @@ resettimbreall(){
 }
 resettclall(){
   this.standardtclform.controls['chiffreaffairettc'].reset()
-  this.standardtclform.controls['tclapayer'].reset()
 }
 resettvaall(){
   this.standardtvacollecteform.controls['chiffreaffaireht'].reset()
@@ -3186,6 +3227,8 @@ this.standardtclform.patchValue({
       this.option48Value=true;
       this.showretenueverif=true;
       this.option65Value=false;
+      this.showtfpsalairebrut=false
+      this.showfoprolossalairebrut=false
     }
     } else {
       this.showtfpsalairebrut=true
@@ -3201,10 +3244,9 @@ Swal.fire({
         cancelButtonText: 'Annuler',
       }).then((result) => {
         if (result.value) {
-          
           this.resetretenuealasourceall();
-          this.resettfpall();
-          this.resetfoprolosall();
+          this.resettfpall()
+          this.resetfoprolosall()
           this.showretenuetab=false;
           this.option48Value=false
           this.showretenueverif=false;
@@ -3228,7 +3270,6 @@ Swal.fire({
     
     if (checkbox.checked == true){
       text2.style.display = "block";
-      this.resettfpall()
       this.showtfptab=true;
       this.option49Value=true;
       this.showtfpverif=true;
@@ -3272,7 +3313,6 @@ Swal.fire({
     
     if (checkbox.checked == true){
       text2.style.display = "block";
-      this.resetfoprolosall()
       this.showfoprolostab=true;
       this.option50Value=true;
       this.showfoprolosverif=true;
