@@ -1243,7 +1243,7 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                           class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="nombrenotehonoraire" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                         </div>
                   </div>
-                  <div class="col-6">
+                  <div class="col-6"(click)="setThreeNumberDecimal($event)">
                       <div class="form-group">
                           <label>Droit de timbre unitaire</label>
                           <input type="text" class="form-control" formControlName="taux"/>

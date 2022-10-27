@@ -1274,6 +1274,8 @@ calculateResultForm23()
       solidaritycontribution:''},{emitEvent: false} 
       );
       this.standardtraitementsalaireform.updateValueAndValidity();
+      this.resettfpall()
+      this.resetfoprolosall()
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     })
@@ -1440,22 +1442,10 @@ calculateResultForm23()
   calculateResultForm34()
   {
   
-    const chiffreaffairettc=+this.standardtvacollecteform.get('ammountttc').value
     const chiffreaffairettcbis=+this.standardtclform.get('chiffreaffairettc').value
     const taux=+this.standardtclform.get('taux').value
-    if (chiffreaffairettc)
-    {
-    this.totaltclammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
-  
-      this.standardtclform.patchValue({chiffreaffairettc:chiffreaffairettc,
-        tclapayer: this.totaltclammount,
-        },{emitEvent: false} 
-        );
-        this.standardtclform.updateValueAndValidity();
-
-      }
-    if (chiffreaffairettcbis)
-      {
+    
+    
         this.totaltclammount=+ ((+chiffreaffairettcbis*+taux).toFixed(3));
   
       this.standardtclform.patchValue({
@@ -1463,8 +1453,6 @@ calculateResultForm23()
         },{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
-
-      }
     
     
   }
@@ -2706,7 +2694,14 @@ this.totalfoprolosammount=0
   {
     this.totaltfpammount=0
   }
-  
+  if (!this.option52Value)
+  {
+  this.totaltimbreammount=0
+  }
+  if (!this.option53Value)
+  {
+  this.totaltclammount=0
+  } 
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
@@ -3422,6 +3417,15 @@ Swal.fire({
     var text2 = document.getElementById("tabcontainer");
     
     if (checkbox.checked == true){
+      if (this.option51Value)
+      {
+      const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+      const taux=+this.standardtvacollecteform.get('taux').value
+      const chiffreaffairettc=(chiffreaffaireht*taux)+chiffreaffaireht
+      this.standardtclform.patchValue({
+        chiffreaffairettc:chiffreaffairettc
+      })
+    }
       text2.style.display = "block";
       this.showtcltab=true;
       this.option53Value=true;
