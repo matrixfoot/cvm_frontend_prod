@@ -1522,6 +1522,19 @@ calculateResultForm1()
     }
     else if (salairesbrutstfp)
     {
+      if (salairesnonsoumistfp>salairesbrutstfp)
+{
+  Swal.fire({
+    title: 'le champ des salaires non soumises ne doit pas dépasser le total des salaires bruts',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => 
+  { this.resettfpall()
+ 
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  })
+}
     const basetfp=+ ((+salairesbrutstfp-+salairesnonsoumistfp).toFixed(3));
     const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
     this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
@@ -1552,6 +1565,19 @@ calculateResultForm1()
     }
     else 
     {
+if (salairesnonsoumistfp>salairesbrutsrs)
+{
+  Swal.fire({
+    title: 'le champ des salaires non soumises ne doit pas dépasser le total des salaires bruts',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => 
+  { this.resettfpall()
+ 
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  })
+}
       const basetfp=+ ((+salairesbrutsrs-+salairesnonsoumistfp).toFixed(3));
       const montanttfpmois=+ (+basetfp* +taux).toFixed(3);
       this.tfpapayer=+ ((+montanttfpmois-+reporttfpmoisprecedent).toFixed(3));
@@ -1594,8 +1620,21 @@ calculateResultForm1()
     const foprolossalairebrut=+this.standardfoprolosform.get('foprolossalairebrut').value
     const taux=+this.standardfoprolosform.get('taux').value
     const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
-    if (+foprolossalairebrut!==0)
+    if (foprolossalairebrut!==0)
     {
+      if (salairesnonsoumisfoprolos>foprolossalairebrut)
+{
+  Swal.fire({
+    title: 'le champ des salaires non soumises ne doit pas dépasser le total des salaires bruts',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => 
+  { this.resetfoprolosall()
+ 
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  })
+}
       const basefoprolos=+ ((+foprolossalairebrut-+salairesnonsoumisfoprolos).toFixed(3));
       this.foprolosapayer=+ (+basefoprolos* +taux).toFixed(3);
       
@@ -1609,6 +1648,19 @@ calculateResultForm1()
     }
     else
     {
+      if (salairesnonsoumisfoprolos>salairesbrutsrs)
+{
+  Swal.fire({
+    title: 'le champ des salaires non soumises ne doit pas dépasser le total des salaires bruts',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => 
+  { this.resetfoprolosall()
+ 
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  })
+}
       const basefoprolos=+ ((+salairesbrutsrs-+salairesnonsoumisfoprolos).toFixed(3));
       this.foprolosapayer=+ (+basefoprolos* +taux).toFixed(3);
       
@@ -2800,7 +2852,7 @@ Swal.fire({
         {
         const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
         const taux=+this.standardtvacollecteform.get('taux').value
-        const chiffreaffairettc=(chiffreaffaireht*taux)+chiffreaffaireht
+        const chiffreaffairettc=((chiffreaffaireht*taux)+chiffreaffaireht).toFixed(3)
         this.standardtclform.patchValue({
           chiffreaffairettc:chiffreaffairettc
         })

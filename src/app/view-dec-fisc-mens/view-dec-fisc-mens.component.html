@@ -1,298 +1,319 @@
-<div id="loader" *ngIf="loading"></div>
-  <div class="col-lg-12" *ngIf="!loading">
-    <div class="team-member">
-  <h2>Détails Déclaration</h2>
-    
-  <div class="card">
-    
-    <div class="container-fluid">
-      
-      <h4>Crée le:<b>  {{ decfiscmens.created |customDate}}</b></h4>
-      <h4>Dernière modification  le:<b>  {{ decfiscmens.updated|customDate }}</b></h4>
-      <h4>Mois:<b>  {{ decfiscmens.mois }}</b></h4>  
-      <h4>Année:<b>  {{ decfiscmens.annee }}</b></h4>
-      <h4>Nom et Prénom:<b>  {{ decfiscmens.firstname }} {{ decfiscmens.lastname }}</b></h4>
-      <h4>Raison Sociale:<b>  {{ decfiscmens.raisonsociale }}</b></h4>  
-      <h4>Registre de commerce:<b>  {{ decfiscmens.registrecommerce }}</b></h4>
-      <h4>Matricule Fiscale:<b>  {{ decfiscmens.matriculefiscale }}</b></h4>
-      <h4>Code TVA:<b>  {{ decfiscmens.codetva }}</b></h4>  
-      <h4>Code Genre:<b>  {{ decfiscmens.codegenre }}</b></h4>
-      <h4>Adresse:<b>  {{ decfiscmens.adresse }}</b></h4>
-      <h4>Statut:<b>  {{ decfiscmens.statut }}</b></h4>
-      <h4>Motif:<b>  {{ decfiscmens.motif }}</b></h4>
-      <h4>Code Postal:<b>  {{ decfiscmens.codepostal }}</b></h4>
-      <h4>Activité:<b>  {{ decfiscmens.activite }}</b></h4>
-      <h4>Date d'arrêt d'activité:<b>  {{ decfiscmens.datearretactivite }}</b></h4>
-      <hr>
-      <h4 *ngIf="decfiscmens.impottype1.type">Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.traitementetsalaire.salairebrut">
-      <h3>Type rubrique: traitement et salaire</h3>
-      <hr>
-      
-      <h4>Salaire Brut:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salairebrut  }}</b></h4>
-      <h4>Salaire imposable:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salaireimposable }}</b></h4>  
-      <h4>Retenue à la source:<b>  {{ decfiscmens.impottype1.traitementetsalaire.retenuealasource }}</b></h4>
-      <h4>Contribution à l'aide sociale:<b>  {{ decfiscmens.impottype1.traitementetsalaire.contributionsociale }}</b></h4>
-    </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.location1.type||decfiscmens.impottype1.location2.type||decfiscmens.impottype1.location3.type
-      ||decfiscmens.impottype1.location4.type">
-      <h3>Type rubrique: location, commission, courtage et vacation</h3>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.location1.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.location1.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location1.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location1.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location1.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.location2.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.location2.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location2.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location2.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location2.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.location3.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.location3.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location3.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location3.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location3.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.location4.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.location4.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location4.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location4.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location4.montantnet }}</b></h4>
-      <hr>
-    </div>
-    </div>
-    <div *ngIf="decfiscmens.impottype1.honoraire1.type||decfiscmens.impottype1.honoraire2.type||decfiscmens.impottype1.honoraire3.type">
-      <h3>Type rubrique: honoraire</h3>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.honoraire1.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire1.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire1.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire1.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire1.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.honoraire2.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire2.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire2.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire2.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire2.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.honoraire3.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire3.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire3.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire3.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire3.montantnet }}</b></h4>
-      <hr>
-      </div>
-      </div>
-      <div *ngIf="decfiscmens.impottype1.montant10001.type||decfiscmens.impottype1.montant10002.type||decfiscmens.impottype1.montant10003.type
-      ||decfiscmens.impottype1.montant10004.type">
-      <h3>Type rubrique: Montants supérieurs à 1000dt</h3>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.montant10001.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10001.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10001.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10001.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10001.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.montant10002.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10002.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10002.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10002.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10002.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.montant10003.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10003.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10003.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10003.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10003.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <hr>
-      <div *ngIf="decfiscmens.impottype1.montant10004.type">
-      <h4>Type:<b>  {{ decfiscmens.impottype1.montant10004.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10004.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10004.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10004.montantnet }}</b></h4>
-      <hr>
-      </div>
-      <div *ngIf="decfiscmens.impottype1.autre.type">
-      <h3>Type rubrique: Autre</h3>
-      <hr>
-      <h4>Type:<b>  {{ decfiscmens.impottype1.autre.type  }}</b></h4>
-      <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.autre.montantbrut  }}</b></h4>
-      <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.autre.montantretenue }}</b></h4>  
-      <h4>Montant Net:<b>  {{ decfiscmens.impottype1.autre.montantnet }}</b></h4>
-    </div>
-    </div>
-    <hr>
-    <h4 *ngIf="decfiscmens.impottype2.type">Type impôt:<b>  {{ decfiscmens.impottype2.type }}</b></h4>
-    <h4 *ngIf="decfiscmens.impottype2.reporttvamoisprecedent">Report TVA du mois précédent:<b>  {{ decfiscmens.impottype2.reporttvamoisprecedent }}</b></h4>
-      <hr>
-      <div *ngIf="decfiscmens.impottype2.tvacollecter.type">
-      <h3>Type rubrique: TVA à collecter</h3>
-      <hr>
-      
-      <h4>Chiffre d'affaire HT:<b>  {{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.tvacollecter.tvaammount }}</b></h4>  
-      <h4>Chiffre d'affaire TTC:<b>  {{ decfiscmens.impottype2.tvacollecter.ammountttc }}</b></h4>
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.tvarecuperableimmobilier.type">
-      <h3>Type rubrique: TVA récupérable sur les Achat immobilièrs	</h3>
-      <hr>
-      
-      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
-      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.tvarecuperableequipement.type">
-      <h3>Type rubrique: TVA récupérable sur les Achat d'équipements	</h3>
-      <hr>
-      
-      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
-      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
-      <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimporteht  }}</b></h4>
-      <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimportetva }}</b></h4>
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.tvarecuperableautreachat.type">
-      <h3>Type rubrique: TVA récupérable sur les Autres Achats	</h3>
-      <hr>
-      
-      <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  }}</b></h4>
-      <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva }}</b></h4>  
-      <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  }}</b></h4>
-      <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva }}</b></h4>
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.locationhabitationmeuble.type">
-      <h3>Type rubrique: Autre revenus de location à usage d'habitation meublé	</h3>
-      <hr>
-      
-      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.htammount  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.tvaammount }}</b></h4>  
-      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.ttcammount  }}</b></h4>
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.locationusagecommercial.type">
-      <h3>Type rubrique: Autre revenus de location à usage commercial, industriel, professionnel et artisanal	</h3>
-      <hr>
-      
-      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationusagecommercial.htammount  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationusagecommercial.tvaammount }}</b></h4>  
-      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationusagecommercial.ttcammount  }}</b></h4>
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.operationlotissement.type">
-      <h3>Type rubrique: Autre revenus de location des opérations de lotissement	</h3>
-      <hr>
-      
-      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.operationlotissement.htammount  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.operationlotissement.tvaammount }}</b></h4>  
-      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.operationlotissement.ttcammount  }}</b></h4>
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.interetpercue.type">
-      <h3>Type rubrique: Autre revenus de location des intêrets percus	</h3>
-      <hr>
-      
-      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.interetpercue.htammount  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.interetpercue.tvaammount }}</b></h4>  
-      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.interetpercue.ttcammount  }}</b></h4>
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype2.autretvaspecial.type">
-      <h3>Type rubrique: Autre revenus spécials	</h3>
-      <hr>
-      
-      <h4>Montant HT:<b>  {{ decfiscmens.impottype2.autretvaspecial.htammount  }}</b></h4>
-      <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.autretvaspecial.tvaammount }}</b></h4>  
-      <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.autretvaspecial.ttcammount  }}</b></h4>
-      
-      
-    </div>
-    <hr>
-    <div *ngIf="decfiscmens.impottype3.type">
-    <h4 *ngIf="decfiscmens.impottype3.type">Type impôt:<b>  {{ decfiscmens.impottype3.type }}</b></h4>
-    
-      <hr>
-      <h4>Base de la TFP:<b>  {{ decfiscmens.impottype3.basetfp  }}</b></h4>
-      <h4>Montant de la TFP du mois:<b>  {{ decfiscmens.impottype3.montanttfpmois }}</b></h4>  
-      <h4>Report du TFP du mois précédent :<b>  {{ decfiscmens.impottype3.reporttfpmoisprecedent }}</b></h4>
-      <h4>Montant de l'avance:<b>  {{ decfiscmens.impottype3.montantavance  }}</b></h4>
-      <h4 *ngIf="decfiscmens.impottype3.tfppayer">TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
-      <h4 *ngIf="decfiscmens.impottype3.tfpreporter">TFP à reporter:<b>  ({{ decfiscmens.impottype3.tfpreporter }})</b></h4>
-      <h4 *ngIf="decfiscmens.impottype3.tfppayer">P</h4>
-      <h4 *ngIf="decfiscmens.impottype3.tfpreporter">R</h4>
-      <hr>
-    </div>
-    <div *ngIf="decfiscmens.impottype4.type">
-      <h4 *ngIf="decfiscmens.impottype4.type">Type impôt:<b>  {{ decfiscmens.impottype4.type }}</b></h4>
-      
-        <hr>
-        <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype4.basefoprolos  }}</b></h4>
-        <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype4.montantfoprolos }}</b></h4>
-        <hr>
-      </div>
-      <div *ngIf="decfiscmens.impottype5.type">
-        <h4 *ngIf="decfiscmens.impottype5.type">Type impôt:<b>  {{ decfiscmens.impottype5.type }}</b></h4>
-        
-          <hr>
-          <h4>Nombre de note d'honoraires :<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
-          <h4>Total du droit de timbre:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
-          <hr>
-        </div>
-        <div *ngIf="decfiscmens.impottype6.type">
-          <h4 *ngIf="decfiscmens.impottype6.type">Type impôt:<b>  {{ decfiscmens.impottype6.type }}</b></h4>
-          
-            <hr>
-            <h4>Chiffre affaire ttc:<b>  {{ decfiscmens.impottype6.chiffreaffairettc  }}</b></h4>
-            <h4>TCL à payer:<b>  {{ decfiscmens.impottype6.tclpayer }}</b></h4>
-          </div>     
-    </div>
-    
-    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-    <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
-    <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
-    <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
-    <div><button (click)="load2()">Visualiser Déclaration</button>  </div>
+<div id="deccont" style="overflow:auto; height: 500px;">
+<table class="table table-striped"><tbody><tr><td>التصريح الشهري بالأداءات</td></tr><tr><td>السنة  </td><td>الشهر</td><td>رمز التصريح </td></tr><tr><td>رمز الصنف </td><td>رمز الأداء على القيمة المضافة  </td><td>المعرف الجبائي </td><td>السجل التجاري</td></tr><tr><td>.................................................................................................................................</td><td>الاسم واللقب أوالاسم الاجتماعي: </td></tr><tr><td>.................................................................</td><td>العنوان أو المقر الاجتماعي :</td></tr><tr><td>الترقيم البريدي</td><td>........................................................................................................................................................................................................</td></tr><tr><td>تاريخ توقيف النشاط</td><td> النشـــــــــاط : </td></tr><tr><td>نوع الأداء أو المعلوم المدفوع على أساس هذا التصريح  : ضع علامة (x) في الخانة المناسبة</td></tr><tr><td>المعاليم الراجعة للجماعات المحلية </td><td>معلوم الطابع الجبائي </td><td>المعاليم على التأمين</td><td>معاليم أخرى على رقم المعاملات </td><td>الأداء على القيمة المضافة </td><td>المعلوم على الاستهلاك </td><td>المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </td><td>الأداء على التكوين المهني</td><td>الخصم من المورد </td></tr><tr><td>معلوم الإجازة </td><td>المعلوم على النزل </td><td>المعلوم على المؤسسات </td></tr><tr><td>الخصم من المورد</td></tr><tr><td>مبلغ الخصم</td><td>النسبة</td><td>أساس الخصم</td><td>البيانات</td></tr><tr><td>1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>2- المرتبات والأجور واالمكافآت و المنح والامتازات العينية  الأخرى المدفوعة للأجانب</td></tr><tr><td>0.000</td><td>3- المساهمة الاجتماعية التضامنية المستوجبة على المرتبات و الأجورو المنح و الجرايات و الإيرادات العمرية</td></tr><tr><td>4- العمولات وأجور الوساطة والأكرية ومكافآت الأنشطة غير التجارية</td></tr><tr><td>* المدفوعة للمقيمين والمستقرين</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>* المدفوعة لغير المقيمين وغير المستقرين</td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td>
+  <td>● أشخاص طبيعيون</td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>5- الأتعاب المدفوعة للأشخاص الطبيعيين غير الخاضعين للنظام الحقيقي</td></tr><tr><td>3.000</td><td>3%</td><td>100.000</td><td>6- الأتعاب المدفوعة للأشخاص المعنويين الخاضعين للضريبة على الشركات و التجمعات و شركات الأشخاص و ما شابهها و الأشخاص الطبيعيين الخاضعين للضريبة على الدخل حسب النظام الحقيقي</td></tr><tr><td>5.000</td><td>5%</td><td>100.000</td><td>7- المكافآت المدفوعة إلى الفنانين و المبدعين</td></tr><tr><td>5.000</td><td>5%</td><td>100.000</td><td>8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </td></tr><tr><td>مبلغ الخصم</td><td>النسبة</td><td>أساس الخصم</td><td>البيانات</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>10- فوائد الإيداعات بالحسابات الخاصة للادخار لدى المؤسسات البنكية و صندوق الادخار التونسي</td></tr><tr><td>11- مداخيل رؤوس الأموال المنقولة الأخرى </td></tr><tr><td>*   الراجعة للمقيمين </td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>*  الراجعة لغير المقيمين </td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>12- حصص الأسهم </td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>  * الراجعة إلى الأشخاص الطبيعيين المقيمين </td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>*  الراجعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين  غير المقيمين </td></tr><tr><td>13- المكافآت والمنح المسندة لأعضاء المجالس والهيئات واللجان</td></tr><tr><td> *  الراجعة للمقيمين </td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>*  الراجعة لغير المقيمين </td></tr><tr><td>20.000</td>
+    <td>20%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>20.000</td><td>20%</td><td>100.000</td><td>● أشخاص معنويون</td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td><td>14- التأجيرات المدفوعة للأجراء وغير الأجراء مقابل عمل وقتي أو ظرفي خارج نشاطهم الأصلي</td></tr><tr><td>10%</td><td>100.000</td><td>15- فوائد القروض المدفوعة للمؤسسات البنكية غير المستقرة بالبلاد التونسية </td></tr><tr><td>16- سعر التفويت في العقارات و في الحقوق المتعلقة بها المصرح به بالعقد</td></tr><tr><td>2.500</td><td>2.5%</td><td>100.000</td><td>* بالنسبة إلى المقيمين و المستقرين</td></tr><tr><td>* بالنسبة إلى غير المقيمين و غير المستقرين </td></tr><tr><td>2.500</td><td>2.5%</td><td>100.000</td><td>● أشخاص طبيعيون</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</td></tr><tr><td>17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</td></tr><tr><td>0.500</td><td>0.5%</td><td>100.000</td><td>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</td></tr><tr><td>0.500</td><td>0.5%</td><td>100.000</td><td>* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</td></tr><tr><td>1.500</td><td>1.5%</td><td>100.000</td><td>* لدى المؤسسات الأخرى</td></tr><tr><td>مبلغ الخصم</td><td>النسبة</td><td>أساس الخصم</td><td>البيانات</td><td>
 
-    <button type="button" class="hidden" (click)="Upload()" >Générer Déclaration(PDF)</button>
-  </div>
-</div>
+    </td></tr><tr><td>25.000</td><td>25%</td><td>100.000</td><td>18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</td></tr><tr><td>100.000</td><td>100%</td><td>100.000</td><td>19- خصم الأداء على القيمة المضافة من المورد بعنوان العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسة بالبلاد التونسية</td></tr><tr><td>5 %أو 10 % أو 15 % حسب الحالة</td><td>20- المكافآت المدفوعة إلى غير المقيمين الذين ينجزون أشغال بناء أو عمليات تركيب أو  أو خدمات أخرى لا تتجاوز مدتها ستة أشهر</td></tr><tr><td>21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</td></tr><tr><td>25.000</td><td>25%</td><td>100.000</td><td>* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</td></tr><tr><td>1.500</td><td>15%</td><td>10.000</td><td>* منشآت دائمة أخرى</td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </td></tr><tr><td>23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</td></tr><tr><td>10.000</td><td>10%</td><td>100.000</td><td>*   أشخاص طبيعيون </td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td><td>*   أشخاص معنويون </td></tr><tr><td>24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td><td>*   أشخاص طبيعيون </td></tr><tr><td>15.000</td><td>15%</td><td>100.000</td><td>*   أشخاص معنويون </td></tr><tr><td>25.000</td><td>25%</td><td>100.000</td><td>25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</td></tr><tr>
+      </tr><tr><td>مبلغ الخصم</td><td>النسبة</td><td>أساس الخصم</td><td>البيانات</td></tr><tr><td>26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </td></tr><tr><td>1.500</td><td>1.5%</td><td>100.000</td><td>*   أشخاص طبيعيون </td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>*   أشخاص معنويون </td></tr><tr><td>27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </td></tr><tr><td>25.000</td><td>25%</td><td>100.000</td><td>28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</td></tr><tr><td>3.000</td><td>3%</td><td>100.000</td><td>29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</td></tr><tr><td>599.500</td><td>المجموع</td></tr><tr><td>الأداء على التكوين المهني </td></tr><tr><td>لا</td><td>نعم</td><td>الانتفاع بالتسبقةعلى الأداء على التكوين المهني</td></tr><tr><td>الأداء القابل للطرح</td><td>الأداء المستوجب</td><td>النسبة</td><td>أساس الأداء </td><td>البيــــــــــانـــــــــــــــات  </td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>* الصناعات المعملية </td></tr><tr><td>2.000</td><td>2%</td><td>100.000</td><td>* الأنشطة الأخرى </td></tr><tr><td>طرح مبلغ التسبقة </td><td>-</td></tr><tr><td>طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </td><td>-</td></tr><tr><td>طرح مبلغ العائدات التي لم يتسن طرحها </td><td>-</td></tr><tr><td>مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </td><td>-</td></tr><tr><td>مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</td><td>-</td></tr><tr><td>0.000</td><td>3.000</td><td>المجمـــــــــــــــــــــوع</td></tr><tr>
+        <td>3.000</td><td>P</td><td>الباقي : (ب) مستوجب أو (ف) فائض</td></tr><tr><td>لا</td><td>نعم</td><td>استنفاذ طرح التسبقة أو الخلي عن طرحها</td></tr><tr><td>تاريخ استلام مقرر المصادقة</td><td>قرار المصادقة في المبالغ النهائية بعنوان طرح التسبقة</td></tr><tr><td>قبول</td><td>رفض</td></tr><tr><td>السنة</td><td>الشهر</td><td>اليوم</td></tr><tr><td>المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </td></tr><tr><td>المساهمة المستوجبة </td><td>النسبة</td><td>أساس المساهمة </td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td></tr><tr><td>المعلوم على الاستهلاك </td></tr><tr><td>المعلوم القابل للطرح </td><td>المعلوم المستوجب</td><td>النسبة </td><td>المبلغ </td><td>البيــــــــــانـــــــــــــــات  </td></tr><tr><td>1- رقم المعاملات دون اعتبار المعلوم على الاستهلاك والأداء على القيمة المضافة </td></tr><tr><td>2- الشراءات:</td></tr><tr><td>  شراءات محلية </td><td>-</td></tr><tr><td>  شراءات موردة </td><td>-</td></tr><tr><td>المجموع</td></tr><tr><td>الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</td></tr><tr><td>
 
+        </td><td>الفائض من الشهر السابق </td></tr><tr><td>الباقي المستوجب أو الفائض (ب) أو (ف) </td></tr><tr><td>الأداء على القيمة المضافة (أ.ق.م)</td></tr><tr><td>أ.ق. م. القابل للطــرح</td><td>أ.ق.م. المستوجب</td><td>النسبة </td><td>المبلغ </td><td>البيــــــــــانـــــــــــــــات  </td></tr><tr><td>7.000</td><td>7%</td><td>100.000</td><td>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </td></tr><tr><td>13.000</td><td>13%</td><td>100.000</td></tr><tr><td>19.000</td><td>19%</td><td>100.000</td></tr><tr><td>* عمليات التسليم للنفس</td></tr><tr><td>2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</td></tr><tr><td>   -  شراء عقارات : </td></tr><tr><td>   -  شراء معدات : </td></tr><tr><td>* محلية</td></tr><tr><td>* موردة </td></tr><tr><td>   -  شراءات أخرى  : </td></tr><tr><td>* محلية</td></tr><tr><td>* موردة </td></tr><tr><td>3- طروحات أخرى : </td></tr><tr><td>25.000</td><td>25%</td><td>100.000</td><td>*  أ. ق. م. المستوجب على المبالغ التي تساوي أو تفوق 1000 دينار بما في ذلك أ. ق. م. ومبلغ الخصم من المورد</td></tr><tr><td>100.000</td><td>100%</td><td>100.000</td><td>*   أ. ق. م. المستوجب على العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسات بالبلاد التونسية </td></tr><tr><td>*   أ. ق. م. تقديري على وسائل النقل </td></tr><tr><td>*   عمليات التسليم للنفس</td></tr><tr><td>التعديــلات :</td></tr><tr><td>   -   طرح إضافي :</td></tr><tr><td>* بعنوان عمليات الفسخ والإلغاء </td></tr><tr><td>* بعنوان عمليات أخرى </td></tr><tr><td>   -  إعادة دفع </td></tr><tr><td>125.000</td><td>39.000</td><td>المجمـــــــــــــــــــــوع</td></tr><tr><td>
+  
+        </td></tr><tr><td>-86.000</td><td>R</td><td>الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</td></tr><tr><td>0.000</td><td>الفائض من الشهر السابق :</td></tr><tr><td>المبلغ المسترجع :</td></tr><tr><td>قسيمة خاصة بالمؤسسات التي طلبت استرجاع فائض الأداء على القيمة المضافة المعني بإيقاف حق الطرح </td></tr><tr><td>فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه خلال الشهر </td></tr><tr><td>المبلغ الذي تم استرجاعه من هذا الفائض</td></tr><tr><td>الباقي من فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه خلال الأشهر السابقة</td></tr><tr><td>مبلغ الفائض المعني باسترجاع حق الطرح (تجاوز 120 يوما من تاريخ العمل بإيقاف حق الطرح</td></tr><tr><td>الباقي من فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه</td></tr><tr><td>-86.000</td><td>R</td><td>الباقي : (ب) مستوجب أو (ف) فائض</td><td>A</td></tr><tr><td>نسبة الطرح المائوية بعنوان النشاط الخاضع بصفة جزئية</td></tr><tr><td>الفارق</td><td>السنة المالية الفارطة</td><td>السنة المالية الجارية</td></tr><tr><td>إرشـــــــــادات أخـــــــــــرى </td></tr><tr><td>أ.ق.م. المستوجب</td><td>أ.ق. م. القابل للطــرح</td><td>المبلغ </td><td>البيــــــــــانـــــــــــــــات  </td></tr><tr><td>شراءات بتوقيف العمل بالأداء على القيمة المضافة </td><td>-</td></tr><tr><td>شراءات بتوقيف العمل بالأداء على القيمة المضافة بعنوان المواد و التجهيزات التي تدخل ضمن مكونات إنجاز صفقات بالخارج تساوي أو تفوق 3 مليون دينار </td><td>-</td></tr><tr><td>شراءات معفاة</td><td>-</td></tr><tr><td>شراءات لدى غير الخاضعين للأداء على القيمة المضافة</td><td>-</td></tr><tr><td>شراءات أخــــرى خاضعــة لــ أ.ق.م دون اعـــتبار أ. ق. م. ولا تنتفع بحق الطرح </td><td>-</td></tr><tr><td>تصدير بضائع وخدمات </td><td>-</td></tr><tr><td>بيوعات بتوقيف  أ.ق. م </td><td>-</td></tr><tr><td>رقم المعاملات المعفى من أ.ق.م</td><td>-</td></tr><tr><td>التفويت على الرصيف</td><td>-</td></tr><tr>
+          <td>المجمـــــــــــــــــــــوع</td></tr><tr><td>معاليم أخرى على رقم المعاملات</td></tr><tr><td>المعلوم المستوجب (د) </td><td>النسبة </td><td>الأســـــاس (د) </td><td>المعلــــــــــــــــوم</td></tr><tr><td>1- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاعات الصناعة و الخدمات و الصناعات التقليدية </td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>0.000</td><td>    المعلوم المهني </td><td>-</td></tr><tr><td>1.000</td><td>1%</td><td>100.000</td><td>    المعلوم على المصبرات الغذائية </td><td>-</td></tr><tr><td>2- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في القطاع الفلاحي والصيد البحري </td></tr><tr><td>2.000</td><td>2%</td><td>100.000</td><td>    المعلوم الموظف على منتوجات الصيد البحري </td><td>-</td></tr><tr><td>2.500</td><td>2.5%</td><td>100.000</td><td>    المعلوم على القطانيا والصوجا </td><td>-</td></tr><tr><td>2.000</td><td>2%</td><td>100.000</td><td>    المعلوم على الخضر والغلال </td><td>-</td></tr><tr><td>5.000</td><td>0,050 د/ كغ</td><td>100.000</td><td>    المعلوم على اللحوم </td><td>-</td></tr><tr><td>المعلوم المستوجب (د) </td><td>النسبة </td><td>الأســـــاس (د) </td><td>المعلــــــــــــــــوم</td></tr><tr><td>3- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاع السياحة</td></tr><tr><td>1%</td><td>    المعلوم الموظف على مستغلي المؤسسات السياحية والمطاعم السياحية المصنفة </td><td>-</td></tr><tr><td>20 د/ مسافر </td><td>    المعلوم على الرحلات الجوية و البحرية الدولية</td><td>-</td></tr><tr><td>5%</td><td>4- الأتاوة لفائدة صندوق تنمية المواصلات وتكنولوجيات المعلومات والاتصال</td></tr><tr><td>5- استخلاصات لفائدة الصندوق الوطني للتشغيل </td></tr><tr><td>0,150 د/ كغ </td><td>    المعلوم على البيوعات المحلية للشاي والقهوة </td><td>-</td></tr><tr><td>2 د / طن </td><td>
 
+          </td><td>    المعلوم التعويضي على الإسمنت</td><td>-</td></tr><tr><td>1 د / طن </td><td>    المعلوم على بيع الإسمنت </td><td>-</td></tr><tr><td>0,050 د/ كغ</td><td>6- المعلوم الموظف على الطماطم المعدة للتحويل </td></tr><tr><td>0,028 د/ كغ</td><td>    مساهمة منتجي الطماطم </td><td>-</td></tr><tr><td>    مساهمة مستغلي وحدات التحويل</td><td>-</td></tr><tr><td>7%</td><td>7- معلوم للمحافظــة على البيئـــة لفائدة صندوق مقاومة التلوث </td></tr><tr><td>8- استخلاصات لفائدة صندوق الانتقال الطاقي </td></tr><tr><td> واط 1000/د10</td><td>    معلوم على أجهزة تكييف الهواء </td><td>-</td></tr><tr><td>40%</td><td>    معلوم على المصابيح والأنابيب </td><td>-</td></tr><tr><td>    معلوم على المنتجات الطاقية المستهلكة</td><td>-</td></tr><tr><td>9- معلوم على الألعاب التي تتم المشاركة فيها مباشرة بالهاتف أو عن طريق المراسلات القصيرة أو الموزع الصوتي </td></tr><tr><td>1%</td><td>10- معلوم لفائدة صندوق التشجيع على الإبداع الأدبي والفني</td></tr><tr><td>1%</td><td>11- معلوم لفائدة صندوق تمويل الراحة البيولوجية في قطاع الصيد البحري</td></tr><tr><td>12- أتاوة الدعم لفائدة الصندوق العام للتعويض </td></tr><tr><td>1%</td><td>    الأتاوة الموظفة على المطاعم المصنفة طبقا للتشريع الجاري به العمل والمقاهي من الصنف الثاني والصنف الثالث وقاعات الشاي </td><td>-</td></tr><tr><td>3%</td><td>    الأتاوة الموظفة على الملاهي و الملاهي الليلية غير التابعة لمؤسسة سياحية و محلات صنع المرطبات</td><td>-</td></tr><tr><td>13- معلوم تضامني لفائدة صندوق تعويض الأضرار الفلاحية الناجمة عن الجوائح الطبيعية موظف على:</td></tr><tr><td>1%</td><td>الخضر و الغلال</td><td>-</td></tr><tr><td>1%</td><td>الحبوب المجمعة من قبل ديوان الحبوب</td><td>-</td></tr><tr><td>1%</td><td>الزيتون</td><td>-</td></tr><tr><td>1%</td><td>منتجات الصيد البحري</td><td>-</td></tr><tr><td>14- معلوم الإقامة بالنزل السياحية</td></tr><tr><td>1%</td><td>15- معلوم لفائدة صندوق دعم الصحة العمومية </td></tr><tr><td>0,100 د/كغ</td><td>16- المعلوم على السكر</td></tr><tr><td>13.500</td><td>المجموع</td></tr><tr><td>
 
-</div>
+          </td></tr><tr><td>معلوم الطابع الجبائي </td></tr><tr><td>1- المعلوم المستوجب على المبالغ المفوترة و المبالغ المستخلصة بعنوان خدمات الهاتف و خدمات الأنترنات</td></tr><tr><td>2- المعلوم المستوجب على تذاكر البيع المسلمة من قبل المغازات التجارية و المستغلين لعلامة تجارية أجنبية</td></tr><tr><td>المعلوم المستوجب</td><td>عدد التذاكر</td><td>رقم الفرع الثانوي</td></tr><tr><td>المجموع</td></tr><tr><td>3- المعلوم المستوجب على الوثائق الأخرى</td></tr><tr><td>المعلوم المستوجب (د) </td><td>عدد الوثائق </td><td>الوثيقة الخاضعة للمعلوم </td><td>رقم الفرع الثانوي</td></tr><tr><td>نوع الوثيقة</td><td>الرمز</td></tr><tr><td>0.000</td><td>0</td><td>0</td></tr><tr><td>المجموع</td></tr><tr><td>المجموع العام</td></tr><tr><td>المعلوم على النزل</td></tr><tr><td>المعلوم المستوجب </td><td>النسبة</td><td>أساس المعلوم (د) </td></tr><tr><td>2%</td><td>رقم المعاملات الخام </td></tr><tr>
+            </tr><tr><td>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية </td></tr><tr><td>المعلوم المستوجب </td><td>النسبة</td><td>أساس المعلوم (د) </td><td>1- مؤسسات تروج قصرا منتجات خاضعة لنظام المصادقة الإدارية للأسعار </td></tr><tr><td>0.1%</td><td>رقم المعاملات المحلي الخام المحقق</td></tr><tr><td>0.1%</td><td>رقم المعاملات المتأتي من التصدير </td></tr><tr><td>المعلوم المستوجب </td><td>النسبة</td><td>أساس المعلوم (د) </td><td>2- مؤسسات تدفع المعلوم على المؤسسات على أساس 25% من الضريبة عل الدخل أو الضريبة على الشركات</td></tr><tr><td>25%</td><td>الضريبة على الدخل أو على الشركات المستوجبة </td></tr><tr><td>المعلوم المستوجب </td><td>النسبة</td><td>أساس المعلوم (د) </td><td>3- مؤسسات أخرى </td></tr><tr><td>0.200</td><td>0.2%</td><td>100.000</td><td>رقم المعاملات المحلي الخام المحقق</td></tr><tr><td>0.100</td><td>0.1%</td><td>100.000</td><td>رقم المعاملات المتأتي من التصدير  و من العمليات المنتفعة بنفس النظام الجبائي للتصدير</td></tr><tr><td>0.300</td><td>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</td></tr><tr><td>4- احتساب المعلوم على المؤسسات </td></tr><tr><td>المعلوم المستوجب </td></tr><tr><td>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</td></tr><tr><td>المعلوم المستوجب بعنوان الأشهر السابقة </td></tr><tr><td>المجمـــــــــــــــــــــــــــــــوع            </td></tr><tr>
+              <td>المعلوم المستوجب سنويا</td></tr><tr><td>الحد الأدنى للمعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</td></tr><tr><td>الباقي مستوجب</td></tr><tr><td>معلوم الإجازة الموظف على محلات بيع المشروبات بالنسبة لسنة :</td></tr><tr><td>المجمــــــــوع العام</td><td>صنف 3</td><td>صنف 2</td><td>صنف 1</td><td>الجماعة المحلية </td></tr><tr><td>المجموع</td><td>عدد المحلات</td><td>المبلغ</td><td>المجموع</td><td>عدد المحلات</td><td>المبلغ</td><td>المجموع</td><td>عدد المحلات</td><td>المبلغ</td></tr><tr><td>300</td><td>150</td><td>25</td></tr><tr><td>300</td><td>150</td><td>25</td></tr><tr><td>300</td><td>150</td><td>25</td></tr><tr><td>300</td><td>150</td><td>25</td></tr><tr><td>0.000</td><td>المجمـــــــــــــــــــــــــــــــوع     </td></tr><tr><td>خلاصة الأداءات والمعاليم الواجب دفعها</td></tr><tr><td>المجمـــــــــوع</td><td>خطايا التأخير </td><td>الأداء المستوجب</td><td>الطرح (الأداء المدفوع)</td><td>مبلغ أصل الأداء</td><td>الضريبة أو المعلوم </td></tr><tr><td>0.000</td><td>0.000</td><td>الخصم من المورد </td></tr><tr><td>0.000</td><td>0.000</td><td>الأداء على التكوين المهني </td></tr><tr><td>0.000</td><td>0.000</td><td>المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</td></tr><tr><td>المعلوم على الاستهلاك </td></tr><tr><td>0.000</td><td>0.000</td><td>الأداء على القيمة المضافة </td></tr><tr><td>معاليم أخرى على رقم المعاملات </td></tr><tr><td>0.000</td><td>0.000</td><td>معاليم الطابع الجبائي </td></tr><tr><td>المعاليم الراجعة للجماعات المحلية :</td></tr><tr><td>    المعلوم على النزل </td></tr><tr><td>0.000</td><td>0.000</td><td>    المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</td></tr><tr><td>    معلوم الإجازة</td></tr><tr><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>0.000</td><td>المجموع</td></tr><tr><td>  إني الممضي أسفله أشهد بصحة البيانات التي تضمنها هذا التصريح</td><td>رمز الدفع</td><td>رمز القباضة </td><td>القباضة المالية بـــ </td></tr><tr><td>في</td><td>رقم الوصل </td></tr><tr><td>الإمضــــــــــــــــاء</td><td>تاريخ الوصل </td></tr><tr>
+                <td>طابع القبــاضة</td></tr></tbody></table>
+              </div>
+                <div id="loader" *ngIf="loading"></div>
+                <div class="col-lg-12" *ngIf="!loading">
+                  <div class="team-member">
+                <h2>Détails Déclaration</h2>
+                  
+                <div class="card">
+                  
+                  <div class="container-fluid">
+                    
+                    <h4>Crée le:<b>  {{ decfiscmens.created |customDate}}</b></h4>
+                    <h4>Dernière modification  le:<b>  {{ decfiscmens.updated|customDate }}</b></h4>
+                    <h4>Mois:<b>  {{ decfiscmens.mois }}</b></h4>  
+                    <h4>Année:<b>  {{ decfiscmens.annee }}</b></h4>
+                    <h4>Nom et Prénom:<b>  {{ decfiscmens.firstname }} {{ decfiscmens.lastname }}</b></h4>
+                    <h4>Raison Sociale:<b>  {{ decfiscmens.raisonsociale }}</b></h4>  
+                    <h4>Registre de commerce:<b>  {{ decfiscmens.registrecommerce }}</b></h4>
+                    <h4>Matricule Fiscale:<b>  {{ decfiscmens.matriculefiscale }}</b></h4>
+                    <h4>Code TVA:<b>  {{ decfiscmens.codetva }}</b></h4>  
+                    <h4>Code Genre:<b>  {{ decfiscmens.codegenre }}</b></h4>
+                    <h4>Adresse:<b>  {{ decfiscmens.adresse }}</b></h4>
+                    <h4>Statut:<b>  {{ decfiscmens.statut }}</b></h4>
+                    <h4>Motif:<b>  {{ decfiscmens.motif }}</b></h4>
+                    <h4>Code Postal:<b>  {{ decfiscmens.codepostal }}</b></h4>
+                    <h4>Activité:<b>  {{ decfiscmens.activite }}</b></h4>
+                    <h4>Date d'arrêt d'activité:<b>  {{ decfiscmens.datearretactivite }}</b></h4>
+                    <hr>
+                    <h4 *ngIf="decfiscmens.impottype1.type">Type impôt:<b>  {{ decfiscmens.impottype1.type }}</b></h4>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.traitementetsalaire.salairebrut">
+                    <h3>Type rubrique: traitement et salaire</h3>
+                    <hr>
+                    
+                    <h4>Salaire Brut:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salairebrut  }}</b></h4>
+                    <h4>Salaire imposable:<b>  {{ decfiscmens.impottype1.traitementetsalaire.salaireimposable }}</b></h4>  
+                    <h4>Retenue à la source:<b>  {{ decfiscmens.impottype1.traitementetsalaire.retenuealasource }}</b></h4>
+                    <h4>Contribution à l'aide sociale:<b>  {{ decfiscmens.impottype1.traitementetsalaire.contributionsociale }}</b></h4>
+                  </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.location1.type||decfiscmens.impottype1.location2.type||decfiscmens.impottype1.location3.type
+                    ||decfiscmens.impottype1.location4.type">
+                    <h3>Type rubrique: location, commission, courtage et vacation</h3>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.location1.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.location1.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location1.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location1.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location1.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.location2.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.location2.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location2.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location2.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location2.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.location3.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.location3.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location3.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location3.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location3.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.location4.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.location4.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.location4.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.location4.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.location4.montantnet }}</b></h4>
+                    <hr>
+                  </div>
+                  </div>
+                  <div *ngIf="decfiscmens.impottype1.honoraire1.type||decfiscmens.impottype1.honoraire2.type||decfiscmens.impottype1.honoraire3.type">
+                    <h3>Type rubrique: honoraire</h3>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.honoraire1.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire1.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire1.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire1.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire1.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.honoraire2.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire2.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire2.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire2.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire2.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.honoraire3.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.honoraire3.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.honoraire3.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.honoraire3.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.honoraire3.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    </div>
+                    <div *ngIf="decfiscmens.impottype1.montant10001.type||decfiscmens.impottype1.montant10002.type||decfiscmens.impottype1.montant10003.type
+                    ||decfiscmens.impottype1.montant10004.type">
+                    <h3>Type rubrique: Montants supérieurs à 1000dt</h3>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.montant10001.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.montant10001.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10001.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10001.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10001.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.montant10002.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.montant10002.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10002.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10002.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10002.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.montant10003.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.montant10003.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10003.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10003.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10003.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype1.montant10004.type">
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.montant10004.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.montant10004.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.montant10004.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.montant10004.montantnet }}</b></h4>
+                    <hr>
+                    </div>
+                    <div *ngIf="decfiscmens.impottype1.autre.type">
+                    <h3>Type rubrique: Autre</h3>
+                    <hr>
+                    <h4>Type:<b>  {{ decfiscmens.impottype1.autre.type  }}</b></h4>
+                    <h4>Montant Brut:<b>  {{ decfiscmens.impottype1.autre.montantbrut  }}</b></h4>
+                    <h4>Montant retenue à la source:<b>  {{ decfiscmens.impottype1.autre.montantretenue }}</b></h4>  
+                    <h4>Montant Net:<b>  {{ decfiscmens.impottype1.autre.montantnet }}</b></h4>
+                  </div>
+                  </div>
+                  <hr>
+                  <h4 *ngIf="decfiscmens.impottype2.type">Type impôt:<b>  {{ decfiscmens.impottype2.type }}</b></h4>
+                  <h4 *ngIf="decfiscmens.impottype2.reporttvamoisprecedent">Report TVA du mois précédent:<b>  {{ decfiscmens.impottype2.reporttvamoisprecedent }}</b></h4>
+                    <hr>
+                    <div *ngIf="decfiscmens.impottype2.tvacollecter.type">
+                    <h3>Type rubrique: TVA à collecter</h3>
+                    <hr>
+                    
+                    <h4>Chiffre d'affaire HT:<b>  {{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.tvacollecter.tvaammount }}</b></h4>  
+                    <h4>Chiffre d'affaire TTC:<b>  {{ decfiscmens.impottype2.tvacollecter.ammountttc }}</b></h4>
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.tvarecuperableimmobilier.type">
+                    <h3>Type rubrique: TVA récupérable sur les Achat immobilièrs	</h3>
+                    <hr>
+                    
+                    <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
+                    <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.tvarecuperableequipement.type">
+                    <h3>Type rubrique: TVA récupérable sur les Achat d'équipements	</h3>
+                    <hr>
+                    
+                    <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht  }}</b></h4>
+                    <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva }}</b></h4>  
+                    <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimporteht  }}</b></h4>
+                    <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableimmobilier.achatimportetva }}</b></h4>
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.tvarecuperableautreachat.type">
+                    <h3>Type rubrique: TVA récupérable sur les Autres Achats	</h3>
+                    <hr>
+                    
+                    <h4>Achat locaux HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  }}</b></h4>
+                    <h4>Achat locaux TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva }}</b></h4>  
+                    <h4>Achat importés HT:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  }}</b></h4>
+                    <h4>Achat importés TVA:<b>  {{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva }}</b></h4>
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.locationhabitationmeuble.type">
+                    <h3>Type rubrique: Autre revenus de location à usage d'habitation meublé	</h3>
+                    <hr>
+                    
+                    <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.htammount  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.tvaammount }}</b></h4>  
+                    <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationhabitationmeuble.ttcammount  }}</b></h4>
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.locationusagecommercial.type">
+                    <h3>Type rubrique: Autre revenus de location à usage commercial, industriel, professionnel et artisanal	</h3>
+                    <hr>
+                    
+                    <h4>Montant HT:<b>  {{ decfiscmens.impottype2.locationusagecommercial.htammount  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.locationusagecommercial.tvaammount }}</b></h4>  
+                    <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.locationusagecommercial.ttcammount  }}</b></h4>
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.operationlotissement.type">
+                    <h3>Type rubrique: Autre revenus de location des opérations de lotissement	</h3>
+                    <hr>
+                    
+                    <h4>Montant HT:<b>  {{ decfiscmens.impottype2.operationlotissement.htammount  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.operationlotissement.tvaammount }}</b></h4>  
+                    <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.operationlotissement.ttcammount  }}</b></h4>
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.interetpercue.type">
+                    <h3>Type rubrique: Autre revenus de location des intêrets percus	</h3>
+                    <hr>
+                    
+                    <h4>Montant HT:<b>  {{ decfiscmens.impottype2.interetpercue.htammount  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.interetpercue.tvaammount }}</b></h4>  
+                    <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.interetpercue.ttcammount  }}</b></h4>
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype2.autretvaspecial.type">
+                    <h3>Type rubrique: Autre revenus spécials	</h3>
+                    <hr>
+                    
+                    <h4>Montant HT:<b>  {{ decfiscmens.impottype2.autretvaspecial.htammount  }}</b></h4>
+                    <h4>Montant TVA:<b>  {{ decfiscmens.impottype2.autretvaspecial.tvaammount }}</b></h4>  
+                    <h4>Montant TTC:<b>  {{ decfiscmens.impottype2.autretvaspecial.ttcammount  }}</b></h4>
+                    
+                    
+                  </div>
+                  <hr>
+                  <div *ngIf="decfiscmens.impottype3.type">
+                  <h4 *ngIf="decfiscmens.impottype3.type">Type impôt:<b>  {{ decfiscmens.impottype3.type }}</b></h4>
+                  
+                    <hr>
+                    <h4>Base de la TFP:<b>  {{ decfiscmens.impottype3.basetfp  }}</b></h4>
+                    <h4>Montant de la TFP du mois:<b>  {{ decfiscmens.impottype3.montanttfpmois }}</b></h4>  
+                    <h4>Report du TFP du mois précédent :<b>  {{ decfiscmens.impottype3.reporttfpmoisprecedent }}</b></h4>
+                    <h4>Montant de l'avance:<b>  {{ decfiscmens.impottype3.montantavance  }}</b></h4>
+                    <h4 *ngIf="decfiscmens.impottype3.tfppayer">TFP à payer:<b>  {{ decfiscmens.impottype3.tfppayer }}</b></h4>  
+                    <h4 *ngIf="decfiscmens.impottype3.tfpreporter">TFP à reporter:<b>  ({{ decfiscmens.impottype3.tfpreporter }})</b></h4>
+                    <h4 *ngIf="decfiscmens.impottype3.tfppayer">P</h4>
+                    <h4 *ngIf="decfiscmens.impottype3.tfpreporter">R</h4>
+                    <hr>
+                  </div>
+                  <div *ngIf="decfiscmens.impottype4.type">
+                    <h4 *ngIf="decfiscmens.impottype4.type">Type impôt:<b>  {{ decfiscmens.impottype4.type }}</b></h4>
+                    
+                      <hr>
+                      <h4>Base de la FOPROLOS:<b>  {{ decfiscmens.impottype4.basefoprolos  }}</b></h4>
+                      <h4>Montant du FOPROLOS:<b>  {{ decfiscmens.impottype4.montantfoprolos }}</b></h4>
+                      <hr>
+                    </div>
+                    <div *ngIf="decfiscmens.impottype5.type">
+                      <h4 *ngIf="decfiscmens.impottype5.type">Type impôt:<b>  {{ decfiscmens.impottype5.type }}</b></h4>
+                      
+                        <hr>
+                        <h4>Nombre de note d'honoraires :<b>  {{ decfiscmens.impottype5.nombrenotehonoraire  }}</b></h4>
+                        <h4>Total du droit de timbre:<b>  {{ decfiscmens.impottype5.totaldroittimbre }}</b></h4>
+                        <hr>
+                      </div>
+                      <div *ngIf="decfiscmens.impottype6.type">
+                        <h4 *ngIf="decfiscmens.impottype6.type">Type impôt:<b>  {{ decfiscmens.impottype6.type }}</b></h4>
+                        
+                          <hr>
+                          <h4>Chiffre affaire ttc:<b>  {{ decfiscmens.impottype6.chiffreaffairettc  }}</b></h4>
+                          <h4>TCL à payer:<b>  {{ decfiscmens.impottype6.tclpayer }}</b></h4>
+                        </div>     
+                  </div>
+                  
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+                  <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
+                  <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
+                  <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
+                  <div><button (click)="load2()">Visualiser Déclaration</button>  </div>
+              
+                  <button type="button" class="hidden" (click)="Upload()" >Générer Déclaration(PDF)</button>
+                </div>
+              </div>
+              
+              
+              
+              </div>
