@@ -26,15 +26,15 @@
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;
-    table-layout:auto;
-    overflow-x: auto;
   }
   
   th, td {
     text-align: right;
     padding: 8px;
-    min-width: 100px;
     border: 2px solid #ddd;
+    min-width: 40px;
 
   }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
   
