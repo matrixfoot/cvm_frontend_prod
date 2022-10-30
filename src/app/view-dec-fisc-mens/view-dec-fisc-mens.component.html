@@ -244,7 +244,7 @@
                   <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
-                  <div><button (click)="load2()">Visualiser Déclaration</button>  </div>
+                  <button type="button" class="btn btn-success"(click)="load2()">Visualiser Déclaration</button>
               
                   <button type="button" class="hidden" (click)="Upload()" >Générer Déclaration(PDF)</button>
                 </div>

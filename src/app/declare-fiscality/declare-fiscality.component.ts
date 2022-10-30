@@ -337,6 +337,12 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   preptotaldeclaration=0;
   prepminimumperceptionammount=0.000;
   tvacollecte=0.000
+  tvacollecte1=0.000
+  tvacollecte2=0.000
+  tvacollecte3=0.000
+  tvacollecte4=0.000
+  tvacollecte5=0.000
+  tvacollecte6=0.000
   tvarecuperable=0.000
 
   public ammounts: FormArray;
@@ -854,7 +860,6 @@ canDeactivate():boolean {
   }
   convertThreeNumberDecimal() {
     parseFloat(this.standardlocationresidentesphysiqueform.get('retenueammount').value).toFixed(3)
-    console.log(this.standardlocationresidentesphysiqueform.get('retenueammount').value)
   }
   openPopup() {
     this.displayStyle = "block";
@@ -877,6 +882,7 @@ if (this.option51Value)
   this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
   +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
   +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
+  this.tvacollecte=this.tvacollecte1+this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
   {
@@ -1362,7 +1368,7 @@ calculateResultForm1()
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
-      this.tvacollecte=tvaammount
+      this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc
@@ -1382,7 +1388,7 @@ calculateResultForm1()
     const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte2=tvaammount
       this.standardlocationusagehabitationmeubleform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1398,7 +1404,7 @@ calculateResultForm1()
     const taux=+this.standardlocationusagecommercialform.get('taux').value
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte3=tvaammount
       this.standardlocationusagecommercialform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1415,7 +1421,7 @@ calculateResultForm1()
     const taux=+this.standardoperationlotissementform.get('taux').value
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte4=tvaammount
       this.standardoperationlotissementform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1431,7 +1437,7 @@ calculateResultForm1()
     const taux=+this.standardinteretpercueform.get('taux').value
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte5=tvaammount
       this.standardinteretpercueform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
@@ -1456,7 +1462,7 @@ calculateResultForm1()
     const taux=+tauxpercent/100
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
-      this.tvacollecte=this.tvacollecte+tvaammount
+      this.tvacollecte6=tvaammount
       this.standardautretvaspecialform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc,taux: taux},{emitEvent: false} 
@@ -2195,7 +2201,6 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.ammounts.removeAt(i);
   }
   logValue() {
-    console.log(this.ammounts.value);
   }
   
   onTabClick(event) {
@@ -3277,11 +3282,6 @@ Swal.fire({
     myFunction27() {
       var checkbox:any = document.getElementById("myCheck27");
       if (checkbox.checked == true){
-        this.option64Value=0.000;
-        this.tvacollecte=0.000
-        this.tvarecuperable=0.000
-        this.totalreporttvaammount=0.000;
-        this.preptotaltvaammount=0.000;
         if (this.standardtvacollecteform.get('chiffreaffaireht').value==null&&this.standardlocationusagehabitationmeubleform.get('ammountht').value==null
         &&this.standardlocationusagecommercialform.get('ammountht').value==null&&this.standardoperationlotissementform.get('ammountht').value==null&&
         this.standardinteretpercueform.get('ammountht').value==null&&this.standardautretvaspecialform.get('ammountht').value==null&&
