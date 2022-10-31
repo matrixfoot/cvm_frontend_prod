@@ -36,24 +36,49 @@ maincontainer=false;
     {
     this.file= event.target.files[0]; 
     }
-public decfiscmens: Decfiscmens;
+public decfiscmens=new Decfiscmens;
   public errormsg:string;
   public loading: boolean;
   public tfpapyer: any
   public tfpareporter: any
+  public statut: any
+  public motif: any
   currentUser: any;
   spreadBackColor = 'aliceblue';
   hostStyle = {
     width: '95vw',
     height: '80vh'
   };
-  
+  public option64Value:any
+  foprolosapayer=0.000
+  tfpapayertotal=0.000
+  tfpareportertotal=0.000
+  totalretenueammount=0.000;
+  totaltfpammount=0.000;
+  totalfoprolosammount=0.000;
+  totalreporttvaammount=0.000;
+  preptotaltvaammount=0.000;
+  totaltvaammount=0.000;
+  totaltimbreammount=0.000;
+  totaltclammount=0.000;
+  totaldeclaration=0.000;
+  minimumperceptionammount=0.000;
+  preptotaldeclaration=0.000;
+  prepminimumperceptionammount=0.000;
+  tvacollecte=0.000
+  tvacollecte1=0.000
+  tvacollecte2=0.000
+  tvacollecte3=0.000
+  tvacollecte4=0.000
+  tvacollecte5=0.000
+  tvacollecte6=0.000
+  tvarecuperable=0.000
   constructor(private router: Router,
     private route: ActivatedRoute,
     private dec: DecfiscmensService,
     private token: TokenStorageService,
-    private excelService: ExcelService
-    
+    private excelService: ExcelService,
+    private userservice: UserService,
     ){}
 
   
@@ -67,12 +92,92 @@ public decfiscmens: Decfiscmens;
           (decfiscmens: Decfiscmens) => {
             this.loading = false;
             this.decfiscmens = decfiscmens;
+            console.log(this.decfiscmens)
             this.tfpapyer=this.decfiscmens.impottype3.tfppayer
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
+            this.statut=this.decfiscmens.statut
+            this.motif=this.decfiscmens.motif
+            
+
+  this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
+  + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
+  + +this.decfiscmens.impottype1.honoraire1.montantretenue+ +this.decfiscmens.impottype1.honoraire2.montantretenue
+  + +this.decfiscmens.impottype1.honoraire3.montantretenue+ +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 
+  +this.decfiscmens.impottype1.montant10003.montantretenue+ +this.decfiscmens.impottype1.montant10004.montantretenue
+
+  
+
+  this.tvarecuperable=+this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva+ +this.decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva+ 
+  +this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva+ +this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva+ 
+  +this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva
+
+  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount+ +this.decfiscmens.impottype2.locationusagecommercial.tvaammount
+  + +this.decfiscmens.impottype2.operationlotissement.tvaammount+ +this.decfiscmens.impottype2.interetpercue.tvaammount+ +this.decfiscmens.impottype2.autretvaspecial.tvaammount
+  
+  this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
+  this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
+
+  if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
+  {
+    this.totaltvaammount=this.preptotaltvaammount-this.option64Value
+  }
+  else 
+  {
+  this.totaltvaammount=0
+  this.totalreporttvaammount=this.option64Value-this.preptotaltvaammount
+  }
+
+
+
+  this.totalfoprolosammount= +this.decfiscmens.impottype4.montantfoprolos
+
+
+    
+      if (+this.decfiscmens.impottype3.tfppayer >= 0)
+      {
+      this.totaltfpammount= +this.decfiscmens.impottype3.tfppayer
+      } 
+      else 
+      {
+        this.totaltfpammount= 0
+      }
+  this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
+  this.totaltclammount=+this.decfiscmens.impottype6.tclpayer  
+       
+this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
+if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+
+{
+  this.totaldeclaration=this.prepminimumperceptionammount
+  this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+
+} 
+else 
+{
+  this.totaldeclaration=this.preptotaldeclaration
+  this.minimumperceptionammount=0.000
+
+}
+
+this.userservice.getUserById(this.decfiscmens.userId).then(
+  (user: User) => {
+   
+if (user.regimefiscalimpot==='Réel')  
+{
+this.prepminimumperceptionammount=10.000
+}  
+else if (user.regimefiscalimpot==='Forfait D\'assiette') 
+{
+this.prepminimumperceptionammount=5.000
+
+}
+  }
+)
           }
         );
       }
     );
+
   }
   
     

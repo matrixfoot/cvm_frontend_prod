@@ -1985,7 +1985,8 @@ decfiscmens.impottype2.tvacollecter.chiffreaffaireht=this.standardtvacollectefor
 decfiscmens.impottype2.tvacollecter.tvaammount=this.standardtvacollecteform.get('tvaammount').value
 decfiscmens.impottype2.tvacollecter.ammountttc=this.standardtvacollecteform.get('ammountttc').value
 }
-if (this.standardtvarecuperableautreachatform.get('achatlocauxht').value!==null)
+if (this.standardtvarecuperableautreachatform.get('achatlocauxht').value!==null||this.standardtvarecuperableautreachatform.get('achatlocauxtva').value!==null||
+this.standardtvarecuperableautreachatform.get('achatimporteht').value!==null||this.standardtvarecuperableautreachatform.get('achatimportetva').value!==null)
 {decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
 decfiscmens.impottype2.tvarecuperableautreachat.type='TVA récupérable pour les autres achats'
@@ -1994,7 +1995,8 @@ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva=this.standardtvar
 decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht=this.standardtvarecuperableautreachatform.get('achatimporteht').value
 decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva=this.standardtvarecuperableautreachatform.get('achatimportetva').value
 }
-if (this.standardtvarecuperableequipementform.get('achatlocauxht').value!==null)
+if (this.standardtvarecuperableequipementform.get('achatlocauxht').value!==null||this.standardtvarecuperableequipementform.get('achatlocauxtva').value!==null||
+this.standardtvarecuperableequipementform.get('achatimporteht').value!==null||this.standardtvarecuperableequipementform.get('achatimportetva').value!==null)
 {decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
 decfiscmens.impottype2.tvarecuperableequipement.type='TVA récupérable pour les achats d\'équipements'
@@ -2003,7 +2005,7 @@ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva=this.standardtvar
 decfiscmens.impottype2.tvarecuperableequipement.achatimporteht=this.standardtvarecuperableequipementform.get('achatimporteht').value
 decfiscmens.impottype2.tvarecuperableequipement.achatimportetva=this.standardtvarecuperableequipementform.get('achatimportetva').value
 }
-if (this.standardtvarecuperableimmobilierform.get('achatlocauxht').value!==null)
+if (this.standardtvarecuperableimmobilierform.get('achatlocauxht').value!==null||this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value!==null)
 {decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.reporttvamoisprecedent=this.option64Value
 decfiscmens.impottype2.tvarecuperableimmobilier.type='TVA récupérable pour les achats immobiliers'

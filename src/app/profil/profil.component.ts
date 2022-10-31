@@ -14,6 +14,7 @@ import { User } from '../models/user.model';
 export class ProfilComponent implements OnInit {
   loading=false;
   user:User;
+  civilite:any
   errormsg:string;
   currentUser: any;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private alertService: AlertService,private usersservice: UserService) { }
@@ -23,6 +24,7 @@ export class ProfilComponent implements OnInit {
       (user: User) => {
         this.loading = false;
         this.user = user;
+        this.civilite=this.user.civilite
       });
   }
   getNavigation(link, id){
