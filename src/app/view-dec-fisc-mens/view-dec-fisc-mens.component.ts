@@ -52,6 +52,9 @@ public decfiscmens=new Decfiscmens;
   public option71Value:any
   public option72Value:any
   public option64Value:any
+  public honorairesum:any
+  public honoraireretenue:any
+
   foprolosapayer=0.000
   tfpapayertotal=0.000
   tfpareportertotal=0.000
@@ -99,6 +102,8 @@ public decfiscmens=new Decfiscmens;
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
+            this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
+            this.honoraireretenue= this.honorairesum* 0.03
     this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
     + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
     this.option72Value= (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
@@ -106,8 +111,8 @@ public decfiscmens=new Decfiscmens;
 
   this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
-  + +this.decfiscmens.impottype1.honoraire1.montantretenue+ +this.decfiscmens.impottype1.honoraire2.montantretenue
-  + +this.decfiscmens.impottype1.honoraire3.montantretenue+ +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 
+  + +this.decfiscmens.impottype1.honoraire2.montantretenue+ (+this.honorairesum * 0.03)
+      + +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 
   +this.decfiscmens.impottype1.montant10003.montantretenue+ +this.decfiscmens.impottype1.montant10004.montantretenue
 
   

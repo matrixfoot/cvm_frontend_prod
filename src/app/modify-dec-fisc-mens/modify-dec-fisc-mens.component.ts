@@ -923,8 +923,9 @@ calculateResultForm1()
   
     this.standardlocationresidentesphysiqueform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardlocationresidentesphysiqueform.updateValueAndValidity();
     
 
 
@@ -955,8 +956,9 @@ calculateResultForm1()
   
     this.standardlocationresidentesmoraleform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardlocationresidentesmoraleform.updateValueAndValidity();
     
     
   }
@@ -985,8 +987,9 @@ calculateResultForm1()
   
     this.standardlocationnonresidentesphysiquesform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesphysiquesform.updateValueAndValidity();
     
     
   }
@@ -1015,8 +1018,10 @@ calculateResultForm1()
   
     this.standardlocationnonresidentesmoralesform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount} 
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardlocationnonresidentesmoralesform.updateValueAndValidity();
+    
     
     
   }
@@ -1037,24 +1042,26 @@ calculateResultForm1()
   }
   calculateResultForm9()
   {
-  
-    const brutammount=+this.standardhonorairephysiquereelform.get('brutammount').value
-    const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
+    console.log(this.standardhonorairephysiquereelform.get('brutammount').value)
+    console.log(this.standardhonorairephysiquereelform.get('netammount').value)
+    const brutammount= +this.standardhonorairephysiquereelform.get('brutammount').value
+    const quotion= +this.standardhonorairephysiquereelform.get('quotion').value
     const retenueammount=+ ((brutammount*quotion).toFixed(3));
   const netammount=+ ((brutammount-retenueammount).toFixed(3));
   
     this.standardhonorairephysiquereelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
-    
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquereelform.updateValueAndValidity();
     
   }
   calculateResultForm10()
   {
-  
-    const netammount=+this.standardhonorairephysiquereelform.get('netammount').value
-      const quotion=+this.standardhonorairephysiquereelform.get('quotion').value
+    console.log(this.standardhonorairephysiquereelform.get('brutammount').value)
+    console.log(this.standardhonorairephysiquereelform.get('netammount').value)
+    const netammount= +this.standardhonorairephysiquereelform.get('netammount').value
+      const quotion= +this.standardhonorairephysiquereelform.get('quotion').value
       const retenueammount=+ (((+netammount*+quotion)/(1-+quotion)).toFixed(3));
       const brutammount=+ ((+netammount+ +retenueammount).toFixed(3))
       this.standardhonorairephysiquereelform.patchValue({
@@ -1075,8 +1082,9 @@ calculateResultForm1()
   
     this.standardhonorairephysiquenonreelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardhonorairephysiquenonreelform.updateValueAndValidity();
     
     
   }
@@ -1105,9 +1113,9 @@ calculateResultForm1()
   
     this.standardhonorairegroupementsform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
-    
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardhonorairegroupementsform.updateValueAndValidity();
     
   }
   calculateResultForm14()
@@ -1135,9 +1143,9 @@ calculateResultForm1()
   
     this.standardmontant15form.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
-    
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardmontant15form.updateValueAndValidity();
     
   }
   calculateResultForm16()
@@ -1165,8 +1173,9 @@ calculateResultForm1()
   
     this.standardmontant10form.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardmontant10form.updateValueAndValidity();
     
     
   }
@@ -1195,9 +1204,9 @@ calculateResultForm1()
   
     this.standardmontantindividuelform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount}
-      );
-    
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardmontantindividuelform.updateValueAndValidity();
     
   }
   calculateResultForm20()
@@ -1225,9 +1234,9 @@ calculateResultForm1()
   
     this.standardmontantautreform.patchValue({
       retenueammount: retenueammount, 
-        netammount: netammount} 
-      );
-    
+        netammount: netammount},{emitEvent: false} 
+        );
+      this.standardmontantautreform.updateValueAndValidity();
     
   }
   calculateResultForm22()
@@ -2732,13 +2741,13 @@ openPopup() {
   this.displayStyle = "block";
 if (this.option48Value)
 {
-this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
-+ +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
-+ +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
-+ +this.standardhonorairephysiquereelform.get('retenueammount').value+ +this.standardhonorairephysiquenonreelform.get('retenueammount').value
-+ +this.standardhonorairegroupementsform.get('retenueammount').value+ +this.standardmontant15form.get('retenueammount').value+
-this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
-this.standardmontantautreform.get('retenueammount').value
+  this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
+  + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
+  + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
+  +  +this.standardhonorairephysiquenonreelform.get('retenueammount').value
+  + ((+this.standardhonorairegroupementsform.get('brutammount').value+ +this.standardhonorairephysiquereelform.get('brutammount').value) *0.03) +this.standardmontant15form.get('retenueammount').value+
+  this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
+  this.standardmontantautreform.get('retenueammount').value
 }
 else if (!this.option48Value)
 {
