@@ -114,13 +114,8 @@
 
   <tr style="text-align: center;"><th colspan="9">الأداء على القيمة المضافة (أ.ق.م)</th></tr>
   <tr><th>البيــــــــــانـــــــــــــــات</th><th>المبلغ </th><th>النسبة </th><th>أ.ق.م. المستوجب</th><th>أ.ق. م. القابل للطــرح</th></tr>
-  <tr><th>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th></tr>
-  <tr><td>{{ decfiscmens.impottype2.tvacollecter.type}}</td><td>{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</td><th>13%</th><td>{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><td>{{ decfiscmens.impottype2.locationhabitationmeuble.type }}</td><td>{{ decfiscmens.impottype2.locationhabitationmeuble.htammount  | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.locationhabitationmeuble.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><td>{{ decfiscmens.impottype2.locationusagecommercial.type }}</td><td>{{ decfiscmens.impottype2.locationusagecommercial.htammount  | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.locationusagecommercial.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><td>{{ decfiscmens.impottype2.operationlotissement.type  }}</td><td>{{ decfiscmens.impottype2.operationlotissement.htammount | number:'1.3-3'| removeComma }}</td><td>19%</td><td>{{ decfiscmens.impottype2.operationlotissement.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><td>{{ decfiscmens.impottype2.interetpercue.type  }}</td><td>{{ decfiscmens.impottype2.interetpercue.htammount | number:'1.3-3'| removeComma }}</td><td>19%</td><td>{{ decfiscmens.impottype2.interetpercue.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><td>{{ decfiscmens.impottype2.autretvaspecial.type  }}</td><td>{{ decfiscmens.impottype2.autretvaspecial.htammount | number:'1.3-3'| removeComma }}</td><td>19%</td><td>{{ decfiscmens.impottype2.autretvaspecial.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
+  <tr><th>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><td>{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</td><th>13%</th><td>{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
+  <tr><th>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><td>{{ option71Value  | number:'1.3-3'| removeComma}}</td><th>13%</th><td>{{ option72Value | number:'1.3-3'| removeComma}}</td></tr>
   <tr><th>* عمليات التسليم للنفس</th></tr>
   <tr><th>2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th></tr>
   <tr><th>-  شراء عقارات : </th><td>{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</td></tr>

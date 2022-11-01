@@ -142,8 +142,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option68Value=false;
   option69Value=false;
   option70Value=false;
-  option71Value:any;
-  option72Value:any;
+  option71Value=0.000;
+  option72Value=0.000;
   option73Value:any;
   option74Value:any;
   option75Value:any;
@@ -635,6 +635,12 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       taux: [{value:"0.002",disabled:true}],
       tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
     });
+
+
+    this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
     this.sub1=merge(
       this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
@@ -1280,6 +1286,27 @@ calculateResultForm23()
       Swal.fire('opération non aboutie!')
     })
       }
+      if(imposalary!==0)
+      {
+      if (retenuesalary+solidaritycontribution > imposalary || retenuesalary+solidaritycontribution == imposalary)
+    {
+      Swal.fire({
+      title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => 
+    {this.standardtraitementsalaireform.patchValue({
+
+      retenuesalary: '', 
+        imposalary: '',
+      solidaritycontribution:''},{emitEvent: false} 
+      );
+      this.standardtraitementsalaireform.updateValueAndValidity();
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    })
+      }
+    }
       if (this.foprolosapayer>0)
       {
       this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:this.foprolosapayer},{emitEvent: false})
@@ -1349,7 +1376,10 @@ calculateResultForm23()
           ammountttc: ammountttc},{emitEvent: false} 
         );
       this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
-    
+      this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
   }
   calculateResultForm26()
@@ -1365,7 +1395,10 @@ calculateResultForm23()
           ammountttc: ammountttc},{emitEvent: false} 
         );
       this.standardlocationusagecommercialform.updateValueAndValidity();
-    
+      this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
   }
   
@@ -1382,7 +1415,10 @@ calculateResultForm23()
           ammountttc: ammountttc},{emitEvent: false} 
         );
       this.standardoperationlotissementform.updateValueAndValidity();
-    
+      this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
   }
   calculateResultForm31()
@@ -1398,7 +1434,10 @@ calculateResultForm23()
           ammountttc: ammountttc},{emitEvent: false} 
         );
       this.standardinteretpercueform.updateValueAndValidity();
-    
+      this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
   }
   calculateResultForm32()
@@ -1423,7 +1462,10 @@ calculateResultForm23()
           ammountttc: ammountttc,taux: taux},{emitEvent: false} 
         );
       this.standardautretvaspecialform.updateValueAndValidity();
-    
+      this.option71Value=+((+this.standardlocationusagehabitationmeubleform.get('ammountht').value+ 
+      +this.standardlocationusagecommercialform.get('ammountht').value+ +this.standardoperationlotissementform.get('ammountht').value+ +this.standardinteretpercueform.get('ammountht').value+ 
+      +this.standardautretvaspecialform.get('ammountht').value))
+      this.option72Value=+(this.option71Value *0.19)
     
   }
   calculateResultForm33()
@@ -2707,9 +2749,8 @@ if (this.option51Value)
 this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
 +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
 +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
-this.tvacollecte=+this.standardtvacollecteform.get('tvaammount').value+ +this.standardlocationusagehabitationmeubleform.get('tvaammount').value+ 
-+this.standardlocationusagecommercialform.get('tvaammount').value+ +this.standardoperationlotissementform.get('tvaammount').value+ +this.standardinteretpercueform.get('tvaammount').value+ 
-+this.standardautretvaspecialform.get('tvaammount').value
+this.tvacollecte=+this.standardtvacollecteform.get('tvaammount').value +this.option72Value
+
 this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
 if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
 {
@@ -2906,10 +2947,10 @@ resetretenuealasourceall(){
   this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()
   
-  this.standardtraitementsalaireform.controls['imposalary'].reset()
   this.standardtraitementsalaireform.controls['retenuesalary'].reset()
   this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
   this.standardtraitementsalaireform.controls['brutsalary'].reset()
+  this.standardtraitementsalaireform.controls['imposalary'].reset()
 
   this.standardhonorairephysiquereelform.controls['brutammount'].reset()
   this.standardhonorairephysiquereelform.controls['netammount'].reset()
@@ -3724,7 +3765,7 @@ Swal.fire({
     } else {
        
       Swal.fire({
-        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TVA, voulez vous continuer?',
+        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au autres revenus soumis à la TVA, voulez vous continuer?',
         
         icon: 'warning',
         showCancelButton: true,
@@ -3735,7 +3776,21 @@ Swal.fire({
       }).then((result) => {
         if (result.value) {
           
-          this.resettvaall()
+          this.standardlocationusagehabitationmeubleform.controls['ammountht'].reset()
+  this.standardlocationusagehabitationmeubleform.controls['tvaammount'].reset()
+  this.standardlocationusagehabitationmeubleform.controls['ammountttc'].reset()
+  this.standardlocationusagecommercialform.controls['ammountht'].reset()
+  this.standardlocationusagecommercialform.controls['tvaammount'].reset()
+  this.standardlocationusagecommercialform.controls['ammountttc'].reset()
+  this.standardoperationlotissementform.controls['ammountht'].reset()
+  this.standardoperationlotissementform.controls['tvaammount'].reset()
+  this.standardoperationlotissementform.controls['ammountttc'].reset()
+  this.standardinteretpercueform.controls['ammountht'].reset()
+  this.standardinteretpercueform.controls['tvaammount'].reset()
+  this.standardinteretpercueform.controls['ammountttc'].reset()
+  this.standardautretvaspecialform.controls['ammountht'].reset()
+  this.standardautretvaspecialform.controls['tvaammount'].reset()
+  this.standardautretvaspecialform.controls['ammountttc'].reset()
           text2.style.display = "block";
         }
         else{

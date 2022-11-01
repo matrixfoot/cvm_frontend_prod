@@ -49,6 +49,8 @@ public decfiscmens=new Decfiscmens;
     width: '95vw',
     height: '80vh'
   };
+  public option71Value:any
+  public option72Value:any
   public option64Value:any
   foprolosapayer=0.000
   tfpapayertotal=0.000
@@ -97,7 +99,10 @@ public decfiscmens=new Decfiscmens;
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
-            
+    this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+    + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
+    this.option72Value= (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19       
 
   this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
@@ -111,8 +116,8 @@ public decfiscmens=new Decfiscmens;
   +this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva+ +this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva+ 
   +this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva
 
-  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount+ +this.decfiscmens.impottype2.locationusagecommercial.tvaammount
-  + +this.decfiscmens.impottype2.operationlotissement.tvaammount+ +this.decfiscmens.impottype2.interetpercue.tvaammount+ +this.decfiscmens.impottype2.autretvaspecial.tvaammount
+  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+  + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19
   
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent

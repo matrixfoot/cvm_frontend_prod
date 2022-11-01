@@ -1111,6 +1111,36 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 </div></td>
 
 </tr>
+<!-- Somme Autre revenus soumis à la TVA    -->
+<tr id="tvaform">
+  <td>
+    <p>Total des autres revenus soumis à la TVA</p>
+  </td>
+  
+   <td>  <div class="col-6">
+    
+        
+         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                               disabled     class="form-control"appTwoDigitDecimaNumber (change)="setThreeNumberDecimal($event)" [(ngModel)]="option71Value" placeholder="Total Montant HT"/>
+      
+</div></td>
+
+<td><div class="col-6">
+  
+      
+<input type="text" class="form-control"  value="19%" disabled/>
+
+</div></td>
+<td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+
+    
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+    disabled     class="form-control"appTwoDigitDecimaNumber (change)="setThreeNumberDecimal($event)" [(ngModel)]="option72Value" placeholder="Total TVA"/>
+  
+</div></td>
+
+
+</tr>
                 </tbody>
               
               </table>
