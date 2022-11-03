@@ -1,4 +1,4 @@
-<div id="deccont" style="overflow:auto; height: 500px;">
+<div id="deccont">
   <h4>Statut:<b>  {{statut}}</b></h4>
   <h4>Motif:<b>  {{motif}}</b></h4>
   <h2>التصريح الشهري بالأداءات</h2>
@@ -32,7 +32,7 @@
   <tr><th>8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><td></td><td></td><td></td></tr>
   <tr><th>9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><td></td><td></td><td></td></tr>
 
-  <hr>
+  <br>
 
 
   <tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr>
@@ -62,15 +62,12 @@
   <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
   <tr><th>● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</th><td></td><td></td><td></td></tr>
   <tr><th>17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </th><td></td><td></td><td></td></tr>
-  
-  
-  
   <tr><th>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</th><td>{{ decfiscmens.impottype1.montant10001.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10001.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
   <tr><th>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</th><td>{{ decfiscmens.impottype1.montant10002.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10002.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
   <tr><th>* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</th><td>{{ decfiscmens.impottype1.montant10003.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10003.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
   <tr><th>* لدى المؤسسات الأخرى</th><td>{{ decfiscmens.impottype1.montant10004.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10004.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
   
-  <hr>
+  <br>
   
   <tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr>
   <tr><th>18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</th><td></td><td></td><td></td></tr>
@@ -79,10 +76,7 @@
   <tr><th>21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</th><td></td><td></td><td></td></tr><tr><th>* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td></td><td></td><td></td></tr><tr><th>* منشآت دائمة أخرى</th></tr><tr><th>22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </th><td></td><td></td><td></td></tr><tr><th>23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</th><td></td><td></td><td></td></tr><tr><th>*   أشخاص طبيعيون </th><td></td><td></td><td></td></tr><tr><th>*   أشخاص معنويون </th><td></td><td></td><td></td></tr><tr><th>24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</th><td></td><td></td><td></td></tr><tr><th>*   أشخاص طبيعيون </th><td></td><td></td><td></td></tr><tr><th>*   أشخاص معنويون </th><td></td><td></td><td></td></tr><tr><th>25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td></td><td></td><td></td></tr>
   <tr></tr><tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr><tr><th>26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </th></tr><tr><th>*   أشخاص طبيعيون </th></tr><tr><th>*   أشخاص معنويون </th></tr><tr><th>27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </th></tr><tr><th>28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</th></tr><tr><th>29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</th></tr>
   <tr><th>المجموع</th><th>{{ totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
-  
   <hr>
-  
-  
   <tr style="text-align: center;"><th colspan="9">الأداء على التكوين المهني </th></tr>
   <tr><th>البيــــــــــانـــــــــــــــات</th><th>أساس الأداء </th><th>النسبة</th><th>الأداء المستوجب</th><th>الأداء القابل للطرح</th></tr>
   <tr><th>* الصناعات المعملية </th></tr>
@@ -94,10 +88,7 @@
   <tr><th>مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th>-</th></tr>
   <tr><th>المجمـــــــــــــــــــــوع</th><td></td><td></td><td>{{totaltfpammount| number:'1.3-3'| removeComma}}</td><td *ngIf="tfpreporter">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</td></tr>
   <tr><th>الباقي : (ب) مستوجب أو (ف) فائض</th><th *ngIf="tfppayer">P</th><th *ngIf="tfpreporter">R</th></tr>
-  
-
-  <hr>
-  
+  <br>
   <tr style="text-align: center;"><th colspan="9">المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </th></tr>
   <tr><th>أساس المساهمة </th><th>النسبة</th><th>المساهمة المستوجبة </th></tr>
   <tr><td>{{ decfiscmens.impottype4.basefoprolos  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype4.montantfoprolos | number:'1.3-3'| removeComma}}</td></tr>
@@ -242,7 +233,7 @@
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
                   <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>
               
-                  <button type="button" class="hidden" (click)="Upload()" >Générer Déclaration(PDF)</button>
+                  <button type="button"  (click)="openPDF()" >Générer Déclaration(PDF)</button>
                 </div>
              
               

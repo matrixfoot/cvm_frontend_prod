@@ -13,10 +13,11 @@ import { ExcelService } from '../services/generate.excel.service';
 import * as logoFile from '../_helpers/declogo';
 import pdfMake from "pdfmake/build/pdfmake";  
 import pdfFonts from "pdfmake/build/vfs_fonts";  
-
-import {saveAs} from 'file-saver';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';import {saveAs} from 'file-saver';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
+import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -102,12 +103,15 @@ public decfiscmens=new Decfiscmens;
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
-            this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
-            this.honoraireretenue= this.honorairesum* 0.03
-    this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+            if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
+            {this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
+              this.honoraireretenue= this.honorairesum* 0.03}
+              if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount!==0 ||+this.decfiscmens.impottype2.locationusagecommercial.htammount!==0||
+                +this.decfiscmens.impottype2.operationlotissement.htammount!==0 ||+this.decfiscmens.impottype2.interetpercue.htammount!==0||+this.decfiscmens.impottype2.autretvaspecial.htammount!==0  )      
+    {this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
     + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
     this.option72Value= (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19       
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19 }      
 
   this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
@@ -192,14 +196,40 @@ this.prepminimumperceptionammount=5.000
   
     
  
-  generatePDF() {  
-    let docDefinition = {  
-      header: 'C#Corner PDF Header',  
-      content: 'Sample PDF generated with Angular and PDFMake for C#Corner Blog'  
-    };  
-   
-    pdfMake.createPdf(docDefinition).open();  
-  }  
+  public openPDF(): void {
+
+const self =this
+    html2canvas(document.getElementById("deccont")).then(function(canvas) {
+      canvas.getContext('2d');
+       var HTML_Width = canvas.width;
+      var HTML_Height = canvas.height;
+      var top_left_margin = 15;
+      var PDF_Width = HTML_Width+(top_left_margin*2);
+      var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+      var canvas_image_width = HTML_Width;
+      var canvas_image_height = HTML_Height;
+      
+      var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+      
+      
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+      
+      
+      for (var i = 1; i <= totalPDFPages; i++) { 
+      pdf.addPage();
+      let margin=-(PDF_Height*i)+(top_left_margin*4);
+      if(i>1)
+      {
+      margin=margin+i*8;
+      }
+      pdf.addImage(imgData, 'JPG', top_left_margin, margin,canvas_image_width,canvas_image_height);
+      
+      }
+      pdf.save(`Déclaration mensuelle_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
+    });
+  } 
 
   load(){
     const self =this
