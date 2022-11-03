@@ -214,7 +214,7 @@ const self =this
       
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
       var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
-          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+          pdf.addImage(imgData, 'PNG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
       
       
       for (var i = 1; i <= totalPDFPages; i++) { 
@@ -224,7 +224,7 @@ const self =this
       {
       margin=margin+i*8;
       }
-      pdf.addImage(imgData, 'JPG', top_left_margin, margin,canvas_image_width,canvas_image_height);
+      pdf.addImage(imgData, 'PNG', top_left_margin, margin,canvas_image_width,canvas_image_height);
       
       }
       pdf.save(`Déclaration mensuelle_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
