@@ -1,228 +1,151 @@
-<div id="deccont">
-  <h4>Statut:<b>  {{statut}}</b></h4>
-  <h4>Motif:<b>  {{motif}}</b></h4>
-  <h2>التصريح الشهري بالأداءات</h2>
-  <table style="direction: rtl;">
-  <tr><th>تاريخ صنع الملف</th><td>{{ decfiscmens.created |customDate}}</td><th>تاريخ تعديل الملف</th><td>{{ decfiscmens.updated|customDate }}</td></tr>
-  <tr><th>السنة</th><td>{{ decfiscmens.annee }}</td><th>الشهر</th><td>{{ decfiscmens.mois }}</td><th>رمز التصريح </th><td></td></tr>
-  <tr><th>رمز الصنف </th><td>{{ decfiscmens.codegenre }}</td><th>رمز الأداء على القيمة المضافة  </th><td>{{ decfiscmens.codetva }}</td><th>المعرف الجبائي </th><td>{{ decfiscmens.matriculefiscale }}</td><th>السجل التجاري</th><td>{{ decfiscmens.registrecommerce }}</td></tr>
-  <tr><th>الاسم واللقب أوالاسم الاجتماعي: </th><td>{{ decfiscmens.firstname }} {{ decfiscmens.lastname }} {{ decfiscmens.raisonsociale }}</td></tr>
-  <tr><th>العنوان أو المقر الاجتماعي :</th><td>{{ decfiscmens.adresse }}</td></tr>
-  <tr><th>الترقيم البريدي</th><td>{{ decfiscmens.codepostal }}</td></tr>
-  <tr><th>تاريخ توقيف النشاط</th><td>{{ decfiscmens.datearretactivite }}</td><th> النشـــــــــاط : </th><td>{{ decfiscmens.activite }}</td></tr>
-  
 
-  
-  
-  <tr><th colspan="9" style="text-align: center;">الخصم من المورد</th></tr>
-  <tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr>
-  <tr><th>1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</th><td>{{ decfiscmens.impottype1.traitementetsalaire.salaireimposable | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.traitementetsalaire.retenuealasource | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>2- المرتبات والأجور واالمكافآت و المنح والامتازات العينية  الأخرى المدفوعة للأجانب</th><td></td><td></td><td></td></tr>
-  <tr><th>3- المساهمة الاجتماعية التضامنية المستوجبة على المرتبات و الأجورو المنح و الجرايات و الإيرادات العمرية</th><td></td><td></td><td>{{ decfiscmens.impottype1.traitementetsalaire.contributionsociale | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>4- العمولات وأجور الوساطة والأكرية ومكافآت الأنشطة غير التجارية</th><td></td><td></td><td></td></tr>
-  <tr><th>* المدفوعة للمقيمين والمستقرين</th></tr>
-  <tr><th>● أشخاص طبيعيون</th><td>{{ decfiscmens.impottype1.location1.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.location1.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>● أشخاص معنويون</th><td>{{ decfiscmens.impottype1.location2.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.location2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>* المدفوعة لغير المقيمين وغير المستقرين</th></tr>
-  <tr><th>● أشخاص طبيعيون</th><td>{{ decfiscmens.impottype1.location3.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.location3.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>● أشخاص معنويون</th><td>{{ decfiscmens.impottype1.location4.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.location4.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>5- الأتعاب المدفوعة للأشخاص الطبيعيين غير الخاضعين للنظام الحقيقي</th><td>{{ decfiscmens.impottype1.honoraire2.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.honoraire2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>6- الأتعاب المدفوعة للأشخاص المعنويين الخاضعين للضريبة على الشركات و التجمعات و شركات الأشخاص و ما شابهها و الأشخاص الطبيعيين الخاضعين للضريبة على الدخل حسب النظام الحقيقي</th><td>{{ honorairesum  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ honoraireretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>7- المكافآت المدفوعة إلى الفنانين و المبدعين</th><td></td><td></td><td></td></tr>
-  <tr><th>8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><td></td><td></td><td></td></tr>
-  <tr><th>9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><td></td><td></td><td></td></tr>
-
+<div>
+  <div class="row d-flex justify-content-center"id="deccont">
+      <div class="col-md-12">
+          <div class="card">   
+              <div class="table-responsive p-2">
+                <h4>Statut:<b>  {{statut}}</b></h4>
+                <h4>Motif:<b>  {{motif}}</b></h4>
+                <h2>التصريح الشهري بالأداءات</h2>
+                  <table style="direction: rtl;">
+                    <tr><th>تاريخ صنع الملف</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>تاريخ تعديل الملف</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
+                    <tr><th>السنة</th><td colspan="2">{{ decfiscmens.annee }}</td><th>الشهر</th><td colspan="2">{{ decfiscmens.mois }}</td><th>رمز التصريح </th><td colspan="2"></td></tr>
+                    <tr><th>رمز الصنف </th><td colspan="2">{{ decfiscmens.codegenre }}</td><th>رمز الأداء على القيمة المضافة  </th><td colspan="2">{{ decfiscmens.codetva }}</td><th>المعرف الجبائي </th><td colspan="2">{{ decfiscmens.matriculefiscale }}</td><th>السجل التجاري</th><td colspan="2">{{ decfiscmens.registrecommerce }}</td></tr>
+  <tr><th>الاسم واللقب أوالاسم الاجتماعي: </th><td colspan="2">{{ decfiscmens.firstname }} {{ decfiscmens.lastname }} {{ decfiscmens.raisonsociale }}</td></tr>
+  <tr><th>العنوان أو المقر الاجتماعي :</th><td colspan="2">{{ decfiscmens.adresse }}</td></tr>
+  <tr><th>الترقيم البريدي</th><td colspan="2">{{ decfiscmens.codepostal }}</td></tr>
+  <tr><th>تاريخ توقيف النشاط</th><td colspan="2">{{ decfiscmens.datearretactivite }}</td><th> النشـــــــــاط : </th><td colspan="2">{{ decfiscmens.activite }}</td></tr>   
+  <br>  
+  <tr>
+    <th colspan="3" style="min-width:50px">نوع الأداء أو المعلوم المدفوع على أساس هذا التصريح : ضع علامة (x) في الخانة المناسبة</th>
+  </tr>
+  <tr id="row1">
+    <th rowspan="2" style="min-width:50px">الخصم من المورد </th>
+    <th rowspan="2" style="min-width:50px">الأداء على التكوين المهني</th>
+    <th rowspan="2" style="min-width:50px">المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </th>
+    <th rowspan="2" style="min-width:50px">المعلوم على الاستهلاك </th>
+    <th rowspan="2" style="min-width:50px">الأداء على القيمة المضافة </th>
+    <th rowspan="2" style="min-width:50px">معاليم أخرى على رقم المعاملات </th>
+    <th rowspan="2" style="min-width:50px">المعاليم على التأمين</th>
+    <th rowspan="2" style="min-width:50px">معلوم الطابع الجبائي </th>
+    <th colspan="3" style="min-width:50px">المعاليم الراجعة للجماعات</th>
+  </tr>
+  <tr id="row1">
+    <th style="min-width:50px">المعلوم على المؤسسات </th>
+    <th style="min-width:50px">المعلوم على النزل </th>
+    <th style="min-width:50px">معلوم الإجازة </th> 
+  </tr>
+  <tr><td *ngIf="decfiscmens.impottype1.type">X</td><td *ngIf="decfiscmens.impottype3.type">X</td><td *ngIf="decfiscmens.impottype4.type">X</td><td></td><td *ngIf="decfiscmens.impottype2.type">X</td><td></td><td></td><td *ngIf="decfiscmens.impottype5.type">X</td><td *ngIf="decfiscmens.impottype6.type">X</td><td></td><td colspan="2"></td></tr>
   <br>
-
-
-  <tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr>
-  <tr><th>10- فوائد الإيداعات بالحسابات الخاصة للادخار لدى المؤسسات البنكية و صندوق الادخار التونسي</th><td></td><td></td><td></td></tr>
-  <tr><th>11- مداخيل رؤوس الأموال المنقولة الأخرى </th><td></td><td></td><td></td></tr>
-  <tr><th>* الراجعة للمقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص معنويون</th><td></td><td></td><td></td></tr>
-  <tr><th>* الراجعة لغير المقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص معنويون</th><td></td><td></td><td></td></tr>
-  <tr><th>12- حصص الأسهم </th><td></td><td></td><td></td></tr>
-  <tr><th>* الراجعة إلى الأشخاص الطبيعيين المقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>* الراجعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين  غير المقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>13- المكافآت والمنح المسندة لأعضاء المجالس والهيئات واللجان</th><td></td><td></td><td></td></tr>
-  <tr><th> * الراجعة للمقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص معنويون</th><td></td><td></td><td></td></tr>
-  <tr><th>*  الراجعة لغير المقيمين </th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص معنويون</th><td></td><td></td><td></td></tr>
-  <tr><th>14- التأجيرات المدفوعة للأجراء وغير الأجراء مقابل عمل وقتي أو ظرفي خارج نشاطهم الأصلي</th><td></td><td></td><td></td></tr>
-  <tr><th>15- فوائد القروض المدفوعة للمؤسسات البنكية غير المستقرة بالبلاد التونسية </th><td></td><td></td><td></td></tr>
-  <tr><th>16- سعر التفويت في العقارات و في الحقوق المتعلقة بها المصرح به بالعقد</th><td></td><td></td><td></td></tr>
-  <tr><th>* بالنسبة إلى المقيمين و المستقرين</th><td></td><td></td><td></td></tr>
-  <tr><th>* بالنسبة إلى غير المقيمين و غير المستقرين </th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص طبيعيون</th><td></td><td></td><td></td></tr>
-  <tr><th>● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</th><td></td><td></td><td></td></tr>
-  <tr><th>17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </th><td></td><td></td><td></td></tr>
-  <tr><th>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</th><td>{{ decfiscmens.impottype1.montant10001.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10001.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</th><td>{{ decfiscmens.impottype1.montant10002.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10002.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</th><td>{{ decfiscmens.impottype1.montant10003.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10003.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>* لدى المؤسسات الأخرى</th><td>{{ decfiscmens.impottype1.montant10004.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype1.montant10004.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  
+  <tr id="row1"><th colspan="11" style="text-align: center;">الخصم من المورد</th></tr>
+  <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
+  <tr id="row1"><th colspan="6">1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</th><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.salaireimposable | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.retenuealasource | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">2- المرتبات والأجور واالمكافآت و المنح والامتازات العينية  الأخرى المدفوعة للأجانب</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">3- المساهمة الاجتماعية التضامنية المستوجبة على المرتبات و الأجورو المنح و الجرايات و الإيرادات العمرية</th><td colspan="2"></td><td></td><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.contributionsociale | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">4- العمولات وأجور الوساطة والأكرية ومكافآت الأنشطة غير التجارية</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* المدفوعة للمقيمين والمستقرين</th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2">{{ decfiscmens.impottype1.location1.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.location1.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2">{{ decfiscmens.impottype1.location2.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.location2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">* المدفوعة لغير المقيمين وغير المستقرين</th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2">{{ decfiscmens.impottype1.location3.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.location3.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2">{{ decfiscmens.impottype1.location4.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.location4.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">5- الأتعاب المدفوعة للأشخاص الطبيعيين غير الخاضعين للنظام الحقيقي</th><td colspan="2">{{ decfiscmens.impottype1.honoraire2.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.honoraire2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">6- الأتعاب المدفوعة للأشخاص المعنويين الخاضعين للضريبة على الشركات و التجمعات و شركات الأشخاص و ما شابهها و الأشخاص الطبيعيين الخاضعين للضريبة على الدخل حسب النظام الحقيقي</th><td colspan="2">{{ honorairesum  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ honoraireretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">7- المكافآت المدفوعة إلى الفنانين و المبدعين</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr><th colspan="6">9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
   <br>
-  
-  <tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr>
-  <tr><th>18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</th><td></td><td></td><td></td></tr>
-  <tr><th>19- خصم الأداء على القيمة المضافة من المورد بعنوان العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسة بالبلاد التونسية</th><td></td><td></td><td></td></tr>
-  <tr><th>20- المكافآت المدفوعة إلى غير المقيمين الذين ينجزون أشغال بناء أو عمليات تركيب أو  أو خدمات أخرى لا تتجاوز مدتها ستة أشهر</th><td></td><td></td><td></td></tr>
-  <tr><th>21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</th><td></td><td></td><td></td></tr><tr><th>* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td></td><td></td><td></td></tr><tr><th>* منشآت دائمة أخرى</th></tr><tr><th>22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </th><td></td><td></td><td></td></tr><tr><th>23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</th><td></td><td></td><td></td></tr><tr><th>*   أشخاص طبيعيون </th><td></td><td></td><td></td></tr><tr><th>*   أشخاص معنويون </th><td></td><td></td><td></td></tr><tr><th>24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</th><td></td><td></td><td></td></tr><tr><th>*   أشخاص طبيعيون </th><td></td><td></td><td></td></tr><tr><th>*   أشخاص معنويون </th><td></td><td></td><td></td></tr><tr><th>25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td></td><td></td><td></td></tr>
-  <tr></tr><tr><th>البيانات</th><th>أساس الخصم</th><th>النسبة</th><th>مبلغ الخصم</th></tr><tr><th>26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </th></tr><tr><th>*   أشخاص طبيعيون </th></tr><tr><th>*   أشخاص معنويون </th></tr><tr><th>27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </th></tr><tr><th>28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</th></tr><tr><th>29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</th></tr>
-  <tr><th>المجموع</th><th>{{ totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
-  <hr>
-  <tr style="text-align: center;"><th colspan="9">الأداء على التكوين المهني </th></tr>
-  <tr><th>البيــــــــــانـــــــــــــــات</th><th>أساس الأداء </th><th>النسبة</th><th>الأداء المستوجب</th><th>الأداء القابل للطرح</th></tr>
-  <tr><th>* الصناعات المعملية </th></tr>
-  <tr><th>* الأنشطة الأخرى </th><td>{{ decfiscmens.impottype3.basetfp  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype3.montanttfpmois | number:'1.3-3'| removeComma}}</td><td></td></tr>
-  <tr><th>طرح مبلغ التسبقة </th><td>{{ decfiscmens.impottype3.montantavance  | number:'1.3-3'| removeComma}}</td><td></td><td></td><td></td></tr>
-  <tr><th>طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </th><td>{{ decfiscmens.impottype3.reporttfpmoisprecedent | number:'1.3-3'| removeComma}}</td><td></td><td></td><td></td></tr>
-  <tr><th>طرح مبلغ العائدات التي لم يتسن طرحها </th><th></th></tr>
-  <tr><th>مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th>-</th></tr>
-  <tr><th>مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th>-</th></tr>
-  <tr><th>المجمـــــــــــــــــــــوع</th><td></td><td></td><td>{{totaltfpammount| number:'1.3-3'| removeComma}}</td><td *ngIf="tfpreporter">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</td></tr>
-  <tr><th>الباقي : (ب) مستوجب أو (ف) فائض</th><th *ngIf="tfppayer">P</th><th *ngIf="tfpreporter">R</th></tr>
   <br>
-  <tr style="text-align: center;"><th colspan="9">المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </th></tr>
-  <tr><th>أساس المساهمة </th><th>النسبة</th><th>المساهمة المستوجبة </th></tr>
-  <tr><td>{{ decfiscmens.impottype4.basefoprolos  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype4.montantfoprolos | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
+  <tr id="row1"><th colspan="6">10- فوائد الإيداعات بالحسابات الخاصة للادخار لدى المؤسسات البنكية و صندوق الادخار التونسي</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">11- مداخيل رؤوس الأموال المنقولة الأخرى </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* الراجعة للمقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* الراجعة لغير المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">12- حصص الأسهم </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص الطبيعيين المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين  غير المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">13- المكافآت والمنح المسندة لأعضاء المجالس والهيئات واللجان</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6"> * الراجعة للمقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">*  الراجعة لغير المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">14- التأجيرات المدفوعة للأجراء وغير الأجراء مقابل عمل وقتي أو ظرفي خارج نشاطهم الأصلي</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">15- فوائد القروض المدفوعة للمؤسسات البنكية غير المستقرة بالبلاد التونسية </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">16- سعر التفويت في العقارات و في الحقوق المتعلقة بها المصرح به بالعقد</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* بالنسبة إلى المقيمين و المستقرين</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* بالنسبة إلى غير المقيمين و غير المستقرين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</th><td colspan="2">{{ decfiscmens.impottype1.montant10001.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.montant10001.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</th><td colspan="2">{{ decfiscmens.impottype1.montant10002.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.montant10002.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</th><td colspan="2">{{ decfiscmens.impottype1.montant10003.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.montant10003.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الأخرى</th><td colspan="2">{{ decfiscmens.impottype1.montant10004.montantbrut  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.montant10004.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <br>
+  <br>
+ <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
+ <tr id="row1"><th colspan="6">18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">19- خصم الأداء على القيمة المضافة من المورد بعنوان العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسة بالبلاد التونسية</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">20- المكافآت المدفوعة إلى غير المقيمين الذين ينجزون أشغال بناء أو عمليات تركيب أو  أو خدمات أخرى لا تتجاوز مدتها ستة أشهر</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">* منشآت دائمة أخرى</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+ <tr id="row1"><th colspan="6">25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>                
+<br>
+<br>
+<tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
+<tr id="row1"><th colspan="6">26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">المجموع</th><th colspan="5">{{ totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
   <hr>
-  <!-- masquer 
-  <tr><th>المعلوم على الاستهلاك </th></tr>
-  <tr><th>المعلوم القابل للطرح </th><th>المعلوم المستوجب</th><th>النسبة </th><th>المبلغ </th><th>البيــــــــــانـــــــــــــــات  </th></tr><tr><th>1- رقم المعاملات دون اعتبار المعلوم على الاستهلاك والأداء على القيمة المضافة </th></tr><tr><th>2- الشراءات:</th></tr><tr><th>  شراءات محلية </th><th>-</th></tr><tr><th>  شراءات موردة </th><th>-</th></tr><tr><th>المجموع</th></tr><tr><th>الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th></tr><tr><th>
-  </th><th>الفائض من الشهر السابق </th></tr><tr><th>الباقي المستوجب أو الفائض (ب) أو (ف) </th></tr>
-  <hr>
--->
-
-
-
-  <tr style="text-align: center;"><th colspan="9">الأداء على القيمة المضافة (أ.ق.م)</th></tr>
-  <tr><th>البيــــــــــانـــــــــــــــات</th><th>المبلغ </th><th>النسبة </th><th>أ.ق.م. المستوجب</th><th>أ.ق. م. القابل للطــرح</th></tr>
-  <tr><th>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><td>{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</td><th>13%</th><td>{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><td>{{ option71Value  | number:'1.3-3'| removeComma}}</td><th>13%</th><td>{{ option72Value | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>* عمليات التسليم للنفس</th></tr>
-  <tr><th>2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th></tr>
-  <tr><th>-  شراء عقارات : </th><td>{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>-  شراء معدات : </th></tr>
-  <tr><th>* محلية</th><td>{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht | number:'1.3-3'| removeComma }}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr><th>* موردة </th><td>{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td></tr>
-  <tr><th>   -  شراءات أخرى  : </th></tr>
-  <tr><th>* محلية</th><td>{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr><th>* موردة </th><td>{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td>{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht | number:'1.3-3'| removeComma }}</td></tr>
-  <tr><th>3- طروحات أخرى : </th></tr>
-  <tr><th>*  أ. ق. م. المستوجب على المبالغ التي تساوي أو تفوق 1000 دينار بما في ذلك أ. ق. م. ومبلغ الخصم من المورد</th></tr>
-  <tr><th>*   أ. ق. م. المستوجب على العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسات بالبلاد التونسية </th></tr>
-  <tr><th>*   أ. ق. م. تقديري على وسائل النقل </th></tr>
-  <tr><th>*   عمليات التسليم للنفس</th></tr>
-  <tr><th>التعديــلات :</th></tr>
-  <tr><th>   -   طرح إضافي :</th></tr>
-  <tr><th>* بعنوان عمليات الفسخ والإلغاء </th></tr>
-  <tr><th>* بعنوان عمليات أخرى </th></tr>
-  <tr><th>   -  إعادة دفع </th></tr>
-  <tr><th>المجمـــــــــــــــــــــوع</th><th>{{tvacollecte | number:'1.3-3'| removeComma}}</th><th>{{tvarecuperable | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th></th></tr>
-  <tr><th>الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>الفائض من الشهر السابق :</th><th>{{ option64Value | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>المبلغ المسترجع :</th></tr>
-<!-- masquer
-  <tr><th>قسيمة خاصة بالمؤسسات التي طلبت استرجاع فائض الأداء على القيمة المضافة المعني بإيقاف حق الطرح </th></tr>
-  <tr><th>فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه خلال الشهر </th></tr>
-  <tr><th>المبلغ الذي تم استرجاعه من هذا الفائض</th></tr>
-  <tr><th>الباقي من فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه خلال الأشهر السابقة</th></tr>
-  <tr><th>مبلغ الفائض المعني باسترجاع حق الطرح (تجاوز 120 يوما من تاريخ العمل بإيقاف حق الطرح</th></tr>
-  <tr><th>الباقي من فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه</th></tr>
--->
-
-  <tr><th>الباقي : (ب) مستوجب أو (ف) فائض</th><td>{{totaltvaammount | number:'1.3-3'| removeComma}}</td><td>P</td><td *ngIf="totalreporttvaammount">{{totalreporttvaammount | number:'1.3-3'| removeComma}}</td><td *ngIf="totalreporttvaammount">R</td></tr>
-  <tr><th>نسبة الطرح المائوية بعنوان النشاط الخاضع بصفة جزئية</th></tr>
-  <!--
-  <hr>
-
-
-  <tr><th>الفارق</th><th>السنة المالية الفارطة</th><th>السنة المالية الجارية</th></tr>
-  <tr><th>إرشـــــــــادات أخـــــــــــرى </th></tr><tr><th>أ.ق.م. المستوجب</th><th>أ.ق. م. القابل للطــرح</th><th>المبلغ </th><th>البيــــــــــانـــــــــــــــات  </th></tr><tr><th>شراءات بتوقيف العمل بالأداء على القيمة المضافة </th><th>-</th></tr><tr><th>شراءات بتوقيف العمل بالأداء على القيمة المضافة بعنوان المواد و التجهيزات التي تدخل ضمن مكونات إنجاز صفقات بالخارج تساوي أو تفوق 3 مليون دينار </th><th>-</th></tr><tr><th>شراءات معفاة</th><th>-</th></tr><tr><th>شراءات لدى غير الخاضعين للأداء على القيمة المضافة</th><th>-</th></tr><tr><th>شراءات أخــــرى خاضعــة لــ أ.ق.م دون اعـــتبار أ. ق. م. ولا تنتفع بحق الطرح </th><th>-</th></tr><tr><th>تصدير بضائع وخدمات </th><th>-</th></tr><tr><th>بيوعات بتوقيف  أ.ق. م </th><th>-</th></tr><tr><th>رقم المعاملات المعفى من أ.ق.م</th><th>-</th></tr><tr><th>التفويت على الرصيف</th><th>-</th></tr><tr>
-          <th>المجمـــــــــــــــــــــوع</th></tr><tr><th>معاليم أخرى على رقم المعاملات</th></tr><tr><th>المعلوم المستوجب (د) </th><th>النسبة </th><th>الأســـــاس (د) </th><th>المعلــــــــــــــــوم</th></tr><tr><th>1- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاعات الصناعة و الخدمات و الصناعات التقليدية </th></tr><tr><th>0.000</th><th>    المعلوم المهني </th><th>-</th></tr><tr><th>    المعلوم على المصبرات الغذائية </th><th>-</th></tr><tr><th>2- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في القطاع الفلاحي والصيد البحري </th></tr><tr><th>2.000</th><th>2%</th><th>100.000</th><th>    المعلوم الموظف على منتوجات الصيد البحري </th><th>-</th></tr><tr><th>    المعلوم على القطانيا والصوجا </th><th>-</th></tr><tr><th>2.000</th><th>2%</th><th>100.000</th><th>    المعلوم على الخضر والغلال </th><th>-</th></tr><tr><th>5.000</th><th>0,050 د/ كغ</th><th>100.000</th><th>    المعلوم على اللحوم </th><th>-</th></tr><tr><th>المعلوم المستوجب (د) </th><th>النسبة </th><th>الأســـــاس (د) </th><th>المعلــــــــــــــــوم</th></tr><tr><th>3- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاع السياحة</th></tr><tr><th>1%</th><th>    المعلوم الموظف على مستغلي المؤسسات السياحية والمطاعم السياحية المصنفة </th><th>-</th></tr><tr><th>20 د/ مسافر </th><th>    المعلوم على الرحلات الجوية و البحرية الدولية</th><th>-</th></tr><tr><th>5%</th><th>4- الأتاوة لفائدة صندوق تنمية المواصلات وتكنولوجيات المعلومات والاتصال</th></tr><tr><th>5- استخلاصات لفائدة الصندوق الوطني للتشغيل </th></tr><tr><th>0,150 د/ كغ </th><th>    المعلوم على البيوعات المحلية للشاي والقهوة </th><th>-</th></tr><tr><th>2 د / طن </th><th>
-
-          </th><th>    المعلوم التعويضي على الإسمنت</th><th>-</th></tr><tr><th>1 د / طن </th><th>    المعلوم على بيع الإسمنت </th><th>-</th></tr><tr><th>0,050 د/ كغ</th><th>6- المعلوم الموظف على الطماطم المعدة للتحويل </th></tr><tr><th>0,028 د/ كغ</th><th>    مساهمة منتجي الطماطم </th><th>-</th></tr><tr><th>    مساهمة مستغلي وحدات التحويل</th><th>-</th></tr><tr><th>7%</th><th>7- معلوم للمحافظــة على البيئـــة لفائدة صندوق مقاومة التلوث </th></tr><tr><th>8- استخلاصات لفائدة صندوق الانتقال الطاقي </th></tr><tr><th> واط 1000/د10</th><th>    معلوم على أجهزة تكييف الهواء </th><th>-</th></tr><tr><th>40%</th><th>    معلوم على المصابيح والأنابيب </th><th>-</th></tr><tr><th>    معلوم على المنتجات الطاقية المستهلكة</th><th>-</th></tr><tr><th>9- معلوم على الألعاب التي تتم المشاركة فيها مباشرة بالهاتف أو عن طريق المراسلات القصيرة أو الموزع الصوتي </th></tr><tr><th>1%</th><th>10- معلوم لفائدة صندوق التشجيع على الإبداع الأدبي والفني</th></tr><tr><th>1%</th><th>11- معلوم لفائدة صندوق تمويل الراحة البيولوجية في قطاع الصيد البحري</th></tr><tr><th>12- أتاوة الدعم لفائدة الصندوق العام للتعويض </th></tr><tr><th>1%</th><th>    الأتاوة الموظفة على المطاعم المصنفة طبقا للتشريع الجاري به العمل والمقاهي من الصنف الثاني والصنف الثالث وقاعات الشاي </th><th>-</th></tr><tr><th>3%</th><th>    الأتاوة الموظفة على الملاهي و الملاهي الليلية غير التابعة لمؤسسة سياحية و محلات صنع المرطبات</th><th>-</th></tr><tr><th>13- معلوم تضامني لفائدة صندوق تعويض الأضرار الفلاحية الناجمة عن الجوائح الطبيعية موظف على:</th></tr><tr><th>1%</th><th>الخضر و الغلال</th><th>-</th></tr><tr><th>1%</th><th>الحبوب المجمعة من قبل ديوان الحبوب</th><th>-</th></tr><tr><th>1%</th><th>الزيتون</th><th>-</th></tr><tr><th>1%</th><th>منتجات الصيد البحري</th><th>-</th></tr><tr><th>14- معلوم الإقامة بالنزل السياحية</th></tr><tr><th>1%</th><th>15- معلوم لفائدة صندوق دعم الصحة العمومية </th></tr><tr><th>0,100 د/كغ</th><th>16- المعلوم على السكر</th></tr><tr><th>13.500</th><th>المجموع</th></tr><tr><th></th></tr>
-
-<hr>
--->
-
-  <tr><th>معلوم الطابع الجبائي </th></tr>
-  <tr><th>1- المعلوم المستوجب على المبالغ المفوترة و المبالغ المستخلصة بعنوان خدمات الهاتف و خدمات الأنترنات</th></tr>
-  <tr><th>2- المعلوم المستوجب على تذاكر البيع المسلمة من قبل المغازات التجارية و المستغلين لعلامة تجارية أجنبية</th></tr>
-  <tr><th>المعلوم المستوجب</th><th>عدد التذاكر</th><th>رقم الفرع الثانوي</th></tr>
-  <tr><th>المجموع</th></tr>
-  <tr><th>3- المعلوم المستوجب على الوثائق الأخرى</th></tr>
-
-  <tr><th>رقم الفرع الثانوي</th><th>الوثيقة الخاضعة للمعلوم </th><th>عدد الوثائق </th><th>المعلوم المستوجب (د) </th></tr>
-  <tr><th>الرمز</th><th>نوع الوثيقة</th></tr>
-  <tr><th></th><th></th><td>{{ decfiscmens.impottype5.nombrenotehonoraire  | number:'1.3-3'| removeComma}}</td><td></td></tr>
-  <tr><th>المجموع</th><td>{{ decfiscmens.impottype5.totaldroittimbre | number:'1.3-3'| removeComma}}</td></tr>
-  <tr><th>المجموع العام</th></tr>
-  <!--
-  <tr><th>المعلوم على النزل</th></tr>
-  <tr><th>المعلوم المستوجب </th><th>النسبة</th><th>أساس المعلوم (د) </th></tr>
-  <tr><th>2%</th><th>رقم المعاملات الخام </th></tr>
-  <tr></tr>
-  <tr><th>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية </th></tr>
-  <tr><th>المعلوم المستوجب </th><th>النسبة</th><th>أساس المعلوم (د) </th><th>1- مؤسسات تروج قصرا منتجات خاضعة لنظام المصادقة الإدارية للأسعار </th></tr>
-  <tr><th>0.1%</th><th>رقم المعاملات المحلي الخام المحقق</th></tr>
-  <tr><th>0.1%</th><th>رقم المعاملات المتأتي من التصدير </th></tr>
-  <tr><th>المعلوم المستوجب </th><th>النسبة</th><th>أساس المعلوم (د) </th><th>2- مؤسسات تدفع المعلوم على المؤسسات على أساس 25% من الضريبة عل الدخل أو الضريبة على الشركات</th></tr>
-  <tr><th>25%</th><th>الضريبة على الدخل أو على الشركات المستوجبة </th></tr>
-  -->
-   
-  <tr><th>3- مؤسسات أخرى </th><th>أساس المعلوم (د) </th><th>النسبة</th><th>المعلوم المستوجب </th></tr>
-  <tr><th>رقم المعاملات المحلي الخام المحقق</th><td>{{ decfiscmens.impottype6.chiffreaffairettc | number:'1.3-3'| removeComma }}</td><th>0.2%</th><td>{{ decfiscmens.impottype6.tclpayer | number:'1.3-3'| removeComma}}</td></tr>
-  <!--
-  <tr><th>0.100</th><th>0.1%</th><th>100.000</th><th>رقم المعاملات المتأتي من التصدير  و من العمليات المنتفعة بنفس النظام الجبائي للتصدير</th></tr>
-  <tr><th>0.300</th><th>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</th></tr>
-  <tr><th>4- احتساب المعلوم على المؤسسات </th></tr>
-  <tr><th>المعلوم المستوجب </th></tr>
-  <tr><th>المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</th></tr>
-  <tr><th>المعلوم المستوجب بعنوان الأشهر السابقة </th></tr>
-  <tr><th>المجمـــــــــــــــــــــــــــــــوع            </th></tr>
-  <tr><th>المعلوم المستوجب سنويا</th></tr>
-  <tr><th>الحد الأدنى للمعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</th></tr>
-  <tr><th>الباقي مستوجب</th></tr>
-  <tr><th>معلوم الإجازة الموظف على محلات بيع المشروبات بالنسبة لسنة :</th></tr>
-  <tr><th>المجمــــــــوع العام</th><th>صنف 3</th><th>صنف 2</th><th>صنف 1</th><th>الجماعة المحلية </th></tr>
-  <tr><th>المجموع</th><th>عدد المحلات</th><th>المبلغ</th><th>المجموع</th><th>عدد المحلات</th><th>المبلغ</th><th>المجموع</th><th>عدد المحلات</th><th>المبلغ</th></tr>
-  <tr><th>300</th><th>150</th><th>25</th></tr>
-  <tr><th>300</th><th>150</th><th>25</th></tr>
-  <tr><th>300</th><th>150</th><th>25</th></tr>
-  <tr><th>300</th><th>150</th><th>25</th></tr>
-  <tr><th>0.000</th><th>المجمـــــــــــــــــــــــــــــــوع     </th></tr>
-  -->
+  <tr ><th colspan="11"style="text-align: center;">الأداء على التكوين المهني </th></tr>
+  <tr id="row1"><th colspan="6">البيــــــــــانـــــــــــــــات</th><th>أساس الأداء </th><th>النسبة</th><th>الأداء المستوجب</th><th colspan="2">الأداء القابل للطرح</th></tr>
+  <tr id="row1"><th colspan="6">* الصناعات المعملية </th><td></td><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">* الأنشطة الأخرى </th><td>{{ decfiscmens.impottype3.basetfp  | number:'1.3-3'| removeComma}}</td><td></td><td>{{ decfiscmens.impottype3.montanttfpmois | number:'1.3-3'| removeComma}}</td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ التسبقة </th><td>{{ decfiscmens.impottype3.montantavance  | number:'1.3-3'| removeComma}}</td><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </th><td>{{ decfiscmens.impottype3.reporttfpmoisprecedent | number:'1.3-3'| removeComma}}</td><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ العائدات التي لم يتسن طرحها </th><th></th><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th>-</th><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th>-</th><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">المجمـــــــــــــــــــــوع</th><td></td><td></td><td>{{totaltfpammount| number:'1.3-3'| removeComma}}</td><td *ngIf="tfpreporter">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</td></tr>
+  <tr id="row1"><th colspan="6">الباقي : (ب) مستوجب أو (ف) فائض</th><th *ngIf="tfppayer">P</th><th *ngIf="tfpreporter">R</th></tr>
+  <br>
+ 
   
-  <tr><th>خلاصة الأداءات والمعاليم الواجب دفعها</th></tr>
-  <tr><th>الضريبة أو المعلوم </th><th>مبلغ أصل الأداء</th><th>الطرح (الأداء المدفوع)</th><th>الأداء المستوجب</th><th>خطايا التأخير </th><th>المجمـــــــــوع</th></tr>
-  <tr><th>الخصم من المورد </th><th>{{totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>الأداء على التكوين المهني </th><th>{{totaltfpammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th>{{totalfoprolosammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>المعلوم على الاستهلاك </th></tr>
-  <tr><th>الأداء على القيمة المضافة </th><th>{{totaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>معاليم أخرى على رقم المعاملات </th></tr>
-  <tr><th>معاليم الطابع الجبائي </th><th>{{totaltimbreammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>المعاليم الراجعة للجماعات المحلية :</th></tr>
-  <tr><th>المعلوم على النزل </th></tr>
-  <tr><th>المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</th><th>{{totaltclammount | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>معلوم الإجازة</th></tr>
-  <tr><th>المعلوم الأدنى </th><th>{{minimumperceptionammount| number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>المجموع</th><th>{{totaldeclaration | number:'1.3-3'| removeComma}}</th></tr>
-  <tr><th>  إني الممضي أسفله أشهد بصحة البيانات التي تضمنها هذا التصريح</th><th>رمز الدفع</th><th>رمز القباضة </th><th>القباضة المالية بـــ </th></tr>
-  <tr><th>في</th><th>رقم الوصل </th></tr>
-  <tr><th>الإمضــــــــــــــــاء</th><th>تاريخ الوصل </th></tr>
-  <tr><th>طابع القبــاضة</th></tr>
+  <tr id="row1"><th colspan="7">استنفاذ طرح التسبقة أو الخلي عن طرحها</th><th>نعم</th><td></td><th>لا</th><td></td></tr>
+  <tr id="row1"><th colspan="3">قرار المصادقة في المبالغ النهائية بعنوان طرح التسبقة</th><th>رفض</th><td></td><th >قبول</th><td></td><th colspan="4">تاريخ استلام مقرر المصادقة</th></tr>
+  <tr id="row1"><th colspan="7"></th><th>اليوم</th><th>الشهر</th><th colspan="2">السنة</th></tr>
+  <br>
+  <tr ><th colspan="11"style="text-align: center;">المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </th></tr>
+  <tr id="row1"><th colspan="4">أساس المساهمة </th><th colspan="3">النسبة</th><th colspan="4">المساهمة المستوجبة </th></tr>
+  <tr id="row1"><td  colspan="4">{{ decfiscmens.impottype4.basefoprolos  | number:'1.3-3'| removeComma}}</td><td  colspan="3"></td><td  colspan="4">{{ decfiscmens.impottype4.montantfoprolos | number:'1.3-3'| removeComma}}</td></tr>
+  <hr>
 </table>
               </div>
+              <hr>
+             
+              
+          </div>
+      </div>
+  </div>
+</div>
 
                   
                 <div class="card">
