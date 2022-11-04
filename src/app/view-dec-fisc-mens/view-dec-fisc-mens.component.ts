@@ -39,7 +39,7 @@ maincontainer=false;
     }
 public decfiscmens=new Decfiscmens;
   public errormsg:string;
-  public loading: boolean;
+  loading=false;
   public tfpapyer: any
   public tfpareporter: any
   public statut: any
@@ -197,9 +197,9 @@ this.prepminimumperceptionammount=5.000
     
  
   public openPDF(): void {
-
+this.loading=true
 const self =this
-    html2canvas(document.getElementById("deccont")).then(function(canvas) {
+    html2canvas(document.getElementById("deccont"),{scale:2}).then(function(canvas) {
       canvas.getContext('2d');
       var HTML_Width = (canvas.width)*3;
       var HTML_Height = (canvas.height)*3;
@@ -227,7 +227,11 @@ const self =this
       pdf.addImage(imgData, 'PNG', top_left_margin, margin,canvas_image_width,canvas_image_height);
       
       }
+      setTimeout(() => {self.loading=false
+        
+      }, 5000); 
       pdf.save(`Déclaration mensuelle_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
+      
     });
   } 
 
