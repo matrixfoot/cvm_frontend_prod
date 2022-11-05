@@ -34,7 +34,19 @@
     <th style="min-width:50px">المعلوم على النزل </th>
     <th style="min-width:50px">معلوم الإجازة </th> 
   </tr>
-  <tr><td *ngIf="decfiscmens.impottype1.type">X</td><td *ngIf="decfiscmens.impottype3.type">X</td><td *ngIf="decfiscmens.impottype4.type">X</td><td></td><td *ngIf="decfiscmens.impottype2.type">X</td><td></td><td></td><td *ngIf="decfiscmens.impottype5.type">X</td><td *ngIf="decfiscmens.impottype6.type">X</td><td></td><td colspan="2"></td></tr>
+  <tr id="row1">
+  <td > <span *ngIf="type1"> X</span></td>
+  <td ><span *ngIf="type3">X</span></td>
+  <td><span *ngIf="type4">X</span></td>
+  <td></td>
+  <td><span *ngIf="type2">X</span></td>
+  <td></td>
+  <td></td>
+  <td><span *ngIf="type5">X</span></td>
+  <td><span *ngIf="type6">X</span></td>
+  <td></td>
+  <td></td>
+  </tr>
   <tr id="row1"><th colspan="11" style="text-align: center;">الخصم من المورد</th></tr>
   <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
   <tr id="row1"><th colspan="6">1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</th><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.salaireimposable | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.retenuealasource | number:'1.3-3'| removeComma}}</td></tr>
@@ -119,8 +131,8 @@
   <tr id="row1"><th colspan="6">طرح مبلغ التسبقة </th><td>{{ decfiscmens.impottype3.montantavance  | number:'1.3-3'| removeComma}}</td><td></td><td></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="6">طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </th><td>{{ decfiscmens.impottype3.reporttfpmoisprecedent | number:'1.3-3'| removeComma}}</td><td></td><td></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="6">طرح مبلغ العائدات التي لم يتسن طرحها </th><th></th><td></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th>-</th><td></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th>-</th><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th></th><td></td><td></td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th></th><td></td><td></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="6">المجمـــــــــــــــــــــوع</th><td></td><td></td><td>{{totaltfpammount| number:'1.3-3'| removeComma}}</td><td *ngIf="tfpreporter">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</td></tr>
   <tr id="row1"><th colspan="6">الباقي : (ب) مستوجب أو (ف) فائض</th><th *ngIf="tfppayer">P</th><th *ngIf="tfpreporter">R</th></tr>
   <br>
@@ -151,13 +163,13 @@
   <tr id="row1"><td colspan="2">{{ option71Value  | number:'1.3-3'| removeComma}}</td><th>13%</th><td colspan="2">{{ option72Value | number:'1.3-3'| removeComma}}</td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">* عمليات التسليم للنفس</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">-  شراء عقارات : </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="4">-  شراء عقارات : </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</td></tr>
   <tr id="row1"><th colspan="4">-  شراء معدات : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht | number:'1.3-3'| removeComma }}</td><td>19%</td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva | number:'1.3-3'| removeComma }}</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td><td>19%</td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht | number:'1.3-3'| removeComma }}</td><td>19%</td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
+  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td><td>19%</td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimportetva | number:'1.3-3'| removeComma }}</td></tr>
   <tr id="row1"><th colspan="4">   -  شراءات أخرى  : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva | number:'1.3-3'| removeComma }}</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht | number:'1.3-3'| removeComma }}</td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
+  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  | number:'1.3-3'| removeComma}}</td><td>19%</td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva | number:'1.3-3'| removeComma }}</td></tr>
   <tr id="row1"><th colspan="4">3- طروحات أخرى : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">*  أ. ق. م. المستوجب على المبالغ التي تساوي أو تفوق 1000 دينار بما في ذلك أ. ق. م. ومبلغ الخصم من المورد</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">*   أ. ق. م. المستوجب على العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسات بالبلاد التونسية </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
@@ -168,9 +180,8 @@
   <tr id="row1"><th colspan="4">* بعنوان عمليات الفسخ والإلغاء </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">* بعنوان عمليات أخرى </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">   -  إعادة دفع </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">المجمـــــــــــــــــــــوع</th><th colspan="2">{{tvacollecte | number:'1.3-3'| removeComma}}</th><th>{{tvarecuperable | number:'1.3-3'| removeComma}}</th></tr>
-  <tr id="row1"><th colspan="4"></th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="4">المجمـــــــــــــــــــــوع</th><th colspan="2"></th><th></th><th colspan="2">{{tvacollecte | number:'1.3-3'| removeComma}}</th><th colspan="2">{{tvarecuperable | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="preptotaltvaammount >= 0">P</th><th *ngIf="preptotaltvaammount >= 0">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
   <tr id="row1"><th colspan="4">الفائض من الشهر السابق :</th><th colspan="2">{{ option64Value | number:'1.3-3'| removeComma}}</th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="4">المبلغ المسترجع :</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
  <br>
@@ -199,7 +210,7 @@
 <tr id="row1"><th colspan="5">التفويت على الرصيف</th><th>-</th></tr>
 <tr id="row1"><th colspan="5">المجمـــــــــــــــــــــوع</th></tr>
 <br>
-<tr id="row1"><th colspan="11">معاليم أخرى على رقم المعاملات</th></tr>
+<tr id="row1"><th colspan="11"style="text-align: center;">معاليم أخرى على رقم المعاملات</th></tr>
 <tr id="row1"><th colspan="5">المعلــــــــــــــــوم</th><th>الأســـــاس (د) </th><th>النسبة </th><th >المعلوم المستوجب (د) </th></tr>
 <tr id="row1"><th colspan="5">1- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاعات الصناعة و الخدمات و الصناعات التقليدية </th></tr>
 <tr id="row1"><th colspan="5">  المعلوم المهني </th><th>  </th><th>-</th></tr>
@@ -242,7 +253,7 @@
 <tr id="row1"><th colspan="5">16- المعلوم على السكر</th><th >0,100 د/كغ</th></tr>
 <tr id="row1"><th colspan="5">المجموع</th><th >13.500</th></tr>
 <br>
-<tr id="row1"><th colspan="11">معلوم الطابع الجبائي </th></tr>
+<tr id="row1"><th colspan="11"style="text-align: center;">معلوم الطابع الجبائي </th></tr>
 <tr id="row1"><th colspan="5">1- المعلوم المستوجب على المبالغ المفوترة و المبالغ المستخلصة بعنوان خدمات الهاتف و خدمات الأنترنات</th></tr>
 <tr id="row1"><th colspan="5">2- المعلوم المستوجب على تذاكر البيع المسلمة من قبل المغازات التجارية و المستغلين لعلامة تجارية أجنبية</th></tr>
   <tr id="row1"><th colspan="3">المعلوم المستوجب</th><th>عدد التذاكر</th><th>رقم الفرع الثانوي</th></tr>
@@ -289,7 +300,7 @@
   <tr id="row1"><th colspan="3">المجمـــــــــــــــــــــــــــــــوع</th><th ></th></tr>
   
   
-  <tr id="row1"><th colspan="11">خلاصة الأداءات والمعاليم الواجب دفعها</th></tr>
+  <tr id="row1"><th colspan="11"style="text-align: center;">خلاصة الأداءات والمعاليم الواجب دفعها</th></tr>
   <tr id="row1"><th colspan="3">الضريبة أو المعلوم </th><th>مبلغ أصل الأداء</th><th>الطرح (الأداء المدفوع)</th><th>الأداء المستوجب</th><th>خطايا التأخير </th><th>المجمـــــــــوع</th></tr>
   <tr id="row1"><th colspan="3">الخصم من المورد </th><th>{{totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
   <tr id="row1"><th colspan="3">الأداء على التكوين المهني </th><th>{{totaltfpammount | number:'1.3-3'| removeComma}}</th></tr>

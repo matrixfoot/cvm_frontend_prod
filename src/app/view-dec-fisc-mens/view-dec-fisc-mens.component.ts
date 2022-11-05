@@ -55,6 +55,12 @@ public decfiscmens=new Decfiscmens;
   public option64Value:any
   public honorairesum:any
   public honoraireretenue:any
+  public type1:any
+  public type2:any
+  public type3:any
+  public type4:any
+  public type5:any
+  public type6:any
 
   foprolosapayer=0.000
   tfpapayertotal=0.000
@@ -103,6 +109,13 @@ public decfiscmens=new Decfiscmens;
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
+            this.type1=this.decfiscmens.impottype1.type
+            this.type2=this.decfiscmens.impottype2.type
+            this.type3=this.decfiscmens.impottype3.type
+            this.type4=this.decfiscmens.impottype4.type
+            this.type5=this.decfiscmens.impottype5.type
+            this.type6=this.decfiscmens.impottype6.type
+
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
             {this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
               this.honoraireretenue= this.honorairesum* 0.03}
