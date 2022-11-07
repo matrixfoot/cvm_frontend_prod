@@ -25,6 +25,7 @@ export class DecfiscmensService {
             if (decfiscmenss) {
               this.decfiscmenss = decfiscmenss;
               this.emitdecfiscmenss();
+
             }
           },
           (error) => {
@@ -66,7 +67,20 @@ export class DecfiscmensService {
         });
       }
       
-    
+    geexistenttdecfiscmens(userId: string,annee:string,mois:string) 
+    {
+return new Promise((resolve, reject) => {
+        this.http.post(API_URL_test+'/anneemois/',{userId,annee,mois}).subscribe(
+          (response) => {
+            resolve(response);
+          },
+          (error) => {
+            reject(error); 
+          }
+        );
+      });
+
+      }
       
       create(decfiscmens: Decfiscmens) {
         return new Promise((resolve, reject) => {

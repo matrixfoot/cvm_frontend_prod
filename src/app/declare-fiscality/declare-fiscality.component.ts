@@ -816,7 +816,7 @@ this.sub36=merge(
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Confirmer',
-        cancelButtonText: 'continer avec ce module',
+        cancelButtonText: 'continuer avec ce module',
       }).then((result) => {
         if (result.value) {
           
@@ -1871,6 +1871,18 @@ if (salairesnonsoumistfp>salairesbrutsrs)
     decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
     decfiscmens.mois=this.option171Value
+    if(this.option54Value==''||this.option171Value=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez indiquer le mois et l\'année de la déclaration',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }))
+    }
     if (this.option55Value)
     {
     decfiscmens.nature='Déclaration Mensuelle'
@@ -2250,12 +2262,52 @@ this.DecfiscmensService.create(decfiscmens).then(
       return true;
     }
   }
+  verify(e)
+  {
+    console.log(this.currentUser.userId,this.option54Value,this.option171Value)
+    this.DecfiscmensService.geexistenttdecfiscmens(this.currentUser.userId,this.option54Value,this.option171Value).then(
+      (data:Decfiscmens[]) => {
+        console.log(data)
+        console.log(data.length)
+        if (data.length>0)
+        {
+          Swal.fire({
+            title: 'vous avez déjà une déclaration qui existe avec ce mois et cette année, veuillez choisir entre les alternatives suivantes:',
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modifier la déclaration existente',
+            cancelButtonText: 'Modifier le mois',
+          }).then((result) => 
+          {
+            if (result.value) {
+            
+              this.router.navigate(['modify-decfiscmens/'+data[0]._id])
+
+  
+            }
+            else{
+             this.option171Value=''
+  
+            }
+          }).catch(() => {
+            Swal.fire('opération non aboutie!')
+          })
+        }
+        else{
+          var text3 = document.getElementById("impotlist");
+          text3.style.display = "flex";
+
+        }
+      }
+    )
+   
+
+  }
   update(e){
     this.selected = e.target.value
-    console.log(this.standardhonorairephysiquereelform.get('brutammount').value)
-    console.log(this.standardhonorairephysiquereelform.get('netammount').value
-
-    )
+    
     if(this.selected=='location, commission, courtage et vacation')
     {this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
@@ -2606,10 +2658,8 @@ declareneanttcl()
       var text4 = document.getElementById("tabcontainer");
       if (checkbox.checked == true){
         text2.style.display = "flex";
-        text3.style.display = "flex";
       } else {
          text2.style.display = "none";
-         text3.style.display = "none";
       }
       if (checkbox1.checked == true || checkbox2.checked==true|| checkbox3.checked==true|| checkbox4.checked==true|| checkbox5.checked==true|| checkbox6.checked==true){
         text4.style.display = "block";

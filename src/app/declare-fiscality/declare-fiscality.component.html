@@ -88,7 +88,7 @@
                       <div class="input-container" id="Month"> 
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="month">Sélectionner mois</label>
-                        <select id="month" name="month"[(ngModel)]="option171Value">
+                        <select id="month" name="month" #cricket (change)="verify($event)"[(ngModel)]="option171Value">
                            <option>Mois</option>
                            <option value="janvier">(01)janvier</option>
                            <option value="février">(02)février</option>

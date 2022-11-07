@@ -93,6 +93,7 @@ export class UserBoardComponent implements OnInit {
       (decfiscmens: Decfiscmens) => {
         this.loading = false;
         this.decfiscmens = decfiscmens;
+        console.log(decfiscmens)
         this.converteddate=this.addHours(this.decfiscmens.created);
         this.decfiscmens.created=this.converteddate
         

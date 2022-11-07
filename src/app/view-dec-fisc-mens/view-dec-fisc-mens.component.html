@@ -1,16 +1,19 @@
 
 <div>
-  <div class="row d-flex justify-content-center"id="deccont">
+  <table>
+  <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
+  <tr><th>Statut de la déclaration:</th><td>{{statut}}</td></tr>
+  <tr><th>Motif du statut:</th><td> {{motif}}</td></tr>
+</table>
+<div class="row d-flex justify-content-center"id="deccont">
       <div class="col-md-12">
           <div class="card">   
               <div class="table-responsive p-2">
-                <h4>Statut:<b>  {{statut}}</b></h4>
-                <h4>Motif:<b>  {{motif}}</b></h4>
+               
                 <h2>التصريح الشهري بالأداءات</h2>
                   <table style="direction: rtl;">
-                    <tr><th>تاريخ صنع الملف</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>تاريخ تعديل الملف</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
-                    <tr><th>السنة</th><td colspan="2">{{ decfiscmens.annee }}</td><th>الشهر</th><td colspan="2">{{ decfiscmens.mois }}</td><th>رمز التصريح </th><td colspan="2"></td></tr>
-                    <tr><th>رمز الصنف </th><td colspan="2">{{ decfiscmens.codegenre }}</td><th>رمز الأداء على القيمة المضافة  </th><td colspan="2">{{ decfiscmens.codetva }}</td><th>المعرف الجبائي </th><td colspan="2">{{ decfiscmens.matriculefiscale }}</td><th>السجل التجاري</th><td colspan="2">{{ decfiscmens.registrecommerce }}</td></tr>
+                    <tr><th>رمز التصريح </th><td colspan="2"></td><th>الشهر</th><td colspan="2">{{ decfiscmens.mois }}</td><th>السنة</th><td colspan="2">{{ decfiscmens.annee }}</td></tr>
+                    <tr><th>السجل التجاري</th><td colspan="2">{{ decfiscmens.registrecommerce }}</td><th>المعرف الجبائي </th><td colspan="2"style="direction: ltr;">{{ decfiscmens.matriculefiscale }}</td></tr>
   <tr><th>الاسم واللقب أوالاسم الاجتماعي: </th><td colspan="2">{{ decfiscmens.firstname }} {{ decfiscmens.lastname }} {{ decfiscmens.raisonsociale }}</td></tr>
   <tr><th>العنوان أو المقر الاجتماعي :</th><td colspan="2">{{ decfiscmens.adresse }}</td></tr>
   <tr><th>الترقيم البريدي</th><td colspan="2">{{ decfiscmens.codepostal }}</td></tr>
