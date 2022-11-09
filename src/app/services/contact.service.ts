@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Contact } from '../models/contact.model';
 const API_URL_test = 'http://localhost:3000/api/contactreqs/';
-const API_URL_cloud= 'https://cvm-backend.herokuapp.com/api/contactreqs/'
+const API_URL_cloud= 'https://cvm-backend-pqmj.onrender.com/api/contactreqs/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Condidate } from '../models/condidate.model';
 const API_URL_test = 'http://localhost:3000/api/condidates/';
-const API_URL_cloud= 'https://cvm-backend.herokuapp.com/api/condidates/'
+const API_URL_cloud= 'https://cvm-backend-pqmj.onrender.com/api/condidates/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
