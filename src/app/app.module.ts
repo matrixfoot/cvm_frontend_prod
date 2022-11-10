@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -138,14 +139,15 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     MatTabsModule,
     FullCalendarModule,
-    
+    ModalModule.forRoot(),
+
     
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},{
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
-  },ExcelService,CanDeactivateGuard,RemoveCommaPipe],
+  },ExcelService,CanDeactivateGuard,RemoveCommaPipe,BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
