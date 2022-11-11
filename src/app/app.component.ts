@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.currentUser = this.token.getUser();
     this.isloggedin=!!this.token.getToken();
-    console.log(this.isloggedin)
     this.usertype=this.currentUser.usertype;
     if (this.isloggedin)
     {

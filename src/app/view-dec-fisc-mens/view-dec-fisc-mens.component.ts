@@ -53,8 +53,8 @@ public decfiscmens=new Decfiscmens;
   public option71Value:any
   public option72Value:any
   public option64Value:any
-  public honorairesum:any
-  public honoraireretenue:any
+  public honorairesum=0.000
+  public honoraireretenue=0.000
   public type1:any
   public type2:any
   public type3:any
@@ -128,7 +128,7 @@ public decfiscmens=new Decfiscmens;
 
   this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
-  + +this.decfiscmens.impottype1.honoraire2.montantretenue+ (+this.honorairesum * 0.03)
+  + +this.decfiscmens.impottype1.honoraire2.montantretenue+ +this.honoraireretenue
       + +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 
   +this.decfiscmens.impottype1.montant10003.montantretenue+ +this.decfiscmens.impottype1.montant10004.montantretenue
 
@@ -185,7 +185,9 @@ else
   this.minimumperceptionammount=0.000
 
 }
-
+console.log(this.totaldeclaration,this.preptotaldeclaration)
+console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
+console.log(this.honoraireretenue)
 this.userservice.getUserById(this.decfiscmens.userId).then(
   (user: User) => {
    
