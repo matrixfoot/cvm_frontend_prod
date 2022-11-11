@@ -6,6 +6,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
   usertype:string;
   currentUser: any;
   isloggedin=false
+  public countdown=0
   public modalRef: BsModalRef;
+  public interval$ = interval(1000);
 
   @ViewChild('childModal', { static: false }) childModal: ModalDirective;
   constructor(private token: TokenStorageService,private modalService: BsModalService,private bnIdle: BnNgIdleService,private router: Router) {
@@ -30,7 +33,11 @@ export class AppComponent implements OnInit {
     {
       setTimeout(() => this.childModal.show()
           
-      , 780000); 
+      , 780000);
+      setTimeout(() =>    this.interval$.subscribe(value => this.countdown=value)
+
+          
+      , 780000);  
     this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         this.childModal.hide();
@@ -47,9 +54,14 @@ export class AppComponent implements OnInit {
   stay() {
     this.childModal.hide();
     this.reset();
+    this.countdown=0
     setTimeout(() => this.childModal.show()
           
       , 780000)
+      setTimeout(() =>    this.interval$.subscribe(value => this.countdown=value)
+
+          
+      , 780000);  
   }
   reset() {
     this.bnIdle.resetTimer()
