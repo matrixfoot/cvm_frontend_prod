@@ -299,6 +299,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   sub34:Subscription;
   sub35:Subscription;
   sub36:Subscription;
+  sub37:Subscription;
+  sub38:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -698,6 +700,15 @@ this.sub24=merge(
 ).subscribe((res:any)=>{
   this.calculateResultForm24()
 })
+this.sub38=merge(
+  
+  this.standardtvacollecteform.get('ammountttc').valueChanges,
+  this.standardtvacollecteform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm38()
+})
 this.sub25=merge(
   
   this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
@@ -752,6 +763,15 @@ this.sub33=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm33()
+})
+this.sub37=merge(
+  
+  this.standarddroittimbreform.get('totaldroittimbre').valueChanges,
+  this.standarddroittimbreform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm37()
 })
 this.sub34=merge(
   
@@ -1411,6 +1431,29 @@ calculateResultForm1()
         );
         this.standardtclform.updateValueAndValidity();
   }
+  calculateResultForm38()
+  {
+  
+    const chiffreaffairettc=+this.standardtvacollecteform.get('chiffreaffairettc').value
+    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux2=+this.standardtclform.get('taux').value
+    
+    const tvaammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
+      const ammountttc=+ ((+tvaammount+ +chiffreaffairettc).toFixed(3))
+      this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
+      this.tvacollecte1=tvaammount
+      this.standardtvacollecteform.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc
+        },{emitEvent: false} 
+        );
+      this.standardtvacollecteform.updateValueAndValidity();
+      this.standardtclform.patchValue({
+        
+        chiffreaffairettc:ammountttc,tclapayer:this.totaltclammount},{emitEvent: false} 
+        );
+        this.standardtclform.updateValueAndValidity();
+  }
   calculateResultForm25()
   {
   
@@ -1511,6 +1554,20 @@ calculateResultForm1()
     this.totaltimbreammount=+ ((+nombrenotehonoraire* +taux).toFixed(3));
       this.standarddroittimbreform.patchValue({
         totaldroittimbre: this.totaltimbreammount,},{emitEvent: false} 
+        );
+      this.standarddroittimbreform.updateValueAndValidity();
+    
+    
+  }
+  calculateResultForm37()
+  {
+  
+    const totaldroittimbre=+this.standarddroittimbreform.get('totaldroittimbre').value
+    const taux=+this.standarddroittimbreform.get('taux').value
+    const nombrenotehonoraire=Math.trunc(+totaldroittimbre/+taux);
+    this.totaltimbreammount=+ ((+totaldroittimbre).toFixed(3));
+      this.standarddroittimbreform.patchValue({
+        nombrenotehonoraire: nombrenotehonoraire,},{emitEvent: false} 
         );
       this.standarddroittimbreform.updateValueAndValidity();
     
