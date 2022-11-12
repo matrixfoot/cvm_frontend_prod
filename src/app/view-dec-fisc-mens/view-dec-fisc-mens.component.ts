@@ -172,25 +172,12 @@ public decfiscmens=new Decfiscmens;
   this.totaltclammount=+this.decfiscmens.impottype6.tclpayer  
        
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
-if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
-
-{
-  this.totaldeclaration=this.prepminimumperceptionammount
-  this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
-
-} 
-else 
-{
-  this.totaldeclaration=this.preptotaldeclaration
-  this.minimumperceptionammount=0.000
-
-}
-console.log(this.totaldeclaration,this.preptotaldeclaration)
 console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
 console.log(this.honoraireretenue)
 this.userservice.getUserById(this.decfiscmens.userId).then(
   (user: User) => {
-   
+    console.log(user)
+ 
 if (user.regimefiscalimpot==='Réel')  
 {
 this.prepminimumperceptionammount=10.000
@@ -198,6 +185,18 @@ this.prepminimumperceptionammount=10.000
 else if (user.regimefiscalimpot==='Forfait D\'assiette') 
 {
 this.prepminimumperceptionammount=5.000
+
+}
+if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+
+{
+  this.totaldeclaration=this.prepminimumperceptionammount
+  this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+} 
+else 
+{
+  this.totaldeclaration=this.preptotaldeclaration
+  this.minimumperceptionammount=0.000
 
 }
   }
@@ -214,40 +213,32 @@ this.prepminimumperceptionammount=5.000
   public openPDF(): void {
 this.loading=true
 const self =this
-    html2canvas(document.getElementById("deccont"),{scale:2}).then(function(canvas) {
-      canvas.getContext('2d');
-      var HTML_Width = (canvas.width)*3;
-      var HTML_Height = (canvas.height)*3;
-      var top_left_margin = 15;
-      var PDF_Width = HTML_Width;
-      var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
-      var canvas_image_width = HTML_Width;
-      var canvas_image_height = HTML_Height;
-      
-      var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
-      
-      
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
-          pdf.addImage(imgData, 'PNG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
-      
-      
-      for (var i = 1; i <= totalPDFPages; i++) { 
-      pdf.addPage();
-      let margin=-(PDF_Height*i)+(top_left_margin*4);
-      if(i>1)
-      {
-      margin=margin+i*8;
-      }
-      pdf.addImage(imgData, 'PNG', top_left_margin, margin,canvas_image_width,canvas_image_height);
-      
-      }
-      setTimeout(() => {self.loading=false
+
+
+const data = document.getElementById('deccont');
+html2canvas(data,{scale:2}).then((canvas:any) => {
+  const imgWidth = 208;
+  const pageHeight = 295;
+  const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  let heightLeft = imgHeight;
+  let position = 0;
+  heightLeft -= pageHeight;
+  const doc = new jsPDF('p', 'mm');
+  doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+  while (heightLeft >= 0) {
+    position = heightLeft - imgHeight;
+    doc.addPage();
+    doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+    heightLeft -= pageHeight;
+  }
+  setTimeout(() => {self.loading=false
         
-      }, 5000); 
-      pdf.save(`Déclaration mensuelle_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
-      
-    });
+  }, 5000); 
+  doc.save(`Déclaration mensuelle_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
+});
+
+
+
   } 
 
   load(){
