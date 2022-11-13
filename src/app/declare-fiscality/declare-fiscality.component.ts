@@ -301,6 +301,11 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   sub36:Subscription;
   sub37:Subscription;
   sub38:Subscription;
+  sub39:Subscription;
+  sub40:Subscription;
+  sub41:Subscription;
+  sub42:Subscription;
+  sub43:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -448,7 +453,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       chiffreaffaireht: '',
       taux: [{value:"0.13",disabled:true}],
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc: '',
     });
     this.standardtvarecuperableautreachatform =this.fb.group({
       achatlocauxht: '',
@@ -471,33 +476,33 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       ammountht: '',
       taux: [{value:"0.19",disabled:true}],
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc: '',
     });
     this.standardlocationusagecommercialform =this.fb.group({
       ammountht: '',
       taux: [{value:"0.19",disabled:true}],
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc: '',
     });
     
     this.standardoperationlotissementform =this.fb.group({
       ammountht: '',
       taux: [{value:"0.19",disabled:true}],
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc:'',
     });
     this.standardinteretpercueform =this.fb.group({
       ammountht: '',
       taux: [{value:"0.19",disabled:true}],
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc: '',
     });
     this.standardautretvaspecialform =this.fb.group({
       ammountht: '',
       tauxpercent: '',
       taux: '',
       tvaammount: [{value:"",disabled:true}],
-      ammountttc: [{value:"",disabled:true}],
+      ammountttc: '',
     });
     this.standardtfpform =this.fb.group({
       basetfp: [{value:"",disabled:true}],
@@ -718,6 +723,15 @@ this.sub25=merge(
 ).subscribe((res:any)=>{
   this.calculateResultForm25()
 })
+this.sub39=merge(
+  
+  this.standardlocationusagehabitationmeubleform.get('ammountttc').valueChanges,
+  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm39()
+})
 this.sub26=merge(
   
   this.standardlocationusagecommercialform.get('ammountht').valueChanges,
@@ -727,7 +741,15 @@ this.sub26=merge(
 ).subscribe((res:any)=>{
   this.calculateResultForm26()
 })
-
+this.sub40=merge(
+  
+  this.standardlocationusagecommercialform.get('ammountttc').valueChanges,
+  this.standardlocationusagecommercialform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm40()
+})
 this.sub30=merge(
   
   this.standardoperationlotissementform.get('ammountht').valueChanges,
@@ -736,6 +758,15 @@ this.sub30=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm30()
+})
+this.sub41=merge(
+  
+  this.standardoperationlotissementform.get('ammountttc').valueChanges,
+  this.standardoperationlotissementform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm41()
 })
 this.sub31=merge(
   
@@ -746,6 +777,15 @@ this.sub31=merge(
 ).subscribe((res:any)=>{
   this.calculateResultForm31()
 })
+this.sub42=merge(
+  
+  this.standardinteretpercueform.get('ammountttc').valueChanges,
+  this.standardinteretpercueform.get('taux').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm42()
+})
 this.sub32=merge(
   
   this.standardautretvaspecialform.get('ammountht').valueChanges,
@@ -754,6 +794,15 @@ this.sub32=merge(
   
 ).subscribe((res:any)=>{
   this.calculateResultForm32()
+})
+this.sub43=merge(
+  
+  this.standardautretvaspecialform.get('ammountttc').valueChanges,
+  this.standardautretvaspecialform.get('tauxpercent').valueChanges,
+  
+  
+).subscribe((res:any)=>{
+  this.calculateResultForm43()
 })
 this.sub33=merge(
   
@@ -1434,17 +1483,17 @@ calculateResultForm1()
   calculateResultForm38()
   {
   
-    const chiffreaffairettc=+this.standardtvacollecteform.get('chiffreaffairettc').value
+    const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
     
-    const tvaammount=+ ((+chiffreaffairettc*+taux).toFixed(3));
-      const ammountttc=+ ((+tvaammount+ +chiffreaffairettc).toFixed(3))
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
+      const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
       this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
-          ammountttc: ammountttc
+          chiffreaffaireht: ammountht
         },{emitEvent: false} 
         );
       this.standardtvacollecteform.updateValueAndValidity();
@@ -1462,10 +1511,30 @@ calculateResultForm1()
     const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       
-      this.tvacollecte2=chiffreaffaireht
+      this.tvacollecte2=chiffreaffaireht //c'est la somme des chiffes d'affaire HT
       this.standardlocationusagehabitationmeubleform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
+      this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+      this.option72Value=+(this.option71Value *0.19)
+
+  }
+  calculateResultForm39()
+  {
+  
+    const ammountttc=+this.standardlocationusagehabitationmeubleform.get('ammountttc').value
+    const taux=+this.standardlocationusagehabitationmeubleform.get('taux').value
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
+    const tvaammount2=+ (((+ammountttc*+taux)/(1+ +taux)));
+      const ammountht=+ ((+ammountttc- +tvaammount ).toFixed(3))
+      const ammountht2=+ ((+ammountttc- +tvaammount2 ))
+
+      this.tvacollecte2=ammountht2
+      this.standardlocationusagehabitationmeubleform.patchValue({
+        tvaammount: tvaammount, 
+        ammountht: ammountht},{emitEvent: false} 
         );
       this.standardlocationusagehabitationmeubleform.updateValueAndValidity();
       this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
@@ -1488,7 +1557,26 @@ calculateResultForm1()
       this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
       this.option72Value=+(this.option71Value *0.19)   
   }
+  calculateResultForm40()
+  {
   
+    const ammountttc=+this.standardlocationusagecommercialform.get('ammountttc').value
+    const taux=+this.standardlocationusagecommercialform.get('taux').value
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));    
+    const tvaammount2=+ (((+ammountttc*+taux)/(1+ +taux)));
+
+      const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
+      const ammountht2=+ ((+ammountttc- +tvaammount2))
+
+      this.tvacollecte3=ammountht2
+      this.standardlocationusagecommercialform.patchValue({
+        tvaammount: tvaammount, 
+        ammountht: ammountht},{emitEvent: false} 
+        );
+      this.standardlocationusagecommercialform.updateValueAndValidity();
+      this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+      this.option72Value=+(this.option71Value *0.19)   
+  }
   calculateResultForm30()
   {
   
@@ -1505,6 +1593,26 @@ calculateResultForm1()
       this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
       this.option72Value=+(this.option71Value *0.19)    
   }
+  calculateResultForm41()
+  {
+  
+    const ammountttc=+this.standardoperationlotissementform.get('ammountttc').value
+    const taux=+this.standardoperationlotissementform.get('taux').value
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
+    const tvaammount2=+ (((+ammountttc*+taux)/(1+ +taux)));
+
+      const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
+      const ammountht2=+ ((+ammountttc- +tvaammount2))
+
+      this.tvacollecte4=ammountht2
+      this.standardoperationlotissementform.patchValue({
+        tvaammount: tvaammount, 
+        ammountht: ammountht},{emitEvent: false} 
+        );
+      this.standardoperationlotissementform.updateValueAndValidity();
+      this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+      this.option72Value=+(this.option71Value *0.19)    
+  }
   calculateResultForm31()
   {
   
@@ -1516,6 +1624,26 @@ calculateResultForm1()
       this.standardinteretpercueform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc},{emitEvent: false} 
+        );
+      this.standardinteretpercueform.updateValueAndValidity();
+      this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+      this.option72Value=+(this.option71Value *0.19)   
+  }
+  calculateResultForm42()
+  {
+  
+    const ammountttc=+this.standardinteretpercueform.get('ammountttc').value
+    const taux=+this.standardinteretpercueform.get('taux').value
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
+    const tvaammount2=+ (((+ammountttc*+taux)/(1+ +taux)));
+
+      const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
+      const ammountht2=+ ((+ammountttc- +tvaammount2))
+
+      this.tvacollecte5=ammountht2
+      this.standardinteretpercueform.patchValue({
+        tvaammount: tvaammount, 
+        ammountht: ammountht},{emitEvent: false} 
         );
       this.standardinteretpercueform.updateValueAndValidity();
       this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
@@ -1541,6 +1669,35 @@ calculateResultForm1()
       this.standardautretvaspecialform.patchValue({
         tvaammount: tvaammount, 
           ammountttc: ammountttc,taux: taux},{emitEvent: false} 
+        );
+      this.standardautretvaspecialform.updateValueAndValidity();
+      this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+      this.option72Value=+(this.option71Value *0.19)  
+  }
+  calculateResultForm43()
+  {
+  
+    const ammountttc=+this.standardautretvaspecialform.get('ammountttc').value
+    const tauxpercent=+this.standardautretvaspecialform.get('tauxpercent').value
+    
+    if (tauxpercent>100)
+    return (
+      this.standardautretvaspecialform.patchValue({
+     tauxpercent:'',
+     tvaammount: '', 
+     ammountttc:'',
+    chiffreaffaireht:''},{emitEvent: false} 
+      )) 
+    const taux=+tauxpercent/100
+    const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
+    const tvaammount2=+ (((+ammountttc*+taux)/(1+ +taux)));
+      const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
+      const ammountht2=+ ((+ammountttc- +tvaammount2))
+
+      this.tvacollecte6=ammountht2
+      this.standardautretvaspecialform.patchValue({
+        tvaammount: tvaammount, 
+        ammountht: ammountht,taux: taux},{emitEvent: false} 
         );
       this.standardautretvaspecialform.updateValueAndValidity();
       this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)

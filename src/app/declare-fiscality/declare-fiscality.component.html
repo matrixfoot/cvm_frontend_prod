@@ -234,8 +234,8 @@
                                   </tr>
                                   <tr *ngIf="showtvatab===true">
                                     <td> TVA</td>
-                                    <td *ngIf="totaltvaammount >= 0 && !totalreporttvaammount">{{totaltvaammount | number:'1.3-3'| removeComma}} / <strong> P</strong></td>
-                                    <td *ngIf="totalreporttvaammount > 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / ({{totalreporttvaammount |number:'1.3-3'}}) / <strong> R</strong></td>
+                                    <td *ngIf="totaltvaammount >= 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / <strong> P</strong></td>
+                                    <td *ngIf="totalreporttvaammount > 0 && totaltvaammount == 0">{{totaltvaammount | number:'1.3-3'| removeComma}} / ({{totalreporttvaammount |number:'1.3-3'}}) / <strong> R</strong></td>
                                     
                                   </tr>
                                   <tr *ngIf="showtimbretab===true">
@@ -3109,7 +3109,7 @@
           </div>
     </div>
     <div class="col-6">
-      <div class="form-group"(click)="setThreeNumberDecimal($event)">
+      <div class="form-group">
           <label>Chiffre d'affaires TTC</label>
           <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
             class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
@@ -3178,7 +3178,7 @@
                                                             class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                             
                       </div></td>
-                      <td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+                      <td><div class="col-6">
                         
                             
                              <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
@@ -3212,7 +3212,7 @@
                                                           class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                           
                     </div></td>
-                    <td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+                    <td><div class="col-6">
                       
                           
                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
@@ -3247,7 +3247,7 @@
                                                   class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                   
             </div></td>
-            <td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+            <td><div class="col-6">
               
                   
                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
@@ -3281,7 +3281,7 @@
                                                 class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                 
           </div></td>
-          <td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+          <td><div class="col-6">
             
                 
                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
@@ -3304,9 +3304,12 @@
             </div></td>
             <td><div class="col-6">
               
-                  
+                  <div class="form-group">
                   <input type="text" (keypress)="keyPressNumbers($event)" class="form-control" formControlName="tauxpercent"/>
-                
+                  <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
           </div></td>
           <td class="hidden"><div class="col-6">
               
@@ -3321,7 +3324,7 @@
                                               class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
               
         </div></td>
-        <td><div class="col-6"(click)="setThreeNumberDecimal($event)">
+        <td><div class="col-6">
           
               
                <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
