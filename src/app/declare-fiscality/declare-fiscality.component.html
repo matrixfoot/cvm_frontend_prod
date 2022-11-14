@@ -193,6 +193,7 @@
                     *ngIf="option48Value===true||option49Value===true||option50Value===true||option51Value===true||option51Value===true||option52Value===true||option53Value===true">Réinitialiser tout</button>
                     <button id="recapbutton" type="button"class="btn btn-primary"(click)="openPopup()"
                     *ngIf="option48Value===true||option49Value===true||option50Value===true||option51Value===true||option51Value===true||option52Value===true||option53Value===true">Récapitulatif</button>
+                    
                    
                       <div
                         class="modal"
@@ -333,6 +334,9 @@
                           </div>
                         </div>
                           </fieldset>
+                          <div class="text-right">
+                            <input type="submit" class="hidden" value="Submit"/>
+                        </div>
                         </form>
                       </fieldset>
                       </div>

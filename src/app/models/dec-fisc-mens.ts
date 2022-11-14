@@ -111,11 +111,7 @@ montant10004:{
     montantnet:string;
     montantretenue:string;
 }
-autre:{
-    titre:string;
-    montant:string;
-    description:string;
-}
+autre:string[]
   }
   impottype2: {
 

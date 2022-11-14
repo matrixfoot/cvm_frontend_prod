@@ -362,7 +362,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
      });
     }
   ngOnInit() {
-    
+
     this.standardtraitementsalaireform =this.fb.group({
       brutsalary: '',
       imposalary: '',
@@ -1013,6 +1013,10 @@ else
   this.minimumperceptionammount=0.000
 
 }
+console.log(this.ammounts);
+console.log(this.standardtraitementsalaireform.get('brutsalary').value);
+
+
 }
   closePopup() {
     this.displayStyle = "none";
@@ -1020,7 +1024,9 @@ else
 
   get ammountControls() {
     return this.autreform.get('ammounts')['controls'];
+
   }
+
 calculateResultForm1()
   {
     
@@ -1988,7 +1994,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
      honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
      honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
      montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: []}
     decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
       type:'',
       chiffreaffaireht:'',
@@ -2219,6 +2225,14 @@ if (this.standardmontantautreform.get('netammount').value!==null)
   decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
   decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
   decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+}
+if (this.autreform.get('ammounts').value!==null)
+{
+  decfiscmens.impottype1.type='Retenue à la source'
+
+  decfiscmens.impottype1.autre=this.autreform.get('ammounts').value
+ 
+
 }
 }
 if(this.option51Value)
@@ -2461,6 +2475,9 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.ammounts.removeAt(i);
   }
   logValue() {
+    console.log(this.ammounts);
+
+    console.log(this.autreform.get('ammounts').value);
   }
   
   onTabClick(event) {
@@ -2552,6 +2569,8 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardhonorairegroupementsform.controls['brutammount'].reset()
     this.standardhonorairegroupementsform.controls['netammount'].reset()
     this.standardhonorairegroupementsform.controls['retenueammount'].reset()}
+    else if (this.selected=='Autre')
+    {this.autreform.reset()}
     
     else
     {this.standardmontant15form.controls['brutammount'].reset()
@@ -2571,7 +2590,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     
   }
   resetretenuealasourceall(){
-    
+    this.autreform.reset()
     this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -3469,7 +3488,7 @@ Swal.fire({
         this.standardlocationnonresidentesmoralesform.get('netammount').value==null&&this.standardhonorairephysiquereelform.get('netammount').value==null&&
         this.standardhonorairephysiquenonreelform.get('netammount').value==null&&this.standardhonorairegroupementsform.get('netammount').value==null&&
         this.standardmontant15form.get('netammount').value==null&&this.standardmontant10form.get('netammount').value==null&&
-        this.standardmontantindividuelform.get('netammount').value==null&&this.standardmontantautreform.get('netammount').value==null)
+        this.standardmontantindividuelform.get('netammount').value==null&&this.standardmontantautreform.get('netammount').value==null&&this.autreform.get('ammounts').value==null)
         {
            
         Swal.fire({

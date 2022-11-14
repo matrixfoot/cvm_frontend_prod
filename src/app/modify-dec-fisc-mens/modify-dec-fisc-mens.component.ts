@@ -1991,7 +1991,7 @@ onSubmit() {
      montant10003: {  type:this.decfiscmens.impottype1.montant10003.type,montantbrut:this.decfiscmens.impottype1.montant10003.montantbrut, taux:this.decfiscmens.impottype1.montant10003.taux,
        montantnet:this.decfiscmens.impottype1.montant10003.montantnet, montantretenue:this.decfiscmens.impottype1.montant10003.montantretenue,}, 
   montant10004: {  type:this.decfiscmens.impottype1.montant10004.type,montantbrut:this.decfiscmens.impottype1.montant10004.montantbrut, taux:this.decfiscmens.impottype1.montant10004.taux,
-    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: { titre:'',montant:'',description:''}}
+    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: []}
   decfiscmens.impottype2={ type:this.decfiscmens.impottype2.type,reporttvamoisprecedent:this.decfiscmens.impottype2.reporttvamoisprecedent,tvacollecter:{
     type:this.decfiscmens.impottype2.tvacollecter.type,
     chiffreaffaireht:this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht,
@@ -2109,7 +2109,7 @@ onSend() {
    honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
    honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
    montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+  montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: []}
   decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
     type:'',
     chiffreaffaireht:'',
@@ -2540,7 +2540,7 @@ onSubmitmodification() {
      honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
      honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
      montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
-    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: { titre:'',montant:'',description:''}}
+    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: []}
     decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
       type:'',
       chiffreaffaireht:'',
@@ -2756,6 +2756,14 @@ if (this.standardmontantautreform.get('netammount').value!==null)
   decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
   decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
   decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+}
+if (this.autreform.get('ammounts').value!==null)
+{
+  decfiscmens.impottype1.type='Retenue à la source'
+
+  decfiscmens.impottype1.autre=this.autreform.get('ammounts').value
+ 
+
 }
 }
 if(this.option51Value)
@@ -3147,6 +3155,8 @@ update(e){
   this.standardhonorairegroupementsform.controls['retenueammount'].reset()}
   else if (this.selected=='TVA collecté')
   {this.resettvaall()}
+  else if (this.selected=='Autre')
+    {this.autreform.reset()}
   else
   {this.standardmontant15form.controls['brutammount'].reset()
   this.standardmontant15form.controls['netammount'].reset()
@@ -3165,7 +3175,7 @@ update(e){
   
 }
 resetretenuealasourceall(){
-  
+  this.autreform.reset()
   this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -4060,7 +4070,7 @@ Swal.fire({
       this.standardlocationnonresidentesmoralesform.get('netammount').value==null&&this.standardhonorairephysiquereelform.get('netammount').value==null&&
       this.standardhonorairephysiquenonreelform.get('netammount').value==null&&this.standardhonorairegroupementsform.get('netammount').value==null&&
       this.standardmontant15form.get('netammount').value==null&&this.standardmontant10form.get('netammount').value==null&&
-      this.standardmontantindividuelform.get('netammount').value==null&&this.standardmontantautreform.get('netammount').value==null)
+      this.standardmontantindividuelform.get('netammount').value==null&&this.standardmontantautreform.get('netammount').value==null&&this.autreform.get('ammounts').value==null)
       {
          
       Swal.fire({
