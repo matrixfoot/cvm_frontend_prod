@@ -18,6 +18,7 @@ import html2canvas from 'html2canvas';import {saveAs} from 'file-saver';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -85,6 +86,7 @@ public decfiscmens=new Decfiscmens;
   tvacollecte5=0.000
   tvacollecte6=0.000
   tvarecuperable=0.000
+  autreform: FormGroup;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private dec: DecfiscmensService,
@@ -208,8 +210,6 @@ else
 
   }
   
-    
- 
   public openPDF(): void {
 this.loading=true
 const self =this
