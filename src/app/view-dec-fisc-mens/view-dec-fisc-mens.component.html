@@ -9,17 +9,17 @@
   <h2> Autre rubriques d'impots du type retenue à la source</h2>
 <table>
   <thead>
-<tr style="text-align: center;">
-  <th>Titre:</th>
-  <th>Montant:</th>
-  <th>Description:</th>
+<tr>
+  <th  style="text-align: center;">Titre:</th>
+  <th  style="text-align: center;">Montant:</th>
+  <th  style="text-align: center;">Description:</th>
 </tr>  
 </thead>
   <tbody>
     <tr *ngFor="let ammount of decfiscmens.impottype1.autre; let i = index;">
-      <td> {{decfiscmens.impottype1.autre[i].title | json}}</td>
-      <td> {{decfiscmens.impottype1.autre[i].ammount| json}}</td>
-      <td> {{decfiscmens.impottype1.autre[i].description| json}}</td>
+      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].title | lowercase}}</td>
+      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].ammount| lowercase}}</td>
+      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].description| lowercase}}</td>
     </tr>
   </tbody>
 </table>
@@ -365,7 +365,7 @@
                 <div class="card">
                   
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-                  <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
+                  <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
                   <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>
