@@ -1,6 +1,6 @@
 
 import { Component, OnInit, OnDestroy, HostListener, Injectable } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
@@ -377,7 +377,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       super();
       this.autreform = this.formBuilder.group({
         ammounts: this.formBuilder.array([ this.createammount() ])
-     });
+      })
     }
 
 
@@ -562,6 +562,15 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             retenueammount: [{value:this.decfiscmens.impottype1.montant10004.montantretenue,disabled:true}],
             netammount: [this.decfiscmens.impottype1.montant10004.montantnet],
             
+          });
+          this.autreform = new FormGroup({
+            
+            ammounts: new FormArray(decfiscmens.impottype1.autre.map(item => {
+              const group = this.initammounts();
+              //@ts-ignore
+              group.patchValue(item);
+              return group;
+            }))
           });
           this.standardtvacollecteform =this.formBuilder.group({
       chiffreaffaireht: [this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht],
@@ -984,7 +993,13 @@ this.sub36=merge(
     }
   );
 }
-
+initammounts() {
+  return this.formBuilder.group({
+    title: '',
+    ammount: '',
+    description: ''
+  });
+}
 setThreeNumberDecimal($event) {
   $event.target.value = $event.target.value ? $event.target.value : 0;
   $event.target.value = parseFloat($event.target.value).toFixed(3);
@@ -1991,7 +2006,7 @@ onSubmit() {
      montant10003: {  type:this.decfiscmens.impottype1.montant10003.type,montantbrut:this.decfiscmens.impottype1.montant10003.montantbrut, taux:this.decfiscmens.impottype1.montant10003.taux,
        montantnet:this.decfiscmens.impottype1.montant10003.montantnet, montantretenue:this.decfiscmens.impottype1.montant10003.montantretenue,}, 
   montant10004: {  type:this.decfiscmens.impottype1.montant10004.type,montantbrut:this.decfiscmens.impottype1.montant10004.montantbrut, taux:this.decfiscmens.impottype1.montant10004.taux,
-    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: []}
+    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: this.decfiscmens.impottype1.autre}
   decfiscmens.impottype2={ type:this.decfiscmens.impottype2.type,reporttvamoisprecedent:this.decfiscmens.impottype2.reporttvamoisprecedent,tvacollecter:{
     type:this.decfiscmens.impottype2.tvacollecter.type,
     chiffreaffaireht:this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht,
@@ -2325,6 +2340,14 @@ decfiscmens.impottype1.montant10004.type='Montants supérieurs à 1000dt autre �
 decfiscmens.impottype1.montant10004.montantbrut=this.standardmontantautreform.get('brutammount').value
 decfiscmens.impottype1.montant10004.montantnet=this.standardmontantautreform.get('netammount').value
 decfiscmens.impottype1.montant10004.montantretenue=this.standardmontantautreform.get('retenueammount').value  
+}
+if (this.autreform.get('ammounts').value!==null)
+{
+  decfiscmens.impottype1.type='Retenue à la source'
+
+  decfiscmens.impottype1.autre=this.autreform.get('ammounts').value
+ 
+
 }
 }
 if(this.option51Value)

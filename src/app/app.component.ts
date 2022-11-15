@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       setTimeout(() => this.childModal.show()
           
       , 780000);
-      setTimeout(() =>    this.interval$.subscribe(value => this.countdown=value)
+      setTimeout(() =>    (this.interval$.subscribe(value => this.countdown=value), this.countdown=0)
 
           
       , 780000);  
