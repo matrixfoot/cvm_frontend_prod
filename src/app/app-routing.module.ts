@@ -36,7 +36,8 @@ import { ViewUserDeletedComponent } from './view-user-deleted/view-user-deleted.
 import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-mens.component';
 import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 import { CreateReportComponent } from './create-report/create-report.component';
-
+import { ViewCarouselComponent } from './view-carousel/view-carousel.component';
+import { ModifyCarouselComponent } from './modify-carousel/modify-carousel.component';
 const routes: Routes = [
   
    
@@ -89,26 +90,23 @@ const routes: Routes = [
 { path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,canDeactivate: [CanDeactivateGuard]
     
 },
+{ path: 'modify-carousel/:id', component: ModifyCarouselComponent
+    
+},
 { path: 'view-user/:id', component: ViewUserComponent},
 { path: 'view-user-deleted/:id', component: ViewUserDeletedComponent},
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
 { path: 'view-contactreq/:id', component: ViewContactreqComponent},
 { path: 'view-decfiscmens/:id', component: ViewDecFiscMensComponent},
+{ path: 'view-carousel/:id', component: ViewCarouselComponent},
+
 { path: 'view-event/:id', component: ViewEventComponent},
 { path: 'verify-email/:token', component: VerifyEmailComponent},
 { path: 'reset-password/:token', component: ResetPasswordComponent},
-{ path: 'admin-board', component: AdminBoardComponent,
-    
-},
-{ path: 'user-board', component: UserBoardComponent,
-    
-},
-{ path: 'career', component: CareerComponent,
-    
-},
-{ path: 'supervisor-board', component: SupervisorBoardComponent,
-    
-},
+{ path: 'admin-board', component: AdminBoardComponent},
+{ path: 'user-board', component: UserBoardComponent},
+{ path: 'career', component: CareerComponent},
+{ path: 'supervisor-board', component: SupervisorBoardComponent},
 
   {path: 'home/contact', component :ContactComponent},
   {path: 'home', component :HomeComponent},

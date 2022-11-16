@@ -67,6 +67,8 @@ import { ViewDecFiscMensComponent } from './view-dec-fisc-mens/view-dec-fisc-men
 import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fisc-mens.component';
 import { CanDeactivateGuard } from './services/auth-guard.service';
 import { CreateReportComponent } from './create-report/create-report.component';
+import { ViewCarouselComponent } from './view-carousel/view-carousel.component';
+import { ModifyCarouselComponent } from './modify-carousel/modify-carousel.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -125,6 +127,8 @@ FullCalendarModule.registerPlugins([
     ViewDecFiscMensComponent,
     ModifyDecFiscMensComponent,
     CreateReportComponent,
+    ViewCarouselComponent,
+    ModifyCarouselComponent,
     
     
     

@@ -1,1 +1,39 @@
 <h2><a routerLink="calendar-fiscality" *ngIf="currentUser.role=='admin'"routerLinkActive="active"> Gestion calendrier fiscale</a></h2>
+<div class="container-fluid" *ngIf="currentUser.role=='admin'">
+    <h2 style="text-align: center;">Paramêtrage des actualités</h2>
+<div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+    <table class="table table-striped">
+      <thead>
+      <tr>
+  
+        
+        <th scope="col">Titre:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="titre" ></i></th>
+        <th scope="col">Commentaire:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="commentaire"  ></i></th>
+        <th scope="col">Document joint:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="ficheUrl" ></i></th>
+        <th scope="col">Description:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="description" ></i></th>
+        <th scope="col">Consultation:</th>
+        <th scope="col">Modification:</th>
+        <th scope="col">Suppression:</th>
+
+        
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let carousel of getcarousels()">
+  
+        
+        <td>{{carousel.titre}}</td>
+        <td>{{carousel.commentaire}}</td>
+        <td>{{carousel.ficheUrl}}</td>
+        <td>{{carousel.description}}</td>
+        <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="getNavigation('delete-carousel',carousel._id)">Supprimer</button></td>          
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
