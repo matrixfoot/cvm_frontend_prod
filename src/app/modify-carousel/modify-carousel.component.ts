@@ -10,7 +10,6 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { CarouselService } from '../services/settings';
 import { Carousel } from '../models/settings';
 import { AlertService } from '../_helpers/alert.service';
-import { image } from 'html2canvas/dist/types/css/types/image';
 @Component({
   selector: 'app-modify-carousel',
   templateUrl: './modify-carousel.component.html',
@@ -22,7 +21,9 @@ export class ModifyCarouselComponent implements OnInit {
   public currentuser: User;
   public carousels: Carousel[]=[];
   public carousel: Carousel;
-  
+  public imagePreview: string;
+  fileUploaded = false; 
+
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
@@ -47,17 +48,17 @@ export class ModifyCarouselComponent implements OnInit {
         (carousel: Carousel) => {
           
           this.carousel = carousel;
-          
           this.carouselForm = this.formBuilder.group({
             
-            titre: [this.carousel.titre],
-            commentaire: [this.carousel.commentaire],
+            titre: [carousel.titre],
+            commentaire: [carousel.commentaire],
 
-            description: [this.carousel.description],
-            ficheUrl: [this.carousel.ficheUrl],
+            description: [carousel.description],
+            file: [carousel.ficheUrl]
 
           
           });
+          this.imagePreview = carousel.ficheUrl;
           this.loading = false;
           
         }
@@ -69,11 +70,12 @@ export class ModifyCarouselComponent implements OnInit {
 onSubmit() {
   this.loading = true;
   const carousel = new Carousel();
-  
+  carousel._id=this.carousel._id
   carousel.titre =this.carouselForm.get('titre').value;
-  carousel.titre =this.carouselForm.get('commentaire').value;
-  carousel.titre =this.carouselForm.get('description').value;
-  this.caro.modify(this.carousel._id, carousel, '').then(
+  carousel.commentaire =this.carouselForm.get('commentaire').value;
+  carousel.description =this.carouselForm.get('description').value;
+  carousel.ficheUrl = '';
+  this.caro.modify(carousel._id, carousel, this.carouselForm.get('file').value).then(
     (data:any) => {
       this.carouselForm.reset();
       this.loading = false;
@@ -90,6 +92,22 @@ onSubmit() {
       
     }
   );
+}
+onImagePick(event: Event) {
+  const file = (event.target as HTMLInputElement).files[0];
+  this.carouselForm.get('file').patchValue(file);
+  this.carouselForm.get('file').updateValueAndValidity();
+  const reader = new FileReader();
+  reader.onload = () => {
+    if (this.carouselForm.get('file').valid) {
+      console.log(this.carouselForm.get('file').value)
+      this.imagePreview = reader.result as string;
+      this.fileUploaded = true;
+    } else {
+      this.imagePreview = null;
+    }
+  };
+  reader.readAsDataURL(file);
 }
 reloadPage(): void {
   
