@@ -10,30 +10,72 @@
       <tr>
   
         
-        <th scope="col">Titre:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="titre" ></i></th>
-        <th scope="col">Commentaire:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="commentaire"  ></i></th>
-        <th scope="col">Document joint:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="ficheUrl" ></i></th>
-        <th scope="col">Description:<i class="fa fa-sort" aria-hidden="true" [appSort]="carousels" data-order="desc" data-name="description" ></i></th>
-        <th scope="col">Consultation:</th>
-        <th scope="col">Modification:</th>
-        <th scope="col">Suppression:</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Commentaire</th>
+        <th scope="col">Document joint</th>
+        <th scope="col">Consultation</th>
+        <th scope="col">Modification</th>
+        <th scope="col">Suppression</th>
 
         
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let carousel of getcarousels()">
+      <tr *ngFor="let carousel of carousels">
   
         
         <td>{{carousel.titre}}</td>
         <td>{{carousel.commentaire}}</td>
-        <td>{{carousel.ficheUrl}}</td>
-        <td>{{carousel.description}}</td>
+        <td><a href="{{carousel.ficheUrl}}" target="_blank">Aperçu document joint</a></td>
         <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
         <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
-        <td><button type="button" class="btn btn-danger" (click)="getNavigation('delete-carousel',carousel._id)">Supprimer</button></td>          
+        <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
       </tr>
       </tbody>
     </table>
+  </div>
+  <div class="input-container" id="Check1">
+    <label for="myCheck1">Afficher le formulaire d'ajouts d'actualités</label>
+    <input type="checkbox" id="myCheck1" (click)="myFunction1()">
+  </div>
+  <div id="bodycontainer">
+      
+    
+
+    <div class="container-fluid"> 
+     
+    
+  <form  [formGroup]="carouselform">
+      <h2>Formulaire d'ajouts d'actualités</h2>
+     
+      
+      
+  
+        <div title="indiquer titre actualité"class="input-container">
+          <input type="text" class="form-control" formControlName="titre" id="titre" placeholder=" Entrez titre">
+        </div> 
+        <div title="indiquer commentaire"class="input-container">
+          <input type="text" class="form-control" formControlName="commentaire" id="commentaire" placeholder=" Entrez commentaire">
+        </div> 
+         <div title="indiquer description"class="input-container">
+          <textarea  class="form-control" rows="10" cols="50"id="description" formControlName="description"placeholder="Entrez description"></textarea>
+        </div> 
+        <div class="form-group">
+          <label for="inputCV">Attacher votre document joint</label>                   
+         <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+         <div class="image-preview" *ngIf="imagePreview">
+           <img [src]="imagePreview" alt="">
+         </div>
+         <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+        
+     </div>
+       
+      
+    
+      <button class="btn btn-success" (click)="saveactualite()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Ajouter Actualité</button>
+    </form>
+    <p>{{ errormsg }}</p>
+    
+  </div>
   </div>
 </div>

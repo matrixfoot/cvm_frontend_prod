@@ -18,7 +18,7 @@ export class CarouselService {
  
 
     getCarouselalldata() {
-        this.http.get(API_URL_cloud).subscribe(
+        this.http.get(API_URL_test).subscribe(
           (carousels: Carousel[]) => {
             if (carousels) {
               this.carousels = carousels;
@@ -38,7 +38,7 @@ export class CarouselService {
         return new Promise((resolve, reject) => {
           
 
-          this.http.get(API_URL_cloud + id).subscribe(
+          this.http.get(API_URL_test + id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -57,7 +57,7 @@ export class CarouselService {
           const carouselData = new FormData();
           carouselData.append('carousel', JSON.stringify(carousel));
           carouselData.append('image', image, carousel.titre);
-          this.http.post(API_URL_cloud+'createcarousdata', carouselData).subscribe(
+          this.http.post(API_URL_test+'createcarouseldata', carouselData).subscribe(
             (response) => {
               resolve(response);
             },
@@ -82,7 +82,7 @@ export class CarouselService {
             carouseldata.append('carousel', JSON.stringify(carousel));
             carouseldata.append('image', image, carousel.titre);
           }
-          this.http.put(API_URL_cloud + id, carouseldata).subscribe(
+          this.http.put(API_URL_test + id, carouseldata).subscribe(
             (response) => {
               resolve(response);
             },
@@ -94,7 +94,7 @@ export class CarouselService {
       }
       deletecarouseldataById(id: string) {
         return new Promise((resolve, reject) => {
-          this.http.delete(API_URL_cloud+ id).subscribe(
+          this.http.delete(API_URL_test+ id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -104,6 +104,6 @@ export class CarouselService {
           );
         });
       } 
-    
+      
       
     }
