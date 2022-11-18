@@ -17,7 +17,7 @@ import { AlertService } from '../_helpers/alert.service';
 })
 export class ModifyCarouselComponent implements OnInit {
 
-  public carouselForm: FormGroup; 
+  public carouselform: FormGroup; 
   public currentuser: User;
   public carousels: Carousel[]=[];
   public carousel: Carousel;
@@ -48,7 +48,7 @@ export class ModifyCarouselComponent implements OnInit {
         (carousel: Carousel) => {
           
           this.carousel = carousel;
-          this.carouselForm = this.formBuilder.group({
+          this.carouselform = this.formBuilder.group({
             
             titre: [carousel.titre],
             commentaire: [carousel.commentaire],
@@ -71,22 +71,20 @@ onSubmit() {
   this.loading = true;
   const carousel = new Carousel();
   carousel._id=this.carousel._id
-  carousel.titre =this.carouselForm.get('titre').value;
-  carousel.commentaire =this.carouselForm.get('commentaire').value;
-  carousel.description =this.carouselForm.get('description').value;
+  carousel.titre =this.carouselform.get('titre').value;
+  carousel.commentaire =this.carouselform.get('commentaire').value;
+  carousel.description =this.carouselform.get('description').value;
   carousel.ficheUrl = '';
-  this.caro.modify(carousel._id, carousel, this.carouselForm.get('file').value).then(
+  this.caro.modify(carousel._id, carousel, this.carouselform.get('file').value).then(
     (data:any) => {
-      this.carouselForm.reset();
+      console.log(data)
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
       this.router.navigate(['settings']);
+
     },
     (error) => {
       this.loading = false;
-      this.alertService.error(error.error.message);
-      window.scrollTo(0, 0);
+      
       
     
       
@@ -95,12 +93,12 @@ onSubmit() {
 }
 onImagePick(event: Event) {
   const file = (event.target as HTMLInputElement).files[0];
-  this.carouselForm.get('file').patchValue(file);
-  this.carouselForm.get('file').updateValueAndValidity();
+  this.carouselform.get('file').patchValue(file);
+  this.carouselform.get('file').updateValueAndValidity();
   const reader = new FileReader();
   reader.onload = () => {
-    if (this.carouselForm.get('file').valid) {
-      console.log(this.carouselForm.get('file').value)
+    if (this.carouselform.get('file').valid) {
+      console.log(this.carouselform.get('file').value)
       this.imagePreview = reader.result as string;
       this.fileUploaded = true;
     } else {

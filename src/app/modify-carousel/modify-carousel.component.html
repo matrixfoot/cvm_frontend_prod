@@ -2,10 +2,10 @@
       
     
 
-    <div class="container-fluid"> 
+    <div class="container-fluid" *ngIf="!loading"> 
      
     
-  <form [formGroup]="carouselForm"*ngIf="carouselForm">
+  <form [formGroup]="carouselform">
       <h2>Formulaire de modification d'actualités</h2>
      
       

@@ -18,7 +18,7 @@ export class CarouselService {
  
 
     getCarouselalldata() {
-        this.http.get(API_URL_test).subscribe(
+        this.http.get(API_URL_cloud).subscribe(
           (carousels: Carousel[]) => {
             if (carousels) {
               this.carousels = carousels;
@@ -38,7 +38,7 @@ export class CarouselService {
         return new Promise((resolve, reject) => {
           
 
-          this.http.get(API_URL_test + id).subscribe(
+          this.http.get(API_URL_cloud + id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -57,7 +57,7 @@ export class CarouselService {
           const carouselData = new FormData();
           carouselData.append('carousel', JSON.stringify(carousel));
           carouselData.append('image', image, carousel.titre);
-          this.http.post(API_URL_test+'createcarouseldata', carouselData).subscribe(
+          this.http.post(API_URL_cloud+'createcarouseldata', carouselData).subscribe(
             (response) => {
               resolve(response);
             },
@@ -71,18 +71,18 @@ export class CarouselService {
     
      
     
-      modify(id: string, carousel: Carousel, image: File | string) {
+      modify(id: string, carousel: Carousel, file: File | string) {
         return new Promise((resolve, reject) => {
           let carouseldata: Carousel | FormData;
-          if (typeof image === 'string') {
-            carousel.ficheUrl = image;
+          if (typeof file === 'string') {
+            carousel.ficheUrl = file;
             carouseldata = carousel;
           } else {
             carouseldata = new FormData();
             carouseldata.append('carousel', JSON.stringify(carousel));
-            carouseldata.append('image', image, carousel.titre);
+            carouseldata.append('image', file, carousel.titre);
           }
-          this.http.put(API_URL_test + id, carouseldata).subscribe(
+          this.http.put(API_URL_cloud + id, carouseldata).subscribe(
             (response) => {
               resolve(response);
             },
@@ -94,7 +94,7 @@ export class CarouselService {
       }
       deletecarouseldataById(id: string) {
         return new Promise((resolve, reject) => {
-          this.http.delete(API_URL_test+ id).subscribe(
+          this.http.delete(API_URL_cloud+ id).subscribe(
             (response) => {
               resolve(response);
             },
