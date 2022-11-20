@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Events } from '../models/event.model';
 import { Router } from '@angular/router';
 import frLocale from '@fullcalendar/core/locales/fr';
+import { TokenStorageService } from '../services/token-storage.service';
 @Component({
   selector: 'app-calendar-fiscality',
   templateUrl: './calendar-fiscality.component.html',
@@ -19,10 +20,11 @@ export class CalendarFiscalityComponent implements OnInit {
   calendarOptions: CalendarOptions;
   error: any;
   events: Events;
+  currentUser:any
   constructor(
     public http: HttpClient,
     private apiService: ApiServiceService,
-    private router: Router
+    private router: Router,private token: TokenStorageService
   ) {}
 
   handleDateClick(arg) {
@@ -35,6 +37,7 @@ export class CalendarFiscalityComponent implements OnInit {
 
   ngOnInit() {
     this.getAllEvents();
+    this.currentUser = this.token.getUser();
   }
 
   deleteEvent(id) {

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-      <button nbButton outline status="success" (click)="getNavigation('add-event')" class="add_event">Ajouter Evenement</button>
+      <button nbButton outline status="success"*ngIf="currentUser.role=='admin'" (click)="getNavigation('add-event')" class="add_event">Ajouter Evenement</button>
     </div>
     <hr>
   <full-calendar [options]="calendarOptions"></full-calendar>

@@ -1426,7 +1426,7 @@ calculateResultForm23()
           );
         this.standardtfpform.updateValueAndValidity();
       }
-    if (this.tfpapayer>0)
+    if (this.tfpapayer>0) 
       {
         this.standardtfpform.patchValue({
           basetfp: basetfp,
@@ -3609,6 +3609,41 @@ Swal.fire({
     var text2 = document.getElementById("tabcontainer");
     
     if (checkbox.checked == true){
+      if (this.option48Value)
+      {
+        const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
+        const salairesnonsoumistfp=+this.standardtfpform.get('salairesnonsoumistfp').value
+        const tauxtfp=+this.standardtfpform.get('taux').value
+        const reporttfpmoisprecedent=+this.standardtfpform.get('tfpammountreportmoisprecedent').value
+
+        const basetfp=+ ((+brutsalary-+salairesnonsoumistfp).toFixed(3));
+        const tfpammountmoisactuel=+ ((+basetfp*+tauxtfp).toFixed(3));
+        this.tfpapayer=+ ((+tfpammountmoisactuel-+reporttfpmoisprecedent).toFixed(3));
+        this.tfpareporter=+ ((+reporttfpmoisprecedent-+tfpammountmoisactuel).toFixed(3));
+      
+    if (this.tfpapayer<0)
+    {
+      this.standardtfpform.patchValue({
+        basetfp: basetfp,
+        tfpammountmoisactuel: tfpammountmoisactuel,
+        tfpapayer:'',
+        tfpareporter:this.tfpareporter,
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
+    }
+  if (this.tfpapayer>0) 
+    {
+      this.standardtfpform.patchValue({
+        basetfp: basetfp,
+        tfpammountmoisactuel: tfpammountmoisactuel,
+        tfpapayer: this.tfpapayer,
+        tfpareporter:'',
+        },{emitEvent: false} 
+        );
+      this.standardtfpform.updateValueAndValidity();
+    }
+  }
       text2.style.display = "block";
       this.showtfptab=true;
       this.option49Value=true;
@@ -3652,6 +3687,23 @@ Swal.fire({
     var text2 = document.getElementById("tabcontainer");
     
     if (checkbox.checked == true){
+      if (this.option48Value)
+      {
+        const brutsalary=+this.standardtraitementsalaireform.get('brutsalary').value
+    const tauxfoprolos=+this.standardfoprolosform.get('taux').value
+
+    const salairesnonsoumisfoprolos=+this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+    
+    const basefoprolos=+ ((+brutsalary-+salairesnonsoumisfoprolos).toFixed(3));
+    this.foprolosapayer=+ ((+basefoprolos * +tauxfoprolos).toFixed(3));
+    
+    if (this.foprolosapayer>0)
+    {
+    this.standardfoprolosform.patchValue({basefoprolos:basefoprolos,foprolosammount:this.foprolosapayer},{emitEvent: false})
+
+    this.standardfoprolosform.updateValueAndValidity();
+    }  
+      }
       text2.style.display = "block";
       this.showfoprolostab=true;
       this.option50Value=true;
