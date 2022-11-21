@@ -4,6 +4,7 @@ export class User {
   email: string;
   _id:string;
   Firstname:string;
+  choixfacture:string;
   Lastname:string;
   password: string;
   confirmpassword: string;
