@@ -54,7 +54,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.natureactivite=this.user.natureactivite;
     this.activite=this.user.activite;
     this.sousactivite=this.user.sousactivite;
-
+console.log(user.choixfacture)
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'

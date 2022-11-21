@@ -148,7 +148,29 @@ export class SettingsComponent implements OnInit {
   if (checkbox.checked == true){
     text2.style.display = "block";
   } else {
-     text2.style.display = "none";
+    Swal.fire({
+      title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au formulaire d\'ajout d\'actualités, voulez vous continuer?',
+      
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Réinitialiser',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        
+        this.carouselform.reset();
+        text2.style.display = "none";
+      }
+      else{
+        checkbox.checked = true
+        text2.style.display = "block";
+
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
   }
 }
 reloadPage(): void {
