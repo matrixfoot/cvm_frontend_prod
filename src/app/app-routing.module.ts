@@ -38,6 +38,8 @@ import { ModifyDecFiscMensComponent } from './modify-dec-fisc-mens/modify-dec-fi
 import { CreateReportComponent } from './create-report/create-report.component';
 import { ViewCarouselComponent } from './view-carousel/view-carousel.component';
 import { ModifyCarouselComponent } from './modify-carousel/modify-carousel.component';
+import { ModifyDeccomptabiliteComponent } from './modify-deccomptabilite/modify-deccomptabilite.component';
+import { ViewDeccomptabiliteComponent } from './view-deccomptabilite/view-deccomptabilite.component';
 const routes: Routes = [
   
    
@@ -90,6 +92,9 @@ const routes: Routes = [
 { path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,canDeactivate: [CanDeactivateGuard]
     
 },
+{ path: 'modify-deccomptabilite/:id', component: ModifyDeccomptabiliteComponent,canDeactivate: [CanDeactivateGuard]
+    
+},
 { path: 'modify-carousel/:id', component: ModifyCarouselComponent
     
 },
@@ -98,6 +103,8 @@ const routes: Routes = [
 { path: 'view-condidate/:id', component: ViewCondidateComponent},
 { path: 'view-contactreq/:id', component: ViewContactreqComponent},
 { path: 'view-decfiscmens/:id', component: ViewDecFiscMensComponent},
+{ path: 'view-deccomptabilite/:id', component: ViewDeccomptabiliteComponent},
+
 { path: 'view-carousel/:id', component: ViewCarouselComponent},
 
 { path: 'view-event/:id', component: ViewEventComponent},

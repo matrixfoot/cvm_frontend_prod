@@ -1,1 +1,52 @@
-<p>declare-comptabilite works!</p>
+<fieldset>
+    <legend>Choix de l'année et du mois</legend>
+    <div class="checkbox-container" id="datelist">
+        <div class="input-container" id="Year"> 
+           <i class="glyphicon glyphicon-time"></i>
+           <label for="year">Sélectionner année</label>
+           <select id="year" name="year"[(ngModel)]="option1Value">
+              <option>Année</option>
+              <option value="2022">2022</option>
+              <option disabled value="2023">2023</option>
+              <option disabled value="2024">2024</option>
+              <option disabled value="2025">2025</option>
+              <option disabled value="2026">2026</option>
+              <option disabled value="2027">2027</option>
+              <option disabled value="2028">2028</option>
+              <option disabled value="2029">2029</option>
+              <option disabled value="2030">2030</option>
+              
+          </select>
+         </div>
+         <div class="input-container" id="Month"> 
+           <i class="glyphicon glyphicon-time"></i>
+           <label for="month">Sélectionner mois</label>
+           <select id="month" name="month" #cricket (change)="verify($event)"[(ngModel)]="option2Value">
+              <option>Mois</option>
+              <option value="janvier">(01)janvier</option>
+              <option value="février">(02)février</option>
+              <option value="mars">(03)Mars</option>
+              <option value="avril">(04)avril</option>
+              <option value="mai">(05)Mai</option>
+              <option value="juin">(06)juin</option>
+              <option value="juillet">(07)juillet</option>
+              <option value="août">(08)août</option>
+              <option value="septembre">(09)septembre</option>
+              <option value="octobre">(10)octobre</option>
+              <option value="novembre">(11)novembre</option>
+              <option value="décembre">(12)décembre</option>
+          </select>
+         </div>
+      
+     </div>
+</fieldset>
+<div class="container-fluid" id="invoiceform">
+<!--edition note section-->
+<fieldset id="editionnote" *ngIf="showeditionnote">
+    <legend>Edition de notes d'honoraires</legend>
+</fieldset>
+<!--recette journaliére-->
+<fieldset id="recettejournaliere" *ngIf="showrecettejour">
+    <legend>Recette journaliere</legend>
+</fieldset>
+</div>

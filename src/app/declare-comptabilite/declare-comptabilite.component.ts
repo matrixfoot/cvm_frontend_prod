@@ -4,10 +4,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
-import { DecfiscmensService } from '../services/dec-fisc-mens';
+import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { AlertService } from '../_helpers/alert.service';
 import { User } from '../models/user.model';
-import { Decfiscmens } from '../models/dec-fisc-mens';
+import { Deccomptabilite } from '../models/dec-comptabilite';
 import Swal from 'sweetalert2';
 import { merge, Subscription } from 'rxjs';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
@@ -19,6 +19,8 @@ import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
 export class DeclareComptabiliteComponent extends ComponentCanDeactivate implements OnInit,OnDestroy {
   isLoggedIn=false
   loading=false;
+  showeditionnote=false;
+  showrecettejour=false
   errormsg:string;
   natureactivite:string;
   activite:string;
@@ -29,9 +31,11 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   currentUser: any;
   user:User;
   choixfacture:string;
+  option1Value:string
+  option2Value:string
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
-    private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder
+    private alertService: AlertService,private usersservice: UserService,private DeccomptabiliteService :DeccomptabiliteService,private fb: FormBuilder
   ) {
     super();
    }
@@ -60,7 +64,7 @@ console.log(user.choixfacture)
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
 || user.regimefiscalimpot=='Autre/null'
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
-    
+  //vérification du renseignement de la méthode de décalaration du chiffre d'affaire  
 if (!user.choixfacture)
 {
 Swal.fire({
@@ -98,7 +102,13 @@ else {
 Swal.fire('opération non aboutie!');
 });
 }
-
+if (user.choixfacture=='edition note')
+{
+  this.showeditionnote=true
+}
+else{
+  this.showrecettejour=true
+}
   }
 )
   }
@@ -109,7 +119,51 @@ Swal.fire('opération non aboutie!');
       return true;
     }
     return false;
-  } 
+  }
+  //verify doublons fichier comptable 
+  verify(e)
+  {
+    this.DeccomptabiliteService.geexistenttdeccomptabilite(this.currentUser.userId,this.option1Value,this.option2Value).then(
+      (data:Deccomptabilite[]) => {
+        
+        if (data.length>0)
+        {
+          Swal.fire({
+            title: 'vous avez déjà un fichier comptable qui existe avec ce mois et cette année, veuillez choisir entre les alternatives suivantes:',
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Modifier le fichier existant',
+            cancelButtonText: 'Modifier le mois',
+          }).then((result) => 
+          {
+            if (result.value) {
+            
+              this.router.navigate(['modify-deccomptabilite/'+data[0]._id])
+
+  
+            }
+            else{
+             this.option2Value=''
+  
+            }
+          }).catch(() => {
+            Swal.fire('opération non aboutie!')
+          })
+        }
+        else{
+
+          var text3 = document.getElementById("invoiceform");
+          text3.style.display = "block";
+
+        }
+      }
+      
+    )
+   
+
+  }
   ngOnDestroy(){
     
   }
