@@ -44,7 +44,7 @@
 <!--edition note section-->
 <fieldset id="editionnote" *ngIf="showeditionnote">
 <legend>Edition de notes d'honoraires</legend>
-<table class="table table-striped">
+<table class="table table-striped" id="editionnotesection" [formGroup]="editionnoteform">
 <thead>
 <tr>            
 <th>Jour</th>
@@ -52,14 +52,14 @@
 <th>N° Note d'honoraire</th>
 <th>Montant HT</th>
 <th>Montant TVA</th>
-<th>DT</th>
+<th>Montant DT</th>
 <th>Montant TTC</th>
+ 
 </tr>
 </thead>
-<tbody>
-    <tr id="editionnotesection" [formGroup]="editionnoteform"(ngSubmit)="logValue()">
-        <fieldset formArrayName="ammounts"*ngFor="let ammount of ammountControls; let i = index;">
-            <div [formGroupName]="i">
+<tbody formArrayName="ammounts">
+    <tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+           
             <td>
                 <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
@@ -112,11 +112,7 @@
                <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount(i)">Supprimer note</button>   
                </div>
               </td>
-            </div>
-        </fieldset>
-        <div class="text-right">
-            <input type="submit" class="hidden" value="Submit"/>
-        </div>
+            
     </tr>
     <tr id="resultrow">
         <td colspan="3">
@@ -124,12 +120,15 @@
                  <p>Totaux</p>
             </div>
         </td>
-        <td>{{totalht | number:'1.3-3'| removeComma}}</td>
-        <td>{{totaltva | number:'1.3-3'| removeComma}}</td>
-        <td>{{totaldt | number:'1.3-3'| removeComma}}</td>
-        <td>{{totalttc | number:'1.3-3'| removeComma}}</td>
+        <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
+        <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
+        <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
+        <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
     </tr>
 </tbody>
+<div class="text-right">
+    <input type="submit" class="" value="Submit"(click)="logValue()">
+</div>
 </table>
 </fieldset>
 <!--recette journaliére-->

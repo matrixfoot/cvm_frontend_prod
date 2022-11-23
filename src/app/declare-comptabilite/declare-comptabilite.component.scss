@@ -23,11 +23,7 @@ display: none;
     table-layout: auto;
   }
   
-  th, td {
-    text-align: left;
-    padding: 8px;
-    
-  }
+
   .input-container {
     display: flex;
     width: 100%;
@@ -43,13 +39,8 @@ display: none;
   .input-field:focus {
     border: 2px solid dodgerblue;
   }
-  .form-control{
-    width: 40%;
-    
-  }
+  
   .form-group{
     display: flex;
   }
-  .form-group label{
-    width: 250px;
-  }
+  
