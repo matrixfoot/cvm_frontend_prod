@@ -927,9 +927,7 @@ canDeactivate():boolean {
     $event.target.value = $event.target.value ? $event.target.value : 0;
     $event.target.value = parseFloat($event.target.value).toFixed(3);
   }
-  convertThreeNumberDecimal() {
-    parseFloat(this.standardlocationresidentesphysiqueform.get('retenueammount').value).toFixed(3)
-  }
+  
   openPopup() {
     this.displayStyle = "block";
 if (this.option48Value)

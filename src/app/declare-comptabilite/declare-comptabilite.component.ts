@@ -33,11 +33,22 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   choixfacture:string;
   option1Value:string
   option2Value:string
+  totalht=0.000
+  totaltva=0.000
+  totaldt=0.000
+  totalttc=0.000
+
+  editionnoteform: FormGroup;
+  public ammounts: FormArray;
+
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DeccomptabiliteService :DeccomptabiliteService,private fb: FormBuilder
   ) {
     super();
+    this.editionnoteform = this.fb.group({
+      ammounts: this.fb.array([ this.createammount() ])
+   });
    }
   
  
@@ -163,6 +174,49 @@ else{
     )
    
 
+  }
+  setThreeNumberDecimal($event) {
+    $event.target.value = $event.target.value ? $event.target.value : 0;
+    $event.target.value = parseFloat($event.target.value).toFixed(3);
+  }
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+  //Ajout de formulaire de création  edition note
+  get ammountControls() {
+    return this.editionnoteform.get('ammounts')['controls'];
+  }
+  createammount() 
+  : FormGroup {
+    return this.fb.group({
+      jour: '',
+      date: '',
+      numeronote: [{value:"",disabled:true}],
+      montantht:'',
+      montanttva:'',
+      montantdt:'',
+      montantttc:'',
+
+    });
+  }
+  addammount(): void {
+    this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
+    this.ammounts.push(this.createammount());
+  }
+  removeammount(i: number) {
+    this.ammounts.removeAt(i);
+  }
+  logValue() {
+    console.log(this.ammounts);
+
+    console.log(this.editionnoteform.get('ammounts').value);
   }
   ngOnDestroy(){
     
