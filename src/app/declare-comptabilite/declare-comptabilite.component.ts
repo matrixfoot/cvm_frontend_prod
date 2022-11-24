@@ -209,6 +209,19 @@ else{
      })
    
     }
+    setht(i: number) {
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+       const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
+       console.log()
+       
+       const montantht=+(mttc/1.13).toFixed(3)
+       const montanttva=(mttc-montantht).toFixed(3)
+       ammounts.at(i).patchValue({
+        montantht:montantht,
+        montanttva:montanttva
+       })
+     
+      }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
        const mht= +this.editionnoteform.get('ammounts').value.at(i).montantht
@@ -223,6 +236,31 @@ else{
        })
      
       }
+      sumht(i:number)
+      {
+        this.totalht=this.totalht+ +(this.editionnoteform.get('ammounts').value.at(i).montantht)
+        this.totaltva=this.totaltva+ +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+        this.totaldt=this.totaldt+ +(this.editionnoteform.get('ammounts').value.at(i).montantdt)
+        this.totalttc=this.totalttc+ +(this.editionnoteform.get('ammounts').value.at(i).montantttc)
+      }
+      sumtva(i:number)
+      {
+        this.totalht=this.totalht+ +(this.editionnoteform.get('ammounts').value.at(i).montantht)
+        this.totaltva=this.totaltva+ +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+        this.totaldt=this.totaldt+ +(this.editionnoteform.get('ammounts').value.at(i).montantdt)
+        this.totalttc=this.totalttc+ +(this.editionnoteform.get('ammounts').value.at(i).montantttc)      }
+      sumdt(i:number)
+      {
+        this.totalht=this.totalht+ +(this.editionnoteform.get('ammounts').value.at(i).montantht)
+        this.totaltva=this.totaltva+ +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+        this.totaldt=this.totaldt+ +(this.editionnoteform.get('ammounts').value.at(i).montantdt)
+        this.totalttc=this.totalttc+ +(this.editionnoteform.get('ammounts').value.at(i).montantttc)      }
+      sumttc(i:number)
+      {
+        this.totalht=this.totalht+ +(this.editionnoteform.get('ammounts').value.at(i).montantht)
+        this.totaltva=this.totaltva+ +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+        this.totaldt=this.totaldt+ +(this.editionnoteform.get('ammounts').value.at(i).montantdt)
+        this.totalttc=this.totalttc+ +(this.editionnoteform.get('ammounts').value.at(i).montantttc)      }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -286,7 +324,7 @@ else{
 
     });
   }
-  addammount(): void {
+  addammount(i:number){
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
     this.ammounts.push(this.createammount());
   }

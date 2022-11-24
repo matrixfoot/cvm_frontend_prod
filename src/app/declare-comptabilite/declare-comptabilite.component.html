@@ -63,7 +63,7 @@
             <td style="width: 50px;">
                 <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                       class="form-control"(blur)="setdate(i)"formControlName="jour"placeholder="Jour"/>
+                       class="form-control"(change)="setdate(i)"formControlName="jour"placeholder="Jour"/>
                 </div>
                </td>
                <td style="width: 150px;">
@@ -80,36 +80,38 @@
               <td>
                <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                  class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"(blur)="settva(i)"(blur)="setttc(i)"placeholder="Montant HT"/>
+                  class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"
+                  (change)="settva(i)"(change)="setttc(i)"(change)="sumht(i)"placeholder="Montant HT"/>
                </div>
               </td>
               <td>
                <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                  class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA"/>
+                  class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"(change)="sumtva(i)"placeholder="Montant TVA"/>
                </div>
               </td>
               <td>
                <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                  class="form-control"formControlName="montantdt"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
+                  class="form-control"formControlName="montantdt"(change)="sumdt(i)"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
                </div>
               </td>
               <td>
                <div class="col-6">
                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                  class="form-control"formControlName="montantttc"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"/>
+                  class="form-control"formControlName="montantttc"(change)="setThreeNumberDecimal($event)"
+                  (change)="setht(i)"(change)="sumttc(i)"placeholder="Montant TTC"/>
                </div>
               </td>
               
               <td>
                <div>
-               <button type="button" class="btn btn-primary mb-2" (click)="addammount()">Ajouter note</button>   
+               <button type="button" class="btn btn-primary mb-2" (click)="addammount(i)"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
                </div>
               </td>
               <td>
                <div>
-               <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount(i)">Supprimer note</button>   
+               <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
                </div>
               </td>
             
@@ -152,7 +154,7 @@
                     <td >
                         <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"(blur)="setdate($event)"formControlName="jour"placeholder="Jour"/>
+                               class="form-control"(change)="setdate($event)"formControlName="jour"placeholder="Jour"/>
                         </div>
                        </td>
                        <td style="width: 150px;">
@@ -169,25 +171,25 @@
                       <td>
                        <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"/>
+                          class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"placeholder="Montant HT"/>
                        </div>
                       </td>
                       <td>
                        <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA"/>
+                          class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"placeholder="Montant TVA"/>
                        </div>
                       </td>
                       <td>
                        <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"formControlName="montantdt"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
+                          class="form-control"formControlName="montantdt"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
                        </div>
                       </td>
                       <td>
                        <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"formControlName="montantttc"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"/>
+                          class="form-control"formControlName="montantttc"(change)="setThreeNumberDecimal($event)"placeholder="Montant TTC"/>
                        </div>
                       </td>
                       
