@@ -43,4 +43,7 @@ display: none;
   .form-group{
     display: flex;
   }
+  ::placeholder{
+    font-size: 12px;
+  }
   

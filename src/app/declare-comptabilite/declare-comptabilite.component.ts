@@ -37,10 +37,14 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   totaltva=0.000
   totaldt=0.000
   totalttc=0.000
-
+  totalht2=0.000
+  totaltva2=0.000
+  totaldt2=0.000
+  totalttc2=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
-
+  recettejournaliereform: FormGroup;
+  public ammounts2: FormArray;
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DeccomptabiliteService :DeccomptabiliteService,private fb: FormBuilder
@@ -49,6 +53,9 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
     this.editionnoteform = this.fb.group({
       ammounts: this.fb.array([ this.createammount() ])
    });
+   this.recettejournaliereform = this.fb.group({
+    ammounts2: this.fb.array([ this.createammount2() ])
+ });
    }
   
  
@@ -179,6 +186,43 @@ else{
     $event.target.value = $event.target.value ? $event.target.value : 0;
     $event.target.value = parseFloat($event.target.value).toFixed(3);
   }
+  setdate(i: number) {
+  let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+   const j= this.editionnoteform.get('ammounts').value.at(i).jour
+   console.log(j)
+   if (j>31)
+   return alert('veuillez entrer un jour valide')
+   const date=j+'/'+this.option2Value+'/'+this.option1Value
+   ammounts.at(i).patchValue({
+    date:date
+   })
+ 
+  }
+  settva(i: number) {
+    let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+     const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
+     console.log(mht)
+     
+     const montanttva=(mht*0.13).toFixed(3)
+     ammounts.at(i).patchValue({
+      montanttva:montanttva
+     })
+   
+    }
+    setttc(i: number) {
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+       const mht= +this.editionnoteform.get('ammounts').value.at(i).montantht
+       const mtva= +this.editionnoteform.get('ammounts').value.at(i).montanttva
+       const mdt= +this.editionnoteform.get('ammounts').value.at(i).montantdt
+
+       console.log(mht)
+       
+       const montantttc=(mht+mtva+mdt).toFixed(3)
+       ammounts.at(i).patchValue({
+        montantttc:montantttc
+       })
+     
+      }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -189,16 +233,52 @@ else{
       return true;
     }
   }
-  //Ajout de formulaire de création  edition note
+  //Ajout de formulaire de création  edition note + recette journaliere
   get ammountControls() {
     return this.editionnoteform.get('ammounts')['controls'];
   }
+  get ammountControls2() {
+    return this.recettejournaliereform.get('ammounts2')['controls'];
+  }
   createammount() 
   : FormGroup {
+    if(this.ammounts)
+    {
+      const i =this.ammounts.length +1
+      return this.fb.group({
+        jour: '',
+        date: '',
+        numeronote: [{value:i,disabled:true}],
+        montantht:'',
+        montanttva:'',
+        montantdt:'0.600',
+        montantttc:'',
+  
+      });
+    }
+    else
+    {
+      const i =1
+      return this.fb.group({
+        jour: '',
+        date: '',
+        numeronote: [{value:i,disabled:true}],
+        montantht:'',
+        montanttva:'',
+        montantdt:'0.600',
+        montantttc:'',
+  
+      });
+    }
+    
+  }
+  createammount2() 
+  : FormGroup {
+    
     return this.fb.group({
       jour: '',
       date: '',
-      numeronote: [{value:"",disabled:true}],
+      recette:'',
       montantht:'',
       montanttva:'',
       montantdt:'',
@@ -210,13 +290,25 @@ else{
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
     this.ammounts.push(this.createammount());
   }
+  addammount2(): void {
+    this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+    this.ammounts2.push(this.createammount2());
+  }
   removeammount(i: number) {
     this.ammounts.removeAt(i);
+  }
+  removeammount2(i: number) {
+    this.ammounts2.removeAt(i);
   }
   logValue() {
     console.log(this.ammounts);
 
     console.log(this.editionnoteform.get('ammounts').value);
+  }
+  logValue2() {
+    console.log(this.ammounts2);
+
+    console.log(this.recettejournaliereform.get('ammounts2').value);
   }
   ngOnDestroy(){
     
