@@ -133,6 +133,7 @@ else{
 }
   }
 )
+
   }
   canDeactivate():boolean {  
     
@@ -178,7 +179,37 @@ else{
 
           var text3 = document.getElementById("invoiceform");
           text3.style.display = "block";
+         
+          for (let i = 1; i < 32; i++)
+          {
+            this.addammount2()
+            let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+            ammounts2.at(i).patchValue({
+              jour:i
+             })
+             this.setdate2(i)
+          }
+          this.removeammount2(0)
+          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
+          {
+            this.removeammount2(30)
+          }
+          if(this.option2Value=='02')
+          {
+            if(+this.option1Value % 4 ==0)
+            {
+            this.removeammount2(30)
+            this.removeammount2(29)
+            }
+            else 
+            {
+            this.removeammount2(30)
+            this.removeammount2(29)
+            this.removeammount2(28)
+            }
 
+            
+          }
         }
       }
       
@@ -391,7 +422,7 @@ else{
   createammount2() 
   : FormGroup {
     
-    return this.fb.group({
+    return  this.fb.group({
       jour: '',
       date: '',
       recette:'',
