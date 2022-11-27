@@ -70,7 +70,7 @@ export class DeccomptabiliteService {
     geexistenttdeccomptabilite(userId: string,annee:string,mois:string) 
     {
 return new Promise((resolve, reject) => {
-        this.http.post(API_URL_test+'/anneemois/',{userId,annee,mois}).subscribe(
+        this.http.post(API_URL_test+'anneemois/',{userId,annee,mois}).subscribe(
           (response) => {
             resolve(response);
           },

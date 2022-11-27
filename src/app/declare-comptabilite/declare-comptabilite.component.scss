@@ -1,3 +1,18 @@
+#loader {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  margin: -76px 0 0 -76px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin-top: 200px;
+}
 .checkbox-container{
     display: flex;
     
@@ -12,9 +27,13 @@
     padding: 30px;
     
   }
-  #invoiceform{
-display: none;
+  #tabcontainer{
+    display: none;
   }
+  #datalist{
+    display: none;
+  }
+ 
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -45,5 +64,43 @@ display: none;
   }
   ::placeholder{
     font-size: 12px;
+  }
+  #savebutton {
+  
+    position: fixed;
+    bottom: 100px;
+    left: 200px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:green;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #savebutton:hover {
+    background-color: #555;
+  }
+  #resetbutton {
+    
+    position: fixed;
+    bottom: 200px;
+    left: 100px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:orange;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #resetbutton:hover {
+    background-color: #555;
   }
   
