@@ -73,8 +73,9 @@ export class UserBoardComponent implements OnInit {
         this.errormsg=error.message;
       }
     );
-   
-    this.cond.getCondidate(this.email);
+   if (this.usertype=='Candidat')
+   {    this.cond.getCondidate(this.email);
+   }
    
     this.decfiscmenssSub = this.dec.decfiscmenss$.subscribe(
       (decfiscmenss) => {
