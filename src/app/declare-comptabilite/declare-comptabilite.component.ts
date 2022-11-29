@@ -52,6 +52,7 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   totaltva2=0.000
   totaldt2=0.000
   totalttc2=0.000
+  totalrecette=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
@@ -229,16 +230,38 @@ this.loading=false
       }
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-         const mttc= this.recettejournaliereform.get('ammounts2').value.at(i).montantttc
+         const mrecette= this.recettejournaliereform.get('ammounts2').value.at(i).recette
+         const mtimbre= this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log()
-         
-         const montantht=+(mttc/1.13).toFixed(3)
-         const montanttva=(mttc-montantht).toFixed(3)
+         const montantttc=+(mrecette-mtimbre).toFixed(3) 
+         const montantht=+((+montantttc)/1.13).toFixed(3)
+         const montanttva=+(montantttc-montantht).toFixed(3)
+         console.log(montantttc)
          ammounts2.at(i).patchValue({
           montantht:montantht,
-          montanttva:montanttva
+          montanttva:montanttva,
+          montantttc:montantttc
          })
-       
+         this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+          acc += +(curr.montantht || 0);
+          return acc;
+        },0);
+        this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+          acc += +(curr.montanttva || 0);
+          return acc;
+        },0);
+        this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+          acc += +(curr.montantdt || 0);
+          return acc;
+        },0);
+        this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+          acc += +(curr.montantttc || 0);
+          return acc;
+        },0);
+        this.totalrecette = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+          acc += +(curr.recette || 0);
+          return acc;
+        },0);
         }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
