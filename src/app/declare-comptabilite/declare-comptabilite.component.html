@@ -138,7 +138,8 @@
     <th>Montant TVA</th>
     <th>Montant DT</th>
     <th>Montant TTC</th>
-     
+    <th>Règlement</th>
+
     </tr>
     </thead>
     <tbody formArrayName="ammounts">
@@ -187,8 +188,18 @@
                       class="form-control"formControlName="montantttc"(change)="setht(i)"(change)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
                    </div>
                   </td>
-                  
-                  
+                  <td>
+                    <div class="col-6">
+                        <select class="form-control" placeholder="Entrer Votre mode de règelemnt" id="reglement"formControlName="reglement" name="reglement" >
+                        <option value="default"> </option>
+                        <option  value="Espèce">Espèce</option>
+                        <option  value="Chèque">Chèque</option>
+                        <option  value="Traite">Traite</option>
+                        <option  value="Non réglé">Non réglé</option>
+                    </select>
+                </div>
+                  </td>
+                 
                   <td>
                    <div>
                    <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
@@ -197,7 +208,7 @@
                 
         </tr>
         <tr>
-            <td colspan="7"></td>
+            <td colspan="8"></td>
             <td>
                 <div>
                 <button type="button" class="btn btn-primary mb-2" (click)="addammount()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
@@ -253,32 +264,31 @@
                           <td>
                            <div class="col-6">
                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                              class="form-control"formControlName="recette"(change)="onChange2(i)"(change)="setht2(i)"(change)="setThreeNumberDecimal($event)"placeholder="Recette"/>
+                              class="form-control"formControlName="recette"(change)="setht2(i)"(change)="setThreeNumberDecimal($event)"placeholder="Recette"/>
                            </div>
                           </td>
                           <td>
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"
-                               (change)="onChange2(i)"placeholder="Montant HT"readonly='true'/>
+                               class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
                             </div>
                            </td>
                            <td>
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"(change)="onChange2(i)"placeholder="Montant TVA" readonly='true'/>
+                               class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
                             </div>
                            </td>
                            <td>
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montantdt"(change)="onChange2(i)"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
+                               class="form-control"formControlName="montantdt"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
                             </div>
                            </td>
                            <td>
                             <div class="col-6"(click)="setThreeNumberDecimal($event)">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montantttc"(change)="setThreeNumberDecimal($event)"(change)="onChange2(i)"placeholder="Montant TTC"readonly='true'/>
+                               class="form-control"formControlName="montantttc"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"readonly='true'/>
                             </div>
                            </td>
                           
@@ -320,7 +330,133 @@
     </div>
 </mat-tab>
 <mat-tab label="Achats" *ngIf="showachattab===true"> 
+<!--facture achat section-->
+<fieldset id="factureachat">
+    <legend>Gestion des factures d'achat</legend>
+    <table class="table table-striped" id="factureachatsection" [formGroup]="factureachatform">
+    <thead>
+    <tr>            
+    <th>Jour</th>
+    <th>Date complète</th>
+    <th>Fournisseur</th>
+    <th>N° Facture</th>
+    <th>Nature de l'achat</th>
+    <th>Montant HT</th>
+    <th>Montant TVA</th>
+    <th>Montant DT</th>
+    <th>Montant TTC</th>
+    <th>Règlement</th>
+    <th>Document Joint</th>
 
+    </tr>
+    </thead>
+    <tbody formArrayName="ammounts3">
+        
+        <tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+               
+                <td style="width: 50px;">
+                    <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                           class="form-control"(change)="setdate3(i)"formControlName="jour"placeholder="Jour"/>
+                    </div>
+                   </td>
+                   <td style="width: 150px;">
+                   <div class="col-6">
+                       <input type="text"class="form-control"formControlName="date"placeholder="Date"/>
+                   </div>
+                  </td>
+                  <td style="width: 50px;">
+                   <div class="col-6">
+                        <input type="text" 
+                      class="form-control"formControlName="fournisseur"placeholder="Fournisseur"/>
+                   </div>
+                  </td>
+                  <td style="width: 50px;">
+                    <div class="col-6">
+                         <input type="text" 
+                       class="form-control"formControlName="numerofacture"placeholder="Facture"/>
+                    </div>
+                   </td>
+                   <td style="width: 50px;">
+                    <div class="col-6">
+                         <input type="text" 
+                       class="form-control"formControlName="natureachat"placeholder="Nature"/>
+                    </div>
+                   </td>
+        <td>
+        <div class="col-6">
+        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"
+                      (change)="settva3(i)"(change)="setttc3(i)"(change)="onChange3(i)"placeholder="Montant HT"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TVA" readonly='true'/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantdt"(change)="onChange3(i)"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantttc"(change)="setht3(i)"(change)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TTC"/>
+                   </div>
+                  </td>
+                  <td>
+                    <div class="col-6">
+                        <select class="form-control" placeholder="Entrer Votre mode de règelemnt" id="reglement"formControlName="reglement" name="reglement" >
+                        <option value="default"> </option>
+                        <option  value="Espèce">Espèce</option>
+                        <option  value="Chèque">Chèque</option>
+                        <option  value="Traite">Traite</option>
+                        <option  value="Non réglé">Non réglé</option>
+                    </select>
+                </div>
+                  </td>
+                 <td>
+                    <div class="col-6">
+                       <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+                       <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+                   </div>
+                 </td>
+                  <td>
+                   <div>
+                   <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount3(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                   </div>
+                  </td>
+                
+        </tr>
+        <tr>
+            <td colspan="11"></td>
+            <td>
+                <div>
+                <button type="button" class="btn btn-primary mb-2" (click)="addammount3()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                </div>
+               </td>
+        </tr>
+        <tr id="resultrow">
+            <td colspan="5">
+                <div class="col-6">
+                     <p>Totaux</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totalht3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc3 | number:'1.3-3'| removeComma}}</td>
+        </tr>
+    </tbody>
+    <div class="text-right">
+        <input type="submit" class="" value="Submit"(click)="logValue3()">
+    </div>
+    </table>
+    </fieldset>
 </mat-tab>
 <mat-tab label="Banques" *ngIf="showbanquetab===true"> 
 

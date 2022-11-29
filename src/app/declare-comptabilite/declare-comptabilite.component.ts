@@ -18,6 +18,7 @@ import { stringify } from 'querystring';
   styleUrls: ['./declare-comptabilite.component.scss']
 })
 export class DeclareComptabiliteComponent extends ComponentCanDeactivate implements OnInit,OnDestroy {
+  fileUploaded = false;
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -53,10 +54,16 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   totaldt2=0.000
   totalttc2=0.000
   totalrecette=0.000
+  totalht3=0.000
+  totaltva3=0.000
+  totaldt3=0.000
+  totalttc3=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
   public ammounts2: FormArray;
+  factureachatform: FormGroup;
+  public ammounts3: FormArray;
   private destroyed$ = new Subject<void>();
 
   constructor(
@@ -71,6 +78,9 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
    this.recettejournaliereform = this.fb.group({
     ammounts2: this.fb.array([ this.createammount2() ])
  });
+ this.factureachatform = this.fb.group({
+  ammounts3: this.fb.array([ this.createammount3() ])
+});
    }
   
  
@@ -193,6 +203,19 @@ this.loading=false
      })
    
     }
+    setdate3(i: number) {
+      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+       const j= this.factureachatform.get('ammounts3').value.at(i).jour
+       if (j>31)
+       return (alert('veuillez entrer un jour valide'),ammounts3.at(i).patchValue({
+        jour:''
+       }))
+       const date=j+'/'+this.option2Value+'/'+this.option1Value
+       ammounts3.at(i).patchValue({
+        date:date
+       })
+     
+      }
   settva(i: number) {
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
@@ -215,6 +238,17 @@ this.loading=false
        })
      
       }
+      settva3(i: number) {
+        let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+         const mht= this.factureachatform.get('ammounts3').value.at(i).montantht
+         console.log(mht)
+         
+         const montanttva=(mht*0.13).toFixed(3)
+         ammounts3.at(i).patchValue({
+          montanttva:montanttva
+         })
+       
+        }
     setht(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
        const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
@@ -230,8 +264,8 @@ this.loading=false
       }
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-         const mrecette= this.recettejournaliereform.get('ammounts2').value.at(i).recette
-         const mtimbre= this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
+         const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
+         const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log()
          const montantttc=+(mrecette-mtimbre).toFixed(3) 
          const montantht=+((+montantttc)/1.13).toFixed(3)
@@ -263,6 +297,19 @@ this.loading=false
           return acc;
         },0);
         }
+        setht3(i: number) {
+          let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+           const mttc= this.factureachatform.get('ammounts3').value.at(i).montantttc
+           console.log()
+           
+           const montantht=+(mttc/1.13).toFixed(3)
+           const montanttva=(mttc-montantht).toFixed(3)
+           ammounts3.at(i).patchValue({
+            montantht:montantht,
+            montanttva:montanttva
+           })
+         
+          }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
        const mht= +(this.editionnoteform.get('ammounts').value).at(i).montantht
@@ -293,6 +340,21 @@ this.loading=false
          })
        
         }
+        setttc3(i: number) {
+          let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+           const mht= +(this.factureachatform.get('ammounts3').value).at(i).montantht
+           const mtva= (this.factureachatform.get('ammounts3').value.at(i).montanttva)
+           const mdt= +(this.factureachatform.get('ammounts3').value).at(i).montantdt
+    
+           console.log(mht)
+           
+           const montantttc=(mht+ +mtva+mdt).toFixed(3)
+    
+           ammounts3.at(i).patchValue({
+            montantttc:montantttc
+           })
+         
+          }
       onChange(i: number){
         const totalht = (this.editionnoteform.get('ammounts').value.at(i).montantht || 0)
         const totaltva = (this.editionnoteform.get('ammounts').value.at(i).montanttva || 0)
@@ -336,6 +398,26 @@ this.loading=false
           return acc;
         },0);
       }
+      onChange3(i: number){
+        
+
+        this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+          acc += +(curr.montantht || 0);
+          return acc;
+        },0);
+        this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+          acc += +(curr.montanttva || 0);
+          return acc;
+        },0);
+        this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+          acc += +(curr.montantdt || 0);
+          return acc;
+        },0);
+        this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+          acc += +(curr.montantttc || 0);
+          return acc;
+        },0);
+      }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -364,6 +446,8 @@ this.loading=false
         montanttva:'',
         montantdt:'0.600',
         montantttc:'',
+        reglement:'',
+
   
       });
     }
@@ -378,6 +462,24 @@ this.loading=false
       montanttva:'',
       montantdt:'0.600',
       montantttc:'',
+
+    });
+  }
+  createammount3() 
+  : FormGroup {
+    
+    return  this.fb.group({
+      jour: '',
+      date: '',
+      fournisseur:'',
+      numerofacture:'',
+      natureachat:'',
+      montantht:'',
+      montanttva:'',
+      montantdt:'0.600',
+      montantttc:'',
+      reglement:'',
+      image:''
 
     });
   }
@@ -408,6 +510,26 @@ this.loading=false
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
     this.ammounts2.push(this.createammount2());
+  }
+  addammount3(){
+    this.ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+    this.ammounts3.push(this.createammount());
+     this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantht || 0);
+      return acc;
+    },0);
+    this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montanttva || 0);
+      return acc;
+    },0);
+    this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdt || 0);
+      return acc;
+    },0);
+    this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantttc || 0);
+      return acc;
+    },0);
   }
   removeammount(i: number) {
     this.ammounts.removeAt(i);
@@ -447,6 +569,25 @@ this.loading=false
       return acc;
     },0);
   }
+  removeammount3(i: number) {
+    this.ammounts3.removeAt(i);
+    this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantht || 0);
+      return acc;
+    },0);
+    this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montanttva || 0);
+      return acc;
+    },0);
+    this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdt || 0);
+      return acc;
+    },0);
+    this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+      acc += +(curr.montantttc || 0);
+      return acc;
+    },0);
+  }
   //resetformsfunctions
   resetcaall()
   {
@@ -473,6 +614,11 @@ this.loading=false
     console.log(this.ammounts2);
 
     console.log(this.recettejournaliereform.get('ammounts2').value);
+  }
+  logValue3() {
+    console.log(this.ammounts2);
+
+    console.log(this.factureachatform.get('ammounts3').value);
   }
   //datalistfunctions
   myFunction1() {
@@ -761,6 +907,22 @@ else if ((user.choixfacture=='saisie recette'))
       });
       
     }
+  }
+  update(e)
+  {}
+  onImagePick(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.editionnoteform.get('ammounts').value.get('image').patchValue(file);
+    this.editionnoteform.get('ammounts').value.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (this.editionnoteform.get('ammounts').value.get('image').valid) {
+        this.fileUploaded = true;
+      } else {
+      }
+    };
+    reader.readAsDataURL(file);
+    
   }
   ngOnDestroy(){
     this.destroyed$.next();
