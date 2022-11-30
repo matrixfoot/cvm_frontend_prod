@@ -25,6 +25,7 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   showrecettejour=false
   showrelevemanuel=false;
   showrelevejoint=false
+  showrpaiemanuel=false
   showcatab=false
   showachattab=false
   showbanquetab=false
@@ -63,6 +64,12 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   totaldebit=0.000
   totalcredit=0.000
   totalsoldemois=0.000
+  totalsalairebrut=0.000
+  totalcnss=0.000
+  totalsalaireimposable=0.000
+  totalretenueimpot=0.000
+  totalavancepret=0.000
+  totalsalairenet=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
@@ -73,6 +80,8 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   public ammounts4: FormArray;
   relevejointform: FormGroup;
   public ammounts5: FormArray;
+  salaireform: FormGroup;
+  public ammounts6: FormArray;
   private destroyed$ = new Subject<void>();
 
   constructor(
@@ -95,6 +104,9 @@ this.relevemanuelform = this.fb.group({
 });
 this.relevejointform = this.fb.group({
   ammounts5: this.fb.array([ this.createammount5() ])
+});
+this.salaireform = this.fb.group({
+  ammounts6: this.fb.array([ this.createammount6() ])
 });
    }
   
@@ -257,6 +269,19 @@ this.loading=false
            })
          
           }
+          setdate6(i: number) {
+            let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+             const j= this.salaireform.get('ammounts6').value.at(i).jour
+             if (j>31)
+             return (alert('veuillez entrer un jour valide'),ammounts6.at(i).patchValue({
+              jour:''
+             }))
+             const date=j+'/'+this.option2Value+'/'+this.option1Value
+             ammounts6.at(i).patchValue({
+              date:date
+             })
+           
+            }
   settva(i: number) {
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
@@ -513,6 +538,34 @@ this.loading=false
           return acc;
         },0);
       }
+      onChange6(i: number){
+        
+
+        this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.salairebrut || 0);
+          return acc;
+        },0);
+        this.totalcnss = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.montantcnss || 0);
+          return acc;
+        },0);
+        this.totalsalaireimposable = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.montantimposable || 0);
+          return acc;
+        },0);
+        this.totalretenueimpot = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.montantretenue || 0);
+          return acc;
+        },0);
+        this.totalavancepret = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.montantavance || 0);
+          return acc;
+        },0);
+        this.totalsalairenet = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+          acc += +(curr.salairenet || 0);
+          return acc;
+        },0);
+      }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -535,6 +588,12 @@ this.loading=false
   }
   get ammountControls4() {
     return this.relevemanuelform.get('ammounts4')['controls'];
+  }
+  get ammountControls5() {
+    return this.relevejointform.get('ammounts5')['controls'];
+  }
+  get ammountControls6() {
+    return this.salaireform.get('ammounts6')['controls'];
   }
   createammount() 
   : FormGroup {
@@ -602,6 +661,21 @@ this.loading=false
     return  this.fb.group({
       jour: '',
       date: '',
+      image:''
+    });
+  }
+  createammount6() 
+  : FormGroup {
+    
+    return  this.fb.group({
+      matricule: '',
+      nomprenom: '',
+      salairebrut:'',
+      montantcnss:'',
+      montantimposable:'',
+      montantretenue:'',
+      montantavance:'',
+      reglement:'',
       image:''
     });
   }
@@ -673,6 +747,34 @@ this.loading=false
     this.ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
     this.ammounts5.push(this.createammount5());
    
+  }
+  addammount6(){
+    this.ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+    this.ammounts6.push(this.createammount6());
+    this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.salairebrut || 0);
+      return acc;
+    },0);
+    this.totalcnss = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantcnss || 0);
+      return acc;
+    },0);
+    this.totalsalaireimposable = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantimposable || 0);
+      return acc;
+    },0);
+    this.totalretenueimpot = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantretenue || 0);
+      return acc;
+    },0);
+    this.totalavancepret = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantavance || 0);
+      return acc;
+    },0);
+    this.totalsalairenet = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.salairenet || 0);
+      return acc;
+    },0);
   }
   removeammount(i: number) {
     this.ammounts.removeAt(i);
@@ -750,6 +852,33 @@ this.loading=false
     this.ammounts3.removeAt(i);
     
   }
+  removeammount6(i: number) {
+    this.ammounts6.removeAt(i);
+    this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.salairebrut || 0);
+      return acc;
+    },0);
+    this.totalcnss = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantcnss || 0);
+      return acc;
+    },0);
+    this.totalsalaireimposable = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantimposable || 0);
+      return acc;
+    },0);
+    this.totalretenueimpot = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantretenue || 0);
+      return acc;
+    },0);
+    this.totalavancepret = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.montantavance || 0);
+      return acc;
+    },0);
+    this.totalsalairenet = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+      acc += +(curr.salairenet || 0);
+      return acc;
+    },0);
+  }
   //resetformsfunctions
   resetcaall()
   {
@@ -791,6 +920,11 @@ this.loading=false
     console.log(this.ammounts5);
 
     console.log(this.relevejointform.get('ammounts5').value);
+  }
+  logValue6() {
+    console.log(this.ammounts6);
+
+    console.log(this.salaireform.get('ammounts6').value);
   }
   //datalistfunctions
   myFunction1() {
@@ -1006,7 +1140,7 @@ else if ((user.choixfacture=='saisie recette'))
       text2.style.display = "block";
       this.showbanquetab=true;
       this.option5Value=true;
-      //verify user choice about method of declaring invoices
+      //verify user choice about method of declaring sales
 this.usersservice.getUserById(this.currentUser.userId).then(
   async (user: User) => {
     this.loading = false;
@@ -1106,7 +1240,38 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       text2.style.display = "block";
       this.showsalairetab=true;
       this.option6Value=true;
+    //verify user choice about method of declaring salary
+this.usersservice.getUserById(this.currentUser.userId).then(
+  async (user: User) => {
+    this.loading = false;
+    this.user = user;
+     //veirifcation of user choice about salary method
+     Swal.fire({
+      title: 'Veuillez choisir le mode de saisie des fiches de paie!',
       
+      icon: 'info',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#555',
+      confirmButtonText: 'Saisie manuelle',
+      cancelButtonText: 'Annuler',
+      denyButtonText: 'Redirection vers le module paie',
+      
+      }).then((result) => {
+      if (result.isConfirmed) {
+        this.showrpaiemanuel=true
+      
+      }
+      else if (result.isDenied)
+      {
+        this.router.navigate(['declare-paie'])
+      }
+      
+      }).catch(() => {
+      Swal.fire('opération non aboutie!');
+      }); 
+    })  
 
     } else {
       Swal.fire({
@@ -1162,6 +1327,20 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     const reader = new FileReader();
     reader.onload = () => {
       if (this.relevejointform.get('ammounts5').value.at(i).image.valid) {
+        this.fileUploaded = true;
+      } else {
+      }
+    };
+    reader.readAsDataURL(file);
+    
+  }
+  onImagePick3(event: Event,i:number) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.salaireform.get('ammounts6').value.at(i).image.patchValue(file);
+    this.salaireform.get('ammounts6').value.at(i).image.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (this.salaireform.get('ammounts6').value.at(i).image.valid) {
         this.fileUploaded = true;
       } else {
       }
