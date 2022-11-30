@@ -23,6 +23,8 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   loading=false;
   showeditionnote=false;
   showrecettejour=false
+  showrelevemanuel=false;
+  showrelevejoint=false
   showcatab=false
   showachattab=false
   showbanquetab=false
@@ -58,12 +60,19 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   totaltva3=0.000
   totaldt3=0.000
   totalttc3=0.000
+  totaldebit=0.000
+  totalcredit=0.000
+  totalsoldemois=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
   public ammounts2: FormArray;
   factureachatform: FormGroup;
   public ammounts3: FormArray;
+  relevemanuelform: FormGroup;
+  public ammounts4: FormArray;
+  relevejointform: FormGroup;
+  public ammounts5: FormArray;
   private destroyed$ = new Subject<void>();
 
   constructor(
@@ -80,6 +89,12 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
  });
  this.factureachatform = this.fb.group({
   ammounts3: this.fb.array([ this.createammount3() ])
+});
+this.relevemanuelform = this.fb.group({
+  ammounts4: this.fb.array([ this.createammount4() ])
+});
+this.relevejointform = this.fb.group({
+  ammounts5: this.fb.array([ this.createammount5() ])
 });
    }
   
@@ -216,6 +231,32 @@ this.loading=false
        })
      
       }
+      setdate4(i: number) {
+        let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+         const j= this.relevemanuelform.get('ammounts4').value.at(i).jour
+         if (j>31)
+         return (alert('veuillez entrer un jour valide'),ammounts4.at(i).patchValue({
+          jour:''
+         }))
+         const date=j+'/'+this.option2Value+'/'+this.option1Value
+         ammounts4.at(i).patchValue({
+          date:date
+         })
+       
+        }
+        setdate5(i: number) {
+          let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+           const j= this.relevejointform.get('ammounts5').value.at(i).jour
+           if (j>31)
+           return (alert('veuillez entrer un jour valide'),ammounts5.at(i).patchValue({
+            jour:''
+           }))
+           const date=j+'/'+this.option2Value+'/'+this.option1Value
+           ammounts5.at(i).patchValue({
+            date:date
+           })
+         
+          }
   settva(i: number) {
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
@@ -252,10 +293,12 @@ this.loading=false
     setht(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
        const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
+       const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
+
        console.log()
        
-       const montantht=+(mttc/1.13).toFixed(3)
-       const montanttva=(mttc-montantht).toFixed(3)
+       const montantht=+((mttc-mdt)/1.13).toFixed(3)
+       const montanttva=(mttc-mdt-montantht).toFixed(3)
        ammounts.at(i).patchValue({
         montantht:montantht,
         montanttva:montanttva
@@ -300,15 +343,36 @@ this.loading=false
         setht3(i: number) {
           let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
            const mttc= this.factureachatform.get('ammounts3').value.at(i).montantttc
+           const mdt= this.factureachatform.get('ammounts3').value.at(i).montantdt
+
            console.log()
            
-           const montantht=+(mttc/1.13).toFixed(3)
-           const montanttva=(mttc-montantht).toFixed(3)
+           const montantht=+((mttc-mdt)/1.13).toFixed(3)
+           const montanttva=+(mttc-montantht-mdt).toFixed(3)
+           const montantdt=(mttc-montantht-montanttva).toFixed(3)
+
            ammounts3.at(i).patchValue({
             montantht:montantht,
-            montanttva:montanttva
+            montanttva:montanttva,
+            montantdt:montantdt,
+
            })
-         
+           this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantht || 0);
+            return acc;
+          },0);
+          this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montanttva || 0);
+            return acc;
+          },0);
+          this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantdt || 0);
+            return acc;
+          },0);
+          this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantttc || 0);
+            return acc;
+          },0);
           }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
@@ -353,7 +417,22 @@ this.loading=false
            ammounts3.at(i).patchValue({
             montantttc:montantttc
            })
-         
+           this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantht || 0);
+            return acc;
+          },0);
+          this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montanttva || 0);
+            return acc;
+          },0);
+          this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantdt || 0);
+            return acc;
+          },0);
+          this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+            acc += +(curr.montantttc || 0);
+            return acc;
+          },0);
           }
       onChange(i: number){
         const totalht = (this.editionnoteform.get('ammounts').value.at(i).montantht || 0)
@@ -418,6 +497,22 @@ this.loading=false
           return acc;
         },0);
       }
+      onChange4(i: number){
+        
+
+        this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+          acc += +(curr.debit || 0);
+          return acc;
+        },0);
+        this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+          acc += +(curr.credit || 0);
+          return acc;
+        },0);
+        this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+          acc += +(curr.credit - curr.debit || 0);
+          return acc;
+        },0);
+      }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -434,6 +529,12 @@ this.loading=false
   }
   get ammountControls2() {
     return this.recettejournaliereform.get('ammounts2')['controls'];
+  }
+  get ammountControls3() {
+    return this.factureachatform.get('ammounts3')['controls'];
+  }
+  get ammountControls4() {
+    return this.relevemanuelform.get('ammounts4')['controls'];
   }
   createammount() 
   : FormGroup {
@@ -472,15 +573,36 @@ this.loading=false
       jour: '',
       date: '',
       fournisseur:'',
+      autrefournisseur:'',
       numerofacture:'',
       natureachat:'',
+      autrenatureachat:'',
       montantht:'',
       montanttva:'',
-      montantdt:'0.600',
+      montantdt:'',
       montantttc:'',
       reglement:'',
       image:''
 
+    });
+  }
+  createammount4() 
+  : FormGroup {
+    
+    return  this.fb.group({
+      jour: '',
+      date: '',
+      debit:'',
+      credit:'',
+    });
+  }
+  createammount5() 
+  : FormGroup {
+    
+    return  this.fb.group({
+      jour: '',
+      date: '',
+      image:''
     });
   }
    addammount(){
@@ -513,7 +635,7 @@ this.loading=false
   }
   addammount3(){
     this.ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    this.ammounts3.push(this.createammount());
+    this.ammounts3.push(this.createammount3());
      this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
       acc += +(curr.montantht || 0);
       return acc;
@@ -530,6 +652,27 @@ this.loading=false
       acc += +(curr.montantttc || 0);
       return acc;
     },0);
+  }
+  addammount4(): void {
+    this.ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+    this.ammounts4.push(this.createammount4());
+    this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdebit || 0);
+      return acc;
+    },0);
+    this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(curr.montantcredit || 0);
+      return acc;
+    },0);
+    this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(this.totalcredit - this.totaldebit || 0);
+      return acc;
+    },0);
+  }
+  addammount5(){
+    this.ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+    this.ammounts5.push(this.createammount5());
+   
   }
   removeammount(i: number) {
     this.ammounts.removeAt(i);
@@ -588,6 +731,25 @@ this.loading=false
       return acc;
     },0);
   }
+  removeammount4(i: number) {
+    this.ammounts4.removeAt(i);
+    this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdebit || 0);
+      return acc;
+    },0);
+    this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(curr.montantcredit || 0);
+      return acc;
+    },0);
+    this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+      acc += +(this.totalcredit - this.totaldebit || 0);
+      return acc;
+    },0);
+  }
+  removeammount5(i: number) {
+    this.ammounts3.removeAt(i);
+    
+  }
   //resetformsfunctions
   resetcaall()
   {
@@ -619,6 +781,16 @@ this.loading=false
     console.log(this.ammounts2);
 
     console.log(this.factureachatform.get('ammounts3').value);
+  }
+  logValue4() {
+    console.log(this.ammounts4);
+
+    console.log(this.relevemanuelform.get('ammounts4').value);
+  }
+  logValue5() {
+    console.log(this.ammounts5);
+
+    console.log(this.relevejointform.get('ammounts5').value);
   }
   //datalistfunctions
   myFunction1() {
@@ -834,8 +1006,67 @@ else if ((user.choixfacture=='saisie recette'))
       text2.style.display = "block";
       this.showbanquetab=true;
       this.option5Value=true;
+      //verify user choice about method of declaring invoices
+this.usersservice.getUserById(this.currentUser.userId).then(
+  async (user: User) => {
+    this.loading = false;
+    this.user = user;
+     //veirifcation of user choice about releve method
+     Swal.fire({
+      title: 'Veuillez choisir le mode de saisie des relevés bancaire!',
       
+      icon: 'info',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#555',
+      confirmButtonText: 'Saisie manuelle',
+      cancelButtonText: 'Annuler',
+      denyButtonText: 'Téléchargement de document',
+      
+      }).then((result) => {
+      if (result.isConfirmed) {
+        this.showrelevemanuel=true
+        for (let i = 1; i < 32; i++)
+          {
+            this.addammount4()
+            let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+            ammounts4.at(i).patchValue({
+              jour:i
+             })
+             this.setdate4(i)
+          }
+          this.removeammount4(0)
+          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
+          {
+            this.removeammount4(30)
+          }
+          if(this.option2Value=='02')
+          {
+            if(+this.option1Value % 4 ==0)
+            {
+            this.removeammount4(30)
+            this.removeammount4(29)
+            }
+            else 
+            {
+            this.removeammount4(30)
+            this.removeammount4(29)
+            this.removeammount4(28)
+            }
 
+            
+          }
+      }
+      else if (result.isDenied)
+      {
+        this.showrelevejoint=true
+      }
+      
+      }).catch(() => {
+      Swal.fire('opération non aboutie!');
+      }); 
+    })
     } else {
       Swal.fire({
         title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs aux banques, voulez vous continuer?',
@@ -910,13 +1141,27 @@ else if ((user.choixfacture=='saisie recette'))
   }
   update(e)
   {}
-  onImagePick(event: Event) {
+  onImagePick(event: Event,i:number) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.editionnoteform.get('ammounts').value.get('image').patchValue(file);
-    this.editionnoteform.get('ammounts').value.get('image').updateValueAndValidity();
+    this.factureachatform.get('ammounts3').value.at(i).image.patchValue(file);
+    this.factureachatform.get('ammounts3').value.at(i).image.updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      if (this.editionnoteform.get('ammounts').value.get('image').valid) {
+      if (this.factureachatform.get('ammounts3').value.at(i).image.valid) {
+        this.fileUploaded = true;
+      } else {
+      }
+    };
+    reader.readAsDataURL(file);
+    
+  }
+  onImagePick2(event: Event,i:number) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.relevejointform.get('ammounts5').value.at(i).image.patchValue(file);
+    this.relevejointform.get('ammounts5').value.at(i).image.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (this.relevejointform.get('ammounts5').value.at(i).image.valid) {
         this.fileUploaded = true;
       } else {
       }

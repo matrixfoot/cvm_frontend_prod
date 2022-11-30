@@ -41,7 +41,10 @@
     border: 1px solid #ddd;
     table-layout: auto;
   }
-  
+  th, td {
+    text-align: center;
+    min-width: 100px;  
+  }
 
   .input-container {
     display: flex;
