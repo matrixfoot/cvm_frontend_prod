@@ -1063,9 +1063,15 @@ this.removeammount6(i)
   }
  
   logValue() {
-    console.log(this.ammounts);
-
-    console.log(this.editionnoteform.get('ammounts').value);
+    for (let i = 0; i < this.editionnoteform.get('ammounts').value.length; i++)
+      {
+        if (this.editionnoteform.get('ammounts').value.at(i).montantht==='0')
+{
+  this.removeammount(i)
+}
+      }
+      console.log(this.editionnoteform.get('ammounts').value)
+ 
   }
   logValue2() {
     console.log(this.ammounts2);
@@ -1118,15 +1124,35 @@ this.removeammount6(i)
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
       for (let i = 0; i < ammounts.length; i++)
       {
-        if (ammounts.value.at(i).montantht!=='0')
+        if (ammounts.value.at(i).montantht==='0')
 {
+  this.removeammount(i)
 }
       } 
-      console.log(ammounts.value)
-    deccomptabilite.autre=ammounts.value
-
+      deccomptabilite.autre1=ammounts.value
+      let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+      for (let i = 0; i < ammounts2.length; i++)
+      {
+        if (ammounts2.value.at(i).recette==='0')
+{
+  this.removeammount2(i)
+}
+      } 
+      deccomptabilite.autre2=ammounts2.value
     }
-    this.DeccomptabiliteService.create(deccomptabilite,this.salaireform.get('ammounts6').value.at(0).image).then(
+    if (this.option4Value) 
+    {
+      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+      for (let i = 0; i < ammounts3.length; i++)
+      {
+        if (ammounts3.value.at(i).montantht==='0')
+{
+  this.removeammount3(i)
+}
+      } 
+      deccomptabilite.autre3=ammounts3.value
+    }
+    this.DeccomptabiliteService.createwithoutfile(deccomptabilite).then(
       (data:any) => {
         this.token.saved=true;
         this.loading = false;

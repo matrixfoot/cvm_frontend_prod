@@ -16,7 +16,12 @@ export class Deccomptabilite {
   
 
 
-autre:string[]
+autre1:string[]
+autre2:string[]
+autre3:string[]
+autre4:string[]
+autre5:string[]
+autre6:string[]
   
   
 }

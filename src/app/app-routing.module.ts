@@ -92,7 +92,7 @@ const routes: Routes = [
 { path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,canDeactivate: [CanDeactivateGuard]
     
 },
-{ path: 'modify-deccomptabilite/:id', component: ModifyDeccomptabiliteComponent,canDeactivate: [CanDeactivateGuard]
+{ path: 'modify-deccomptabilite/:id', component: ModifyDeccomptabiliteComponent
     
 },
 { path: 'modify-carousel/:id', component: ModifyCarouselComponent
