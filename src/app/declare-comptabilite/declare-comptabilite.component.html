@@ -590,7 +590,7 @@
                   <td colspan="3"></td>
                   <td>
                       <div>
-                      <button type="button" class="hidden" (click)="addammount2()">Ajouter recette</button>   
+                      <button type="button" class="btn btn-primary mb-2" (click)="addammount5()">Ajouter relevé</button>   
                       </div>
                      </td>
               </tr>
@@ -603,7 +603,7 @@
 </mat-tab>
 <mat-tab label="Salaires" *ngIf="showsalairetab===true"> 
     <!--saisie salaire section-->
-    <fieldset id="saisiesalaire">
+    <fieldset id="saisiesalaire"*ngIf="showpaiemanuel===true">
         <legend>Gestion des salaires</legend>
         <table class="table table-striped" id="salairesection" [formGroup]="salaireform">
         <thead>
@@ -627,7 +627,7 @@
                    
                     <td style="width: 50px;">
                         <div class="col-6">
-                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                            <input type="text" onkeyup="value=value.replace(/\./g,'')" 
                                class="form-control"formControlName="matricule"placeholder="Matricule"/>
                         </div>
                        </td>
@@ -639,14 +639,14 @@
                       <td>
                         <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                      class="form-control"formControlName="salairebrut"(change)="setimposable(i)"(change)="setThreeNumberDecimal($event)"
+                                      class="form-control"formControlName="salairebrut"(change)="setimposable(i)"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
                                       (change)="onChange6(i)"placeholder="Salaire Brut"/>
                                    </div>
                                   </td>
                        <td>
                                     <div class="col-6">
                                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                  class="form-control"formControlName="montantcnss"(change)="setimposable(i)"(change)="setThreeNumberDecimal($event)"
+                                                  class="form-control"formControlName="montantcnss"(change)="setnet(i)"(change)="setimposable(i)"(change)="setThreeNumberDecimal($event)"
                                                   (change)="onChange6(i)"placeholder="Montant CNSS"/>
                                                </div>
                         </td>
@@ -654,7 +654,7 @@
                             <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                           class="form-control"formControlName="montantimposable"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
-                                          (change)="onChange6(i)"placeholder="Salaire Imposable"/>
+                                          (change)="onChange6(i)"placeholder="Salaire Imposable" readonly='true'/>
                                        </div>
                         </td>
                         <td>

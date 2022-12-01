@@ -59,7 +59,7 @@ const routes: Routes = [
 { path: 'declare-fiscality', component:DeclareFiscalityComponent,canDeactivate: [CanDeactivateGuard]
     
 },
-{ path: 'declare-comptabilite', component:DeclareComptabiliteComponent,
+{ path: 'declare-comptabilite', component:DeclareComptabiliteComponent,canDeactivate: [CanDeactivateGuard]
     
 },
 { path: 'calendar-fiscality', component:CalendarFiscalityComponent,

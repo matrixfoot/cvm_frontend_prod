@@ -86,7 +86,7 @@ return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
           deccomptabiliteData.append('carousel', JSON.stringify(deccomptabilite));
           deccomptabiliteData.append('image', image, deccomptabilite.mois+deccomptabilite.annee);
-          this.http.post(API_URL_test+'createdeccomptabilite', deccomptabiliteData).subscribe(
+          this.http.post(API_URL_test+'createdeccomptabilite/', deccomptabiliteData).subscribe(
             (response) => {
               resolve(response);
             },
