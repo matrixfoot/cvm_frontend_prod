@@ -459,6 +459,49 @@ this.loading=false
             return acc;
           },0);
           }
+          setimposable(i: number) {
+            let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+             const mbrut= +(this.salaireform.get('ammounts6').value).at(i).salairebrut
+             const mcnss= (this.salaireform.get('ammounts6').value.at(i).montantcnss)
+      
+             
+             const montantimposable=(+mbrut- +mcnss).toFixed(3)
+      
+             ammounts6.at(i).patchValue({
+              montantimposable:montantimposable
+             })
+           
+            }
+            setnet(i: number) {
+              let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+               const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
+               const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
+               const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
+        
+               
+               const salairenet=(+mimposable- +mretenue- +mavance).toFixed(3)
+        
+               ammounts6.at(i).patchValue({
+                salairenet:salairenet
+               })
+             
+              }
+              setbrut(i: number) {
+                let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+                const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
+               const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
+               const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
+               const mcnss= +(this.salaireform.get('ammounts6').value.at(i).montantcnss)
+
+          
+                 
+                 const salairebrut=(+mimposable+ +mretenue+ +mavance+ +mcnss).toFixed(3)
+          
+                 ammounts6.at(i).patchValue({
+                  salairebrut:salairebrut
+                 })
+               
+                }
       onChange(i: number){
         const totalht = (this.editionnoteform.get('ammounts').value.at(i).montantht || 0)
         const totaltva = (this.editionnoteform.get('ammounts').value.at(i).montanttva || 0)
@@ -675,6 +718,7 @@ this.loading=false
       montantimposable:'',
       montantretenue:'',
       montantavance:'',
+      salairenet:'',
       reglement:'',
       image:''
     });
