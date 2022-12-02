@@ -1084,9 +1084,14 @@ this.removeammount6(i)
     console.log(this.factureachatform.get('ammounts3').value);
   }
   logValue4() {
-    console.log(this.ammounts4);
-
-    console.log(this.relevemanuelform.get('ammounts4').value);
+    for (let i = 0; i < this.ammounts4.length; i+=1)
+      {
+        if (this.ammounts4.value.at(i).debit==='0' && this.ammounts4.value.at(i).debit==='')
+{
+  this.removeammount4(i)
+}
+      }
+      console.log(this.ammounts4.value)
   }
   logValue5() {
     console.log(this.ammounts5);
@@ -1124,16 +1129,16 @@ this.removeammount6(i)
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
       for (let i = 0; i < ammounts.length; i++)
       {
-        if (ammounts.value.at(i).montantht==='0')
+        if (ammounts.value.at(i).montantht==='0'&&ammounts.value.at(i).montantht==='')
 {
   this.removeammount(i)
 }
       } 
       deccomptabilite.autre1=ammounts.value
       let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-      for (let i = 0; i < ammounts2.length; i++)
+      for (let i = 0; i < ammounts2.length; i+=1)
       {
-        if (ammounts2.value.at(i).recette==='0')
+        if (ammounts2.value.at(i).recette==='0'&&ammounts2.value.at(i).recette==='')
 {
   this.removeammount2(i)
 }
@@ -1145,13 +1150,46 @@ this.removeammount6(i)
       let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
       for (let i = 0; i < ammounts3.length; i++)
       {
-        if (ammounts3.value.at(i).montantht==='0')
+        if (ammounts3.value.at(i).montantht==='0'&&ammounts3.value.at(i).montantht==='')
 {
   this.removeammount3(i)
 }
       } 
       deccomptabilite.autre3=ammounts3.value
     }
+        if (this.option5Value) 
+{
+  let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+  for (let i = 0; i < ammounts4.length; i+=1)
+  {
+    if (ammounts4.value.at(i).debit==='0' && ammounts4.value.at(i).debit==='')
+{
+this.removeammount4(i)
+}
+  } 
+  deccomptabilite.autre4=ammounts4.value
+  let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+  for (let i = 1; i < ammounts5.length; i++)
+  {
+    if (ammounts5.value.at(i).date==='')
+{
+this.removeammount5(i)
+}
+  } 
+  deccomptabilite.autre5=ammounts5.value
+}
+if (this.option6Value) 
+{
+  let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+  for (let i = 0; i < ammounts6.length; i+=1)
+  {
+    if (ammounts6.value.at(i).salairebrut==='0'&&ammounts6.value.at(i).salairebrut==='')
+{
+this.removeammount6(i)
+}
+  } 
+  deccomptabilite.autre6=ammounts6.value
+}
     this.DeccomptabiliteService.createwithoutfile(deccomptabilite).then(
       (data:any) => {
         this.token.saved=true;
@@ -1555,18 +1593,8 @@ this.usersservice.getUserById(this.currentUser.userId).then(
   update(e)
   {}
   onImagePick(event: Event,i:number) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.factureachatform.get('ammounts3').value.at(i).image.patchValue(file);
-    this.factureachatform.get('ammounts3').value.at(i).image.updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (this.factureachatform.get('ammounts3').value.at(i).image.valid) {
-        this.fileUploaded = true;
-      } else {
-      }
-    };
-    reader.readAsDataURL(file);
-    
+    let fileName = (event.target as HTMLInputElement).files[0].name;
+    this.factureachatform.get('ammounts3').value.controls[i].patchValue({ image: fileName });  
   }
   onImagePick2(event: Event,i:number) {
     const file = (event.target as HTMLInputElement).files[0];

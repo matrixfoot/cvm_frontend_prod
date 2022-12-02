@@ -435,7 +435,7 @@
                   </td>
                  <td > 
                     <div class="col-6"style="width: 300px">
-                       <input type="file"  #filePicker (change)="onImagePick($event)"(change)="onImagePick(i)" class="form-control" accept="application/pdf">
+                       <input type="file"  #filePicker (change)="onImagePick($event,i)"(change)="onImagePick(i)" class="form-control" accept="application/pdf">
                        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                    </div>
                  </td>
