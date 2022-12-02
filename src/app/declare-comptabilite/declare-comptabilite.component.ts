@@ -1593,8 +1593,9 @@ this.usersservice.getUserById(this.currentUser.userId).then(
   update(e)
   {}
   onImagePick(event: Event,i:number) {
+    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
     let fileName = (event.target as HTMLInputElement).files[0].name;
-    this.factureachatform.get('ammounts3').value.controls[i].patchValue({ image: fileName });  
+    ammounts3.controls[i].patchValue({ image: fileName });  
   }
   onImagePick2(event: Event,i:number) {
     const file = (event.target as HTMLInputElement).files[0];
