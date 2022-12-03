@@ -549,7 +549,7 @@ this.loading=false
       }
       onChange3(i: number){
         
-
+       
         this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
           acc += +(curr.montantht || 0);
           return acc;
@@ -689,7 +689,8 @@ this.loading=false
       montantdt:'0',
       montantttc:'0',
       reglement:'',
-      image:''
+      image:'',
+      ficheUrl:''
 
     });
   }
@@ -760,6 +761,7 @@ this.loading=false
     this.ammounts2.push(this.createammount2());
   }
   addammount3(){
+    this.fileUploaded=false
     this.ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
     this.ammounts3.push(this.createammount3());
      this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
@@ -1124,27 +1126,7 @@ this.removeammount6(i)
         Swal.fire('opération non aboutie!')
       }))
     }
-    if (this.option3Value) 
-    {
-      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-      for (let i = 0; i < ammounts.length; i++)
-      {
-        if (ammounts.value.at(i).montantht==='0'&&ammounts.value.at(i).montantht==='')
-{
-  this.removeammount(i)
-}
-      } 
-      deccomptabilite.autre1=ammounts.value
-      let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-      for (let i = 0; i < ammounts2.length; i+=1)
-      {
-        if (ammounts2.value.at(i).recette==='0'&&ammounts2.value.at(i).recette==='')
-{
-  this.removeammount2(i)
-}
-      } 
-      deccomptabilite.autre2=ammounts2.value
-    }
+
     if (this.option4Value) 
     {
       let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
@@ -1156,58 +1138,26 @@ this.removeammount6(i)
 }
       } 
       deccomptabilite.autre3=ammounts3.value
+      this.DeccomptabiliteService.create(deccomptabilite,ammounts3.value.at(0).image).then(
+        (data:any) => {
+          this.token.saved=true;
+          this.loading = false;
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
+            showConfirmButton: false,
+            timer: 6000 
+          });
+        },
+        (error) => {
+          this.loading = false;
+          
+        }
+      ) 
     }
-        if (this.option5Value) 
-{
-  let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-  for (let i = 0; i < ammounts4.length; i+=1)
-  {
-    if (ammounts4.value.at(i).debit==='0' && ammounts4.value.at(i).debit==='')
-{
-this.removeammount4(i)
-}
-  } 
-  deccomptabilite.autre4=ammounts4.value
-  let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-  for (let i = 1; i < ammounts5.length; i++)
-  {
-    if (ammounts5.value.at(i).date==='')
-{
-this.removeammount5(i)
-}
-  } 
-  deccomptabilite.autre5=ammounts5.value
-}
-if (this.option6Value) 
-{
-  let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-  for (let i = 0; i < ammounts6.length; i+=1)
-  {
-    if (ammounts6.value.at(i).salairebrut==='0'&&ammounts6.value.at(i).salairebrut==='')
-{
-this.removeammount6(i)
-}
-  } 
-  deccomptabilite.autre6=ammounts6.value
-}
-    this.DeccomptabiliteService.createwithoutfile(deccomptabilite).then(
-      (data:any) => {
-        this.token.saved=true;
-        this.loading = false;
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
-          showConfirmButton: false,
-          timer: 6000 
-        });
-        this.router.navigate(['modify-deccomptabilite/'+data.data._id])
-      },
-      (error) => {
-        this.loading = false;
-        
-      }
-    ) 
+
+  
   }
   //datalistfunctions
   myFunction1() {
@@ -1594,8 +1544,19 @@ this.usersservice.getUserById(this.currentUser.userId).then(
   {}
   onImagePick(event: Event,i:number) {
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    let fileName = (event.target as HTMLInputElement).files[0].name;
-    ammounts3.controls[i].patchValue({ image: fileName });  
+   // let fileName = (event.target as HTMLInputElement).files[0].name;
+    //ammounts3.controls[i].patchValue({ image: fileName });  
+    const file = (event.target as HTMLInputElement).files[0];
+    ammounts3.controls[i].patchValue({ image: file });  
+    ammounts3.controls[i].updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (ammounts3.controls[i].valid) {
+        this.fileUploaded = true;
+      } else {
+      }
+    };
+    reader.readAsDataURL(file);
   }
   onImagePick2(event: Event,i:number) {
     const file = (event.target as HTMLInputElement).files[0];

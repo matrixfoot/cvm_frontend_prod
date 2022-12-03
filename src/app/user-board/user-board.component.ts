@@ -73,7 +73,7 @@ export class UserBoardComponent implements OnInit {
         this.errormsg=error.message;
       }
     );
-   if (this.usertype=='Candidat')
+   if (this.usertype=='Candidat'||this.usertype=='candidat')
    {    this.cond.getCondidate(this.email);
    }
    

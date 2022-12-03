@@ -367,14 +367,14 @@
                   </td>
                   <td style="width: 150px;display: block;">
                     <div class="col-6">
-                      <select class="form-control"placeholder="Fournisseur" id="natureachat" [(ngModel)]="option9Value"formControlName="fournisseur" name="fournisseur" >
+                      <select class="form-control"placeholder="Fournisseur" id="natureachat"#someHashName formControlName="fournisseur" name="fournisseur" >
                         <option hidden [value]=""></option>
                         <option value="option1">option1</option>
                         <option value="option2">option2</option>
                         <option value="Autre">Autre</option>
                       </select>
                         </div>
-                        <div class="col-6"*ngIf="option9Value == 'Autre'">
+                        <div class="col-6"*ngIf="someHashName?.value == 'Autre'">
                           <input class="form-control" type="text" placeholder="Fournisseur" id="fournisseur" formControlName="autrefournisseur">
                         </div>
                   </td>
@@ -386,14 +386,14 @@
                    </td>
                    <td style="width: 150px; display: block;">
                     <div class="col-6">
-                <select  class="form-control"placeholder="Nature" id="natureachat" [(ngModel)]="option8Value"formControlName="natureachat" name="natureachat" >
+                <select  class="form-control"placeholder="Nature" id="natureachat"#someHashName2 formControlName="natureachat" name="natureachat" >
                   <option hidden [value]=""></option>
                   <option value="option1">option1</option>
                   <option value="option2">option2</option>
                   <option value="Autre">Autre</option>
                 </select>
                   </div>
-                  <div class="col-6"*ngIf="option8Value == 'Autre'">
+                  <div class="col-6"*ngIf="someHashName2?.value == 'Autre'">
                     <input class="form-control" type="text" placeholder="Nature" id="nature" formControlName="autrenatureachat">
                   </div>
                    </td>
@@ -435,7 +435,7 @@
                   </td>
                  <td > 
                     <div class="col-6"style="width: 300px">
-                       <input type="file"  #filePicker (change)="onImagePick($event,i)"(change)="onImagePick(i)" class="form-control" accept="application/pdf">
+                       <input type="file"  #filePicker (change)="onImagePick($event,i)" class="form-control" accept="application/pdf">
                        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                    </div>
                  </td>
