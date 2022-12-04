@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Carousel } from '../models/settings';
 const API_URL_test = 'http://localhost:3000/api/settings/';
-const API_URL_cloud= 'https://cvm-backend-pqmj.onrender.com/api/settings/'
+const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/settings/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

@@ -1138,23 +1138,28 @@ this.removeammount6(i)
 }
       } 
       deccomptabilite.autre3=ammounts3.value
-      this.DeccomptabiliteService.create(deccomptabilite,ammounts3.value.at(0).image).then(
-        (data:any) => {
-          this.token.saved=true;
-          this.loading = false;
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
-            showConfirmButton: false,
-            timer: 6000 
-          });
-        },
-        (error) => {
-          this.loading = false;
-          
-        }
-      ) 
+      for (let i = 0; i < ammounts3.length; i++)
+      {
+        this.DeccomptabiliteService.create(deccomptabilite,ammounts3.value.at(i).image).then(
+          (data:any) => {
+            console.log(ammounts3.value.at(i).image)
+            this.token.saved=true;
+            this.loading = false;
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
+              showConfirmButton: false,
+              timer: 6000 
+            });
+          },
+          (error) => {
+            this.loading = false;
+            
+          }
+        ) 
+      }
+     
     }
 
   

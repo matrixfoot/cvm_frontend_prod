@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Deccomptabilite } from '../models/dec-comptabilite';
 const API_URL_test = 'http://localhost:3000/api/deccomptabilite/';
-const API_URL_cloud= 'https://cvm-backend-pqmj.onrender.com/api/deccomptabilite/'
+const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/deccomptabilite/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
