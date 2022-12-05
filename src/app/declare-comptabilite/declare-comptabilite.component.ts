@@ -19,6 +19,7 @@ import { stringify } from 'querystring';
 })
 export class DeclareComptabiliteComponent extends ComponentCanDeactivate implements OnInit,OnDestroy {
   fileUploaded = false;
+  uploadFiles: File[] = [];
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -1114,6 +1115,7 @@ this.removeammount6(i)
     deccomptabilite.nature='déclaration comptable';
     deccomptabilite.annee=this.option1Value
     deccomptabilite.mois=this.option2Value
+    deccomptabilite.autre3=[]
     if(this.option1Value==''||this.option2Value=='')
     {
       return (
@@ -1136,13 +1138,29 @@ this.removeammount6(i)
 {
   this.removeammount3(i)
 }
+const item = ammounts3.value.at(i);
+deccomptabilite.autre3.push({
+        type: '3',
+        jour: item.jour,
+        date: item.date,
+        fournisseur: item.fournisseur,
+        autrefournisseur: item.autrefournisseur,
+        numerofacture:item.numerofacture,
+        natureachat:item.natureachat,
+        autrenatureachat:item.autrenatureachat,
+      montantht:item.montantht,
+      montanttva:item.montanttva,
+      montantdt:item.montantdt,
+      montantttc:item.montantttc,
+      reglement:item.reglement,
+      ficheUrl:''
+
+})
+console.log(deccomptabilite.autre3)
       } 
-      deccomptabilite.autre3=ammounts3.value
-      for (let i = 0; i < ammounts3.length; i++)
-      {
-        this.DeccomptabiliteService.create(deccomptabilite,ammounts3.value.at(i).image).then(
+      
+        this.DeccomptabiliteService.create(deccomptabilite,this.collectfile()).then(
           (data:any) => {
-            console.log(ammounts3.value.at(i).image)
             this.token.saved=true;
             this.loading = false;
             Swal.fire({
@@ -1157,12 +1175,18 @@ this.removeammount6(i)
             this.loading = false;
             
           }
-        ) 
-      }
-     
+        )     
     }
 
   
+  }
+  collectfile() :File[]{
+    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+    for (let i = 0; i < ammounts3.length; i++)
+    {
+       this.uploadFiles.push(ammounts3.value.at(i).image);
+    }
+    return this.uploadFiles
   }
   //datalistfunctions
   myFunction1() {

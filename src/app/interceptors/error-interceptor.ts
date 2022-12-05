@@ -34,9 +34,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             timer: 30000,
           }).then((result) => {
             if (result.value) {
-              this.Auth.signOut();
-              this.reloadPage();
-              this.router.navigate(['login']);
             }
 
           }).catch(() => {
