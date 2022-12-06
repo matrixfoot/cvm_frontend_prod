@@ -81,14 +81,23 @@ return new Promise((resolve, reject) => {
       });
 
       }
-      create(deccomptabilite: Deccomptabilite, image: File[]) {
+      create(deccomptabilite: Deccomptabilite, image3: File[], image5: File[]) {
         return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
           deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilite));
-          for (let i = 0; i < image.length; i++)
-          {
-            deccomptabiliteData.append('image', image[i], deccomptabilite.autre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
-          }
+          
+            for (let i = 0; i < image3.length; i++)
+            {
+              deccomptabiliteData.append('image', image3[i], deccomptabilite.autre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
+            }
+          
+         
+            for (let i = 0; i < image5.length; i++)
+            {
+              deccomptabiliteData.append('image', image5[i], deccomptabilite.autre5[i].annee+deccomptabilite.autre5[i].mois); 
+            }
+          
+          console.log(deccomptabiliteData)
           
         
           this.http.post(API_URL_test+'/createdeccomptabilite/', deccomptabiliteData).subscribe(

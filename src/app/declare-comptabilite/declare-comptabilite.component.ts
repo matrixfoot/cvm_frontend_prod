@@ -19,7 +19,8 @@ import { stringify } from 'querystring';
 })
 export class DeclareComptabiliteComponent extends ComponentCanDeactivate implements OnInit,OnDestroy {
   fileUploaded = false;
-  uploadFiles: File[] = [];
+  uploadFilesautre3: File[] = [];
+  uploadFilesautre5: File[] = [];
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -711,8 +712,8 @@ this.loading=false
     
     return  this.fb.group({
       type:'5',
-      jour: '',
-      date: '',
+      annee: '',
+      mois: '',
       image:''
     });
   }
@@ -904,7 +905,7 @@ this.loading=false
     },0);
   }
   removeammount5(i: number) {
-    this.ammounts3.removeAt(i);
+    this.ammounts5.removeAt(i);
     
   }
   removeammount6(i: number) {
@@ -1116,6 +1117,7 @@ this.removeammount6(i)
     deccomptabilite.annee=this.option1Value
     deccomptabilite.mois=this.option2Value
     deccomptabilite.autre3=[]
+    deccomptabilite.autre5=[]
     if(this.option1Value==''||this.option2Value=='')
     {
       return (
@@ -1134,10 +1136,6 @@ this.removeammount6(i)
       let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
       for (let i = 0; i < ammounts3.length; i++)
       {
-        if (ammounts3.value.at(i).montantht==='0'&&ammounts3.value.at(i).montantht==='')
-{
-  this.removeammount3(i)
-}
 const item = ammounts3.value.at(i);
 deccomptabilite.autre3.push({
         type: '3',
@@ -1158,8 +1156,25 @@ deccomptabilite.autre3.push({
 })
 console.log(deccomptabilite.autre3)
       } 
-      
-        this.DeccomptabiliteService.create(deccomptabilite,this.collectfile()).then(
+    }
+    if (this.option5Value) 
+    {
+      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+      for (let i = 0; i < ammounts5.length; i++)
+      {
+
+const item = ammounts5.value.at(i);
+deccomptabilite.autre5.push({
+        type: '5',
+        annee: item.annee,
+        mois: item.mois,
+      ficheUrl:''
+
+})
+console.log(deccomptabilite.autre5)
+      } 
+    }
+        this.DeccomptabiliteService.create(deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5).then(
           (data:any) => {
             this.token.saved=true;
             this.loading = false;
@@ -1176,7 +1191,6 @@ console.log(deccomptabilite.autre3)
             
           }
         )     
-    }
 
   
   }
@@ -1184,9 +1198,19 @@ console.log(deccomptabilite.autre3)
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
     for (let i = 0; i < ammounts3.length; i++)
     {
-       this.uploadFiles.push(ammounts3.value.at(i).image);
+       this.uploadFilesautre3.push(ammounts3.value.at(i).image);
     }
-    return this.uploadFiles
+    console.log(this.uploadFilesautre3)
+    return this.uploadFilesautre3
+  }
+  collectfile2() :File[]{
+    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+    for (let i = 0; i < ammounts5.length; i++)
+    {
+       this.uploadFilesautre5.push(ammounts5.value.at(i).image);
+    }
+    console.log(this.uploadFilesautre5)
+    return this.uploadFilesautre5
   }
   //datalistfunctions
   myFunction1() {
@@ -1578,6 +1602,8 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     const file = (event.target as HTMLInputElement).files[0];
     ammounts3.controls[i].patchValue({ image: file });  
     ammounts3.controls[i].updateValueAndValidity();
+    this.uploadFilesautre3.push(ammounts3.value.at(i).image);
+    console.log(this.uploadFilesautre3)
     const reader = new FileReader();
     reader.onload = () => {
       if (ammounts3.controls[i].valid) {
@@ -1588,17 +1614,22 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     reader.readAsDataURL(file);
   }
   onImagePick2(event: Event,i:number) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.relevejointform.get('ammounts5').value.at(i).image.patchValue(file);
-    this.relevejointform.get('ammounts5').value.at(i).image.updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (this.relevejointform.get('ammounts5').value.at(i).image.valid) {
-        this.fileUploaded = true;
-      } else {
-      }
-    };
-    reader.readAsDataURL(file);
+    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+    // let fileName = (event.target as HTMLInputElement).files[0].name;
+     //ammounts3.controls[i].patchValue({ image: fileName });  
+     const file = (event.target as HTMLInputElement).files[0];
+     ammounts5.controls[i].patchValue({ image: file });  
+     ammounts5.controls[i].updateValueAndValidity();
+     this.uploadFilesautre5.push(ammounts5.value.at(i).image);
+     console.log(this.uploadFilesautre5)
+     const reader = new FileReader();
+     reader.onload = () => {
+       if (ammounts5.controls[i].valid) {
+         this.fileUploaded = true;
+       } else {
+       }
+     };
+     reader.readAsDataURL(file);
     
   }
   onImagePick3(event: Event,i:number) {

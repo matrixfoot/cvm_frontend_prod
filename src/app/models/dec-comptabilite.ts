@@ -64,8 +64,8 @@ export interface Autre4 {
 }
 export interface Autre5 {
   type:string,
-  jour: string,
-  date: string,
+  annee: string,
+  mois: string,
   ficheUrl:string
 }
 export interface Autre6 {

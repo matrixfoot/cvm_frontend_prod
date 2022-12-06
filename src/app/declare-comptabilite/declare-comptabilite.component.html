@@ -554,8 +554,8 @@
       <table class="table table-striped" id="relevejointsection" [formGroup]="relevejointform">
           <thead>
           <tr>            
-          <th>Jour</th>
-          <th>Date complète</th>
+          <th>Mois</th>
+          <th>Annee</th>
           <th>Document joint</th>
           </tr>
           </thead>
@@ -565,17 +565,17 @@
                       <td >
                           <div class="col-6">
                               <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
-                                 class="form-control"(change)="setdate5(i)"formControlName="jour"placeholder="Jour"/>
+                                 class="form-control"formControlName="mois"placeholder="Mois"/>
                           </div>
                          </td>
-                         <td style="width: 150px;">
+                         <td>
                          <div class="col-6">
-                             <input type="text"class="form-control"formControlName="date"placeholder="Date"/>
+                             <input type="text"class="form-control"formControlName="annee"placeholder="Annee"/>
                          </div>
                         </td>
                         <td> 
                           <div class="col-6"style="width: 300px">
-                             <input type="file"  #filePicker (change)="onImagePick2($event)"(change)="onImagePick2(i)" class="form-control" accept="application/pdf">
+                             <input type="file"  #filePicker (change)="onImagePick2($event,i)" class="form-control" accept="application/pdf">
                              <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                          </div>
                        </td>
