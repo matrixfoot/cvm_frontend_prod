@@ -88,13 +88,13 @@ return new Promise((resolve, reject) => {
           
             for (let i = 0; i < image3.length; i++)
             {
-              deccomptabiliteData.append('image', image3[i], deccomptabilite.autre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
+              deccomptabiliteData.append('image', image3[i],'t'+deccomptabilite.autre3[i].type+deccomptabilite.autre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
             }
           
          
             for (let i = 0; i < image5.length; i++)
             {
-              deccomptabiliteData.append('image', image5[i], deccomptabilite.autre5[i].annee+deccomptabilite.autre5[i].mois); 
+              deccomptabiliteData.append('image', image5[i],'t'+deccomptabilite.autre5[i].type+deccomptabilite.autre5[i].annee+deccomptabilite.autre5[i].mois); 
             }
           
           console.log(deccomptabiliteData)
