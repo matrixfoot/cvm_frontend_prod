@@ -53,7 +53,8 @@ export interface Autre3 {
       montantdt:string,
       montantttc:string,
       reglement:string,
-      ficheUrl:string
+      ficheUrl:string,
+      contientfiche:boolean
 }
 export interface Autre4 {
   type:string,
@@ -66,7 +67,9 @@ export interface Autre5 {
   type:string,
   annee: string,
   mois: string,
-  ficheUrl:string
+  ficheUrl:string,
+  contientfiche:boolean
+
 }
 export interface Autre6 {
   type:string,
@@ -79,5 +82,6 @@ export interface Autre6 {
       montantavance:string,
       salairenet:string,
       reglement:string,
-      ficheUrl:string
+      ficheUrl:string,
+      contientfiche:boolean
     }

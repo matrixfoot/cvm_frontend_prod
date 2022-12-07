@@ -346,6 +346,7 @@
     <th>Montant DT</th>
     <th>Montant TTC</th>
     <th>Règlement</th>
+    <th>Contient fichier</th>
     <th>Document Joint</th>
 
     </tr>
@@ -433,8 +434,13 @@
                     </select>
                 </div>
                   </td>
-                 <td > 
-                    <div class="col-6"style="width: 300px">
+                  <td > 
+                    <div class="col-6"style="width:20px">
+                      <input type="checkbox" id="docjoint3" (click)="docjoint3(i)" formControlName=contientfiche/>
+                   </div>
+                 </td>
+                 <td id="file3"> 
+                    <div class="col-6"style="width: 300px"*ngIf="showdocjoint3===true">
                        <input type="file"  #filePicker (change)="onImagePick($event,i)" class="form-control" accept="application/pdf">
                        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                    </div>
@@ -689,9 +695,10 @@
                         </select>
                     </div>
                       </td>
+                     
                      <td > 
                         <div class="col-6"style="width: 300px">
-                           <input type="file"  #filePicker (change)="onImagePick3($event)"(change)="onImagePick3(i)" class="form-control" accept="application/pdf">
+                           <input type="file"  #filePicker (change)="onImagePick3($event,i)" class="form-control" accept="application/pdf">
                            <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                        </div>
                      </td>

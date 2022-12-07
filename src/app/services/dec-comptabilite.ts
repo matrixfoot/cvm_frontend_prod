@@ -81,7 +81,7 @@ return new Promise((resolve, reject) => {
       });
 
       }
-      create(deccomptabilite: Deccomptabilite, image3: File[], image5: File[]) {
+      create(deccomptabilite: Deccomptabilite, image3: File[], image5: File[], image6: File[]) {
         return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
           deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilite));
@@ -97,6 +97,10 @@ return new Promise((resolve, reject) => {
               deccomptabiliteData.append('image', image5[i],'t'+deccomptabilite.autre5[i].type+deccomptabilite.autre5[i].annee+deccomptabilite.autre5[i].mois); 
             }
           
+            for (let i = 0; i < image6.length; i++)
+            {
+              deccomptabiliteData.append('image', image6[i],'t'+deccomptabilite.autre6[i].type+deccomptabilite.autre6[i].matricule+deccomptabilite.mois+deccomptabilite.annee); 
+            }
           console.log(deccomptabiliteData)
           
         

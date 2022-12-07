@@ -21,6 +21,8 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   fileUploaded = false;
   uploadFilesautre3: File[] = [];
   uploadFilesautre5: File[] = [];
+  uploadFilesautre6: File[] = [];
+
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -33,6 +35,7 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   showbanquetab=false
   showsalairetab=false
   showinvoiceform=false
+  showdocjoint3=false
   errormsg:string;
   natureactivite:string;
   activite:string;
@@ -692,7 +695,8 @@ this.loading=false
       montantttc:'0',
       reglement:'',
       image:'',
-      ficheUrl:''
+      ficheUrl:'',
+      contientfiche:false
 
     });
   }
@@ -714,7 +718,9 @@ this.loading=false
       type:'5',
       annee: '',
       mois: '',
-      image:''
+      image:'',
+      contientfiche:false
+
     });
   }
   createammount6() 
@@ -731,7 +737,8 @@ this.loading=false
       montantavance:'0',
       salairenet:'0',
       reglement:'0',
-      image:'0'
+      image:'0',
+      contientfiche:false
     });
   }
    addammount(){
@@ -1116,8 +1123,13 @@ this.removeammount6(i)
     deccomptabilite.nature='déclaration comptable';
     deccomptabilite.annee=this.option1Value
     deccomptabilite.mois=this.option2Value
+    deccomptabilite.autre1=[]
+    deccomptabilite.autre2=[]
     deccomptabilite.autre3=[]
+    deccomptabilite.autre4=[]
     deccomptabilite.autre5=[]
+    deccomptabilite.autre6=[]
+
     if(this.option1Value==''||this.option2Value=='')
     {
       return (
@@ -1136,6 +1148,7 @@ this.removeammount6(i)
       let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
       for (let i = 0; i < ammounts3.length; i++)
       {
+        
 const item = ammounts3.value.at(i);
 deccomptabilite.autre3.push({
         type: '3',
@@ -1151,30 +1164,130 @@ deccomptabilite.autre3.push({
       montantdt:item.montantdt,
       montantttc:item.montantttc,
       reglement:item.reglement,
-      ficheUrl:''
+      ficheUrl:'',
+      contientfiche:item.contientfiche
 
 })
+
+
 console.log(deccomptabilite.autre3)
-      } 
+      }
+       
     }
+      if(this.option3Value)
+      {
+        let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+        for (let i = 0; i < ammounts.length; i++)
+       
+        {
+          if (ammounts.value.at(i).montantht==''||ammounts.value.at(i).montantht=='0')
+          {
+            this.removeammount(i)
+          }
+  const item = ammounts.value.at(i);
+  deccomptabilite.autre1.push({
+    type:'1',
+    jour: item.jour,
+    date: item.date,
+    numeronote:item.numeronote,
+    montantht:item.montantht,
+    montanttva:item.montanttva,
+    montantdt:item.montantdt,
+    montantttc:item.montantttc,
+    reglement:item.reglement,
+  
+  })
+  console.log(deccomptabilite.autre1)
+        } 
+        let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+        for (let i = 0; i < ammounts2.length; i++)
+        {
+          if (ammounts2.value.at(i).recette==''||ammounts2.value.at(i).recette=='0')
+          {
+            this.removeammount2(i)
+          }
+  const item = ammounts2.value.at(i);
+  deccomptabilite.autre2.push({
+    type:'2',
+    jour: item.jour,
+    date: item.date,
+    recette:item.recette,
+    montantht:item.montantht,
+    montanttva:item.montanttva,
+    montantdt:item.montantdt,
+    montantttc:item.montantttc,
+  
+  })
+  console.log(deccomptabilite.autre2)
+        } 
+      }
     if (this.option5Value) 
     {
+      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+      for (let i = 0; i < ammounts4.length; i++)
+      {
+        if (ammounts4.value.at(i).debit==''||ammounts4.value.at(i).debit=='0')
+        {
+          this.removeammount4(i)
+        }
+const item = ammounts4.value.at(i);
+deccomptabilite.autre4.push({
+        type: '4',
+        jour: item.jour,
+      date: item.date,
+      debit:item.debit,
+      credit:item.credit,
+
+})
+console.log(deccomptabilite.autre4)
+      }
       let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
       for (let i = 0; i < ammounts5.length; i++)
       {
-
+        if (ammounts5.value.at(i).mois==''||ammounts5.value.at(i).mois=='0')
+        {
+          this.removeammount5(i)
+        }
 const item = ammounts5.value.at(i);
 deccomptabilite.autre5.push({
         type: '5',
         annee: item.annee,
         mois: item.mois,
-      ficheUrl:''
+      ficheUrl:'',
+      contientfiche:item.contientfiche
 
 })
 console.log(deccomptabilite.autre5)
       } 
     }
-        this.DeccomptabiliteService.create(deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5).then(
+    if (this.option6Value) 
+    {
+      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+      for (let i = 0; i < ammounts6.length; i++)
+      {
+        if (ammounts6.value.at(i).salairebrut==''||ammounts6.value.at(i).salairebrut=='0')
+        {
+          this.removeammount6(i)
+        }
+const item = ammounts6.value.at(i);
+deccomptabilite.autre6.push({
+        type: '6',
+        matricule: item.matricule,
+      nomprenom: item.nomprenom,
+      salairebrut:item.salairebrut,
+      montantcnss:item.montantcnss,
+      montantimposable:item.montantimposable,
+      montantretenue:item.montantretenue,
+      montantavance:item.montantavance,
+      salairenet:item.salairenet,
+      reglement:item.reglement,
+      ficheUrl:'',
+      contientfiche:item.contientfiche
+})
+console.log(deccomptabilite.autre6)
+      } 
+    }
+        this.DeccomptabiliteService.create(deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
           (data:any) => {
             this.token.saved=true;
             this.loading = false;
@@ -1593,16 +1706,63 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       
     }
   }
+  docjoint3(i:number) {
+    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+
+    var checkbox:any = document.getElementById("docjoint3");
+    var text2 = document.getElementById("file3");
+    
+    if (checkbox.checked == true){
+      text2.style.display = "block";
+      this.showdocjoint3=true;
+      ammounts3.controls[i].patchValue({ contientfiche: true });
+
+    } else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de le fichier joint, voulez vous continuer?',
+        
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          
+          this.uploadFilesautre3.splice(i,1)
+          this.showdocjoint3=false;
+          ammounts3.controls[i].patchValue({ contientfiche: false });
+
+
+        }
+        else{
+          checkbox.checked = true
+          ammounts3.controls[i].patchValue({ contientfiche: true });
+
+        }
+
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
   update(e)
   {}
   onImagePick(event: Event,i:number) {
+    this.uploadFilesautre3.splice(i,1)
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
    // let fileName = (event.target as HTMLInputElement).files[0].name;
     //ammounts3.controls[i].patchValue({ image: fileName });  
     const file = (event.target as HTMLInputElement).files[0];
-    ammounts3.controls[i].patchValue({ image: file });  
-    ammounts3.controls[i].updateValueAndValidity();
-    this.uploadFilesautre3.push(ammounts3.value.at(i).image);
+    if (file)
+    {
+      ammounts3.controls[i].patchValue({ image: file });  
+      ammounts3.controls[i].updateValueAndValidity();
+      this.uploadFilesautre3.push(ammounts3.value.at(i).image);
+    }
+    
     console.log(this.uploadFilesautre3)
     const reader = new FileReader();
     reader.onload = () => {
@@ -1611,7 +1771,6 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       } else {
       }
     };
-    reader.readAsDataURL(file);
   }
   onImagePick2(event: Event,i:number) {
     let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
@@ -1633,17 +1792,22 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     
   }
   onImagePick3(event: Event,i:number) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.salaireform.get('ammounts6').value.at(i).image.patchValue(file);
-    this.salaireform.get('ammounts6').value.at(i).image.updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (this.salaireform.get('ammounts6').value.at(i).image.valid) {
-        this.fileUploaded = true;
-      } else {
-      }
-    };
-    reader.readAsDataURL(file);
+    let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+    // let fileName = (event.target as HTMLInputElement).files[0].name;
+     //ammounts3.controls[i].patchValue({ image: fileName });  
+     const file = (event.target as HTMLInputElement).files[0];
+     ammounts6.controls[i].patchValue({ image: file });  
+     ammounts6.controls[i].updateValueAndValidity();
+     this.uploadFilesautre6.push(ammounts6.value.at(i).image);
+     console.log(this.uploadFilesautre6)
+     const reader = new FileReader();
+     reader.onload = () => {
+       if (ammounts6.controls[i].valid) {
+         this.fileUploaded = true;
+       } else {
+       }
+     };
+     reader.readAsDataURL(file);
     
   }
   ngOnDestroy(){
