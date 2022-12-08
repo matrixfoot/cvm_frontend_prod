@@ -1709,17 +1709,17 @@ this.usersservice.getUserById(this.currentUser.userId).then(
   docjoint3(i:number) {
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
 
-    var checkbox:any = document.getElementById("docjoint3");
-    var text2 = document.getElementById("file3");
+    var text2 = document.getElementById(`${i}`);
     
-    if (checkbox.checked == true){
+    if (ammounts3.controls[i].value.contientfiche == true)
+    {
       text2.style.display = "block";
-      this.showdocjoint3=true;
       ammounts3.controls[i].patchValue({ contientfiche: true });
+      console.log(ammounts3.controls[i].value.contientfiche)
 
     } else {
       Swal.fire({
-        title: 'Vous êtes sur le point de le fichier joint, voulez vous continuer?',
+        title: 'Vous êtes sur le point de supprimer le fichier joint, voulez vous continuer?',
         
         icon: 'warning',
         showCancelButton: true,
@@ -1729,16 +1729,17 @@ this.usersservice.getUserById(this.currentUser.userId).then(
         cancelButtonText: 'Annuler',
       }).then((result) => {
         if (result.value) {
-          
+          text2.style.display = "none";
           this.uploadFilesautre3.splice(i,1)
-          this.showdocjoint3=false;
           ammounts3.controls[i].patchValue({ contientfiche: false });
+          console.log(ammounts3.controls[i].value.contientfiche)
 
 
         }
         else{
-          checkbox.checked = true
+          text2.style.display = "block";
           ammounts3.controls[i].patchValue({ contientfiche: true });
+          console.log(ammounts3.controls[i].value.contientfiche)
 
         }
 

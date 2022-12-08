@@ -20,7 +20,7 @@ export class DeccomptabiliteService {
  
 
     getdeccomptabilites() {
-        this.http.get(API_URL_cloud).subscribe(
+        this.http.get(API_URL_test).subscribe(
           (deccomptabilites: Deccomptabilite[]) => {
             if (deccomptabilites) {
               this.deccomptabilites = deccomptabilites;
@@ -41,7 +41,7 @@ export class DeccomptabiliteService {
         return new Promise((resolve, reject) => {
           
 
-          this.http.get(API_URL_cloud + id).subscribe(
+          this.http.get(API_URL_test + id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -53,7 +53,7 @@ export class DeccomptabiliteService {
       }
       getdeccomptabilite(userId: string) {
         return new Promise((resolve, reject) => {
-          this.http.post(API_URL_cloud  ,{userId}).subscribe(
+          this.http.post(API_URL_test  ,{userId}).subscribe(
             (deccomptabilites: Deccomptabilite[]) => {
               if (deccomptabilites) {
                 this.deccomptabilites = deccomptabilites;
@@ -70,7 +70,7 @@ export class DeccomptabiliteService {
     geexistenttdeccomptabilite(userId: string,annee:string,mois:string) 
     {
 return new Promise((resolve, reject) => {
-        this.http.post(API_URL_cloud+'anneemois/',{userId,annee,mois}).subscribe(
+        this.http.post(API_URL_test+'anneemois/',{userId,annee,mois}).subscribe(
           (response) => {
             resolve(response);
           },
@@ -84,11 +84,12 @@ return new Promise((resolve, reject) => {
       create(deccomptabilite: Deccomptabilite, image3: File[], image5: File[], image6: File[]) {
         return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
+          const filtredautre3=this.filterByValue(deccomptabilite.autre3,'true')
           deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilite));
           
             for (let i = 0; i < image3.length; i++)
             {
-              deccomptabiliteData.append('image', image3[i],'t'+deccomptabilite.autre3[i].type+deccomptabilite.autre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
+              deccomptabiliteData.append('image', image3[i],'t'+filtredautre3[i].type+filtredautre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
             }
           
          
@@ -104,7 +105,7 @@ return new Promise((resolve, reject) => {
           console.log(deccomptabiliteData)
           
         
-          this.http.post(API_URL_cloud+'/createdeccomptabilite/', deccomptabiliteData).subscribe(
+          this.http.post(API_URL_test+'/createdeccomptabilite/', deccomptabiliteData).subscribe(
             (response) => {
               resolve(response);
             },
@@ -117,7 +118,7 @@ return new Promise((resolve, reject) => {
       createwithoutfile(deccomptabilite: Deccomptabilite) {
         return new Promise((resolve, reject) => {
           
-          this.http.post(API_URL_cloud+'/createdeccomptabilite/', deccomptabilite).subscribe(
+          this.http.post(API_URL_test+'/createdeccomptabilite/', deccomptabilite).subscribe(
             (response) => {
               resolve(response);
 
@@ -142,7 +143,7 @@ return new Promise((resolve, reject) => {
             deccomptabilitereqData.append('deccomptabilitereq', JSON.stringify(deccomptabilitereq));
             deccomptabilitereqData.append('image', image, deccomptabilitereq.annee+deccomptabilitereq.mois);
           }
-          this.http.put(API_URL_cloud + id, deccomptabilitereqData).subscribe(
+          this.http.put(API_URL_test + id, deccomptabilitereqData).subscribe(
             (response) => {
               resolve(response);
             },
@@ -157,7 +158,7 @@ return new Promise((resolve, reject) => {
           
             
           
-          this.http.put(API_URL_cloud+ id, deccomptabilite).subscribe(
+          this.http.put(API_URL_test+ id, deccomptabilite).subscribe(
             (response) => {
               resolve(response);
             },
@@ -172,7 +173,7 @@ return new Promise((resolve, reject) => {
           
             
           
-          this.http.put(API_URL_cloud+'modify/'+ id, deccomptabilite).subscribe(
+          this.http.put(API_URL_test+'modify/'+ id, deccomptabilite).subscribe(
             (response) => {
               resolve(response);
             },
@@ -185,7 +186,7 @@ return new Promise((resolve, reject) => {
     
       deletedeccomptabiliteById(id: string) {
         return new Promise((resolve, reject) => {
-          this.http.delete(API_URL_cloud+ id).subscribe(
+          this.http.delete(API_URL_test+ id).subscribe(
             (response) => {
               resolve(response);
             },
@@ -197,7 +198,7 @@ return new Promise((resolve, reject) => {
       }  
       deletedeccomptabilites() {
         return new Promise((resolve, reject) => {
-          this.http.delete(API_URL_cloud).subscribe(
+          this.http.delete(API_URL_test).subscribe(
             (response) => {
               resolve(response);
             },
@@ -206,5 +207,8 @@ return new Promise((resolve, reject) => {
             }
           );
         });
+      }
+      filterByValue(array, value) {
+        return array.filter((data) =>  JSON.stringify(data).toLowerCase().indexOf(value.toLowerCase()) !== -1);
       }
     }
