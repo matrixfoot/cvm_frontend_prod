@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 import { User } from '../models/user.model';
 import { Decfiscmens } from '../models/dec-fisc-mens';
+import { Deccomptabilite } from '../models/dec-comptabilite';
 import { Userdeleted } from '../models/user-deleted.model';
 import { Router } from '@angular/router';
 import { Condidate } from '../models/condidate.model';
@@ -12,6 +13,7 @@ import { Contact } from '../models/contact.model';
 import { CondidateService } from '../services/condidate.service';
 import { ContactService } from '../services/contact.service';
 import { DecfiscmensService } from '../services/dec-fisc-mens';
+import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {ExcelService} from '../services/excel.service';
 @Component({
@@ -24,7 +26,8 @@ export class AdminBoardComponent implements OnInit {
   public loading: boolean;
   public users: User[] = [];
   public decfiscmenss: Decfiscmens[] = [];
-  
+  public deccomptabilites: Deccomptabilite[] = [];
+
   public usersdeleted: Userdeleted[] = [];
   public condidates: Condidate[] = [];
   public contacts: Contact[] = [];
@@ -33,12 +36,15 @@ export class AdminBoardComponent implements OnInit {
   private usersSub: Subscription;
   private usersdeletedSub: Subscription;
   private decfiscmenssSub: Subscription;
+  private deccomptabilitesSub: Subscription;
   errormsg:string;
   firstname:string;
   lastname:string;
   statut:string;
   email:string;
   date:Date;
+  firstnamedecomptabilite:string
+  lastnamedeccomptabilite:string
   
 
   constructor(private formBuilder: FormBuilder,
@@ -46,6 +52,7 @@ export class AdminBoardComponent implements OnInit {
               private cond:CondidateService,
               private cont:ContactService,
               private dec:DecfiscmensService,
+              private deccompt:DeccomptabiliteService,
               private router: Router,
               private excelService:ExcelService) { }
               ngOnInit() {
@@ -108,6 +115,17 @@ export class AdminBoardComponent implements OnInit {
                     this.errormsg=error.message;
                   }
                 );
+                this.deccomptabilitesSub = this.deccompt.deccomptabilites$.subscribe(
+                  (deccomptabilites) => {
+                    this.deccomptabilites = deccomptabilites;
+                    this.loading = false;
+                  },
+                  (error) => {
+                    this.loading = false;
+                    console.log(error);
+                    this.errormsg=error.message;
+                  }
+                );
                 this.usersdeletedSub = this.UserService.usersdeleted$.subscribe(
                   (usersdeleted) => {
                     this.usersdeleted = usersdeleted;
@@ -119,7 +137,7 @@ export class AdminBoardComponent implements OnInit {
                     this.errormsg=error.message;
                   }
                 );
-                
+               
                 
               }
 
@@ -136,6 +154,11 @@ export class AdminBoardComponent implements OnInit {
               getNavigationdecfiscmenss(link, id){
       
                 this.dec.getDecfiscmensreqById(id);
+                this.router.navigate([link + '/' + id]); 
+              }
+              getNavigationdeccomptabilites(link, id){
+      
+                this.deccompt.getDeccomptabilitereqById(id);
                 this.router.navigate([link + '/' + id]); 
               }
               getNavigationcondidates(link, id){

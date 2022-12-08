@@ -85,6 +85,9 @@ return new Promise((resolve, reject) => {
         return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
           const filtredautre3=this.filterByValue(deccomptabilite.autre3,'true')
+          const filtredautre5=this.filterByValue(deccomptabilite.autre5,'true')
+          const filtredautre6=this.filterByValue(deccomptabilite.autre6,'true')
+
           deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilite));
           
             for (let i = 0; i < image3.length; i++)
@@ -95,12 +98,12 @@ return new Promise((resolve, reject) => {
          
             for (let i = 0; i < image5.length; i++)
             {
-              deccomptabiliteData.append('image', image5[i],'t'+deccomptabilite.autre5[i].type+deccomptabilite.autre5[i].annee+deccomptabilite.autre5[i].mois); 
+              deccomptabiliteData.append('image', image5[i],'t'+filtredautre5[i].type+filtredautre5[i].annee+filtredautre5[i].mois); 
             }
           
             for (let i = 0; i < image6.length; i++)
             {
-              deccomptabiliteData.append('image', image6[i],'t'+deccomptabilite.autre6[i].type+deccomptabilite.autre6[i].matricule+deccomptabilite.mois+deccomptabilite.annee); 
+              deccomptabiliteData.append('image', image6[i],'t'+filtredautre6[i].type+filtredautre6[i].matricule+deccomptabilite.mois+deccomptabilite.annee); 
             }
           console.log(deccomptabiliteData)
           

@@ -96,7 +96,7 @@
   <div id="loader" *ngIf="loading"></div>
   <div class="col-lg-12" *ngIf="!loading">
     <div class="team-member">
-      <h2>Liste des Déclarations mensuelles</h2>
+      <h2>Liste des Déclarations fiscales mensuelles</h2>
       <hr>
       <div class="container-fluid">
         <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
@@ -149,6 +149,69 @@
             
             
             <td>  <button type="button" class="btn btn-success" (click)="getNavigationdecfiscmenss('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
+            
+              
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+      <h2>Liste des fichiers comptables</h2>
+      <hr>
+      <div class="container-fluid">
+        <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+      <form [formGroup]="searchForm">
+       
+        
+          
+          <div class="searchbar" style="float: right;">
+            
+            <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
+           <a class="search_icon"(click)="getalldecfiscmenss()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+          
+        </div>
+          </form> 
+        </div>     
+      <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            
+            
+            <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
+            <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
+            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="firstname"  ></i></th>
+            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="lastname" ></i></th>
+            <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
+            <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+           
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let deccomptabilite of deccomptabilites">
+      
+            
+           
+            <td>{{deccomptabilite.mois}}</td>
+            <td>{{deccomptabilite.annee}}</td>
+            <td>{{deccomptabilite.firstname}}</td>
+            <td>{{deccomptabilite.lastname}}</td>
+            <td>{{deccomptabilite.statut}}</td>
+            <td>{{deccomptabilite.created}}</td>
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigationdeccomptabilites('view-deccomptabilite',deccomptabilite._id)">Consulter</button></td>
             
               
           </tr>
