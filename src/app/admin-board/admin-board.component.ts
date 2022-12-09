@@ -25,6 +25,7 @@ export class AdminBoardComponent implements OnInit {
   public searchForm: FormGroup;
   public loading: boolean;
   public users: User[] = [];
+  public filtredusers: User[] = [];
   public decfiscmenss: Decfiscmens[] = [];
   public deccomptabilites: Deccomptabilite[] = [];
 
@@ -171,6 +172,10 @@ export class AdminBoardComponent implements OnInit {
                 this.cont.getContactreqById(id);
                 this.router.navigate([link + '/' + id]); 
               }
+              getuserdeccomptabilite(id:string) {
+                 
+                return this.filtredusers=this.users.filter((user) => (user._id === id));
+              }
               
               getclients() {
                 return this.users.filter((user) => (user.usertype === 'Client'&&!user.desactive.statut)); 
@@ -218,7 +223,14 @@ export class AdminBoardComponent implements OnInit {
               this.dec.getdecfiscmenss();
                                                              
                                                                
-           }                         
+           }    
+           getalldeccomptabilites() {
+                                
+                                                
+            this.deccompt.getdeccomptabilites();
+                                                           
+                                                             
+         }                      
              getalldeleted() {
                                 
                                                 

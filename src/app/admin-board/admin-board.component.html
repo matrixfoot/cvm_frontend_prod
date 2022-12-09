@@ -172,7 +172,7 @@
           <div class="searchbar" style="float: right;">
             
             <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
-           <a class="search_icon"(click)="getalldecfiscmenss()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+           <a class="search_icon"(click)="getalldeccomptabilites()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
           
         </div>
           </form> 
@@ -188,12 +188,12 @@
             
             
             
-            <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
-            <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
-            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="firstname"  ></i></th>
-            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="lastname" ></i></th>
-            <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
-            <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+            <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="mois"  ></i></th>
+            <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
+            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="firstname"  ></i></th>
+            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="lastname" ></i></th>
+            <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="statut" ></i></th>
+            <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
            
             
           </tr>
@@ -205,8 +205,8 @@
            
             <td>{{deccomptabilite.mois}}</td>
             <td>{{deccomptabilite.annee}}</td>
-            <td>{{deccomptabilite.firstname}}</td>
-            <td>{{deccomptabilite.lastname}}</td>
+            <td>{{getuserdeccomptabilite(deccomptabilite.userId).firstname}}</td>
+            <td>{{getuserdeccomptabilite(deccomptabilite.userId).lastname}}</td>
             <td>{{deccomptabilite.statut}}</td>
             <td>{{deccomptabilite.created}}</td>
             
