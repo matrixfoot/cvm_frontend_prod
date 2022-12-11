@@ -1,0 +1,158 @@
+#entetedec{
+    text-align: center;
+  }
+  #loader {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin-top: 200px;
+  }
+  
+  .checkbox-container{
+      display: flex;
+      
+    width: 100%;
+    
+    padding: 10px;
+    
+    }
+    .input-container {
+      display: flex;
+      width: 100%;
+      padding: 30px;
+      
+    }
+    
+    
+   
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+      table-layout: auto;
+    }
+    th, td {
+      text-align: center;
+      min-width: 100px;  
+    }
+  
+    .input-container {
+      display: flex;
+      width: 100%;
+      padding: 30px;
+      
+    }
+    .input-field {
+    
+      padding: 10px;
+      outline: none;
+    }
+    
+    .input-field:focus {
+      border: 2px solid dodgerblue;
+    }
+    
+    .form-group{
+      display: flex;
+    }
+    ::placeholder{
+      font-size: 12px;
+    }
+    label {
+      position: relative;
+      margin-right: 1em;
+      padding-left: 2em;
+      padding-right: 1em;
+      line-height: 2;
+      cursor: pointer;
+      &:before {
+        box-sizing: border-box;
+        content: " ";
+        position: absolute;
+        top: 0.3em;
+        left: 0;
+        display: block;
+        width: 1.4em;
+        height: 1.4em;
+        border: 2px solid white;
+        border-radius: .25em;
+        z-index: -1;
+      }
+    }
+    
+    
+    /* Transition */
+    label,
+    label::before {
+      -webkit-transition: .25s all ease;
+      -o-transition: .25s all ease;
+      transition: .25s all ease;
+    }
+    #savebutton {
+    
+      position: fixed;
+      bottom: 100px;
+      left: 200px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color:green;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    
+    #savebutton:hover {
+      background-color: #555;
+    }
+    #resetbutton {
+      
+      position: fixed;
+      bottom: 100px;
+      left: 20px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color:orange;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    
+    #resetbutton:hover {
+      background-color: #555;
+    }
+    #sendbutton {
+  
+      position: fixed;
+      bottom: 200px;
+      left: 20px;
+      z-index: 99;
+      font-size: 18px;
+      border: none;
+      outline: none;
+      background-color:purple;
+      color: white;
+      cursor: pointer;
+      padding: 15px;
+      border-radius: 4px;
+    }
+    
+    #sendbutton:hover {
+      background-color: #555;
+    }
+    

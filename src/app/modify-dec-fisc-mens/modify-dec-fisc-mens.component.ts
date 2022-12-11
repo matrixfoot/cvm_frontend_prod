@@ -1474,7 +1474,7 @@ calculateResultForm23()
     
     const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
       const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
-      this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
+      this.totaltclammount=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
       this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1735,7 +1735,7 @@ calculateResultForm23()
     const taux=+this.standardtclform.get('taux').value
     
     
-        this.totaltclammount=+ ((+chiffreaffairettcbis*+taux).toFixed(3));
+        this.totaltclammount=+ Math.trunc((+chiffreaffairettcbis*+taux)*1000)/1000;
   
       this.standardtclform.patchValue({
         tclapayer: this.totaltclammount,

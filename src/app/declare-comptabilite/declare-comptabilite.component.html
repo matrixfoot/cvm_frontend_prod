@@ -200,15 +200,16 @@
                 </div>
                   </td>
                  
-                  <td>
-                   <div>
-                   <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
-                   </div>
-                  </td>
+                 
                 
         </tr>
         <tr>
-            <td colspan="8"></td>
+            <td colspan="7"></td>
+            <td>
+              <div>
+              <button type="button" class="btn btn-danger btn-sm"*ngIf="editionnoteform.get('ammounts').value.length>1" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+              </div>
+             </td>
             <td>
                 <div>
                 <button type="button" class="btn btn-primary mb-2" (click)="addammount()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
@@ -436,10 +437,10 @@
                   </td>
                   <td > 
                     <div class="col-6"style="width:20px">
-                      <input type="checkbox" id="docjoint3" (change)="docjoint3(i)"  formControlName=contientfiche/>
+                      <input type="checkbox" id="{{ 'myCheck3' + i }}" (change)="docjoint3(i)"  formControlName=contientfiche/>
                    </div>
                  </td>
-                 <td id="{{i}}" style="display: none;"> 
+                 <td id="{{ 'achat' + i }}" style="display: none;"> 
                     <div class="col-6"style="width: 300px">
                        <input type="file"  #filePicker (change)="onImagePick($event,i)" class="form-control" accept="application/pdf">
                        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
@@ -579,8 +580,13 @@
                              <input type="text"class="form-control"formControlName="annee"placeholder="Annee"/>
                          </div>
                         </td>
-                        <td> 
-                          <div class="col-6"style="width: 300px">
+                        <td > 
+                          <div class="col-6"style="width:20px">
+                            <input type="checkbox" id="{{ 'myCheck5' + i }}" (change)="docjoint5(i)"  formControlName=contientfiche/>
+                         </div>
+                       </td>
+                       <td id="{{ 'releve' + i }}"style="display: none;"> 
+                          <div class="col-6"style="width: 300px;">
                              <input type="file"  #filePicker (change)="onImagePick2($event,i)" class="form-control" accept="application/pdf">
                              <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
                          </div>
@@ -696,7 +702,12 @@
                     </div>
                       </td>
                      
-                     <td > 
+                      <td > 
+                        <div class="col-6"style="width:20px">
+                          <input type="checkbox" id="{{ 'myCheck6' + i }}" (change)="docjoint6(i)"  formControlName=contientfiche/>
+                       </div>
+                     </td>
+                     <td id="{{ 'salaire' + i }}"style="display: none;" > 
                         <div class="col-6"style="width: 300px">
                            <input type="file"  #filePicker (change)="onImagePick3($event,i)" class="form-control" accept="application/pdf">
                            <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>

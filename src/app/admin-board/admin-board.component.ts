@@ -38,6 +38,8 @@ export class AdminBoardComponent implements OnInit {
   private usersdeletedSub: Subscription;
   private decfiscmenssSub: Subscription;
   private deccomptabilitesSub: Subscription;
+  prenom:string;
+  nom:string
   errormsg:string;
   firstname:string;
   lastname:string;
@@ -138,10 +140,15 @@ export class AdminBoardComponent implements OnInit {
                     this.errormsg=error.message;
                   }
                 );
-               
-                
+               this.getall()
+               this.getalldeccomptabilites()
               }
-
+filterusers(id:string)
+{
+  this.filtredusers=this.deccompt.filterByValue(this.users,id)
+  this.prenom=this.filtredusers[0].firstname
+  this.nom=this.filtredusers[0].lastname
+}
               getNavigationusers(link, id){
       
                 this.UserService.getUserById(id);

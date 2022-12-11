@@ -11,6 +11,8 @@ import { User } from '../models/user.model';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { DecfiscmensService } from '../services/dec-fisc-mens';
+import { DeccomptabiliteService } from '../services/dec-comptabilite';
+
 import { Decfiscmens } from '../models/dec-fisc-mens';
 
 @Component({
@@ -19,6 +21,9 @@ import { Decfiscmens } from '../models/dec-fisc-mens';
   styleUrls: ['./user-board.component.scss']
 })
 export class UserBoardComponent implements OnInit {
+  public filtredusers: User[] = [];
+  prenom:string;
+  nom:string
   role: string;
   isLoggedIn = false;
   private condidatesSub: Subscription;
@@ -40,6 +45,7 @@ export class UserBoardComponent implements OnInit {
               
     private Auth: TokenStorageService,
     private cond:CondidateService,
+    private deccompt: DeccomptabiliteService,
     private router: Router,
     private dec: DecfiscmensService,
     private route: ActivatedRoute,
@@ -56,6 +62,8 @@ export class UserBoardComponent implements OnInit {
       this.email = user.email;
       this.userId = user.userId;
       this.role=user.role;
+      this.prenom=user.Firstname
+      this.nom=user.Lastname
 
       
 
@@ -106,7 +114,7 @@ export class UserBoardComponent implements OnInit {
     
     
   }
-
+  
   getNavigation(link, id){
 
     this.cond.getCondidateById(id);
