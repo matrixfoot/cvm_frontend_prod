@@ -97,12 +97,12 @@ export class UserBoardComponent implements OnInit {
         this.errormsg=error.message;
       }
     );
-    
+    console.log(this.decfiscmenss)
+
     this.dec.getdecfiscmens(this.userId).then(
       (decfiscmens: Decfiscmens) => {
         this.loading = false;
         this.decfiscmens = decfiscmens;
-        console.log(decfiscmens)
         this.converteddate=this.addHours(this.decfiscmens.created);
         this.decfiscmens.created=this.converteddate
         
@@ -122,7 +122,7 @@ export class UserBoardComponent implements OnInit {
   }
   addHours(date:Date) {
     date.setTime(date.getTime() * 60 * 60 * 1000);
-  
+
     return date;
   }   
     

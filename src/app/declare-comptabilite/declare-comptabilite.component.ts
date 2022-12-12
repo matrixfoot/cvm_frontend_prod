@@ -22,7 +22,9 @@ export class DeclareComptabiliteComponent extends ComponentCanDeactivate impleme
   uploadFilesautre3: File[] = [];
   uploadFilesautre5: File[] = [];
   uploadFilesautre6: File[] = [];
-deccomptabilite:Deccomptabilite
+deccomptabilites:Deccomptabilite[]
+public deccomptabilite: Deccomptabilite;
+private deccomptabilitesSub: Subscription;
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -58,6 +60,7 @@ deccomptabilite:Deccomptabilite
   option7Value:string
   totalht=0.000
   totaltva=0.000
+  realtotaltva=0.000
   totaldt=0.000
   totalttc=0.000
   totalht2=0.000
@@ -127,7 +130,12 @@ this.salaireform = this.fb.group({
   }
   else return (
     this.token.saved=true,
-    this.router.navigate(['login']));
+    this.router.navigate(['login']));    
+    this.DeccomptabiliteService.getdeccomptabilite(this.currentUser.userId).then(
+      (deccomptabilite: Deccomptabilite) => {
+  this.deccomptabilite=deccomptabilite
+      }
+    )    
 //verify user choice about method of declaring invoices
 this.usersservice.getUserById(this.currentUser.userId).then(
   (user: User) => {
@@ -214,7 +222,12 @@ this.loading=false
   }
   setdate(i: number) {
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+  
    const j= this.editionnoteform.get('ammounts').value.at(i).jour
+   if (ammounts.value.find(element => element.jour > j))
+   return (alert('une note existe avec une date supérieure'),ammounts.at(i).patchValue({
+    jour:''
+   }))
    if (j>31)
    return (alert('veuillez entrer un jour valide'),ammounts.at(i).patchValue({
     jour:''
@@ -534,6 +547,7 @@ this.loading=false
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
+        this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
       }
       onChange2(i: number){
         
@@ -749,9 +763,19 @@ this.loading=false
  
     this.ammounts.push(this.createammount());
     const i=this.ammounts.length
-    this.ammounts.at(i-1).patchValue({
-      numeronote:+(this.user.numeronote)+i-1
-     })
+    if(this.ammounts.at(i-2).value.montantht!='0'&&this.ammounts.at(i-2).value.montantht!='')
+    {
+      this.ammounts.at(i-1).patchValue({
+        numeronote:+(this.ammounts.at(i-2).value.numeronote)+1
+       })
+    }
+    else 
+    {
+      this.ammounts.at(i-1).patchValue({
+        numeronote:+(this.ammounts.at(i-2).value.numeronote)
+       })
+    }
+    
      this.totalht = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
       acc += +(curr.montantht || 0);
       return acc;
@@ -768,6 +792,7 @@ this.loading=false
       acc += +(curr.montantttc || 0);
       return acc;
     },0);
+    this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
   }
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -898,6 +923,7 @@ this.loading=false
       acc += +(curr.montantttc || 0);
       return acc;
     },0);
+    this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
   }
   removeammount2(i: number) {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -991,9 +1017,18 @@ this.loading=false
     this.loading = true;
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
     let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts)
-    {    ammounts.reset()
-      for (let i = 1; i < ammounts.length; i++)
+    if(ammounts.length>0)
+    {  
+      ammounts.at(0).patchValue({
+        jour:'',
+        date:'',
+        montantht:'',
+        montanttva:'',
+        montantdt:'',
+        montantttc:'',
+        reglement:''
+       })
+      for (let i = 0; i < ammounts.length; i++)
     {
 this.removeammount(i)
     }
@@ -1050,9 +1085,18 @@ this.removeammount6(i)
   {
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
     let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts)
-    {    ammounts.reset()
-      for (let i = 1; i < ammounts.length; i++)
+    if(ammounts.length>0)
+    {  
+      ammounts.at(0).patchValue({
+        jour:'',
+        date:'',
+        montantht:'',
+        montanttva:'',
+        montantdt:'',
+        montantttc:'',
+        reglement:''
+       })
+      for (let i = 0; i < ammounts.length; i++)
     {
 this.removeammount(i)
     }
@@ -1215,13 +1259,7 @@ deccomptabilite.autre3.push({
 
 
 console.log(deccomptabilite.autre3)
-if(deccomptabilite.autre3[i])
-{
-  if (deccomptabilite.autre3[i].montantht==''||deccomptabilite.autre3[i].montantht=='0')
-  {
-    deccomptabilite.autre3.pop()
-  }
-}
+
 
          
       }
@@ -1244,16 +1282,9 @@ if(deccomptabilite.autre3[i])
     montantdt:item.montantdt,
     montantttc:item.montantttc,
     reglement:item.reglement,
-  
   })
   console.log(deccomptabilite.autre1)
-  if(deccomptabilite.autre1[i])
-{
-          if (deccomptabilite.autre1[i].montantht==''||deccomptabilite.autre1[i].montantht=='0')
-          {
-            deccomptabilite.autre1.pop()
-          }
-        }
+ 
         } 
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
         for (let i = 0; i < ammounts2.length; i+=1)
@@ -1271,13 +1302,7 @@ if(deccomptabilite.autre3[i])
   
   })
   console.log(deccomptabilite.autre2)
-  if(deccomptabilite.autre2[i])
-{
-          if (deccomptabilite.autre2[i].recette==''||deccomptabilite.autre2[i].recette=='0')
-          {
-            deccomptabilite.autre2.pop()
-          }
-        }
+  
         } 
       }
     if (this.option5Value) 
@@ -1295,13 +1320,6 @@ deccomptabilite.autre4.push({
 
 })
 console.log(deccomptabilite.autre4)
-if(deccomptabilite.autre4[i])
-{
-        if (deccomptabilite.autre4[i].debit==''||deccomptabilite.autre4[i].debit=='0')
-        {
-          deccomptabilite.autre4.pop()
-        }
-      }
       }
       let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
       for (let i = 0; i < ammounts5.length; i++)
@@ -1316,13 +1334,6 @@ deccomptabilite.autre5.push({
 
 })
 console.log(deccomptabilite.autre5)
-if(deccomptabilite.autre5[i])
-{
-        if (deccomptabilite.autre5[i].mois==''||deccomptabilite.autre5[i].mois=='0')
-        {
-          deccomptabilite.autre5.pop()
-        }
-      }
       } 
     }
     if (this.option6Value) 
@@ -1346,15 +1357,16 @@ deccomptabilite.autre6.push({
       contientfiche:item.contientfiche
 })
 console.log(deccomptabilite.autre6)
-if(deccomptabilite.autre6[i])
-{
-        if (deccomptabilite.autre6[i].salairebrut==''||deccomptabilite.autre6[i].salairebrut=='0')
-        {
-          deccomptabilite.autre6.pop()
-        }
-      }
+
       } 
     }
+    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''));
+    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''));
+    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''));
+    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.debit!='0'&&item.debit!=''));
+    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''));
+    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''));
+
         this.DeccomptabiliteService.create(deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
           (data:any) => {
             this.token.saved=true;
@@ -1464,20 +1476,26 @@ if (numero)
   )
 }
 
-    }
+  }
   this.showinvoiceform=true
   this.showeditionnote=true
   this.showrecettejour=false
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-  this.DeccomptabiliteService.getdeccomptabilite(this.currentUser.userId).then(
-    (deccomptabilite: Deccomptabilite) => {
-      this.reloadPage();
-
-         
-    }
-  )
-  
-  
+  if (this.DeccomptabiliteService.deccomptabilites.length<1)
+  {
+    console.log('here')
+    ammounts.at(0).patchValue({
+      numeronote:user.numeronote
+     })
+  }
+  else if (this.DeccomptabiliteService.deccomptabilites.length>0)
+  {
+    const c=Math.max(...(this.DeccomptabiliteService.deccomptabilites.map(a => Math.max(...a.autre1.map(b => +b.numeronote)))).map(b => b))+1
+    console.log(JSON.stringify(c) )
+    ammounts.at(0).patchValue({
+      numeronote:JSON.stringify(c) 
+  })
+}
 }
 else if ((user.choixfacture=='saisie recette'))
 {
@@ -1517,7 +1535,6 @@ else if ((user.choixfacture=='saisie recette'))
 }
   }
 )
-
       
       
 

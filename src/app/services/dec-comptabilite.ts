@@ -13,7 +13,7 @@ export class DeccomptabiliteService {
     
     
     constructor(private http: HttpClient) { }
-    private deccomptabilites: Deccomptabilite[] = [
+    public deccomptabilites: Deccomptabilite[] = [
     
     ];
     public deccomptabilites$ = new Subject<Deccomptabilite[]>();
