@@ -2057,6 +2057,25 @@ this.usersservice.getUserById(this.currentUser.userId).then(
      reader.readAsDataURL(file);
     
   }
+  async verifyinvoice(i:number)
+  {
+    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+    let invoice:any
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => invoice=element.autre3.find(e => e.numerofacture === 'num1'));
+    if(invoice)
+    try {
+      console.log('here')
+        const result = await Swal.fire({
+          title: 'numéro facture pour cette année dèjà utilisé',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        });
+        this.loading = false;
+      } catch {
+        Swal.fire('opération non aboutie!');
+      }
+
+  }
   ngOnDestroy(){
     this.destroyed$.next();
    this.destroyed$.complete();
