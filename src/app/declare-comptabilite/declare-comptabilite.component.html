@@ -369,7 +369,7 @@
                   </td>
                   <td style="width: 150px;display: block;">
                     <div class="col-6">
-                      <select class="form-control"placeholder="Fournisseur" id="natureachat"#someHashName formControlName="fournisseur" name="fournisseur" >
+                      <select class="form-control"placeholder="Fournisseur" id="natureachat"#someHashName (change)="verifyinvoice(i)"formControlName="fournisseur" name="fournisseur" >
                         <option hidden [value]=""></option>
                         <option value="option1">option1</option>
                         <option value="option2">option2</option>

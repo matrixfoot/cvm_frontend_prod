@@ -1481,15 +1481,18 @@ if (numero)
   this.showeditionnote=true
   this.showrecettejour=false
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-  if (this.DeccomptabiliteService.deccomptabilites.length<1)
+let numerofactureverif:any
+  this.DeccomptabiliteService.deccomptabilites.forEach(element => numerofactureverif=element.autre1.length)
+  if (numerofactureverif<1)
   {
     console.log('here')
     ammounts.at(0).patchValue({
       numeronote:user.numeronote
      })
   }
-  else if (this.DeccomptabiliteService.deccomptabilites.length>0)
+  else if (numerofactureverif>0)
   {
+    console.log('here2')
     const c=Math.max(...(this.DeccomptabiliteService.deccomptabilites.map(a => Math.max(...a.autre1.map(b => +b.numeronote)))).map(b => b))+1
     console.log(JSON.stringify(c) )
     ammounts.at(0).patchValue({
@@ -2060,9 +2063,16 @@ this.usersservice.getUserById(this.currentUser.userId).then(
   async verifyinvoice(i:number)
   {
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    let invoice:any
-    this.DeccomptabiliteService.deccomptabilites.forEach(element => invoice=element.autre3.find(e => e.numerofacture === 'num1'));
-    if(invoice)
+    let invoice1:any
+    let invoice2:any
+    let invoice3:any
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur));
+    this.DeccomptabiliteService.deccomptabilites.find(e => invoice2=e.annee === this.option1Value);
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture));
+    console.log(invoice1)
+    console.log(invoice2)
+    console.log(invoice3)
+    if(invoice1&&invoice2&&invoice3)
     try {
       console.log('here')
         const result = await Swal.fire({
@@ -2071,6 +2081,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
           confirmButtonColor: '#3085d6',
         });
         this.loading = false;
+        ammounts3.controls[i].patchValue({ numerofacture: '',fournisseur:'' });  
       } catch {
         Swal.fire('opération non aboutie!');
       }
