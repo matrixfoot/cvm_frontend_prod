@@ -136,7 +136,10 @@
                         <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" /></div>
                         <div><label for="rb1">TCL</label></div>
                       </td>
-                    
+                      <td style="text-align: center;"*ngIf="activite=='Médecin'">
+                        <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
+                        <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
+                      </td>
                   </tr>
                   <tr id="verifrow">
                       
@@ -178,7 +181,12 @@
                         <div><label  *ngIf="option70Value===false" style="color: red;">Non Validé</label></div>
 
                      </td>
-                   
+                     <td *ngIf="activite=='Médecin'">
+                      <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
+                        <div><label *ngIf="option173Value===true" style="color: green;">Validé</label></div>
+                        <div><label  *ngIf="option173Value===false" style="color: red;">Non Validé</label></div>
+
+                     </td>
                  </tr>
                     </tbody>
                   </table>
@@ -3102,7 +3110,8 @@
       <div class="col-6">
           <div class="form-group">
               <label>Taux</label>
-              <input type="text" class="form-control" value="13%" disabled/>
+              <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'"disabled/>
+              <input type="text" class="form-control" value="13%" *ngIf="activite==='Médecin'"disabled/>
             </div>
       </div>
       <div class="col-6">
@@ -3542,6 +3551,38 @@
                                   <label>TCL à payer</label>
                                   <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                   class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tclapayer" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                </div>
+                          </div>
+                         
+                          </div>
+                        </form>
+                          </fieldset>
+                    </mat-tab>
+                    <mat-tab label="FSSP" id="FSSPtab"*ngIf="showfsptab===true">
+                      <fieldset>
+                        <legend>FSSP</legend>                   
+                      <form  [formGroup]="standardfspform">
+                        
+                      
+                          <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Chiffre d'affaire HT</label>
+                                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                    class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>taux</label>
+                                    <input type="text" class="form-control" value="0.01%" disabled/>
+                                  </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group"(click)="setThreeNumberDecimal($event)">
+                                  <label>Montant de la Contribution</label>
+                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                  class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="montantcontribution" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                                 </div>
                           </div>
                          

@@ -214,4 +214,10 @@ autre:string[]
                     chiffreaffairettc:string;
                     tclpayer:string;
                     }
+                    impottype7: {
+
+                        type:string;
+                        chiffreaffaireht:string;
+                        montantcontribution:string;
+                        }
 }

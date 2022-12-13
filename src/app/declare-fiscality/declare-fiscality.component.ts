@@ -29,7 +29,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   matriculefiscale:string;
   currentUser: any;
   user:User;
-  
+  tauxtva:any;
   decfiscmens:Decfiscmens;
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
@@ -58,6 +58,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   standardfoprolosform: FormGroup;
   standarddroittimbreform: FormGroup;
   standardtclform: FormGroup;
+  standardfspform: FormGroup;
   optionValue:any;
   option2Value:any;
   option3Value:any;
@@ -229,8 +230,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value:any;
-  option173Value:any;
+  option172Value=false;
+  option173Value=false;
   option174Value:any;
   option175Value:any;
   option176Value:any;
@@ -306,6 +307,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   sub41:Subscription;
   sub42:Subscription;
   sub43:Subscription;
+  sub44:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -318,12 +320,14 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   showtvatab=false;
   showtimbretab=false;
   showtcltab=false;
+  showfsptab=false;
   showretenueverif=false;
   showtfpverif=false;
   showfoprolosverif=false;
   showtvaverif=false;
   showtimbreverif=false;
   showtclverif=false;
+  showfspverif=false;
   showtfpsalairebrut=true;
   showfoprolossalairebrut=true;
 
@@ -339,6 +343,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   totaltvaammount=0;
   totaltimbreammount=0;
   totaltclammount=0;
+  totalfspammount=0;
   totaldeclaration=0;
   minimumperceptionammount=0;
   preptotaldeclaration=0;
@@ -362,554 +367,569 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
      });
     }
   ngOnInit() {
-
-    this.standardtraitementsalaireform =this.fb.group({
-      brutsalary: '',
-      imposalary: '',
-      retenuesalary: '',
-      solidaritycontribution: '',
+    this.isLoggedIn = !!this.token.getToken();
+    if (this.isLoggedIn) {
+      this.currentUser = this.token.getUser();      
+    }
+    else return (
+      this.token.saved=true,
+      this.router.navigate(['login']));  
       
       
-    });
-    this.standardlocationresidentesphysiqueform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.1",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
+    this.usersservice.getUserById(this.currentUser.userId).then(
+            (user: User) => {
+              this.loading = false;
+              this.user = user;
+              this.natureactivite=this.user.natureactivite;
+              this.activite=this.user.activite;
+              this.sousactivite=this.user.sousactivite;
       
-    });
+              this.regimefiscalimpot=this.user.regimefiscalimpot;
+              this.matriculefiscale=this.user.matriculefiscale;
+              if(this.activite=='Avocat')
+              {
+                this.tauxtva='0.13'
+              }
+              if(this.activite=='Médecin')
+              {
+                this.tauxtva='0.07'
+              }
+              console.log(this.tauxtva)
+      if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'
+      || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
+              
+      if (user.regimefiscalimpot=='Réel')
+      {
+        Swal.fire({
+          title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
+          
+          icon: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'continuer avec ce module',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.router.navigate(['declare-comptabilite']);
+          }
+  
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
+      }
+         if (user.regimefiscalimpot==='Réel')  
+         {
+          this.prepminimumperceptionammount=10.000
+         }  
+         else if (user.regimefiscalimpot==='Forfait D\'assiette') 
+         {
+          this.prepminimumperceptionammount=5.000
+  
+         }
+         this.standardtraitementsalaireform =this.fb.group({
+          brutsalary: '',
+          imposalary: '',
+          retenuesalary: '',
+          solidaritycontribution: '',
+          
+          
+        });
+        this.standardlocationresidentesphysiqueform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.1",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        
+        this.standardlocationresidentesmoraleform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.1",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardlocationnonresidentesphysiquesform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.15",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardlocationnonresidentesmoralesform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.15",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardhonorairephysiquereelform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.03",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardhonorairephysiquenonreelform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.1",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardhonorairegroupementsform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.03",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardmontant15form =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.01",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardmontant10form =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.005",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardmontantindividuelform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.005",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardmontantautreform =this.fb.group({
+          brutammount: '',
+          quotion: [{value:"0.015",disabled:true}],
+          retenueammount: [{value:"",disabled:true}],
+          netammount: '',
+          
+        });
+        this.standardtvacollecteform =this.fb.group({
+          chiffreaffaireht: '',
+          taux: [{value:this.tauxtva,disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        this.standardtvarecuperableautreachatform =this.fb.group({
+          achatlocauxht: '',
+          achatlocauxtva: '',
+          achatimporteht: '',
+          achatimportetva: '',
+        });
+        this.standardtvarecuperableequipementform =this.fb.group({
+          achatlocauxht: '',
+          achatlocauxtva: '',
+          achatimporteht: '',
+          achatimportetva: '',
+        });
+        this.standardtvarecuperableimmobilierform =this.fb.group({
+          achatlocauxht: '',
+          achatlocauxtva: '',
+          
+        });
+        this.standardlocationusagehabitationmeubleform =this.fb.group({
+          ammountht: '',
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        this.standardlocationusagecommercialform =this.fb.group({
+          ammountht: '',
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        
+        this.standardoperationlotissementform =this.fb.group({
+          ammountht: '',
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc:'',
+        });
+        this.standardinteretpercueform =this.fb.group({
+          ammountht: '',
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        this.standardautretvaspecialform =this.fb.group({
+          ammountht: '',
+          tauxpercent: '',
+          taux: '',
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        this.standardtfpform =this.fb.group({
+          basetfp: [{value:"",disabled:true}],
+          taux: [{value:"0.02",disabled:true}],
+          avanceammount: '',
+          tfpsalairebrut: '',
+          tfpapayer: [{value:"",disabled:true}],
+          salairesnonsoumistfp: '',
+          tfpammountmoisactuel: [{value:"",disabled:true}],
+          tfpammountreportmoisprecedent: '',
+          tfpareporter: [{value:"",disabled:true}],
+        });
+        this.standardfoprolosform =this.fb.group({
+          basefoprolos: [{value:'',disabled:true}],
+          taux: [{value:"0.01",disabled:true}],
+          salairesnonsoumisfoprolos: '',
+          foprolosammount: '',
+          foprolossalairebrut: '',
     
-    this.standardlocationresidentesmoraleform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.1",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardlocationnonresidentesphysiquesform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.15",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardlocationnonresidentesmoralesform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.15",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardhonorairephysiquereelform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.03",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardhonorairephysiquenonreelform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.1",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardhonorairegroupementsform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.03",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardmontant15form =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.01",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardmontant10form =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.005",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardmontantindividuelform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.005",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardmontantautreform =this.fb.group({
-      brutammount: '',
-      quotion: [{value:"0.015",disabled:true}],
-      retenueammount: [{value:"",disabled:true}],
-      netammount: '',
-      
-    });
-    this.standardtvacollecteform =this.fb.group({
-      chiffreaffaireht: '',
-      taux: [{value:"0.13",disabled:true}],
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc: '',
-    });
-    this.standardtvarecuperableautreachatform =this.fb.group({
-      achatlocauxht: '',
-      achatlocauxtva: '',
-      achatimporteht: '',
-      achatimportetva: '',
-    });
-    this.standardtvarecuperableequipementform =this.fb.group({
-      achatlocauxht: '',
-      achatlocauxtva: '',
-      achatimporteht: '',
-      achatimportetva: '',
-    });
-    this.standardtvarecuperableimmobilierform =this.fb.group({
-      achatlocauxht: '',
-      achatlocauxtva: '',
-      
-    });
-    this.standardlocationusagehabitationmeubleform =this.fb.group({
-      ammountht: '',
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc: '',
-    });
-    this.standardlocationusagecommercialform =this.fb.group({
-      ammountht: '',
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc: '',
-    });
-    
-    this.standardoperationlotissementform =this.fb.group({
-      ammountht: '',
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc:'',
-    });
-    this.standardinteretpercueform =this.fb.group({
-      ammountht: '',
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc: '',
-    });
-    this.standardautretvaspecialform =this.fb.group({
-      ammountht: '',
-      tauxpercent: '',
-      taux: '',
-      tvaammount: [{value:"",disabled:true}],
-      ammountttc: '',
-    });
-    this.standardtfpform =this.fb.group({
-      basetfp: [{value:"",disabled:true}],
-      taux: [{value:"0.02",disabled:true}],
-      avanceammount: '',
-      tfpsalairebrut: '',
-      tfpapayer: [{value:"",disabled:true}],
-      salairesnonsoumistfp: '',
-      tfpammountmoisactuel: [{value:"",disabled:true}],
-      tfpammountreportmoisprecedent: '',
-      tfpareporter: [{value:"",disabled:true}],
-    });
-    this.standardfoprolosform =this.fb.group({
-      basefoprolos: [{value:'',disabled:true}],
-      taux: [{value:"0.01",disabled:true}],
-      salairesnonsoumisfoprolos: '',
-      foprolosammount: '',
-      foprolossalairebrut: '',
-
-    });
-    this.standarddroittimbreform =this.fb.group({
-      nombrenotehonoraire: '',
-      taux: [{value:"0.6",disabled:true}],
-      totaldroittimbre: '',
-    });
-    this.standardtclform =this.fb.group({
-      chiffreaffairettc: '',
-      taux: [{value:"0.002",disabled:true}],
-      tclapayer: [{value:'',disabled:true}],
-    });
-    this.sub1=merge(
-      this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
-      this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+        });
+        this.standarddroittimbreform =this.fb.group({
+          nombrenotehonoraire: '',
+          taux: [{value:"0.6",disabled:true}],
+          totaldroittimbre: '',
+        });
+        this.standardtclform =this.fb.group({
+          chiffreaffairettc: '',
+          taux: [{value:"0.002",disabled:true}],
+          tclapayer: [{value:'',disabled:true}],
+        });
+        this.standardfspform =this.fb.group({
+          chiffreaffaireht: [{value:"",disabled:true}],
+          taux: [{value:"0.01",disabled:true}],
+          montantcontribution: [{value:"",disabled:true}],
+        });
+        this.sub1=merge(
+          this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
+          this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+          
+        ).subscribe((res:any)=>{
+          this.calculateResultForm1()
+       })
+       this.sub2=merge(
+        this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
+        this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+        
+      ).subscribe((res:any)=>{
+        this.calculateResultForm2()
+     })
+     this.sub3=merge(
+      this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
+      this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
       
     ).subscribe((res:any)=>{
-      this.calculateResultForm1()
-   })
-   this.sub2=merge(
-    this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
-    this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
-    
-  ).subscribe((res:any)=>{
-    this.calculateResultForm2()
- })
- this.sub3=merge(
-  this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
-  this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm3()
-})
-this.sub4=merge(
-  this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
-  this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm4()
-})
-this.sub5=merge(
-  this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
-  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm5()
-})
-this.sub6=merge(
-  this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
-  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm6()
-})
-this.sub7=merge(
-  this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
-  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm7()
-})
-this.sub8=merge(
-  this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
-  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm8()
-})
-this.sub9=merge(
-  this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
-  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm9()
-})
-this.sub10=merge(
-  this.standardhonorairephysiquereelform.get('netammount').valueChanges,
-  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm10()
-})
-this.sub11=merge(
-  this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
-  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm11()
-})
-this.sub12=merge(
-  this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
-  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm12()
-})
-this.sub13=merge(
-  this.standardhonorairegroupementsform.get('brutammount').valueChanges,
-  this.standardhonorairegroupementsform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm13()
-})
-this.sub14=merge(
-  this.standardhonorairegroupementsform.get('netammount').valueChanges,
-  this.standardhonorairegroupementsform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm14()
-})
-this.sub15=merge(
-  this.standardmontant15form.get('brutammount').valueChanges,
-  this.standardmontant15form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm15()
-})
-this.sub16=merge(
-  this.standardmontant15form.get('netammount').valueChanges,
-  this.standardmontant15form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm16()
-})
-this.sub17=merge(
-  this.standardmontant10form.get('brutammount').valueChanges,
-  this.standardmontant10form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm17()
-})
-this.sub18=merge(
-  this.standardmontant10form.get('netammount').valueChanges,
-  this.standardmontant10form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm18()
-})
-this.sub19=merge(
-  this.standardmontantindividuelform.get('brutammount').valueChanges,
-  this.standardmontantindividuelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm19()
-})
-this.sub20=merge(
-  this.standardmontantindividuelform.get('netammount').valueChanges,
-  this.standardmontantindividuelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm20()
-})
-this.sub21=merge(
-  this.standardmontantautreform.get('brutammount').valueChanges,
-  this.standardmontantautreform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm21()
-})
-this.sub22=merge(
-  this.standardmontantautreform.get('netammount').valueChanges,
-  this.standardmontantautreform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm22()
-})
-this.sub23=merge(
-  this.standardtraitementsalaireform.get('brutsalary').valueChanges,
-  this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
-  this.standardtraitementsalaireform.get('imposalary').valueChanges,
-  this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm23()
-})
-this.sub24=merge(
-  
-  this.standardtvacollecteform.get('chiffreaffaireht').valueChanges,
-  this.standardtvacollecteform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm24()
-})
-this.sub38=merge(
-  
-  this.standardtvacollecteform.get('ammountttc').valueChanges,
-  this.standardtvacollecteform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm38()
-})
-this.sub25=merge(
-  
-  this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
-  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm25()
-})
-this.sub39=merge(
-  
-  this.standardlocationusagehabitationmeubleform.get('ammountttc').valueChanges,
-  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm39()
-})
-this.sub26=merge(
-  
-  this.standardlocationusagecommercialform.get('ammountht').valueChanges,
-  this.standardlocationusagecommercialform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm26()
-})
-this.sub40=merge(
-  
-  this.standardlocationusagecommercialform.get('ammountttc').valueChanges,
-  this.standardlocationusagecommercialform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm40()
-})
-this.sub30=merge(
-  
-  this.standardoperationlotissementform.get('ammountht').valueChanges,
-  this.standardoperationlotissementform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm30()
-})
-this.sub41=merge(
-  
-  this.standardoperationlotissementform.get('ammountttc').valueChanges,
-  this.standardoperationlotissementform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm41()
-})
-this.sub31=merge(
-  
-  this.standardinteretpercueform.get('ammountht').valueChanges,
-  this.standardinteretpercueform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm31()
-})
-this.sub42=merge(
-  
-  this.standardinteretpercueform.get('ammountttc').valueChanges,
-  this.standardinteretpercueform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm42()
-})
-this.sub32=merge(
-  
-  this.standardautretvaspecialform.get('ammountht').valueChanges,
-  this.standardautretvaspecialform.get('tauxpercent').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm32()
-})
-this.sub43=merge(
-  
-  this.standardautretvaspecialform.get('ammountttc').valueChanges,
-  this.standardautretvaspecialform.get('tauxpercent').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm43()
-})
-this.sub33=merge(
-  
-  this.standarddroittimbreform.get('nombrenotehonoraire').valueChanges,
-  this.standarddroittimbreform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm33()
-})
-this.sub37=merge(
-  
-  this.standarddroittimbreform.get('totaldroittimbre').valueChanges,
-  this.standarddroittimbreform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm37()
-})
-this.sub34=merge(
-  
-  this.standardtclform.get('chiffreaffairettc').valueChanges,
-  this.standardtclform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm34()
-})
-this.sub35=merge(
-  
-  this.standardtfpform.get('salairesnonsoumistfp').valueChanges,
-  this.standardtfpform.get('taux').valueChanges,
-  this.standardtfpform.get('basetfp').valueChanges,
-  this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
-  this.standardtfpform.get('tfpsalairebrut').valueChanges,
-  this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
-).subscribe((res:any)=>{
-  this.calculateResultForm35()
-})
-this.sub36=merge(
-  
-  this.standardfoprolosform.get('salairesnonsoumisfoprolos').valueChanges,
-  this.standardfoprolosform.get('foprolossalairebrut').valueChanges,
-  this.standardfoprolosform.get('taux').valueChanges,
-  this.standardfoprolosform.get('basefoprolos').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm36()
-})
-  this.isLoggedIn = !!this.token.getToken();
-  if (this.isLoggedIn) {
-    this.currentUser = this.token.getUser();      
-  }
-  else return (
-    this.token.saved=true,
-    this.router.navigate(['login']));  
-    
-    
-  this.usersservice.getUserById(this.currentUser.userId).then(
-          (user: User) => {
-            this.loading = false;
-            this.user = user;
-            this.natureactivite=this.user.natureactivite;
-            this.activite=this.user.activite;
-            this.sousactivite=this.user.sousactivite;
-    
-            this.regimefiscalimpot=this.user.regimefiscalimpot;
-            this.matriculefiscale=this.user.matriculefiscale;
-    if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-    || user.regimefiscalimpot=='Autre/null'
-    || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
-            
-    if (user.regimefiscalimpot=='Réel')
-    {
-      Swal.fire({
-        title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
-        
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmer',
-        cancelButtonText: 'continuer avec ce module',
-      }).then((result) => {
-        if (result.value) {
-          
-          this.router.navigate(['declare-comptabilite']);
-        }
-
-      }).catch(() => {
-        Swal.fire('opération non aboutie!');
-      });
-    }
-       if (user.regimefiscalimpot==='Réel')  
-       {
-        this.prepminimumperceptionammount=10.000
-       }  
-       else if (user.regimefiscalimpot==='Forfait D\'assiette') 
-       {
-        this.prepminimumperceptionammount=5.000
-
-       }
-          }
-        )
-        
+      this.calculateResultForm3()
+    })
+    this.sub4=merge(
+      this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
+      this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
       
+    ).subscribe((res:any)=>{
+      this.calculateResultForm4()
+    })
+    this.sub5=merge(
+      this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
+      this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm5()
+    })
+    this.sub6=merge(
+      this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
+      this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm6()
+    })
+    this.sub7=merge(
+      this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
+      this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm7()
+    })
+    this.sub8=merge(
+      this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
+      this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm8()
+    })
+    this.sub9=merge(
+      this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
+      this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm9()
+    })
+    this.sub10=merge(
+      this.standardhonorairephysiquereelform.get('netammount').valueChanges,
+      this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm10()
+    })
+    this.sub11=merge(
+      this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
+      this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm11()
+    })
+    this.sub12=merge(
+      this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
+      this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm12()
+    })
+    this.sub13=merge(
+      this.standardhonorairegroupementsform.get('brutammount').valueChanges,
+      this.standardhonorairegroupementsform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm13()
+    })
+    this.sub14=merge(
+      this.standardhonorairegroupementsform.get('netammount').valueChanges,
+      this.standardhonorairegroupementsform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm14()
+    })
+    this.sub15=merge(
+      this.standardmontant15form.get('brutammount').valueChanges,
+      this.standardmontant15form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm15()
+    })
+    this.sub16=merge(
+      this.standardmontant15form.get('netammount').valueChanges,
+      this.standardmontant15form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm16()
+    })
+    this.sub17=merge(
+      this.standardmontant10form.get('brutammount').valueChanges,
+      this.standardmontant10form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm17()
+    })
+    this.sub18=merge(
+      this.standardmontant10form.get('netammount').valueChanges,
+      this.standardmontant10form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm18()
+    })
+    this.sub19=merge(
+      this.standardmontantindividuelform.get('brutammount').valueChanges,
+      this.standardmontantindividuelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm19()
+    })
+    this.sub20=merge(
+      this.standardmontantindividuelform.get('netammount').valueChanges,
+      this.standardmontantindividuelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm20()
+    })
+    this.sub21=merge(
+      this.standardmontantautreform.get('brutammount').valueChanges,
+      this.standardmontantautreform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm21()
+    })
+    this.sub22=merge(
+      this.standardmontantautreform.get('netammount').valueChanges,
+      this.standardmontantautreform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm22()
+    })
+    this.sub23=merge(
+      this.standardtraitementsalaireform.get('brutsalary').valueChanges,
+      this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
+      this.standardtraitementsalaireform.get('imposalary').valueChanges,
+      this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm23()
+    })
+    this.sub24=merge(
+      
+      this.standardtvacollecteform.get('chiffreaffaireht').valueChanges,
+      this.standardtvacollecteform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm24()
+    })
+    this.sub38=merge(
+      
+      this.standardtvacollecteform.get('ammountttc').valueChanges,
+      this.standardtvacollecteform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm38()
+    })
+    this.sub25=merge(
+      
+      this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
+      this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm25()
+    })
+    this.sub39=merge(
+      
+      this.standardlocationusagehabitationmeubleform.get('ammountttc').valueChanges,
+      this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm39()
+    })
+    this.sub26=merge(
+      
+      this.standardlocationusagecommercialform.get('ammountht').valueChanges,
+      this.standardlocationusagecommercialform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm26()
+    })
+    this.sub40=merge(
+      
+      this.standardlocationusagecommercialform.get('ammountttc').valueChanges,
+      this.standardlocationusagecommercialform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm40()
+    })
+    this.sub30=merge(
+      
+      this.standardoperationlotissementform.get('ammountht').valueChanges,
+      this.standardoperationlotissementform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm30()
+    })
+    this.sub41=merge(
+      
+      this.standardoperationlotissementform.get('ammountttc').valueChanges,
+      this.standardoperationlotissementform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm41()
+    })
+    this.sub31=merge(
+      
+      this.standardinteretpercueform.get('ammountht').valueChanges,
+      this.standardinteretpercueform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm31()
+    })
+    this.sub42=merge(
+      
+      this.standardinteretpercueform.get('ammountttc').valueChanges,
+      this.standardinteretpercueform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm42()
+    })
+    this.sub32=merge(
+      
+      this.standardautretvaspecialform.get('ammountht').valueChanges,
+      this.standardautretvaspecialform.get('tauxpercent').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm32()
+    })
+    this.sub43=merge(
+      
+      this.standardautretvaspecialform.get('ammountttc').valueChanges,
+      this.standardautretvaspecialform.get('tauxpercent').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm43()
+    })
+    this.sub33=merge(
+      
+      this.standarddroittimbreform.get('nombrenotehonoraire').valueChanges,
+      this.standarddroittimbreform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm33()
+    })
+    this.sub37=merge(
+      
+      this.standarddroittimbreform.get('totaldroittimbre').valueChanges,
+      this.standarddroittimbreform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm37()
+    })
+    this.sub34=merge(
+      
+      this.standardtclform.get('chiffreaffairettc').valueChanges,
+      this.standardtclform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm34()
+    })
+    this.sub35=merge(
+      
+      this.standardtfpform.get('salairesnonsoumistfp').valueChanges,
+      this.standardtfpform.get('taux').valueChanges,
+      this.standardtfpform.get('basetfp').valueChanges,
+      this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
+      this.standardtfpform.get('tfpsalairebrut').valueChanges,
+      this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
+    ).subscribe((res:any)=>{
+      this.calculateResultForm35()
+    })
+    this.sub36=merge(
+      
+      this.standardfoprolosform.get('salairesnonsoumisfoprolos').valueChanges,
+      this.standardfoprolosform.get('foprolossalairebrut').valueChanges,
+      this.standardfoprolosform.get('taux').valueChanges,
+      this.standardfoprolosform.get('basefoprolos').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm36()
+    })
     
+            }
+          )
+    
+   
+  
+            
    
   }
   displayStyle = "none";
@@ -1467,9 +1487,13 @@ calculateResultForm1()
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
-    
-    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+    const taux3=+this.standardfspform.get('taux').value
+    console.log(taux)
+    console.log(this.standardtvacollecteform.get('taux').value)
+    console.log(this.activite)
+    const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
+      const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
       this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
@@ -1483,6 +1507,11 @@ calculateResultForm1()
         chiffreaffairettc:ammountttc,tclapayer:this.totaltclammount},{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
+        this.standardfspform.patchValue({
+        
+          chiffreaffaireht:chiffreaffaireht,
+          montantcontribution:montantcontribution
+        });
   }
   calculateResultForm38()
   {
@@ -1977,6 +2006,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
       );
     this.resetfoprolosall()
     this.resettclall()
+    this.resetfspall()
     this.resettfpall()
     this.resettimbreall()
     this.resettvaall()
@@ -2411,6 +2441,25 @@ if(this.option53Value)
   decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
+if(this.option172Value)
+{
+  if (this.option172Value&&!this.option173Value)
+  return (
+    Swal.fire({
+    title: 'veuillez confirmer l\'impot FSP ',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => {this.loading=false
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  }))
+  if(this.standardfspform.get('chiffreaffaireht').value!==null)
+  {
+  decfiscmens.impottype7.type='FSP'
+  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
+  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
+} 
+}
 this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {
     this.token.saved=true;
@@ -2496,8 +2545,6 @@ this.DecfiscmensService.create(decfiscmens).then(
     console.log(this.currentUser.userId,this.option54Value,this.option171Value)
     this.DecfiscmensService.geexistenttdecfiscmens(this.currentUser.userId,this.option54Value,this.option171Value).then(
       (data:Decfiscmens[]) => {
-        console.log(data)
-        console.log(data.length)
         if (data.length>0)
         {
           Swal.fire({
@@ -2650,6 +2697,9 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standarddroittimbreform.controls['totaldroittimbre'].reset()
   }
   resettclall(){
+    this.standardtclform.controls['chiffreaffairettc'].reset()
+  }
+  resetfspall(){
     this.standardtclform.controls['chiffreaffairettc'].reset()
   }
   resettvaall(){
@@ -2874,6 +2924,14 @@ declareneanttcl()
     tclapayer: 0},{emitEvent: false} 
    );
    this.standardtclform.updateValueAndValidity();
+}
+declareneantfsp()
+{
+  this.standardfspform.patchValue({
+    chiffreaffaireht: 0, 
+    montantcontribution: 0}
+   );
+   this.standardfspform.updateValueAndValidity();
 }
 
     myFunction7() {
@@ -3208,6 +3266,58 @@ Swal.fire({
           else{
             checkbox.checked = true
             this.option53Value=true
+          }
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
+        
+         
+
+      }
+    }
+    myFunction30() {
+      var checkbox:any = document.getElementById("myCheck30");
+      var text2 = document.getElementById("tabcontainer");
+      
+      if (checkbox.checked == true){
+        if (this.option51Value)
+        {
+        const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+        const taux=+this.standardfspform.get('taux').value
+        const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+        this.standardfspform.patchValue({
+          chiffreaffaireht:chiffreaffaireht,
+          montantcontribution:montantcontribution
+        })
+      }
+        text2.style.display = "block";
+        this.showfsptab=true;
+        this.option172Value=true;
+        this.showfspverif=true;
+        this.option173Value=false;
+
+      } else {
+        Swal.fire({
+          title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FSP, voulez vous continuer?',
+          
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Réinitialiser',
+          cancelButtonText: 'Annuler',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.resetfspall();
+            this.showfsptab=false;
+            this.option172Value=false;
+            this.showfspverif=false;
+            this.option173Value=false;
+          }
+          else{
+            checkbox.checked = true
+            this.option172Value=true
           }
         }).catch(() => {
           Swal.fire('opération non aboutie!');
@@ -3729,6 +3839,48 @@ Swal.fire({
             this.option70Value=false
             this.option53Value=false
             this.showtcltab=false
+          }
+    
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        }); 
+        
+      }
+      } else {
+         
+        
+      }
+    }
+    myFunction31() {
+      var checkbox:any = document.getElementById("myCheck31");
+      if (checkbox.checked == true){
+        if (this.standardfspform.get('chiffreaffaireht').value==null&&this.standardfspform.get('montantcontribution').value==null
+       )
+        {
+           
+        Swal.fire({
+          title: 'Vous n\'avez saisi aucun montant relatif à l\'impot FSP!Veuillez indiquer votre décision',
+    
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Déclarer néant',
+    cancelButtonText: 'Supprimer impot',
+        }).then((result) => {
+          if (result.value) {
+            this.loading=false
+ 
+           this.declareneantfsp()
+    
+          }
+          else{
+            this.loading=false
+
+            checkbox.checked = false
+            this.option173Value=false
+            this.option172Value=false
+            this.showfsptab=false
           }
     
         }).catch(() => {
