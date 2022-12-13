@@ -111,6 +111,9 @@ private deccomptabilitesSub: Subscription;
   ammounts3: this.fb.array([ this.createammount3() ])
 });
 this.relevemanuelform = this.fb.group({
+  mois:'',
+  annee:'',
+  soldemoisprecedent:'',
   ammounts4: this.fb.array([ this.createammount4() ])
 });
 this.relevejointform = this.fb.group({
@@ -271,7 +274,7 @@ this.loading=false
          return (alert('veuillez entrer un jour valide'),ammounts4.at(i).patchValue({
           jour:''
          }))
-         const date=j+'/'+this.option2Value+'/'+this.option1Value
+         const date=j+'/'+this.relevemanuelform.get('mois').value+'/'+this.relevemanuelform.get('annee').value
          ammounts4.at(i).patchValue({
           date:date
          })
@@ -569,8 +572,24 @@ this.loading=false
           return acc;
         },0);
       }
-      onChange3(i: number){
-        
+      async onChange3(i: number){
+        let ammounts3=this.factureachatform.get('ammounts3') as FormArray
+        let tva=ammounts3.at(i).value.montanttva
+        let ht=ammounts3.at(i).value.montantht
+
+        if(tva>ht)
+    try {
+      console.log('here')
+        const result = await Swal.fire({
+          title: 'Montant TVA ne doit pas dépasser le montant HT',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        });
+        this.loading = false;
+        ammounts3.controls[i].patchValue({ montantht: '',montanttva:''});  
+      } catch {
+        Swal.fire('opération non aboutie!');
+      }
        
         this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
           acc += +(curr.montantht || 0);
@@ -1643,36 +1662,36 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       if (result.isConfirmed) {
         this.showrelevemanuel=true
         this.showrelevejoint=false
-        for (let i = 1; i < 32; i++)
-          {
-            this.addammount4()
-            let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-            ammounts4.at(i).patchValue({
-              jour:i
-             })
-             this.setdate4(i)
-          }
-          this.removeammount4(0)
-          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
-          {
-            this.removeammount4(30)
-          }
-          if(this.option2Value=='02')
-          {
-            if(+this.option1Value % 4 ==0)
-            {
-            this.removeammount4(30)
-            this.removeammount4(29)
-            }
-            else 
-            {
-            this.removeammount4(30)
-            this.removeammount4(29)
-            this.removeammount4(28)
-            }
+        //for (let i = 1; i < 32; i++)
+         // {
+           // this.addammount4()
+           // let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+           // ammounts4.at(i).patchValue({
+            //  jour:i
+          //   })
+         //    this.setdate4(i)
+       //   }
+       //   this.removeammount4(0)
+      //    if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
+      //    {
+      //      this.removeammount4(30)
+       //   }
+       //   if(this.option2Value=='02')
+      //    {
+         //   if(+this.option1Value % 4 ==0)
+         //   {
+         //   this.removeammount4(30)
+         //   this.removeammount4(29)
+         //   }
+         //   else 
+         //   {
+         //   this.removeammount4(30)
+         ////   this.removeammount4(29)
+         //   this.removeammount4(28)
+         //   }
 
             
-          }
+          //}
       }
       else if (result.isDenied)
       {

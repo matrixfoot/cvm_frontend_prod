@@ -487,6 +487,56 @@
   <legend>Saisie des relevés manuels</legend>
   <table class="table table-striped" id="relevemanuelsection" [formGroup]="relevemanuelform">
   <thead>
+      <tr>            
+      <th>Mois</th>
+      <th>Année</th>
+      <th>solde du mois précédent</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td>
+  <div class="col-6">
+    <select class="form-control" id="year" name="year"formControlName="annee">
+       <option value="2022">2022</option>
+       <option disabled value="2023">2023</option>
+       <option disabled value="2024">2024</option>
+       <option disabled value="2025">2025</option>
+       <option disabled value="2026">2026</option>
+       <option disabled value="2027">2027</option>
+       <option disabled value="2028">2028</option>
+       <option disabled value="2029">2029</option>
+       <option disabled value="2030">2030</option>   
+   </select>
+  </div>
+</td>
+<td>
+  <div class="col-6">
+    <select class="form-control" id="month" name="month" #cricket (change)="update($event)"formControlName="mois">
+       <option value="01">جانفي </option>
+                           <option value="02">فيفري  </option>
+                           <option value="03">مارس</option>
+                           <option value="04">آفريل</option>
+                           <option value="05">ماي</option>
+                           <option value="06">جوان </option>
+                           <option value="07">جويلية </option>
+                           <option value="08"> أوت </option>
+                           <option value="09">سبتمبر</option>
+                           <option value="10">اكتوبر</option>
+                           <option value="11"> نوفمبر</option>
+                           <option value="12">ديسمبر</option>
+   </select>
+  </div> 
+</td>
+<td>
+  <div class="col-6">
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+  class="form-control"formControlName="soldemoisprecedent"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde du mois précédent"/>
+</div>
+</td>
+    </tr>
+  </tbody>
+  <thead>
   <tr>            
   <th>Jour</th>
   <th>Date complète</th>
@@ -503,7 +553,7 @@
                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
                          class="form-control"(change)="setdate4(i)"formControlName="jour"placeholder="Jour"/>
                   </div>
-                 </td>
+              </td>
                  <td style="width: 150px;">
                  <div class="col-6">
                      <input type="text"class="form-control"formControlName="date"placeholder="Date"/>
@@ -521,14 +571,18 @@
                     class="form-control"formControlName="credit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Crédit"/>
                  </div>
                 </td> 
-                
+                <td>
+                  <div>
+                  <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount4(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                  </div>
+                 </td>
               
       </tr>
       <tr>
-          <td colspan="4"></td>
+          <td colspan="5"></td>
           <td>
               <div>
-              <button type="button" class="hidden" (click)="addammount4()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+              <button type="button" class="btn btn-primary mb-2" (click)="addammount4()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
               </div>
           </td>
       </tr>
