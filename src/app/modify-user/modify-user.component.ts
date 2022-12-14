@@ -22,6 +22,7 @@ export class ModifyUserComponent implements OnInit {
   public codeValue: string;
   public secteurValue: string;
   public roleValue: string;
+  public imagePreview:string
   private usersSub: Subscription;
   public loading = false;
   public optionValue:any;
@@ -71,6 +72,7 @@ export class ModifyUserComponent implements OnInit {
             secteur: [this.user.secteur,],
             civilite: [this.user.civilite,],
             raisonsociale: [this.user.raisonsociale,],
+            image: [this.user.ficheUrl,],
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
@@ -108,6 +110,7 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
+              image: [this.user.ficheUrl,],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -167,6 +170,7 @@ export class ModifyUserComponent implements OnInit {
     user.firstname = this.userForm.get('firstname').value;
     user.lastname = this.userForm.get('lastname').value;
     user.fonction = this.userForm.get('fonction').value;
+    user.ficheUrl=''
     if (this.userForm.get('activitynature').value=="Autre") { user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value}
     else  {user.natureactivite = this.userForm.get('activitynature').value};
     if (this.userForm.get('activity').value=="Autre") {user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value}
@@ -189,7 +193,7 @@ export class ModifyUserComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(user.userId,user).then(
+    this.userservice.modifyUserById(this.user._id, user, this.userForm.get('image').value).then(  
       () => {
         this.userForm.reset();
         this.loading = false;
@@ -208,6 +212,21 @@ export class ModifyUserComponent implements OnInit {
         
       }
     );
+  }
+  onImagePick(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.userForm.get('image').patchValue(file);
+    this.userForm.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (this.userForm.get('image').valid) {
+        this.imagePreview = reader.result as string;
+      } else {
+        this.imagePreview = null;
+      }
+    };
+    reader.readAsDataURL(file);
   }
   reloadPage (){
     setTimeout(() => window.location.reload(), 3000);

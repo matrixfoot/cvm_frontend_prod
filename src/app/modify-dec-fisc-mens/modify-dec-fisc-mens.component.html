@@ -1341,7 +1341,7 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
               </form>
                 </fieldset>
           </mat-tab>
-          <mat-tab label="FSSP" id="FSSPtab"*ngIf="showfsptab===true">
+          <mat-tab label="FSSP" id="FSSPtab"*ngIf="showfsptab===true&&decfiscmens.impottype7">
             <fieldset>
               <legend>FSSP</legend>                   
             <form  [formGroup]="standardfspform">

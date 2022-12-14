@@ -20,7 +20,7 @@ export class CompleteProfilComponent implements OnInit {
 
 
 
-
+  public imagePreview:string
   public userForm: FormGroup;
   public isloggedin=false; 
   public currentuser: User;
@@ -66,6 +66,7 @@ export class CompleteProfilComponent implements OnInit {
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
+            image: [this.user.ficheUrl,],
             selectactivity:[null,],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
@@ -100,6 +101,7 @@ export class CompleteProfilComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
+              image: [this.user.ficheUrl,],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -148,8 +150,7 @@ export class CompleteProfilComponent implements OnInit {
     this.alertService.clear();
     const user = new User();
     user.userId = this.user.userId;
-   
-   
+    user.ficheUrl=''
     if (this.userForm.get('activitynature').value=="Autre") { user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value}
     else  {user.natureactivite = this.userForm.get('activitynature').value};
     if (this.userForm.get('activity').value=="Autre") {user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value}
@@ -166,7 +167,7 @@ export class CompleteProfilComponent implements OnInit {
     
     
    
-    this.userservice.completeUserById(this.currentuser.userId,user).then(
+    this.userservice.completeUserById(this.user._id, user, this.userForm.get('image').value).then(
       () => {
         this.userForm.reset();
         this.loading = false;
@@ -185,6 +186,21 @@ export class CompleteProfilComponent implements OnInit {
         
       }
     );
+  }
+  onImagePick(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    console.log(file);
+    this.userForm.get('image').patchValue(file);
+    this.userForm.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (this.userForm.get('image').valid) {
+        this.imagePreview = reader.result as string;
+      } else {
+        this.imagePreview = null;
+      }
+    };
+    reader.readAsDataURL(file);
   }
   reloadPage (){
     setTimeout(() => window.location.reload(), 3000);

@@ -391,6 +391,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   this.currentuser = this.tokenStorage.getUser();
   this.userservice.getUserById(this.currentuser.userId).then(
     (user: User) => {
+      this.loading = false;
       this.user=user
       this.activite=this.user.activite;
       if (this.user.regimefiscalimpot=='Réel') 
@@ -688,7 +689,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
         });
         this.standardfspform =this.formBuilder.group({
-          chiffreaffaireht: [this.decfiscmens.impottype7.chiffreaffaireht],
+          chiffreaffaireht: [{value:this.decfiscmens.impottype7.chiffreaffaireht,disabled:true}],
           taux: [{value:"0.01",disabled:true}],
           montantcontribution: [{value:this.decfiscmens.impottype7.montantcontribution,disabled:true}],
         });
@@ -1016,7 +1017,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     ).subscribe((res:any)=>{
       this.calculateResultForm36()
     })
-              this.loading = false;
+    this.tokenStorage.saved=false;
+
             }
           );
         }
@@ -1024,7 +1026,6 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     }
   ) 
   
-  this.tokenStorage.saved=false;
   
 }
 initammounts() {

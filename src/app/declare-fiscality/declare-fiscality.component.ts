@@ -2492,6 +2492,7 @@ this.DecfiscmensService.create(decfiscmens).then(
 
 }
   ngOnDestroy(){
+    console.log(this.sub1)
     this.sub1.unsubscribe()
     this.sub2.unsubscribe()
     this.sub3.unsubscribe()

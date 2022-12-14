@@ -16,6 +16,7 @@ export class User {
   fonction:string;
   secteur:string;
   civilite:string;
+  ficheUrl:string;
   natureactivite:string;
   activite:string
   sousactivite:string

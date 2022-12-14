@@ -89,12 +89,19 @@ export class UserService {
           );
         });
       }
-      modifyUserById(id: string, user: User) {
+      
+      modifyUserById(id: string, user: User, image: File | string) {
         return new Promise((resolve, reject) => {
-          
-            
-          
-          this.http.put(API_URL_cloud+ id, user).subscribe(
+          let userData: User | FormData;
+          if (typeof image === 'string') {
+            user.ficheUrl = image;
+            userData = user;
+          } else {
+            userData = new FormData();
+            userData.append('contactreq', JSON.stringify(user));
+            userData.append('image', image, user.email);
+          }
+          this.http.put(API_URL_cloud + id, userData).subscribe(
             (response) => {
               resolve(response);
             },
@@ -104,11 +111,17 @@ export class UserService {
           );
         });
       }
-      completeUserById(id: string, user: User) {
+      completeUserById(id: string, user: User, image: File | string) {
         return new Promise((resolve, reject) => {
-          
-            
-          
+          let userData: User | FormData;
+          if (typeof image === 'string') {
+            user.ficheUrl = image;
+            userData = user;
+          } else {
+            userData = new FormData();
+            userData.append('contactreq', JSON.stringify(user));
+            userData.append('image', image, user.email);
+          }
           this.http.put(API_URL_cloud+'complete/'+id, user).subscribe(
             (response) => {
               resolve(response);
