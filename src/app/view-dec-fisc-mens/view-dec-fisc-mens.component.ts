@@ -62,6 +62,7 @@ public decfiscmens=new Decfiscmens;
   public type4:any
   public type5:any
   public type6:any
+  public type7:any
 
   foprolosapayer=0.000
   tfpapayertotal=0.000
@@ -74,6 +75,7 @@ public decfiscmens=new Decfiscmens;
   totaltvaammount=0.000;
   totaltimbreammount=0.000;
   totaltclammount=0.000;
+  totalfspammount=0.000;
   totaldeclaration=0.000;
   minimumperceptionammount=0.000;
   preptotaldeclaration=0.000;
@@ -117,6 +119,8 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
+            this.type7=this.decfiscmens.impottype7.type
+
 
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
             {this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
@@ -172,8 +176,10 @@ public decfiscmens=new Decfiscmens;
       }
   this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
   this.totaltclammount=+this.decfiscmens.impottype6.tclpayer  
-       
+  this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution  
+
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
++ +this.totalfspammount
 console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
 console.log(this.honoraireretenue)
 this.userservice.getUserById(this.decfiscmens.userId).then(

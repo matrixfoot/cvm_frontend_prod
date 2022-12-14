@@ -1016,8 +1016,13 @@ else if (!this.option50Value)
     if (!this.option53Value)
     {
     this.totaltclammount=0
+    } 
+    if (!this.option172Value)
+    {
+    this.totalfspammount=0
     }    
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
++ +this.totalfspammount
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
@@ -1494,6 +1499,7 @@ calculateResultForm1()
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      this.totalfspammount=montantcontribution
       this.totaltclammount=+ ((+ammountttc*+taux2).toFixed(3));
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
@@ -1519,10 +1525,12 @@ calculateResultForm1()
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
-    
+    const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
       const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
       this.totaltclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      this.totalfspammount=montantcontribution
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -2105,6 +2113,9 @@ if (salairesnonsoumistfp>salairesbrutsrs)
                 decfiscmens.impottype6={ type:'',
                 chiffreaffairettc:'',
                 tclpayer:'',}
+                decfiscmens.impottype7={ type:'',
+                chiffreaffaireht:'',
+                montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
@@ -2700,7 +2711,8 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardtclform.controls['chiffreaffairettc'].reset()
   }
   resetfspall(){
-    this.standardtclform.controls['chiffreaffairettc'].reset()
+    this.standardfspform.controls['chiffreaffaireht'].reset()
+    this.standardfspform.controls['montantcontribution'].reset()
   }
   resettvaall(){
     this.standardtvacollecteform.controls['chiffreaffaireht'].reset()

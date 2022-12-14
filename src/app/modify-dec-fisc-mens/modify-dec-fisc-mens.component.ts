@@ -36,7 +36,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   currentuser: any;
 
   user:User;
-  
+  tauxtva:any;
   decfiscmens:Decfiscmens;
   decfiscmensForm:FormGroup;
   standardtraitementsalaireform: FormGroup;
@@ -66,6 +66,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   standardfoprolosform: FormGroup;
   standarddroittimbreform: FormGroup;
   standardtclform: FormGroup;
+  standardfspform: FormGroup;
   standardretenue: FormGroup;
   standardtva: FormGroup;
   standardtfp1form:FormGroup;
@@ -243,8 +244,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value:any;
-  option173Value:any;
+  option172Value=false;
+  option173Value=false;
   option174Value:any;
   option175Value:any;
   option176Value:any;
@@ -320,6 +321,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   sub41:Subscription;
   sub42:Subscription;
   sub43:Subscription;
+  sub44:Subscription;
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
@@ -332,12 +334,14 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   showtvatab=false;
   showtimbretab=false;
   showtcltab=false;
+  showfsptab=false;
   showretenueverif=false;
   showtfpverif=false;
   showfoprolosverif=false;
   showtvaverif=false;
   showtimbreverif=false;
   showtclverif=false;
+  showfspverif=false;
   showtfpsalairebrut=true;
   showfoprolossalairebrut=true;
   autreform: FormGroup;
@@ -352,6 +356,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   totaltvaammount=0;
   totaltimbreammount=0;
   totaltclammount=0;
+  totalfspammount=0;
   totaldeclaration=0;
   minimumperceptionammount=0;
   preptotaldeclaration=0;
@@ -384,614 +389,643 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
  ngOnInit() {
   this.loading = true;
   this.currentuser = this.tokenStorage.getUser();
-  this.user=this.currentuser;
-  if (this.user.regimefiscalimpot=='Réel')  
-  {
-   this.prepminimumperceptionammount=10.000
-  }  
-  else if (this.user.regimefiscalimpot=='Forfait D\'assiette') 
-  {
-   this.prepminimumperceptionammount=5.000
-
-  }
-  this.tokenStorage.saved=false;
-  this.route.params.subscribe(
-    (params) => {
-      this.dec.getDecfiscmensreqById(params.id).then(
-        (decfiscmens: Decfiscmens) => {
-          
-          this.decfiscmens = decfiscmens;
-          this.tokenStorage.saved=false;
-          this.nature=this.decfiscmens.nature
-          this.tfpapayer=+this.decfiscmens.impottype3.tfppayer
-          this.tfpareporter=+this.decfiscmens.impottype3.tfpreporter
-          this.foprolosapayer=+this.decfiscmens.impottype4.montantfoprolos
-          this.totaltclammount=+this.decfiscmens.impottype6.tclpayer
-          this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
-          this.decfiscmensForm = this.formBuilder.group({
-            
-            statut: [this.decfiscmens.statut, Validators.required],
-            motif: [this.decfiscmens.motif, Validators.required],
-          
-          });
-          this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
-          this.option171Value=this.decfiscmens.mois
-          this.option54Value=this.decfiscmens.annee
-          
-
-          if (this.decfiscmens.impottype1.type)
-          {
-            this.option48Value=true
-            
-            this.showretenuetab=true
-            this.showretenueverif=true
-            this.showfoprolossalairebrut=false;
-            this.showtfpsalairebrut=false;
-          }
-          if (this.decfiscmens.impottype3.type)
-          {
-            this.option49Value=true
-            
-            this.showtfptab=true
-            this.showtfpverif=true
-          }
-          if (this.decfiscmens.impottype4.type)
-          {
-            this.option50Value=true
-            this.showfoprolostab=true
-            this.showfoprolosverif=true
-          }
-          if (this.decfiscmens.impottype2.type)
-          {
-            this.option51Value=true
-            this.showtvatab=true
-            this.showtvaverif=true
-          }
-          if (this.decfiscmens.impottype5.type)
-          {
-            this.option52Value=true
-            this.showtimbretab=true
-            this.showtimbreverif=true
-          }
-          if (this.decfiscmens.impottype6.type)
-          {
-            this.option53Value=true
-            this.showtcltab=true
-            this.showtclverif=true
-          }
-          this.standardretenue =this.formBuilder.group({
-            type: [this.decfiscmens.impottype1.type],
-          });
-          this.standardtva =this.formBuilder.group({
-            type: [this.decfiscmens.impottype2.type],
-          });
-          this.standardtfp1form =this.formBuilder.group({
-            type: [this.decfiscmens.impottype3.type],
-          });
-          this.standardfoprolos1form =this.formBuilder.group({
-            type: [this.decfiscmens.impottype4.type],
-          });
-          this.standarddroittimbre1form =this.formBuilder.group({
-            type: [this.decfiscmens.impottype5.type],
-          });
-          this.standardtcl1form =this.formBuilder.group({
-            type: [this.decfiscmens.impottype6.type],
-          });
-          this.standardtraitementsalaireform =this.formBuilder.group({
-            brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
-            imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
-            retenuesalary: [this.decfiscmens.impottype1.traitementetsalaire.retenuealasource],
-            solidaritycontribution: [this.decfiscmens.impottype1.traitementetsalaire.contributionsociale],
-            
-            
-          });
-          this.standardlocationresidentesphysiqueform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.location1.montantbrut],
-            quotion: [{value:"0.1",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.location1.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.location1.montantnet],
-            
-          });
-          
-          this.standardlocationresidentesmoraleform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.location2.montantbrut],
-            quotion: [{value:"0.1",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.location2.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.location2.montantnet],
-            
-          });
-          this.standardlocationnonresidentesphysiquesform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.location3.montantbrut],
-            quotion: [{value:"0.15",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.location3.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.location3.montantnet],
-            
-          });
-          this.standardlocationnonresidentesmoralesform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.location4.montantbrut],
-            quotion: [{value:"0.15",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.location4.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.location4.montantnet],
-            
-          });
-          this.standardhonorairephysiquereelform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
-            quotion: [{value:"0.03",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
-            
-          });
-          this.standardhonorairephysiquenonreelform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.honoraire2.montantbrut],
-            quotion: [{value:"0.1",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.honoraire2.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.honoraire2.montantnet],
-            
-          });
-          this.standardhonorairegroupementsform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.honoraire3.montantbrut],
-            quotion: [{value:"0.03",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.honoraire3.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.honoraire3.montantnet],
-            
-          });
-          this.standardmontant15form =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.montant10001.montantbrut],
-            quotion: [{value:"0.01",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.montant10001.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.montant10001.montantnet],
-            
-          });
-          this.standardmontant10form =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.montant10002.montantbrut],
-            quotion: [{value:"0.005",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.montant10002.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.montant10002.montantnet],
-            
-          });
-          this.standardmontantindividuelform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.montant10003.montantbrut],
-            quotion: [{value:"0.005",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.montant10003.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.montant10003.montantnet],
-            
-          });
-          this.standardmontantautreform =this.formBuilder.group({
-            brutammount: [this.decfiscmens.impottype1.montant10004.montantbrut],
-            quotion: [{value:"0.0015",disabled:true}],
-            retenueammount: [{value:this.decfiscmens.impottype1.montant10004.montantretenue,disabled:true}],
-            netammount: [this.decfiscmens.impottype1.montant10004.montantnet],
-            
-          });
-          this.autreform = new FormGroup({
-            
-            ammounts: new FormArray(decfiscmens.impottype1.autre.map(item => {
-              const group = this.initammounts();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.standardtvacollecteform =this.formBuilder.group({
-      chiffreaffaireht: [this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht],
-      taux: [{value:"0.13",disabled:true}],
-      tvaammount: [{value:this.decfiscmens.impottype2.tvacollecter.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.tvacollecter.ammountttc],
-    });
-    this.standardtvarecuperableautreachatform =this.formBuilder.group({
-      achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht],
-      achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva],
-      achatimporteht: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht],
-      achatimportetva: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva],
-    });
-    this.standardtvarecuperableequipementform =this.formBuilder.group({
-      achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
-      achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva],
-      achatimporteht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht],
-      achatimportetva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva],
-    });
-    this.standardtvarecuperableimmobilierform =this.formBuilder.group({
-      achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht],
-      achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva],
-      
-    });
-    this.standardlocationusagehabitationmeubleform =this.formBuilder.group({
-      ammountht: [this.decfiscmens.impottype2.locationhabitationmeuble.htammount],
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount],
-    });
-    this.tvacollecte2=((+this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount)-(+this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount*0.19)/(1+0.19))
-    this.standardlocationusagecommercialform =this.formBuilder.group({
-      ammountht: [this.decfiscmens.impottype2.locationusagecommercial.htammount],
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:this.decfiscmens.impottype2.locationusagecommercial.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.locationusagecommercial.ttcammount],
-    });
-    this.tvacollecte3=((+this.decfiscmens.impottype2.locationusagecommercial.ttcammount)-(+this.decfiscmens.impottype2.locationusagecommercial.ttcammount*0.19)/(1+0.19))
-
-    this.standardoperationlotissementform =this.formBuilder.group({
-      ammountht: [this.decfiscmens.impottype2.operationlotissement.htammount],
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:this.decfiscmens.impottype2.operationlotissement.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.operationlotissement.ttcammount],
-    });
-    this.tvacollecte4=((+this.decfiscmens.impottype2.operationlotissement.ttcammount)-(+this.decfiscmens.impottype2.operationlotissement.ttcammount*0.19)/(1+0.19))
-    this.standardinteretpercueform =this.formBuilder.group({
-      ammountht: [this.decfiscmens.impottype2.interetpercue.htammount],
-      taux: [{value:"0.19",disabled:true}],
-      tvaammount: [{value:this.decfiscmens.impottype2.interetpercue.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.interetpercue.ttcammount],
-    });
-    this.tvacollecte5=((+this.decfiscmens.impottype2.interetpercue.ttcammount)-(+this.decfiscmens.impottype2.interetpercue.ttcammount*0.19)/(1+0.19))
-
-    this.standardautretvaspecialform =this.formBuilder.group({
-      ammountht: [this.decfiscmens.impottype2.autretvaspecial.htammount],
-      tauxpercent:[+(this.decfiscmens.impottype2.autretvaspecial.taux) *100],
-      taux: [this.decfiscmens.impottype2.autretvaspecial.taux],
-      tvaammount: [{value:this.decfiscmens.impottype2.autretvaspecial.tvaammount,disabled:true}],
-      ammountttc: [this.decfiscmens.impottype2.autretvaspecial.ttcammount],
-    });
-    this.tvacollecte6=((+this.decfiscmens.impottype2.autretvaspecial.ttcammount)-(+this.decfiscmens.impottype2.autretvaspecial.ttcammount*0.19)/(1+0.19))
-
-      this.standardtfpform =this.formBuilder.group({
-        basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
-        tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
-        taux: [{value:"0.02",disabled:true}],
-        avanceammount: this.decfiscmens.impottype3.montantavance,
-        tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
-        salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
-        tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
-        tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
-        tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
-      });
-      this.standardfoprolosform =this.formBuilder.group({
-        basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
-        foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
-        taux: [{value:"0.01",disabled:true}],
-        salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
-        foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
-      });
-    this.standarddroittimbreform =this.formBuilder.group({
-      nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
-      taux: [{value:"0.6",disabled:true}],
-      totaldroittimbre: [this.decfiscmens.impottype5.totaldroittimbre],
-    });
-    this.standardtclform =this.formBuilder.group({
-      chiffreaffairettc: [this.decfiscmens.impottype6.chiffreaffairettc],
-      taux: [{value:"0.002",disabled:true}],
-      tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
-    });
-
-console.log(this.tvacollecte2,this.tvacollecte3,this.tvacollecte4,this.tvacollecte5,this.tvacollecte6)
-    this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
-      this.option72Value=+(this.option71Value *0.19)
+  this.userservice.getUserById(this.currentuser.userId).then(
+    (user: User) => {
+      this.user=user
+      this.activite=this.user.activite;
+      if (this.user.regimefiscalimpot=='Réel') 
+      {
+       this.prepminimumperceptionammount=10.000
+      }  
+      else if (this.user.regimefiscalimpot=='Forfait D\'assiette') 
+      {
+       this.prepminimumperceptionammount=5.000
     
-    this.sub1=merge(
-      this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
-      this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+      }
+      if(this.activite=='Avocat')
+              {
+                this.tauxtva='0.13'
+              }
+              if(this.activite=='Médecin')
+              {
+                this.tauxtva='0.07'
+              }
+      this.route.params.subscribe(
+        (params) => {
+          this.dec.getDecfiscmensreqById(params.id).then(
+            (decfiscmens: Decfiscmens) => {
+              
+              this.decfiscmens = decfiscmens;
+              this.tokenStorage.saved=false;
+              this.nature=this.decfiscmens.nature
+              this.tfpapayer=+this.decfiscmens.impottype3.tfppayer
+              this.tfpareporter=+this.decfiscmens.impottype3.tfpreporter
+              this.foprolosapayer=+this.decfiscmens.impottype4.montantfoprolos
+              this.totaltclammount=+this.decfiscmens.impottype6.tclpayer
+              this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
+              this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
+              this.decfiscmensForm = this.formBuilder.group({
+                
+                statut: [this.decfiscmens.statut, Validators.required],
+                motif: [this.decfiscmens.motif, Validators.required],
+              
+              });
+              this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
+              this.option171Value=this.decfiscmens.mois
+              this.option54Value=this.decfiscmens.annee
+              
+    
+              if (this.decfiscmens.impottype1.type)
+              {
+                this.option48Value=true
+                
+                this.showretenuetab=true
+                this.showretenueverif=true
+                this.showfoprolossalairebrut=false;
+                this.showtfpsalairebrut=false;
+              }
+              if (this.decfiscmens.impottype3.type)
+              {
+                this.option49Value=true
+                
+                this.showtfptab=true
+                this.showtfpverif=true
+              }
+              if (this.decfiscmens.impottype4.type)
+              {
+                this.option50Value=true
+                this.showfoprolostab=true
+                this.showfoprolosverif=true
+              }
+              if (this.decfiscmens.impottype2.type)
+              {
+                this.option51Value=true
+                this.showtvatab=true
+                this.showtvaverif=true
+              }
+              if (this.decfiscmens.impottype5.type)
+              {
+                this.option52Value=true
+                this.showtimbretab=true
+                this.showtimbreverif=true
+              }
+              if (this.decfiscmens.impottype6.type)
+              {
+                this.option53Value=true
+                this.showtcltab=true
+                this.showtclverif=true
+              }
+              if (this.decfiscmens.impottype7.type)
+              {
+                this.option172Value=true
+                this.showfsptab=true
+                this.showfspverif=true
+              }
+              this.standardretenue =this.formBuilder.group({
+                type: [this.decfiscmens.impottype1.type],
+              });
+              this.standardtva =this.formBuilder.group({
+                type: [this.decfiscmens.impottype2.type],
+              });
+              this.standardtfp1form =this.formBuilder.group({
+                type: [this.decfiscmens.impottype3.type],
+              });
+              this.standardfoprolos1form =this.formBuilder.group({
+                type: [this.decfiscmens.impottype4.type],
+              });
+              this.standarddroittimbre1form =this.formBuilder.group({
+                type: [this.decfiscmens.impottype5.type],
+              });
+              this.standardtcl1form =this.formBuilder.group({
+                type: [this.decfiscmens.impottype6.type],
+              });
+              this.standardfspform =this.formBuilder.group({
+                type: [this.decfiscmens.impottype7.type],
+              });
+              this.standardtraitementsalaireform =this.formBuilder.group({
+                brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
+                imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
+                retenuesalary: [this.decfiscmens.impottype1.traitementetsalaire.retenuealasource],
+                solidaritycontribution: [this.decfiscmens.impottype1.traitementetsalaire.contributionsociale],
+                
+                
+              });
+              this.standardlocationresidentesphysiqueform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.location1.montantbrut],
+                quotion: [{value:"0.1",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.location1.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.location1.montantnet],
+                
+              });
+              
+              this.standardlocationresidentesmoraleform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.location2.montantbrut],
+                quotion: [{value:"0.1",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.location2.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.location2.montantnet],
+                
+              });
+              this.standardlocationnonresidentesphysiquesform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.location3.montantbrut],
+                quotion: [{value:"0.15",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.location3.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.location3.montantnet],
+                
+              });
+              this.standardlocationnonresidentesmoralesform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.location4.montantbrut],
+                quotion: [{value:"0.15",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.location4.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.location4.montantnet],
+                
+              });
+              this.standardhonorairephysiquereelform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.honoraire1.montantbrut],
+                quotion: [{value:"0.03",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.honoraire1.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.honoraire1.montantnet],
+                
+              });
+              this.standardhonorairephysiquenonreelform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.honoraire2.montantbrut],
+                quotion: [{value:"0.1",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.honoraire2.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.honoraire2.montantnet],
+                
+              });
+              this.standardhonorairegroupementsform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.honoraire3.montantbrut],
+                quotion: [{value:"0.03",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.honoraire3.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.honoraire3.montantnet],
+                
+              });
+              this.standardmontant15form =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.montant10001.montantbrut],
+                quotion: [{value:"0.01",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.montant10001.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.montant10001.montantnet],
+                
+              });
+              this.standardmontant10form =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.montant10002.montantbrut],
+                quotion: [{value:"0.005",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.montant10002.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.montant10002.montantnet],
+                
+              });
+              this.standardmontantindividuelform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.montant10003.montantbrut],
+                quotion: [{value:"0.005",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.montant10003.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.montant10003.montantnet],
+                
+              });
+              this.standardmontantautreform =this.formBuilder.group({
+                brutammount: [this.decfiscmens.impottype1.montant10004.montantbrut],
+                quotion: [{value:"0.0015",disabled:true}],
+                retenueammount: [{value:this.decfiscmens.impottype1.montant10004.montantretenue,disabled:true}],
+                netammount: [this.decfiscmens.impottype1.montant10004.montantnet],
+                
+              });
+              this.autreform = new FormGroup({
+                
+                ammounts: new FormArray(decfiscmens.impottype1.autre.map(item => {
+                  const group = this.initammounts();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.standardtvacollecteform =this.formBuilder.group({
+          chiffreaffaireht: [this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht],
+          taux: [{value:this.tauxtva,disabled:true}],
+          tvaammount: [{value:this.decfiscmens.impottype2.tvacollecter.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.tvacollecter.ammountttc],
+        });
+        this.standardtvarecuperableautreachatform =this.formBuilder.group({
+          achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht],
+          achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva],
+          achatimporteht: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht],
+          achatimportetva: [this.decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva],
+        });
+        this.standardtvarecuperableequipementform =this.formBuilder.group({
+          achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht],
+          achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva],
+          achatimporteht: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht],
+          achatimportetva: [this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva],
+        });
+        this.standardtvarecuperableimmobilierform =this.formBuilder.group({
+          achatlocauxht: [this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht],
+          achatlocauxtva: [this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva],
+          
+        });
+        this.standardlocationusagehabitationmeubleform =this.formBuilder.group({
+          ammountht: [this.decfiscmens.impottype2.locationhabitationmeuble.htammount],
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount],
+        });
+        this.tvacollecte2=((+this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount)-(+this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount*0.19)/(1+0.19))
+        this.standardlocationusagecommercialform =this.formBuilder.group({
+          ammountht: [this.decfiscmens.impottype2.locationusagecommercial.htammount],
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:this.decfiscmens.impottype2.locationusagecommercial.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.locationusagecommercial.ttcammount],
+        });
+        this.tvacollecte3=((+this.decfiscmens.impottype2.locationusagecommercial.ttcammount)-(+this.decfiscmens.impottype2.locationusagecommercial.ttcammount*0.19)/(1+0.19))
+    
+        this.standardoperationlotissementform =this.formBuilder.group({
+          ammountht: [this.decfiscmens.impottype2.operationlotissement.htammount],
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:this.decfiscmens.impottype2.operationlotissement.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.operationlotissement.ttcammount],
+        });
+        this.tvacollecte4=((+this.decfiscmens.impottype2.operationlotissement.ttcammount)-(+this.decfiscmens.impottype2.operationlotissement.ttcammount*0.19)/(1+0.19))
+        this.standardinteretpercueform =this.formBuilder.group({
+          ammountht: [this.decfiscmens.impottype2.interetpercue.htammount],
+          taux: [{value:"0.19",disabled:true}],
+          tvaammount: [{value:this.decfiscmens.impottype2.interetpercue.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.interetpercue.ttcammount],
+        });
+        this.tvacollecte5=((+this.decfiscmens.impottype2.interetpercue.ttcammount)-(+this.decfiscmens.impottype2.interetpercue.ttcammount*0.19)/(1+0.19))
+    
+        this.standardautretvaspecialform =this.formBuilder.group({
+          ammountht: [this.decfiscmens.impottype2.autretvaspecial.htammount],
+          tauxpercent:[+(this.decfiscmens.impottype2.autretvaspecial.taux) *100],
+          taux: [this.decfiscmens.impottype2.autretvaspecial.taux],
+          tvaammount: [{value:this.decfiscmens.impottype2.autretvaspecial.tvaammount,disabled:true}],
+          ammountttc: [this.decfiscmens.impottype2.autretvaspecial.ttcammount],
+        });
+        this.tvacollecte6=((+this.decfiscmens.impottype2.autretvaspecial.ttcammount)-(+this.decfiscmens.impottype2.autretvaspecial.ttcammount*0.19)/(1+0.19))
+    
+          this.standardtfpform =this.formBuilder.group({
+            basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
+            tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
+            taux: [{value:"0.02",disabled:true}],
+            avanceammount: this.decfiscmens.impottype3.montantavance,
+            tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
+            salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
+            tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
+            tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
+            tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
+          });
+          this.standardfoprolosform =this.formBuilder.group({
+            basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
+            foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
+            taux: [{value:"0.01",disabled:true}],
+            salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
+            foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
+          });
+        this.standarddroittimbreform =this.formBuilder.group({
+          nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
+          taux: [{value:"0.6",disabled:true}],
+          totaldroittimbre: [this.decfiscmens.impottype5.totaldroittimbre],
+        });
+        this.standardtclform =this.formBuilder.group({
+          chiffreaffairettc: [this.decfiscmens.impottype6.chiffreaffairettc],
+          taux: [{value:"0.002",disabled:true}],
+          tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
+        });
+        this.standardfspform =this.formBuilder.group({
+          chiffreaffaireht: [this.decfiscmens.impottype7.chiffreaffaireht],
+          taux: [{value:"0.01",disabled:true}],
+          montantcontribution: [{value:this.decfiscmens.impottype7.montantcontribution,disabled:true}],
+        });
+    console.log(this.tvacollecte2,this.tvacollecte3,this.tvacollecte4,this.tvacollecte5,this.tvacollecte6)
+        this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
+          this.option72Value=+(this.option71Value *0.19)
+        
+        this.sub1=merge(
+          this.standardlocationresidentesphysiqueform.get('brutammount').valueChanges,
+          this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+          
+        ).subscribe((res:any)=>{
+          this.calculateResultForm1()
+       })
+       this.sub2=merge(
+        this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
+        this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
+        
+      ).subscribe((res:any)=>{
+        this.calculateResultForm2()
+     })
+     this.sub3=merge(
+      this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
+      this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
       
     ).subscribe((res:any)=>{
-      this.calculateResultForm1()
-   })
-   this.sub2=merge(
-    this.standardlocationresidentesphysiqueform.get('netammount').valueChanges,
-    this.standardlocationresidentesphysiqueform.get('quotion').valueChanges,
-    
-  ).subscribe((res:any)=>{
-    this.calculateResultForm2()
- })
- this.sub3=merge(
-  this.standardlocationresidentesmoraleform.get('brutammount').valueChanges,
-  this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm3()
-})
-this.sub4=merge(
-  this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
-  this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm4()
-})
-this.sub5=merge(
-  this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
-  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm5()
-})
-this.sub6=merge(
-  this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
-  this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm6()
-})
-this.sub7=merge(
-  this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
-  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm7()
-})
-this.sub8=merge(
-  this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
-  this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm8()
-})
-this.sub9=merge(
-  this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
-  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm9()
-})
-this.sub10=merge(
-  this.standardhonorairephysiquereelform.get('netammount').valueChanges,
-  this.standardhonorairephysiquereelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm10()
-})
-this.sub11=merge(
-  this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
-  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm11()
-})
-this.sub12=merge(
-  this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
-  this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm12()
-})
-this.sub13=merge(
-  this.standardhonorairegroupementsform.get('brutammount').valueChanges,
-  this.standardhonorairegroupementsform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm13()
-})
-this.sub14=merge(
-  this.standardhonorairegroupementsform.get('netammount').valueChanges,
-  this.standardhonorairegroupementsform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm14()
-})
-this.sub15=merge(
-  this.standardmontant15form.get('brutammount').valueChanges,
-  this.standardmontant15form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm15()
-})
-this.sub16=merge(
-  this.standardmontant15form.get('netammount').valueChanges,
-  this.standardmontant15form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm16()
-})
-this.sub17=merge(
-  this.standardmontant10form.get('brutammount').valueChanges,
-  this.standardmontant10form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm17()
-})
-this.sub18=merge(
-  this.standardmontant10form.get('netammount').valueChanges,
-  this.standardmontant10form.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm18()
-})
-this.sub19=merge(
-  this.standardmontantindividuelform.get('brutammount').valueChanges,
-  this.standardmontantindividuelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm19()
-})
-this.sub20=merge(
-  this.standardmontantindividuelform.get('netammount').valueChanges,
-  this.standardmontantindividuelform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm20()
-})
-this.sub21=merge(
-  this.standardmontantautreform.get('brutammount').valueChanges,
-  this.standardmontantautreform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm21()
-})
-this.sub22=merge(
-  this.standardmontantautreform.get('netammount').valueChanges,
-  this.standardmontantautreform.get('quotion').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm22()
-})
-this.sub23=merge(
-  this.standardtraitementsalaireform.get('brutsalary').valueChanges,
-  this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
-  this.standardtraitementsalaireform.get('imposalary').valueChanges,
-  this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm23()
-})
-this.sub24=merge(
-  
-  this.standardtvacollecteform.get('chiffreaffaireht').valueChanges,
-  this.standardtvacollecteform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm24()
-})
-this.sub38=merge(
-  
-  this.standardtvacollecteform.get('ammountttc').valueChanges,
-  this.standardtvacollecteform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm38()
-})
-this.sub25=merge(
-  
-  this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
-  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm25()
-})
-this.sub39=merge(
-  
-  this.standardlocationusagehabitationmeubleform.get('ammountttc').valueChanges,
-  this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm39()
-})
-this.sub26=merge(
-  
-  this.standardlocationusagecommercialform.get('ammountht').valueChanges,
-  this.standardlocationusagecommercialform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm26()
-})
-this.sub40=merge(
-  
-  this.standardlocationusagecommercialform.get('ammountttc').valueChanges,
-  this.standardlocationusagecommercialform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm40()
-})
-this.sub30=merge(
-  
-  this.standardoperationlotissementform.get('ammountht').valueChanges,
-  this.standardoperationlotissementform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm30()
-})
-this.sub41=merge(
-  
-  this.standardoperationlotissementform.get('ammountttc').valueChanges,
-  this.standardoperationlotissementform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm41()
-})
-this.sub31=merge(
-  
-  this.standardinteretpercueform.get('ammountht').valueChanges,
-  this.standardinteretpercueform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm31()
-})
-this.sub42=merge(
-  
-  this.standardinteretpercueform.get('ammountttc').valueChanges,
-  this.standardinteretpercueform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm42()
-})
-this.sub32=merge(
-  
-  this.standardautretvaspecialform.get('ammountht').valueChanges,
-  this.standardautretvaspecialform.get('tauxpercent').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm32()
-})
-this.sub43=merge(
-  
-  this.standardautretvaspecialform.get('ammountttc').valueChanges,
-  this.standardautretvaspecialform.get('tauxpercent').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm43()
-})
-this.sub33=merge(
-  
-  this.standarddroittimbreform.get('nombrenotehonoraire').valueChanges,
-  this.standarddroittimbreform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm33()
-})
-this.sub37=merge(
-  
-  this.standarddroittimbreform.get('totaldroittimbre').valueChanges,
-  this.standarddroittimbreform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm37()
-})
-this.sub34=merge(
-  
-  this.standardtclform.get('chiffreaffairettc').valueChanges,
-  this.standardtclform.get('taux').valueChanges,
-  
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm34()
-})
-this.sub35=merge(
-  
-  this.standardtfpform.get('salairesnonsoumistfp').valueChanges,
-  this.standardtfpform.get('taux').valueChanges,
-  this.standardtfpform.get('basetfp').valueChanges,
-  this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
-  this.standardtfpform.get('tfpsalairebrut').valueChanges,
-  this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
-  this.standardtfpform.get('avanceammount').valueChanges,
-).subscribe((res:any)=>{
-  this.calculateResultForm35()
-})
-this.sub36=merge(
-  
-  this.standardfoprolosform.get('salairesnonsoumisfoprolos').valueChanges,
-  this.standardfoprolosform.get('foprolossalairebrut').valueChanges,
-  this.standardfoprolosform.get('taux').valueChanges,
-  this.standardfoprolosform.get('basefoprolos').valueChanges,
-  
-).subscribe((res:any)=>{
-  this.calculateResultForm36()
-})
-          this.loading = false;
+      this.calculateResultForm3()
+    })
+    this.sub4=merge(
+      this.standardlocationresidentesmoraleform.get('netammount').valueChanges,
+      this.standardlocationresidentesmoraleform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm4()
+    })
+    this.sub5=merge(
+      this.standardlocationnonresidentesphysiquesform.get('brutammount').valueChanges,
+      this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm5()
+    })
+    this.sub6=merge(
+      this.standardlocationnonresidentesphysiquesform.get('netammount').valueChanges,
+      this.standardlocationnonresidentesphysiquesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm6()
+    })
+    this.sub7=merge(
+      this.standardlocationnonresidentesmoralesform.get('brutammount').valueChanges,
+      this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm7()
+    })
+    this.sub8=merge(
+      this.standardlocationnonresidentesmoralesform.get('netammount').valueChanges,
+      this.standardlocationnonresidentesmoralesform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm8()
+    })
+    this.sub9=merge(
+      this.standardhonorairephysiquereelform.get('brutammount').valueChanges,
+      this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm9()
+    })
+    this.sub10=merge(
+      this.standardhonorairephysiquereelform.get('netammount').valueChanges,
+      this.standardhonorairephysiquereelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm10()
+    })
+    this.sub11=merge(
+      this.standardhonorairephysiquenonreelform.get('brutammount').valueChanges,
+      this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm11()
+    })
+    this.sub12=merge(
+      this.standardhonorairephysiquenonreelform.get('netammount').valueChanges,
+      this.standardhonorairephysiquenonreelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm12()
+    })
+    this.sub13=merge(
+      this.standardhonorairegroupementsform.get('brutammount').valueChanges,
+      this.standardhonorairegroupementsform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm13()
+    })
+    this.sub14=merge(
+      this.standardhonorairegroupementsform.get('netammount').valueChanges,
+      this.standardhonorairegroupementsform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm14()
+    })
+    this.sub15=merge(
+      this.standardmontant15form.get('brutammount').valueChanges,
+      this.standardmontant15form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm15()
+    })
+    this.sub16=merge(
+      this.standardmontant15form.get('netammount').valueChanges,
+      this.standardmontant15form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm16()
+    })
+    this.sub17=merge(
+      this.standardmontant10form.get('brutammount').valueChanges,
+      this.standardmontant10form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm17()
+    })
+    this.sub18=merge(
+      this.standardmontant10form.get('netammount').valueChanges,
+      this.standardmontant10form.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm18()
+    })
+    this.sub19=merge(
+      this.standardmontantindividuelform.get('brutammount').valueChanges,
+      this.standardmontantindividuelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm19()
+    })
+    this.sub20=merge(
+      this.standardmontantindividuelform.get('netammount').valueChanges,
+      this.standardmontantindividuelform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm20()
+    })
+    this.sub21=merge(
+      this.standardmontantautreform.get('brutammount').valueChanges,
+      this.standardmontantautreform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm21()
+    })
+    this.sub22=merge(
+      this.standardmontantautreform.get('netammount').valueChanges,
+      this.standardmontantautreform.get('quotion').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm22()
+    })
+    this.sub23=merge(
+      this.standardtraitementsalaireform.get('brutsalary').valueChanges,
+      this.standardtraitementsalaireform.get('retenuesalary').valueChanges,
+      this.standardtraitementsalaireform.get('imposalary').valueChanges,
+      this.standardtraitementsalaireform.get('solidaritycontribution').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm23()
+    })
+    this.sub24=merge(
+      
+      this.standardtvacollecteform.get('chiffreaffaireht').valueChanges,
+      this.standardtvacollecteform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm24()
+    })
+    this.sub38=merge(
+      
+      this.standardtvacollecteform.get('ammountttc').valueChanges,
+      this.standardtvacollecteform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm38()
+    })
+    this.sub25=merge(
+      
+      this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
+      this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm25()
+    })
+    this.sub39=merge(
+      
+      this.standardlocationusagehabitationmeubleform.get('ammountttc').valueChanges,
+      this.standardlocationusagehabitationmeubleform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm39()
+    })
+    this.sub26=merge(
+      
+      this.standardlocationusagecommercialform.get('ammountht').valueChanges,
+      this.standardlocationusagecommercialform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm26()
+    })
+    this.sub40=merge(
+      
+      this.standardlocationusagecommercialform.get('ammountttc').valueChanges,
+      this.standardlocationusagecommercialform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm40()
+    })
+    this.sub30=merge(
+      
+      this.standardoperationlotissementform.get('ammountht').valueChanges,
+      this.standardoperationlotissementform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm30()
+    })
+    this.sub41=merge(
+      
+      this.standardoperationlotissementform.get('ammountttc').valueChanges,
+      this.standardoperationlotissementform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm41()
+    })
+    this.sub31=merge(
+      
+      this.standardinteretpercueform.get('ammountht').valueChanges,
+      this.standardinteretpercueform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm31()
+    })
+    this.sub42=merge(
+      
+      this.standardinteretpercueform.get('ammountttc').valueChanges,
+      this.standardinteretpercueform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm42()
+    })
+    this.sub32=merge(
+      
+      this.standardautretvaspecialform.get('ammountht').valueChanges,
+      this.standardautretvaspecialform.get('tauxpercent').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm32()
+    })
+    this.sub43=merge(
+      
+      this.standardautretvaspecialform.get('ammountttc').valueChanges,
+      this.standardautretvaspecialform.get('tauxpercent').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm43()
+    })
+    this.sub33=merge(
+      
+      this.standarddroittimbreform.get('nombrenotehonoraire').valueChanges,
+      this.standarddroittimbreform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm33()
+    })
+    this.sub37=merge(
+      
+      this.standarddroittimbreform.get('totaldroittimbre').valueChanges,
+      this.standarddroittimbreform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm37()
+    })
+    this.sub34=merge(
+      
+      this.standardtclform.get('chiffreaffairettc').valueChanges,
+      this.standardtclform.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm34()
+    })
+    this.sub35=merge(
+      
+      this.standardtfpform.get('salairesnonsoumistfp').valueChanges,
+      this.standardtfpform.get('taux').valueChanges,
+      this.standardtfpform.get('basetfp').valueChanges,
+      this.standardtfpform.get('tfpammountreportmoisprecedent').valueChanges,
+      this.standardtfpform.get('tfpsalairebrut').valueChanges,
+      this.standardtfpform.get('tfpammountmoisactuel').valueChanges,
+      this.standardtfpform.get('avanceammount').valueChanges,
+    ).subscribe((res:any)=>{
+      this.calculateResultForm35()
+    })
+    this.sub36=merge(
+      
+      this.standardfoprolosform.get('salairesnonsoumisfoprolos').valueChanges,
+      this.standardfoprolosform.get('foprolossalairebrut').valueChanges,
+      this.standardfoprolosform.get('taux').valueChanges,
+      this.standardfoprolosform.get('basefoprolos').valueChanges,
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm36()
+    })
+              this.loading = false;
+            }
+          );
         }
       );
     }
-  );
+  ) 
+  
+  this.tokenStorage.saved=false;
+  
 }
 initammounts() {
   return this.formBuilder.group({
@@ -1448,10 +1482,13 @@ calculateResultForm23()
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
-    
-    const tvaammount=+ ((+chiffreaffaireht*+taux).toFixed(3));
+    const taux3=+this.standardfspform.get('taux').value
+
+    const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ ((+tvaammount+ +chiffreaffaireht).toFixed(3))
       const tclapayer=+ ((+ammountttc*+taux2).toFixed(3));
+      const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      this.totalfspammount=montantcontribution
       this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1464,6 +1501,11 @@ calculateResultForm23()
         chiffreaffairettc:ammountttc,tclapayer:tclapayer},{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
+        this.standardfspform.patchValue({
+
+          chiffreaffaireht:chiffreaffaireht,
+          montantcontribution:montantcontribution
+        });
   }
   calculateResultForm38()
   {
@@ -1471,10 +1513,13 @@ calculateResultForm23()
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
-    
+    const taux3=+this.standardfspform.get('taux').value
+
     const tvaammount=+ (((+ammountttc*+taux)/(1+ +taux)).toFixed(3));
       const ammountht=+ ((+ammountttc- +tvaammount).toFixed(3))
       this.totaltclammount=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      this.totalfspammount=montantcontribution
       this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1971,6 +2016,7 @@ restartform()
     );
   this.resetfoprolosall()
   this.resettclall()
+  this.resetfspall()
   this.resettfpall()
   this.resettimbreall()
   this.resettvaall()
@@ -2207,6 +2253,9 @@ onSend() {
               decfiscmens.impottype6={ type:'',
               chiffreaffairettc:'',
               tclpayer:'',}
+              decfiscmens.impottype7={ type:'',
+              chiffreaffaireht:'',
+              montantcontribution:'',}
   decfiscmens.userId = this.currentuser.userId;
   decfiscmens.activite=this.user.activite;
   decfiscmens.codepostal=this.user.codepostal;
@@ -2526,6 +2575,25 @@ decfiscmens.impottype6.chiffreaffairettc=this.standardtclform.get('chiffreaffair
 decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
+if(this.option172Value)
+{
+  if (this.option172Value&&!this.option173Value)
+  return (
+    Swal.fire({
+    title: 'veuillez confirmer l\'impot FSP ',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => {this.loading=false
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  }))
+  if(this.standardfspform.get('chiffreaffaireht').value!==null)
+  {
+  decfiscmens.impottype7.type='FSP'
+  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
+  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
+} 
+}
 this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
 (data:any) => {
 this.tokenStorage.saved=true;
@@ -2646,6 +2714,9 @@ onSubmitmodification() {
                 decfiscmens.impottype6={ type:'',
                 chiffreaffairettc:'',
                 tclpayer:'',}
+                decfiscmens.impottype7={ type:'',
+                chiffreaffaireht:'',
+                montantcontribution:'',}
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
     decfiscmens.codepostal=this.user.codepostal;
@@ -2962,6 +3033,25 @@ if(this.option53Value)
   decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
+if(this.option172Value)
+{
+  if (this.option172Value&&!this.option173Value)
+  return (
+    Swal.fire({
+    title: 'veuillez confirmer l\'impot FSP ',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => {this.loading=false
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  }))
+  if(this.standardfspform.get('chiffreaffaireht').value!==null)
+  {
+  decfiscmens.impottype7.type='FSP'
+  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
+  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
+} 
+}
 this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
 (data:any) => {
   this.tokenStorage.saved=true;
@@ -3061,7 +3151,12 @@ this.totalfoprolosammount=0
   {
   this.totaltclammount=0
   } 
+  if (!this.option172Value)
+    {
+    this.totalfspammount=0
+    }   
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
++ +this.totalfspammount
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
@@ -3261,6 +3356,10 @@ resettimbreall(){
 }
 resettclall(){
   this.standardtclform.controls['chiffreaffairettc'].reset()
+}
+resetfspall(){
+  this.standardfspform.controls['chiffreaffaireht'].reset()
+  this.standardfspform.controls['montantcontribution'].reset()
 }
 resettvaall(){
   this.standardtvacollecteform.controls['chiffreaffaireht'].reset()
@@ -3479,6 +3578,14 @@ this.standardtclform.patchValue({
   tclapayer: 0},{emitEvent: false} 
  );
  this.standardtclform.updateValueAndValidity();
+}
+declareneantfsp()
+{
+  this.standardfspform.patchValue({
+    chiffreaffaireht: 0, 
+    montantcontribution: 0}
+   );
+   this.standardfspform.updateValueAndValidity();
 }
 
   myFunction7() {
@@ -3873,6 +3980,58 @@ Swal.fire({
       });
       
        
+
+    }
+  }
+  myFunction30() {
+    var checkbox:any = document.getElementById("myCheck30");
+    var text2 = document.getElementById("tabcontainer");
+
+    if (checkbox.checked == true){
+      if (this.option51Value)
+      {
+      const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+      const taux=+this.standardfspform.get('taux').value
+      const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+      this.standardfspform.patchValue({
+        chiffreaffaireht:chiffreaffaireht,
+        montantcontribution:montantcontribution
+      })
+    }
+      text2.style.display = "block";
+      this.showfsptab=true;
+      this.option172Value=true;
+      this.showfspverif=true;
+      this.option173Value=false;
+
+    } else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FSP, voulez vous continuer?',
+
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Réinitialiser',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+
+          this.resetfspall();
+          this.showfsptab=false;
+          this.option172Value=false;
+          this.showfspverif=false;
+          this.option173Value=false;
+        }
+        else{
+          checkbox.checked = true
+          this.option172Value=true
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+
+
 
     }
   }
@@ -4400,4 +4559,47 @@ Swal.fire({
       
     }
   }
+  myFunction31() {
+    var checkbox:any = document.getElementById("myCheck31");
+    if (checkbox.checked == true){
+      if (this.standardfspform.get('chiffreaffaireht').value==null&&this.standardfspform.get('montantcontribution').value==null
+     )
+      {
+
+      Swal.fire({
+        title: 'Vous n\'avez saisi aucun montant relatif à l\'impot FSP!Veuillez indiquer votre décision',
+
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Déclarer néant',
+  cancelButtonText: 'Supprimer impot',
+      }).then((result) => {
+        if (result.value) {
+          this.loading=false
+
+         this.declareneantfsp()
+
+        }
+        else{
+          this.loading=false
+
+          checkbox.checked = false
+          this.option173Value=false
+          this.option172Value=false
+          this.showfsptab=false
+        }
+
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      }); 
+
+    }
+    } else {
+
+
+    }
+  }
+
 }

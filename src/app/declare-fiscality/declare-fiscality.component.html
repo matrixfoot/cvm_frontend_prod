@@ -257,6 +257,11 @@
                                     <td>{{totaltclammount | number:'1.3-3'| removeComma}}</td>
                                     
                                   </tr>
+                                  <tr *ngIf="showfsptab===true">
+                                    <td> FSP</td>
+                                    <td>{{totalfspammount | number:'1.3-3'| removeComma}}</td>
+                                    
+                                  </tr>
                                   <tr>
                                     <td>Minimum de Perception</td>
                                     <td>{{minimumperceptionammount | number:'1.3-3'| removeComma}}</td>
@@ -3111,7 +3116,7 @@
           <div class="form-group">
               <label>Taux</label>
               <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'"disabled/>
-              <input type="text" class="form-control" value="13%" *ngIf="activite==='Médecin'"disabled/>
+              <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'"disabled/>
             </div>
       </div>
       <div class="col-6">
@@ -3566,7 +3571,7 @@
                       
                           <div class="row">
                             <div class="col-6">
-                                <div class="form-group">
+                                <div class="form-group" (click)="setThreeNumberDecimal($event)">
                                     <label>Chiffre d'affaire HT</label>
                                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
