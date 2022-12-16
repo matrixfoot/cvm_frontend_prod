@@ -200,6 +200,7 @@ export class ModifyUserComponent implements OnInit {
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès!', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
+        this.router.navigate(['profil'])
         
         
         
