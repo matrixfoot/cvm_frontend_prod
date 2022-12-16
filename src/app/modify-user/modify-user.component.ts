@@ -72,7 +72,7 @@ export class ModifyUserComponent implements OnInit {
             secteur: [this.user.secteur,],
             civilite: [this.user.civilite,],
             raisonsociale: [this.user.raisonsociale,],
-            image: ['',],
+            image: [this.user.ficheUrl||'',],
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
@@ -110,7 +110,7 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
-              image: ['',],
+              image: [this.user.ficheUrl||'',],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -196,7 +196,7 @@ export class ModifyUserComponent implements OnInit {
     user.ficheUrl=''
     this.userservice.modifyUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(  
       () => {
-        this.userForm.reset();
+       this.userForm.reset();
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès!', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
