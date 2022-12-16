@@ -72,7 +72,7 @@ export class ModifyUserComponent implements OnInit {
             secteur: [this.user.secteur,],
             civilite: [this.user.civilite,],
             raisonsociale: [this.user.raisonsociale,],
-            image: [this.user.ficheUrl,],
+            image: ['',],
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
@@ -110,7 +110,7 @@ export class ModifyUserComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
-              image: [this.user.ficheUrl,],
+              image: ['',],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -193,22 +193,19 @@ export class ModifyUserComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(this.user._id, user, this.userForm.get('image').value).then(  
+    user.ficheUrl=''
+    this.userservice.modifyUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(  
       () => {
         this.userForm.reset();
         this.loading = false;
         this.alertService.success('Modification effectuée avec succès!', { keepAfterRouteChange: true });
         window.scrollTo(0, 0);
-        this.router.navigate(['profil'])
         
         
         
       },
       (error) => {
-        this.loading = false;
-        
-        this.alertService.error(JSON.stringify(error.error.error) );
-        window.scrollTo(0, 0);
+        this.loading = false
         
       }
     );

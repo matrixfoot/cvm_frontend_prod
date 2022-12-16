@@ -81,12 +81,13 @@
   <option disabled value="Architechte">Architechte</option>
   <option value="Autre">Autre</option>
 </select>
-<label for="activity"> CIF:</label> 
-<input type="file"  #filePicker (change)="onImagePick($event)"  class="input-field" accept="application/pdf" >
-        <div class="image-preview" *ngIf="imagePreview">
-          <img [src]="imagePreview" alt="">
-        </div>
-        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+  </div>
+  <div class="input-container">
+    <label for="activity"> CIF:</label> 
+<div class="col-6"style="width: 300px">
+  <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+  <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+</div>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
     <label for="activity"> Activité:</label>

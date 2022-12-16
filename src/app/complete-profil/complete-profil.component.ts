@@ -167,7 +167,7 @@ export class CompleteProfilComponent implements OnInit {
     
     
    
-    this.userservice.completeUserById(this.user._id, user, this.userForm.get('image').value).then(
+    this.userservice.completeUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(
       () => {
         this.userForm.reset();
         this.loading = false;
