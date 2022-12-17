@@ -73,7 +73,7 @@
     <div title="indiquer votre activité"class="input-container" id="idactivity">
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
   <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
   <option value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
@@ -81,10 +81,8 @@
   <option disabled value="Architechte">Architechte</option>
   <option value="Autre">Autre</option>
 </select>
-  </div>
-  <div class="input-container">
-    <label for="activity"> CIF:</label> 
-<div class="col-6"style="width: 300px">
+<label for="activity"style="min-width: 30px;width: 30px"> CIF:</label> 
+<div class="col-6">
   <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
   <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
 </div>

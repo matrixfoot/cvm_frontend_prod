@@ -395,9 +395,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
                 this.tauxtva='0.07'
               }
               console.log(this.tauxtva)
-      if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || user.regimefiscalimpot=='Autre/null'
-      || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
+      
               
       if (user.regimefiscalimpot=='Réel')
       {
@@ -923,7 +921,10 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     ).subscribe((res:any)=>{
       this.calculateResultForm36()
     })
-    
+    if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'|| !user.ficheUrl
+      || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
+      return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
             }
           )
     

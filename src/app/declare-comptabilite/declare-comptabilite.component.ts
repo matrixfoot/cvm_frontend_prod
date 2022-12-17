@@ -1442,7 +1442,7 @@ if (result.isConfirmed) {
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
-  this.usersservice.completeUserById(user._id,newuser).then(
+  this.usersservice.modifyUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
@@ -1454,7 +1454,7 @@ else if (result.isDenied)
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
-  this.usersservice.completeUserById(user._id,newuser).then(
+  this.usersservice.modifyUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
@@ -1488,7 +1488,7 @@ if (numero)
   const newuser= new User
   newuser.numeronote=numero
   this.token.saved=true
-  this.usersservice.completeUserById(user._id,newuser).then(
+  this.usersservice.modifyUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
@@ -1502,7 +1502,9 @@ if (numero)
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
 let numerofactureverif:any
   this.DeccomptabiliteService.deccomptabilites.forEach(element => numerofactureverif=element.autre1.length)
-  if (numerofactureverif<1)
+  console.log(numerofactureverif)
+
+  if (numerofactureverif<1||!numerofactureverif)
   {
     console.log('here')
     ammounts.at(0).patchValue({

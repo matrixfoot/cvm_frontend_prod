@@ -66,7 +66,7 @@ export class CompleteProfilComponent implements OnInit {
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
-            image: [this.user.ficheUrl,],
+            image: [this.user.ficheUrl],
             selectactivity:[null,],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
@@ -101,7 +101,7 @@ export class CompleteProfilComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
-              image: [this.user.ficheUrl,],
+              image: [this.user.ficheUrl],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -164,8 +164,7 @@ export class CompleteProfilComponent implements OnInit {
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
-    
-    
+    console.log(this.userForm.get('image').value)
    
     this.userservice.completeUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(
       () => {
