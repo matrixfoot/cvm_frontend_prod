@@ -41,10 +41,11 @@ maincontainer=false;
 public decfiscmens=new Decfiscmens;
   public errormsg:string;
   loading=false;
-  public tfpapyer: any
+  public tfpapayer: any
   public tfpareporter: any
   public statut: any
   public motif: any
+  public activite:string
   currentUser: any;
   spreadBackColor = 'aliceblue';
   hostStyle = {
@@ -106,10 +107,38 @@ public decfiscmens=new Decfiscmens;
       (params: Params) => {
         this.dec.getDecfiscmensreqById(params.id).then(
           (decfiscmens: Decfiscmens) => {
+            
             this.loading = false;
             this.decfiscmens = decfiscmens;
+            this.userservice.getUserById(this.decfiscmens.userId).then(
+              (user: User) => {
+                console.log(user)
+            if (user.regimefiscalimpot==='Réel')  
+            {
+            this.prepminimumperceptionammount=10.000
+            }  
+            else if (user.regimefiscalimpot==='Forfait D\'assiette') 
+            {
+            this.prepminimumperceptionammount=5.000
+            
+            }
+            if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+            
+            {
+              this.totaldeclaration=this.prepminimumperceptionammount
+              this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+            } 
+            else 
+            {
+              this.totaldeclaration=this.preptotaldeclaration
+              this.minimumperceptionammount=0.000
+            
+            }
+              }
+            )
             console.log(this.decfiscmens)
-            this.tfpapyer=this.decfiscmens.impottype3.tfppayer
+            this.activite=this.decfiscmens.activite
+            this.tfpapayer=this.decfiscmens.impottype3.tfppayer
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
@@ -119,7 +148,11 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            this.type7=this.decfiscmens.impottype7.type
+            if(this.activite=='Médecin')
+            {
+              this.type7=this.decfiscmens.impottype7.type 
+            }
+            
 
 
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
@@ -166,8 +199,9 @@ public decfiscmens=new Decfiscmens;
 
 
     
-      if (+this.decfiscmens.impottype3.tfppayer >= 0)
+      if (+this.decfiscmens.impottype3.tfppayer > 0)
       {
+        console.log(this.decfiscmens.impottype3.tfppayer)
       this.totaltfpammount= +this.decfiscmens.impottype3.tfppayer
       } 
       else 
@@ -175,40 +209,16 @@ public decfiscmens=new Decfiscmens;
         this.totaltfpammount= 0
       }
   this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
-  this.totaltclammount=+this.decfiscmens.impottype6.tclpayer  
-  this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution  
-
+  this.totaltclammount=+this.decfiscmens.impottype6.tclpayer 
+  if(this.activite=='Médecin')
+            { 
+  this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
+            }
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
 console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
 console.log(this.honoraireretenue)
-this.userservice.getUserById(this.decfiscmens.userId).then(
-  (user: User) => {
-    console.log(user)
- 
-if (user.regimefiscalimpot==='Réel')  
-{
-this.prepminimumperceptionammount=10.000
-}  
-else if (user.regimefiscalimpot==='Forfait D\'assiette') 
-{
-this.prepminimumperceptionammount=5.000
 
-}
-if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
-
-{
-  this.totaldeclaration=this.prepminimumperceptionammount
-  this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
-} 
-else 
-{
-  this.totaldeclaration=this.preptotaldeclaration
-  this.minimumperceptionammount=0.000
-
-}
-  }
-)
           }
         );
       }

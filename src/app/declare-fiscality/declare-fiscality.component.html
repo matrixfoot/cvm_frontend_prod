@@ -71,36 +71,29 @@
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="year">Sélectionner année</label>
                         <select id="year" name="year"[(ngModel)]="option54Value">
-                           <option>Année</option>
-                           <option value="2022">2022</option>
-                           <option disabled value="2023">2023</option>
-                           <option disabled value="2024">2024</option>
-                           <option disabled value="2025">2025</option>
-                           <option disabled value="2026">2026</option>
-                           <option disabled value="2027">2027</option>
-                           <option disabled value="2028">2028</option>
-                           <option disabled value="2029">2029</option>
-                           <option disabled value="2030">2030</option>
-                           
+                           <option></option>
+                           <option value="2023">2023</option>
+                           <option  value="2022">2022</option>
+                           <option  value="2021">2021</option> 
                        </select>
                       </div>
                       <div class="input-container" id="Month"> 
                         <i class="glyphicon glyphicon-time"></i>
                         <label for="month">Sélectionner mois</label>
                         <select id="month" name="month" #cricket (change)="verify($event)"[(ngModel)]="option171Value">
-                           <option>Mois</option>
-                           <option value="جانفي">جانفي </option>
-                           <option value="فيفري">فيفري  </option>
-                           <option value="مارس">مارس</option>
-                           <option value="آفريل">آفريل</option>
-                           <option value="ماي">ماي</option>
-                           <option value="جوان">جوان </option>
-                           <option value="جويلية">جويلية </option>
-                           <option value="أوت"> أوت </option>
-                           <option value="سبتمبر">سبتمبر</option>
-                           <option value="اكتوبر">اكتوبر</option>
-                           <option value="نوفمبر"> نوفمبر</option>
-                           <option value="ديسمبر">ديسمبر</option>
+                           <option></option>
+                           <option value="janvier">(01)janvier</option>
+                           <option value="février">(02)février</option>
+                           <option value="Mars">(03)Mars</option>
+                           <option value="avril">(04)avril</option>
+                           <option value="Mai">(05)Mai</option>
+                           <option value="juin">(06)juin</option>
+                           <option value="juillet">(07)juillet</option>
+                           <option value="août">(08)août</option>
+                           <option value="septembre">(09)septembre</option>
+                           <option value="octobre">(10)octobre</option>
+                           <option value="novembre">(11)novembre</option>
+                           <option value="décembre">(12)décembre</option>
                        </select>
                       </div>
                    
@@ -128,6 +121,10 @@
                         <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
                         <div><label for="rb1">TVA</label></div>
                       </td>
+                      <td style="text-align: center;"*ngIf="activite=='Médecin'">
+                        <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
+                        <div><label for="rb1">Fonds de soutien de la santé publique</label></div>
+                      </td>
                       <td style="text-align: center;">
                         <div><input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" /></div>
                         <div><label for="rb1">Droit de timbre</label></div>
@@ -136,10 +133,7 @@
                         <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" /></div>
                         <div><label for="rb1">TCL</label></div>
                       </td>
-                      <td style="text-align: center;"*ngIf="activite=='Médecin'">
-                        <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
-                        <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
-                      </td>
+                     
                   </tr>
                   <tr id="verifrow">
                       
@@ -3117,6 +3111,8 @@
               <label>Taux</label>
               <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'"disabled/>
               <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'"disabled/>
+              <input type="text" class="form-control" value="19%" *ngIf="activite==='Consultant'"disabled/>
+
             </div>
       </div>
       <div class="col-6">
@@ -3580,7 +3576,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>taux</label>
-                                    <input type="text" class="form-control" value="0.01%" disabled/>
+                                    <input type="text" class="form-control" value="1%" disabled/>
                                   </div>
                             </div>
                             <div class="col-6">

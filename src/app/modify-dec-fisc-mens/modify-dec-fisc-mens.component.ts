@@ -411,6 +411,10 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               {
                 this.tauxtva='0.07'
               }
+              if(this.activite=='Consultant')
+              {
+                this.tauxtva='0.19'
+              }
       this.route.params.subscribe(
         (params) => {
           this.dec.getDecfiscmensreqById(params.id).then(

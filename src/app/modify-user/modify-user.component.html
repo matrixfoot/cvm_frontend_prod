@@ -71,17 +71,18 @@
       <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
     </div>
     <div title="indiquer votre activité"class="input-container" id="idactivity">
-      <label for="activity"> Activité:</label> 
+      <label for="activity"style="min-width: 30px;width: 70px"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;" [(ngModel)]="option1Value"formControlName="activity" name="activity" >
   <option hidden [value]="currentuser.activite">{{currentuser.activite}}</option>
   <option value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
+  <option value="Consultant">Consultant</option>
   <option disabled value="Ingénieur">Ingénieur</option>
   <option disabled value="Architechte">Architechte</option>
   <option value="Autre">Autre</option>
 </select>
-<label for="activity"style="min-width: 30px;width: 30px"> CIF:</label>
+<label for="activity"style="min-width: 30px;width: 200px"> Carte d'identification fiscale:</label>
 <i class="glyphicon glyphicon-asterisk" style="color: red;"></i> 
 <div class="col-6" title="rattacher votre carte d'identification fiscale">
   <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">

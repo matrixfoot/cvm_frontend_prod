@@ -394,6 +394,10 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               {
                 this.tauxtva='0.07'
               }
+              if(this.activite=='Consultant')
+              {
+                this.tauxtva='0.19'
+              }
               console.log(this.tauxtva)
       
               
