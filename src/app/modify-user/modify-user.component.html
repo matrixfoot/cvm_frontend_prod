@@ -14,7 +14,7 @@
   
 <form  [formGroup]="userForm">
     <h2>Formulaire De Modification Des Données Utilisateurs</h2>
-    
+    <p>veuillez renseigner les champs obligatoires (*)</p>
     
     
     
@@ -81,9 +81,10 @@
   <option disabled value="Architechte">Architechte</option>
   <option value="Autre">Autre</option>
 </select>
-<label for="activity"style="min-width: 30px;width: 30px"> CIF:</label> 
-<div class="col-6">
-  <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+<label for="activity"style="min-width: 30px;width: 30px"> CIF:</label>
+<i class="glyphicon glyphicon-asterisk" style="color: red;"></i> 
+<div class="col-6" title="rattacher votre carte d'identification fiscale">
+  <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
   <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
 </div>
   </div>

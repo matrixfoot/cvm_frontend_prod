@@ -397,27 +397,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               console.log(this.tauxtva)
       
               
-      if (user.regimefiscalimpot=='Réel')
-      {
-        Swal.fire({
-          title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
-          
-          icon: 'info',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Confirmer',
-          cancelButtonText: 'continuer avec ce module',
-        }).then((result) => {
-          if (result.value) {
-            
-            this.router.navigate(['declare-comptabilite']);
-          }
-  
-        }).catch(() => {
-          Swal.fire('opération non aboutie!');
-        });
-      }
+      
          if (user.regimefiscalimpot==='Réel')  
          {
           this.prepminimumperceptionammount=10.000
@@ -927,6 +907,27 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['modify-user/'+this.currentUser.userId]))
+      if (user.regimefiscalimpot=='Réel')
+      {
+        Swal.fire({
+          title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
+          
+          icon: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmer',
+          cancelButtonText: 'continuer avec ce module',
+        }).then((result) => {
+          if (result.value) {
+            
+            this.router.navigate(['declare-comptabilite']);
+          }
+  
+        }).catch(() => {
+          Swal.fire('opération non aboutie!');
+        });
+      }
             }
           )
     
