@@ -111,27 +111,7 @@ export class UserService {
           );
         });
       }
-      completeUserwithimageById(id: string, user: User, image: File | string) {
-        return new Promise((resolve, reject) => {
-          let userData: User | FormData;
-          if (typeof image === 'string') {
-            user.ficheUrl = image;
-            userData = user;
-          } else {
-            userData = new FormData();
-            userData.append('user', JSON.stringify(user));
-            userData.append('image', image, user.email);
-          }
-          this.http.put(API_URL_cloud+'complete/'+id, user).subscribe(
-            (response) => {
-              resolve(response);
-            },
-            (error) => {
-              reject(error);
-            }
-          );
-        });
-      }
+   
       modifyUserById(id: string, user: User) {
         return new Promise((resolve, reject) => {
           

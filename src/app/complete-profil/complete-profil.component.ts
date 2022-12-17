@@ -66,7 +66,7 @@ export class CompleteProfilComponent implements OnInit {
             activitynature: [{value:this.user.natureactivite,}],
             selectactivitynature: [null,],
             activity: [this.user.activite,],
-            image: [this.user.ficheUrl],
+            image: [this.user.ficheUrl||''],
             selectactivity:[null,],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
@@ -101,7 +101,7 @@ export class CompleteProfilComponent implements OnInit {
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
-              image: [this.user.ficheUrl],
+              image: [this.user.ficheUrl||''],
               activitynature: [{value:this.user.natureactivite,}],
               selectactivitynature: [null,],
               activity: [this.user.activite,],
@@ -150,7 +150,6 @@ export class CompleteProfilComponent implements OnInit {
     this.alertService.clear();
     const user = new User();
     user.userId = this.user.userId;
-    user.ficheUrl=''
     if (this.userForm.get('activitynature').value=="Autre") { user.natureactivite = this.userForm.get('activitynature').value+'/'+this.userForm.get('selectactivitynature').value}
     else  {user.natureactivite = this.userForm.get('activitynature').value};
     if (this.userForm.get('activity').value=="Autre") {user.activite = this.userForm.get('activity').value+'/'+this.userForm.get('selectactivity').value}
@@ -164,9 +163,9 @@ export class CompleteProfilComponent implements OnInit {
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
-    console.log(this.userForm.get('image').value)
+    
    
-    this.userservice.completeUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(
+    this.userservice.completeUserById(this.user._id, user).then(
       () => {
         this.userForm.reset();
         this.loading = false;

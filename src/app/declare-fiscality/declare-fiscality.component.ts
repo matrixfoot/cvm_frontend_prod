@@ -922,9 +922,11 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       this.calculateResultForm36()
     })
     if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || user.regimefiscalimpot=='Autre/null'|| !user.ficheUrl
+      || user.regimefiscalimpot=='Autre/null'
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
+      if ( !user.ficheUrl) 
+      return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['modify-user/'+this.currentUser.userId]))
             }
           )
     

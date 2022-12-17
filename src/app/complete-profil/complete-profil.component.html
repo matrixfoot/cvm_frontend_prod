@@ -56,11 +56,6 @@
   <option disabled value="médecin vétérinaire">médecin vétérinaire</option>
   <option value="Autre">Autre</option>
 </select>
-<label for="activity"style="min-width: 30px;width: 30px"> CIF:</label> 
-<div class="col-6">
-  <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
-  <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
-</div>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
     <label for="activity"> Activité:</label> 
