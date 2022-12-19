@@ -102,6 +102,12 @@
               <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
+           <td *ngIf="activite=='Médecin'">
+            <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
+              <div><label *ngIf="option173Value===true" style="color: green;">Validé</label></div>
+              <div><label  *ngIf="option173Value===false" style="color: red;">Non Validé</label></div>
+
+           </td>
            <td>
             <div><input *ngIf="showtimbreverif===true" type="checkbox" id="myCheck28" (click)="myFunction28()"[(ngModel)]="option69Value" /></div>
               <div><label *ngIf="option69Value===true" style="color: green;">Validé</label></div>
@@ -114,12 +120,7 @@
               <div><label  *ngIf="option70Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
-           <td *ngIf="activite=='Médecin'">
-            <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
-              <div><label *ngIf="option173Value===true" style="color: green;">Validé</label></div>
-              <div><label  *ngIf="option173Value===false" style="color: red;">Non Validé</label></div>
-
-           </td>
+           
        </tr>
           </tbody>
         </table>

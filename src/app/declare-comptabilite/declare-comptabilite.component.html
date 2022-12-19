@@ -371,7 +371,7 @@
                       </select>
                         </div>
                         <div class="col-6"*ngIf="someHashName?.value == 'Autre'">
-                          <input class="form-control" type="text" placeholder="Fournisseur" id="fournisseur" formControlName="autrefournisseur">
+                          <input class="form-control" type="text" placeholder="Fournisseur" id="fournisseur" (change)="verifyinvoice(i)"formControlName="autrefournisseur">
                         </div>
                   </td>
                   <td style="width: 50px;">

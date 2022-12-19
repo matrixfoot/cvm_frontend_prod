@@ -2062,6 +2062,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     let invoice2:any
     let invoice3:any
     let invoice4:any
+    let invoice5:any
     let invoice6:any
 
     this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur));
@@ -2069,11 +2070,13 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture));
     if(ammounts3.length>1)
     {
-      ammounts3.value.find(e => invoice4=e.fournisseur === ammounts3.value.at(i).fournisseur);
-      ammounts3.value.find(e => invoice6=e.numerofacture === ammounts3.value.at(i).numerofacture);
+      let ammounts3sliced=ammounts3.value.slice(0,-1)
+      ammounts3sliced.find(e => invoice4=e.fournisseur === ammounts3.value.at(i).fournisseur);
+      ammounts3sliced.find(e => invoice5=e.autrefournisseur === ammounts3.value.at(i).autrefournisseur);
+      ammounts3sliced.find(e => invoice6=e.numerofacture === ammounts3.value.at(i).numerofacture);
+      console.log(ammounts3sliced)
     }
     
-
     console.log(invoice4)
     console.log(invoice6)
     if(invoice1&&invoice2&&invoice3||invoice4&&invoice6)
