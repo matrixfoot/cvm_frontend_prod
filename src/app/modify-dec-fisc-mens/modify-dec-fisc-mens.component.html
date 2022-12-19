@@ -60,6 +60,10 @@
               <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
               <div><label for="rb1">TVA</label></div>
             </td>
+            <td style="text-align: center;"*ngIf="activite=='Médecin'">
+              <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
+              <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
+            </td>
             <td style="text-align: center;">
               <div><input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" /></div>
               <div><label for="rb1">Droit de timbre</label></div>
@@ -68,10 +72,7 @@
               <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" /></div>
               <div><label for="rb1">TCL</label></div>
             </td>
-            <td style="text-align: center;"*ngIf="activite=='Médecin'">
-              <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
-              <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
-            </td>
+            
         </tr>
         <tr id="verifrow">
             
@@ -1279,7 +1280,38 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
               </table>
           </fieldset>
            </mat-tab>
-           
+           <mat-tab label="FSSP" id="FSSPtab"*ngIf="showfsptab===true&&decfiscmens.impottype7">
+            <fieldset>
+              <legend>FSSP</legend>                   
+            <form  [formGroup]="standardfspform">
+
+
+                <div class="row">
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label>Chiffre d'affaire HT</label>
+                          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                          class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                        </div>
+                  </div>
+                  <div class="col-6">
+                      <div class="form-group">
+                          <label>taux</label>
+                          <input type="text" class="form-control" value="1%" disabled/>
+                        </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group"(click)="setThreeNumberDecimal($event)">
+                        <label>Montant de la Contribution</label>
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                        class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="montantcontribution" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+                      </div>
+                </div>
+
+                </div>
+              </form>
+                </fieldset>
+          </mat-tab>
            <mat-tab label="Droit De Timbre" id="Timbretab"*ngIf="showtimbretab===true">
             <fieldset>
               <legend> Droit de timbre</legend>                   
@@ -1344,38 +1376,7 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
               </form>
                 </fieldset>
           </mat-tab>
-          <mat-tab label="FSSP" id="FSSPtab"*ngIf="showfsptab===true&&decfiscmens.impottype7">
-            <fieldset>
-              <legend>FSSP</legend>                   
-            <form  [formGroup]="standardfspform">
-
-
-                <div class="row">
-                  <div class="col-6">
-                      <div class="form-group">
-                          <label>Chiffre d'affaire HT</label>
-                          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                          class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                      <div class="form-group">
-                          <label>taux</label>
-                          <input type="text" class="form-control" value="1%" disabled/>
-                        </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="form-group"(click)="setThreeNumberDecimal($event)">
-                        <label>Montant de la Contribution</label>
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                        class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="montantcontribution" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
-                      </div>
-                </div>
-
-                </div>
-              </form>
-                </fieldset>
-          </mat-tab>
+         
           </mat-tab-group>
           
          </div>
