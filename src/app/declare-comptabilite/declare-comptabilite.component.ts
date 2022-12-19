@@ -1034,149 +1034,123 @@ this.loading=false
   restartform()
   {
     this.loading = true;
-    let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-    let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts.length>0)
-    {  
-      ammounts.at(0).patchValue({
-        jour:'',
-        date:'',
-        montantht:'',
-        montanttva:'',
-        montantdt:'',
-        montantttc:'',
-        reglement:''
-       })
-      for (let i = 0; i < ammounts.length; i++)
-    {
-this.removeammount(i)
-    }
-      this.totalht=0.000
-      this.totaltva=0.000
-      this.totaldt=0.000
-      this.totalttc=0.000
-    }
-    else if (ammounts2)
-    {
-      ammounts2.reset()
-      this.totalht2=0.000
-      this.totaltva2=0.000
-      this.totaldt2=0.000
-      this.totalttc2=0.000
-    }
-    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    ammounts3.reset()
-    for (let i = 1; i < ammounts3.length; i++)
-    {
-this.removeammount3(i)
-    }
-    this.totalht3=0.000
-      this.totaltva3=0.000
-      this.totaldt3=0.000
-      this.totalttc3=0.000
-      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-      ammounts4.reset()
-      ammounts5.reset()
-      for (let i = 1; i < ammounts5.length; i++)
-      {
-  this.removeammount5(i)
-      }
-  this.totaldebit=0.000
-  this.totalcredit=0.000
-  this.totalsoldemois=0.000
-  let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-  ammounts6.reset()
-  this.totalsalairebrut=0.000
-  this.totalcnss=0.000
-  this.totalsalaireimposable=0.000
-  this.totalretenueimpot=0.000
-  this.totalavancepret=0.000
-  this.totalsalairenet=0.000
-  for (let i = 1; i < ammounts6.length; i++)
-  {
-this.removeammount6(i)
-  }
+this.resetcaall()
+this.resetachatall()
+this.resetbanqueall()
+this.resetsalaireall()
   this.loading=false
-
+console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6)
   }
   resetcaall()
   {
-    let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-    let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts.length>0)
-    {  
-      ammounts.at(0).patchValue({
-        jour:'',
-        date:'',
-        montantht:'',
-        montanttva:'',
-        montantdt:'',
-        montantttc:'',
-        reglement:''
-       })
-      for (let i = 0; i < ammounts.length; i++)
+    if (this.option3Value)
     {
-this.removeammount(i)
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+      let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+      if(ammounts.length>0)
+      {  
+        ammounts.at(0).patchValue({
+          jour:'',
+          date:'',
+          montantht:'',
+          montanttva:'',
+          montantdt:'',
+          montantttc:'',
+          reglement:''
+         })
+        for (let i = 0; i < ammounts.length; i++)
+      {
+  this.removeammount(i)
+      }
+        this.totalht=0.000
+        this.totaltva=0.000
+        this.totaldt=0.000
+        this.totalttc=0.000
+      }
+      else if (ammounts2)
+      {
+        ammounts2.reset()
+        this.totalht2=0.000
+        this.totaltva2=0.000
+        this.totaldt2=0.000
+        this.totalttc2=0.000
+      }
     }
-      this.totalht=0.000
-      this.totaltva=0.000
-      this.totaldt=0.000
-      this.totalttc=0.000
-    }
-    else if (ammounts2)
-    {
-      ammounts2.reset()
-      this.totalht2=0.000
-      this.totaltva2=0.000
-      this.totaldt2=0.000
-      this.totalttc2=0.000
-    }
+    
 
   }
   resetachatall()
   {
-    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    ammounts3.reset()
-    for (let i = 1; i < ammounts3.length; i++)
+    if(this.option4Value)
     {
-this.removeammount3(i)
+      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+      ammounts3.reset()
+      var text3 = document.getElementById('achat'+`${0}`);
+      text3.style.display="none"
+      for (let i = 1; i < ammounts3.length; i++)
+      {
+  var text2 = document.getElementById('achat'+`${i}`);
+  this.removeammount3(i)
+  text2.style.display="none"
+      }
+      this.uploadFilesautre3=[]
+      this.totalht3=0.000
+        this.totaltva3=0.000
+        this.totaldt3=0.000
+        this.totalttc3=0.000
     }
-    this.totalht3=0.000
-      this.totaltva3=0.000
-      this.totaldt3=0.000
-      this.totalttc3=0.000
+    
 
   }
   resetbanqueall()
   {
-    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-    let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-    ammounts4.reset()
-    ammounts5.reset()
-    for (let i = 1; i < ammounts5.length; i++)
+    if(this.option5Value)
     {
-this.removeammount5(i)
+      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+      var text3 = document.getElementById('releve'+`${0}`);
+      text3.style.display="none"    
+
+      ammounts4.reset()
+      ammounts5.reset()
+      for (let i = 1; i < ammounts5.length; i++)
+      {
+        var text2 = document.getElementById('releve'+`${i}`);
+        this.removeammount5(i)
+        text2.style.display="none"    
+      }
+      this.uploadFilesautre5=[]
+  this.totaldebit=0.000
+  this.totalcredit=0.000
+  this.totalsoldemois=0.000
     }
-this.totaldebit=0.000
-this.totalcredit=0.000
-this.totalsoldemois=0.000
+    
 
   }
   resetsalaireall()
   {
-    let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-    ammounts6.reset()
-    this.totalsalairebrut=0.000
-    this.totalcnss=0.000
-    this.totalsalaireimposable=0.000
-    this.totalretenueimpot=0.000
-    this.totalavancepret=0.000
-    this.totalsalairenet=0.000
-    for (let i = 1; i < ammounts6.length; i++)
+    if(this.option6Value)
     {
-this.removeammount6(i)
+      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+      var text4 = document.getElementById('salaire'+`${0}`);
+      text4.style.display="none"
+      ammounts6.reset()
+      this.totalsalairebrut=0.000
+      this.totalcnss=0.000
+      this.totalsalaireimposable=0.000
+      this.totalretenueimpot=0.000
+      this.totalavancepret=0.000
+      this.totalsalairenet=0.000
+      for (let i = 1; i < ammounts6.length; i++)
+      {
+        var text2 = document.getElementById('salaire'+`${i}`);
+        this.removeammount6(i)
+        text2.style.display="none"
+          }
+      this.uploadFilesautre6=[]
     }
+    
+
   }
  
   logValue() {
@@ -1379,12 +1353,12 @@ console.log(deccomptabilite.autre6)
 
       } 
     }
-    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''));
-    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''));
-    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''));
-    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.debit!='0'&&item.debit!=''));
-    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''));
-    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''));
+    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
+    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
+    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
+    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.debit!='0'&&item.debit!=''&&item.debit!=null));
+    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
+    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
 
         this.DeccomptabiliteService.create(deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
           (data:any) => {
@@ -2087,13 +2061,22 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     let invoice1:any
     let invoice2:any
     let invoice3:any
+    let invoice4:any
+    let invoice6:any
+
     this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur));
     this.DeccomptabiliteService.deccomptabilites.find(e => invoice2=e.annee === this.option1Value);
     this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture));
-    console.log(invoice1)
-    console.log(invoice2)
-    console.log(invoice3)
-    if(invoice1&&invoice2&&invoice3)
+    if(ammounts3.length>1)
+    {
+      ammounts3.value.find(e => invoice4=e.fournisseur === ammounts3.value.at(i).fournisseur);
+      ammounts3.value.find(e => invoice6=e.numerofacture === ammounts3.value.at(i).numerofacture);
+    }
+    
+
+    console.log(invoice4)
+    console.log(invoice6)
+    if(invoice1&&invoice2&&invoice3||invoice4&&invoice6)
     try {
       console.log('here')
         const result = await Swal.fire({

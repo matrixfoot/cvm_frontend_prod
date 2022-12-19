@@ -43,6 +43,19 @@ export class CalendarFiscalityComponent implements OnInit {
   deleteEvent(id) {
     this.apiService.deleteSingleEvent(id).then((data: any) => {});
   }
+  deleteall() {
+    this.apiService.deleteAllEvents().then(
+      (data: any) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'tous les évènements sont suuprimés avec succès!',
+          showConfirmButton: false,
+          timer: 6000 
+        });
+        this.reloadPage()
+      });
+  }
   viewevent(id) {
     this.apiService.geteventreqById(id).then((data: any) => {});
     this.router.navigate(['view-event/' + id]);
@@ -95,5 +108,8 @@ export class CalendarFiscalityComponent implements OnInit {
         }
       };
     });
+  }
+  reloadPage (){
+    setTimeout(() => window.location.reload(), 1000); 
   }
 }

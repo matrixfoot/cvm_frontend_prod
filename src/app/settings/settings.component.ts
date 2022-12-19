@@ -5,7 +5,9 @@ import { CarouselService } from '../services/settings';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { read, utils } from "xlsx"
 import Swal from 'sweetalert2';
+import { ApiServiceService } from '../services/event.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -19,7 +21,11 @@ export class SettingsComponent implements OnInit {
   carouselform: FormGroup;
   public imagePreview: string;
   fileUploaded = false;
-  constructor(private token: TokenStorageService,private carousel:CarouselService,private formBuilder: FormBuilder,
+  file: any;
+  uploadEvent: any;
+  arrayBuffer: string | ArrayBuffer;
+  exceljsondata: Event[];
+  constructor(private token: TokenStorageService,private carousel:CarouselService,private eve:ApiServiceService,private formBuilder: FormBuilder,
     private router: Router,) { }
 
   ngOnInit() {
@@ -102,6 +108,7 @@ export class SettingsComponent implements OnInit {
     reader.readAsDataURL(file);
     
   }
+  
   getNavigation(link, id){
       
     this.carousel.getCarouseldataById(id);

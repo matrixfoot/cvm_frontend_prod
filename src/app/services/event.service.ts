@@ -36,7 +36,20 @@ export class ApiServiceService {
         );
       });
   }
-
+ // Add Events to Calender//
+ addEvents(event:Event[]) {
+  return new Promise((resolve, reject) => {
+        
+      this.http.post(this.API_URL_cloud+'add_multiple_events', event).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+}
   // Get All Events //
   getAllEvents() {
     return this.http.get(this.API_URL_cloud).
@@ -93,6 +106,19 @@ export class ApiServiceService {
         
       
       this.http.put(this.API_URL_cloud+ id, event).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  // Get All Events //
+  deleteAllEvents() {
+    return new Promise((resolve, reject) => {
+      this.http.delete(this.API_URL_cloud).subscribe(
         (response) => {
           resolve(response);
         },

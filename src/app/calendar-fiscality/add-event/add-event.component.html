@@ -42,5 +42,16 @@
       <p>{{ errormsg }}</p>
       
     </div>
+    <fieldset>
+      <legend> Insérer plusieurs évènements fiscales et comptables</legend>
+      <div class="form-group row">
+        <label class="col-sm-12 col-form-label"> Charger document</label>
+          <div class="col-sm-12">
+            <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"
+                          (change)="onFileChange($event);" >
+          </div>
+      </div>
+      <button class="btn btn-success" (click)="afficher()"> Valider</button>
+    </fieldset>
     </div>
     </body>
