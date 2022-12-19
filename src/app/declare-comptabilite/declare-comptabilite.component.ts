@@ -820,6 +820,7 @@ this.loading=false
   addammount3(){
     this.fileUploaded=false
     this.ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+    let i =this.ammounts3.length
     if (this.ammounts3.value.at(0).montantht=='0'||this.ammounts3.value.at(0).montantht=='')
 {
   return (
@@ -833,6 +834,8 @@ this.loading=false
   }))
 }
     this.ammounts3.push(this.createammount3());
+    this.ammounts3.controls[i-1].get('fournisseur').disable();
+    this.ammounts3.controls[i-1].get('numerofacture').disable();
      this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
       acc += +(curr.montantht || 0);
       return acc;
@@ -1229,26 +1232,51 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
       for (let i = 0; i < ammounts3.length; i++)
       {
         
-     
+ammounts3.controls[i].get('fournisseur').enable();
+ammounts3.controls[i].get('numerofacture').enable();    
 const item = ammounts3.value.at(i);
-deccomptabilite.autre3.push({
-        type: '3',
-        jour: item.jour,
-        date: item.date,
-        fournisseur: item.fournisseur,
-        autrefournisseur: item.autrefournisseur,
-        numerofacture:item.numerofacture,
-        natureachat:item.natureachat,
-        autrenatureachat:item.autrenatureachat,
-      montantht:item.montantht,
-      montanttva:item.montanttva,
-      montantdt:item.montantdt,
-      montantttc:item.montantttc,
-      reglement:item.reglement,
-      ficheUrl:'',
-      contientfiche:item.contientfiche
+if (item.fournisseur==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.autrefournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.natureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
 
 })
+}
+else{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.fournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.natureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+
 
 
 console.log(deccomptabilite.autre3)
@@ -1371,7 +1399,7 @@ console.log(deccomptabilite.autre6)
               showConfirmButton: false,
               timer: 6000 
             });
-            this.router.navigate(['modify-deccomptabilite/'+data.data._id])
+            //this.router.navigate(['modify-deccomptabilite/'+data.data._id])
           },
           (error) => {
             this.loading = false;
@@ -2064,10 +2092,19 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     let invoice4:any
     let invoice5:any
     let invoice6:any
-
-    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur));
+    let fourexist:any
+    let factexist:any
+let fournisseurs=[]
+let numerosfacture=[]
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => (invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur,fournisseurs.push({
+      invoice1
+    }))));
+    fournisseurs.find(e => fourexist=e.invoice1===true);
     this.DeccomptabiliteService.deccomptabilites.find(e => invoice2=e.annee === this.option1Value);
-    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture));
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => (invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture,numerosfacture.push({
+      invoice3
+    }))));
+    numerosfacture.find(e => factexist=e.invoice3===true);
     if(ammounts3.length>1)
     {
       let ammounts3sliced=ammounts3.value.slice(0,-1)
@@ -2076,10 +2113,10 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       ammounts3sliced.find(e => invoice6=e.numerofacture === ammounts3.value.at(i).numerofacture);
       console.log(ammounts3sliced)
     }
-    
-    console.log(invoice4)
-    console.log(invoice6)
-    if(invoice1&&invoice2&&invoice3||invoice4&&invoice6)
+    console.log(fournisseurs)
+    console.log(numerosfacture)
+
+    if(fourexist&&invoice2&&factexist||invoice4&&invoice5&&invoice6)
     try {
       console.log('here')
         const result = await Swal.fire({
