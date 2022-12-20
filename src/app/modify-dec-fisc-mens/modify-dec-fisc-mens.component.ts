@@ -415,6 +415,10 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               {
                 this.tauxtva='0.19'
               }
+              this.dec.getdecfiscmens(user._id).then(
+                (decfiscmens: Decfiscmens[]) => {
+                }
+              )
       this.route.params.subscribe(
         (params) => {
           this.dec.getDecfiscmensreqById(params.id).then(
@@ -3122,7 +3126,7 @@ if (this.option48Value)
   + +this.standardlocationresidentesphysiqueform.get('retenueammount').value+ +this.standardlocationresidentesmoraleform.get('retenueammount').value
   + +this.standardlocationnonresidentesphysiquesform.get('retenueammount').value+ +this.standardlocationnonresidentesmoralesform.get('retenueammount').value
   +  +this.standardhonorairephysiquenonreelform.get('retenueammount').value
-  + ((+this.standardhonorairegroupementsform.get('brutammount').value+ +this.standardhonorairephysiquereelform.get('brutammount').value) *0.03) +this.standardmontant15form.get('retenueammount').value+
+  + Math.trunc(((+this.standardhonorairegroupementsform.get('brutammount').value+ +this.standardhonorairephysiquereelform.get('brutammount').value) *0.03)*1000)/1000 +this.standardmontant15form.get('retenueammount').value+
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
 }
@@ -3217,7 +3221,7 @@ createammount(): FormGroup {
     ammount: '',
     description: ''
   });
-}
+} 
 
 addammount(): void {
   this.ammounts = this.autreform.get('ammounts') as FormArray;
@@ -3789,7 +3793,47 @@ Swal.fire({
       this.option49Value=true;
       this.showtfpverif=true;
       this.option66Value=false;
+//verify report TFP mois précédent
+let mois=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'] 
+let mois1:any
+let desiredmois1:any
+let verifymois1:any
+let verifyannee1:any
+let reporttfp:any
+let avancetfp:any
 
+let selected = (element) => element ===this.option171Value;
+if(this.option171Value!='Janvier')
+{
+  mois1=mois.findIndex(selected)
+  desiredmois1=mois[+(mois1-1)]
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
+  this.dec.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
+  console.log(verifyannee1)
+  console.log(verifymois1)
+  if(verifyannee1&&verifymois1)
+{ 
+reporttfp=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.tfpreporter
+avancetfp=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.montantavance
+
+this.standardtfpform.patchValue({
+  avanceammount:avancetfp,
+  tfpammountreportmoisprecedent:reporttfp
+})
+}
+else if(this.option171Value==='Janvier')
+{
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === 'Décembre');
+  this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
+  if(verifyannee1&&verifymois1)
+{ 
+reporttfp=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype3.tfpreporter
+this.standardtfpform.patchValue({
+  tfpammountreportmoisprecedent:reporttfp
+})
+}
+}
+}
     } else {
       Swal.fire({
         title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TFP, voulez vous continuer?',
@@ -3892,7 +3936,60 @@ Swal.fire({
       this.option51Value=true;
       this.showtvaverif=true;
       this.option68Value=false;
-
+//verify report tva mois précédent
+let mois=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'] 
+let mois1:any
+let desiredmois1:any
+let verifymois1:any
+let verifyannee1:any
+let reporttva:any
+let selected = (element) => element ===this.option171Value;
+if(this.option171Value!='Janvier')
+{
+  mois1=mois.findIndex(selected)
+  desiredmois1=mois[+(mois1-1)]
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
+  this.dec.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
+  console.log(verifyannee1)
+  console.log(verifymois1)
+  if(verifyannee1&&verifymois1)
+{ 
+  let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
+  +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.reporttvamoisprecedent
+  let tvacollecte=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationhabitationmeuble.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationusagecommercial.htammount
+  + +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.operationlotissement.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.interetpercue.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+   
+reporttva=(tvarecuperable-tvacollecte).toFixed(3)
+console.log(tvarecuperable,tvacollecte)
+if(reporttva>0)
+{
+  this.option64Value=reporttva
+}
+}
+}
+else if(this.option171Value==='Janvier')
+{
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === 'Décembre');
+  this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
+  if(verifyannee1&&verifymois1)
+{ 
+  let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
+  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.reporttvamoisprecedent
+  let tvacollecte=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.locationhabitationmeuble.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.locationusagecommercial.htammount
+  + +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.operationlotissement.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.interetpercue.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+   
+reporttva=(tvarecuperable-tvacollecte).toFixed(3)
+console.log(tvarecuperable,tvacollecte)
+if(reporttva>0)
+{
+  this.option64Value=reporttva
+}
+}
+}
     } else {
       Swal.fire({
         title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt TVA, voulez vous continuer?',

@@ -157,13 +157,13 @@ public decfiscmens=new Decfiscmens;
 
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
             {this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
-              this.honoraireretenue= this.honorairesum* 0.03}
+              this.honoraireretenue=Math.trunc((this.honorairesum* 0.03)*1000)/1000 }
               if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount!==0 ||+this.decfiscmens.impottype2.locationusagecommercial.htammount!==0||
                 +this.decfiscmens.impottype2.operationlotissement.htammount!==0 ||+this.decfiscmens.impottype2.interetpercue.htammount!==0||+this.decfiscmens.impottype2.autretvaspecial.htammount!==0  )      
     {this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
     + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
-    this.option72Value= (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19 }      
+    this.option72Value= Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 }      
 
   this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
@@ -177,8 +177,8 @@ public decfiscmens=new Decfiscmens;
   +this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva+ +this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva+ 
   +this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva
 
-  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-  + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19
+  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+  + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
   
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent

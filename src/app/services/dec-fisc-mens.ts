@@ -13,7 +13,7 @@ export class DecfiscmensService {
     
     
     constructor(private http: HttpClient) { }
-    private decfiscmenss: Decfiscmens[] = [
+    public decfiscmenss: Decfiscmens[] = [
     
     ];
     public decfiscmenss$ = new Subject<Decfiscmens[]>();
