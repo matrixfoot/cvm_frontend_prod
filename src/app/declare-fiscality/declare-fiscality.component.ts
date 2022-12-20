@@ -31,6 +31,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   user:User;
   tauxtva:any;
   decfiscmens:Decfiscmens;
+  decfiscmens1:Decfiscmens[];
+  chosenmois:any
   standardtraitementsalaireform: FormGroup;
   standardlocationresidentesphysiqueform: FormGroup;
   standardlocationresidentesmoraleform: FormGroup;
@@ -905,7 +907,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     ).subscribe((res:any)=>{
       this.calculateResultForm36()
     })
-    if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+      if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
       || user.regimefiscalimpot=='Autre/null'
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
@@ -958,6 +960,7 @@ canDeactivate():boolean {
   
   openPopup() {
     this.displayStyle = "block";
+console.log(this.chosenmois);
 if (this.option48Value)
 {
   this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
@@ -2599,8 +2602,19 @@ this.DecfiscmensService.create(decfiscmens).then(
 
         }
       }
+      
     )
    
+    this.DecfiscmensService.getdecfiscmens(this.currentUser.userId).then(
+      (decfiscmens: Decfiscmens[]) => {
+       let mois=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'] 
+       let mois1:any
+       let selected = (element) => element ===this.option171Value;
+       mois1=mois.findIndex(selected)
+       this.chosenmois=mois1
+      this.decfiscmens1 = decfiscmens;   
+      }
+    )
 
   }
   update(e){
