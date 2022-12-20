@@ -2429,6 +2429,52 @@ if (this.autreform.get('ammounts').value!==null)
 
 }
 }
+if(this.option49Value)
+
+{
+if (this.option49Value&&!this.option66Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot TFP ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if (this.standardtfpform.get('basetfp').value!==null)
+    {
+decfiscmens.impottype3.type='TFP'
+decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
+decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
+decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
+decfiscmens.impottype3.reporttfpmoisprecedent=this.standardtfpform.get('tfpammountreportmoisprecedent').value
+decfiscmens.impottype3.tfppayer=this.standardtfpform.get('tfpapayer').value
+decfiscmens.impottype3.tfpreporter=this.standardtfpform.get('tfpareporter').value
+decfiscmens.impottype3.salairesnonsoumistfp=this.standardtfpform.get('salairesnonsoumistfp').value
+}
+}
+if(this.option50Value)
+{
+if (this.option50Value&&!this.option67Value)
+    return (
+      Swal.fire({
+      title: 'veuillez confirmer l\'impot FOPROLOS ',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.loading=false
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    if (this.standardfoprolosform.get('basefoprolos').value!==null)
+    {
+decfiscmens.impottype4.type='FOPROLOS'
+decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
+decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
+decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+
+}
+}
 if(this.option51Value)
 {
   if (this.option51Value&&!this.option68Value)
@@ -2521,52 +2567,26 @@ decfiscmens.impottype2.autretvaspecial.ttcammount=this.standardautretvaspecialfo
 decfiscmens.impottype2.autretvaspecial.taux=this.standardautretvaspecialform.get('taux').value
 }
 }
-if(this.option49Value)
-
+if(this.option172Value)
 {
-if (this.option49Value&&!this.option66Value)
-    return (
-      Swal.fire({
-      title: 'veuillez confirmer l\'impot TFP ',
-      icon: 'error',
-      confirmButtonColor: '#3085d6',
-    }).then((result) => {this.loading=false
-    }).catch(() => {
-      Swal.fire('opération non aboutie!')
-    }))
-    if (this.standardtfpform.get('basetfp').value!==null)
-    {
-decfiscmens.impottype3.type='TFP'
-decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
-decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
-decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
-decfiscmens.impottype3.reporttfpmoisprecedent=this.standardtfpform.get('tfpammountreportmoisprecedent').value
-decfiscmens.impottype3.tfppayer=this.standardtfpform.get('tfpapayer').value
-decfiscmens.impottype3.tfpreporter=this.standardtfpform.get('tfpareporter').value
-decfiscmens.impottype3.salairesnonsoumistfp=this.standardtfpform.get('salairesnonsoumistfp').value
+  if (this.option172Value&&!this.option173Value)
+  return (
+    Swal.fire({
+    title: 'veuillez confirmer l\'impot FSP ',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => {this.loading=false
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  }))
+  if(this.standardfspform.get('chiffreaffaireht').value!==null)
+  {
+  decfiscmens.impottype7.type='FSP'
+  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
+  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
+} 
 }
-}
-if(this.option50Value)
-{
-if (this.option50Value&&!this.option67Value)
-    return (
-      Swal.fire({
-      title: 'veuillez confirmer l\'impot FOPROLOS ',
-      icon: 'error',
-      confirmButtonColor: '#3085d6',
-    }).then((result) => {this.loading=false
-    }).catch(() => {
-      Swal.fire('opération non aboutie!')
-    }))
-    if (this.standardfoprolosform.get('basefoprolos').value!==null)
-    {
-decfiscmens.impottype4.type='FOPROLOS'
-decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
-decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
-decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
 
-}
-}
 if(this.option52Value)
 {
 if (this.option52Value&&!this.option69Value)
@@ -2605,25 +2625,7 @@ decfiscmens.impottype6.chiffreaffairettc=this.standardtclform.get('chiffreaffair
 decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
-if(this.option172Value)
-{
-  if (this.option172Value&&!this.option173Value)
-  return (
-    Swal.fire({
-    title: 'veuillez confirmer l\'impot FSP ',
-    icon: 'error',
-    confirmButtonColor: '#3085d6',
-  }).then((result) => {this.loading=false
-  }).catch(() => {
-    Swal.fire('opération non aboutie!')
-  }))
-  if(this.standardfspform.get('chiffreaffaireht').value!==null)
-  {
-  decfiscmens.impottype7.type='FSP'
-  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
-  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
-} 
-}
+
 this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
 (data:any) => {
 this.tokenStorage.saved=true;
@@ -2890,6 +2892,52 @@ if (this.autreform.get('ammounts').value!==null)
 
 }
 }
+if(this.option49Value)
+
+{
+  if (this.option49Value&&!this.option66Value)
+      return (
+        Swal.fire({
+        title: 'veuillez confirmer l\'impot TFP ',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }))
+      if (this.standardtfpform.get('basetfp').value!==null)
+      {
+  decfiscmens.impottype3.type='TFP'
+  decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
+  decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
+  decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
+  decfiscmens.impottype3.reporttfpmoisprecedent=this.standardtfpform.get('tfpammountreportmoisprecedent').value
+  decfiscmens.impottype3.tfppayer=this.standardtfpform.get('tfpapayer').value
+  decfiscmens.impottype3.tfpreporter=this.standardtfpform.get('tfpareporter').value
+  decfiscmens.impottype3.salairesnonsoumistfp=this.standardtfpform.get('salairesnonsoumistfp').value
+}
+}
+if(this.option50Value)
+{
+  if (this.option50Value&&!this.option67Value)
+      return (
+        Swal.fire({
+        title: 'veuillez confirmer l\'impot FOPROLOS ',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }))
+      if (this.standardfoprolosform.get('basefoprolos').value!==null)
+      {
+  decfiscmens.impottype4.type='FOPROLOS'
+  decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
+  decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
+  decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
+
+}
+}
 if(this.option51Value)
 {
   if (this.option51Value&&!this.option68Value)
@@ -2979,51 +3027,24 @@ decfiscmens.impottype2.autretvaspecial.ttcammount=this.standardautretvaspecialfo
 decfiscmens.impottype2.autretvaspecial.taux=this.standardautretvaspecialform.get('taux').value
 }
 }
-if(this.option49Value)
-
+if(this.option172Value)
 {
-  if (this.option49Value&&!this.option66Value)
-      return (
-        Swal.fire({
-        title: 'veuillez confirmer l\'impot TFP ',
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
-      }).catch(() => {
-        Swal.fire('opération non aboutie!')
-      }))
-      if (this.standardtfpform.get('basetfp').value!==null)
-      {
-  decfiscmens.impottype3.type='TFP'
-  decfiscmens.impottype3.basetfp=this.standardtfpform.get('basetfp').value
-  decfiscmens.impottype3.montantavance=this.standardtfpform.get('avanceammount').value
-  decfiscmens.impottype3.montanttfpmois=this.standardtfpform.get('tfpammountmoisactuel').value
-  decfiscmens.impottype3.reporttfpmoisprecedent=this.standardtfpform.get('tfpammountreportmoisprecedent').value
-  decfiscmens.impottype3.tfppayer=this.standardtfpform.get('tfpapayer').value
-  decfiscmens.impottype3.tfpreporter=this.standardtfpform.get('tfpareporter').value
-  decfiscmens.impottype3.salairesnonsoumistfp=this.standardtfpform.get('salairesnonsoumistfp').value
-}
-}
-if(this.option50Value)
-{
-  if (this.option50Value&&!this.option67Value)
-      return (
-        Swal.fire({
-        title: 'veuillez confirmer l\'impot FOPROLOS ',
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
-      }).catch(() => {
-        Swal.fire('opération non aboutie!')
-      }))
-      if (this.standardfoprolosform.get('basefoprolos').value!==null)
-      {
-  decfiscmens.impottype4.type='FOPROLOS'
-  decfiscmens.impottype4.basefoprolos=this.standardfoprolosform.get('basefoprolos').value
-  decfiscmens.impottype4.montantfoprolos=this.standardfoprolosform.get('foprolosammount').value
-  decfiscmens.impottype4.salairesnonsoumisfoprolos=this.standardfoprolosform.get('salairesnonsoumisfoprolos').value
-
-}
+  if (this.option172Value&&!this.option173Value)
+  return (
+    Swal.fire({
+    title: 'veuillez confirmer l\'impot FSSP ',
+    icon: 'error',
+    confirmButtonColor: '#3085d6',
+  }).then((result) => {this.loading=false
+  }).catch(() => {
+    Swal.fire('opération non aboutie!')
+  }))
+  if(this.standardfspform.get('chiffreaffaireht').value!==null)
+  {
+  decfiscmens.impottype7.type='FSSP'
+  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
+  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
+} 
 }
 if(this.option52Value)
 {
@@ -3063,25 +3084,7 @@ if(this.option53Value)
   decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
-if(this.option172Value)
-{
-  if (this.option172Value&&!this.option173Value)
-  return (
-    Swal.fire({
-    title: 'veuillez confirmer l\'impot FSP ',
-    icon: 'error',
-    confirmButtonColor: '#3085d6',
-  }).then((result) => {this.loading=false
-  }).catch(() => {
-    Swal.fire('opération non aboutie!')
-  }))
-  if(this.standardfspform.get('chiffreaffaireht').value!==null)
-  {
-  decfiscmens.impottype7.type='FSP'
-  decfiscmens.impottype7.chiffreaffaireht=this.standardfspform.get('chiffreaffaireht').value
-  decfiscmens.impottype7.montantcontribution=this.standardfspform.get('montantcontribution').value
-} 
-}
+
 this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
 (data:any) => {
   this.tokenStorage.saved=true;
@@ -4036,7 +4039,7 @@ Swal.fire({
 
     } else {
       Swal.fire({
-        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FSP, voulez vous continuer?',
+        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au type d\'impôt FSSP, voulez vous continuer?',
 
         icon: 'warning',
         showCancelButton: true,
@@ -4597,7 +4600,7 @@ Swal.fire({
       {
 
       Swal.fire({
-        title: 'Vous n\'avez saisi aucun montant relatif à l\'impot FSP!Veuillez indiquer votre décision',
+        title: 'Vous n\'avez saisi aucun montant relatif à l\'impot FSSP!Veuillez indiquer votre décision',
 
   icon: 'warning',
   showCancelButton: true,

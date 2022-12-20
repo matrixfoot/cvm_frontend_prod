@@ -31,6 +31,7 @@
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
     <option hidden [value]="user.natureactivite">{{user.natureactivite}}</option>
+    <option value=""></option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option hidden value="Commerçant">Commerçant</option>
     <option hidden value="Artisan">Artisan</option>
@@ -48,13 +49,26 @@
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"formControlName="activity" name="activity" >
   <option hidden [value]="user.activite">{{user.activite}}</option>
+  <option value=""></option>
   <option value="Médecin">Médecin</option>
   <option value="Avocat">Avocat</option>
   <option value="Consultant">Consultant</option>
-  <option disabled value="Ingénieur">Ingénieur</option>
-  <option disabled value="Architechte">Architechte</option>
-  <option disabled value="médecin dentiste">médecin dentiste</option>
-  <option disabled value="médecin vétérinaire">médecin vétérinaire</option>
+  <option value="Exploitant de laboratoire d'analyse">Exploitant de laboratoire d'analyse</option>
+  <option value="Infirmier">Infirmier</option>
+  <option value="Masseur">Masseur</option>
+  <option value="Physiothérapeute">Physiothérapeute</option>
+  <option value="Ergothérapeute">Ergothérapeute</option>
+  <option value="Psychomotricien">Psychomotricien</option>
+  <option value="Diététicien">Diététicien</option>
+  <option value="Orthophoniste">Orthophoniste</option>
+  <option value="Architectes">Architectes</option>
+  <option value="Dessinateurs">Dessinateurs</option>
+  <option value="Géomètres">Géomètres</option>
+  <option value="Notaire">Notaire</option>
+  <option value="Huissiers notaire (de justice)">Huissiers notaire (de justice)</option>
+  <option value="Interprètes">Interprètes</option>
+  <option disabled value="Ingénieurs-conseil">Ingénieurs-conseil</option>
+  <option disabled value="Topographes">Topographes</option>
   <option value="Autre">Autre</option>
 </select>
   </div>
@@ -63,19 +77,23 @@
     <i class="fa fa-fort-awesome icon"></i>
     <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
   </div>
-  <div title="indiquer votre sous-activité"class="input-container-hidden"id="idunderactivity">
+  <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
   <option hidden [value]="user.sousactivite">{{user.sousactivite}}</option>
-
-<option value="Avocat">Avocat</option>
-<option value="Avocat à la cour d'appel">Avocat à la cour d'appel</option>
-<option value="Avocat à la cour de cassation">Avocat à la cour de cassation</option>
+<option value=""></option>
+<option value="Avocat"*ngIf="option1Value == 'Avocat'">Avocat</option>
+<option value="Avocat à la cour d'appel"*ngIf="option1Value == 'Avocat'">Avocat à la cour d'appel</option>
+<option value="Avocat à la cour de cassation"*ngIf="option1Value == 'Avocat'">Avocat à la cour de cassation</option>
+<option value="Médecin"*ngIf="option1Value == 'Médecin'">Médecin</option>
+<option value="Médecin spécialiste"*ngIf="option1Value == 'Médecin'">Médecin spécialiste</option>
+<option value="Médecin dentiste"*ngIf="option1Value == 'Médecin'">Médecin dentiste</option>
+<option value="Médecin vétérinaire"*ngIf="option1Value == 'Médecin'">Médecin vétérinaire</option>
 <option value="Autre">Autre</option>
 </select>
 </div>
-<div class="input-container-hidden"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
+<div class="input-container"id="selectunderactivity"*ngIf="option2Value == 'Autre'">
   <label for="underactivity"> Sous-Activité:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
