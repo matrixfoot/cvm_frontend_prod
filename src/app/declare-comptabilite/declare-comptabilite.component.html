@@ -19,18 +19,18 @@
            <label for="month">Sélectionner mois</label>
            <select id="month" name="month" #cricket (change)="verify($event)"[(ngModel)]="option2Value">
             <option></option>
-            <option value="01">(01)janvier</option>
-            <option value="02">(02)février</option>
-            <option value="03">(03)Mars</option>
-            <option value="04">(04)avril</option>
-            <option value="05">(05)Mai</option>
-            <option value="06">(06)juin</option>
-            <option value="07">(07)juillet</option>
-            <option value="08">(08)août</option>
-            <option value="09">(09)septembre</option>
-            <option value="10">(10)octobre</option>
-            <option value="11">(11)novembre</option>
-            <option value="12">(12)décembre</option>
+            <option value="Janvier">(01)janvier</option>
+                           <option value="Février">(02)février</option>
+                           <option value="Mars">(03)Mars</option>
+                           <option value="Avril">(04)avril</option>
+                           <option value="Mai">(05)Mai</option>
+                           <option value="Juin">(06)juin</option>
+                           <option value="Juillet">(07)juillet</option>
+                           <option value="Août">(08)août</option>
+                           <option value="Septembre">(09)septembre</option>
+                           <option value="Octobre">(10)octobre</option>
+                           <option value="Novembre">(11)novembre</option>
+                           <option value="Décembre">(12)décembre</option>
           </select>
          </div>
       
@@ -223,7 +223,7 @@
         </tr>
     </tbody>
     <div class="text-right">
-        <input type="submit" class="" value="Submit"(click)="logValue()">
+        <input type="submit" class="hidden" value="Submit"(click)="logValue()">
     </div>
     </table>
     </fieldset>
@@ -318,7 +318,7 @@
                 </tr>
             </tbody>
             <div class="text-right">
-                <input type="submit" class="" value="Submit"(click)="logValue2()">
+                <input type="submit" class="hidden" value="Submit"(click)="logValue2()">
             </div>
             </table>
     </fieldset>
@@ -469,7 +469,7 @@
         </tr>
     </tbody>
     <div class="text-right">
-        <input type="submit" class="" value="Submit"(click)="logValue3()">
+        <input type="submit" class="hidden" value="Submit"(click)="logValue3()">
     </div>
     </table>
     </fieldset>
@@ -482,50 +482,57 @@
   <table class="table table-striped" id="relevemanuelsection" [formGroup]="relevemanuelform">
   <thead>
       <tr>            
-      <th>Mois</th>
-      <th>Année</th>
-      <th>solde du mois précédent</th>
+      <th rowspan="2">Mois</th>
+      <th rowspan="2">Année</th>
+      <th colspan="2">solde du mois précédent</th>
+      </tr>
+      <tr>
+        <th>Débit</th>
+        <th>Crédit</th>
       </tr>
   </thead>
   <tbody>
     <tr>
-<td>
-  <div class="col-6">
-    <select class="form-control" id="year" name="year"formControlName="annee">
-       <option value="2022">2022</option>
-       <option disabled value="2023">2023</option>
-       <option disabled value="2024">2024</option>
-       <option disabled value="2025">2025</option>
-       <option disabled value="2026">2026</option>
-       <option disabled value="2027">2027</option>
-       <option disabled value="2028">2028</option>
-       <option disabled value="2029">2029</option>
-       <option disabled value="2030">2030</option>   
-   </select>
-  </div>
-</td>
-<td>
+
+<td style="width: 150px;">
   <div class="col-6">
     <select class="form-control" id="month" name="month" #cricket (change)="update($event)"formControlName="mois">
-       <option value="01">جانفي </option>
-                           <option value="02">فيفري  </option>
-                           <option value="03">مارس</option>
-                           <option value="04">آفريل</option>
-                           <option value="05">ماي</option>
-                           <option value="06">جوان </option>
-                           <option value="07">جويلية </option>
-                           <option value="08"> أوت </option>
-                           <option value="09">سبتمبر</option>
-                           <option value="10">اكتوبر</option>
-                           <option value="11"> نوفمبر</option>
-                           <option value="12">ديسمبر</option>
+      <option></option>
+      <option value="Janvier">(01)janvier</option>
+      <option value="Février">(02)février</option>
+      <option value="Mars">(03)Mars</option>
+      <option value="Avril">(04)avril</option>
+      <option value="Mai">(05)Mai</option>
+      <option value="Juin">(06)juin</option>
+      <option value="Juillet">(07)juillet</option>
+      <option value="Août">(08)août</option>
+      <option value="Septembre">(09)septembre</option>
+      <option value="Octobre">(10)octobre</option>
+      <option value="Novembre">(11)novembre</option>
+      <option value="Décembre">(12)décembre</option>
    </select>
   </div> 
 </td>
 <td>
   <div class="col-6">
+    <select class="form-control" id="year" name="year"formControlName="annee">
+      <option></option>
+      <option value="2023">2023</option>
+      <option  value="2022">2022</option>
+      <option  value="2021">2021</option>   
+   </select>
+  </div>
+</td>
+<td>
+  <div class="col-6">
     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-  class="form-control"formControlName="soldemoisprecedent"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde du mois précédent"/>
+  class="form-control"formControlName="soldemoisprecedentdebit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Débit du mois précédent"/>
+</div>
+</td>
+<td>
+  <div class="col-6">
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+  class="form-control"formControlName="soldemoisprecedentcredit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Crédit du mois précédent"/>
 </div>
 </td>
     </tr>
@@ -583,7 +590,7 @@
       <tr id="resultrow">
           <td colspan="2">
               <div class="col-6">
-                   <p>Totaux</p>
+                   <p>Total des mouvement du mois</p>
               </div>
           </td>
           <td style="text-align: center;">{{totaldebit | number:'1.3-3'| removeComma}}</td>
@@ -592,14 +599,14 @@
       <tr id="resultrow">
         <td colspan="2">
             <div class="col-6">
-                 <p>Totaux</p>
+                 <p>Solde fin du mois</p>
             </div>
         </td>
         <td style="text-align: center;">{{totalsoldemois | number:'1.3-3'| removeComma}}</td>
     </tr>
   </tbody>
   <div class="text-right">
-      <input type="submit" class="" value="Submit"(click)="logValue4()">
+      <input type="submit" class="hidden" value="Submit"(click)="logValue4()">
   </div>
   </table>
   </fieldset>
@@ -656,7 +663,7 @@
               </tr>
           </tbody>
           <div class="text-right">
-              <input type="submit" class="" value="Submit"(click)="logValue5()">
+              <input type="submit" class="hidden" value="Submit"(click)="logValue5()">
           </div>
           </table>
   </fieldset>
@@ -791,7 +798,7 @@
             </tr>
         </tbody>
         <div class="text-right">
-            <input type="submit" class="" value="Submit"(click)="logValue6()">
+            <input type="submit" class="hidden" value="Submit"(click)="logValue6()">
         </div>
         </table>
         </fieldset>

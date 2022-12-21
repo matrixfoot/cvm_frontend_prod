@@ -113,7 +113,8 @@ private deccomptabilitesSub: Subscription;
 this.relevemanuelform = this.fb.group({
   mois:'',
   annee:'',
-  soldemoisprecedent:'',
+  soldemoisprecedentdebit:'',
+  soldemoisprecedentcredit:'',
   ammounts4: this.fb.array([ this.createammount4() ])
 });
 this.relevejointform = this.fb.group({
@@ -610,23 +611,53 @@ this.loading=false
       }
       onChange4(i: number){
         
+let totaldebitbis:any
+let totalcreditbis:any
 
-        this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+        totaldebitbis = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
           acc += +(curr.debit || 0);
           return acc;
         },0);
-        this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+        this.totaldebit=totaldebitbis+ +(this.relevemanuelform.get('soldemoisprecedentdebit').value)
+        totalcreditbis = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
           acc += +(curr.credit || 0);
           return acc;
         },0);
-        this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-          acc += +(curr.credit - curr.debit || 0);
-          return acc;
-        },0);
+        this.totalcredit = totalcreditbis+ +(this.relevemanuelform.get('soldemoisprecedentcredit').value)
+        this.totalsoldemois = this.totalcredit-this.totaldebit
       }
-      onChange6(i: number){
-        
+      async onChange6(i: number){
+        let ammounts6=this.salaireform.get('ammounts6') as FormArray
+        let cnss=ammounts6.at(i).value.montantcnss
+        let salairebrut=ammounts6.at(i).value.salairebrut
+        let montantretenue=ammounts6.at(i).value.montantretenue
+        let montantavance=ammounts6.at(i).value.montantavance
+        let montantimposable=ammounts6.at(i).value.montantimposable
 
+        if(cnss>salairebrut)
+    try {
+        const result = await Swal.fire({
+          title: 'Montant CNSS ne doit pas dépasser le montant Salaire Brut',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        });
+        this.loading = false;
+        ammounts6.controls[i].patchValue({ montantcnss: '',salairebrut:'',montantimposable:''});  
+      } catch {
+        Swal.fire('opération non aboutie!');
+      }
+      if(montantavance+montantretenue>montantimposable)
+      try {
+          const result = await Swal.fire({
+            title: 'Les Montants introduits ne peuvent pas dépasser la salaire imposable',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          });
+          this.loading = false;
+          ammounts6.controls[i].patchValue({ montantretenue: '',montantimposable: '',montantavance:''});  
+        } catch {
+          Swal.fire('opération non aboutie!');
+        }
         this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
           acc += +(curr.salairebrut || 0);
           return acc;
@@ -856,18 +887,7 @@ this.loading=false
   addammount4(): void {
     this.ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
     this.ammounts4.push(this.createammount4());
-    this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(curr.montantdebit || 0);
-      return acc;
-    },0);
-    this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(curr.montantcredit || 0);
-      return acc;
-    },0);
-    this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(this.totalcredit - this.totaldebit || 0);
-      return acc;
-    },0);
+ 
   }
   addammount5(){
     this.ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
@@ -989,18 +1009,20 @@ this.loading=false
   }
   removeammount4(i: number) {
     this.ammounts4.removeAt(i);
-    this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(curr.montantdebit || 0);
-      return acc;
-    },0);
-    this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(curr.montantcredit || 0);
-      return acc;
-    },0);
-    this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-      acc += +(this.totalcredit - this.totaldebit || 0);
-      return acc;
-    },0);
+    let totaldebitbis:any
+    let totalcreditbis:any
+    
+            totaldebitbis = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+              acc += +(curr.debit || 0);
+              return acc;
+            },0);
+            this.totaldebit=totaldebitbis+ +(this.relevemanuelform.get('soldemoisprecedentdebit').value)
+            totalcreditbis = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+              acc += +(curr.credit || 0);
+              return acc;
+            },0);
+            this.totalcredit = totalcreditbis+ +(this.relevemanuelform.get('soldemoisprecedentcredit').value)
+            this.totalsoldemois = this.totalcredit-this.totaldebit
   }
   removeammount5(i: number) {
     this.ammounts5.removeAt(i);

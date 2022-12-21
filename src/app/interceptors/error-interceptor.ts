@@ -34,6 +34,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             timer: 30000,
           }).then((result) => {
             if (result.value) {
+              this.reloadPage()
             }
 
           }).catch(() => {
@@ -52,7 +53,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       )
   }
   reloadPage (){
-    setTimeout(() => window.location.reload(), 3500);
+    setTimeout(() => window.location.reload());
     
     
   }
