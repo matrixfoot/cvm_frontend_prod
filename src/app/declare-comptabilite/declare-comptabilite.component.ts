@@ -360,9 +360,9 @@ this.loading=false
          const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
          const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log()
-         const montantttc=+(mrecette-mtimbre).toFixed(3) 
-         const montantht=+((+montantttc)/1.13).toFixed(3)
-         const montanttva=+(montantttc-montantht).toFixed(3)
+         const montantttc=+(mrecette).toFixed(3) 
+         const montantht=+((+montantttc-mtimbre)/1.13).toFixed(3)
+         const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
          console.log(montantttc)
          ammounts2.at(i).patchValue({
           montantht:montantht,
@@ -377,10 +377,14 @@ this.loading=false
           acc += +(curr.montanttva || 0);
           return acc;
         },0);
-        this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-          acc += +(curr.montantdt || 0);
-          return acc;
-        },0);
+         if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+        {
+          this.totaldt2 =+(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+            acc += +(curr.montantdt || 0);
+            return acc;
+          },0);
+        }
+        
         this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
           acc += +(curr.montantttc || 0);
           return acc;
@@ -980,10 +984,13 @@ let totalcreditbis:any
       acc += +(curr.montanttva || 0);
       return acc;
     },0);
-    this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-      acc += +(curr.montantdt || 0);
-      return acc;
-    },0);
+    if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+    {
+      this.totaldt2 =+(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+        acc += +(curr.montantdt || 0);
+        return acc;
+      },0);
+    }
     this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
       acc += +(curr.montantttc || 0);
       return acc;
