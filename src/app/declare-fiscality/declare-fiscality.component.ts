@@ -388,11 +388,14 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       
               this.regimefiscalimpot=this.user.regimefiscalimpot;
               this.matriculefiscale=this.user.matriculefiscale;
-              if(this.activite=='Avocat')
+              if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
+              this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
               {
                 this.tauxtva='0.13'
               }
-              if(this.activite=='Médecin')
+              if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+              this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+              ||this.activite=='Sage-femmes')
               {
                 this.tauxtva='0.07'
               }

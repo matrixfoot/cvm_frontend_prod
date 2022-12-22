@@ -404,14 +404,17 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
        this.prepminimumperceptionammount=5.000
     
       }
-      if(this.activite=='Avocat')
-              {
-                this.tauxtva='0.13'
-              }
-              if(this.activite=='Médecin')
-              {
-                this.tauxtva='0.07'
-              }
+      if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
+      this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
+      {
+        this.tauxtva='0.13'
+      }
+      if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+      this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+      ||this.activite=='Sage-femmes')
+      {
+        this.tauxtva='0.07'
+      }
               if(this.activite=='Consultant')
               {
                 this.tauxtva='0.19'
