@@ -92,7 +92,7 @@ return new Promise((resolve, reject) => {
           
             for (let i = 0; i < image3.length; i++)
             {
-              deccomptabiliteData.append('image', image3[i],'t'+filtredautre3[i].type+filtredautre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
+              deccomptabiliteData.append('image', image3[i],'t'+filtredautre3[i].type+filtredautre3[i].fournisseur+filtredautre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
             }
           
          

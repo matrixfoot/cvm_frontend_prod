@@ -1763,7 +1763,7 @@ calculateResultForm1()
   
     const nombrenotehonoraire=+this.standarddroittimbreform.get('nombrenotehonoraire').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    this.totaltimbreammount=+ Math.trunc((+nombrenotehonoraire* +taux)*1000)/1000;
+    this.totaltimbreammount=+Math.round((+nombrenotehonoraire* +taux)*1000)/1000;
       this.standarddroittimbreform.patchValue({
         totaldroittimbre: this.totaltimbreammount,},{emitEvent: false} 
         );
@@ -1776,7 +1776,7 @@ calculateResultForm1()
   
     const totaldroittimbre=+this.standarddroittimbreform.get('totaldroittimbre').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    const nombrenotehonoraire=Math.trunc(+totaldroittimbre/+taux);
+    const nombrenotehonoraire=Math.trunc((+totaldroittimbre/+taux)*1000)/1000;
     this.totaltimbreammount=+ Math.trunc((+totaldroittimbre)*1000)/1000;
       this.standarddroittimbreform.patchValue({
         nombrenotehonoraire: nombrenotehonoraire,},{emitEvent: false} 
@@ -2508,30 +2508,34 @@ this.DecfiscmensService.create(decfiscmens).then(
 
 }
   ngOnDestroy(){
-    console.log(this.sub1)
-    this.sub1.unsubscribe()
-    this.sub2.unsubscribe()
-    this.sub3.unsubscribe()
-    this.sub4.unsubscribe()
-    this.sub5.unsubscribe()
-    this.sub6.unsubscribe()
-    this.sub7.unsubscribe()
-    this.sub8.unsubscribe()
-    this.sub9.unsubscribe()
-    this.sub10.unsubscribe()
-    this.sub11.unsubscribe()
-    this.sub12.unsubscribe()
-    this.sub13.unsubscribe()
-    this.sub14.unsubscribe()
-    this.sub15.unsubscribe()
-    this.sub16.unsubscribe()
-    this.sub17.unsubscribe()
-    this.sub18.unsubscribe()
-    this.sub19.unsubscribe()
-    this.sub20.unsubscribe()
-    this.sub21.unsubscribe()
-    this.sub22.unsubscribe()
-//    this.sub2.unsubscribe()
+    if(this.isLoggedIn)
+    {
+      console.log(this.sub1)
+      this.sub1.unsubscribe()
+      this.sub2.unsubscribe()
+      this.sub3.unsubscribe()
+      this.sub4.unsubscribe()
+      this.sub5.unsubscribe()
+      this.sub6.unsubscribe()
+      this.sub7.unsubscribe()
+      this.sub8.unsubscribe()
+      this.sub9.unsubscribe()
+      this.sub10.unsubscribe()
+      this.sub11.unsubscribe()
+      this.sub12.unsubscribe()
+      this.sub13.unsubscribe()
+      this.sub14.unsubscribe()
+      this.sub15.unsubscribe()
+      this.sub16.unsubscribe()
+      this.sub17.unsubscribe()
+      this.sub18.unsubscribe()
+      this.sub19.unsubscribe()
+      this.sub20.unsubscribe()
+      this.sub21.unsubscribe()
+      this.sub22.unsubscribe()
+  //    this.sub2.unsubscribe()
+    }
+    
   }
   createammount(): FormGroup {
     return this.fb.group({

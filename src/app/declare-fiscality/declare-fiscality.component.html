@@ -17,12 +17,12 @@
       <div class="checkbox-container">
         
         <div class="input-container" id="Check1">
-          <i class="fa fa-user icon"></i>
+          
           <label for="myCheck1">Ma Déclaration</label>
           <input type="checkbox" id="myCheck1" (click)="myFunction1()">
         </div>
         <div class="input-container" id="Check2">
-          <i class="fa fa-user icon"></i>
+          
           <label for="myCheck2">Une Déclaration D'Autrui</label>
           <input type="checkbox" id="myCheck2" (click)="myFunction2()">
         </div>
@@ -34,12 +34,12 @@
       <div class="checkbox-container">
         
         <div class="input-container" id="Check3">
-          <i class="fa fa-user icon"></i>
+          
           <label for="myCheck3">Personne Physique</label>
           <input type="checkbox" id="myCheck3" (click)="myFunction3()">
         </div>
         <div class="input-container" id="Check4">
-          <i class="fa fa-user icon"></i>
+          
           <label for="myCheck4">Personne Morale</label>
           <input type="checkbox" id="myCheck4" (click)="myFunction4()">
         </div>
@@ -47,24 +47,57 @@
     </div> 
            
     <p style="text-align: center;" class="hidden">Veuillez Cochez Le Type De Déclaration Que Vous Souhaitez Faire</p>
-                <div class="checkbox-container">
+    <fieldset>
+      <legend>Types des déclarations:</legend> 
+      <table>
         
-                    <div class="input-container" id="Check7"> 
-                      <i class="fa fa-user icon"></i>
-                      <label for="myCheck7">Déclaration Mensuelle</label>
-                      <input type="checkbox" id="myCheck7" (click)="myFunction7()"[(ngModel)]="option55Value">
-                    </div>
-                    <div class="hidden" id="Check5">
-                        <i class="fa fa-user icon"></i>
-                        <label for="myCheck5">Acompte Provisionnelle</label>
-                        <input type="checkbox" id="myCheck5" (click)="myFunction5()"[(ngModel)]="option56Value">
-                      </div>
-                    <div class="hidden" id="Check6">
-                      <i class="fa fa-user icon"></i>
-                      <label for="myCheck6">Déclaration Annuelle</label>
-                      <input type="checkbox" id="myCheck6" (click)="myFunction6()"[(ngModel)]="option57Value">
-                    </div>
-                  </div>
+        <tbody>
+        <tr style="display: flex;">
+          <td style="text-align: center;" id="Check7" colspan="2"> 
+            
+            <div><label for="myCheck7">Déclaration Mensuelle</label></div>
+            <div><input type="checkbox" id="myCheck7" (click)="myFunction7()"[(ngModel)]="option55Value"></div>
+          </td>
+          <td style="text-align: center;" id="Check5" colspan="2">
+              
+              <div><label for="myCheck5">Acomptes provisionnels</label></div>
+              <div><input type="checkbox" id="myCheck5" (click)="myFunction5()"[(ngModel)]="option56Value"disabled></div>
+            </td>
+          <td style="text-align: center;" id="Check6" colspan="2">
+            
+            <div><label for="myCheck6">Déclaration annuelle (I/R ou I/S)</label></div>
+            <div><input type="checkbox" id="myCheck6" (click)="myFunction6()"[(ngModel)]="option57Value"disabled></div>
+          </td>
+          <td style="text-align: center;" id="Check7"> 
+            
+            <div><label for="myCheck7">Déclaration de l'employeur</label></div>
+            <div><input type="checkbox" id="myCheck7" (click)="myFunction7()"[(ngModel)]="option174Value"disabled></div>
+          </td> 
+          <td style="text-align: center;" id="Check6">
+          
+            <div><label for="myCheck6">Liasse fiscale</label></div>
+            <div><input type="checkbox" id="myCheck6" (click)="myFunction6()"[(ngModel)]="option176Value"disabled></div>
+          </td>
+        </tr>
+        <tr>
+         
+          <td style="text-align: center;" id="Check5" colspan="3">
+            
+            <div><label for="myCheck5">Déclaration trimestrielle des achats en suspension de T.V.A (Apurement des BC vsés)</label></div>
+            <div><input type="checkbox" id="myCheck5" (click)="myFunction5()"[(ngModel)]="option175Value"disabled></div>
+          </td>
+        <td style="text-align: center;" id="Check6" colspan="3">
+          
+          <div><label for="myCheck6">Déclaration trimestrielle des ventes en suspension des taxes sur le chiffre d'affaires</label></div>
+          <div><input type="checkbox" id="myCheck6" (click)="myFunction6()"[(ngModel)]="option176Value"disabled></div>
+        </td>
+        
+        </tr>
+        </tbody>
+        </table>  
+        </fieldset>      
+                    
+                  
 
                   <div class="checkbox-container" id="datelist">
                      <div class="input-container" id="Year"> 

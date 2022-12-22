@@ -29,8 +29,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: 'Votre session a expiré veuillez cliquer sur le bouton ci-dessous',
-            confirmButtonText: 'Se reconnecter',
+            title: 'Un problème est survenu, cliquer sur le bouton pour rafraîchir',
+            confirmButtonText: 'Rafaraîchir',
             timer: 30000,
           }).then((result) => {
             if (result.value) {

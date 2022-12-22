@@ -7,6 +7,10 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { Condidate } from '../models/condidate.model';
 import { mimeType } from '../_helpers/mime-type.validator';
 import { AlertService } from '../_helpers/alert.service';
+import Swal from 'sweetalert2';
+import { TokenStorageService } from '../services/token-storage.service';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 @Component({
   selector: 'app-career',
   templateUrl: './career.component.html',
@@ -21,14 +25,32 @@ export class CareerComponent implements OnInit {
   errorMessage: string;
   successmessage:string;
   submitted = false;
+  currentuser: any;
+  activite: string;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private cond: CondidateService,
-    private alertService: AlertService) { }
+    private alertService: AlertService,private tokenStorage: TokenStorageService,private userservice: UserService,) { }
 
   ngOnInit() {
-
-    
+    this.currentuser = this.tokenStorage.getUser();
+    this.userservice.getUserById(this.currentuser.userId).then(
+      (user: User) => {
+        this.currentuser=user
+        this.activite=user.activite
+        if (this.activite != 'Candidat') 
+        return (Swal.fire({
+          title: 'vous ne pouvez pas déposer une candidature avec votre type utilisateur existant',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        }).then((result) => {
+          this.router.navigate(['user-board/'])
+          this.loading=false
+        }).catch(() => {
+          Swal.fire('opération non aboutie!')
+        })) 
+      })
+   
     this.condidateform = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       
@@ -75,8 +97,14 @@ export class CareerComponent implements OnInit {
       (data:any) => {
         this.condidateform.reset();
         this.loading = false;
-        this.alertService.success('Création effectuée avec succès, veuillez vous connecter pour consulter votre demande');
-        window.scrollTo(0, 0);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Candidature envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre candidature. vous allez recevoir désormais une réponse dans les plus brefs délais ',
+          showConfirmButton: false,
+          timer: 6000 
+        });
+        this.router.navigate(['home'])
       },
       (error) => {
         this.loading = false;

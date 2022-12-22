@@ -576,9 +576,10 @@ this.loading=false
       async onChange3(i: number){
         let ammounts3=this.factureachatform.get('ammounts3') as FormArray
         let tva=ammounts3.at(i).value.montanttva
+        let dt=ammounts3.at(i).value.montantdt
         let ht=ammounts3.at(i).value.montantht
 
-        if(tva>ht)
+        if(tva+dt>ht)
     try {
       console.log('here')
         const result = await Swal.fire({
@@ -1406,7 +1407,7 @@ console.log(deccomptabilite.autre6)
     deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
     deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
     deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.debit!='0'&&item.debit!=''&&item.debit!=null));
+    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
     deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
     deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
 
@@ -1643,7 +1644,7 @@ else if ((user.choixfacture=='saisie recette'))
           this.resetachatall();
           this.showachattab=false;
           this.option4Value=false;
-          
+          this.uploadFilesautre3=[]
 
         }
         else{
@@ -1745,7 +1746,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
           this.resetbanqueall();
           this.showbanquetab=false;
           this.option5Value=false;
-          
+          this.uploadFilesautre5=[]
 
         }
         else{
@@ -1819,6 +1820,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
           this.resetsalaireall();
           this.showsalairetab=false;
           this.option6Value=false;
+          this.uploadFilesautre6=[]
         }
         else
         {
@@ -2129,10 +2131,10 @@ let numerosfacture=[]
     numerosfacture.find(e => factexist=e.invoice3===true);
     if(ammounts3.length>1)
     {
-      let ammounts3sliced=ammounts3.value.slice(0,-1)
-      ammounts3sliced.find(e => invoice4=e.fournisseur === ammounts3.value.at(i).fournisseur);
+      let ammounts3sliced=ammounts3.getRawValue().slice(0,-1)
+      ammounts3sliced.find(e => invoice4=e.fournisseur === ammounts3.getRawValue()[i].fournisseur);
       ammounts3sliced.find(e => invoice5=e.autrefournisseur === ammounts3.value.at(i).autrefournisseur);
-      ammounts3sliced.find(e => invoice6=e.numerofacture === ammounts3.value.at(i).numerofacture);
+      ammounts3sliced.find(e => invoice6=e.numerofacture === ammounts3.getRawValue()[i].numerofacture);
       console.log(ammounts3sliced)
     }
     console.log(fournisseurs)

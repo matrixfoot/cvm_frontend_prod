@@ -388,6 +388,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
 
  ngOnInit() {
   this.loading = true;
+  this.isLoggedIn = !!this.tokenStorage.getToken();
   this.currentuser = this.tokenStorage.getUser();
   this.userservice.getUserById(this.currentuser.userId).then(
     (user: User) => {
@@ -432,10 +433,9 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               this.tfpareporter=+this.decfiscmens.impottype3.tfpreporter
               this.foprolosapayer=+this.decfiscmens.impottype4.montantfoprolos
               this.totaltclammount=+this.decfiscmens.impottype6.tclpayer
-              if(this.decfiscmens.activite=='Médecin')
-              {
+              
               this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
-              }
+              
               this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
               this.decfiscmensForm = this.formBuilder.group({
                 
@@ -488,15 +488,14 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
                 this.showtcltab=true
                 this.showtclverif=true
               }
-              if(this.decfiscmens.activite=='Médecin')
-              {
+             
                 if (this.decfiscmens.impottype7.type)
                 {
                   this.option172Value=true
                   this.showfsptab=true
                   this.showfspverif=true
                 }
-              }
+              
               
               this.standardretenue =this.formBuilder.group({
                 type: [this.decfiscmens.impottype1.type],
@@ -516,12 +515,11 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               this.standardtcl1form =this.formBuilder.group({
                 type: [this.decfiscmens.impottype6.type],
               });
-              if(this.decfiscmens.activite=='Médecin')
-              {
+              
               this.standardfspform =this.formBuilder.group({
                 type: [this.decfiscmens.impottype7.type],
               });
-            }
+            
               this.standardtraitementsalaireform =this.formBuilder.group({
                 brutsalary: [this.decfiscmens.impottype1.traitementetsalaire.salairebrut],
                 imposalary: [this.decfiscmens.impottype1.traitementetsalaire.salaireimposable],
@@ -707,14 +705,13 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
           taux: [{value:"0.002",disabled:true}],
           tclapayer: [{value:this.decfiscmens.impottype6.tclpayer,disabled:true}],
         });
-        if(this.decfiscmens.activite=='Médecin')
-              {
+        
         this.standardfspform =this.formBuilder.group({
           chiffreaffaireht: [{value:this.decfiscmens.impottype7.chiffreaffaireht,disabled:true}],
           taux: [{value:"0.01",disabled:true}],
           montantcontribution: [{value:this.decfiscmens.impottype7.montantcontribution,disabled:true}],
         });
-      }
+      
     console.log(this.tvacollecte2,this.tvacollecte3,this.tvacollecte4,this.tvacollecte5,this.tvacollecte6)
         this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
           this.option72Value=+(this.option71Value *0.19)
@@ -1517,7 +1514,9 @@ calculateResultForm23()
     const taux=+this.standardtvacollecteform.get('taux').value
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
-
+    console.log(taux)
+    console.log(this.standardtvacollecteform.get('taux').value)
+    console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
       const tclapayer=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
@@ -1785,7 +1784,7 @@ calculateResultForm23()
   
     const nombrenotehonoraire=+this.standarddroittimbreform.get('nombrenotehonoraire').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    this.totaltimbreammount=+ Math.trunc((+nombrenotehonoraire* +taux)*1000)/1000;
+    this.totaltimbreammount=+ Math.round((+nombrenotehonoraire* +taux)*1000)/1000;
       this.standarddroittimbreform.patchValue({
         totaldroittimbre: this.totaltimbreammount,},{emitEvent: false} 
         );
@@ -1798,7 +1797,7 @@ calculateResultForm23()
   
     const totaldroittimbre=+this.standarddroittimbreform.get('totaldroittimbre').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    const nombrenotehonoraire=Math.trunc(+totaldroittimbre/+taux);
+    const nombrenotehonoraire=Math.trunc((+totaldroittimbre/+taux)*1000)/1000;
     this.totaltimbreammount=+ Math.trunc((+totaldroittimbre)*1000)/1000;
       this.standarddroittimbreform.patchValue({
         nombrenotehonoraire: nombrenotehonoraire,},{emitEvent: false} 
@@ -3236,29 +3235,33 @@ onTabClick(event) {
 }
 
 ngOnDestroy(){
-  this.sub1.unsubscribe()
-  this.sub2.unsubscribe()
-  this.sub3.unsubscribe()
-  this.sub4.unsubscribe()
-  this.sub5.unsubscribe()
-  this.sub6.unsubscribe()
-  this.sub7.unsubscribe()
-  this.sub8.unsubscribe()
-  this.sub9.unsubscribe()
-  this.sub10.unsubscribe()
-  this.sub11.unsubscribe()
-  this.sub12.unsubscribe()
-  this.sub13.unsubscribe()
-  this.sub14.unsubscribe()
-  this.sub15.unsubscribe()
-  this.sub16.unsubscribe()
-  this.sub17.unsubscribe()
-  this.sub18.unsubscribe()
-  this.sub19.unsubscribe()
-  this.sub20.unsubscribe()
-  this.sub21.unsubscribe()
-  this.sub22.unsubscribe()
-//    this.sub2.unsubscribe()
+  if(this.isLoggedIn)
+  {
+    this.sub1.unsubscribe()
+    this.sub2.unsubscribe()
+    this.sub3.unsubscribe()
+    this.sub4.unsubscribe()
+    this.sub5.unsubscribe()
+    this.sub6.unsubscribe()
+    this.sub7.unsubscribe()
+    this.sub8.unsubscribe()
+    this.sub9.unsubscribe()
+    this.sub10.unsubscribe()
+    this.sub11.unsubscribe()
+    this.sub12.unsubscribe()
+    this.sub13.unsubscribe()
+    this.sub14.unsubscribe()
+    this.sub15.unsubscribe()
+    this.sub16.unsubscribe()
+    this.sub17.unsubscribe()
+    this.sub18.unsubscribe()
+    this.sub19.unsubscribe()
+    this.sub20.unsubscribe()
+    this.sub21.unsubscribe()
+    this.sub22.unsubscribe()
+  //    this.sub2.unsubscribe()
+  }
+  
 }
 
 logValue() {
