@@ -110,7 +110,7 @@
   </fieldset> 
   <!--buttonslist-->
   <button id="savebutton" class="btn btn-success"*ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true" 
-            type="button" (click)="onSubmit()"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Sauvegarder</button>
+            type="button" (click)="onchoice()"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Sauvegarder</button>
   <button id="resetbutton" class="btn btn-secondary" type="button" (click)="restartform()"
         *ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true">Réinitialiser tout</button>
   <!--datacontainer-->

@@ -148,7 +148,9 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            if(this.activite=='Médecin')
+            if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+            this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+            ||this.activite=='Sage-femmes' )
             {
               this.type7=this.decfiscmens.impottype7.type 
             }
@@ -210,7 +212,9 @@ public decfiscmens=new Decfiscmens;
       }
   this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
   this.totaltclammount=+this.decfiscmens.impottype6.tclpayer 
-  if(this.activite=='Médecin')
+  if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+  this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+  ||this.activite=='Sage-femmes')
             { 
   this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
             }

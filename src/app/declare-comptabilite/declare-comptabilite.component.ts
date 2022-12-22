@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
+import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import { User } from '../models/user.model';
 import { Deccomptabilite } from '../models/dec-comptabilite';
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 import { merge, Subject, Subscription } from 'rxjs';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
 import { stringify } from 'querystring';
+import { Decfiscmens } from '../models/dec-fisc-mens';
 @Component({
   selector: 'app-declare-comptabilite',
   templateUrl: './declare-comptabilite.component.html',
@@ -81,6 +83,17 @@ private deccomptabilitesSub: Subscription;
   totalretenueimpot=0.000
   totalavancepret=0.000
   totalsalairenet=0.000
+realht1=0.000
+realdt1=0.000
+realht2=0.000
+realdt2=0.000
+realht3=0.000
+realtva3=0.000
+realsalairebrut6=0.000
+realsalaireimposable6=0.000
+realretenue6=0.000
+tfpapayer=0.000
+foprolosapayer=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
@@ -96,7 +109,7 @@ private deccomptabilitesSub: Subscription;
   private destroyed$ = new Subject<void>();
 
   constructor(
-    private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
+    private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
     private alertService: AlertService,private usersservice: UserService,private DeccomptabiliteService :DeccomptabiliteService,private fb: FormBuilder
   ) {
     super();
@@ -357,6 +370,7 @@ this.loading=false
       }
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+        this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=0.600
          const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
          const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log()
@@ -367,7 +381,9 @@ this.loading=false
          ammounts2.at(i).patchValue({
           montantht:montantht,
           montanttva:montanttva,
-          montantttc:montantttc
+          montantttc:montantttc,
+          montantdt:0.600
+
          })
          this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
           acc += +(curr.montantht || 0);
@@ -556,6 +572,8 @@ this.loading=false
           return acc;
         },0);
         this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
+        this.realht1=this.totalht
+        this.realdt1=this.totaldt
       }
       onChange2(i: number){
         
@@ -576,6 +594,8 @@ this.loading=false
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
+        this.realht2=this.totalht2
+        this.realdt2=this.totaldt2
       }
       async onChange3(i: number){
         let ammounts3=this.factureachatform.get('ammounts3') as FormArray
@@ -613,6 +633,8 @@ this.loading=false
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
+        this.realht3=this.totalht3
+        this.realtva3=Math.trunc((this.totalht3*0.13)*1000)/1000
       }
       onChange4(i: number){
         
@@ -687,6 +709,18 @@ let totalcreditbis:any
           acc += +(curr.salairenet || 0);
           return acc;
         },0);
+        this.realsalairebrut6=this.totalsalairebrut
+        this.realsalaireimposable6=this.totalsalaireimposable
+        this.realretenue6=this.totalretenueimpot
+    const salairesbrutstfp=this.realsalairebrut6
+    const tauxtfp=0.02
+    const tauxfoprolos=0.01
+   const basetfp=+ Math.trunc((+salairesbrutstfp)*1000)/1000;
+      const montanttfpmois=+ Math.trunc((+basetfp* +tauxtfp)*1000)/1000;
+      this.tfpapayer=+ Math.trunc((+montanttfpmois)*1000)/1000;
+      const basefoprolos=+ Math.trunc((+salairesbrutstfp)*1000)/1000;
+      const montantfoprolosmois=+ Math.trunc((+basefoprolos* +tauxfoprolos)*1000)/1000;
+      this.foprolosapayer=+ Math.trunc((+montantfoprolosmois)*1000)/1000;
       }
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -744,7 +778,7 @@ let totalcreditbis:any
       recette:'',
       montantht:'0',
       montanttva:'0',
-      montantdt:'0.600',
+      montantdt:'0',
       montantttc:'0',
 
     });
@@ -984,13 +1018,11 @@ let totalcreditbis:any
       acc += +(curr.montanttva || 0);
       return acc;
     },0);
-    if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
-    {
       this.totaldt2 =+(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
         acc += +(curr.montantdt || 0);
         return acc;
       },0);
-    }
+    
     this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
       acc += +(curr.montantttc || 0);
       return acc;
@@ -1227,7 +1259,37 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
 
     console.log(this.salaireform.get('ammounts6').value);
   }
-  //save method
+  //choice when finishing
+  onchoice()
+  {
+    Swal.fire({
+      title: 'Veuillez choisir entre les alternatives suivantes!',
+      
+      icon: 'info',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#555',
+      confirmButtonText: 'déposer uniquement un fichier comptable',
+      cancelButtonText: 'Annuler',
+      denyButtonText: 'déposer un fichier comptable et générer la déclaration fiscale',
+      
+      }).then((result) => {
+      if (result.isConfirmed) {
+        this.onSubmit()
+      
+      }
+      else if (result.isDenied)
+      {
+        this.onSubmit()
+        this.onSubmitfiscality()
+      }
+      
+      }).catch(() => {
+      Swal.fire('opération non aboutie!');
+      });
+  }
+  //save method to only accounting file
   onSubmit() {
     this.loading = true;
     const deccomptabilite:Deccomptabilite = new Deccomptabilite();
@@ -1439,7 +1501,215 @@ console.log(deccomptabilite.autre6)
 
   
   }
+  //save comptabilite and declare fiscality
+  onSubmitfiscality() {
+    this.loading = true;
+    const decfiscmens:Decfiscmens = new Decfiscmens();
+    decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
+    location1: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location2: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+    location3: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },location4: { type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '', },
+     honoraire1: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, honoraire2: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
+     montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
+    montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: []}
+    decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
+      type:'',
+      chiffreaffaireht:'',
+      tvaammount:'',
+      ammountttc:'',
+      
+      },tvarecuperableimmobilier:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      
+      
+      },
+      tvarecuperableequipement:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      achatimporteht:'',
+      achatimportetva:'',
+      
+      
+      },
+      tvarecuperableautreachat:{
+          type:'',
+      achatlocauxht:'',
+      achatlocauxtva:'',
+      achatimporteht:'',
+      achatimportetva:'',
+      
+      
+      },
+      locationhabitationmeuble:{
+          type:'',
+          htammount:'',
+          tvaammount:'',
+          ttcammount:'',
+          },
+      locationusagecommercial:{
+          type:'',
+              htammount:'',
+              tvaammount:'',
+              ttcammount:'',
+              },
+      operationlotissement:{
+          type:'',
+                  htammount:'',
+                  tvaammount:'',
+                  ttcammount:'',
+                  },
+      interetpercue:{
+          type:'',
+                      htammount:'',
+                      tvaammount:'',
+                      ttcammount:'',
+                      },
+      autretvaspecial:{
+          type:'',
+                          htammount:'',
+                          tvaammount:'',
+                          ttcammount:'',
+                          taux:'',
+                          }    }
+                          decfiscmens.impottype3={ type:'',
+                            basetfp:'',
+                            tfpsalairebrut:'',
+                            montanttfpmois:'',
+                            reporttfpmoisprecedent:'',
+                            montantavance:'',
+                            tfppayer:'',
+                            tfpreporter:'',
+                            salairesnonsoumistfp:''}
+                            decfiscmens.impottype4={ type:'',
+                            foprolossalairebrut:'',
+                            basefoprolos:'',
+                            montantfoprolos:'',
+                            salairesnonsoumisfoprolos:''}
+                            decfiscmens.impottype5={ type:'',
+                            nombrenotehonoraire:'',
+                totaldroittimbre:'',}
+                decfiscmens.impottype6={ type:'',
+                chiffreaffairettc:'',
+                tclpayer:'',}
+                decfiscmens.impottype7={ type:'',
+                chiffreaffaireht:'',
+                montantcontribution:'',}
+    decfiscmens.userId = this.currentUser.userId;
+    decfiscmens.activite=this.user.activite;
+    decfiscmens.codepostal=this.user.codepostal;
+    decfiscmens.adresse=this.user.adresseactivite
+    decfiscmens.firstname=this.user.firstname
+    decfiscmens.lastname=this.user.lastname
+    decfiscmens.raisonsociale=this.user.raisonsociale
+    decfiscmens.codegenre=this.user.codegenre
+    decfiscmens.codetva=this.user.codetva
+    decfiscmens.matriculefiscale=this.user.matriculefiscale
+    decfiscmens.registrecommerce=this.user.registrecommerce
+    decfiscmens.datearretactivite=this.user.datearretactivite
+    decfiscmens.annee=this.option1Value
+    decfiscmens.mois=this.option2Value
+    decfiscmens.nature='Déclaration Mensuelle'
+    if(this.option1Value==''||this.option2Value=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez indiquer le mois et l\'année de la déclaration',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }))
+    }
+   
+    
+    if (this.realsalairebrut6!=0) 
+    {
+     
+     
+decfiscmens.impottype1.type='Retenue à la source'
+decfiscmens.impottype1.traitementetsalaire.salairebrut=this.realsalairebrut6.toString()
+decfiscmens.impottype1.traitementetsalaire.salaireimposable=this.realsalaireimposable6.toString()
+decfiscmens.impottype1.traitementetsalaire.retenuealasource=this.realretenue6.toString()
+      
+
+}
+if(this.realsalairebrut6!=0)
+
+{
+  decfiscmens.impottype3.type='TFP'
+  decfiscmens.impottype3.tfppayer=this.tfpapayer.toString()
   
+
+}
+if(this.realsalairebrut6!=0)
+{
+
+  decfiscmens.impottype4.type='FOPROLOS'
+  decfiscmens.impottype4.foprolossalairebrut=this.realsalairebrut6.toString()
+  decfiscmens.impottype4.montantfoprolos=this.foprolosapayer.toString()
+
+
+}
+if(this.realht1>0||this.realht2>0)
+
+{
+
+  
+
+decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.tvacollecter.type='TVA collecté'
+decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(this.realht1+this.realht2).toString()
+}
+if (this.realht3>0)
+
+{
+decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.tvarecuperableautreachat.type='TVA récupérable pour les autres achats'
+decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht=this.realht3.toString()
+decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva=this.realtva3.toString()
+}
+
+if(this.realdt1>0||this.realdt2>0)
+{
+     
+  decfiscmens.impottype5.type='Droit de timbre'
+  decfiscmens.impottype5.nombrenotehonoraire=(Math.trunc((+(this.realdt1+this.realdt2)/0.6)*1000)/1000).toString();
+  decfiscmens.impottype5.totaldroittimbre=(this.realdt1+this.realdt2).toString()
+
+}
+if(this.realht1>0||this.realht2>0)
+{
+
+  decfiscmens.impottype6.type='TCL'
+  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000).toString()
+  decfiscmens.impottype6.tclpayer=((Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000)*0.002).toString()
+
+}
+
+this.DecfiscmensService.create(decfiscmens).then(
+  (data:any) => {
+    this.token.saved=true;
+    this.loading = false;
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'déclaration sauvegardée avec succès! un email vous a été envoyer pour confirmer la réception de votre déclaration. vous pouvez désormais modifier/compléter votre déclaration à travers votre tableau de bord',
+      showConfirmButton: false,
+      timer: 6000 
+    });
+    this.router.navigate(['modify-decfiscmens/'+data.data._id])
+  },
+  (error) => {
+    this.loading = false;
+    
+  }
+)
+
+}
   //datalistfunctions
   myFunction1() {
     var checkbox:any = document.getElementById("myCheck1");
@@ -1568,11 +1838,11 @@ else if ((user.choixfacture=='saisie recette'))
              this.setdate2(i)
           }
           this.removeammount2(0)
-          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
+          if(this.option2Value==='Avril'||this.option2Value==='Juin'||this.option2Value==='Septembre'||this.option2Value==='Novembre')
           {
             this.removeammount2(30)
           }
-          if(this.option2Value=='02')
+          if(this.option2Value=='Février')
           {
             if(+this.option1Value % 4 ==0)
             {
