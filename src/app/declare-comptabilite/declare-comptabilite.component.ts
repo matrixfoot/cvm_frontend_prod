@@ -421,7 +421,8 @@ this.loading=false
         this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=0.600
          const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
          const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
-         console.log()
+         console.log(this.activite)
+         console.log(this.tauxtva)
          const montantttc=+(mrecette).toFixed(3) 
          const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
          const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
@@ -1707,6 +1708,7 @@ if(this.realsalairebrut6!=0)
 if(this.realht1>0||this.realht2>0)
 
 {
+console.log(this.realht2)
 decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(Math.trunc(((this.realht1+this.realht2))*1000)/1000).toString()
