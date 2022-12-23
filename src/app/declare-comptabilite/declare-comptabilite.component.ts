@@ -458,6 +458,9 @@ this.loading=false
           acc += +(curr.recette || 0);
           return acc;
         },0);
+        this.realht2=this.totalht2
+        this.realdt2=this.totaldt2
+        console.log(this.realht2)
         }
         setht3(i: number) {
           let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
@@ -492,6 +495,7 @@ this.loading=false
             acc += +(curr.montantttc || 0);
             return acc;
           },0);
+        
           }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
@@ -643,8 +647,6 @@ this.loading=false
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
-        this.realht2=this.totalht2
-        this.realdt2=this.totaldt2
       }
       async onChange3(i: number){
         let ammounts3=this.factureachatform.get('ammounts3') as FormArray
@@ -1549,7 +1551,7 @@ console.log(deccomptabilite.autre6)
             this.loading = false;
             
           }
-        )     
+        )  
 
   
   }
@@ -1712,7 +1714,7 @@ console.log(this.realht2)
 decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(Math.trunc(((this.realht1+this.realht2))*1000)/1000).toString()
-decfiscmens.impottype2.tvacollecter.tvaammount=(Math.trunc(((this.realht1+this.realht2)*+this.tauxtva))).toString()
+decfiscmens.impottype2.tvacollecter.tvaammount=(Math.trunc((((this.realht1+this.realht2)*+this.tauxtva))*1000)/1000).toString()
 decfiscmens.impottype2.tvacollecter.ammountttc=(Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000).toString()
 }
 if (this.realht3>0)
@@ -1729,7 +1731,7 @@ if(this.realdt1>0||this.realdt2>0)
      
   decfiscmens.impottype5.type='Droit de timbre'
   decfiscmens.impottype5.nombrenotehonoraire=(Math.trunc((+(this.realdt1+this.realdt2)/0.6)*1000)/1000).toString();
-  decfiscmens.impottype5.totaldroittimbre=(Math.round(((this.realdt1+this.realdt2)*1000)/1000)).toString()
+  decfiscmens.impottype5.totaldroittimbre=(this.realdt1+this.realdt2).toString()
 
 }
 if(this.realht1>0||this.realht2>0)
