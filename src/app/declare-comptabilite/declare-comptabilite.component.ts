@@ -1732,7 +1732,7 @@ if(this.realdt1>0||this.realdt2>0)
      
   decfiscmens.impottype5.type='Droit de timbre'
   decfiscmens.impottype5.nombrenotehonoraire=(Math.trunc((+(this.realdt1+this.realdt2)/0.6)*1000)/1000).toString();
-  decfiscmens.impottype5.totaldroittimbre=(this.realdt1+this.realdt2).toString()
+  decfiscmens.impottype5.totaldroittimbre=(Math.round((this.realdt1+this.realdt2)*1000)/1000).toString()
 
 }
 if(this.realht1>0||this.realht2>0)
@@ -1740,7 +1740,7 @@ if(this.realht1>0||this.realht2>0)
 
   decfiscmens.impottype6.type='TCL'
   decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000).toString()
-  decfiscmens.impottype6.tclpayer=((Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000)*0.002).toString()
+  decfiscmens.impottype6.tclpayer=(Math.trunc((((Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000)*0.002)*1000)/1000)).toString()
 
 }
 
