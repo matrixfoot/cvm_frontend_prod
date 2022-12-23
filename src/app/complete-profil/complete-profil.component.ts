@@ -185,6 +185,13 @@ export class CompleteProfilComponent implements OnInit {
       }
     );
   }
+  update(e)
+  {
+    this.userForm.patchValue({
+      underactivity:'',
+      selectunderactivity:''
+    })
+  }
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     console.log(file);
