@@ -98,7 +98,8 @@ export class UserBoardComponent implements OnInit {
       }
     );
     console.log(this.decfiscmenss)
-
+    if (this.usertype==='Client')
+    {
     this.dec.getdecfiscmens(this.userId).then(
       (decfiscmens: Decfiscmens) => {
         this.loading = false;
@@ -109,7 +110,7 @@ export class UserBoardComponent implements OnInit {
         console.log(this.converteddate)
         
       }
-    );
+    )};
     
     
     

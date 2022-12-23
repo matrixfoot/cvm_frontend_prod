@@ -3800,7 +3800,7 @@ Swal.fire({
       this.showtfpverif=true;
       this.option66Value=false;
 //verify report TFP mois précédent
-let mois=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'] 
+let mois=['01','02','03','04','05','06','07','08','09','10','11','12'] 
 let mois1:any
 let desiredmois1:any
 let verifymois1:any
@@ -3809,7 +3809,7 @@ let reporttfp:any
 let avancetfp:any
 
 let selected = (element) => element ===this.option171Value;
-if(this.option171Value!='Janvier')
+if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
@@ -3827,13 +3827,13 @@ this.standardtfpform.patchValue({
   tfpammountreportmoisprecedent:reporttfp
 })
 }
-else if(this.option171Value==='Janvier')
+else if(this.option171Value==='01')
 {
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === 'Décembre');
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === '12');
   this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
   if(verifyannee1&&verifymois1)
 { 
-reporttfp=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype3.tfpreporter
+reporttfp=+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype3.tfpreporter
 this.standardtfpform.patchValue({
   tfpammountreportmoisprecedent:reporttfp
 })
@@ -3943,14 +3943,14 @@ this.standardtfpform.patchValue({
       this.showtvaverif=true;
       this.option68Value=false;
 //verify report tva mois précédent
-let mois=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'] 
+let mois=['01','02','03','04','05','06','07','08','09','10','11','12'] 
 let mois1:any
 let desiredmois1:any
 let verifymois1:any
 let verifyannee1:any
 let reporttva:any
 let selected = (element) => element ===this.option171Value;
-if(this.option171Value!='Janvier')
+if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
@@ -3975,18 +3975,18 @@ if(reporttva>0)
 }
 }
 }
-else if(this.option171Value==='Janvier')
+else if(this.option171Value==='01')
 {
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === 'Décembre');
+  this.dec.decfiscmenss.find(e => verifymois1=e.mois === '12');
   this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
   if(verifyannee1&&verifymois1)
 { 
-  let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
-  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
-  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
-  +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.reporttvamoisprecedent
-  let tvacollecte=+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.locationhabitationmeuble.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.locationusagecommercial.htammount
-  + +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.operationlotissement.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.interetpercue.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='Décembre'&&+p.annee===+this.option54Value-1))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+  let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
+  +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
+  +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.reporttvamoisprecedent
+  let tvacollecte=+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationhabitationmeuble.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationusagecommercial.htammount
+  + +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.operationlotissement.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.interetpercue.htammount+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
    
 reporttva=(tvarecuperable-tvacollecte).toFixed(3)
 console.log(tvarecuperable,tvacollecte)

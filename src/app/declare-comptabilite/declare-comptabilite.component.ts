@@ -53,8 +53,8 @@ private deccomptabilitesSub: Subscription;
   currentUser: any;
   user:User;
   choixfacture:string;
-  option1Value:string
-  option2Value:string
+  option1Value:any
+  option2Value:any
   option3Value=false
   option4Value=false
   option5Value=false
@@ -107,6 +107,7 @@ foprolosapayer=0.000
   salaireform: FormGroup;
   public ammounts6: FormArray;
   private destroyed$ = new Subject<void>();
+  tauxtva: string;
 
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
@@ -166,7 +167,21 @@ this.usersservice.getUserById(this.currentUser.userId).then(
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
 || user.regimefiscalimpot=='Autre/null'
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
-  
+if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
+this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
+{
+  this.tauxtva='0.13'
+}
+if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+||this.activite=='Sage-femmes')
+{
+  this.tauxtva='0.07'
+}
+if(this.activite=='Consultant')
+{
+  this.tauxtva='0.19'
+}  
   }
 )
 
@@ -183,6 +198,20 @@ if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite 
   verify(e)
   {
     this.loading=true
+    let date=new Date()
+    let anneactuel=date.getFullYear()
+    let moisactuel=date.getMonth()+1
+    console.log(anneactuel,moisactuel)
+    if (this.option1Value>anneactuel||this.option2Value>=moisactuel)
+    return (
+      Swal.fire({
+      title: 'vous ne pouvez pas déposer une déclaration au futur',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.option1Value='',this.option2Value=''
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
     this.DeccomptabiliteService.geexistenttdeccomptabilite(this.currentUser.userId,this.option1Value,this.option2Value).then(
       (data:Deccomptabilite[]) => {
         
@@ -229,6 +258,25 @@ this.loading=false
     )
    
 
+  }
+  verifyfutur(e)
+  {
+    let date=new Date()
+    let anneactuel=date.getFullYear()
+    let moisactuel=date.getMonth()+1
+    console.log(anneactuel,moisactuel)
+    if (this.option1Value>anneactuel||this.option2Value>=moisactuel)
+    return (
+      Swal.fire({
+      title: 'vous ne pouvez pas déposer une déclaration au futur',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.option1Value='',this.option2Value='',this.loading=false
+
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }))
+    
   }
   onTabClick(event) {
    
@@ -603,16 +651,19 @@ this.loading=false
         let dt=ammounts3.at(i).value.montantdt
         let ht=ammounts3.at(i).value.montantht
 
-        if(tva+dt>ht)
+        if(+ht<+tva+ +dt)
     try {
-      console.log('here')
+      console.log(tva)
+      console.log(dt)
+      console.log(ht)
+
         const result = await Swal.fire({
           title: 'Montant TVA ne doit pas dépasser le montant HT',
           icon: 'error',
           confirmButtonColor: '#3085d6',
         });
         this.loading = false;
-        ammounts3.controls[i].patchValue({ montantht: '',montanttva:''});  
+        ammounts3.controls[i].patchValue({ montantht: '',montanttva:'',montantttc:''});  
       } catch {
         Swal.fire('opération non aboutie!');
       }
@@ -661,7 +712,7 @@ let totalcreditbis:any
         let montantavance=ammounts6.at(i).value.montantavance
         let montantimposable=ammounts6.at(i).value.montantimposable
 
-        if(cnss>salairebrut)
+        if(+cnss>+salairebrut)
     try {
         const result = await Swal.fire({
           title: 'Montant CNSS ne doit pas dépasser le montant Salaire Brut',
@@ -673,7 +724,7 @@ let totalcreditbis:any
       } catch {
         Swal.fire('opération non aboutie!');
       }
-      if(montantavance+montantretenue>montantimposable)
+      if(+montantavance+ +montantretenue>+montantimposable)
       try {
           const result = await Swal.fire({
             title: 'Les Montants introduits ne peuvent pas dépasser la salaire imposable',
@@ -1642,8 +1693,9 @@ if(this.realsalairebrut6!=0)
 {
   decfiscmens.impottype3.type='TFP'
   decfiscmens.impottype3.tfppayer=this.tfpapayer.toString()
-  
-
+  decfiscmens.impottype3.basetfp=this.realsalairebrut6.toString()
+  decfiscmens.impottype3.montanttfpmois=(this.realsalairebrut6*0.02).toString()
+  decfiscmens.impottype3.tfppayer=this.tfpapayer.toString()
 }
 if(this.realsalairebrut6!=0)
 {
@@ -1651,7 +1703,7 @@ if(this.realsalairebrut6!=0)
   decfiscmens.impottype4.type='FOPROLOS'
   decfiscmens.impottype4.foprolossalairebrut=this.realsalairebrut6.toString()
   decfiscmens.impottype4.montantfoprolos=this.foprolosapayer.toString()
-
+  decfiscmens.impottype4.basefoprolos=this.realsalairebrut6.toString()
 
 }
 if(this.realht1>0||this.realht2>0)
@@ -1663,6 +1715,8 @@ if(this.realht1>0||this.realht2>0)
 decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(this.realht1+this.realht2).toString()
+decfiscmens.impottype2.tvacollecter.tvaammount=((this.realht1+this.realht2)*+this.tauxtva).toString()
+decfiscmens.impottype2.tvacollecter.ammountttc=((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)).toString()
 }
 if (this.realht3>0)
 
@@ -1838,11 +1892,11 @@ else if ((user.choixfacture=='saisie recette'))
              this.setdate2(i)
           }
           this.removeammount2(0)
-          if(this.option2Value==='Avril'||this.option2Value==='Juin'||this.option2Value==='Septembre'||this.option2Value==='Novembre')
+          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
           {
             this.removeammount2(30)
           }
-          if(this.option2Value=='Février')
+          if(this.option2Value=='02')
           {
             if(+this.option1Value % 4 ==0)
             {
