@@ -393,7 +393,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               {
                 this.tauxtva='0.13'
               }
-              if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+              if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
               this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
               ||this.activite=='Sage-femmes')
               {

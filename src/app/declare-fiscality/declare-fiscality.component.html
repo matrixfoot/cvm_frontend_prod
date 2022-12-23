@@ -148,7 +148,7 @@
                         <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
                         <div><label for="rb1">TVA</label></div>
                       </td>
-                      <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Explotant de laboratoire d\'analyse'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                      <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                       activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
                       ||activite==='Sage-femmes'">
                         <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
@@ -192,7 +192,7 @@
                         <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
 
                      </td>
-                     <td *ngIf="activite==='Médecin'||activite==='Explotant de laboratoire d\'analyse'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                     <td *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                      activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
                      ||activite==='Sage-femmes'">
                       <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
@@ -3144,7 +3144,7 @@
               <label>Taux</label>
               <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'|| activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
               activite==='Topographes'||activite==='Notaire'||activite==='Huissiers notaire'||activite==='Interprètes'"disabled/>
-              <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Explotant de laboratoire d\'analyse'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+              <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
               activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
               ||activite==='Sage-femmes'"disabled/>
               <input type="text" class="form-control" value="19%" *ngIf="activite==='Consultant'"disabled/>

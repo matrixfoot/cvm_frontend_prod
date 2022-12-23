@@ -172,7 +172,7 @@ this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissier
 {
   this.tauxtva='0.13'
 }
-if(this.activite=='Médecin'||this.activite=='Explotant de laboratoire d\'analyse'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
 this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
 ||this.activite=='Sage-femmes')
 {
@@ -373,7 +373,7 @@ this.loading=false
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
      console.log(mht)
      
-     const montanttva=(mht*0.13).toFixed(3)
+     const montanttva=(mht*+this.tauxtva).toFixed(3)
      ammounts.at(i).patchValue({
       montanttva:montanttva
      })
@@ -384,7 +384,7 @@ this.loading=false
        const mht= this.recettejournaliereform.get('ammounts2').value.at(i).montantht
        console.log(mht)
        
-       const montanttva=(mht*0.13).toFixed(3)
+       const montanttva=(mht*+this.tauxtva).toFixed(3)
        ammounts2.at(i).patchValue({
         montanttva:montanttva
        })
@@ -395,7 +395,7 @@ this.loading=false
          const mht= this.factureachatform.get('ammounts3').value.at(i).montantht
          console.log(mht)
          
-         const montanttva=(mht*0.13).toFixed(3)
+         const montanttva=(mht*+this.tauxtva).toFixed(3)
          ammounts3.at(i).patchValue({
           montanttva:montanttva
          })
@@ -408,7 +408,7 @@ this.loading=false
 
        console.log()
        
-       const montantht=+((mttc-mdt)/1.13).toFixed(3)
+       const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
        const montanttva=(mttc-mdt-montantht).toFixed(3)
        ammounts.at(i).patchValue({
         montantht:montantht,
@@ -423,7 +423,7 @@ this.loading=false
          const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log()
          const montantttc=+(mrecette).toFixed(3) 
-         const montantht=+((+montantttc-mtimbre)/1.13).toFixed(3)
+         const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
          const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
          console.log(montantttc)
          ammounts2.at(i).patchValue({
@@ -465,7 +465,7 @@ this.loading=false
 
            console.log()
            
-           const montantht=+((mttc-mdt)/1.13).toFixed(3)
+           const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
            const montanttva=+(mttc-montantht-mdt).toFixed(3)
            const montantdt=(mttc-montantht-montanttva).toFixed(3)
 
@@ -685,7 +685,7 @@ this.loading=false
           return acc;
         },0);
         this.realht3=this.totalht3
-        this.realtva3=Math.trunc((this.totalht3*0.13)*1000)/1000
+        this.realtva3=this.totaltva3
       }
       onChange4(i: number){
         
@@ -1694,14 +1694,12 @@ if(this.realsalairebrut6!=0)
   decfiscmens.impottype3.type='TFP'
   decfiscmens.impottype3.tfppayer=this.tfpapayer.toString()
   decfiscmens.impottype3.basetfp=this.realsalairebrut6.toString()
-  decfiscmens.impottype3.montanttfpmois=(this.realsalairebrut6*0.02).toString()
-  decfiscmens.impottype3.tfppayer=this.tfpapayer.toString()
+  decfiscmens.impottype3.montanttfpmois=this.tfpapayer.toString()
 }
 if(this.realsalairebrut6!=0)
 {
 
   decfiscmens.impottype4.type='FOPROLOS'
-  decfiscmens.impottype4.foprolossalairebrut=this.realsalairebrut6.toString()
   decfiscmens.impottype4.montantfoprolos=this.foprolosapayer.toString()
   decfiscmens.impottype4.basefoprolos=this.realsalairebrut6.toString()
 
@@ -1709,14 +1707,11 @@ if(this.realsalairebrut6!=0)
 if(this.realht1>0||this.realht2>0)
 
 {
-
-  
-
 decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
-decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(this.realht1+this.realht2).toString()
-decfiscmens.impottype2.tvacollecter.tvaammount=((this.realht1+this.realht2)*+this.tauxtva).toString()
-decfiscmens.impottype2.tvacollecter.ammountttc=((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)).toString()
+decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(Math.trunc(((this.realht1+this.realht2))*1000)/1000).toString()
+decfiscmens.impottype2.tvacollecter.tvaammount=(Math.trunc(((this.realht1+this.realht2)*+this.tauxtva))).toString()
+decfiscmens.impottype2.tvacollecter.ammountttc=(Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000).toString()
 }
 if (this.realht3>0)
 
@@ -1732,18 +1727,28 @@ if(this.realdt1>0||this.realdt2>0)
      
   decfiscmens.impottype5.type='Droit de timbre'
   decfiscmens.impottype5.nombrenotehonoraire=(Math.trunc((+(this.realdt1+this.realdt2)/0.6)*1000)/1000).toString();
-  decfiscmens.impottype5.totaldroittimbre=(this.realdt1+this.realdt2).toString()
+  decfiscmens.impottype5.totaldroittimbre=(Math.round(((this.realdt1+this.realdt2)*1000)/1000)).toString()
 
 }
 if(this.realht1>0||this.realht2>0)
 {
 
   decfiscmens.impottype6.type='TCL'
-  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000).toString()
-  decfiscmens.impottype6.tclpayer=((Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000)*0.002).toString()
+  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000).toString()
+  decfiscmens.impottype6.tclpayer=((Math.trunc(((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva))*1000)/1000)*0.002).toString()
 
 }
-
+if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+||this.activite=='Sage-femmes')
+{
+  if(this.realht1>0||this.realht2>0)
+  {
+  decfiscmens.impottype7.type='FSSP'
+  decfiscmens.impottype7.chiffreaffaireht=(Math.trunc(((this.realht1+this.realht2))*1000)/1000).toString()
+  decfiscmens.impottype7.montantcontribution=(Math.trunc(((this.realht1+this.realht2)*0.01)*1000)/1000).toString()
+} 
+}
 this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {
     this.token.saved=true;
