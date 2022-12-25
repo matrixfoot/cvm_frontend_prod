@@ -82,7 +82,7 @@
   <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"formControlName="underactivity" name="underactivity" >
+<select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"(change)="update2($event)"formControlName="underactivity" name="underactivity" >
   <option hidden [value]="user.sousactivite">{{user.sousactivite}}</option>
 <option value=""></option>
 <option value="Avocat"*ngIf="option1Value == 'Avocat'">Avocat</option>
@@ -99,6 +99,75 @@
   <label for="underactivity"> Sous-Activité:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
+</div>
+<div title="indiquer votre spécialité"class="input-container"id="idspecialite">
+  <label for="underactivity"> Spécialité:</label>    
+  <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="specialite" name="specialite" >
+<option hidden [value]="user.specialite">{{user.specialite}}</option>
+<option value=""></option>
+<option value="Chirurgie générale"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie générale</option>
+<option value="Chirurgie pédiatrique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie pédiatrique</option>
+<option value="Chirurgie carcinologique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie carcinologique</option>
+<option value="Chirurgie cardio-vasculaire"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie cardio-vasculaire</option>
+<option value="Chirurgie vasculaire périphérique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie vasculaire périphérique</option>
+<option value="Chirurgie neurologique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie neurologique</option>
+<option value="Chirurgie orthopédique et traumatologique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie orthopédique et traumatologique</option>
+<option disabled value="Chirurgie plastique, réparatrice et esthétique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie plastique, réparatrice et esthétique</option>
+<option value="Chirurgie urologique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie urologique</option>
+<option value="Gynéco-obstétrique"*ngIf="option2Value == 'Médecin spécialiste'">Gynéco-obstétrique</option>
+<option value="ORL"*ngIf="option2Value == 'Médecin spécialiste'">ORL</option>
+<option value="Stomatologie et chirurgie maxillo-faciale"*ngIf="option2Value == 'Médecin spécialiste'">Stomatologie et chirurgie maxillo-faciale</option>
+<option value="Ophtalmologie"*ngIf="option2Value == 'Médecin spécialiste'">Ophtalmologie</option>
+<option value="Chirurgie thoracique"*ngIf="option2Value == 'Médecin spécialiste'">Chirurgie thoracique</option>
+<option value="Anesthésie réanimation"*ngIf="option2Value == 'Médecin spécialiste'">Anesthésie réanimation</option>
+<option value="Psychiatrie"*ngIf="option2Value == 'Médecin spécialiste'">Psychiatrie</option>
+<option value="Pédo-psychiatrie"*ngIf="option2Value == 'Médecin spécialiste'">Pédo-psychiatrie</option>
+<option value="Imagerie médicale"*ngIf="option2Value == 'Médecin spécialiste'">Imagerie médicale</option>
+<option value="Anatomie"*ngIf="option2Value == 'Médecin spécialiste'">Anatomie</option>
+<option value="Anatomie et cytologie pathologiques"*ngIf="option2Value == 'Médecin spécialiste'">Anatomie et cytologie pathologiques</option>
+<option value="Carcinologie médicale"*ngIf="option2Value == 'Médecin spécialiste'">Carcinologie médicale</option>
+<option value="Cardiologie"*ngIf="option2Value == 'Médecin spécialiste'">Cardiologie</option>
+<option value="Dermatologie"*ngIf="option2Value == 'Médecin spécialiste'">Dermatologie</option>
+<option value="Endocrinologie"*ngIf="option2Value == 'Médecin spécialiste'">Endocrinologie</option>
+<option value="Gastro-entérologie"*ngIf="option2Value == 'Médecin spécialiste'">Gastro-entérologie</option>
+<option value="Hématologie clinique"*ngIf="option2Value == 'Médecin spécialiste'">Hématologie clinique</option>
+<option value="Maladies infectieuses"*ngIf="option2Value == 'Médecin spécialiste'">Maladies infectieuses</option>
+<option value="Médecine d’urgence"*ngIf="option2Value == 'Médecin spécialiste'">Médecine d’urgence</option>
+<option value="Médecine de travail"*ngIf="option2Value == 'Médecin spécialiste'">Médecine de travail</option>
+<option value="Médecine interne"*ngIf="option2Value == 'Médecin spécialiste'">Médecine interne</option>
+<option value="Médecine légale"*ngIf="option2Value == 'Médecin spécialiste'">Médecine légale</option>
+<option value="Médecine physique, rééducation et réadaptation fonctionnelle"*ngIf="option2Value == 'Médecin spécialiste'">Médecine physique, rééducation et réadaptation fonctionnelle</option>
+<option value="Médecine préventive et communautaire"*ngIf="option2Value == 'Médecin spécialiste'">Médecine préventive et communautaire</option>
+<option value="Néphrologie"*ngIf="option2Value == 'Médecin spécialiste'">Néphrologie</option>
+<option value="Neurologie"*ngIf="option2Value == 'Médecin spécialiste'">Neurologie</option>
+<option value="Nutrition et maladies nutritionnelles"*ngIf="option2Value == 'Médecin spécialiste'">Nutrition et maladies nutritionnelles</option>
+<option value="Pédiatrie"*ngIf="option2Value == 'Médecin spécialiste'">Pédiatrie</option>
+<option value="Pneumologie"*ngIf="option2Value == 'Médecin spécialiste'">Pneumologie</option>
+<option value="Radiothérapie carcinologique"*ngIf="option2Value == 'Médecin spécialiste'">Radiothérapie carcinologique</option>
+<option value="Réanimation médicale"*ngIf="option2Value == 'Médecin spécialiste'">Réanimation médicale</option>
+<option value="Rhumatologie"*ngIf="option2Value == 'Médecin spécialiste'">Rhumatologie</option>
+<option value="Biophysique et médecine nucléaire"*ngIf="option2Value == 'Médecin spécialiste'">Biophysique et médecine nucléaire</option>
+<option value="Génétique"*ngIf="option2Value == 'Médecin spécialiste'">Génétique</option>
+<option value="Biologie médicale option biochimie"*ngIf="option2Value == 'Médecin spécialiste'">Biologie médicale option biochimie</option>
+<option value="Biologie médicale option hématologie"*ngIf="option2Value == 'Médecin spécialiste'">Biologie médicale option hématologie</option>
+<option value="Biologie médicale option parasitologie"*ngIf="option2Value == 'Médecin spécialiste'">Biologie médicale option parasitologie</option>
+<option value="Biologie médicale option microbiologie"*ngIf="option2Value == 'Médecin spécialiste'">Biologie médicale option microbiologie</option>
+<option value="Biologie médicale option immunologie"*ngIf="option2Value == 'Médecin spécialiste'">Biologie médicale option immunologie</option>
+<option value="Histo-embryologie"*ngIf="option2Value == 'Médecin spécialiste'">Histo-embryologie</option>
+<option value="Pharmacologie"*ngIf="option2Value == 'Médecin spécialiste'">Pharmacologie</option>
+<option value="Physiologie et explorations fonctionnelles"*ngIf="option2Value == 'Médecin spécialiste'">Physiologie et explorations fonctionnelles</option>
+<option hidden value="Autre">Autre</option>
+</select>
+</div>
+<div title="indiquer votre sous-spécialité"class="input-container"id="idsousspecialite">
+  <label for="underactivity"> Sous-Spécialité:</label>    
+  <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field" placeholder="Entrer Votre Sous-Spécilaité" id="sousspecialite" formControlName="sousspecialite" name="sousspecialite" >
+<option hidden [value]="user.sousspecialite">{{user.sousspecialite}}</option>
+<option value=""></option>
+<option hidden value="Autre">Autre</option>
+</select>
 </div>
 <div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"id="idfiscalimpot">
   <label for="fiscalimpot"> Régime Fiscal En Matières D'impôts Directs:</label>     

@@ -20,6 +20,8 @@ export class User {
   natureactivite:string;
   activite:string
   sousactivite:string
+  specialite:string
+  sousspecialite:string
   regimefiscalimpot:string
   regimefiscaltva:string
   matriculefiscale:string

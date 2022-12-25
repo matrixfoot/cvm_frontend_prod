@@ -907,11 +907,16 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 <div class="col-6">
   <div class="form-group">
     <label>Taux</label>
-    <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'|| activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
+    <input type="text" class="form-control" value="13%" *ngIf="option54Value!='2023'&&activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
     activite==='Topographes'||activite==='Notaire'||activite==='Huissiers notaire'||activite==='Interprètes'"disabled/>
-    <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+    <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'"disabled/>
+    <input type="text" class="form-control" value="19%" *ngIf="option54Value==='2023'&&activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
+    activite==='Topographes'||activite==='Notaire'||activite==='Huissiers notaire'||activite==='Interprètes'"disabled/>
+    <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'"disabled/>
+    <input type="text" class="form-control" value="7%" *ngIf="activite==='Expert'&&option54Value!='2023'"disabled/>
+    <input type="text" class="form-control" value="19%" *ngIf="activite==='Expert'&&option54Value==='2023'"disabled/>
     <input type="text" class="form-control" value="19%" *ngIf="activite==='Consultant'"disabled/>
 
   </div>

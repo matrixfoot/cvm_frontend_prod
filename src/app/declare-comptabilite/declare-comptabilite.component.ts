@@ -108,6 +108,7 @@ foprolosapayer=0.000
   public ammounts6: FormArray;
   private destroyed$ = new Subject<void>();
   tauxtva: string;
+  tauxdt:any;
 
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
@@ -148,7 +149,8 @@ this.salaireform = this.fb.group({
   }
   else return (
     this.token.saved=true,
-    this.router.navigate(['login']));    
+    this.router.navigate(['login']));
+    this.tauxdt=0.600    
     this.DeccomptabiliteService.getdeccomptabilite(this.currentUser.userId).then(
       (deccomptabilite: Deccomptabilite) => {
   this.deccomptabilite=deccomptabilite
@@ -165,7 +167,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-|| user.regimefiscalimpot=='Autre/null'
+|| user.regimefiscalimpot=='Autre/null' 
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
 if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
 this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
@@ -198,6 +200,19 @@ if(this.activite=='Consultant')
   verify(e)
   {
     this.loading=true
+    if(this.option1Value=='2023'&&this.activite=='Architectes'||this.option1Value=='2023'&&this.activite=='Ingénieurs-conseil'||
+    this.option1Value=='2023'&&this.activite=='Dessinateurs'||this.option1Value=='2023'&&this.activite=='Géomètres'||
+    this.option1Value=='2023'&&this.activite=='Topographes'||this.option1Value=='2023'&&this.activite=='Notaire'||
+    this.option1Value=='2023'&&this.activite=='Huissiers notaire'||this.option1Value=='2023'&&this.activite=='Interprètes'||
+    this.option1Value=='2023'&&this.activite=='Expert')
+    {
+      this.tauxtva='0.19'
+    }
+    if(this.option1Value=='2023')
+    {
+      this.tauxdt=1.000
+    }
+    /*
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -211,7 +226,7 @@ if(this.activite=='Consultant')
     }).then((result) => {this.option1Value='',this.option2Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))
+    }))*/
     this.DeccomptabiliteService.geexistenttdeccomptabilite(this.currentUser.userId,this.option1Value,this.option2Value).then(
       (data:Deccomptabilite[]) => {
         
@@ -260,7 +275,7 @@ this.loading=false
 
   }
   verifyfutur(e)
-  {
+  {/*
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -276,7 +291,7 @@ this.loading=false
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     }))
-    
+  */
   }
   onTabClick(event) {
    
@@ -371,7 +386,7 @@ this.loading=false
   settva(i: number) {
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
-     console.log(mht)
+     console.log(this.tauxtva)
      
      const montanttva=(mht*+this.tauxtva).toFixed(3)
      ammounts.at(i).patchValue({
@@ -418,7 +433,7 @@ this.loading=false
       }
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-        this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=0.600
+        this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=this.tauxdt
          const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
          const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
          console.log(this.activite)
@@ -431,7 +446,7 @@ this.loading=false
           montantht:montantht,
           montanttva:montanttva,
           montantttc:montantttc,
-          montantdt:0.600
+          montantdt:this.tauxdt
 
          })
          this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
@@ -624,7 +639,6 @@ this.loading=false
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
-        this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
         this.realht1=this.totalht
         this.realdt1=this.totaldt
       }
@@ -815,7 +829,7 @@ let totalcreditbis:any
         numeronote: '',
         montantht:'0',
         montanttva:'0',
-        montantdt:'0.600',
+        montantdt:this.tauxdt,
         montantttc:'0',
         reglement:'',
 
@@ -935,7 +949,6 @@ let totalcreditbis:any
       acc += +(curr.montantttc || 0);
       return acc;
     },0);
-    this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
   }
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -1058,7 +1071,6 @@ let totalcreditbis:any
       acc += +(curr.montantttc || 0);
       return acc;
     },0);
-    this.realtotaltva=Math.trunc((this.totalht*0.13)*1000)/1000;
   }
   removeammount2(i: number) {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -1738,8 +1750,8 @@ if(this.realht1>0||this.realht2>0)
 {
 
   decfiscmens.impottype6.type='TCL'
-  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000).toString()
-  decfiscmens.impottype6.tclpayer=(Math.trunc((((Math.trunc(((this.realht1+this.realht2)*0.13)*1000)/1000)*0.002)*1000)/1000)).toString()
+  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*+this.tauxtva)*1000)/1000).toString()
+  decfiscmens.impottype6.tclpayer=(Math.trunc((((Math.trunc(((this.realht1+this.realht2)*+this.tauxtva)*1000)/1000)*0.002)*1000)/1000)).toString()
 
 }
 if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
@@ -1865,6 +1877,9 @@ if (numero)
   this.showeditionnote=true
   this.showrecettejour=false
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+  ammounts.at(0).patchValue({
+    montantdt:this.tauxdt
+   })
 let numerofactureverif:any
   this.DeccomptabiliteService.deccomptabilites.forEach(element => numerofactureverif=element.autre1.length)
   console.log(numerofactureverif)

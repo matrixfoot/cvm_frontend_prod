@@ -4,7 +4,7 @@
 
     <h2 style="text-align: center;">Informations générales</h2>
     
-    <div class="container-fluid">
+    <div class="container-fluid"*ngIf="user">
       <img src="../../assets/img_avatar.png" *ngIf="civilite=='Monsieur'" else alt="Avatar" style="width:10% ;height:10%">
       <img src="../../assets/img_avatar2.png" *ngIf="civilite!='Monsieur'" alt="Avatar" style="width:10% ;height:10%">
       <div class="container-fluid">
@@ -21,7 +21,9 @@
         <h4>Code client<b>  {{ user.clientcode }}</b></h4>
         <h4>Nature Activité:<b>  {{ user.natureactivite }}</b></h4>
         <h4>Activité:<b>  {{ user.activite }}</b></h4>
-        <h4>Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
+        <h4 *ngIf="user.sousactivite">Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
+        <h4 *ngIf="user.specialite">Spécialité:<b>  {{ user.specialite }}</b></h4>
+        <h4 *ngIf="user.sousspecialite">Sous-Spécialité:<b>  {{ user.sousspecialite }}</b></h4>
         <h4>Carte d'identification fiscale: <b><a href="{{user.ficheUrl}}" target="_blank">Aperçu CIF</a></b></h4>
         <h4 class="hidden">Sous-Activité:<b>  {{ user.sousactivite }}</b></h4>
         <h4>Régime fiscal en matières d'impôts directs:<b>  {{ user.regimefiscalimpot }}</b></h4>

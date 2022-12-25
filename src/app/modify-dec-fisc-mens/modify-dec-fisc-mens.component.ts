@@ -404,21 +404,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
        this.prepminimumperceptionammount=5.000
     
       }
-      if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
-      this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
-      {
-        this.tauxtva='0.13'
-      }
-      if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
-      this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
-      ||this.activite=='Sage-femmes')
-      {
-        this.tauxtva='0.07'
-      }
-              if(this.activite=='Consultant')
-              {
-                this.tauxtva='0.19'
-              }
+      
               this.dec.getdecfiscmens(user._id).then(
                 (decfiscmens: Decfiscmens[]) => {
                 }
@@ -440,6 +426,39 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
               
               this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
+    if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
+    decfiscmens.annee=='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Géomètres'||
+    decfiscmens.annee=='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Notaire'||
+    decfiscmens.annee=='2023'&&decfiscmens.activite=='Expert'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Huissiers notaire'||
+    decfiscmens.annee=='2023'&&decfiscmens.activite=='Interprètes')
+    {
+      this.tauxtva='0.19'
+    }
+              if(decfiscmens.activite=='Avocat')
+      {
+        this.tauxtva='0.13'  
+      }
+      if(decfiscmens.annee!='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Géomètres'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Notaire'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Huissiers notaire'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Interprètes' )
+      {
+        this.tauxtva='0.13' 
+      }
+      if(decfiscmens.annee!='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Expert'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Masseur'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Physiothérapeute'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Ergothérapeute'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Psychomotricien'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Diététicien'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Orthophoniste'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Orthoptiste'
+      ||decfiscmens.activite=='Sage-femmes')
+      {
+        this.tauxtva='0.07'
+      }
+              if(decfiscmens.activite=='Consultant')
+              {
+                this.tauxtva='0.19'
+              }
               this.decfiscmensForm = this.formBuilder.group({
                 
                 statut: [this.decfiscmens.statut, Validators.required],
@@ -1514,11 +1533,11 @@ calculateResultForm23()
   {
   
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     console.log(taux)
-    console.log(this.standardtvacollecteform.get('taux').value)
+    console.log(this.tauxtva)
     console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1547,7 +1566,7 @@ calculateResultForm23()
   {
   
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
-    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
 
@@ -4076,7 +4095,7 @@ if(reporttva>0)
       if (this.option51Value)
       {
       const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-      const taux=+this.standardtvacollecteform.get('taux').value
+      const taux=+this.tauxtva
       const chiffreaffairettc=Math.trunc(((chiffreaffaireht*taux)+chiffreaffaireht)*1000)/1000
       this.standardtclform.patchValue({
         chiffreaffairettc:chiffreaffairettc

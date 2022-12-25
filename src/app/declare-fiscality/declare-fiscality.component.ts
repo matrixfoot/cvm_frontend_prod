@@ -389,7 +389,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               this.regimefiscalimpot=this.user.regimefiscalimpot;
               this.matriculefiscale=this.user.matriculefiscale;
               if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
-              this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
+              this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes')
               {
                 this.tauxtva='0.13'
               }
@@ -967,6 +967,7 @@ canDeactivate():boolean {
   
   openPopup() {
     this.displayStyle = "block";
+    console.log(this.tauxtva)
 if (this.option48Value)
 {
   this.totalretenueammount=+this.standardtraitementsalaireform.get('retenuesalary').value+ +this.standardtraitementsalaireform.get('solidaritycontribution').value
@@ -1507,11 +1508,11 @@ calculateResultForm1()
   {
   
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     console.log(taux)
-    console.log(this.standardtvacollecteform.get('taux').value)
+    console.log(this.tauxtva)
     console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
@@ -1540,7 +1541,7 @@ calculateResultForm1()
   {
   
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
-    const taux=+this.standardtvacollecteform.get('taux').value
+    const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
@@ -2578,6 +2579,15 @@ this.DecfiscmensService.create(decfiscmens).then(
   verify(e)
   {
     console.log(this.currentUser.userId,this.option54Value,this.option171Value)
+    if(this.option54Value=='2023'&&this.activite=='Architectes'||this.option54Value=='2023'&&this.activite=='Ingénieurs-conseil'
+    ||this.option54Value=='2023'&&this.activite=='Dessinateurs'||this.option54Value=='2023'&&this.activite=='Géomètres'
+    ||this.option54Value=='2023'&&this.activite=='Topographes'||this.option54Value=='2023'&&this.activite=='Notaire'||
+    this.option54Value=='2023'&&this.activite=='Huissiers notaire'||this.option54Value=='2023'&&this.activite=='Interprètes'||
+    this.option54Value=='2023'&&this.activite=='Expert')
+    {
+      this.tauxtva='0.19'
+    }
+    
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -2650,7 +2660,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     }))
-    
+   
   }
   update(e){
     this.selected = e.target.value
@@ -3399,7 +3409,7 @@ if(reporttva>0)
         if (this.option51Value)
         {
         const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-        const taux=+this.standardtvacollecteform.get('taux').value
+        const taux=+this.tauxtva
         const chiffreaffairettc=Math.trunc((chiffreaffaireht*taux)+(chiffreaffaireht)*1000)/1000
         this.standardtclform.patchValue({
           chiffreaffairettc:chiffreaffairettc

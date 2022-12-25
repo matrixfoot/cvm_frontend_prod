@@ -4,6 +4,7 @@ import { Deccomptabilite } from '../models/dec-comptabilite';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
+import { ExcelService } from '../services/excel.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { AlertService } from '../_helpers/alert.service';
@@ -47,6 +48,12 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   role: string;
   usertype: string;
   deccomptabilite: Deccomptabilite;
+  statut: string;
+  motif: string;
+  firstname: string;
+  lastname: string;
+  nature: string;
+  user: User;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -54,7 +61,9 @@ export class ViewDeccomptabiliteComponent implements OnInit {
     private deccompt: DeccomptabiliteService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private excelService: ExcelService,
+
   ) { }
 
   ngOnInit() {
@@ -62,10 +71,11 @@ export class ViewDeccomptabiliteComponent implements OnInit {
     this.currentUser = this.tokenStorage.getUser();
     this.userservice.getUserById(this.currentUser.userId).then(
       (user: User) => {
-        this.loading = false;
         this.currentUser = user;
         this.role=user.role
         this.usertype=user.usertype
+        this.firstname=user.firstname
+        this.lastname=user.lastname
         console.log(this.currentUser)
       }
     )
@@ -73,8 +83,11 @@ export class ViewDeccomptabiliteComponent implements OnInit {
       (params) => {
         this.deccompt.getDeccomptabilitereqById(params.id).then(
           (deccomptabilite: Deccomptabilite) => {
-            
+            this.loading = false;
             this.deccomptabilite = deccomptabilite;
+            this.statut=deccomptabilite.statut
+            this.motif=deccomptabilite.motif
+            this.nature=deccomptabilite.nature
             if (this.deccomptabilite.autre1.length>0)
           {
             this.showeditionnote=true
@@ -99,10 +112,23 @@ export class ViewDeccomptabiliteComponent implements OnInit {
           {
             this.showpaiemanuel=true
           }
+          this.userservice.getUserById(deccomptabilite.userId).then(
+            (user: User) => {
+              this.user = user;
+              this.role=user.role
+              this.usertype=user.usertype
+              this.firstname=user.firstname
+              this.lastname=user.lastname
+            }
+          )
           }
         )
       }
     )
   }
-
+  generateExcel()
+  {
+this.excelService.exportAsExcelFile(this.deccomptabilite.autre1,this.deccomptabilite.autre2,this.deccomptabilite.autre3,
+  this.deccomptabilite.autre4,this.deccomptabilite.autre5,this.deccomptabilite.autre6,`Maquette comptable_${this.deccomptabilite.mois}_${this.deccomptabilite.annee}`)
+  }
 }

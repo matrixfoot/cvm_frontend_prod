@@ -72,6 +72,8 @@ export class CompleteProfilComponent implements OnInit {
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
             underactivity: [this.user.sousactivite,],
             selectunderactivity:[null,],
+            specialite: [this.user.specialite,],
+            sousspecialite: [this.user.sousspecialite,],
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
@@ -108,6 +110,8 @@ export class CompleteProfilComponent implements OnInit {
               selectactivity:[null,],
               underactivity: [this.user.sousactivite,],
               selectunderactivity:[null,],
+              specialite: [this.user.specialite,],
+            sousspecialite: [this.user.sousspecialite,],
               fiscalimpot: [this.user.regimefiscalimpot,],
               selectfiscalimpot:[null,],
               fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
@@ -163,7 +167,9 @@ export class CompleteProfilComponent implements OnInit {
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
-    
+    user.specialite = this.userForm.get('specialite').value;
+    user.sousspecialite = this.userForm.get('sousspecialite').value;
+
    
     this.userservice.completeUserById(this.user._id, user).then(
       () => {
@@ -189,7 +195,16 @@ export class CompleteProfilComponent implements OnInit {
   {
     this.userForm.patchValue({
       underactivity:'',
-      selectunderactivity:''
+      selectunderactivity:'',
+      specialite: '',
+      sousspecialite: '',
+    })
+  }update2(e)
+  {
+    this.userForm.patchValue({
+      specialite: '',
+      sousspecialite: '',
+      
     })
   }
   onImagePick(event: Event) {

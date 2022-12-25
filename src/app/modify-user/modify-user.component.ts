@@ -79,6 +79,8 @@ export class ModifyUserComponent implements OnInit {
             selectactivity:[null,],
             underactivity: [this.user.sousactivite,],
             selectunderactivity:[null,],
+            specialite: [this.user.specialite,],
+            sousspecialite: [this.user.sousspecialite,],
             fiscalimpot: [this.user.regimefiscalimpot,],
             selectfiscalimpot:[null,],
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
@@ -117,6 +119,8 @@ export class ModifyUserComponent implements OnInit {
               selectactivity:[null,],
               underactivity: [this.user.sousactivite,],
               selectunderactivity:[null,],
+              specialite: [this.user.specialite,],
+            sousspecialite: [this.user.sousspecialite,],
               fiscalimpot: [this.user.regimefiscalimpot,],
               selectfiscalimpot:[null,],
               fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
@@ -185,7 +189,8 @@ export class ModifyUserComponent implements OnInit {
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
-   
+    user.specialite = this.userForm.get('specialite').value;
+    user.sousspecialite = this.userForm.get('sousspecialite').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
     user.secteur = this.userForm.get('secteur').value;
@@ -215,7 +220,15 @@ export class ModifyUserComponent implements OnInit {
   {
     this.userForm.patchValue({
       underactivity:'',
-      selectunderactivity:''
+      selectunderactivity:'',
+      specialite: '',
+      sousspecialite: '',
+    })
+  }update2(e)
+  {
+    this.userForm.patchValue({
+      specialite: '',
+      sousspecialite: '',
     })
   }
   onImagePick(event: Event) {

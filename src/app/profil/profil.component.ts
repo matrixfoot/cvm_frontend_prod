@@ -17,6 +17,7 @@ export class ProfilComponent implements OnInit {
   civilite:any
   errormsg:string;
   currentUser: any;
+  specialite: string;
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private alertService: AlertService,private usersservice: UserService) { }
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
