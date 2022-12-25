@@ -281,7 +281,7 @@ filterusers(id:string)
                                                                                                                
            }
            exportusersAsXLSX():void {
-            this.excelService.exportAsExcelFile(this.users, 'sample');
+            this.excelService.exportAsExcelFile(this.users,[],[],[],[],[], 'sample');
           }
 }
   

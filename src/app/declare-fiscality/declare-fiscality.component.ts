@@ -2587,7 +2587,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     {
       this.tauxtva='0.19'
     }
-    
+    /*
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -2601,7 +2601,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     }).then((result) => {this.option54Value='',this.option171Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))
+    }))*/
     this.DecfiscmensService.geexistenttdecfiscmens(this.currentUser.userId,this.option54Value,this.option171Value).then(
       (data:Decfiscmens[]) => {
         if (data.length>0)
@@ -2645,7 +2645,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     )
   }
   verifyfutur(e)
-  {
+  {/*
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -2659,7 +2659,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     }).then((result) => {this.option54Value='',this.option171Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))
+    }))*/
    
   }
   update(e){
