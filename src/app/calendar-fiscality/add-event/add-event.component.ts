@@ -108,6 +108,7 @@ export class AddEventComponent implements OnInit {
   }
   afficher()
   {
+    this.loading = true;
     console.log(this.exceljsondata)
     this.eve.addEvents(this.exceljsondata).then(
       (data:any) => {

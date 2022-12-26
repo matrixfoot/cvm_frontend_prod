@@ -47,11 +47,10 @@
       <div class="form-group row">
         <label class="col-sm-12 col-form-label"> Charger document</label>
           <div class="col-sm-12">
-            <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"
-                          (change)="onFileChange($event);" >
+            <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"(change)="onFileChange($event);">
           </div>
       </div>
-      <button class="btn btn-success" (click)="afficher()"> Valider</button>
+      <button class="btn btn-success" (click)="afficher()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
     </fieldset>
     </div>
     </body>
