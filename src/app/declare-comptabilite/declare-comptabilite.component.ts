@@ -942,10 +942,7 @@ let totalcreditbis:any
       acc += +(curr.montanttva || 0);
       return acc;
     },0);
-    this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
-      acc += +(curr.montantdt || 0);
-      return acc;
-    },0);
+   
     this.totalttc = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
       acc += +(curr.montantttc || 0);
       return acc;
@@ -1365,6 +1362,34 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
     deccomptabilite.nature='déclaration comptable';
     deccomptabilite.annee=this.option1Value
     deccomptabilite.mois=this.option2Value
+    deccomptabilite.debitmoisprecedent=this.relevemanuelform.get('soldemoisprecedentdebit').value
+    deccomptabilite.creditmoisprecedent=this.relevemanuelform.get('soldemoisprecedentcredit').value
+    deccomptabilite.moisreleve=this.relevemanuelform.get('mois').value
+    deccomptabilite.anneereleve=this.relevemanuelform.get('annee').value
+    deccomptabilite.totalht=this.totalht
+    deccomptabilite.totaltva=this.totaltva
+    deccomptabilite.totaldt=this.totaldt
+    deccomptabilite.totalttc=this.totalttc
+    deccomptabilite.totalht2=this.totalht2
+    deccomptabilite.totaltva2=this.totaltva2
+    deccomptabilite.totaldt2=this.totaldt2
+    deccomptabilite.totalttc2=this.totalttc2
+    deccomptabilite.totalrecette=this.totalrecette
+    deccomptabilite.totalht3=this.totalht3
+    deccomptabilite.totaltva3=this.totaltva3
+    deccomptabilite.totaldt3=this.totaldt3
+    deccomptabilite.totalttc3=this.totalttc3
+    deccomptabilite.totaldebit=this.totaldebit
+    deccomptabilite.totalcredit=this.totalcredit
+    deccomptabilite.totalsoldemois=this.totalsoldemois
+    deccomptabilite.totalsalairebrut=this.totalsalairebrut
+    deccomptabilite.totalcnss=this.totalcnss
+    deccomptabilite.totalsalaireimposable=this.totalsalaireimposable
+    deccomptabilite.totalretenueimpot=this.totalretenueimpot
+    deccomptabilite.totalavancepret=this.totalavancepret
+    deccomptabilite.totalsalairenet=this.totalsalairenet
+    deccomptabilite.mois=this.option2Value
+
     deccomptabilite.autre1=[]
     deccomptabilite.autre2=[]
     deccomptabilite.autre3=[]
@@ -1404,6 +1429,48 @@ if (item.fournisseur==='Autre')
     autrefournisseur: item.autrefournisseur,
     numerofacture:item.numerofacture,
     natureachat:item.natureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+if (item.natureachat==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.fournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.autrenatureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+if (item.natureachat==='Autre'&&item.fournisseur==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.autrefournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.autrenatureachat,
     autrenatureachat:item.autrenatureachat,
   montantht:item.montantht,
   montanttva:item.montanttva,
@@ -1498,7 +1565,7 @@ deccomptabilite.autre4.push({
       debit:item.debit,
       credit:item.credit,
 
-})
+}) 
 console.log(deccomptabilite.autre4)
       }
       let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;

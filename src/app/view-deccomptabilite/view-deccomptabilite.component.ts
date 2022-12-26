@@ -54,6 +54,10 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   lastname: string;
   nature: string;
   user: User;
+  moisreleve: string;
+  anneereleve: string;
+  debitmoisprecedent: string;
+  creditmoisprecedent: string;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -88,6 +92,32 @@ export class ViewDeccomptabiliteComponent implements OnInit {
             this.statut=deccomptabilite.statut
             this.motif=deccomptabilite.motif
             this.nature=deccomptabilite.nature
+            this.moisreleve=deccomptabilite.moisreleve
+            this.anneereleve=deccomptabilite.anneereleve
+            this.debitmoisprecedent=deccomptabilite.debitmoisprecedent
+            this.creditmoisprecedent=deccomptabilite.creditmoisprecedent
+            this.totalht=deccomptabilite.totalht
+    this.totaltva=deccomptabilite.totaltva
+    this.totaldt=deccomptabilite.totaldt
+    this.totalttc=deccomptabilite.totalttc
+    this.totalht2=deccomptabilite.totalht2
+    this.totaltva2=deccomptabilite.totaltva2
+    this.totaldt2=deccomptabilite.totaldt2
+    this.totalttc2=deccomptabilite.totalttc2
+    this.totalrecette=deccomptabilite.totalrecette
+    this.totalht3=deccomptabilite.totalht3
+    this.totaltva3=deccomptabilite.totaltva3
+    this.totaldt3=deccomptabilite.totaldt3
+    this.totalttc3=deccomptabilite.totalttc3
+    this.totaldebit=deccomptabilite.totaldebit
+    this.totalcredit=deccomptabilite.totalcredit
+    this.totalsoldemois=deccomptabilite.totalsoldemois
+    this.totalsalairebrut=deccomptabilite.totalsalairebrut
+    this.totalcnss=deccomptabilite.totalcnss
+    this.totalsalaireimposable=deccomptabilite.totalsalaireimposable
+    this.totalretenueimpot=deccomptabilite.totalretenueimpot
+    this.totalavancepret=deccomptabilite.totalavancepret
+    this.totalsalairenet=deccomptabilite.totalsalairenet
             if (this.deccomptabilite.autre1.length>0)
           {
             this.showeditionnote=true

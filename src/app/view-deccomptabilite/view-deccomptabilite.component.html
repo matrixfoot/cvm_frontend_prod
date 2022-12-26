@@ -168,11 +168,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ammount of deccomptabilite.autre4; let i = index;">
-                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].mois | lowercase}}</td>
-                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].annee| lowercase}}</td>
-                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].soldemoisdebit | number:'1.3-3'| removeComma}}</td>
-                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].soldemoiscredit| number:'1.3-3'| removeComma}}</td>       
+                <tr>
+                    <td  style="text-align: center;"> {{moisreleve | lowercase}}</td>
+                    <td  style="text-align: center;"> {{anneereleve | lowercase}}</td>
+                    <td  style="text-align: center;"> {{debitmoisprecedent | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{creditmoisprecedent | number:'1.3-3'| removeComma}}</td>       
                 </tr>
             </tbody>
             <thead>

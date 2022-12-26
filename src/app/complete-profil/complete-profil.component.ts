@@ -46,6 +46,7 @@ export class CompleteProfilComponent implements OnInit {
   sousactivitesavocat: string[];
   sousactivitesmedecin: string[];
   specialitesmedecinspecialiste: string[];
+  selected: any;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -164,7 +165,7 @@ this.sousspecialites=[]
               email: [this.user.email,],
               fonction: [this.user.fonction,],
               password: [null,],
-              confirmpassword: [null,],
+              confirmpassword: [null,], 
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
               raisonsociale: [this.user.raisonsociale,],
@@ -258,19 +259,58 @@ this.sousspecialites=[]
   }
   update(e)
   {
+    this.selected = e.target.value
+    
+    if(this.selected=='Avocat')
+    {
+this.sousactivites=this.sousactivitesavocat
+    }
+    else if (this.selected=='Médecin')
+    {
+      this.sousactivites=this.sousactivitesmedecin
+
+    }
+    else{
+      this.sousactivites=[]
+      this.specialites=[]
+      this.sousspecialites=[]
+    }
     this.userForm.patchValue({
       underactivity:'',
       selectunderactivity:'',
       specialite: '',
       sousspecialite: '',
     })
-  }update2(e)
+  }
+  update2(e)
   {
+    this.selected = e.target.value
+    
+    if(this.selected=='Médecin spécialiste')
+    {
+this.specialites=this.specialitesmedecinspecialiste
+    }
+   
+    else{
+      this.specialites=[]
+      this.sousspecialites=[]
+
+    }
     this.userForm.patchValue({
       specialite: '',
       sousspecialite: '',
-      
     })
+  }
+  update3(e)
+  {
+  }
+  sort()
+  {
+    this.specialitesmedecinspecialiste.sort()
+    this.sousactivitesavocat.sort()
+    this.sousactivitesmedecin.sort()
+    this.activites.sort()
+
   }
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];

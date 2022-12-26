@@ -43,6 +43,7 @@ export class ModifyUserComponent implements OnInit {
   sousactivitesavocat: string[];
   sousactivitesmedecin: string[];
   specialitesmedecinspecialiste: string[];
+  selected: any;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -57,6 +58,60 @@ export class ModifyUserComponent implements OnInit {
     this.activites=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
     "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
     "Ingénieurs-conseil","Topographes","Autre"]
+this.sousactivites=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation","Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
+
+this.specialites=["Chirurgie générale",
+"Chirurgie pédiatrique",
+"Chirurgie carcinologique",
+"Chirurgie cardio-vasculaire",
+"Chirurgie vasculaire périphérique",
+"Chirurgie neurologique",
+"Chirurgie orthopédique et traumatologique",
+"Chirurgie plastique, réparatrice et esthétique",
+"Chirurgie urologique",
+"Gynéco-obstétrique",
+"ORL",
+"Stomatologie et chirurgie maxillo-faciale",
+"Ophtalmologie",
+"Chirurgie thoracique",
+"Anesthésie réanimation",
+"Psychiatrie",
+"Pédo-psychiatrie",
+"Imagerie médicale",
+"Anatomie",
+"Anatomie et cytologie pathologiques",
+"Carcinologie médicale",
+"Cardiologie",
+"Dermatologie",
+"Endocrinologie",
+"Gastro-entérologie",
+"Hématologie clinique",
+"Maladies infectieuses",
+"Médecine d’urgence",
+"Médecine de travail",
+"Médecine interne",
+"Médecine légale",
+"Médecine physique, rééducation et réadaptation fonctionnelle",
+"Médecine préventive et communautaire",
+"Néphrologie",
+"Neurologie",
+"Nutrition et maladies nutritionnelles",
+"Pédiatrie",
+"Pneumologie",
+"Radiothérapie carcinologique",
+"Réanimation médicale",
+"Rhumatologie",
+"Biophysique et médecine nucléaire",
+"Génétique",
+"Biologie médicale option biochimie",
+"Biologie médicale option hématologie",
+"Biologie médicale option parasitologie",
+"Biologie médicale option microbiologie",
+"Biologie médicale option immunologie",
+"Histo-embryologie",
+"Pharmacologie",
+"Physiologie et explorations fonctionnelles"]
+this.sousspecialites=[]
 this.sousactivitesavocat=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation"]
 this.sousactivitesmedecin=["Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
 
@@ -111,7 +166,6 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
 "Histo-embryologie",
 "Pharmacologie",
 "Physiologie et explorations fonctionnelles"]
-this.sousspecialites=[]
      if (this.tokenStorage.getToken()){
       this.isloggedin=true;
       this.currentuser =this.tokenStorage.getUser()
@@ -283,18 +337,56 @@ this.sousspecialites=[]
   }
   update(e)
   {
+    this.selected = e.target.value
+    
+    if(this.selected=='Avocat')
+    {
+this.sousactivites=this.sousactivitesavocat
+    }
+    else if (this.selected=='Médecin')
+    {
+      this.sousactivites=this.sousactivitesmedecin
+
+    }
+    else{
+      this.sousactivites=[]
+      this.specialites=[]
+      this.sousspecialites=[]
+    }
     this.userForm.patchValue({
       underactivity:'',
       selectunderactivity:'',
       specialite: '',
       sousspecialite: '',
     })
-  }update2(e)
+  }
+  update2(e)
   {
+    this.selected = e.target.value
+    
+    if(this.selected=='Médecin spécialiste')
+    {
+this.specialites=this.specialitesmedecinspecialiste
+    }
+   
+    else{
+      this.specialites=[]
+      this.sousspecialites=[]
+
+    }
     this.userForm.patchValue({
       specialite: '',
       sousspecialite: '',
     })
+  }
+  update3(e)
+  {
+  }
+  sort()
+  {
+    this.specialites.sort()
+    this.sousactivites.sort()
+    this.activites.sort()
   }
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];

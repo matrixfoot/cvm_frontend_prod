@@ -47,13 +47,12 @@
     <div title="indiquer votre activité"class="input-container" id="idactivity">
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(change)="update($event)"formControlName="activity" name="activity" >
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
   <option hidden [value]="user.activite">{{user.activite}}</option>
   <option value=""></option>
   <option *ngFor="let activite of activites" [value]="activite">
     {{activite}}
 </option>
-  <option value="Autre">Autre</option>
 </select>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
@@ -64,15 +63,12 @@
   <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
-    <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"(change)="update2($event)"formControlName="underactivity" name="underactivity" >
+    <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"(click)="sort()"(change)="update2($event)"formControlName="underactivity" name="underactivity" >
       <option hidden [value]="user.sousactivite">{{user.sousactivite}}</option>
     <option value=""></option>
-    <option *ngFor="let sousactivite of sousactivitesavocat" [value]="sousactivite">
-      <span *ngIf="option1Value == 'Avocat'">{{sousactivite}}</span>
+    <option *ngFor="let sousactivite of sousactivites" [value]="sousactivite">
+      {{sousactivite}}
   </option>
-  <option *ngFor="let sousactivite of sousactivitesmedecin" [value]="sousactivite">
-   <span *ngIf="option1Value == 'Médecin'">{{sousactivite}}</span> 
-</option>
     <option hidden value="Autre">Autre</option>
     </select>
 </div>
@@ -84,11 +80,11 @@
 <div title="indiquer votre spécialité"class="input-container"id="idspecialite">
   <label for="underactivity"> Spécialité:</label>    
   <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="specialite" name="specialite" >
+<select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="specialite" (click)="sort()"(change)="update3($event)"name="specialite" >
 <option hidden [value]="user.specialite">{{user.specialite}}</option>
 <option value=""></option>
-<option *ngFor="let specialite of specialitesmedecinspecialiste" [value]="specialite">
-  <span *ngIf="option2Value == 'Médecin spécialiste'">{{specialite}}</span>
+<option *ngFor="let specialite of specialites" [value]="specialite">
+  {{specialite}}
 </option>
 <option hidden value="Autre">Autre</option>
 </select>

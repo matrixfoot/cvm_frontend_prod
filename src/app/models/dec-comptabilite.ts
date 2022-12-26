@@ -6,6 +6,33 @@ codedeclaration:string;
   nature:string;
   mois:string;
   annee:string;
+  debitmoisprecedent:string;
+  creditmoisprecedent:string
+  moisreleve:string
+  anneereleve:string
+  totalht:number
+  totaltva:number
+  realtotaltva:number
+  totaldt:number
+  totalttc:number
+  totalht2:number
+  totaltva2:number
+  totaldt2:number
+  totalttc2:number
+  totalrecette:number
+  totalht3:number
+  totaltva3:number
+  totaldt3:number
+  totalttc3:number
+  totaldebit:number
+  totalcredit:number
+  totalsoldemois:number
+  totalsalairebrut:number
+  totalcnss:number
+  totalsalaireimposable:number
+  totalretenueimpot:number
+  totalavancepret:number
+  totalsalairenet:number
   statut:string;
   motif:string;
   created:Date;
