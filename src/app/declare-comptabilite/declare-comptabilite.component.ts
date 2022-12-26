@@ -170,11 +170,11 @@ if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite 
 || user.regimefiscalimpot=='Autre/null' 
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
 if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
-this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes' )
+this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert' )
 {
   this.tauxtva='0.13'
 }
-if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
 this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
 ||this.activite=='Sage-femmes')
 {
@@ -204,7 +204,7 @@ if(this.activite=='Consultant')
     this.option1Value=='2023'&&this.activite=='Dessinateurs'||this.option1Value=='2023'&&this.activite=='Géomètres'||
     this.option1Value=='2023'&&this.activite=='Topographes'||this.option1Value=='2023'&&this.activite=='Notaire'||
     this.option1Value=='2023'&&this.activite=='Huissiers notaire'||this.option1Value=='2023'&&this.activite=='Interprètes'||
-    this.option1Value=='2023'&&this.activite=='Expert')
+    this.option1Value=='2023'&&this.activite=='Expert'||this.option1Value=='2023'&&this.activite=='Avocat')
     {
       this.tauxtva='0.19'
     }
@@ -475,7 +475,7 @@ this.loading=false
         },0);
         this.realht2=this.totalht2
         this.realdt2=this.totaldt2
-        console.log(this.realht2)
+        console.log(this.realht2,this.realdt2,this.realdt1)
         }
         setht3(i: number) {
           let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
@@ -641,6 +641,7 @@ this.loading=false
         },0);
         this.realht1=this.totalht
         this.realdt1=this.totaldt
+        console.log(this.realdt1)
       }
       onChange2(i: number){
         
@@ -1726,7 +1727,7 @@ console.log(this.realht2)
 decfiscmens.impottype2.type='TVA'
 decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=(Math.trunc(((this.realht1+this.realht2))*1000)/1000).toString()
-decfiscmens.impottype2.tvacollecter.tvaammount=(Math.trunc((((this.realht1+this.realht2)*+this.tauxtva))*1000)/1000).toString()
+decfiscmens.impottype2.tvacollecter.tvaammount=(Math.trunc(((this.realht1+this.realht2)*+this.tauxtva)*1000)/1000).toString()
 decfiscmens.impottype2.tvacollecter.ammountttc=(Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000).toString()
 }
 if (this.realht3>0)
@@ -1742,7 +1743,7 @@ if(this.realdt1>0||this.realdt2>0)
 {
      
   decfiscmens.impottype5.type='Droit de timbre'
-  decfiscmens.impottype5.nombrenotehonoraire=(Math.trunc((+(this.realdt1+this.realdt2)/0.6)*1000)/1000).toString();
+  decfiscmens.impottype5.nombrenotehonoraire=(Math.floor((this.realdt1+this.realdt2)/this.tauxdt)).toString();
   decfiscmens.impottype5.totaldroittimbre=(Math.round((this.realdt1+this.realdt2)*1000)/1000).toString()
 
 }
@@ -1750,11 +1751,11 @@ if(this.realht1>0||this.realht2>0)
 {
 
   decfiscmens.impottype6.type='TCL'
-  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc(((this.realht1+this.realht2)*+this.tauxtva)*1000)/1000).toString()
-  decfiscmens.impottype6.tclpayer=(Math.trunc((((Math.trunc(((this.realht1+this.realht2)*+this.tauxtva)*1000)/1000)*0.002)*1000)/1000)).toString()
+  decfiscmens.impottype6.chiffreaffairettc=(Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000).toString()
+  decfiscmens.impottype6.tclpayer=(Math.trunc((((Math.trunc((((this.realht1+this.realht2)+((this.realht1+this.realht2)*+this.tauxtva)))*1000)/1000))*0.002)*1000)/1000).toString()
 
 }
-if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
 this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
 ||this.activite=='Sage-femmes')
 {
@@ -1837,7 +1838,11 @@ else if (result.isDenied)
     }
   )
 }
-
+else if (result.isDismissed)
+{
+  this.showcatab=false;
+  this.option3Value=false;
+}
 }).catch(() => {
 Swal.fire('opération non aboutie!');
 });
@@ -2080,7 +2085,13 @@ this.usersservice.getUserById(this.currentUser.userId).then(
         this.showrelevejoint=true
         this.showrelevemanuel=false
       }
-      
+      else if (result.isDismissed)
+      {
+        this.showrelevejoint=false
+        this.showrelevemanuel=false
+        this.showbanquetab=false;
+        this.option5Value=false;
+      }
       }).catch(() => {
       Swal.fire('opération non aboutie!');
       }); 
@@ -2152,7 +2163,13 @@ this.usersservice.getUserById(this.currentUser.userId).then(
         this.showpaiemanuel=false
         this.router.navigate(['declare-paie'])
       }
-      
+      else if (result.isDismissed)
+{
+  this.showpaiemanuel=false
+
+  this.showsalairetab=false;
+  this.option6Value=false;
+}
       }).catch(() => {
       Swal.fire('opération non aboutie!');
       }); 

@@ -360,6 +360,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   tvarecuperable=0.000
 
   public ammounts: FormArray;
+  tauxdt: number;
   
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder) {
@@ -377,7 +378,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       this.token.saved=true,
       this.router.navigate(['login']));  
       
-      
+    this.tauxdt=0.600      
     this.usersservice.getUserById(this.currentUser.userId).then(
             (user: User) => {
               this.loading = false;
@@ -389,11 +390,11 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               this.regimefiscalimpot=this.user.regimefiscalimpot;
               this.matriculefiscale=this.user.matriculefiscale;
               if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
-              this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes')
+              this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert')
               {
                 this.tauxtva='0.13'
               }
-              if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+              if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
               this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
               ||this.activite=='Sage-femmes')
               {
@@ -1780,7 +1781,7 @@ calculateResultForm1()
   
     const totaldroittimbre=+this.standarddroittimbreform.get('totaldroittimbre').value
     const taux=+this.standarddroittimbreform.get('taux').value
-    const nombrenotehonoraire=Math.trunc((+totaldroittimbre/+taux)*1000)/1000;
+    const nombrenotehonoraire=Math.trunc(+totaldroittimbre/+taux);
     this.totaltimbreammount=+ Math.trunc((+totaldroittimbre)*1000)/1000;
       this.standarddroittimbreform.patchValue({
         nombrenotehonoraire: nombrenotehonoraire,},{emitEvent: false} 
@@ -2583,9 +2584,16 @@ this.DecfiscmensService.create(decfiscmens).then(
     ||this.option54Value=='2023'&&this.activite=='Dessinateurs'||this.option54Value=='2023'&&this.activite=='Géomètres'
     ||this.option54Value=='2023'&&this.activite=='Topographes'||this.option54Value=='2023'&&this.activite=='Notaire'||
     this.option54Value=='2023'&&this.activite=='Huissiers notaire'||this.option54Value=='2023'&&this.activite=='Interprètes'||
-    this.option54Value=='2023'&&this.activite=='Expert')
+    this.option54Value=='2023'&&this.activite=='Expert'||this.option54Value=='2023'&&this.activite=='Avocat')
     {
       this.tauxtva='0.19'
+    }
+    if(this.option54Value=='2023')
+    {
+      this.tauxdt=1.000
+      this.standarddroittimbreform.patchValue({
+        taux:this.tauxdt
+      })
     }
     /*
     let date=new Date()

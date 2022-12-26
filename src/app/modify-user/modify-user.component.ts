@@ -36,6 +36,13 @@ export class ModifyUserComponent implements OnInit {
   codepostalPattern: "^[a-zA-Z0-9]+{4}$"
 
   errormsg:string;
+  activites: any[];
+  sousactivites: any[];
+  specialites: any[];
+  sousspecialites: any[];
+  sousactivitesavocat: string[];
+  sousactivitesmedecin: string[];
+  specialitesmedecinspecialiste: string[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -47,6 +54,64 @@ export class ModifyUserComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.activites=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
+    "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
+    "Ingénieurs-conseil","Topographes","Autre"]
+this.sousactivitesavocat=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation"]
+this.sousactivitesmedecin=["Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
+
+this.specialitesmedecinspecialiste=["Chirurgie générale",
+"Chirurgie pédiatrique",
+"Chirurgie carcinologique",
+"Chirurgie cardio-vasculaire",
+"Chirurgie vasculaire périphérique",
+"Chirurgie neurologique",
+"Chirurgie orthopédique et traumatologique",
+"Chirurgie plastique, réparatrice et esthétique",
+"Chirurgie urologique",
+"Gynéco-obstétrique",
+"ORL",
+"Stomatologie et chirurgie maxillo-faciale",
+"Ophtalmologie",
+"Chirurgie thoracique",
+"Anesthésie réanimation",
+"Psychiatrie",
+"Pédo-psychiatrie",
+"Imagerie médicale",
+"Anatomie",
+"Anatomie et cytologie pathologiques",
+"Carcinologie médicale",
+"Cardiologie",
+"Dermatologie",
+"Endocrinologie",
+"Gastro-entérologie",
+"Hématologie clinique",
+"Maladies infectieuses",
+"Médecine d’urgence",
+"Médecine de travail",
+"Médecine interne",
+"Médecine légale",
+"Médecine physique, rééducation et réadaptation fonctionnelle",
+"Médecine préventive et communautaire",
+"Néphrologie",
+"Neurologie",
+"Nutrition et maladies nutritionnelles",
+"Pédiatrie",
+"Pneumologie",
+"Radiothérapie carcinologique",
+"Réanimation médicale",
+"Rhumatologie",
+"Biophysique et médecine nucléaire",
+"Génétique",
+"Biologie médicale option biochimie",
+"Biologie médicale option hématologie",
+"Biologie médicale option parasitologie",
+"Biologie médicale option microbiologie",
+"Biologie médicale option immunologie",
+"Histo-embryologie",
+"Pharmacologie",
+"Physiologie et explorations fonctionnelles"]
+this.sousspecialites=[]
      if (this.tokenStorage.getToken()){
       this.isloggedin=true;
       this.currentuser =this.tokenStorage.getUser()

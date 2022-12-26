@@ -148,9 +148,9 @@
                         <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
                         <div><label for="rb1">TVA</label></div>
                       </td>
-                      <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
-                      activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-                      ||activite==='Sage-femmes'">
+                      <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+            activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+            ||activite==='Sage-femmes'">
                         <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
                         <div><label for="rb1">Fonds de soutien de la santé publique</label></div>
                       </td>
@@ -192,7 +192,7 @@
                         <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
 
                      </td>
-                     <td *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                     <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                      activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
                      ||activite==='Sage-femmes'">
                       <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
@@ -3140,21 +3140,24 @@
             </div>
       </div>
       <div class="col-6">
-          <div class="form-group">
-              <label>Taux</label>
-              <input type="text" class="form-control" value="13%" *ngIf="option54Value!='2023'&&activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
-              activite==='Topographes'||activite==='Notaire'||activite==='Huissiers notaire'||activite==='Interprètes'"disabled/>
-              <input type="text" class="form-control" value="13%" *ngIf="activite==='Avocat'"disabled/>
-              <input type="text" class="form-control" value="19%" *ngIf="option54Value==='2023'&&activite==='Architectes'||activite==='Ingénieurs-conseil'||activite==='Dessinateurs'||activite==='Géomètres'||
-              activite==='Topographes'||activite==='Notaire'||activite==='Huissiers notaire'||activite==='Interprètes'"disabled/>
-              <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
-              activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-              ||activite==='Sage-femmes'"disabled/>
-              <input type="text" class="form-control" value="7%" *ngIf="activite==='Expert'&&option54Value!='2023'"disabled/>
-              <input type="text" class="form-control" value="19%" *ngIf="activite==='Expert'&&option54Value==='2023'"disabled/>
-              <input type="text" class="form-control" value="19%" *ngIf="activite==='Consultant'"disabled/>
-
-            </div>
+        <div class="form-group">
+          <label>Taux</label>
+          <input type="text" class="form-control" value="13%" *ngIf="option54Value!='2023'&&activite==='Architectes'||option54Value!='2023'&&activite==='Ingénieurs-conseil'||
+          option54Value!='2023'&&activite==='Dessinateurs'||option54Value!='2023'&&activite==='Géomètres'||
+          option54Value!='2023'&&activite==='Topographes'||option54Value!='2023'&&activite==='Notaire'||option54Value!='2023'&&activite==='Huissiers notaire'
+          ||option54Value!='2023'&&activite==='Interprètes'||activite==='Expert'&&option54Value!='2023'||option54Value!='2023'&&activite==='Avocat'"disabled/>
+          
+          <input type="text" class="form-control" value="19%" *ngIf="option54Value==='2023'&&activite==='Architectes'
+          ||option54Value==='2023'&&activite==='Ingénieurs-conseil'||option54Value==='2023'&&activite==='Dessinateurs'||
+          option54Value==='2023'&&activite==='Géomètres'||option54Value==='2023'&&activite==='Topographes'||option54Value==='2023'&&activite==='Notaire'
+          ||option54Value==='2023'&&activite==='Huissiers notaire'||option54Value==='2023'&&activite==='Interprètes'||
+          activite==='Expert'&&option54Value==='2023'||option54Value==='2023'&&activite==='Avocat'||activite==='Consultant'"disabled/>
+          
+          <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+          activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+          ||activite==='Sage-femmes'"disabled/>
+      
+        </div>
       </div>
       <div class="col-6">
         <div class="form-group"(click)="setThreeNumberDecimal($event)">

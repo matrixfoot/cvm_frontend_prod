@@ -34,6 +34,7 @@ export class ViewDecFiscMensComponent implements OnInit {
 maincontainer=false;
   arrayBuffer:any;
   file:File;
+  annee: string;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -142,13 +143,14 @@ public decfiscmens=new Decfiscmens;
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
             this.motif=this.decfiscmens.motif
+            this.annee=this.decfiscmens.annee
             this.type1=this.decfiscmens.impottype1.type
             this.type2=this.decfiscmens.impottype2.type
             this.type3=this.decfiscmens.impottype3.type
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+            if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
             this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
             ||this.activite=='Sage-femmes' )
             {
@@ -212,7 +214,7 @@ public decfiscmens=new Decfiscmens;
       }
   this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
   this.totaltclammount=+this.decfiscmens.impottype6.tclpayer 
-  if(this.activite=='Médecin'||this.activite=='Expert'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+  if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
   this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
   ||this.activite=='Sage-femmes')
             { 
