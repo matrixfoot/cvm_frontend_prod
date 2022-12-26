@@ -31,7 +31,7 @@
           <tr *ngFor="let ammount of deccomptabilite.autre1; let i = index;">
             <td  style="text-align: center;"> {{deccomptabilite.autre1[i].jour | lowercase}}</td>
             <td  style="text-align: center;"> {{deccomptabilite.autre1[i].date| lowercase}}</td>
-            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].numeronote| lowercase}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].numeronote}}</td>
             <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montantht | number:'1.3-3'| removeComma}}</td>
             <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montanttva| number:'1.3-3'| removeComma}}</td>
             <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montantdt| number:'1.3-3'| removeComma}}</td>
@@ -132,7 +132,7 @@
                     <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montantdt| number:'1.3-3'| removeComma}}</td>
                     <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montantttc| number:'1.3-3'| removeComma}}</td>
                     <td  style="text-align: center;"> {{deccomptabilite.autre3[i].reglement| lowercase}}</td>
-                    <td><a href="{{deccomptabilite.autre3[i].ficheUrl| lowercase}}" target="_blank">Aperçu facture</a></td>       
+                    <td *ngIf="deccomptabilite.autre3[i].ficheUrl"><a href="{{deccomptabilite.autre3[i].ficheUrl| lowercase}}" target="_blank">Aperçu facture</a></td>       
                 </tr>
                 <tr id="resultrow">
                     <td colspan="5">
