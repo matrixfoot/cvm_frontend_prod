@@ -2557,17 +2557,29 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     let invoice6:any
     let fourexist:any
     let factexist:any
+    let anneeexist:any
 let fournisseurs=[]
 let numerosfacture=[]
-    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => (invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur,fournisseurs.push({
+let annees=[]
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.forEach(e => (invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur,fournisseurs.push({
       invoice1
     }))));
     fournisseurs.find(e => fourexist=e.invoice1===true);
-    this.DeccomptabiliteService.deccomptabilites.find(e => invoice2=e.annee === this.option1Value);
-    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.find(e => (invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture,numerosfacture.push({
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => (invoice2=element.annee===this.option1Value,annees.push({
+      invoice2
+    })))
+    annees.find(e => anneeexist=e.invoice2===true);
+    this.DeccomptabiliteService.deccomptabilites.forEach(element => element.autre3.forEach(e => (invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture,console.log(invoice3),numerosfacture.push({
       invoice3
     }))));
     numerosfacture.find(e => factexist=e.invoice3===true);
+    //console.log(annees)
+    /*console.log(fournisseurs)
+    console.log(numerosfacture)
+    console.log(invoice2)
+    console.log(this.DeccomptabiliteService.deccomptabilites)
+    console.log(fourexist)
+    console.log(factexist)*/
     if(ammounts3.length>1)
     {
       let ammounts3sliced=ammounts3.getRawValue().slice(0,-1)
@@ -2578,20 +2590,23 @@ let numerosfacture=[]
     }
     console.log(fournisseurs)
     console.log(numerosfacture)
-
-    if(fourexist&&invoice2&&factexist||invoice4&&invoice5&&invoice6)
-    try {
-      console.log('here')
-        const result = await Swal.fire({
-          title: 'numéro facture pour cette année dèjà utilisé',
-          icon: 'error',
-          confirmButtonColor: '#3085d6',
-        });
-        this.loading = false;
-        ammounts3.controls[i].patchValue({ numerofacture: '',fournisseur:'' });  
-      } catch {
-        Swal.fire('opération non aboutie!');
-      }
+if(ammounts3.value.at(i).fournisseur&&ammounts3.value.at(i).numerofacture)
+{
+  if(fourexist&&anneeexist&&factexist||invoice4&&invoice5&&invoice6)
+  try {
+    console.log('here')
+      const result = await Swal.fire({
+        title: 'numéro facture pour cette année dèjà utilisé',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      });
+      this.loading = false;
+      ammounts3.controls[i].patchValue({ numerofacture: '',fournisseur:'' });  
+    } catch {
+      Swal.fire('opération non aboutie!');
+    }
+}
+    
 
   }
   ngOnDestroy(){
