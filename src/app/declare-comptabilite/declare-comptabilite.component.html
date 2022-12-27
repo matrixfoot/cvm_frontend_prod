@@ -160,26 +160,26 @@
                   <td>
                    <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"
+                      class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"
                       (change)="settva(i)"(change)="setttc(i)"(change)="onChange(i)"placeholder="Montant HT"/>
                    </div>
                   </td>
                   <td>
                    <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TVA" readonly='true'/>
+                      class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TVA" readonly='true'/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                      class="form-control"formControlName="montantdt"(change)="onChange(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
                    </div>
                   </td>
                   <td>
                    <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantdt"(change)="onChange(i)"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
-                   </div>
-                  </td>
-                  <td>
-                   <div class="col-6">
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantttc"(change)="setht(i)"(change)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
+                      class="form-control"formControlName="montantttc"(change)="setht(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
                    </div>
                   </td>
                   <td>
@@ -259,25 +259,25 @@
                           <td>
                            <div class="col-6">
                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                              class="form-control"formControlName="recette"(change)="setht2(i)"(change)="onChange2(i)"(change)="setThreeNumberDecimal($event)"placeholder="Recette"/>
+                              class="form-control"formControlName="recette"(change)="setht2(i)"(change)="onChange2(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Recette"/>
                            </div>
                           </td>
                           <td>
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montantht"(change)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
+                               class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
                             </div>
                            </td>
                            <td>
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montanttva"(change)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
+                               class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
                             </div>
                            </td>
                            <td>
                             <div class="col-6">
-                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                               class="form-control"formControlName="montantdt"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
+                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                               class="form-control"formControlName="montantdt"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
                             </div>
                            </td>
                            <td>
@@ -396,26 +396,26 @@
         <td>
         <div class="col-6">
         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantht"(change)="setttc3(i)"(change)="setThreeNumberDecimal($event)"
+                      class="form-control"formControlName="montantht"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"
                       (change)="onChange3(i)"placeholder="Montant HT"/>
                    </div>
                   </td>
                   <td>
                    <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montanttva"(change)="setttc3(i)"(change)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TVA"/>
+                      class="form-control"formControlName="montanttva"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TVA"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                      class="form-control"formControlName="montantdt"(change)="onChange3(i)"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
                    </div>
                   </td>
                   <td>
                    <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantdt"(change)="onChange3(i)"(change)="setttc3(i)"(change)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
-                   </div>
-                  </td>
-                  <td>
-                   <div class="col-6">
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantttc"(change)="setht3(i)"(change)="setttc3(i)"(change)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TTC"/>
+                      class="form-control"formControlName="montantttc"(change)="setht3(i)"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TTC"/>
                    </div>
                   </td>
                   <td>
@@ -526,13 +526,13 @@
 <td>
   <div class="col-6">
     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-  class="form-control"formControlName="soldemoisprecedentdebit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Débit du mois précédent"/>
+  class="form-control"formControlName="soldemoisprecedentdebit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Débit du mois précédent"/>
 </div>
 </td>
 <td>
   <div class="col-6">
     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-  class="form-control"formControlName="soldemoisprecedentcredit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Crédit du mois précédent"/>
+  class="form-control"formControlName="soldemoisprecedentcredit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Crédit du mois précédent"/>
 </div>
 </td>
     </tr>
@@ -563,13 +563,13 @@
                 <td>
                  <div class="col-6">
                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                    class="form-control"formControlName="debit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Débit"/>
+                    class="form-control"formControlName="debit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Débit"/>
                  </div>
                 </td>
                 <td>
                  <div class="col-6">
                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                    class="form-control"formControlName="credit"(change)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Crédit"/>
+                    class="form-control"formControlName="credit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Crédit"/>
                  </div>
                 </td> 
                 <td>
@@ -706,42 +706,42 @@
                       <td>
                         <div class="col-6">
                         <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                      class="form-control"formControlName="salairebrut"(change)="setimposable(i)"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
+                                      class="form-control"formControlName="salairebrut"(change)="setimposable(i)"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
                                       (change)="onChange6(i)"placeholder="Salaire Brut"/>
                                    </div>
                                   </td>
                        <td>
                                     <div class="col-6">
                                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                                  class="form-control"formControlName="montantcnss"(change)="setnet(i)"(change)="setimposable(i)"(change)="setThreeNumberDecimal($event)"
+                                                  class="form-control"formControlName="montantcnss"(change)="setnet(i)"(change)="setimposable(i)"(blur)="setThreeNumberDecimal($event)"
                                                   (change)="onChange6(i)"placeholder="Montant CNSS"/>
                                                </div>
                         </td>
                         <td>
                             <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                          class="form-control"formControlName="montantimposable"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
+                                          class="form-control"formControlName="montantimposable"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
                                           (change)="onChange6(i)"placeholder="Salaire Imposable" readonly='true'/>
                                        </div>
                         </td>
                         <td>
                             <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                          class="form-control"formControlName="montantretenue"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
+                                          class="form-control"formControlName="montantretenue"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
                                           (change)="onChange6(i)"placeholder="Retenue impôt"/>
                                        </div>
                         </td>
                         <td>
                             <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                          class="form-control"formControlName="montantavance"(change)="setnet(i)"(change)="setThreeNumberDecimal($event)"
+                                          class="form-control"formControlName="montantavance"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
                                           (change)="onChange6(i)"placeholder="Avance et Prêt"/>
                                        </div>
                         </td>
                         <td>
                             <div class="col-6">
                             <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                                          class="form-control"formControlName="salairenet"(change)="setbrut(i)"(change)="setThreeNumberDecimal($event)"
+                                          class="form-control"formControlName="salairenet"(change)="setbrut(i)"(blur)="setThreeNumberDecimal($event)"
                                           (change)="onChange6(i)"placeholder="Salaire Net"/>
                                        </div>
                         </td>
