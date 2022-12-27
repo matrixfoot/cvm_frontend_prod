@@ -34,24 +34,20 @@
   
   <div class="actualitycarousel">  
       <h2>Actualités de votre cabinet</h2>
-  <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide text-center" data-ride="carousel"*ngIf="carousels">
       <!-- Indicators -->
-      <ol class="carousel-indicators">
+      <ol class="carousel-indicators" >
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel"*ngFor="let item of carousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
       </ol>
   
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <h4>"Actualité 1"<br><span>Autre commentaire</span><br><a class="btn btn-primary" href="documentation">Lire Plus</a></h4>
+          <h4>"{{carousels[0].titre}}"<br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
         </div>
-        <div class="item">
-          <h4>"Actualité 2"<br><span>Autre commentaire</span><br><a class="btn btn-primary" href="documentation">Lire Plus</a></h4>
-        </div>
-        <div class="item">
-          <h4>"Actualité 3"<br><span>Autre commentaire</span><br><a class="btn btn-primary" href="documentation">Lire Plus</a></h4>
+        <div class="item"*ngFor="let item of carousels.slice(1);let index = index">
+          <h4>"{{item.titre}}"<br><span>{{item.commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',item._id)">Lire Plus</a></h4>
         </div>
       </div>
   

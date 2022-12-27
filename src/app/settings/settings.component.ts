@@ -41,11 +41,10 @@ export class SettingsComponent implements OnInit {
         
       }
     );
-    if ( this.currentUser.role=='Admin'||this.currentUser.role=='admin')
-    {
+    
       this.carousel.getCarouselalldata();
 
-    }
+    
 
     this.carouselform = this.formBuilder.group({
       titre: [''],

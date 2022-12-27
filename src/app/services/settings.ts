@@ -13,7 +13,7 @@ export class CarouselService {
     
     
     constructor(private http: HttpClient) { }
-    private carousels: Carousel[] = [];
+    public carousels: Carousel[] = [];
     public carousels$ = new Subject<Carousel[]>();
  
 

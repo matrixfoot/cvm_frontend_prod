@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BnNgIdleService } from 'bn-ng-idle'; // import bn-ng-idle service
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -141,6 +141,7 @@ FullCalendarModule.registerPlugins([
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
