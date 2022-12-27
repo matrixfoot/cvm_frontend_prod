@@ -2594,6 +2594,15 @@ this.DecfiscmensService.create(decfiscmens).then(
       this.standarddroittimbreform.patchValue({
         taux:this.tauxdt
       })
+      if (this.user.regimefiscalimpot==='Réel')  
+      {
+       this.prepminimumperceptionammount=20.000
+      }  
+      else if (this.user.regimefiscalimpot==='Forfait D\'assiette') 
+      {
+       this.prepminimumperceptionammount=10.000
+
+      }
     }
     /*
     let date=new Date()

@@ -397,15 +397,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       this.loading = false;
       this.user=user
       this.activite=this.user.activite;
-      if (this.user.regimefiscalimpot=='Réel') 
-      {
-       this.prepminimumperceptionammount=10.000
-      }  
-      else if (this.user.regimefiscalimpot=='Forfait D\'assiette') 
-      {
-       this.prepminimumperceptionammount=5.000
-    
-      }
+      
       
               this.dec.getdecfiscmens(user._id).then(
                 (decfiscmens: Decfiscmens[]) => {
@@ -428,6 +420,24 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
               
               this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
+        if (this.user.regimefiscalimpot=='Réel'&&this.decfiscmens.annee!='2023') 
+      {
+       this.prepminimumperceptionammount=10.000
+      }  
+      else if (this.user.regimefiscalimpot=='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
+      {
+       this.prepminimumperceptionammount=5.000
+    
+      }
+      else if (this.user.regimefiscalimpot=='Réel'&&this.decfiscmens.annee=='2023') 
+      {
+       this.prepminimumperceptionammount=20.000
+      }  
+      else if (this.user.regimefiscalimpot=='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
+      {
+       this.prepminimumperceptionammount=10.000
+    
+      }
     if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Géomètres'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Notaire'||
