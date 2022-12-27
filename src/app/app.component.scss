@@ -3,16 +3,18 @@
     
     
 }
-.side {
-    flex: 30%;
+.side 
+{
+    flex: 20%;
     background-color: lightgray;
     min-width: 190px;
     min-height: 500px;
   }
   
   /* Main column */
-  .main {
-    flex: 70%;
+  .main 
+  {
+    flex: 80%;
     min-height: 500px;
     padding: 20px;
     overflow-x: hidden;
