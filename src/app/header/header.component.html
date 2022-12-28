@@ -1,10 +1,5 @@
 
   <body>
-    <div class="header">
-  
-      <h1>Bienvenue à votre cabinet virtuel MaCompta</h1>
-      
-  </div>
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -12,17 +7,18 @@
         </div>
         <ul class="nav navbar-nav">
           <li><a routerLink="" routerLinkActive="active">Acceuil</a></li>
-          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" routerLink="Documentation">Documentation <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a routerLink="Documentation">comptables</a></li>
-              <li><a routerLink="Documentation">juridiques</a></li>
-              <li><a routerLink="Documentation">fiscales</a></li>
-              <li><a routerLink="Documentation">sociales</a></li>
-              <li><a routerLink="Documentation">autres</a></li>
-            </ul>
-          </li>
-          
-          <li title=" (veuillez vous inscrire/se connecter)"><a  routerLink="login"*ngIf="!isLoggedIn"routerLinkActive="active">Qui sommes-nous?</a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" routerLink="">Sections<span class="caret"></span></a>
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li class="dropdown-submenu"><a class="dropdown-toggle" data-toggle="dropdown" routerLink="">Documentation</a>
+                <ul class="dropdown-menu">
+                  <li><a routerLink="Documentation">comptables</a></li>
+                  <li><a routerLink="Documentation">juridiques</a></li>
+                  <li><a routerLink="Documentation">fiscales</a></li>
+                  <li><a routerLink="Documentation">sociales</a></li>
+                  <li><a routerLink="Documentation">autres</a></li>
+                </ul>
+              </li>
+              <li title=" (veuillez vous inscrire/se connecter)"><a  routerLink="login"*ngIf="!isLoggedIn"routerLinkActive="active">Qui sommes-nous?</a></li>
           <li><a  routerLink="who" *ngIf="isLoggedIn" routerLinkActive="active">Qui sommes-nous?</a></li>
           <li><a *ngIf="isLoggedIn" routerLink="Documentation">Espace clients</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn" href="#clientspace">Espace clients</a></li>
@@ -32,6 +28,8 @@
           <li><a routerLink="Documentation" *ngIf="isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
           <li title=" (veuillez vous inscrire/se connecter)"><a routerLink="login"  *ngIf="!isLoggedIn" routerLinkActive="active">Consultation en Ligne</a></li>
           <li title=" (Cliquer pour intégrer l'équipe MaCompta)"><a routerLink="career"  routerLinkActive="active">Carrière</a></li>
+            </ul>
+          </li>
           <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn"data-toggle="dropdown">Suivi & Paramêtrage <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Tableau de bord Admin</a></li>
