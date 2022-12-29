@@ -1552,7 +1552,7 @@ calculateResultForm23()
     this.tfpapayer=+ Math.trunc((+tfpammountmoisactuel-+reporttfpmoisprecedent)*1000)/1000;
     this.tfpareporter=+ Math.trunc((+reporttfpmoisprecedent-+tfpammountmoisactuel)*1000)/1000;
     
-    if (retenuesalary+imposalary+solidaritycontribution>brutsalary)
+    if (imposalary>brutsalary)
     {
       Swal.fire({
       title: 'une incohorence a été détectée. veuillez vérifier les montants introduits',
@@ -1562,9 +1562,7 @@ calculateResultForm23()
     {this.standardtraitementsalaireform.patchValue({
 
       brutsalary: '',
-      retenuesalary: '', 
-        imposalary: '',
-      solidaritycontribution:''},{emitEvent: false} 
+        imposalary: '',},{emitEvent: false} 
       );
       this.standardtraitementsalaireform.updateValueAndValidity();
       this.resettfpall()
