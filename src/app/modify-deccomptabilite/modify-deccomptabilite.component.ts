@@ -157,7 +157,16 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
           if (this.deccomptabilite.autre1.length>0||this.deccomptabilite.autre2.length>0)
           {
             this.option3Value=true
-            this.showachattab=true
+            this.showcatab=true
+            this.showinvoiceform=true
+            if(this.deccomptabilite.autre1.length>0)
+            {
+this.showeditionnote=true
+            }
+            if(this.deccomptabilite.autre2.length>0)
+            {
+this.showrecettejour=true
+            }
           }
           if (this.deccomptabilite.autre3.length>0)
           {
@@ -168,11 +177,20 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
           {
             this.option5Value=true
             this.showbanquetab=true
+            if(this.deccomptabilite.autre4.length>0)
+            {
+this.showrelevemanuel=true
+            }
+            if(this.deccomptabilite.autre5.length>0)
+            {
+this.showrelevejoint=true
+            }
           }
           if (this.deccomptabilite.autre6.length>0)
           {
             this.option6Value=true
             this.showsalairetab=true
+            this.showpaiemanuel=true
           }
           this.editionnoteform = new FormGroup({
             

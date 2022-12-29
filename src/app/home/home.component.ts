@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
       (carousels) => {
         this.carousels = carousels; 
         this.sortedcarousels=this.carousels.sort((a, b) => a.rang - b.rang);
-    
       },
       (error) => {
         
