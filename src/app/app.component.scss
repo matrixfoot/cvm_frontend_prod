@@ -1,28 +1,11 @@
-.left{
-    display: flex;
-    
-    
-}
-.side 
-{
-    flex: 20%;
-    background-color: lightgray;
-    min-width: 190px;
-    min-height: 500px;
-  }
-  
-  /* Main column */
-  .main 
-  {
-    flex: 80%;
-    min-height: 500px;
-    padding: 20px;
-    overflow-x: hidden;
-  }
-  @media screen and (max-width: 1200px) {
+ @media screen and (max-width: 1200px) {
     .left {   
       flex-direction: column;
     }
+  }
+  #routoutlet
+  {
+    min-height: 800px;
   }
   
   

@@ -52,6 +52,7 @@ export class ModifyCarouselComponent implements OnInit {
             
             titre: [carousel.titre],
             commentaire: [carousel.commentaire],
+            rang: [carousel.rang],
 
             description: [carousel.description],
             file: [carousel.ficheUrl]
@@ -73,6 +74,7 @@ onSubmit() {
   carousel._id=this.carousel._id
   carousel.titre =this.carouselform.get('titre').value;
   carousel.commentaire =this.carouselform.get('commentaire').value;
+  carousel.rang =this.carouselform.get('rang').value;
   carousel.description =this.carouselform.get('description').value;
   carousel.ficheUrl = '';
   this.caro.modify(carousel._id, carousel, this.carouselform.get('file').value).then(

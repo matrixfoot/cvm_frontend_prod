@@ -1,20 +1,19 @@
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-  
- 
-
-
-  <body>
-    <div class="container-fluid">
+<body>
+  <div class="left">
+    <div class="side">
+<app-due-date-timeline ></app-due-date-timeline>
+</div>
+<div class="main">
+  <div class="container-fluid">
     <div id="loader" *ngIf="loading"></div>
     <div class="container-fluid" *ngIf="!loading && !isLoggedIn">
       
       <form [formGroup]="loginForm" 
       
-      (ngSubmit)="loginform.valid && onSubmit()"
-      
-      novalidate>
+      (ngSubmit)="loginform.valid && onSubmit()"novalidate>
         <div class="row">
           <h2 style="text-align:center">Connectez vous avec vos réseaux sociaux ou manuellement</h2>
           <div class="vl">
@@ -64,4 +63,7 @@
   Bienvenue {{civilite}} {{ firstname}} {{ lastname}}
   </div>
 </div>
+</div>
+</div>
+   
     </body>

@@ -65,10 +65,23 @@ export class CarouselService {
               reject(error);
             }
           );
-        });
+        }); 
       }
      
-    
+      createwithoutfile(carousel: Carousel) {
+        return new Promise((resolve, reject) => {
+          
+          this.http.post(API_URL_cloud+'/createcarouselreqwithoutimage', carousel).subscribe(
+            (response) => {
+              resolve(response);
+
+            },
+            (error) => {
+              reject(error);
+            },
+          );
+        });
+      }
      
     
       modify(id: string, carousel: Carousel, file: File | string) {

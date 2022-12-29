@@ -21,8 +21,11 @@
   <link rel="stylesheet" href="assets/css/colors/blue.css"> 
   </head>
   <body onload="document.getElementById('id01').style.display='block'">
-    
-  
+    <div class="left">
+      <div class="side">
+  <app-due-date-timeline ></app-due-date-timeline>
+  </div>
+  <div class="main">
     <div id="containid" class="w3-container" >
       
       <div id="id01" class="w3-modal">
@@ -55,7 +58,7 @@
         <h2>SERVICES</h2>
         <hr>
       </div>
-    <div class="container">
+    <div class="container-fluid">
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="servicebox text-center">
           <div class="service-icon">
@@ -118,7 +121,7 @@
       <!-- Indicators -->
       <ol class="carousel-indicators" >
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel"*ngFor="let item of carousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
+        <li data-target="#myCarousel"*ngFor="let item of sortedcarousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
       </ol>
   
       <!-- Wrapper for slides -->
@@ -126,7 +129,7 @@
         <div class="item active">
           <h4>"{{carousels[0].titre}}"<br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
         </div>
-        <div class="item"*ngFor="let item of carousels.slice(1);let index = index">
+        <div class="item"*ngFor="let item of sortedcarousels.slice(1);let index = index">
           <h4>"{{item.titre}}"<br><span>{{item.commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',item._id)">Lire Plus</a></h4>
         </div>
       </div>
@@ -287,7 +290,10 @@
   </div>
   <div id="contactid">
   <router-outlet></router-outlet>
+  </div>  </div>
   </div>
+  
+   
       
       
       

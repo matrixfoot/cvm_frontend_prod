@@ -11,6 +11,7 @@ import { CarouselService } from '../services/settings';
 export class HomeComponent implements OnInit {
   carousels: Carousel[];
   carouselsSub: any;
+  sortedcarousels: Carousel[];
 
   constructor(
     private carousel:CarouselService,private router: Router
@@ -19,7 +20,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.carouselsSub = this.carousel.carousels$.subscribe(
       (carousels) => {
-        this.carousels = carousels;     
+        this.carousels = carousels; 
+        this.sortedcarousels=this.carousels.sort((a, b) => a.rang - b.rang);
+    
       },
       (error) => {
         

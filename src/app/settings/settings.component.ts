@@ -48,11 +48,11 @@ export class SettingsComponent implements OnInit {
 
     this.carouselform = this.formBuilder.group({
       titre: [''],
-      
+      rang: [''],
       commentaire: [''],
       description: [''],
       
-      image: ['']
+      image: [null]
       
     });
   }
@@ -67,10 +67,36 @@ export class SettingsComponent implements OnInit {
   carousel.commentaire = this.carouselform.get('commentaire').value;
     
   carousel.description = this.carouselform.get('description').value;
-  
+  carousel.rang = this.carouselform.get('rang').value;
+
     
     carousel.ficheUrl = '';
+   if(this.carouselform.get('image').value==null) 
+   {
     
+      this.carousel.createwithoutfile(carousel).then(
+        (data:any) => {
+          this.carouselform.reset();
+          this.loading = false;
+          this.reloadPage()
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'actualité ajoutée avec succès!',
+            showConfirmButton: false,
+            timer: 6000 
+          });
+        },
+        (error) => {
+          this.loading = false;
+          
+        }
+      )
+    
+   
+   }
+  else
+  {
     this.carousel.create(carousel, this.carouselform.get('image').value).then(
       (data:any) => {
         this.carouselform.reset();
@@ -89,6 +115,7 @@ export class SettingsComponent implements OnInit {
         
       }
     );
+  }
   }
 
   onImagePick(event: Event) {
