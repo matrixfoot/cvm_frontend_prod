@@ -27,6 +27,7 @@ export class CareerComponent implements OnInit {
   submitted = false;
   currentuser: any;
   activite: string;
+  usertype: string;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private cond: CondidateService,
@@ -37,8 +38,8 @@ export class CareerComponent implements OnInit {
     this.userservice.getUserById(this.currentuser.userId).then(
       (user: User) => {
         this.currentuser=user
-        this.activite=user.activite
-        if (this.activite != 'Candidat') 
+        this.usertype=user.usertype
+        if (this.usertype != 'Candidat') 
         return (Swal.fire({
           title: 'vous ne pouvez pas déposer une candidature avec votre type utilisateur existant',
           icon: 'error',
