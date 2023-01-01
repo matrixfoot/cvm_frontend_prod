@@ -6,16 +6,38 @@
   }
   .navbar-brand {
     background-position: center center; background-size: cover; 
-     background-image: url('../../assets/company_logo.jpg');
-     
+     background-image: url('../../assets/company_logo.jpeg');
+     width: 150px;
+     height: 120px;
      font-size: 25px;
      margin: 0%;
-   
    }
    .navbar {
      padding: 0px;
-     margin: 0;
-   }
+     margin: 0;  
+     background-color: white;
+     color: rgb(4, 4, 82);
+    }
+    .navbar a{
+       
+      color: rgb(4, 4, 82);
+     }
+    
+     .navbar li {
+      padding-top: 40px;  
+     }    
+    .navbar li a:hover {
+color:cyan;
+
+     }
+    
+     
+     #titre {
+      padding-top: 20px;
+      font-size:30px;
+      color: rgb(4, 4, 82);
+      left: 50%; 
+     }
    #logoutbutton{
     cursor: pointer;
    }

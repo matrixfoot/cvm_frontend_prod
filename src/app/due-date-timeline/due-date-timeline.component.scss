@@ -27,7 +27,10 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
-  width: 70px;
+  font-size: small;
+}
+#date{
+  width:90px
 }
 
 tr:nth-child(even){background-color: #f2f2f2}

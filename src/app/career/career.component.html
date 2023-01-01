@@ -112,7 +112,7 @@
                         <div class="form-group">
      <label for="inputCV">Attacher Votre CV</label>                   
     <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" 
-    accept="application/pdf">
+    accept="application/pdf" accept=".xls, .xlsx">
     <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
         <div *ngIf="f.image.errors.required">CV Obligatoire</div>
     </div>

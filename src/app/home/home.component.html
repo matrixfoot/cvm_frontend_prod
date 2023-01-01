@@ -52,10 +52,39 @@
       </div>
     </div>
   
-  
-    <section class="section1">
+    <div class="actualitycarousel">  
+      <div id="myCarousel" class="carousel slide text-center" data-ride="carousel"*ngIf="carousels">
+          <!-- Indicators -->
+          <ol class="carousel-indicators" >
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel"*ngFor="let item of sortedcarousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
+          </ol>
+      
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <h4><span style="color: red;">"{{carousels[0].titre}}"</span><br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
+            </div>
+            <div class="item"*ngFor="let item of sortedcarousels.slice(1);let index = index">
+              <h4><span style="color: red;">"{{item.titre}}"</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
+            </div>
+          </div>
+      
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+          </a>
+        </div>
+      </div>
+
+    <!-- <section class="section1">
       <div class="general-title">
-        <h2>SERVICES</h2>
+        <h2>SERVICES EN LIGNE</h2>
         <hr>
       </div>
     <div class="container-fluid">
@@ -71,11 +100,10 @@
             </div>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
           </div>
-          <!-- service-icon -->
+           service-icon 
         </div>
-        <!-- servicebox -->
+         servicebox 
       </div>
-      <!-- large-4 -->
 
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="servicebox text-center">
@@ -89,11 +117,8 @@
             </div>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
           </div>
-          <!-- service-icon -->
         </div>
-        <!-- servicebox -->
       </div>
-      <!-- large-4 -->
 
       <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="servicebox text-center">
@@ -107,43 +132,11 @@
             </div>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
           </div>
-          <!-- service-icon -->
-        </div>
-        <!-- servicebox -->
-      </div>
-      <!-- large-4 -->
-    </div>
-    <!-- end container -->
-  </section>
-  <div class="actualitycarousel">  
-  <div id="myCarousel" class="carousel slide text-center" data-ride="carousel"*ngIf="carousels">
-      <!-- Indicators -->
-      <ol class="carousel-indicators" >
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel"*ngFor="let item of sortedcarousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
-      </ol>
-  
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <h4>"{{carousels[0].titre}}"<br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
-        </div>
-        <div class="item"*ngFor="let item of sortedcarousels.slice(1);let index = index">
-          <h4>"{{item.titre}}"<br><span>{{item.commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',item._id)">Lire Plus</a></h4>
         </div>
       </div>
-  
-      <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Précédent</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Suivant</span>
-      </a>
     </div>
-  </div>
+  </section>-->
+  
   
   <!-- Container (Services Section) -->
   <div class="container-fluid text-center">
@@ -178,7 +171,7 @@
           <a routerLink="Documentation">
         <div class="col-sm-4_2" >
           <span class="glyphicon glyphicon-flash logo-small"></span>
-          <h4>Conseil</h4>
+          <h4>Conseil & Consultation En ligne</h4>
           <p>Demandez un conseil</p>
         </div>
       </a>
@@ -189,7 +182,7 @@
   
   <!-- Container (expertise areas section) -->
   <div id="expertisecont" class="container-fluid text-center">
-    <h2>Domaines D'expertise</h2>
+    <h2>Domaines de compétences</h2>
     <h4>Nos interventions se rapportent à tous les services dans les divers domaines de gestion des entreprises dont notamment :</h4>
     <br>
     <div class="row">
@@ -264,7 +257,7 @@
   </div>
   
   <!-- Container (Portfolio Section) -->
-  <div class="container-fluid_2 text-center bg-grey">
+  <!--<div class="container-fluid_2 text-center bg-grey">
     <h2>Références</h2><br>
     <div class="row text-center">
       <div class="col-sm-4">
@@ -287,6 +280,7 @@
       </div>
   </div>
   </div>
+-->
   <div id="contactid">
   <router-outlet></router-outlet>
   </div>  </div>

@@ -68,6 +68,12 @@ const routes: Routes = [
 { path: 'settings/calendar-fiscality', component:CalendarFiscalityComponent,
     
 },
+{ path: 'home/calendar-fiscality', component:CalendarFiscalityComponent,
+    
+},
+{ path: 'login/calendar-fiscality', component:CalendarFiscalityComponent,
+    
+},
 { path: 'add-event', component:AddEventComponent,
     
 },

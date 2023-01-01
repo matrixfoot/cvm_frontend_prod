@@ -5,7 +5,7 @@
 }
 .side 
 {
-  flex: 20%;
+  flex: 30%;
   background-color: white;
   min-width: 190px;
   min-height: 600px;
@@ -14,7 +14,7 @@
 /* Main column */
 .main 
 {
-  flex: 80%;
+  flex: 70%;
   min-height: 500px;
   padding: 20px;
   overflow-x: hidden;
@@ -61,12 +61,14 @@ h2{
   }
   .actualitycarousel {
     background-position: center center; background-size: cover; 
-     background-image: url('../../assets/carousel\ background.jpg');
+     background-color: rgb(187, 192, 193);
      margin: 0;
      padding: 0;
      font-size: 25px;
-     
    
+   }
+   .carousel-inner{
+    height: fit-content;
    }
   .carousel-control.right, .carousel-control.left {
     background-image: none;
