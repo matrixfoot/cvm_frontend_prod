@@ -1,3 +1,5 @@
+
+
 .header {
     padding: 20px; /* some padding */
     text-align: center; /* center the text */
@@ -12,6 +14,7 @@
      font-size: 25px;
      margin: 0%;
    }
+   
    .navbar {
      padding: 0px;
      margin: 0;  
@@ -23,20 +26,21 @@
       color: rgb(4, 4, 82);
      }
     
-     .navbar li {
-      padding-top: 40px;  
-     }    
     .navbar li a:hover {
 color:cyan;
+     }
+     
+     .navbar li a{
+      color: rgb(4, 4, 82);
 
      }
-    
-     
+     .navbar li > a.active 
+     { color: #F97924 }
      #titre {
-      padding-top: 20px;
+      position: relative;
+      left:300px;
       font-size:30px;
       color: rgb(4, 4, 82);
-      left: 50%; 
      }
    #logoutbutton{
     cursor: pointer;
