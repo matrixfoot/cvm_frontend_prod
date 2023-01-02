@@ -81,6 +81,12 @@
     {{activite}}
 </option>
 </select>
+<label for="activity"style="min-width: 30px;width: 200px"> Carte d'identification fiscale:</label>
+<i class="glyphicon glyphicon-asterisk" style="color: red;"></i> 
+<div class="col-6" title="rattacher votre carte d'identification fiscale">
+  <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+  <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+</div>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
     <label for="activity"> Activité:</label> 

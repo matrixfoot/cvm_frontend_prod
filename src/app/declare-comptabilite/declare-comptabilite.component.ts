@@ -109,6 +109,7 @@ foprolosapayer=0.000
   private destroyed$ = new Subject<void>();
   tauxtva: string;
   tauxdt:any;
+  specialite: string;
 
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
@@ -164,6 +165,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.natureactivite=this.user.natureactivite;
     this.activite=this.user.activite;
     this.sousactivite=this.user.sousactivite;
+    this.specialite=this.user.specialite
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
@@ -1978,6 +1980,8 @@ else if ((user.choixfacture=='saisie recette'))
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
+if(this.sousactivite!='Médecin spécialiste')
+{
   for (let i = 1; i < 32; i++)
           {
             this.addammount2()
@@ -2008,6 +2012,8 @@ else if ((user.choixfacture=='saisie recette'))
 
             
           }
+}
+  
 }
   }
 )
