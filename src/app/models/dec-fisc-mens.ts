@@ -11,6 +11,7 @@ export class Decfiscmens {
     adresse:string;
     codepostal:string;
     activite:string;
+    sousactivite:string;
     datearretactivite:string;
 
     firstname:string;
@@ -124,6 +125,13 @@ autre:string[]
     ammountttc:string;
     
     }
+    tvacollecter19:{
+        type:string;
+        chiffreaffaireht:string;
+        tvaammount:string;
+        ammountttc:string;
+        
+        }
     tvarecuperableimmobilier:{
         type:string;
     achatlocauxht:string;

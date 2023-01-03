@@ -11,6 +11,7 @@ import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
 import { merge, Subscription } from 'rxjs';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
+import { timeStamp } from 'console';
 @Component({
   selector: 'app-declare-fiscality',
   templateUrl: './declare-fiscality.component.html',
@@ -361,6 +362,18 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
 
   public ammounts: FormArray;
   tauxdt: number;
+  specialite: string;
+  standardtvacollecte19form: FormGroup;
+  sub45: Subscription;
+  ammountttc=0.000;
+  fspammount=0.000;
+  tclammount= 0.000;
+  ammounttc19=0.000;
+  fspammount19=0.000;
+  tvacollecte119=0.000;
+  chiffreaffaireht=0.000;
+  tclammount19= 0.000;
+  chiffreaffaireht19=0.000;
   
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder) {
@@ -386,7 +399,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               this.natureactivite=this.user.natureactivite;
               this.activite=this.user.activite;
               this.sousactivite=this.user.sousactivite;
-      
+              this.specialite=this.user.specialite
               this.regimefiscalimpot=this.user.regimefiscalimpot;
               this.matriculefiscale=this.user.matriculefiscale;
               if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
@@ -506,6 +519,12 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
         this.standardtvacollecteform =this.fb.group({
           chiffreaffaireht: '',
           taux: [{value:this.tauxtva,disabled:true}],
+          tvaammount: [{value:"",disabled:true}],
+          ammountttc: '',
+        });
+        this.standardtvacollecte19form =this.fb.group({
+          chiffreaffaireht: '',
+          taux: [{value:"0.19",disabled:true}],
           tvaammount: [{value:"",disabled:true}],
           ammountttc: '',
         });
@@ -773,6 +792,24 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     ).subscribe((res:any)=>{
       this.calculateResultForm38()
     })
+    this.sub44=merge(
+      
+      this.standardtvacollecte19form.get('chiffreaffaireht').valueChanges,
+      this.standardtvacollecte19form.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm44()
+    })
+    this.sub45=merge(
+      
+      this.standardtvacollecte19form.get('ammountttc').valueChanges,
+      this.standardtvacollecte19form.get('taux').valueChanges,
+      
+      
+    ).subscribe((res:any)=>{
+      this.calculateResultForm45()
+    })
     this.sub25=merge(
       
       this.standardlocationusagehabitationmeubleform.get('ammountht').valueChanges,
@@ -988,7 +1025,7 @@ if (this.option51Value)
   this.tvarecuperable=+this.standardtvarecuperableautreachatform.get('achatlocauxtva').value+ +this.standardtvarecuperableautreachatform.get('achatimportetva').value+ 
   +this.standardtvarecuperableequipementform.get('achatlocauxtva').value+ +this.standardtvarecuperableequipementform.get('achatimportetva').value+ 
   +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
-  this.tvacollecte=this.tvacollecte1+this.option72Value
+  this.tvacollecte=this.tvacollecte1+this.tvacollecte119+this.option72Value
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
   {
@@ -1510,14 +1547,15 @@ calculateResultForm1()
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
-    console.log(taux)
-    console.log(this.tauxtva)
-    console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
-      this.totalfspammount=montantcontribution
-      this.totaltclammount=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      this.chiffreaffaireht=chiffreaffaireht
+      this.ammountttc=ammountttc
+      this.fspammount=montantcontribution
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tclammount=+ (Math.trunc((+ammountttc*+taux2)*1000)/1000);
+      this.totaltclammount=+this.tclammount+ +this.tclammount19
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1527,13 +1565,13 @@ calculateResultForm1()
       this.standardtvacollecteform.updateValueAndValidity();
       this.standardtclform.patchValue({
         
-        chiffreaffairettc:ammountttc,tclapayer:this.totaltclammount},{emitEvent: false} 
+        chiffreaffairettc:+this.ammountttc+ +this.ammounttc19,tclapayer:+this.totaltclammount},{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
         this.standardfspform.patchValue({
         
-          chiffreaffaireht:chiffreaffaireht,
-          montantcontribution:montantcontribution
+          chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
+          montantcontribution:this.totalfspammount
         });
   }
   calculateResultForm38()
@@ -1545,9 +1583,13 @@ calculateResultForm1()
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.totaltclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.ammountttc=ammountttc
+      this.chiffreaffaireht=ammountht
+      this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.totaltclammount=+this.tclammount+ +this.tclammount19
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
-      this.totalfspammount=montantcontribution
+      this.fspammount=montantcontribution
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1557,9 +1599,81 @@ calculateResultForm1()
       this.standardtvacollecteform.updateValueAndValidity();
       this.standardtclform.patchValue({
         
-        chiffreaffairettc:ammountttc,tclapayer:this.totaltclammount},{emitEvent: false} 
+        chiffreaffairettc:+this.ammountttc+ +this.ammounttc19,tclapayer:this.totaltclammount},{emitEvent: false} 
         );
         this.standardtclform.updateValueAndValidity();
+        this.standardfspform.patchValue({
+        
+          chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
+          montantcontribution:+this.totalfspammount
+        });
+  }
+  calculateResultForm44()
+  {
+  
+    const chiffreaffaireht=+this.standardtvacollecte19form.get('chiffreaffaireht').value
+    const taux=0.19
+    const taux2=+this.standardtclform.get('taux').value
+    const taux3=+this.standardfspform.get('taux').value
+    
+    const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+      const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      this.fspammount19=montantcontribution
+      this.ammounttc19=ammountttc
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.tvacollecte119=tvaammount
+      this.standardtvacollecte19form.patchValue({
+        tvaammount: tvaammount, 
+          ammountttc: ammountttc
+        },{emitEvent: false} 
+        );
+      this.standardtvacollecte19form.updateValueAndValidity();
+      this.standardtclform.patchValue({
+        
+        chiffreaffairettc:this.ammountttc+ +this.ammounttc19,tclapayer:this.totaltclammount},{emitEvent: false} 
+        );
+        this.standardtclform.updateValueAndValidity();
+        this.standardfspform.patchValue({
+        
+          chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
+          montantcontribution:this.totalfspammount
+        });
+  }
+  calculateResultForm45()
+  {
+  
+    const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const taux=0.19
+    const taux2=+this.standardtclform.get('taux').value
+    const taux3=+this.standardfspform.get('taux').value
+    const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+      const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
+      this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      this.ammounttc19=ammountttc
+      this.fspammount19=montantcontribution
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tvacollecte119=tvaammount
+      this.standardtvacollecteform.patchValue({
+        tvaammount: tvaammount, 
+          chiffreaffaireht: ammountht
+        },{emitEvent: false} 
+        );
+      this.standardtvacollecteform.updateValueAndValidity();
+      this.standardtclform.patchValue({
+        
+        chiffreaffairettc:+this.ammountttc+ +this.ammounttc19,tclapayer:this.totaltclammount},{emitEvent: false} 
+        );
+        this.standardtclform.updateValueAndValidity();
+        this.standardfspform.patchValue({
+        
+          chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
+          montantcontribution:this.totalfspammount
+        });
   }
   calculateResultForm25()
   {
@@ -2048,13 +2162,21 @@ if (salairesnonsoumistfp>salairesbrutsrs)
      honoraire3: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10001: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},
      montant10002: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',},montant10003: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, 
     montant10004: {  type: '',montantbrut: '', taux: '', montantnet: '', montantretenue: '',}, autre: []}
-    decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',tvacollecter:{
+    decfiscmens.impottype2={ type: '',reporttvamoisprecedent:'',
+    tvacollecter:{
       type:'',
       chiffreaffaireht:'',
       tvaammount:'',
       ammountttc:'',
       
-      },tvarecuperableimmobilier:{
+      },
+      tvacollecter19:{
+        type:'',
+        chiffreaffaireht:'',
+        tvaammount:'',
+        ammountttc:'',
+        
+        },tvarecuperableimmobilier:{
           type:'',
       achatlocauxht:'',
       achatlocauxtva:'',
@@ -2135,6 +2257,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
                 montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.user.activite;
+    decfiscmens.sousactivite=this.user.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
     decfiscmens.firstname=this.user.firstname
@@ -2360,6 +2483,14 @@ decfiscmens.impottype2.tvacollecter.type='TVA collecté'
 decfiscmens.impottype2.tvacollecter.chiffreaffaireht=this.standardtvacollecteform.get('chiffreaffaireht').value
 decfiscmens.impottype2.tvacollecter.tvaammount=this.standardtvacollecteform.get('tvaammount').value
 decfiscmens.impottype2.tvacollecter.ammountttc=this.standardtvacollecteform.get('ammountttc').value
+}
+if (this.standardtvacollecte19form.get('chiffreaffaireht').value!==null)
+{
+decfiscmens.impottype2.type='TVA'
+decfiscmens.impottype2.tvacollecter19.type='TVA collecté'
+decfiscmens.impottype2.tvacollecter19.chiffreaffaireht=this.standardtvacollecte19form.get('chiffreaffaireht').value
+decfiscmens.impottype2.tvacollecter19.tvaammount=this.standardtvacollecte19form.get('tvaammount').value
+decfiscmens.impottype2.tvacollecter19.ammountttc=this.standardtvacollecte19form.get('ammountttc').value
 }
 if (this.standardtvarecuperableautreachatform.get('achatlocauxht').value!==null||this.standardtvarecuperableautreachatform.get('achatlocauxtva').value!==null||
 this.standardtvarecuperableautreachatform.get('achatimporteht').value!==null||this.standardtvarecuperableautreachatform.get('achatimportetva').value!==null)
@@ -2803,6 +2934,9 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardtvacollecteform.controls['chiffreaffaireht'].reset()
     this.standardtvacollecteform.controls['tvaammount'].reset()
     this.standardtvacollecteform.controls['ammountttc'].reset()
+    this.standardtvacollecte19form.controls['chiffreaffaireht'].reset()
+    this.standardtvacollecte19form.controls['tvaammount'].reset()
+    this.standardtvacollecte19form.controls['ammountttc'].reset()
     this.standardlocationusagehabitationmeubleform.controls['ammountht'].reset()
     this.standardlocationusagehabitationmeubleform.controls['tvaammount'].reset()
     this.standardlocationusagehabitationmeubleform.controls['ammountttc'].reset()
@@ -3005,6 +3139,11 @@ declareneanttva()
     tvaammount: 0,ammountttc:0},{emitEvent: false} 
    );
    this.standardtvacollecteform.updateValueAndValidity();
+   this.standardtvacollecte19form.patchValue({
+    chiffreaffaireht: 0, 
+    tvaammount: 0,ammountttc:0},{emitEvent: false} 
+   );
+   this.standardtvacollecte19form.updateValueAndValidity();
 }
 declareneanttimbre()
 {
@@ -3310,7 +3449,7 @@ if(this.option171Value!='01')
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.reporttvamoisprecedent
-  let tvacollecte=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationhabitationmeuble.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationusagecommercial.htammount
+  let tvacollecte=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvacollecter19.tvaammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationhabitationmeuble.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.locationusagecommercial.htammount
   + +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.operationlotissement.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.interetpercue.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
    
 reporttva=(tvarecuperable-tvacollecte).toFixed(3)
@@ -3331,7 +3470,7 @@ else if(this.option171Value==='01')
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.reporttvamoisprecedent
-  let tvacollecte=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationhabitationmeuble.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationusagecommercial.htammount
+  let tvacollecte=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter19.tvaammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvacollecter.tvaammount+ Math.trunc(((+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationhabitationmeuble.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.locationusagecommercial.htammount
   + +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.operationlotissement.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.interetpercue.htammount+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
    
 reporttva=(tvarecuperable-tvacollecte).toFixed(3)
@@ -3424,8 +3563,9 @@ if(reporttva>0)
         if (this.option51Value)
         {
         const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+        const chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
         const taux=+this.tauxtva
-        const chiffreaffairettc=Math.trunc((chiffreaffaireht*taux)+(chiffreaffaireht)*1000)/1000
+        const chiffreaffairettc=+(Math.trunc(((chiffreaffaireht*taux)+(chiffreaffaireht))*1000)/1000)+ +Math.trunc(((chiffreaffaireht19*0.19)+(chiffreaffaireht19))*1000)/1000
         this.standardtclform.patchValue({
           chiffreaffairettc:chiffreaffairettc
         })
@@ -3475,10 +3615,11 @@ if(reporttva>0)
         if (this.option51Value)
         {
         const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+        const chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
         const taux=+this.standardfspform.get('taux').value
-        const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+        const montantcontribution=+ Math.trunc((+(chiffreaffaireht+ +chiffreaffaireht19)*+taux)*1000)/1000;
         this.standardfspform.patchValue({
-          chiffreaffaireht:chiffreaffaireht,
+          chiffreaffaireht:chiffreaffaireht+chiffreaffaireht19,
           montantcontribution:montantcontribution
         })
       }
@@ -3916,7 +4057,7 @@ if(reporttva>0)
     myFunction27() {
       var checkbox:any = document.getElementById("myCheck27");
       if (checkbox.checked == true){
-        if (this.standardtvacollecteform.get('chiffreaffaireht').value==null&&this.standardlocationusagehabitationmeubleform.get('ammountht').value==null
+        if (this.standardtvacollecteform.get('chiffreaffaireht').value==null&&this.standardtvacollecte19form.get('chiffreaffaireht').value==null&&this.standardlocationusagehabitationmeubleform.get('ammountht').value==null
         &&this.standardlocationusagecommercialform.get('ammountht').value==null&&this.standardoperationlotissementform.get('ammountht').value==null&&
         this.standardinteretpercueform.get('ammountht').value==null&&this.standardautretvaspecialform.get('ammountht').value==null&&
         this.standardtvarecuperableimmobilierform.get('achatlocauxht').value==null&&this.standardtvarecuperableequipementform.get('achatlocauxht').value==null&&

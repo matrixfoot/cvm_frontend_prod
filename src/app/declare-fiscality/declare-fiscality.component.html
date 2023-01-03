@@ -3124,7 +3124,7 @@
                         
                     
                       <!-- tva collecté form-->
-                      <div class="container-fluid">
+                      <div class="container-fluid" style="display: inline-flex;">
                       
                       <fieldset>  
                         <legend>TVA Collecté</legend>                 
@@ -3179,6 +3179,43 @@
     </form>
   </fieldset>
    
+  <fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'">  
+    <legend>TVA Collecté 19%</legend>                 
+<form  [formGroup]="standardtvacollecte19form">
+<fieldset>
+
+<div class="row">
+<div class="col-6">
+<div class="form-group">
+<label>Chiffre d'affairs HT</label>
+<input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Taux</label>
+<input type="text" class="form-control" value="19%"disabled/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group"(click)="setThreeNumberDecimal($event)">
+<label>Montant TVA</label>
+<input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+</div>
+</div>
+<div class="col-6">
+<div class="form-group">
+<label>Chiffre d'affaires TTC</label>
+<input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
+</div>
+</div>
+</div>
+</fieldset>
+</form>
+</fieldset>
   </div>
     <!-- 1ère étape de décision-->
     <div title="indiquer votre choix"class="col-6">
