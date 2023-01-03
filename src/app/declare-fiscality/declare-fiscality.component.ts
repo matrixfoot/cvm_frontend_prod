@@ -1619,6 +1619,8 @@ calculateResultForm1()
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      this.chiffreaffaireht19=chiffreaffaireht
+
       this.fspammount19=montantcontribution
       this.ammounttc19=ammountttc
       this.totalfspammount=+this.fspammount+ +this.fspammount19
@@ -1651,6 +1653,8 @@ calculateResultForm1()
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
+      this.chiffreaffaireht19=ammountht
+
       this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
       this.totaltclammount=+this.tclammount+ +this.tclammount19
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
