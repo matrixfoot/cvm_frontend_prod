@@ -35,6 +35,7 @@ maincontainer=false;
   arrayBuffer:any;
   file:File;
   annee: string;
+  sousactivite: string;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -83,6 +84,7 @@ public decfiscmens=new Decfiscmens;
   preptotaldeclaration=0.000;
   prepminimumperceptionammount=0.000;
   tvacollecte=0.000
+  tvacollecte19=0.000
   tvacollecte1=0.000
   tvacollecte2=0.000
   tvacollecte3=0.000
@@ -139,6 +141,7 @@ public decfiscmens=new Decfiscmens;
             )
             console.log(this.decfiscmens)
             this.activite=this.decfiscmens.activite
+            this.sousactivite=this.decfiscmens.sousactivite
             this.tfpapayer=this.decfiscmens.impottype3.tfppayer
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
             this.statut=this.decfiscmens.statut
@@ -181,7 +184,7 @@ public decfiscmens=new Decfiscmens;
   +this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva+ +this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva+ 
   +this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva
 
-  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+  this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +this.decfiscmens.impottype2.tvacollecter19.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
   + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
   
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable

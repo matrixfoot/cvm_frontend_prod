@@ -11,7 +11,6 @@ import { Decfiscmens } from '../models/dec-fisc-mens';
 import Swal from 'sweetalert2';
 import { merge, Subscription } from 'rxjs';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
-import { timeStamp } from 'console';
 @Component({
   selector: 'app-declare-fiscality',
   templateUrl: './declare-fiscality.component.html',

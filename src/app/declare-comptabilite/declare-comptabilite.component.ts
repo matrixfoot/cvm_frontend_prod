@@ -1654,7 +1654,13 @@ console.log(deccomptabilite.autre6)
       tvaammount:'',
       ammountttc:'',
       
-      },tvarecuperableimmobilier:{
+      },tvacollecter19:{
+        type:'',
+        chiffreaffaireht:'',
+        tvaammount:'',
+        ammountttc:'',
+        
+        },tvarecuperableimmobilier:{
           type:'',
       achatlocauxht:'',
       achatlocauxtva:'',
