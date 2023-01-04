@@ -43,6 +43,15 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   totalretenueimpot=0.000
   totalavancepret=0.000
   totalsalairenet=0.000
+  totalht219=0.000;
+  totaltva219=0.000;
+  totaldt219=0.000;
+  totalttc219=0.000;
+  totalrecette19=0.000;
+  totalht19=0.000;
+  totaltva19=0.000;
+  totaldt19=0.000;
+  totalttc19=0.000; 
   loading: boolean;
   currentUser: any;
   role: string;
@@ -58,6 +67,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   anneereleve: string;
   debitmoisprecedent: string;
   creditmoisprecedent: string;
+  sousactivite: string;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -80,6 +90,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
         this.usertype=user.usertype
         this.firstname=user.firstname
         this.lastname=user.lastname
+        this.sousactivite=user.sousactivite
         console.log(this.currentUser)
       }
     )
@@ -118,6 +129,15 @@ export class ViewDeccomptabiliteComponent implements OnInit {
     this.totalretenueimpot=deccomptabilite.totalretenueimpot
     this.totalavancepret=deccomptabilite.totalavancepret
     this.totalsalairenet=deccomptabilite.totalsalairenet
+    this.totalht219=deccomptabilite.totalht219
+  this.totaltva219=deccomptabilite.totaltva219
+  this.totaldt219=deccomptabilite.totaldt219
+  this.totalttc219=deccomptabilite.totalttc219
+  this.totalrecette19=deccomptabilite.totalrecette19
+  this.totalht19=deccomptabilite.totalht19
+  this.totaltva19=deccomptabilite.totaltva19
+  this.totaldt19=deccomptabilite.totaldt19
+  this.totalttc19=deccomptabilite.totalttc19
             if (this.deccomptabilite.autre1.length>0)
           {
             this.showeditionnote=true

@@ -41,13 +41,25 @@
           <tr id="resultrow">
             <td colspan="3">
                 <div class="col-6">
-                     <p>Totaux</p>
+                     <p>Totaux 7%</p>
                 </div>
             </td>
             <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
+        </tr>
+        <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Totaux19%</p>
+                </div>
+            </td>
+            <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+            <td style="text-align: center;">{{totalht19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc19 | number:'1.3-3'| removeComma}}</td>
         </tr>
         </tbody>
       </table>
@@ -84,7 +96,7 @@
                 <tr id="resultrow">
                     <td colspan="2">
                         <div class="col-6">
-                             <p>Totaux</p>
+                             <p>Totaux 7%</p>
                         </div>
                     </td>
                     <td style="text-align: center;">{{totalrecette | number:'1.3-3'| removeComma}}</td>
@@ -93,6 +105,20 @@
                     <td style="text-align: center;">{{totaldt2 | number:'1.3-3'| removeComma}}</td>
                     <td style="text-align: center;">{{totalttc2 | number:'1.3-3'| removeComma}}</td>
 
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="2">
+                        <div class="col-6">
+                             <p>Totaux19%</p>
+                        </div>
+                    </td>
+                    <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+                    <td style="text-align: center;">{{totalrecette19 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalht219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaltva219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaldt219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalttc219 | number:'1.3-3'| removeComma}}</td>
+  
                 </tr>
             </tbody>
             </table>

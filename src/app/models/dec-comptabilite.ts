@@ -22,7 +22,7 @@ codedeclaration:string;
   totalrecette:number
   totalht3:number
   totaltva3:number
-  totaldt3:number
+  totaldt3:number 
   totalttc3:number
   totaldebit:number
   totalcredit:number
@@ -33,6 +33,15 @@ codedeclaration:string;
   totalretenueimpot:number
   totalavancepret:number
   totalsalairenet:number
+  totalht219: number;
+  totaltva219: number;
+  totaldt219: number;
+  totalttc219: number;
+  totalrecette19: number;
+  totalht19: number;
+  totaltva19: number;
+  totaldt19: number;
+  totalttc19: number;
   statut:string;
   motif:string;
   created:Date;
