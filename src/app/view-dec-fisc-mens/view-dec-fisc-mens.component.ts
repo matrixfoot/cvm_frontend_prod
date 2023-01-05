@@ -19,6 +19,7 @@ import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import { ThirdPartyDraggable } from '@fullcalendar/interaction';
 import { AbstractControl, FormGroup } from '@angular/forms';
+import { ViewportScroller } from '@angular/common';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -93,7 +94,7 @@ public decfiscmens=new Decfiscmens;
   tvacollecte6=0.000
   tvarecuperable=0.000
   autreform: FormGroup;
-  constructor(private router: Router,
+  constructor(private router: Router,private scroller: ViewportScroller,
     private route: ActivatedRoute,
     private dec: DecfiscmensService,
     private token: TokenStorageService,
@@ -323,6 +324,12 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
       
     this.router.navigate([link + '/' + id]);
       
+  }
+  bottom(): void {
+    this.scroller.scrollToAnchor("bottom");
+  }
+  top(): void {
+    this.scroller.scrollToAnchor("top");
   }
   onDelete() {
     this.loading = true;

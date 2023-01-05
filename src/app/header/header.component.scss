@@ -25,7 +25,11 @@
        
       color: rgb(4, 4, 82);
      }
-    
+     .disabled{
+      cursor: not-allowed;
+      opacity: .7;
+     }     
+
     .navbar li a:hover {
 color:cyan;
      }
@@ -38,7 +42,7 @@ color:cyan;
      { color: #F97924 }
      #titre {
       position: relative;
-      left:300px;
+      padding-left:30%;
       font-size:30px;
       color: rgb(4, 4, 82);
      }

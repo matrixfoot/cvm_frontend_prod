@@ -13,7 +13,10 @@
   animation: spin 2s linear infinite;
   margin-top: 200px;
 }
-
+hr{
+  width: 40%;
+  
+}
 .checkbox-container{
     display: flex;
     
@@ -73,7 +76,7 @@
   
     position: fixed;
     bottom: 100px;
-    left: 200px;
+    right: 200px;
     z-index: 99;
     font-size: 18px;
     border: none;
@@ -92,7 +95,7 @@
     
     position: fixed;
     bottom: 100px;
-    left: 20px;
+    right: 20px;
     z-index: 99;
     font-size: 18px;
     border: none;
