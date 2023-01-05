@@ -66,4 +66,41 @@
   #backbutton:hover {
     background-color: #555;
   }
+  #top {
+    
+    position: relative;
+    float: right;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:grey;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #top:hover {
+    background-color: #555;
+  }
+  #bottom {
+    
+    position: relative;
+    bottom: 20px;
+    float: right;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:grey;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #bottom:hover {
+    background-color: #555;
+  }
   

@@ -1,6 +1,7 @@
 
-<div *ngIf="decfiscmens">
-  <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>   
+<div *ngIf="decfiscmens" id="all">
+  <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>
+  <button type="button" (click)="bottom()"class="btn btn-primary btn-sm" id="top"><span><i class="glyphicon glyphicon-arrow-down"></i></span></button>   
   <table>
   <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
   <tr><th>Statut de la déclaration:</th><td>{{statut}}</td></tr>
@@ -101,6 +102,24 @@
   <tr id="row1"><th colspan="6">7- المكافآت المدفوعة إلى الفنانين و المبدعين</th><td colspan="2"></td><td>5%</td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="6">8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><td colspan="2"></td><td>5%</td><td colspan="2"></td></tr>
   <tr id="row1"><th colspan="6">9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
   <br>
@@ -506,9 +525,9 @@
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
-                  <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>
-              
+                  <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>              
                   <button type="button"  (click)="openPDF()" ><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button>
+                  <button type="button" id="bottom"class="btn btn-primary btn-sm" (click)="top()"><span><i class="glyphicon glyphicon-arrow-up"></i></span></button>   
                 </div>
              
               
