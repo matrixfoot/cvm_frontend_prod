@@ -128,7 +128,7 @@
     <th>Jour</th>
     <th>Date complète</th>
     <th>N° Note d'honoraire</th>
-    <th>Taux TVA</th>
+    <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
     <th>Montant HT</th>
     <th>Montant TVA</th>
     <th>Montant DT</th>
@@ -223,7 +223,7 @@
         <tr id="resultrow">
             <td colspan="3">
                 <div class="col-6">
-                     <p>Totaux7%</p>
+                     <p>Totaux</p>
                 </div>
             </td>
             <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
@@ -256,7 +256,7 @@
             <tr>            
             <th>Jour</th>
             <th>Date complète</th>
-            <th>Taux TVA</th>
+            <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
             <th>Recette</th>
             <th>Montant HT</th>
             <th>Montant TVA</th>
@@ -321,7 +321,7 @@
                           
                           <td>
                            <div>
-                           <button type="button" class="hidden"*ngIf="i>0" (click)="removeammount2(i)">Supprimer recette</button>   
+                           <button type="button" class="btn btn-danger mb-2"*ngIf="i>0" (click)="removeammount2(i)">Supprimer recette</button>   
                            </div>
                           </td>
                         
@@ -330,7 +330,7 @@
                     <td colspan="7"></td>
                     <td>
                         <div>
-                        <button type="button" class="hidden" (click)="addammount2()">Ajouter recette</button>   
+                        <button type="button"class="btn btn-primary mb-2" *ngIf="sousactivite==='Médecin spécialiste'" (click)="addammount2()">Ajouter recette</button>   
                         </div>
                        </td>
                 </tr>

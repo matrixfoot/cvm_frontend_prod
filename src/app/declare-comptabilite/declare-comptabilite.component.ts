@@ -407,9 +407,9 @@ this.loading=false
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
      console.log(this.tauxtva)
-     if (+this.editionnoteform.get('ammounts').value.at(i).tauxtva)
+     if (+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
      {
-      const montanttva=(mht*+this.editionnoteform.get('ammounts').value.at(i).tauxtva).toFixed(3)
+      const montanttva=(mht*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva).toFixed(3)
       ammounts.at(i).patchValue({
         montanttva:montanttva
        })
@@ -427,9 +427,9 @@ this.loading=false
       let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
        const mht= this.recettejournaliereform.get('ammounts2').value.at(i).montantht
        console.log(mht)
-       if(+this.recettejournaliereform.get('ammounts2').value.at(i).tauxtva)
+       if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
        {
-        const montanttva=(mht*+this.recettejournaliereform.get('ammounts2').value.at(i).tauxtva).toFixed(3)
+        const montanttva=(mht*+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva).toFixed(3)
         ammounts2.at(i).patchValue({
          montanttva:montanttva
         })
@@ -460,10 +460,9 @@ this.loading=false
        const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
 
        console.log()
-       if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
+       if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
        {
-this.tauxtva=(this.editionnoteform.getRawValue().ammounts)[i].tauxtva
-const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
        const montanttva=(mttc-mdt-montantht).toFixed(3)
        ammounts.at(i).patchValue({
         montantht:montantht,
@@ -491,9 +490,8 @@ const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
          console.log(this.tauxtva)
          if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
          {
-this.tauxtva=(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva
 const montantttc=+(mrecette).toFixed(3) 
-         const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
+         const montantht=+((+montantttc-mtimbre)/(1+ 0.19)).toFixed(3)
          const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
          console.log(montantttc)
          ammounts2.at(i).patchValue({
@@ -1127,7 +1125,7 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
     this.ammounts2.push(this.createammount2());
-    const i=this.ammounts2.length
+    /*const i=this.ammounts2.length
     if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.07||!(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva)
     {
       this.totalht2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
@@ -1165,7 +1163,7 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
         acc += +(curr.montantttc || 0);
         return acc;
       },0);
-    }
+    }*/
   }
   addammount3(){
     this.fileUploaded=false
@@ -1590,6 +1588,11 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
     deccomptabilite.totaldt2=this.totaldt2
     deccomptabilite.totalttc2=this.totalttc2
     deccomptabilite.totalrecette=this.totalrecette
+    deccomptabilite.totalht219=this.totalht219
+    deccomptabilite.totaltva219=this.totaltva219
+    deccomptabilite.totaldt219=this.totaldt219
+    deccomptabilite.totalttc219=this.totalttc219
+    deccomptabilite.totalrecette19=this.totalrecette19
     deccomptabilite.totalht3=this.totalht3
     deccomptabilite.totaltva3=this.totaltva3
     deccomptabilite.totaldt3=this.totaldt3
