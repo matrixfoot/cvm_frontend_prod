@@ -42,10 +42,10 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
             <div class="item active">
-              <h4><span style="color: red;">"{{carousels[0].titre}}"</span><br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
+              <h4><span style="color: red;">"{{carousels[0].titre}}"</span><br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" *ngIf="carousels[0].description"(click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
             </div>
             <div class="item"*ngFor="let item of sortedcarousels.slice(1);let index = index">
-              <h4><span style="color: red;">"{{item.titre}}"</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary" (click)="getNavigation('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
+              <h4><span style="color: red;">"{{item.titre}}"</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary"*ngIf="item.description" (click)="getNavigation('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
             </div>
           </div>
       

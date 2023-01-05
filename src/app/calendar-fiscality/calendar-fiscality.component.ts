@@ -86,25 +86,8 @@ export class CalendarFiscalityComponent implements OnInit {
         eventClick(evetData) {
           // tslint:disable-next-line:variable-name
           const event_id = evetData.event._def.extendedProps._id;
-          Swal.fire({
-            title: 'Actions Possibles',
-            
-            icon: 'info',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Consulter',
-            timer: 30000,
-          }).then((result) => {
-            if (result.value) {
-              self.viewevent(event_id);
-              
-              self.getAllEvents();
-            }
-
-          }).catch(() => {
-            Swal.fire('Failed!', 'There was something went wrong.');
-          });
+          self.viewevent(event_id);
+          self.getAllEvents();
         }
       };
     });

@@ -52,9 +52,9 @@ export class DueDateTimelineComponent implements OnInit {
                 
               }
 
-              getNavigationusers(link, id){
+              getNavigation(link, id){
       
-                this.UserService.getUserById(id);
+                this.eve.geteventreqById(id);
                 this.router.navigate([link + '/' + id]); 
               }
               

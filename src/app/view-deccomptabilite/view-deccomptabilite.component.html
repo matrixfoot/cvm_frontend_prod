@@ -1,4 +1,5 @@
   <div *ngIf="deccomptabilite">
+    <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>   
   <h2 style="text-align: center;"> Entête du fichier</h2>
   <table>
     <tr><th>Date de création du fichier:</th><td colspan="2">{{ deccomptabilite.created |customDate}}</td><th>Date de modification du fichier:</th><td colspan="2">{{ deccomptabilite.updated|customDate }}</td></tr>

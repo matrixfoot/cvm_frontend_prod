@@ -1,6 +1,6 @@
 
   <body>
-
+<div class="container-fluid">
     <nav class="navbar navbar-inverse">
       <div class="container-fluid" style="padding:10px">
         <div class="navbar-header">
@@ -35,10 +35,9 @@
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Tableau de bord Admin</a></li>
               <li><a routerLink="settings" *ngIf="role=='admin'" routerLinkActive="active">Paramêtrage Admin</a></li>
               <li><a routerLink="supervisor-board" *ngIf="role=='supervisor'"routerLinkActive="active">Tableau de bord Superviseur</a></li>
-              <li><a routerLink="settings" *ngIf="role=='supervisor'" routerLinkActive="active">Paramêtrage Superviseur</a></li>
+              <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='supervisor'" routerLinkActive="active">Paramêtrage Superviseur</a></li>-->
               <li><a routerLink="user-board" *ngIf="role=='basic'"routerLinkActive="active">Tableau de bord Utilisateur</a></li>
-              <li><a routerLink="settings" *ngIf="role=='basic'" routerLinkActive="active">Paramêtrage Utilisateur</a></li>
-              
+              <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='basic'" routerLinkActive="active">Paramêtrage Utilisateur</a></li>-->
             </ul>
           </li>
         </ul>
@@ -52,6 +51,6 @@
         </ul>
       </div>
     </nav>
-    
+  </div>
       
     </body>
