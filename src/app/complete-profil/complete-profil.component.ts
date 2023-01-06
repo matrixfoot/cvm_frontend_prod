@@ -151,8 +151,8 @@ this.sousspecialites=[]
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
             fiscalmat: [this.user.matriculefiscale.split(' ')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7),Validators.required]],
             fiscalmatletter: [this.user.matriculefiscale.split(' ')[1].split('/')[0],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1),Validators.required]],
-            fiscalmatinchanged: [{value:"A",disabled:true}],
-            fiscalmatinchanged2: [{value:"P",disabled:true}],
+            fiscalmatinchanged: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
+            fiscalmatinchanged2: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
             fiscalmatnumbers: [this.user.matriculefiscale.split('/')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true},],
@@ -263,24 +263,18 @@ this.sousspecialites=[]
       }
     );
   }
-  verify(e)
-  {
-    console.log(this.userForm.get('activitynature').value)
-    console.log(this.userForm.get('fiscalmatinchanged').value)
-if(this.userForm.get('activity').value=='Syndic des copropriétaires')
-{
-  console.log('here')
-  this.userForm.patchValue({
-    fiscalmatinchanged:'N',
-    fiscalmatinchanged2:'N',
-    fiscalmatnumbers:'000'
-  })
-}
-  }
+  
   update0(e)
   {
     this.selected = e.target.value
-   
+    if(this.userForm.get('activitynature').value=='Profession Libérale')
+{
+  this.userForm.patchValue({
+    fiscalmatinchanged:'A',
+    fiscalmatinchanged2:'P',
+    fiscalmatnumbers:'000'
+  })
+}
     if(this.selected=='associations et syndics')
     {
 this.activites=this.activitesassociations
@@ -293,11 +287,27 @@ this.activites=this.activitesassociations
     else{
       this.activites=[]
     }
+    this.userForm.patchValue({
+      activity:'',
+      selectactivity:'',
+      underactivity:'',
+      selectunderactivity:'',
+      specialite: '',
+      sousspecialite: '',
+    })
   }
   update(e)
   {
     this.selected = e.target.value
-    
+    if(this.userForm.get('activity').value=='Syndic des copropriétaires')
+{
+  console.log('here')
+  this.userForm.patchValue({
+    fiscalmatinchanged:'N',
+    fiscalmatinchanged2:'N',
+    fiscalmatnumbers:'000'
+  })
+}
     if(this.selected=='Avocat')
     {
 this.sousactivites=this.sousactivitesavocat

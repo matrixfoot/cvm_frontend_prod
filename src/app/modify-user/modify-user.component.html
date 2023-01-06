@@ -75,7 +75,7 @@
     <div title="indiquer votre activité"class="input-container" id="idactivity">
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"#cricket (change)="verify($event)"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
   <option hidden [value]="user.activite">{{user.activite}}</option>
   <option value=""></option>
   <option *ngFor="let activite of activites" [value]="activite">

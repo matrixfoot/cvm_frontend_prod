@@ -212,8 +212,8 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
             fiscalmat: [this.user.matriculefiscale.split(' ')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7),Validators.required]],
             fiscalmatletter: [this.user.matriculefiscale.split(' ')[1].split('/')[0],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1),Validators.required]],
-            fiscalmatinchanged: [{value:"A",disabled:true}],
-            fiscalmatinchanged2: [{value:"P",disabled:true}],
+            fiscalmatinchanged: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
+            fiscalmatinchanged2: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
             fiscalmatnumbers: [this.user.matriculefiscale.split('/')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
@@ -307,10 +307,11 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
     else {user.activite =this.userForm.get('activity').value};
     if (this.userForm.get('underactivity').value=="Autre") {user.sousactivite = this.userForm.get('underactivity').value+'/'+this.userForm.get('selectunderactivity').value}
     else {user.sousactivite =this.userForm.get('underactivity').value};
-    if (this.userForm.get('fiscalimpot').value=="Autre") { user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value}
+    if (this.userForm.get('fiscalimpot').value=="Autre") 
+    { user.regimefiscalimpot = this.userForm.get('fiscalimpot').value+'/'+this.userForm.get('selectfiscalimpot').value}
     else {user.regimefiscalimpot = this.userForm.get('fiscalimpot').value};
-    user.matriculefiscale = this.userForm.get('fiscalmat').value+' '+this.userForm.get('fiscalmatletter').value+'/'+this.userForm.get('fiscalmatinchanged').value+'/'
-    +this.userForm.get('fiscalmatinchanged2').value+'/'+this.userForm.get('fiscalmatnumbers').value;
+    user.matriculefiscale = this.userForm.get('fiscalmat').value+' '+this.userForm.get('fiscalmatletter').value+'/'+this.userForm.getRawValue().fiscalmatinchanged+'/'     
+    +this.userForm.getRawValue().fiscalmatinchanged2+'/'+this.userForm.get('fiscalmatnumbers').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
     user.codepostal = this.userForm.get('codepostal').value;
@@ -325,6 +326,8 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
     user.ficheUrl=''
+    console.log(this.userForm.getRawValue().fiscalmatinchanged)
+    console.log(this.userForm.getRawValue().fiscalmatinchanged2)
     this.userservice.modifyUserwithimageById(this.user._id, user, this.userForm.get('image').value).then(  
       () => {
        this.userForm.reset();
@@ -342,11 +345,42 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
       }
     );
   }
-  verify(e)
+  update0(e)
   {
-    console.log(this.userForm.get('activitynature').value)
-    console.log(this.userForm.get('fiscalmatinchanged').value)
-if(this.userForm.get('activity').value=='Syndic des copropriétaires')
+
+    this.selected = e.target.value
+    if(this.userForm.get('activitynature').value=='Profession Libérale')
+{
+  this.userForm.patchValue({
+    fiscalmatinchanged:'A',
+    fiscalmatinchanged2:'P',
+    fiscalmatnumbers:'000'
+  })
+}
+    if(this.selected=='associations et syndics')
+    {
+this.activites=this.activitesassociations
+    }
+    else if (this.selected=='Profession Libérale')
+    {
+      this.activites=this.activitesliberales
+    }
+    else{
+      this.activites=[]
+    }
+    this.userForm.patchValue({
+      activity:'',
+      selectactivity:'',
+      underactivity:'',
+      selectunderactivity:'',
+      specialite: '',
+      sousspecialite: '',
+    })
+  }
+  update(e)
+  {
+    this.selected = e.target.value
+    if(this.userForm.get('activity').value=='Syndic des copropriétaires')
 {
   console.log('here')
   this.userForm.patchValue({
@@ -355,28 +389,6 @@ if(this.userForm.get('activity').value=='Syndic des copropriétaires')
     fiscalmatnumbers:'000'
   })
 }
-  }
-  update0(e)
-  {
-    this.selected = e.target.value
-   
-    if(this.selected=='associations et syndics')
-    {
-this.activites=this.activitesassociations
-    }
-    else if (this.selected=='Profession Libérale')
-    {
-      this.activites=this.activitesliberales
-
-    }
-    else{
-      this.activites=[]
-    }
-  }
-  update(e)
-  {
-    this.selected = e.target.value
-    
     if(this.selected=='Avocat')
     {
 this.sousactivites=this.sousactivitesavocat
@@ -392,6 +404,7 @@ this.sousactivites=this.sousactivitesavocat
       this.sousspecialites=[]
     }
     this.userForm.patchValue({
+      
       underactivity:'',
       selectunderactivity:'',
       specialite: '',

@@ -28,7 +28,17 @@
   <option value="Candidat">Candidat</option>
 </select>
   </div>
-  
+  <div title="indiquer votre type" class="input-container">
+     
+    <label for="civilite"> Nature utilisateur:</label>  
+    <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+     
+<select  class="input-field" placeholder="Entrer nature utilisateur" id="nature" formControlName="nature" name="nature" >
+  <option hidden >Entrer la nature de l'utilisateur</option>
+  <option value="Personne Physique">Personne Physique</option>
+  <option value="Personne Morale">Personne Morale</option>
+</select>
+  </div>
   <div *ngIf="submitted && f.civilite.errors" class="invalid-feedback">
     <div *ngIf="f.civilite.errors.required">Civilité est obligatoire</div>
 </div>
@@ -49,7 +59,8 @@
       <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
   </div>
     <div title="indiquer votre nom"class="input-container">
-      <label for="lastname"> Nom Utilisateur:</label>
+      <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Physique'">Nom Utilisateur:</label>
+      <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Morale'">Nom de l'entité:</label>
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Entrer Votre Nom" id="lastname" 
         formControlName="lastname" name="lastname" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }">
@@ -60,7 +71,8 @@
         <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
     </div>
       <div title="indiquer votre prenom"class="input-container">
-        <label for="firstname"> Prénom Utilisateur:</label>
+        <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Physique'">Prénom Utilisateur:</label>
+        <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Morale'">nom et prénom du reponsable de l'entité:</label>
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Entrer Votre Prenom" id="firstname" 
         [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"formControlName="firstname"name="firstname">

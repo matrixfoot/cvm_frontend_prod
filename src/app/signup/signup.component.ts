@@ -42,6 +42,7 @@ export class SignupComponent implements OnInit {
       lastname: [null, Validators.required],
       fonction: [null],
       secteur: [null],
+      nature: [null],
       civilite: [null,Validators.required],
       raisonsociale: [null],
       nomsociete: [null],

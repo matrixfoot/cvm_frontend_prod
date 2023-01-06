@@ -108,12 +108,12 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   option45Value:any;
   option46Value:any;
   option47Value:any;
-  option48Value=false;
-  option49Value=false;
-  option50Value=false;
-  option51Value=false;
-  option52Value=false;
-  option53Value=false;
+  option48Value=true;
+  option49Value=true;
+  option50Value=true;
+  option51Value=true;
+  option52Value=true;
+  option53Value=true;
   option54Value:any;
   option55Value:any;
   option56Value:any;
@@ -232,7 +232,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value=false;
+  option172Value=true;
   option173Value=false;
   option174Value:any;
   option175Value:any;
@@ -330,8 +330,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   showtimbreverif=false;
   showtclverif=false;
   showfspverif=false;
-  showtfpsalairebrut=true;
-  showfoprolossalairebrut=true;
+  showtfpsalairebrut=false;
+  showfoprolossalairebrut=false;
 
   autreform: FormGroup;
   foprolosapayer=0.000
@@ -416,6 +416,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               {
                 this.tauxtva='0.19'
               }
+            
               console.log(this.tauxtva)
       
               
@@ -2783,7 +2784,51 @@ this.DecfiscmensService.create(decfiscmens).then(
           var text3 = document.getElementById("impotlist");
           var text4 = document.getElementById("Year");
           var text5 = document.getElementById("Month");
+          var text2 = document.getElementById("tabcontainer");
+          Swal.fire({
+            title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+            icon: 'info',
+            confirmButtonColor: '#3085d6',
+          }).then((result) => {}).catch(() => {
+            Swal.fire('opération non aboutie!')
+          })  
+          this.showretenuetab=true;
+          this.showtfptab=true;
+          this.showfoprolostab=true;
+          this.showtvatab=true;
+          this.showtimbretab=true;
+          this.showtcltab=true;
+          this.showretenueverif=true;
+  this.showtfpverif=true;
+  this.showfoprolosverif=true;
+  this.showtvaverif=true;
+  this.showtimbreverif=true;
+  this.showtclverif=true;
+          if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
+              this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
+              ||this.activite=='Sage-femmes')
+              {
+                this.showfsptab=true;
+                this.showfspverif=true;
 
+              }
+              if(this.activite=='Syndic des copropriétaires')
+              {
+                this.option49Value=false;
+                this.option51Value=false;
+                this.option52Value=false;
+                this.option53Value=false;
+                this.option172Value=false;
+          this.showtfptab=false;
+          this.showtvatab=false;
+          this.showtimbretab=false;
+          this.showtcltab=false;
+  this.showtfpverif=false;
+  this.showtvaverif=false;
+  this.showtimbreverif=false;
+  this.showtclverif=false;
+              }
+          text2.style.display="block"
           text3.style.display = "flex";
           text4.style.display = 'none';
           text5.style.display = 'none';
