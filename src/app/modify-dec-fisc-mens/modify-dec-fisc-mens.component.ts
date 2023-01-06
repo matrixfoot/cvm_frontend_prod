@@ -455,7 +455,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       }
     if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Géomètres'||
-    decfiscmens.annee=='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Notaire'||
+    decfiscmens.annee=='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Notaire'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Syndic des copropriétaires'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Expert'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Huissiers notaire'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Interprètes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Avocat')
     {
@@ -464,7 +464,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
          
       if(decfiscmens.annee!='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
       decfiscmens.annee!='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Géomètres'||
-      decfiscmens.annee!='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Notaire'||
+      decfiscmens.annee!='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Syndic des copropriétaires'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Notaire'||
       decfiscmens.annee!='2023'&&decfiscmens.activite=='Huissiers notaire'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Interprètes'
       ||decfiscmens.annee!='2023'&&decfiscmens.activite=='Expert'||decfiscmens.annee!='2023'&&decfiscmens.activite=='Avocat' )
       {

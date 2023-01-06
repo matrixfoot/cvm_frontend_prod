@@ -44,6 +44,9 @@ export class ModifyUserComponent implements OnInit {
   sousactivitesmedecin: string[];
   specialitesmedecinspecialiste: string[];
   selected: any;
+  activitesassociation: string[];
+  activitesassociations: any[];
+  activitesliberales: string[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -56,6 +59,10 @@ export class ModifyUserComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.activites=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
+    "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
+    "Ingénieurs-conseil","Topographes","Syndic des copropriétaires","Autre"]
+    this.activitesassociations=["Syndic des copropriétaires"]
+    this.activitesliberales=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
     "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
     "Ingénieurs-conseil","Topographes","Autre"]
 this.sousactivites=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation","Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
@@ -334,6 +341,37 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
         
       }
     );
+  }
+  verify(e)
+  {
+    console.log(this.userForm.get('activitynature').value)
+    console.log(this.userForm.get('fiscalmatinchanged').value)
+if(this.userForm.get('activity').value=='Syndic des copropriétaires'&&!this.userForm.get('fiscalmatinchanged').value)
+{
+  console.log('here')
+  this.userForm.patchValue({
+    fiscalmatinchanged:'N',
+    fiscalmatinchanged2:'N',
+    fiscalmatnumbers:'000'
+  })
+}
+  }
+  update0(e)
+  {
+    this.selected = e.target.value
+   
+    if(this.selected=='associations et syndics')
+    {
+this.activites=this.activitesassociations
+    }
+    else if (this.selected=='Profession Libérale')
+    {
+      this.activites=this.activitesliberales
+
+    }
+    else{
+      this.activites=[]
+    }
   }
   update(e)
   {

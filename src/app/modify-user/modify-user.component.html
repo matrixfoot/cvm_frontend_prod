@@ -56,12 +56,12 @@
       <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
         <label for="activitynature"> Nature D'activité:</label>
         <i class="fa fa-fort-awesome icon"></i>
-  <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
+  <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature"(change)="update0($event)"  [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
     <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
     <option value=""></option>
     <option value="Profession Libérale">Profession Libérale</option>
     <option value="associations et syndics">associations et syndics</option>
-    <option disabled value="Commerçant">Commerçant</option>
+    <option disabled value="Commerçant">Commerçant</option> 
     <option disabled value="Artisan">Artisan</option>
     <option disabled value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
     <option value="Autre">Autre</option>
@@ -75,7 +75,7 @@
     <div title="indiquer votre activité"class="input-container" id="idactivity">
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
-<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
+<select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"#cricket (change)="verify($event)"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
   <option hidden [value]="user.activite">{{user.activite}}</option>
   <option value=""></option>
   <option *ngFor="let activite of activites" [value]="activite">

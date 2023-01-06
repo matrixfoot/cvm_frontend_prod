@@ -401,7 +401,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               this.specialite=this.user.specialite
               this.regimefiscalimpot=this.user.regimefiscalimpot;
               this.matriculefiscale=this.user.matriculefiscale;
-              if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
+              if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Syndic des copropriétaires'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
               this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert')
               {
                 this.tauxtva='0.13'
@@ -2712,7 +2712,7 @@ this.DecfiscmensService.create(decfiscmens).then(
   verify(e)
   {
     console.log(this.currentUser.userId,this.option54Value,this.option171Value)
-    if(this.option54Value=='2023'&&this.activite=='Architectes'||this.option54Value=='2023'&&this.activite=='Ingénieurs-conseil'
+    if(this.option54Value=='2023'&&this.activite=='Architectes'||this.option54Value=='2023'&&this.activite=='Syndic des copropriétaires'||this.option54Value=='2023'&&this.activite=='Ingénieurs-conseil'
     ||this.option54Value=='2023'&&this.activite=='Dessinateurs'||this.option54Value=='2023'&&this.activite=='Géomètres'
     ||this.option54Value=='2023'&&this.activite=='Topographes'||this.option54Value=='2023'&&this.activite=='Notaire'||
     this.option54Value=='2023'&&this.activite=='Huissiers notaire'||this.option54Value=='2023'&&this.activite=='Interprètes'||

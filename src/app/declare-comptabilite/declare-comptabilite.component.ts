@@ -189,7 +189,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
 || user.regimefiscalimpot=='Autre/null' 
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
-if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
+if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Syndic des copropriétaires'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
 this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert' )
 {
   this.tauxtva='0.13'
@@ -220,7 +220,7 @@ if(this.activite=='Consultant')
   verify(e)
   {
     this.loading=true
-    if(this.option1Value=='2023'&&this.activite=='Architectes'||this.option1Value=='2023'&&this.activite=='Ingénieurs-conseil'||
+    if(this.option1Value=='2023'&&this.activite=='Architectes'||this.option1Value=='2023'&&this.activite=='Syndic des copropriétaires'||this.option1Value=='2023'&&this.activite=='Ingénieurs-conseil'||
     this.option1Value=='2023'&&this.activite=='Dessinateurs'||this.option1Value=='2023'&&this.activite=='Géomètres'||
     this.option1Value=='2023'&&this.activite=='Topographes'||this.option1Value=='2023'&&this.activite=='Notaire'||
     this.option1Value=='2023'&&this.activite=='Huissiers notaire'||this.option1Value=='2023'&&this.activite=='Interprètes'||
