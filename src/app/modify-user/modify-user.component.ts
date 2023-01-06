@@ -346,7 +346,7 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
   {
     console.log(this.userForm.get('activitynature').value)
     console.log(this.userForm.get('fiscalmatinchanged').value)
-if(this.userForm.get('activity').value=='Syndic des copropriétaires'&&!this.userForm.get('fiscalmatinchanged').value)
+if(this.userForm.get('activity').value=='Syndic des copropriétaires')
 {
   console.log('here')
   this.userForm.patchValue({

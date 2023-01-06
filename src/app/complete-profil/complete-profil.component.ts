@@ -47,6 +47,8 @@ export class CompleteProfilComponent implements OnInit {
   sousactivitesmedecin: string[];
   specialitesmedecinspecialiste: string[];
   selected: any;
+  activitesassociations: string[];
+  activitesliberales: string[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -59,6 +61,10 @@ export class CompleteProfilComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.activites=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
+    "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
+    "Ingénieurs-conseil","Topographes","Syndic des copropriétaires","Autre"]
+    this.activitesassociations=["Syndic des copropriétaires"]
+    this.activitesliberales=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
     "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
     "Ingénieurs-conseil","Topographes","Autre"]
 this.sousactivitesavocat=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation"]
@@ -257,6 +263,37 @@ this.sousspecialites=[]
       }
     );
   }
+  verify(e)
+  {
+    console.log(this.userForm.get('activitynature').value)
+    console.log(this.userForm.get('fiscalmatinchanged').value)
+if(this.userForm.get('activity').value=='Syndic des copropriétaires')
+{
+  console.log('here')
+  this.userForm.patchValue({
+    fiscalmatinchanged:'N',
+    fiscalmatinchanged2:'N',
+    fiscalmatnumbers:'000'
+  })
+}
+  }
+  update0(e)
+  {
+    this.selected = e.target.value
+   
+    if(this.selected=='associations et syndics')
+    {
+this.activites=this.activitesassociations
+    }
+    else if (this.selected=='Profession Libérale')
+    {
+      this.activites=this.activitesliberales
+
+    }
+    else{
+      this.activites=[]
+    }
+  }
   update(e)
   {
     this.selected = e.target.value
@@ -306,11 +343,9 @@ this.specialites=this.specialitesmedecinspecialiste
   }
   sort()
   {
-    this.specialitesmedecinspecialiste.sort()
-    this.sousactivitesavocat.sort()
-    this.sousactivitesmedecin.sort()
+    this.specialites.sort()
+    this.sousactivites.sort()
     this.activites.sort()
-
   }
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];

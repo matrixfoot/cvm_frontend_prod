@@ -26,19 +26,20 @@
 
    
      
-      <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
-        <label for="activitynature"> Nature D'activité:</label>
-        <i class="fa fa-fort-awesome icon"></i>
-  <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature" [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
-    <option hidden [value]="user.natureactivite">{{user.natureactivite}}</option>
-    <option value=""></option>
-    <option value="Profession Libérale">Profession Libérale</option>
-    <option hidden value="Commerçant">Commerçant</option>
-    <option hidden value="Artisan">Artisan</option>
-    <option hidden value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
-    <option  hidden value="Autre">Autre</option>
-  </select>
-    </div>
+  <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
+    <label for="activitynature"> Nature D'activité:</label>
+    <i class="fa fa-fort-awesome icon"></i>
+<select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature"(change)="update0($event)"  [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
+<option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
+<option value=""></option>
+<option value="Profession Libérale">Profession Libérale</option>
+<option value="associations et syndics">associations et syndics</option>
+<option disabled value="Commerçant">Commerçant</option> 
+<option disabled value="Artisan">Artisan</option>
+<option disabled value="Salarié ou Pensionnaire">Salarié ou Pensionnaire</option>
+<option value="Autre">Autre</option>
+</select>
+</div>
     <div class="input-container"id="selectactivitynature"*ngIf="optionValue == 'Autre'">
       <label for="activitynature"> Nature D'activité:</label>
       <i class="fa fa-fort-awesome icon"></i>
