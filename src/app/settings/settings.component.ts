@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../services/token-storage.service';
-import { Carousel } from '../models/settings';
+import { Carouselmodel } from '../models/settings';
 import { CarouselService } from '../services/settings';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { ApiServiceService } from '../services/event.service';
 export class SettingsComponent implements OnInit {
   currentUser: any;
    loading=false;
-  public carousels: Carousel[] = [];
+  public carousels: Carouselmodel[] = [];
   private carouselsSub: Subscription;
   carouselform: FormGroup;
   public imagePreview: string;
@@ -61,7 +61,7 @@ export class SettingsComponent implements OnInit {
   saveactualite() {
     this.loading = true;
    
-    const carousel = new Carousel();
+    const carousel = new Carouselmodel();
   carousel.titre = this.carouselform.get('titre').value;
     
   carousel.commentaire = this.carouselform.get('commentaire').value;

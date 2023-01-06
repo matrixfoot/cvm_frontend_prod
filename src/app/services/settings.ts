@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Observable } from 'rxjs';
 
-import { Carousel } from '../models/settings';
+import { Carouselmodel } from '../models/settings';
 const API_URL_test = 'http://localhost:3000/api/settings/';
 const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/settings/'
 const httpOptions = {
@@ -13,13 +13,13 @@ export class CarouselService {
     
     
     constructor(private http: HttpClient) { }
-    public carousels: Carousel[] = [];
-    public carousels$ = new Subject<Carousel[]>();
+    public carousels: Carouselmodel[] = [];
+    public carousels$ = new Subject<Carouselmodel[]>();
  
 
     getCarouselalldata() {
         this.http.get(API_URL_cloud).subscribe(
-          (carousels: Carousel[]) => {
+          (carousels: Carouselmodel[]) => {
             if (carousels) {
               this.carousels = carousels;
               this.emitCarousels();
@@ -52,7 +52,7 @@ export class CarouselService {
    
       
     
-      create(carousel: Carousel, image: File) {
+      create(carousel: Carouselmodel, image: File) {
         return new Promise((resolve, reject) => {
           const carouselData = new FormData();
           carouselData.append('carousel', JSON.stringify(carousel));
@@ -68,7 +68,7 @@ export class CarouselService {
         }); 
       }
      
-      createwithoutfile(carousel: Carousel) {
+      createwithoutfile(carousel: Carouselmodel) {
         return new Promise((resolve, reject) => {
           
           this.http.post(API_URL_cloud+'/createcarouselreqwithoutimage', carousel).subscribe(
@@ -84,9 +84,9 @@ export class CarouselService {
       }
      
     
-      modify(id: string, carousel: Carousel, file: File | string) {
+      modify(id: string, carousel: Carouselmodel, file: File | string) {
         return new Promise((resolve, reject) => {
-          let carouseldata: Carousel | FormData;
+          let carouseldata: Carouselmodel | FormData;
           if (typeof file === 'string') {
             carousel.ficheUrl = file;
             carouseldata = carousel;

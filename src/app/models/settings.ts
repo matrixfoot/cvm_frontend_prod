@@ -1,4 +1,4 @@
-export class Carousel {
+export class Carouselmodel {
     
 titre: string;
 commentaire: string;

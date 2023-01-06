@@ -6,7 +6,7 @@ import { User } from '../models/user.model';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { CarouselService } from '../services/settings';
-import { Carousel } from '../models/settings';
+import { Carouselmodel } from '../models/settings';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-view-carousel',
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./view-carousel.component.scss']
 })
 export class ViewCarouselComponent implements OnInit {
-  public carousel: Carousel;
+  public carousel: Carouselmodel;
   public errormsg:string;
   public loading: boolean;
   
@@ -31,7 +31,7 @@ export class ViewCarouselComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.caro.getCarouseldataById(params.id).then(
-          (carousel: Carousel) => {
+          (carousel: Carouselmodel) => {
             this.loading = false;
             this.carousel = carousel;
             

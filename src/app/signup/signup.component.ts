@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
       lastname: [null, Validators.required],
       fonction: [null],
       secteur: [null],
-      nature: [null],
+      nature: [null,Validators.required],
       civilite: [null,Validators.required],
       raisonsociale: [null],
       nomsociete: [null],
@@ -95,11 +95,13 @@ export class SignupComponent implements OnInit {
     const fonction = this.signupForm.get('fonction').value;
     const secteur = this.signupForm.get('secteur').value;
     const civilite = this.signupForm.get('civilite').value;
+    const nature = this.signupForm.get('nature').value;
+
     const raisonsociale = this.signupForm.get('raisonsociale').value;
     const nomsociete = this.signupForm.get('nomsociete').value;
     const clientcode = this.signupForm.get('clientcode').value;
     const role = this.signupForm.get('role').value;
-    this.auth.register(email, password,confirmpassword,mobile,usertype,firstname,lastname,fonction,secteur,civilite,raisonsociale,nomsociete,clientcode,role).subscribe({
+    this.auth.register(email, password,confirmpassword,mobile,usertype,firstname,lastname,fonction,secteur,civilite,nature,raisonsociale,nomsociete,clientcode,role).subscribe({
 
       next: data => {
         this.isSuccessful = true;

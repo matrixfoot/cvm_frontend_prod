@@ -8,7 +8,7 @@ import { TokenStorageService } from '../services/token-storage.service';
 import { Subscription } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { CarouselService } from '../services/settings';
-import { Carousel } from '../models/settings';
+import { Carouselmodel } from '../models/settings';
 import { AlertService } from '../_helpers/alert.service';
 @Component({
   selector: 'app-modify-carousel',
@@ -19,8 +19,8 @@ export class ModifyCarouselComponent implements OnInit {
 
   public carouselform: FormGroup; 
   public currentuser: User;
-  public carousels: Carousel[]=[];
-  public carousel: Carousel;
+  public carousels: Carouselmodel[]=[];
+  public carousel: Carouselmodel;
   public imagePreview: string;
   fileUploaded = false; 
 
@@ -45,7 +45,7 @@ export class ModifyCarouselComponent implements OnInit {
   this.route.params.subscribe(
     (params) => {
       this.caro.getCarouseldataById(params.id).then(
-        (carousel: Carousel) => {
+        (carousel: Carouselmodel) => {
           
           this.carousel = carousel;
           this.carouselform = this.formBuilder.group({
@@ -70,7 +70,7 @@ export class ModifyCarouselComponent implements OnInit {
 }
 onSubmit() {
   this.loading = true;
-  const carousel = new Carousel();
+  const carousel = new Carouselmodel();
   carousel._id=this.carousel._id
   carousel.titre =this.carouselform.get('titre').value;
   carousel.commentaire =this.carouselform.get('commentaire').value;

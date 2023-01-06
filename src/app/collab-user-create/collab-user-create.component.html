@@ -13,6 +13,17 @@
   
 <form  [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <h2>Formulaire D'inscription</h2>
+    <div title="indiquer votre type" class="input-container">
+     
+      <label for="civilite"> Nature utilisateur:</label>  
+      <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+       
+  <select  class="input-field" placeholder="Entrer nature utilisateur" id="nature" formControlName="nature" name="nature" >
+    <option hidden >Entrer la nature de l'utilisateur</option>
+    <option value="Personne Physique">Personne Physique</option>
+    <option value="Personne Morale">Personne Morale</option>
+  </select>
+    </div>
     <div *ngIf="submitted && f.usertype.errors" class="invalid-feedback">
       <div *ngIf="f.usertype.errors.required">Type Utilisateur est obligatoire</div>
   </div>

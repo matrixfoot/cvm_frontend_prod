@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Carousel } from '../models/settings';
+import { Carouselmodel } from '../models/settings';
 import { CarouselService } from '../services/settings';
+import { Carousel } from "bootstrap";
 
 @Component({
   selector: 'app-home',
@@ -9,9 +10,11 @@ import { CarouselService } from '../services/settings';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  carousels: Carousel[];
+  @ViewChild("carouselExampleSlidesOnly", {static: false}) carouselElement: ElementRef<HTMLElement>;
+  carousels: Carouselmodel[];
   carouselsSub: any;
-  sortedcarousels: Carousel[];
+  sortedcarousels: Carouselmodel[];
+  carouselRef: Carousel;
 
   constructor(
     private carousel:CarouselService,private router: Router
@@ -29,6 +32,12 @@ export class HomeComponent implements OnInit {
     );
     
       this.carousel.getCarouselalldata();
+  }
+  ngAfterViewInit() {
+    this.carouselRef = new Carousel(this.carouselElement.nativeElement, {
+      slide: false,
+      interval: 4000
+    });
   }
   getNavigation(link, id){
       

@@ -14,6 +14,7 @@ export class Userdeleted {
     fonction:string;
     secteur:string;
     civilite:string;
+    nature:string;
     natureactivite:string;
     activite:string
     sousactivite:string

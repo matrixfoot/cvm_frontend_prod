@@ -197,6 +197,8 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
             confirmpassword: [null,],
             secteur: [this.user.secteur,],
             civilite: [this.user.civilite,],
+            nature: [this.user.nature,],
+
             raisonsociale: [this.user.raisonsociale,],
             image: [this.user.ficheUrl||'',],
             activitynature: [{value:this.user.natureactivite,}],
@@ -237,6 +239,7 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
               confirmpassword: [null,],
               secteur: [this.user.secteur,],
               civilite: [this.user.civilite,],
+              nature: [this.user.nature,],
               raisonsociale: [this.user.raisonsociale,],
               image: [this.user.ficheUrl||'',],
               activitynature: [{value:this.user.natureactivite,}],
@@ -322,6 +325,7 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
     user.codepostal = this.userForm.get('codepostal').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;
+    user.nature = this.userForm.get('nature').value;
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;

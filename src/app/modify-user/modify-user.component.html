@@ -17,7 +17,17 @@
     <p>veuillez renseigner les champs obligatoires (*)</p>
     
     
-    
+    <div title="indiquer votre type" class="input-container">
+     
+      <label for="civilite"> Nature utilisateur:</label>  
+      <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+       
+  <select  class="input-field" placeholder="Entrer nature utilisateur" id="nature" formControlName="nature" name="nature" >
+    <option hidden >Entrer la nature de l'utilisateur</option>
+    <option value="Personne Physique">Personne Physique</option>
+    <option value="Personne Morale">Personne Morale</option>
+  </select>
+    </div>
     <div class="input-container" id="input1"title="indiquer votre civilité" >
         
         <label for="civilite"> Civilite:</label>
@@ -31,13 +41,15 @@
     </div>
 
     <div title="indiquer votre nom"class="input-container"  id="input2">
-      <label for="civilite"> Nom:</label>
-      <i class="fa fa-user icon"></i>
+      <label for="lastname"*ngIf="user.nature=='Personne Physique'">Nom Utilisateur:</label>
+      <label for="lastname"*ngIf="user.nature=='Personne Morale'">Nom de l'entité:</label>
+            <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
       </div>
 
       <div title="indiquer votre prenom"class="input-container"  id=input3>
-        <label for="civilite"> Prenom:</label>
+        <label for="lastname"*ngIf="user.nature=='Personne Physique'">Prénom Utilisateur:</label>
+        <label for="lastname"*ngIf="user.nature=='Personne Morale'">nom et prénom du reponsable de l'entité:</label>
         <i class="fa fa-user icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
       </div> 
