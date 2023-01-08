@@ -389,7 +389,6 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     else return (
       this.token.saved=true,
       this.router.navigate(['login']));  
-      
     this.tauxdt=0.600      
     this.usersservice.getUserById(this.currentUser.userId).then(
             (user: User) => {
@@ -2803,7 +2802,8 @@ this.DecfiscmensService.create(decfiscmens).then(
             confirmButtonColor: '#3085d6',
           }).then((result) => {}).catch(() => {
             Swal.fire('opération non aboutie!')
-          })  
+          })
+          this.resetretenuealasourceall()    
           this.showretenuetab=true;
           this.showtfptab=true;
           this.showfoprolostab=true;
