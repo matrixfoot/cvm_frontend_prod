@@ -17,10 +17,12 @@
    .navbar {
      padding: 0px;
      margin: 0;  
-     background-color: transparent;
+     background-color:transparent;
+     z-index:99;
      color: rgb(4, 4, 82);
      padding-left: 10px;
-    }
+    
+        }
     
      .disabled{
       cursor: not-allowed;
