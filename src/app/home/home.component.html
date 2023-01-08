@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator"*ngIf="carousels">
+    <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator"*ngIf="carousels" >
       <slide *ngFor="let item of sortedcarousels; let index=index">
          <img src="../../assets/carousel background.jpg" alt="image slide" style="display: block; width: 100%;height:250px;">
          <div class="carousel-caption">
