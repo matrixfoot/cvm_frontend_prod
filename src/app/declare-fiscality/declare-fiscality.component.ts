@@ -232,7 +232,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value=true;
+  option172Value=false;
   option173Value=false;
   option174Value:any;
   option175Value:any;
@@ -411,6 +411,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               ||this.activite=='Sage-femmes')
               {
                 this.tauxtva='0.07'
+                this.option172Value=true
               }
               if(this.activite=='Consultant')
               {
@@ -2795,14 +2796,22 @@ this.DecfiscmensService.create(decfiscmens).then(
           var text4 = document.getElementById("Year");
           var text5 = document.getElementById("Month");
           var text2 = document.getElementById("tabcontainer");
-
           Swal.fire({
-            title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+            title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
             icon: 'info',
             confirmButtonColor: '#3085d6',
-          }).then((result) => {}).catch(() => {
+          }).then((result) => {
+            Swal.fire({
+              title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+              icon: 'info',
+              confirmButtonColor: '#3085d6',
+            }).then((result) => {}).catch(() => {
+              Swal.fire('opération non aboutie!')
+            })
+          }).catch(() => {
             Swal.fire('opération non aboutie!')
           })
+         
           this.resetretenuealasourceall()    
           this.showretenuetab=true;
           this.showtfptab=true;

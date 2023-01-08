@@ -244,7 +244,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value=true;
+  option172Value=false;
   option173Value=false;
   option174Value:any;
   option175Value:any;
@@ -857,12 +857,20 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
         this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
           this.option72Value=+(this.option71Value *0.19)
           Swal.fire({
-            title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+            title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
             icon: 'info',
             confirmButtonColor: '#3085d6',
-          }).then((result) => {}).catch(() => {
+          }).then((result) => {
+            Swal.fire({
+              title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+              icon: 'info',
+              confirmButtonColor: '#3085d6',
+            }).then((result) => {}).catch(() => {
+              Swal.fire('opération non aboutie!')
+            })
+          }).catch(() => {
             Swal.fire('opération non aboutie!')
-          })  
+          })
           this.showretenuetab=true;
           this.showtfptab=true;
           this.showfoprolostab=true;
@@ -2493,6 +2501,33 @@ onSubmit() {
       
     }
   );
+}
+onchoice()
+{
+  Swal.fire({
+    title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
+    
+    icon: 'info',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#555',
+    confirmButtonText: 'oui',
+    cancelButtonText: 'Annuler',
+    denyButtonText: 'non,merci',
+    
+    }).then((result) => {
+    if (result.isConfirmed) {
+      this.onSend() 
+    }
+    else if (result.isDenied)
+    {
+      this.onSend()
+    }
+    
+    }).catch(() => {
+    Swal.fire('opération non aboutie!');
+    });
 }
 onSend() {
   this.loading = true;
