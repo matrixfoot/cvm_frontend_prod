@@ -45,7 +45,7 @@
   <div *ngIf="submitted && f.civilite.errors" class="invalid-feedback">
     <div *ngIf="f.civilite.errors.required">Civilité est obligatoire</div>
 </div>
-    <div title="indiquer votre civilité" class="input-container">
+    <div title="indiquer votre civilité" class="input-container"*ngIf="signupForm.controls['nature'].value=='Personne Physique'">
      
       <label for="civilite"> Civilité:</label>  
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -73,7 +73,13 @@
       <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
         <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
     </div>
-      <div title="indiquer votre prenom"class="input-container">
+      <div title="indiquer votre prenom"class="input-container">     
+      <select  class="input-field"*ngIf="signupForm.controls['nature'].value=='Personne Morale'" placeholder="Entrer Votre civilite" id="civilite" formControlName="civilite" name="civilite" >
+        <option hidden >Entrer Votre Civilité</option>
+        <option value="Monsieur">Monsieur</option>
+        <option value="Madame">Madame</option>
+        <option value="Mademoiselle">Mademoiselle</option>
+      </select>
         <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Physique'">Prénom Utilisateur:</label>
         <label for="lastname"*ngIf="signupForm.controls['nature'].value=='Personne Morale'">nom et prénom du reponsable de l'entité:</label>
         <i class="fa fa-user icon"></i>

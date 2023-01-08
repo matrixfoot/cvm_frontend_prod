@@ -28,7 +28,7 @@
     <option value="Personne Morale">Personne Morale</option>
   </select>
     </div>
-    <div class="input-container" id="input1"title="indiquer votre civilité" >
+    <div class="input-container" id="input1"title="indiquer votre civilité"*ngIf="user.nature=='Personne Physique'||userForm.controls['nature'].value=='Personne Physique'">
         
         <label for="civilite"> Civilite:</label>
         <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -48,6 +48,12 @@
       </div>
 
       <div title="indiquer votre prenom"class="input-container"  id=input3>
+        <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite"*ngIf="user.nature=='Personne Morale'||userForm.controls['nature'].value=='Personne Morale'" formControlName="civilite" name="civilite" >
+          <option hidden >Modifier Votre Civilité</option>
+          <option value="Monsieur">Monsieur</option>
+          <option value="Madame">Madame</option>
+          <option value="Mademoiselle">Mademoiselle</option>
+        </select>
         <label for="lastname"*ngIf="user.nature=='Personne Physique'||userForm.controls['nature'].value=='Personne Physique'">Prénom Utilisateur:</label>
         <label for="lastname"*ngIf="user.nature=='Personne Morale'||userForm.controls['nature'].value=='Personne Morale'">nom et prénom du reponsable de l'entité:</label>
         <i class="fa fa-user icon"></i>
@@ -156,6 +162,7 @@
 
 <option value="Réel">Réel</option>
 <option value="Forfait D'assiette">Forfait D'assiette</option>
+<option value="Non soumis">Non soumis</option>
 <option hidden value="Autre">Autre</option>
 </select>
 </div>

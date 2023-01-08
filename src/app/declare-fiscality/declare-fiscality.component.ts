@@ -124,7 +124,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   option61Value:any;
   option62Value:any;
   option63Value:any;
-  option64Value:any;
+  option64Value='';
   option65Value=false;
   option66Value=false;
   option67Value=false;
@@ -405,6 +405,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert')
               {
                 this.tauxtva='0.13'
+                this.option172Value==false
               }
               if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
               this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
@@ -415,6 +416,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
               if(this.activite=='Consultant')
               {
                 this.tauxtva='0.19'
+                this.option172Value==false
               }
             
               console.log(this.tauxtva)
@@ -1015,6 +1017,7 @@ if (this.option48Value)
   +Math.trunc(( ((+this.standardhonorairegroupementsform.get('brutammount').value+ +this.standardhonorairephysiquereelform.get('brutammount').value) *0.03))*1000)/1000 +this.standardmontant15form.get('retenueammount').value+
   this.standardmontant10form.get('retenueammount').value+ +this.standardmontantindividuelform.get('retenueammount').value+ +
   this.standardmontantautreform.get('retenueammount').value
+  console.log(this.totalretenueammount)
 }
 else if (!this.option48Value)
 {
@@ -1027,14 +1030,22 @@ if (this.option51Value)
   +this.standardtvarecuperableimmobilierform.get('achatlocauxtva').value
   this.tvacollecte=this.tvacollecte1+this.tvacollecte119+this.option72Value
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
-  if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
+  console.log(this.tvacollecte)
+  console.log(this.preptotaltvaammount)
+  console.log(this.option64Value)
+
+  if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-+this.option64Value>=0)
   {
-    this.totaltvaammount=this.preptotaltvaammount-this.option64Value
+    this.totaltvaammount=this.preptotaltvaammount-+this.option64Value
+    console.log('1')
+
   }
   else 
   {
   this.totaltvaammount=0
-  this.totalreporttvaammount=this.option64Value-this.preptotaltvaammount
+  this.totalreporttvaammount=+this.option64Value-this.preptotaltvaammount
+  console.log('2')
+
   }
 }   
 else if (!this.option51Value)
@@ -2785,6 +2796,7 @@ this.DecfiscmensService.create(decfiscmens).then(
           var text4 = document.getElementById("Year");
           var text5 = document.getElementById("Month");
           var text2 = document.getElementById("tabcontainer");
+
           Swal.fire({
             title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
             icon: 'info',
@@ -3010,7 +3022,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardtvarecuperableautreachatform.controls['achatlocauxtva'].reset()
     this.standardtvarecuperableautreachatform.controls['achatimporteht'].reset()
     this.standardtvarecuperableautreachatform.controls['achatimportetva'].reset()
-    this.option64Value=0;
+    this.option64Value='';
     this.tvacollecte=0.000
     this.tvarecuperable=0.000
     this.totalreporttvaammount=0;

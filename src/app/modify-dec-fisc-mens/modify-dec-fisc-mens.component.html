@@ -48,7 +48,7 @@
               <div><input type="checkbox" id="myCheck8" (click)="myFunction8()"[(ngModel)]="option48Value" /></div>
               <div><label for="rb1">Retenue à La Source</label></div>
            </td>
-           <td style="text-align: center;">
+           <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
               <div><input type="checkbox" id="myCheck9" (click)="myFunction9()"[(ngModel)]="option49Value" /></div>
               <div><label for="rb1">TFP</label></div>
             </td>
@@ -56,7 +56,7 @@
               <div><input type="checkbox" id="myCheck10"(click)="myFunction10()"[(ngModel)]="option50Value" /></div>
               <div><label for="rb1">Foprolos</label></div>
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
               <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
               <div><label for="rb1">TVA</label></div>
             </td>
@@ -66,11 +66,11 @@
               <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
               <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
               <div><input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" /></div>
               <div><label for="rb1">Droit de timbre</label></div>
             </td>
-            <td style="text-align: center;">
+            <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
               <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" /></div>
               <div><label for="rb1">TCL</label></div>
             </td>
@@ -86,7 +86,7 @@
 
              
           </td>
-          <td>
+          <td *ngIf="activite!='Syndic des copropriétaires'">
              <div><input  *ngIf="showtfpverif===true" type="checkbox" id="myCheck25" (click)="myFunction25()"[(ngModel)]="option66Value" /></div>
              <div><label *ngIf="option66Value===true" style="color: green;">Validé</label></div>
              <div><label  *ngIf="option66Value===false" style="color: red;">Non Validé</label></div>
@@ -98,7 +98,7 @@
               <div><label  *ngIf="option67Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
-           <td>
+           <td *ngIf="activite!='Syndic des copropriétaires'">
             <div><input *ngIf="showtvaverif===true" type="checkbox" id="myCheck27" (click)="myFunction27()"[(ngModel)]="option68Value" /></div>
               <div><label *ngIf="option68Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
@@ -112,13 +112,13 @@
               <div><label  *ngIf="option173Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
-           <td>
+           <td *ngIf="activite!='Syndic des copropriétaires'">
             <div><input *ngIf="showtimbreverif===true" type="checkbox" id="myCheck28" (click)="myFunction28()"[(ngModel)]="option69Value" /></div>
               <div><label *ngIf="option69Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option69Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
-           <td>
+           <td *ngIf="activite!='Syndic des copropriétaires'">
             <div><input *ngIf="showtclverif===true" type="checkbox" id="myCheck29" (click)="myFunction29()"[(ngModel)]="option70Value" /></div>
               <div><label *ngIf="option70Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option70Value===false" style="color: red;">Non Validé</label></div>

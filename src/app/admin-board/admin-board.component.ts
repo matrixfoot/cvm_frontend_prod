@@ -25,6 +25,8 @@ export class AdminBoardComponent implements OnInit {
   public searchForm: FormGroup;
   public loading: boolean;
   public users: User[] = [];
+  public users2: User[]= [];
+
   public filtredusers: User[] = [];
   public decfiscmenss: Decfiscmens[] = [];
   public deccomptabilites: Deccomptabilite[] = [];
@@ -51,7 +53,6 @@ export class AdminBoardComponent implements OnInit {
   filtredusers2: User[] = [];
   prenomfisc: string
   nomfisc: string
-  users2: User[];
   
 
   constructor(private formBuilder: FormBuilder,
@@ -102,7 +103,7 @@ export class AdminBoardComponent implements OnInit {
                 this.usersSub = this.UserService.users$.subscribe(
                   (users) => {
                     this.users = users;
-                    this.users2=users
+                    this.users2= users
                     this.loading = false;
                   },
                   (error) => {
@@ -147,7 +148,6 @@ export class AdminBoardComponent implements OnInit {
                 );
                this.getall()
                this.getalldeccomptabilites()
-               this.getalldecfiscmenss()
               }
 filterusers(id:string)
 {
@@ -158,7 +158,6 @@ filterusers(id:string)
 filterusers2(id:string)
 {
   this.filtredusers2=this.deccompt.filterByValue(this.users2,id)
-  console.log(this.filtredusers2)
   this.prenomfisc=this.filtredusers2[0].firstname
   this.nomfisc=this.filtredusers2[0].lastname
 }
