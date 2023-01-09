@@ -45,7 +45,7 @@ export class CareerComponent implements OnInit {
           icon: 'error',
           confirmButtonColor: '#3085d6',
         }).then((result) => {
-          this.router.navigate(['user-board/'])
+          this.router.navigate(['home'])
           this.loading=false
         }).catch(() => {
           Swal.fire('opération non aboutie!')
