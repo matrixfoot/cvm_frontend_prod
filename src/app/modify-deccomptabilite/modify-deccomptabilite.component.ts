@@ -24,7 +24,7 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   uploadFilesautre5: File[] = [];
   uploadFilesautre6: File[] = [];
   deccomptabilite:Deccomptabilite;
-
+ 
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -94,6 +94,8 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   public ammounts5: FormArray;
   salaireform: FormGroup;
   public ammounts6: FormArray;
+  activitedec: string;
+  sousactivitedec: string;
   constructor(private fb: FormBuilder,
   
    
@@ -116,6 +118,10 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
     ammounts3: this.fb.array([ this.createammount3() ])
   });
   this.relevemanuelform = this.fb.group({
+    mois:'',
+    annee:'',
+    soldemoisprecedentdebit:'',
+    soldemoisprecedentcredit:'',
     ammounts4: this.fb.array([ this.createammount4() ])
   });
   this.relevejointform = this.fb.group({
@@ -129,211 +135,214 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.tokenStorage.getUser();
+    this.tokenStorage.saved=false;
+
     this.userservice.getUserById(this.currentUser.userId).then(
       (user: User) => {
         this.loading = false;
         this.currentUser = user;
         this.role=user.role
         this.usertype=user.usertype
+        this.activite=user.activite
         console.log(this.currentUser)
+        this.route.params.subscribe(
+          (params) => {
+            this.deccompt.getDeccomptabilitereqById(params.id).then(
+              (deccomptabilite: Deccomptabilite) => {
+                
+                this.deccomptabilite = deccomptabilite;
+                this.nature=deccomptabilite.nature
+                this.deccomptabiliteForm = this.fb.group({
+                
+                  statut: [this.deccomptabilite.statut, Validators.required],
+                  motif: [this.deccomptabilite.motif, Validators.required],
+                
+                });
+                this.option1Value=this.deccomptabilite.annee
+              this.option2Value=this.deccomptabilite.mois
+              if (this.deccomptabilite.autre1.length>0||this.deccomptabilite.autre2.length>0)
+              {
+                this.option3Value=true
+                this.showcatab=true
+                this.showinvoiceform=true
+                if(this.deccomptabilite.autre1.length>0)
+                {
+    this.showeditionnote=true
+                }
+                if(this.deccomptabilite.autre2.length>0)
+                {
+    this.showrecettejour=true
+                }
+              }
+              if (this.deccomptabilite.autre3.length>0)
+              {
+                this.option4Value=true
+                this.showachattab=true
+              }
+              if (this.deccomptabilite.autre4.length>0||this.deccomptabilite.autre5.length>0)
+              {
+                this.option5Value=true
+                this.showbanquetab=true
+                if(this.deccomptabilite.autre4.length>0)
+                {
+    this.showrelevemanuel=true
+                }
+                if(this.deccomptabilite.autre5.length>0)
+                {
+    this.showrelevejoint=true
+                }
+              }
+              if (this.deccomptabilite.autre6.length>0)
+              {
+                this.option6Value=true
+                this.showsalairetab=true
+                this.showpaiemanuel=true
+              }
+              this.editionnoteform = new FormGroup({
+                
+                ammounts: new FormArray(deccomptabilite.autre1.map(item => {
+                  const group = this.createammount();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.recettejournaliereform = new FormGroup({
+                
+                ammounts2: new FormArray(deccomptabilite.autre2.map(item => {
+                  const group = this.createammount2();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.factureachatform = new FormGroup({
+                
+                ammounts3: new FormArray(deccomptabilite.autre3.map(item => {
+                  const group = this.createammount3();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.relevemanuelform = new FormGroup({
+                
+                ammounts4: new FormArray(deccomptabilite.autre4.map(item => {
+                  const group = this.createammount4();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.relevejointform = new FormGroup({
+                
+                ammounts5: new FormArray(deccomptabilite.autre5.map(item => {
+                  const group = this.createammount5();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.salaireform = new FormGroup({
+                
+                ammounts6: new FormArray(deccomptabilite.autre6.map(item => {
+                  const group = this.createammount6();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              //update sum of different formarrays
+              this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                acc += +(curr.montantht || 0);
+                return acc;
+              },0);
+              this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                acc += +(curr.montanttva || 0);
+                return acc;
+              },0);
+              this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                acc += +(curr.montantdt || 0);
+                return acc;
+              },0);
+              this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                acc += +(curr.montantttc || 0);
+                return acc;
+              },0);
+              this.totalht = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montantht || 0);
+                return acc;
+              },0);
+              this.totaltva = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montanttva || 0);
+                return acc;
+              },0);
+              this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montantdt || 0);
+                return acc;
+              },0);
+              this.totalttc = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montantttc || 0);
+                return acc;
+              },0);
+              this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montantht || 0);
+                return acc;
+              },0);
+              this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montanttva || 0);
+                return acc;
+              },0);
+              this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montantdt || 0);
+                return acc;
+              },0);
+              this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montantttc || 0);
+                return acc;
+              },0);
+              this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+                acc += +(curr.debit || 0);
+                return acc;
+              },0);
+              this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+                acc += +(curr.credit || 0);
+                return acc;
+              },0);
+              this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
+                acc += +(curr.credit - curr.debit || 0);
+                return acc;
+              },0);
+              this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.salairebrut || 0);
+                return acc;
+              },0);
+              this.totalcnss = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.montantcnss || 0);
+                return acc;
+              },0);
+              this.totalsalaireimposable = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.montantimposable || 0);
+                return acc;
+              },0);
+              this.totalretenueimpot = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.montantretenue || 0);
+                return acc;
+              },0);
+              this.totalavancepret = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.montantavance || 0);
+                return acc;
+              },0);
+              this.totalsalairenet = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
+                acc += +(curr.salairenet || 0);
+                return acc;
+              },0);
+              })
+      }
+        )
       }
     )
-    this.tokenStorage.saved=false;
-    this.route.params.subscribe(
-      (params) => {
-        this.deccompt.getDeccomptabilitereqById(params.id).then(
-          (deccomptabilite: Deccomptabilite) => {
-            
-            this.deccomptabilite = deccomptabilite;
-            this.nature=deccomptabilite.nature
-            this.deccomptabiliteForm = this.fb.group({
-            
-              statut: [this.deccomptabilite.statut, Validators.required],
-              motif: [this.deccomptabilite.motif, Validators.required],
-            
-            });
-            this.option1Value=this.deccomptabilite.annee
-          this.option2Value=this.deccomptabilite.mois
-          if (this.deccomptabilite.autre1.length>0||this.deccomptabilite.autre2.length>0)
-          {
-            this.option3Value=true
-            this.showcatab=true
-            this.showinvoiceform=true
-            if(this.deccomptabilite.autre1.length>0)
-            {
-this.showeditionnote=true
-            }
-            if(this.deccomptabilite.autre2.length>0)
-            {
-this.showrecettejour=true
-            }
-          }
-          if (this.deccomptabilite.autre3.length>0)
-          {
-            this.option4Value=true
-            this.showachattab=true
-          }
-          if (this.deccomptabilite.autre4.length>0||this.deccomptabilite.autre5.length>0)
-          {
-            this.option5Value=true
-            this.showbanquetab=true
-            if(this.deccomptabilite.autre4.length>0)
-            {
-this.showrelevemanuel=true
-            }
-            if(this.deccomptabilite.autre5.length>0)
-            {
-this.showrelevejoint=true
-            }
-          }
-          if (this.deccomptabilite.autre6.length>0)
-          {
-            this.option6Value=true
-            this.showsalairetab=true
-            this.showpaiemanuel=true
-          }
-          this.editionnoteform = new FormGroup({
-            
-            ammounts: new FormArray(deccomptabilite.autre1.map(item => {
-              const group = this.createammount();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.recettejournaliereform = new FormGroup({
-            
-            ammounts2: new FormArray(deccomptabilite.autre2.map(item => {
-              const group = this.createammount2();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.factureachatform = new FormGroup({
-            
-            ammounts3: new FormArray(deccomptabilite.autre3.map(item => {
-              const group = this.createammount3();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.relevemanuelform = new FormGroup({
-            
-            ammounts4: new FormArray(deccomptabilite.autre4.map(item => {
-              const group = this.createammount4();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.relevejointform = new FormGroup({
-            
-            ammounts5: new FormArray(deccomptabilite.autre5.map(item => {
-              const group = this.createammount5();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          this.salaireform = new FormGroup({
-            
-            ammounts6: new FormArray(deccomptabilite.autre6.map(item => {
-              const group = this.createammount6();
-              //@ts-ignore
-              group.patchValue(item);
-              return group;
-            }))
-          });
-          //update sum of different formarrays
-          this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-            acc += +(curr.montantht || 0);
-            return acc;
-          },0);
-          this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-            acc += +(curr.montanttva || 0);
-            return acc;
-          },0);
-          this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-            acc += +(curr.montantdt || 0);
-            return acc;
-          },0);
-          this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-            acc += +(curr.montantttc || 0);
-            return acc;
-          },0);
-          this.totalht = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
-            acc += +(curr.montantht || 0);
-            return acc;
-          },0);
-          this.totaltva = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
-            acc += +(curr.montanttva || 0);
-            return acc;
-          },0);
-          this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
-            acc += +(curr.montantdt || 0);
-            return acc;
-          },0);
-          this.totalttc = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
-            acc += +(curr.montantttc || 0);
-            return acc;
-          },0);
-          this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-            acc += +(curr.montantht || 0);
-            return acc;
-          },0);
-          this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-            acc += +(curr.montanttva || 0);
-            return acc;
-          },0);
-          this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-            acc += +(curr.montantdt || 0);
-            return acc;
-          },0);
-          this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
-            acc += +(curr.montantttc || 0);
-            return acc;
-          },0);
-          this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-            acc += +(curr.debit || 0);
-            return acc;
-          },0);
-          this.totalcredit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-            acc += +(curr.credit || 0);
-            return acc;
-          },0);
-          this.totalsoldemois = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
-            acc += +(curr.credit - curr.debit || 0);
-            return acc;
-          },0);
-          this.totalsalairebrut = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.salairebrut || 0);
-            return acc;
-          },0);
-          this.totalcnss = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.montantcnss || 0);
-            return acc;
-          },0);
-          this.totalsalaireimposable = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.montantimposable || 0);
-            return acc;
-          },0);
-          this.totalretenueimpot = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.montantretenue || 0);
-            return acc;
-          },0);
-          this.totalavancepret = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.montantavance || 0);
-            return acc;
-          },0);
-          this.totalsalairenet = +(this.salaireform.get('ammounts6').value).reduce((acc,curr)=>{
-            acc += +(curr.salairenet || 0);
-            return acc;
-          },0);
-          })
-  }
-    )
+    
 
 }
 canDeactivate():boolean {  

@@ -150,7 +150,7 @@ this.relevemanuelform = this.fb.group({
   soldemoisprecedentdebit:'',
   soldemoisprecedentcredit:'',
   ammounts4: this.fb.array([ this.createammount4() ])
-});
+}); 
 this.relevejointform = this.fb.group({
   ammounts5: this.fb.array([ this.createammount5() ])
 });
