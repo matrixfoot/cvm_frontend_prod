@@ -1606,8 +1606,8 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
     deccomptabilite.totalretenueimpot=this.totalretenueimpot
     deccomptabilite.totalavancepret=this.totalavancepret
     deccomptabilite.totalsalairenet=this.totalsalairenet
-    deccomptabilite.mois=this.option2Value
-
+    deccomptabilite.activite=this.activite
+    deccomptabilite.sousactivite=this.sousactivite
     deccomptabilite.autre1=[]
     deccomptabilite.autre2=[]
     deccomptabilite.autre3=[]
@@ -1956,8 +1956,8 @@ console.log(deccomptabilite.autre6)
                 chiffreaffaireht:'',
                 montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
-    decfiscmens.activite=this.user.activite;
-    decfiscmens.sousactivite=this.user.sousactivite;
+    decfiscmens.activite=this.activite;
+    decfiscmens.sousactivite=this.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
     decfiscmens.firstname=this.user.firstname
@@ -2100,7 +2100,6 @@ if (!user.choixfacture)
 {
 Swal.fire({
 title: 'Veuillez choisir le mode de déclaration du chiffre d\'affaire. Notez que ce choix effectué ne peut être changé que suite à une demande au cabinet MaCompta',
-
 icon: 'info',
 showDenyButton: true,
 showCancelButton: true,

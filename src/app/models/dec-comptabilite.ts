@@ -4,6 +4,8 @@ export class Deccomptabilite {
   _id:string;
 codedeclaration:string;
   nature:string;
+  activite:string;
+  sousactivite:string;
   mois:string;
   annee:string;
   debitmoisprecedent:string;

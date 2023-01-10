@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Deccomptabilite } from '../models/dec-comptabilite';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
@@ -87,10 +88,6 @@ export class ViewDeccomptabiliteComponent implements OnInit {
       (user: User) => {
         this.currentUser = user;
         this.role=user.role
-        this.usertype=user.usertype
-        this.firstname=user.firstname
-        this.lastname=user.lastname
-        this.sousactivite=user.sousactivite
         console.log(this.currentUser)
       }
     )
@@ -138,6 +135,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   this.totaltva19=deccomptabilite.totaltva19
   this.totaldt19=deccomptabilite.totaldt19
   this.totalttc19=deccomptabilite.totalttc19
+  console.log(this.totalht19)
             if (this.deccomptabilite.autre1.length>0)
           {
             this.showeditionnote=true
@@ -169,6 +167,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
               this.usertype=user.usertype
               this.firstname=user.firstname
               this.lastname=user.lastname
+              this.sousactivite=user.sousactivite
             }
           )
           }
@@ -180,5 +179,43 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   {
 this.excelService.exportAsExcelFile(this.deccomptabilite.autre1,this.deccomptabilite.autre2,this.deccomptabilite.autre3,
   this.deccomptabilite.autre4,this.deccomptabilite.autre5,this.deccomptabilite.autre6,`Maquette comptable_${this.deccomptabilite.mois}_${this.deccomptabilite.annee}`)
+  }
+  getNavigation(link, id){
+      
+    this.router.navigate([link + '/' + id]);
+      
+  }
+  onDelete() {
+    this.loading = true;
+    this.route.params.subscribe(
+      (params: Params) => {
+        this.deccompt.getDeccomptabilitereqById(params.id).then(
+          (data:any) => {
+            this.loading = false;
+            Swal.fire({
+              title: 'Veuillez confirmer la suppression!',
+              
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Confirmer',
+              
+            }).then((result) => {
+              if (result.value) {
+                this.deccompt.deletedeccomptabiliteById(params.id);
+                this.router.navigate(['admin-board']);
+              }
+  
+            }).catch(() => {
+              Swal.fire('opération non aboutie!');
+            });
+    
+        
+          }
+          
+        );
+      }
+    );
   }
 }
