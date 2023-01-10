@@ -160,7 +160,7 @@ return new Promise((resolve, reject) => {
             deccomptabiliteData.append('image', image6[i],'t'+filtredautre6[i].type+filtredautre6[i].matricule+deccomptabilitereq.mois+deccomptabilitereq.annee); 
           }
         console.log(deccomptabiliteData)
-          this.http.put(API_URL_cloud + id, deccomptabiliteData).subscribe(
+          this.http.put(API_URL_test + id, deccomptabiliteData).subscribe(
             (response) => {
               resolve(response);
             },

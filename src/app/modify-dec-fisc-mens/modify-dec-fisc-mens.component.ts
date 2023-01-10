@@ -383,6 +383,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   public ammounts: FormArray;
   tauxdt: number;
   tvacollecte19=0.000;
+  role: string;
   constructor(private formBuilder: FormBuilder,
   
    
@@ -411,6 +412,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       this.user=user
       this.activite=this.user.activite;
       this.sousactivite=this.user.sousactivite
+      this.role=user.role
 
       
               this.dec.getdecfiscmens(user._id).then(
@@ -856,21 +858,25 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
     console.log(this.tvacollecte2,this.tvacollecte3,this.tvacollecte4,this.tvacollecte5,this.tvacollecte6)
         this.option71Value=+(this.tvacollecte2+this.tvacollecte3+this.tvacollecte4+this.tvacollecte5+this.tvacollecte6)
           this.option72Value=+(this.option71Value *0.19)
-          Swal.fire({
-            title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
-            icon: 'info',
-            confirmButtonColor: '#3085d6',
-          }).then((result) => {
+          if(this.role!='admin')
+          {
             Swal.fire({
-              title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+              title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
               icon: 'info',
               confirmButtonColor: '#3085d6',
-            }).then((result) => {}).catch(() => {
+            }).then((result) => {
+              Swal.fire({
+                title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+                icon: 'info',
+                confirmButtonColor: '#3085d6',
+              }).then((result) => {}).catch(() => {
+                Swal.fire('opération non aboutie!')
+              })
+            }).catch(() => {
               Swal.fire('opération non aboutie!')
             })
-          }).catch(() => {
-            Swal.fire('opération non aboutie!')
-          })
+          }
+          
           this.showretenuetab=true;
           this.showtfptab=true;
           this.showfoprolostab=true;
@@ -1246,7 +1252,7 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
       this.calculateResultForm36()
     })
     this.tokenStorage.saved=false;
-    if (this.activite != decfiscmens.activite||this.sousactivite != decfiscmens.sousactivite) 
+    if (this.activite != decfiscmens.activite&&this.role!='admin'||this.sousactivite != decfiscmens.sousactivite&&this.role!='admin') 
     return (Swal.fire({
       title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',
       icon: 'error',

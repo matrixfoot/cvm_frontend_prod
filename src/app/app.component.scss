@@ -1,8 +1,4 @@
- @media screen and (max-width: 1200px) {
-    .left {   
-      flex-direction: column;
-    }
-  }
+ 
   #routoutlet
   {
     margin-top: 140px;
@@ -15,5 +11,15 @@
   top: 0;
   width: 100%;
   z-index: 100;
- } 
+ }
+ @media screen and (max-width: 768px) {
+  app-header
+  {
+   position: relative;
+   top: 0;
+   width: 100%;
+   z-index: 100;
+  }
+  
+}  
   

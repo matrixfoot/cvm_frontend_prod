@@ -179,7 +179,7 @@ totalht219=0.000;
                 
                 this.deccomptabilite = deccomptabilite;
                 //general functions oninit
-                if (this.activite != deccomptabilite.activite||this.sousactivite != deccomptabilite.sousactivite) 
+                if (this.activite != deccomptabilite.activite&&this.role!='admin'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin') 
                 return (Swal.fire({
                   title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',
                   icon: 'error',

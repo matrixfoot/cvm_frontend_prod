@@ -1583,6 +1583,10 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
     deccomptabilite.totalttc=this.totalttc
+    deccomptabilite.totalht19=this.totalht19
+    deccomptabilite.totaltva19=this.totaltva19
+    deccomptabilite.totaldt19=this.totaldt19
+    deccomptabilite.totalttc19=this.totalttc19
     deccomptabilite.totalht2=this.totalht2
     deccomptabilite.totaltva2=this.totaltva2
     deccomptabilite.totaldt2=this.totaldt2
