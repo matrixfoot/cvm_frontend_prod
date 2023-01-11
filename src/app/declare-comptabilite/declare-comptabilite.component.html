@@ -1,0 +1,850 @@
+<div *ngIf="loading" id="loader"></div>
+<div>
+<fieldset>
+    <legend>Choix de l'année et du mois</legend>
+    <div class="checkbox-container" id="datelist">
+        <div class="input-container" id="Year"> 
+           <i class="glyphicon glyphicon-time"></i>
+           <label for="year">Sélectionner année</label>
+           <select id="year" name="year"(change)="verifyfutur($event)"[(ngModel)]="option1Value">
+            <option></option>
+            <option value="2023">2023</option>
+            <option  value="2022">2022</option>
+            <option  value="2021">2021</option> 
+              
+          </select>
+         </div>
+         <div class="input-container" id="Month"> 
+           <i class="glyphicon glyphicon-time"></i>
+           <label for="month">Sélectionner mois</label>
+           <select id="month" name="month" #cricket (change)="verify($event)"(change)="verifyfutur($event)"[(ngModel)]="option2Value">
+            <option></option>
+            <option value="01">(01)janvier</option>
+                           <option value="02">(02)février</option>
+                           <option value="03">(03)Mars</option>
+                           <option value="04">(04)avril</option>
+                           <option value="05">(05)Mai</option>
+                           <option value="06">(06)juin</option>
+                           <option value="07">(07)juillet</option>
+                           <option value="08">(08)août</option>
+                           <option value="09">(09)septembre</option>
+                           <option value="10">(10)octobre</option>
+                           <option value="11">(11)novembre</option>
+                           <option value="12">(12)décembre</option>
+          </select>
+         </div>
+      
+     </div>
+</fieldset>
+<!--rubrique de choix des données à saisir-->
+<fieldset id="datalist">
+    <legend>Liste des donnés à saisir:</legend> 
+    <table>
+      
+      <tbody>
+      <tr>
+        
+       <td style="text-align: center;"> 
+          <div><input type="checkbox" id="myCheck1" (click)="myFunction1()"[(ngModel)]="option3Value" /></div>
+          <div><label for="rb1">Chiffre d'affaires</label></div>
+       </td>
+       <td style="text-align: center;">
+          <div><input type="checkbox" id="myCheck2" (click)="myFunction2()"[(ngModel)]="option4Value" /></div>
+          <div><label for="rb1">Achats</label></div>
+        </td>
+        <td style="text-align: center;">
+          <div><input type="checkbox" id="myCheck3"(click)="myFunction3()"[(ngModel)]="option5Value" /></div>
+          <div><label for="rb1">Banques</label></div>
+        </td>
+        <td style="text-align: center;">
+          <div><input type="checkbox" id="myCheck4" (click)="myFunction4()"[(ngModel)]="option6Value" /></div>
+          <div><label for="rb1">Salaires</label></div>
+        </td> 
+    </tr>
+    <!--
+    <tr id="verifrow">
+        
+      <td>
+        
+         <div><input *ngIf="showretenueverif===true" type="checkbox" id="myCheck24" (click)="myFunction24()"[(ngModel)]="option65Value" /></div>
+         <div><label  *ngIf="option65Value===true" style="color: green;">Validé</label></div>
+         <div><label  *ngIf="option65Value===false" style="color: red;">Non Validé</label></div>
+
+         
+      </td>
+      <td>
+         <div><input  *ngIf="showtfpverif===true" type="checkbox" id="myCheck25" (click)="myFunction25()"[(ngModel)]="option66Value" /></div>
+         <div><label *ngIf="option66Value===true" style="color: green;">Validé</label></div>
+         <div><label  *ngIf="option66Value===false" style="color: red;">Non Validé</label></div>
+
+       </td>
+       <td>
+        <div><input *ngIf="showfoprolosverif===true" type="checkbox" id="myCheck26"(click)="myFunction26()"[(ngModel)]="option67Value" /></div>
+          <div><label *ngIf="option67Value===true" style="color: green;">Validé</label></div>
+          <div><label  *ngIf="option67Value===false" style="color: red;">Non Validé</label></div>
+
+       </td>
+       <td>
+        <div><input *ngIf="showtvaverif===true" type="checkbox" id="myCheck27" (click)="myFunction27()"[(ngModel)]="option68Value" /></div>
+          <div><label *ngIf="option68Value===true" style="color: green;">Validé</label></div>
+          <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
+
+       </td>
+       <td>
+        <div><input *ngIf="showtimbreverif===true" type="checkbox" id="myCheck28" (click)="myFunction28()"[(ngModel)]="option69Value" /></div>
+          <div><label *ngIf="option69Value===true" style="color: green;">Validé</label></div>
+          <div><label  *ngIf="option69Value===false" style="color: red;">Non Validé</label></div>
+
+       </td>
+       <td>
+        <div><input *ngIf="showtclverif===true" type="checkbox" id="myCheck29" (click)="myFunction29()"[(ngModel)]="option70Value" /></div>
+          <div><label *ngIf="option70Value===true" style="color: green;">Validé</label></div>
+          <div><label  *ngIf="option70Value===false" style="color: red;">Non Validé</label></div>
+
+       </td>
+     
+   </tr>
+   -->
+      </tbody>
+    </table>
+  </fieldset> 
+  <!--buttonslist-->
+  <button id="savebutton" class="btn btn-success"*ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true" 
+            type="button" (click)="onchoice()"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Sauvegarder</button>
+  <button id="resetbutton" class="btn btn-secondary" type="button" (click)="restartform()"
+        *ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true">Réinitialiser tout</button>
+  <!--datacontainer-->
+  <div class="container-fluid"id="tabcontainer">
+    <mat-tab-group (selectedTabChange)="onTabClick($event)">
+        <mat-tab label="Chiffre d'affaires" *ngIf="showcatab===true">
+<!--saisie des données factures-->
+<div class="container-fluid" id="invoiceform"*ngIf="showinvoiceform===true">
+    <!--edition note section-->
+    <fieldset id="editionnote" *ngIf="showeditionnote">
+    <legend>Edition de notes d'honoraires</legend>
+    <table class="table table-striped" id="editionnotesection" [formGroup]="editionnoteform">
+    <thead>
+    <tr>            
+    <th>Jour</th>
+    <th>Date complète</th>
+    <th>N° Note d'honoraire</th>
+    <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
+    <th>Montant HT</th>
+    <th>Montant TVA</th>
+    <th>Montant DT</th>
+    <th>Montant TTC</th>
+    <th>Règlement</th>
+
+    </tr>
+    </thead>
+    <tbody formArrayName="ammounts">
+        
+        <tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+               
+                <td style="width: 50px;">
+                    <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                           class="form-control"(change)="setdate(i)"formControlName="jour"placeholder="Jour"/>
+                    </div>
+                   </td>
+                   <td style="width: 150px;">
+                   <div class="col-6">
+                       <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
+                   </div>
+                  </td>
+                  <td style="width: 50px;">
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="numeronote"(change)="onChange(i)"placeholder="N° note honoraire"readonly='true'/>
+                   </div>
+                  </td>
+                  <td *ngIf="sousactivite==='Médecin spécialiste'">
+                    <div class="col-6">
+                        <select class="form-control" placeholder="Taux TVA" id="tauxtva"formControlName="tauxtva" name="tauxtva" >
+                          <option selected value="0.07">7%</option>
+                          <option value="0.19">19%</option>  
+                    </select>
+                </div>
+                  </td> 
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"
+                      (change)="settva(i)"(change)="setttc(i)"(change)="onChange(i)"placeholder="Montant HT"/>
+                   </div>
+                  </td>
+                  
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TVA" readonly='true'/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                      class="form-control"formControlName="montantdt"(change)="onChange(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantttc"(change)="setht(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
+                   </div>
+                  </td>
+                  <td>
+                    <div class="col-6">
+                        <select class="form-control" placeholder="Entrer Votre mode de règelemnt" id="reglement"formControlName="reglement" name="reglement" >
+                        <option value="default"> </option>
+                        <option  value="Espèce">Espèce</option>
+                        <option  value="Chèque">Chèque</option>
+                        <option  value="Traite">Traite</option>
+                        <option  value="Non réglé">Non réglé</option>
+                    </select>
+                </div>
+                  </td>
+                 
+                 
+                
+        </tr>
+        <tr>
+            <td colspan="7"></td>
+            <td>
+              <div>
+              <button type="button" class="btn btn-danger btn-sm"*ngIf="editionnoteform.get('ammounts').value.length>1" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+              </div>
+             </td>
+            <td>
+                <div>
+                <button type="button" class="btn btn-primary mb-2" (click)="addammount()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                </div>
+               </td>
+        </tr>
+        <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Totaux</p>
+                </div>
+            </td>
+            <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+            <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
+        </tr>
+        <tr id="resultrow">
+          <td colspan="3">
+              <div class="col-6">
+                   <p>Totaux19%</p>
+              </div>
+          </td>
+          <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+          <td style="text-align: center;">{{totalht19 | number:'1.3-3'| removeComma}}</td>
+          <td style="text-align: center;">{{totaltva19 | number:'1.3-3'| removeComma}}</td>
+          <td style="text-align: center;">{{totaldt19 | number:'1.3-3'| removeComma}}</td>
+          <td style="text-align: center;">{{totalttc19 | number:'1.3-3'| removeComma}}</td>
+      </tr>
+    </tbody>
+    
+    </table>
+    </fieldset>
+    <!--recette journaliére-->
+    <fieldset id="recettejournaliere" *ngIf="showrecettejour">
+        <legend>Recette journaliere</legend>
+        <table class="table table-striped" id="editionnotesection" [formGroup]="recettejournaliereform">
+            <thead>
+            <tr>            
+            <th>Jour</th>
+            <th>Date complète</th>
+            <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
+            <th>Recette</th>
+            <th>Montant HT</th>
+            <th>Montant TVA</th>
+            <th>Montant DT</th>
+            <th>Montant TTC</th>  
+            </tr>
+            </thead>
+            <tbody formArrayName="ammounts2">
+                <tr *ngFor="let ammount of ammountControls2; let i = index;"[formGroupName]="i">
+                       
+                        <td >
+                            <div class="col-6">
+                                <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                                   class="form-control"(change)="setdate2(i)"formControlName="jour"placeholder="Jour"/>
+                            </div>
+                           </td>
+                           <td style="width: 150px;">
+                           <div class="col-6">
+                               <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
+                           </div>
+                          </td>
+                          <td *ngIf="sousactivite==='Médecin spécialiste'">
+                            <div class="col-6">
+                                <select class="form-control" placeholder="Taux TVA" id="tauxtva"formControlName="tauxtva" name="tauxtva" >
+                                <option selected value="0.07">7%</option>
+                                <option value="0.19">19%</option>   
+                            </select>
+                        </div>
+                          </td> 
+                          <td>
+                           <div class="col-6">
+                                <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                              class="form-control"formControlName="recette"(change)="setht2(i)"(change)="onChange2(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Recette"/>
+                           </div>
+                          </td>
+                          <td>
+                            <div class="col-6">
+                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                               class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
+                            </div>
+                           </td>
+                           
+                           <td>
+                            <div class="col-6">
+                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                               class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
+                            </div>
+                           </td>
+                           <td>
+                            <div class="col-6">
+                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                               class="form-control"formControlName="montantdt"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"readonly='true'/>
+                            </div>
+                           </td>
+                           <td>
+                            <div class="col-6"(click)="setThreeNumberDecimal($event)">
+                                 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                               class="form-control"formControlName="montantttc"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"readonly='true'/>
+                            </div>
+                           </td>
+                          
+                          
+                          <td>
+                           <div>
+                           <button type="button" class="btn btn-danger mb-2"*ngIf="i>0" (click)="removeammount2(i)">Supprimer recette</button>   
+                           </div>
+                          </td>
+                        
+                </tr>
+                <tr>
+                    <td colspan="7"></td>
+                    <td>
+                        <div>
+                        <button type="button"class="btn btn-primary mb-2" *ngIf="sousactivite==='Médecin spécialiste'" (click)="addammount2()">Ajouter recette</button>   
+                        </div>
+                       </td>
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="2">
+                        <div class="col-6">
+                             <p>Totaux7%</p>
+                        </div>
+                    </td>
+                    <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+                    <td style="text-align: center;">{{totalrecette | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalht2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaltva2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaldt2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalttc2 | number:'1.3-3'| removeComma}}</td>
+
+                </tr>
+                <tr id="resultrow">
+                  <td colspan="2">
+                      <div class="col-6">
+                           <p>Totaux19%</p>
+                      </div>
+                  </td>
+                  <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+                  <td style="text-align: center;">{{totalrecette19 | number:'1.3-3'| removeComma}}</td>
+                  <td style="text-align: center;">{{totalht219 | number:'1.3-3'| removeComma}}</td>
+                  <td style="text-align: center;">{{totaltva219 | number:'1.3-3'| removeComma}}</td>
+                  <td style="text-align: center;">{{totaldt219 | number:'1.3-3'| removeComma}}</td>
+                  <td style="text-align: center;">{{totalttc219 | number:'1.3-3'| removeComma}}</td>
+
+              </tr>
+            </tbody>
+            
+            </table>
+    </fieldset>
+    </div>
+</mat-tab>
+<mat-tab label="Achats" *ngIf="showachattab===true"> 
+<!--facture achat section-->
+<fieldset id="factureachat">
+    <legend>Gestion des factures d'achat</legend>
+    <table class="table table-striped" id="factureachatsection" [formGroup]="factureachatform">
+    <thead>
+    <tr>            
+    <th>Jour</th>
+    <th>Date complète</th>
+    <th>Fournisseur</th>
+    <th>N° Facture</th>
+    <th>Nature de l'achat</th>
+    <th>Montant HT</th>
+    <th>Montant TVA</th>
+    <th>Montant DT</th>
+    <th>Montant TTC</th>
+    <th>Règlement</th>
+    <th>Contient fichier</th>
+    <th>Document Joint</th>
+
+    </tr>
+    </thead>
+    <tbody formArrayName="ammounts3">
+        
+        <tr *ngFor="let ammount of ammountControls3; let i = index;"[formGroupName]="i">
+               
+                <td style="width: 50px;">
+                    <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                           class="form-control"(change)="setdate3(i)"formControlName="jour"placeholder="Jour"/>
+                    </div>
+                   </td>
+                   <td style="width: 150px;">
+                   <div class="col-6">
+                       <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
+                   </div>
+                  </td>
+                  <td style="width: 150px;display: block;">
+                    <div class="col-6">
+                      <select class="form-control"placeholder="Fournisseur" id="natureachat"#someHashName (change)="verifyinvoice(i)"formControlName="fournisseur" name="fournisseur" >
+                        <option hidden [value]=""></option>
+                        <option value="option1">option1</option>
+                        <option value="option2">option2</option>
+                        <option value="Autre">Autre</option>
+                      </select>
+                        </div>
+                        <div class="col-6"*ngIf="someHashName?.value == 'Autre'">
+                          <input class="form-control" type="text" placeholder="Fournisseur" id="fournisseur" (change)="verifyinvoice(i)"formControlName="autrefournisseur">
+                        </div>
+                  </td>
+                  <td style="width: 50px;">
+                    <div class="col-6">
+                         <input type="text" 
+                       class="form-control"formControlName="numerofacture"(change)="verifyinvoice(i)"placeholder="Facture"/>
+                    </div>
+                   </td>
+                   <td style="width: 150px; display: block;">
+                    <div class="col-6">
+                <select  class="form-control"placeholder="Nature" id="natureachat"#someHashName2 formControlName="natureachat" name="natureachat" >
+                  <option hidden [value]=""></option>
+                  <option value="option1">option1</option>
+                  <option value="option2">option2</option>
+                  <option value="Autre">Autre</option>
+                </select>
+                  </div>
+                  <div class="col-6"*ngIf="someHashName2?.value == 'Autre'">
+                    <input class="form-control" type="text" placeholder="Nature" id="nature" formControlName="autrenatureachat">
+                  </div>
+                   </td>
+        <td>
+        <div class="col-6">
+        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantht"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"
+                      (change)="onChange3(i)"placeholder="Montant HT"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montanttva"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TVA"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                      class="form-control"formControlName="montantdt"(change)="onChange3(i)"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"/>
+                   </div>
+                  </td>
+                  <td>
+                   <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                      class="form-control"formControlName="montantttc"(change)="setht3(i)"(change)="setttc3(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange3(i)"placeholder="Montant TTC"/>
+                   </div>
+                  </td>
+                  <td>
+                    <div class="col-6">
+                        <select class="form-control" placeholder="Entrer Votre mode de règelemnt" id="reglement"formControlName="reglement" name="reglement" >
+                        <option value="default"> </option>
+                        <option  value="Espèce">Espèce</option>
+                        <option  value="Chèque">Chèque</option>
+                        <option  value="Traite">Traite</option>
+                        <option  value="Non réglé">Non réglé</option>
+                    </select>
+                </div>
+                  </td>
+                  <td > 
+                    <div class="col-6"style="width:20px">
+                      <input type="checkbox" id="{{ 'myCheck3' + i }}" (change)="docjoint3(i)"  formControlName=contientfiche/>
+                   </div>
+                 </td>
+                 <td id="{{ 'achat' + i }}" style="display: none;"> 
+                    <div class="col-6"style="width: 300px">
+                       <input type="file"  #filePicker (change)="onImagePick($event,i)" class="form-control" accept="application/pdf">
+                       <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+                   </div>
+                 </td>
+                  <td>
+                   <div>
+                   <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount3(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                   </div>
+                  </td>
+                  
+        </tr>
+        <tr>
+          <td colspan="11"></td>
+          <td>
+              <div>
+              <button type="button" class="btn btn-primary mb-2" (click)="addammount3()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+              </div>
+             </td>
+      </tr>
+        <tr id="resultrow">
+            <td colspan="5">
+                <div class="col-6">
+                     <p>Totaux</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totalht3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt3 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc3 | number:'1.3-3'| removeComma}}</td>
+            
+        </tr>
+    </tbody>
+    
+    </table>
+    </fieldset>
+</mat-tab>
+<mat-tab label="Banques" *ngIf="showbanquetab===true"> 
+<!--saisie des données banques-->
+  <!--saisie relevé manuel-->
+  <fieldset id="relevemanuel" *ngIf="showrelevemanuel">
+  <legend>Saisie des relevés manuels</legend>
+  <table class="table table-striped" id="relevemanuelsection" [formGroup]="relevemanuelform">
+  <thead>
+      <tr>            
+      <th rowspan="2">Mois</th>
+      <th rowspan="2">Année</th>
+      <th colspan="2">solde du mois précédent</th>
+      </tr>
+      <tr>
+        <th>Débit</th>
+        <th>Crédit</th>
+      </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+<td style="width: 150px;">
+  <div class="col-6">
+    <select class="form-control" id="month" name="month" #cricket (change)="update($event)"formControlName="mois">
+      <option></option>
+      <option value="01">(01)janvier</option>
+      <option value="02">(02)février</option>
+      <option value="03">(03)Mars</option>
+      <option value="04">(04)avril</option>
+      <option value="05">(05)Mai</option>
+      <option value="06">(06)juin</option>
+      <option value="07">(07)juillet</option>
+      <option value="08">(08)août</option>
+      <option value="09">(09)septembre</option>
+      <option value="10">(10)octobre</option>
+      <option value="11">(11)novembre</option>
+      <option value="12">(12)décembre</option>
+   </select>
+  </div> 
+</td>
+<td>
+  <div class="col-6">
+    <select class="form-control" id="year" name="year"formControlName="annee">
+      <option></option>
+      <option value="2023">2023</option>
+      <option  value="2022">2022</option>
+      <option  value="2021">2021</option>   
+   </select>
+  </div>
+</td>
+<td>
+  <div class="col-6">
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+  class="form-control"formControlName="soldemoisprecedentdebit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Débit du mois précédent"/>
+</div>
+</td>
+<td>
+  <div class="col-6">
+    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+  class="form-control"formControlName="soldemoisprecedentcredit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Solde Crédit du mois précédent"/>
+</div>
+</td>
+    </tr>
+  </tbody>
+  <thead>
+  <tr>            
+  <th>Jour</th>
+  <th>Date complète</th>
+  <th>Débit</th>
+  <th>Crédit</th>
+  </tr>
+  </thead>
+  <tbody formArrayName="ammounts4">
+      
+      <tr *ngFor="let ammount of ammountControls4; let i = index;"[formGroupName]="i">
+             
+              <td style="width: 50px;">
+                  <div class="col-6">
+                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                         class="form-control"(change)="setdate4(i)"formControlName="jour"placeholder="Jour"/>
+                  </div>
+              </td>
+                 <td style="width: 150px;">
+                 <div class="col-6">
+                     <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
+                 </div>
+                </td>
+                <td>
+                 <div class="col-6">
+                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                    class="form-control"formControlName="debit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Débit"/>
+                 </div>
+                </td>
+                <td>
+                 <div class="col-6">
+                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                    class="form-control"formControlName="credit"(blur)="setThreeNumberDecimal($event)"(change)="onChange4(i)"placeholder="Crédit"/>
+                 </div>
+                </td> 
+                <td>
+                  <div>
+                  <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount4(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                  </div>
+                 </td>
+              
+      </tr>
+      <tr>
+          <td colspan="5"></td>
+          <td>
+              <div>
+              <button type="button" class="btn btn-primary mb-2" (click)="addammount4()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+              </div>
+          </td>
+      </tr>
+      <tr id="resultrow">
+          <td colspan="2">
+              <div class="col-6">
+                   <p>Total des mouvement du mois</p>
+              </div>
+          </td>
+          <td style="text-align: center;">{{totaldebit | number:'1.3-3'| removeComma}}</td>
+          <td style="text-align: center;">{{totalcredit | number:'1.3-3'| removeComma}}</td>
+      </tr>
+      <tr id="resultrow">
+        <td colspan="2">
+            <div class="col-6">
+                 <p>Solde fin du mois</p>
+            </div>
+        </td>
+        <td style="text-align: center;">{{totalsoldemois | number:'1.3-3'| removeComma}}</td>
+    </tr>
+  </tbody>
+  <div class="text-right">
+      <input type="submit" class="hidden" value="Submit"(click)="logValue4()">
+  </div>
+  </table>
+  </fieldset>
+  <!--saisie des relevés joints-->
+  <fieldset id="relevejoint" *ngIf="showrelevejoint">
+      <legend>Attacher les relevés bancaires</legend>
+      <table class="table table-striped" id="relevejointsection" [formGroup]="relevejointform">
+          <thead>
+          <tr>            
+          <th>Mois</th>
+          <th>Annee</th>
+          <th>Document joint</th>
+          </tr>
+          </thead>
+          <tbody formArrayName="ammounts5">
+              <tr *ngFor="let ammount of ammountControls5; let i = index;"[formGroupName]="i">
+                     
+                      <td >
+                          <div class="col-6">
+                              <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                                 class="form-control"formControlName="mois"placeholder="Mois"/>
+                          </div>
+                         </td>
+                         <td>
+                         <div class="col-6">
+                             <input type="text"class="form-control"formControlName="annee"placeholder="Annee"/>
+                         </div>
+                        </td>
+                        <td > 
+                          <div class="col-6"style="width:20px">
+                            <input type="checkbox" id="{{ 'myCheck5' + i }}" (change)="docjoint5(i)"  formControlName=contientfiche/>
+                         </div>
+                       </td>
+                       <td id="{{ 'releve' + i }}"style="display: none;"> 
+                          <div class="col-6"style="width: 300px;">
+                             <input type="file"  #filePicker (change)="onImagePick2($event,i)" class="form-control" accept="application/pdf">
+                             <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+                         </div>
+                       </td>
+                       <td>
+                        <div>
+                        <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount5(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                        </div>
+                       </td>
+                      
+              </tr>
+              <tr>
+                  <td colspan="3"></td>
+                  <td>
+                      <div>
+                      <button type="button" class="btn btn-primary mb-2" (click)="addammount5()">Ajouter relevé</button>   
+                      </div>
+                     </td>
+              </tr>
+          </tbody>
+          <div class="text-right">
+              <input type="submit" class="hidden" value="Submit"(click)="logValue5()">
+          </div>
+          </table>
+  </fieldset>
+</mat-tab>
+<mat-tab label="Salaires" *ngIf="showsalairetab===true"> 
+    <!--saisie salaire section-->
+    <fieldset id="saisiesalaire"*ngIf="showpaiemanuel===true">
+        <legend>Gestion des salaires</legend>
+        <table class="table table-striped" id="salairesection" [formGroup]="salaireform">
+        <thead>
+        <tr>            
+        <th>Matricule</th>
+        <th>Nom et prénom</th>
+        <th>Salaire Brut</th>
+        <th>Charge patronale CNSS</th>
+        <th>Salaire Imposable</th>
+        <th>Retenue impôt</th>
+        <th>Avance et prêt</th>
+        <th>Salaire Net</th>
+        <th>Règlement</th>
+        <th>Document Joint</th>
+    
+        </tr>
+        </thead>
+        <tbody formArrayName="ammounts6">
+            
+            <tr *ngFor="let ammount of ammountControls6; let i = index;"[formGroupName]="i">
+                   
+                    <td style="width: 50px;">
+                        <div class="col-6">
+                            <input type="text" onkeyup="value=value.replace(/\./g,'')" 
+                               class="form-control"formControlName="matricule"placeholder="Matricule"/>
+                        </div>
+                       </td>
+                       <td style="width: 150px;">
+                       <div class="col-6">
+                           <input type="text"class="form-control"formControlName="nomprenom"placeholder="Nom et Prenom"/>
+                       </div>
+                      </td>
+                      <td>
+                        <div class="col-6">
+                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                      class="form-control"formControlName="salairebrut"(change)="setimposable(i)"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
+                                      (change)="onChange6(i)"placeholder="Salaire Brut"/>
+                                   </div>
+                                  </td>
+                       <td>
+                                    <div class="col-6">
+                                    <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                                  class="form-control"formControlName="montantcnss"(change)="setnet(i)"(change)="setimposable(i)"(blur)="setThreeNumberDecimal($event)"
+                                                  (change)="onChange6(i)"placeholder="Montant CNSS"/>
+                                               </div>
+                        </td>
+                        <td>
+                            <div class="col-6">
+                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                          class="form-control"formControlName="montantimposable"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
+                                          (change)="onChange6(i)"placeholder="Salaire Imposable" readonly='true'/>
+                                       </div>
+                        </td>
+                        <td>
+                            <div class="col-6">
+                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                          class="form-control"formControlName="montantretenue"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
+                                          (change)="onChange6(i)"placeholder="Retenue impôt"/>
+                                       </div>
+                        </td>
+                        <td>
+                            <div class="col-6">
+                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                          class="form-control"formControlName="montantavance"(change)="setnet(i)"(blur)="setThreeNumberDecimal($event)"
+                                          (change)="onChange6(i)"placeholder="Avance et Prêt"/>
+                                       </div>
+                        </td>
+                        <td>
+                            <div class="col-6">
+                            <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                                          class="form-control"formControlName="salairenet"(change)="setbrut(i)"(blur)="setThreeNumberDecimal($event)"
+                                          (change)="onChange6(i)"placeholder="Salaire Net"/>
+                                       </div>
+                        </td>
+                        <td>
+                        <div class="col-6">
+                            <select class="form-control" placeholder="Entrer Votre mode de règlemnt" id="reglement"formControlName="reglement" name="reglement" >
+                            <option value="default"> </option>
+                            <option  value="Espèce">Espèce</option>
+                            <option  value="Chèque">Chèque</option>
+                            <option  value="Traite">Traite</option>
+                            <option  value="Non réglé">Non réglé</option>
+                        </select>
+                    </div>
+                      </td>
+                     
+                      <td > 
+                        <div class="col-6"style="width:20px">
+                          <input type="checkbox" id="{{ 'myCheck6' + i }}" (change)="docjoint6(i)"  formControlName=contientfiche/>
+                       </div>
+                     </td>
+                     <td id="{{ 'salaire' + i }}"style="display: none;" > 
+                        <div class="col-6"style="width: 300px">
+                           <input type="file"  #filePicker (change)="onImagePick3($event,i)" class="form-control" accept="application/pdf">
+                           <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+                       </div>
+                     </td>
+                      <td>
+                       <div>
+                       <button type="button" class="btn btn-danger btn-sm"*ngIf="i>0" (click)="removeammount6(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                       </div>
+                      </td>
+                      
+            </tr>
+            <tr>
+              <td colspan="10"></td>
+              <td>
+                  <div>
+                  <button type="button" class="btn btn-primary mb-2" (click)="addammount6()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                  </div>
+                 </td>
+          </tr>
+            <tr id="resultrow">
+                <td colspan="2">
+                    <div class="col-6">
+                         <p>Totaux</p>
+                    </div>
+                </td>
+                <td style="text-align: center;">{{totalsalairebrut | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalcnss | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalsalaireimposable | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalretenueimpot | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalavancepret | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalsalairenet | number:'1.3-3'| removeComma}}</td>
+            </tr>
+        </tbody>
+        <div class="text-right">
+            <input type="submit" class="hidden" value="Submit"(click)="logValue6()">
+        </div>
+        </table>
+        </fieldset>
+</mat-tab>   
+</mat-tab-group>
+  </div>
+</div>

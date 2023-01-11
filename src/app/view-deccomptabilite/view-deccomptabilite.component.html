@@ -1,0 +1,320 @@
+  <div *ngIf="deccomptabilite">
+    <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>   
+  <h2 style="text-align: center;"> Entête du fichier</h2>
+  <table>
+    <tr><th>Date de création du fichier:</th><td colspan="2">{{ deccomptabilite.created |customDate}}</td><th>Date de modification du fichier:</th><td colspan="2">{{ deccomptabilite.updated|customDate }}</td></tr>
+    <tr><th>Statut du fichier:</th><td>{{statut}}</td></tr>
+    <tr><th>Motif du statut:</th><td> {{motif}}</td></tr>
+    <tr><th>Nom:</th><td> {{firstname}}</td><th>Prénom:</th><td> {{lastname}}</td></tr>
+    <tr><th>Nature:</th><td> {{nature}}</td></tr>
+    <tr><th>Mois:</th><td> {{deccomptabilite.mois}}</td><th>Annee:</th><td> {{deccomptabilite.annee}}</td></tr>
+
+  </table>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+  <!--edition note section-->
+  <fieldset id="editionnote" *ngIf="showeditionnote"class="users-grid"style="overflow-x:auto;overflow-y: auto;">
+    <legend>Edition de notes d'honoraires</legend>
+    <table class="table table-striped">
+        <thead>
+      <tr>          
+            <th>Jour</th>
+            <th>Date complète</th>
+            <th>N° Note d'honoraire</th>
+            <th>Montant HT</th>
+            <th>Montant TVA</th>
+            <th>Montant DT</th>
+            <th>Montant TTC</th>
+            <th>Règlement</th>
+      </tr>  
+      </thead>
+        <tbody>
+          <tr *ngFor="let ammount of deccomptabilite.autre1; let i = index;">
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].jour | lowercase}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].date| lowercase}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].numeronote}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montantht | number:'1.3-3'| removeComma}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montanttva| number:'1.3-3'| removeComma}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montantdt| number:'1.3-3'| removeComma}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].montantttc| number:'1.3-3'| removeComma}}</td>
+            <td  style="text-align: center;"> {{deccomptabilite.autre1[i].reglement| lowercase}}</td>
+          </tr>
+          <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Totaux 7%</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
+        </tr>
+        <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Totaux19%</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totalht19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaltva19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totaldt19 | number:'1.3-3'| removeComma}}</td>
+            <td style="text-align: center;">{{totalttc19 | number:'1.3-3'| removeComma}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </fieldset>
+</div>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member">
+    <!--recette journaliére-->
+    <fieldset id="recettejournaliere" *ngIf="showrecettejour"class="users-grid"  style="overflow-x:auto;overflow-y: auto;">
+        <legend>Recette journaliere</legend>
+        <table class="table table-striped">
+            <thead>
+            <tr>            
+            <th>Jour</th>
+            <th>Date complète</th>
+            <th>Recette</th>
+            <th>Montant HT</th>
+            <th>Montant TVA</th>
+            <th>Montant DT</th>
+            <th>Montant TTC</th>  
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ammount of deccomptabilite.autre2; let i = index;">
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].jour}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].date}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].recette| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].montantht | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].montanttva| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].montantdt| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre2[i].montantttc| number:'1.3-3'| removeComma}}</td>       
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="2">
+                        <div class="col-6">
+                             <p>Totaux 7%</p>
+                        </div>
+                    </td>
+                    <td style="text-align: center;">{{totalrecette | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalht2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaltva2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaldt2 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalttc2 | number:'1.3-3'| removeComma}}</td>
+
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="2">
+                        <div class="col-6">
+                             <p>Totaux19%</p>
+                        </div>
+                    </td> 
+                    <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+                    <td style="text-align: center;">{{totalrecette19 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalht219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaltva219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaldt219 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalttc219 | number:'1.3-3'| removeComma}}</td>
+  
+                </tr>
+            </tbody>
+            </table>
+    </fieldset>
+</div>
+</div>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+    <!--facture achat section-->
+    <fieldset id="achat" *ngIf="showachat"class="users-grid"  style="overflow-x:auto;overflow-y: auto;">
+        <legend>Achat</legend>
+            <table class="table table-striped">
+            <thead>
+            <tr>            
+                <th>Jour</th>
+                <th>Date complète</th>
+                <th>Fournisseur</th>
+                <th>N° Facture</th>
+                <th>Nature de l'achat</th>
+                <th>Montant HT</th>
+                <th>Montant TVA</th>
+                <th>Montant DT</th>
+                <th>Montant TTC</th>
+                <th>Règlement</th>
+                <th>Document Joint</th> 
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ammount of deccomptabilite.autre3; let i = index;">
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].jour | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].date| lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].fournisseur| lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].numerofacture | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].natureachat| lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montantht | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montanttva| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montantdt| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].montantttc| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre3[i].reglement| lowercase}}</td>
+                    <td *ngIf="deccomptabilite.autre3[i].ficheUrl"><a href="{{deccomptabilite.autre3[i].ficheUrl| lowercase}}" target="_blank">Aperçu facture</a></td>       
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="5">
+                        <div class="col-6">
+                             <p>Totaux</p>
+                        </div>
+                    </td>
+                    <td style="text-align: center;">{{totalht3 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaltva3 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totaldt3 | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalttc3 | number:'1.3-3'| removeComma}}</td>
+                    
+                </tr>
+            </tbody>
+            </table>
+    </fieldset>
+</div>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+  <!--saisie relevé manuel-->
+  <fieldset id="relevemanuel" *ngIf="showrelevemanuel"class="users-grid"  style="overflow-x:auto;overflow-y: auto;">
+        <legend>Relevé manuel</legend>
+        <table class="table table-striped">
+            <thead>
+                <tr>            
+                <th rowspan="2">Mois</th>
+                <th rowspan="2">Année</th>
+                <th colspan="2">solde du mois précédent</th>
+                </tr>
+                <tr>
+                  <th>Débit</th>
+                  <th>Crédit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td  style="text-align: center;"> {{moisreleve | lowercase}}</td>
+                    <td  style="text-align: center;"> {{anneereleve | lowercase}}</td>
+                    <td  style="text-align: center;"> {{debitmoisprecedent | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{creditmoisprecedent | number:'1.3-3'| removeComma}}</td>       
+                </tr>
+            </tbody>
+            <thead>
+                <tr>            
+                <th>Jour</th>
+                <th>Date complète</th>
+                <th>Débit</th>
+                <th>Crédit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ammount of deccomptabilite.autre4; let i = index;">
+                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].jour | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].date| lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].debit | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre4[i].credit| lowercase}}</td>       
+                </tr>
+            </tbody>
+            <tr id="resultrow">
+                <td colspan="2">
+                    <div class="col-6">
+                         <p>Total des mouvement du mois</p>
+                    </div>
+                </td>
+                <td style="text-align: center;">{{totaldebit | number:'1.3-3'| removeComma}}</td>
+                <td style="text-align: center;">{{totalcredit | number:'1.3-3'| removeComma}}</td>
+            </tr>
+            <tr id="resultrow">
+              <td colspan="2">
+                  <div class="col-6">
+                       <p>Solde fin du mois</p>
+                  </div>
+              </td>
+              <td style="text-align: center;">{{totalsoldemois | number:'1.3-3'| removeComma}}</td>
+          </tr>
+            </table>
+    </fieldset>
+</div>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+    <!--facture releve joint-->
+    <fieldset id="relevejoint" *ngIf="showrelevejoint"class="users-grid"  style="overflow-x:auto;overflow-y: auto;">
+        <legend>Releve joint</legend>
+        <table class="table table-striped">
+            <thead>
+            <tr>            
+                <th>Mois</th>
+                <th>Annee</th>
+                <th>Document joint</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ammount of deccomptabilite.autre5; let i = index;">
+                    <td  style="text-align: center;"> {{deccomptabilite.autre5[i].mois | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre5[i].annee| lowercase}}</td>
+                    <td><a href="{{deccomptabilite.autre5[i].ficheUrl| lowercase}}" target="_blank">Aperçu relevé</a></td>       
+         
+                </tr>
+            </tbody>
+            </table>
+    </fieldset>
+</div>
+<div id="loader" *ngIf="loading"></div>
+<div class="col-lg-12" *ngIf="!loading">
+    <!--salaire section-->
+    <fieldset id="salaire" *ngIf="showpaiemanuel"class="users-grid"  style="overflow-x:auto;overflow-y: auto;">
+        <legend>traitement des salaires</legend>
+        <table class="table table-striped">
+            <thead>
+            <tr>            
+                <th>Matricule</th>
+        <th>Nom et prénom</th>
+        <th>Salaire Brut</th>
+        <th>Charge patronale CNSS</th>
+        <th>Salaire Imposable</th>
+        <th>Retenue impôt</th>
+        <th>Avance et prêt</th>
+        <th>Salaire Net</th>
+        <th>Règlement</th>
+        <th>Document Joint</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ammount of deccomptabilite.autre6; let i = index;">
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].matricule | lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].nomprenom| lowercase}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].salairebrut| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].montantcnss | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].montantimposable| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].montantretenue | number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].montantavance| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].salairenet| number:'1.3-3'| removeComma}}</td>
+                    <td  style="text-align: center;"> {{deccomptabilite.autre6[i].reglement| lowercase}}</td>
+                    <td><a href="{{deccomptabilite.autre6[i].ficheUrl| lowercase}}" target="_blank">Aperçu fiche de paie</a></td>       
+                </tr>
+                <tr id="resultrow">
+                    <td colspan="2">
+                        <div class="col-6">
+                             <p>Totaux</p>
+                        </div>
+                    </td>
+                    <td style="text-align: center;">{{totalsalairebrut | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalcnss | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalsalaireimposable | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalretenueimpot | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalavancepret | number:'1.3-3'| removeComma}}</td>
+                    <td style="text-align: center;">{{totalsalairenet | number:'1.3-3'| removeComma}}</td>
+                </tr>
+            </tbody>
+            </table>
+    </fieldset>
+</div>
+<div class="card">
+    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+    <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>
+    <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
+    <button type="button" class="btn btn-primary"(click)="generateExcel()"> Générer fichier</button>   
+  </div>
+</div>

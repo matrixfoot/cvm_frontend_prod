@@ -1,0 +1,25 @@
+ 
+  #routoutlet
+  {
+    margin-top: 140px;
+    min-height: 800px;
+    z-index: -1;
+  }
+ app-header
+ {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+ }
+ @media screen and (max-width: 768px) {
+  app-header
+  {
+   position: relative;
+   top: 0;
+   width: 100%;
+   z-index: 100;
+  }
+  
+}  
+  

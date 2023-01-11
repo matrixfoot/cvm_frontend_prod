@@ -1,0 +1,56 @@
+
+
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    </head>
+    <body>
+      
+    
+    <div class="bodycontainer">
+      
+      <div id="loader" *ngIf="loading"></div>
+  
+      <div class="container-fluid" *ngIf="!loading"> 
+       
+      
+    <form  [formGroup]="eventform">
+        <h2>Formulaire D'ajout D'Evenements</h2>
+       
+        
+        
+    
+          <div title="indiquer nom évènement"class="input-container">
+            <i class="fa fa-user icon"></i>
+            <input type="text" class="form-control" formControlName="title" id="title" placeholder=" Entrez Evènement">
+          </div> 
+          <div title="indiquer date évènement"class="input-container">
+            <i class="fa fa-time icon"></i>
+            <input type="date" class="form-control" formControlName="date" id="date" placeholder=" Entrez Date Evenement">
+          </div> 
+           <div title="indiquer nom évènement"class="input-container">
+            <i class="fa fa-user icon"></i>
+            <textarea  class="form-control" rows="4" cols="50"id="description" formControlName="description"placeholder="Entrez votre commentaire"
+             ></textarea>
+          </div> 
+         
+         
+        
+      
+        <button class="btn btn-success" (click)="saveEvent()">Ajouter Evenement</button>
+      </form>
+      <p>{{ errormsg }}</p>
+      
+    </div>
+    <fieldset>
+      <legend> Insérer plusieurs évènements fiscales et comptables</legend>
+      <div class="form-group row">
+        <label class="col-sm-12 col-form-label"> Charger document</label>
+          <div class="col-sm-12">
+            <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"(change)="onFileChange($event);">
+          </div>
+      </div>
+      <button class="btn btn-success" (click)="afficher()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
+    </fieldset>
+    </div>
+    </body>

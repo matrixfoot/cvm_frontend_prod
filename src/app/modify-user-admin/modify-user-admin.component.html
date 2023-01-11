@@ -1,0 +1,124 @@
+<head>
+ 
+</head>
+<body>
+
+
+<div class="bodycontainer">
+<div id="loader" *ngIf="loading"></div>
+
+<div class="container-fluid" *ngIf="!loading">
+ 
+
+<form  [formGroup]="userForm">
+  <h2>Formulaire De Modification Des Données Utilisateurs</h2> 
+  <div title="indiquer votre type utilisateur" class="input-container">
+    <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+   
+<select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
+<option hidden >Entrer Votre Type Utilisateur</option>
+<option value="Client">Client</option>
+<option value="Collaborateur">Collaborateur</option>
+<option value="Candidat">Candidat</option>
+</select>
+</div>
+  <div title="indiquer votre civilite"class="input-container">
+      <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+     
+<select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
+  <option hidden >Modifier Votre Civilité</option>
+  <option value="Monsieur">Monsieur</option>
+  <option value="Madame">Madame</option>
+  <option value="Mademoiselle">Mademoiselle</option>
+</select>
+  </div>
+
+  <div title="indiquer votre nom"class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
+    </div>
+
+    <div title="indiquer votre prenom"class="input-container">
+      <i class="fa fa-user icon"></i>
+      <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
+    </div> 
+
+    <div title="indiquer votre raisonsociale"class="input-container">
+      <i class="fa fa-fort-awesome icon"></i>
+      <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
+    </div>  
+
+    <div title="indiquer votre fonction"class="input-container">
+      <i class="fa fa-fort-awesome icon" ></i>
+    <input class="input-field" type="text" [(ngModel)]="codeValue" id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
+<datalist id="fonctions">
+<option *ngFor="let user of users" [value]="user.fonction" >{{user.fonction}}</option>
+</datalist>
+    
+  </div>
+    
+    
+
+
+  <div title="indiquer votre nomsociete"class="input-container">
+      <i class="fa fa-fort-awesome icon"></i>
+      <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
+    </div>
+
+
+  <div title="indiquer votre secteur"class="input-container">
+      <i class="fa fa-fort-awesome icon" ></i> 
+     
+
+  <input class="input-field" type="text" [(ngModel)]="secteurValue" id="secteur" formControlName="secteur" name="secteur" list="secteurs" />
+<datalist id="secteurs">
+<option *ngFor="let user of users" [value]="user.secteur" >{{user.secteur}}</option>
+</datalist>
+  </div>
+  <div title="indiquer votre clientcode"class="input-container">
+    <i class="fa fa-user icon"></i>
+    <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
+  </div>
+
+  <div title="indiquer votre role"class="input-container">
+    <i class="fa fa-fort-awesome icon" ></i> 
+   
+
+<input class="input-field" type="text" [(ngModel)]="roleValue" id="role" formControlName="role" name="role" list="roles" />
+<datalist id="roles">
+<option *ngFor="let user of users" [value]="user.role" >{{user.role}}</option>
+</datalist>
+</div>
+
+<div class="email-container">
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
+  </div>
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" type="email" placeholder="Confirmez Votre Email" id="confirmemail" formControlName="confirmemail" required>
+  </div>
+</div>
+<div class="mobile-container">
+  <div class="input-container">
+    <i class="fa fa-phone icon"></i>
+    <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>
+  </div>
+  <div class="input-container">
+    <i class="fa fa-phone icon"></i>
+    <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" required>
+  </div>
+</div>
+  
+  
+
+  <button class="btn btn-success" (click)="onSubmit()" >Envoyer Modification</button>
+</form>
+<p>{{ errorMessage }}</p>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Modificaion effectuée avec succès!!
+</div>
+</div>
+</div>
+</body>

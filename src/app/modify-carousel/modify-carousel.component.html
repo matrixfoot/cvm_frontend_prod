@@ -1,0 +1,45 @@
+<div id="bodycontainer">
+      
+    
+  <div id="loader" *ngIf="loading"></div>
+    <div class="container-fluid" *ngIf="!loading"> 
+     
+    
+  <form [formGroup]="carouselform">
+      <h2>Formulaire de modification d'actualités</h2>
+     
+      
+      
+  
+        <div title="indiquer titre actualité"class="input-container">
+          <input type="text" class="form-control" formControlName="titre" id="titre" placeholder=" Entrez titre">
+        </div>
+
+        <div title="indiquer commentaire"class="input-container">
+          <input type="text" class="form-control" formControlName="commentaire" id="commentaire" placeholder=" Entrez commentaire">
+        </div>
+        <div title="indiquer rang"class="input-container">
+          <input type="number" class="form-control" formControlName="rang" id="rang" placeholder=" Entrez rang">
+        </div>
+         <div title="indiquer description"class="input-container">
+          <textarea  class="form-control" rows="10" cols="50"id="description" formControlName="description"placeholder="Entrez description"></textarea>
+        </div>
+         
+        <div class="form-group">
+          <label for="inputCV">Attacher votre document joint</label>                   
+         <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+         <div class="image-preview" *ngIf="imagePreview">
+           <img [src]="imagePreview" alt="">
+         </div>
+         <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+        
+     </div>
+       
+      
+    
+      <button class="btn btn-success" (click)="onSubmit()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Modifier Actualité</button>
+    </form>
+    <p>{{ errormsg }}</p>
+    
+  </div>
+  </div>

@@ -1,0 +1,248 @@
+$clouds: #ecf0f1;
+$midnight: #2c3e50;
+$wisteria: #8e44ad;
+#entetedec{
+  text-align: center;
+}
+hr{
+  width: 40%;
+  
+}
+/* Add a right margin to each icon */
+.fa {
+  margin-left: -12px;
+  margin-right: 8px;
+}
+.checkbox-container{
+    display: flex;
+    
+  width: 100%;
+  
+  padding: 10px;
+  
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+    table-layout: auto;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    min-width: 100px;
+    
+  }
+  #verifrow td{
+text-align: center;
+
+  }
+  #tvaform td input{
+    width: 100%;
+  }
+  
+  
+  
+  .well{
+      display: none;
+  }
+  .container-fluid-disabled{
+    display: none;
+  
+  padding: 10px;
+  text-align: center;
+  }
+  .input-container {
+    display: flex;
+    width: 100%;
+    padding: 30px;
+    
+  }
+  .input-field {
+  
+    padding: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border: 2px solid dodgerblue;
+  }
+  .icon-special {
+      padding: 10px;
+      background: dodgerblue;
+      color: white;
+      min-width: 50px;
+      text-align: center;
+    }
+  #Check9{
+    padding-left: 50px;
+  }
+
+
+p {
+    color: grey
+}
+
+#heading {
+    text-transform: uppercase;
+    color: #673AB7;
+    font-weight: normal
+}
+$color-primary: rgba(67,66,93,255);
+$color-text: #43425d;
+$color-text-lite: rgba(#4d4f5c,.5);
+.form-control{
+  width: 40%;
+  
+}
+.form-group{
+  display: flex;
+}
+.form-group label{
+  width: 250px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.login-container {
+    font-family: "Source Sans Pro";
+    
+
+    .title, a {
+        color: $color-text;
+    }
+
+    .title {
+        font-weight: bold;
+        letter-spacing: 5px;
+    }
+
+    .tag {
+        color: $color-text-lite
+    }
+
+    .btn-main {
+        background: $color-primary;
+    }
+
+    .btn-main-outline {
+        border: 1px solid $color-primary
+    }
+
+}
+
+
+
+label {
+  position: relative;
+  margin-right: 1em;
+  padding-left: 2em;
+  padding-right: 1em;
+  line-height: 2;
+  cursor: pointer;
+  &:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid white;
+    border-radius: .25em;
+    z-index: -1;
+  }
+}
+
+
+/* Transition */
+label,
+label::before {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+#buttoncontainer{
+  display: flex;
+}
+#recapbutton {
+  
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  z-index: 101;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#recapbutton:hover {
+  background-color: #555;
+}
+#savebutton {
+  
+  position: fixed;
+  top: 100px;
+  right: 110px;
+  z-index: 101;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color:green;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#savebutton:hover {
+  background-color: #555;
+}
+#resetbutton {
+  
+  position: fixed;
+  top: 100px;
+  right: 210px;
+  z-index: 101;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color:orange;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#resetbutton:hover {
+  background-color: #555;
+}
+#sendbutton {
+  
+  position: fixed;
+  top: 100px;
+  right: 330px;
+  z-index: 101;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color:purple;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#sendbutton:hover {
+  background-color: #555;
+}

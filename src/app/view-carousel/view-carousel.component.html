@@ -1,0 +1,21 @@
+
+
+  <body>
+<div class="card">
+      
+      <div class="container-fluid">
+        <h4 >Données Actualité:</h4><hr>
+        <h4>Crée le(heure GMT):<b>  {{ carousel.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ carousel.updated }}</b></h4>
+        <h4>Titre:<b>  {{ carousel.titre }}</b></h4>
+        <h4>Commentaire:<b>  {{ carousel.commentaire }}</b></h4>
+        <h4>Description:<b>  {{ carousel.description }}</b></h4>
+        <h4>document joint:<b><a href="{{carousel.ficheUrl}}" target="_blank">Aperçu document joint</a></b></h4>
+      </div>
+      
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-carousel', carousel._id)">Modifier actualité</button>
+      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer Actualié</button>
+
+    </div>
+    
+    </body>

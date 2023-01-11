@@ -1,0 +1,57 @@
+<head>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body>
+	  
+  
+<div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="container-fluid">
+		<h2 style="text-align:center">Détails De L'évènement!</h2>
+		<hr>
+            
+      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;">
+
+        
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+            
+                  
+                  
+                  <th>Date</th>
+                  <th>Evenement</th>
+                  
+                  
+                </tr>
+                </thead>
+          <tbody>
+          <tr>
+      
+            <td>{{event.date| date : "dd-MM-y"}}</td>
+            <td >{{event.title}}</td>
+            
+            <td>  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'"(click)="getNavigation('modify-event',event._id)">Modifier</button></td>     
+            <td>  <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'"(click)="onDelete()">Supprimer</button></td>
+            <td>  <button type="button" class="btn btn-info" (click)="goback('calendar-fiscality')">Retour Au Calendrier</button></td>
+            
+            
+            
+            
+          
+          </tr>
+          <tr>
+            
+          </tr>
+          </tbody>
+        </table>
+        <hr>
+        
+          <textarea class="center" rows="4" cols="50"disabled>{{event.description}}</textarea>
+        
+      </div>
+      
+    </div>
+  </div>
+</body>

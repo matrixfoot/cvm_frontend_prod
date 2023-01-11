@@ -1,0 +1,106 @@
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    text-align: center;
+    
+  }
+ 
+
+  h2{
+    text-align: center;
+  }
+  
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* Add some padding inside the card container */
+  .container-fluid {
+    padding: 2px 16px;
+  }
+  button{
+    margin-left: 10%;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: right;
+    padding: 8px;
+    min-width:50px
+  }
+  #row1 th,td{
+    border: 2px solid #ddd;
+  }
+  #withoutborder{
+    border: none;
+  }
+  img{
+    height: 20%;
+    width: 20%;
+  }
+  #deccont{
+    font-family: Calibri, sans-serif;
+    font-size:16px;
+  }
+  #backbutton {
+    
+    position: relative;
+    float: left;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:grey;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #backbutton:hover {
+    background-color: #555;
+  }
+  #top {
+    
+    position: relative;
+    float: right;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:grey;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #top:hover {
+    background-color: #555;
+  }
+  #bottom {
+    
+    position: relative;
+    bottom: 20px;
+    float: right;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color:grey;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
+  
+  #bottom:hover {
+    background-color: #555;
+  }
+  

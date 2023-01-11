@@ -1,0 +1,105 @@
+<body>
+<div class="container-fluid"> 
+<div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member" *ngIf="usertype=='Candidat'">
+      <h2>Liste des Candidatures</h2>
+      <hr>        
+      <div class="users-grid" style="overflow-x:auto;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th>Email</th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Mobile</th>
+            <th>Decision</th>
+            <th>CV</th>
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let condidate of condidates">
+      
+            
+            <td>{{condidate.email}}</td>
+            <td>{{condidate.firstname}}</td>
+            
+      
+            <td>{{condidate.lastname}}</td>
+            <td>{{condidate.adresse}}</td>
+            <td>{{condidate.mobile}}</td>
+            <td>{{condidate.decision}}</td>
+            <td><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></td>
+            
+            
+            
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-condidate',condidate._id)">Consulter</button></td>
+            
+          
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="loader" *ngIf="loading"></div>
+  <div class="col-lg-12" *ngIf="!loading">
+    <div class="team-member" *ngIf="usertype=='Client'">
+      <h2>Liste des Déclarations</h2>
+      <hr>        
+      <div class="users-grid" style="overflow-x:auto;">
+
+        
+        
+        <table class="table table-striped">
+          <thead>
+          <tr>
+      
+            
+            <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="_id" ></i></th>
+            <th scope="col">Nature <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="nature"  ></i></th>
+            <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
+            <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
+            <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
+            <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
+            <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
+            <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+            
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let decfiscmens of decfiscmenss">
+      
+            
+            <td>{{decfiscmens._id}}</td>
+            <td>{{decfiscmens.nature}}</td>
+            <td>{{decfiscmens.mois}}</td>
+            <td>{{decfiscmens.annee}}</td>
+            <td>{{prenom}}</td>
+            <td>{{nom}}</td>
+            <td>{{decfiscmens.statut}}</td>
+            <td>{{decfiscmens.created | customDate}}</td>
+            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
+            <td>  <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button></td>
+          
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</div>    
+</body>
