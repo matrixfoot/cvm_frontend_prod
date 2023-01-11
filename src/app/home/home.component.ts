@@ -34,11 +34,16 @@ export class HomeComponent implements OnInit {
     );
     
       this.carousel.getCarouselalldata();
+      setTimeout(() => document.getElementById('id01').style.display='none', 5000);
   }
  
   getNavigation(link, id){
       
     this.carousel.getCarouseldataById(id);
     this.router.navigate([link + '/' + id]); 
+  }
+  
+  reloadPage (){
+    let window= document.getElementById('id01')    
   }
 }

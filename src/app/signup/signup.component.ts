@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
   get f() { return this.signupForm.controls; }
   
   randomString() {
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVW";
     var string_length = 1;
     var randomstring = '';
     var chars2 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
