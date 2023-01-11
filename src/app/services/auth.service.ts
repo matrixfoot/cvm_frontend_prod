@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 const authurllocal= 'http://localhost:3000/api/users/';
-const authurlcloud ='https://good-puce-eel-tutu.cyclic.app/api/users/';
+const authurlcloud ='https://filthy-ruby-moose.cyclic.app/api/users/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
