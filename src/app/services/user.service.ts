@@ -59,7 +59,20 @@ export class UserService {
         this.usersdeleted$.next(this.usersdeleted);
       }
    
-    
+     // Add users//
+ addusers(user:User[]) {
+  return new Promise((resolve, reject) => {
+        
+      this.http.post(API_URL_cloud+'add_multiple_users', user).subscribe(
+        (response) => {
+          resolve(response);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+}
       
       getUserById(id: string) {
         return new Promise((resolve, reject) => {
