@@ -2119,7 +2119,7 @@ if (result.isConfirmed) {
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
-  this.usersservice.modifyUserById(user._id,newuser).then(
+  this.usersservice.completeUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
@@ -2131,7 +2131,7 @@ else if (result.isDenied)
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
-  this.usersservice.modifyUserById(user._id,newuser).then(
+  this.usersservice.completeUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
@@ -2169,7 +2169,7 @@ if (numero)
   const newuser= new User
   newuser.numeronote=numero
   this.token.saved=true
-  this.usersservice.modifyUserById(user._id,newuser).then(
+  this.usersservice.completeUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
