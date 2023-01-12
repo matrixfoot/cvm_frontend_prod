@@ -3122,7 +3122,9 @@
                       <div class="container-fluid" style="display: inline-flex;">
                       
                       <fieldset>  
-                        <legend>TVA Collecté C.A à 7% (Actes de soin)</legend>                 
+                        <legend>TVA Collecté<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                          activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+                          ||activite==='Sage-femmes'">C.A à 7% (Actes de soin)</span></legend>                 
 <form  [formGroup]="standardtvacollecteform">
   <fieldset>
 
