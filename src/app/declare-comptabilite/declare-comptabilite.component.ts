@@ -2210,7 +2210,7 @@ else if ((user.choixfacture=='saisie recette'))
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
-if(this.sousactivite!='Médecin spécialiste')
+if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&this.sousactivite!='Médecin dentiste')
 {
   for (let i = 1; i < 32; i++)
           {

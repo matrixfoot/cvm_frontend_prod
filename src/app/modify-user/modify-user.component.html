@@ -162,7 +162,7 @@
 
 <option value="Réel">Réel</option>
 <option value="Forfait D'assiette">Forfait D'assiette</option>
-<option value="Non soumis">Non soumis</option>
+<option value="Non soumis" *ngIf="userForm.controls['activitynature'].value!='Profession Libérale'">Non soumis</option>
 <option hidden value="Autre">Autre</option>
 </select>
 </div>

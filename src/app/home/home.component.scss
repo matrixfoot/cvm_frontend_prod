@@ -73,11 +73,14 @@ h2{
 }
    
    .container-fluid {
-    padding: 60px 50px;
+   
     background-position: center center; background-size: cover; 
      background-image: url('../../assets/service\ background.jpg');
      
-     font-size: 25px;
+   }
+   .container-fluid h4{
+   color: red;
+     
    }
    #expertisecont{
     padding: 60px 50px;
@@ -93,10 +96,7 @@ h2{
    .col-sm-4{
      color: red;
    }
-   .col-sm-4_2{
-    color: red;
-    text-align: center;
-  }
+ 
   a:link{
     text-decoration: none;
   }
