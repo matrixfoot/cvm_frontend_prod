@@ -110,6 +110,7 @@ export class ViewUserComponent implements OnInit {
               if (result.value) {
                 this.usersservice.desactivateUser(params.id,user);
                 this.router.navigate(['admin-board']);
+                this.reloadPage()
               }
   
             }).catch(() => {
@@ -192,5 +193,10 @@ export class ViewUserComponent implements OnInit {
         );
       }
     );
+  }
+  reloadPage(): void {
+    
+    setTimeout(() => window.location.reload(), 1000);
+    
   }
   }

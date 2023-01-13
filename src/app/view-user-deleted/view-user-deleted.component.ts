@@ -78,6 +78,8 @@ export class ViewUserDeletedComponent implements OnInit {
               if (result.value) {
                 this.usersservice.restaureUser(params.id);
                 this.router.navigate(['admin-board']);
+                this.reloadPage()
+
               }
   
             }).catch(() => {
@@ -91,5 +93,9 @@ export class ViewUserDeletedComponent implements OnInit {
       }
     );
   }
- 
+  reloadPage(): void {
+    
+    setTimeout(() => window.location.reload(), 1000);
+    
+  }
   }

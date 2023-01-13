@@ -52,7 +52,7 @@ export class ModifyUserAdminComponent implements OnInit {
               mobile: [this.user.mobile,],
               confirmmobile: [null,],
               usertype: [this.user.usertype,],
-              email: [{value:this.user.email,disabled:true}, Validators.required],
+              email: [this.user.email, Validators.required],
               fonction: [this.user.fonction, Validators.required],
               password: [this.user.password, Validators.required],
               secteur: [this.user.secteur, Validators.required],
@@ -103,7 +103,7 @@ export class ModifyUserAdminComponent implements OnInit {
     user.raisonsociale = this.userForm.get('raisonsociale').value;
     user.nomsociete = this.userForm.get('nomsociete').value;
     user.clientcode = this.userForm.get('clientcode').value;
-    this.userservice.modifyUserById(user.userId,user).then(
+    this.userservice.completeUserById(user.userId,user).then(
       (data:any) => {
         this.userForm.reset();
         this.loading = false;

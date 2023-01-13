@@ -63,7 +63,7 @@ export class UserService {
  addusers(user:User[]) {
   return new Promise((resolve, reject) => {
         
-      this.http.post(API_URL_cloud+'add_multiple_users', user).subscribe(
+      this.http.post(API_URL_test+'add_multiple_users', user).subscribe(
         (response) => {
           resolve(response);
         },
