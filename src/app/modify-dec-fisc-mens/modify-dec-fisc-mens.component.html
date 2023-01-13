@@ -892,15 +892,10 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
             <div class="container-fluid"style="display: inline-flex;">
             
             <fieldset>  
-<<<<<<< HEAD
-              <legend>TVA Collecté</legend>                 
-<form  [formGroup]="standardtvacollecteform">
-=======
               <legend>TVA Collecté<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                 activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
                 ||activite==='Sage-femmes'">C.A à 7% (Actes de soin)</span></legend>
     <form  [formGroup]="standardtvacollecteform">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <fieldset>
 
 <div class="row">
@@ -950,54 +945,31 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 </fieldset>
 </form>
 </fieldset>
-<<<<<<< HEAD
-<fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'">  
-  <legend>TVA Collecté 19%</legend>                 
-<form  [formGroup]="standardtvacollecte19form">
-<fieldset>
-=======
 <fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'" style="padding-left: 20px;">  
   <legend>TVA Collecté C.A à 19% Acte d'esthétique</legend>                 
   <form  [formGroup]="standardtvacollecte19form">
   <fieldset style="padding-left: 20px;">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 
 <div class="row">
 <div class="col-6">
 <div class="form-group">
-<<<<<<< HEAD
-<label>Chiffre d'affairs HT</label>
-=======
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
 class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="chiffreaffaireht" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
 </div>
 </div>
 <div class="col-6">
 <div class="form-group">
-<<<<<<< HEAD
-<label>Taux</label>
-=======
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <input type="text" class="form-control" value="19%"disabled/>
 </div>
 </div>
 <div class="col-6">
 <div class="form-group"(click)="setThreeNumberDecimal($event)">
-<<<<<<< HEAD
-<label>Montant TVA</label>
-=======
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
 class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="tvaammount" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
 </div>
 </div>
 <div class="col-6">
 <div class="form-group">
-<<<<<<< HEAD
-<label>Chiffre d'affaires TTC</label>
-=======
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
 class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="ammountttc" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
 </div>

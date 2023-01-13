@@ -29,11 +29,7 @@
     </div>
     <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator"*ngIf="carousels" >
       <slide *ngFor="let item of sortedcarousels; let index=index">
-<<<<<<< HEAD
-         <img src="../../assets/carousel background.jpg" alt="image slide" style="display: block; width: 100%;height:250px;border-radius: 55px 55px 55px 55px;">
-=======
          <img src="../../assets/carousel background.jpg" alt="image slide" style="display: block; width: 100%;height:180px;border-radius: 55px 55px 55px 55px;">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
          <div class="carousel-caption">
           <h4><span style="color: red;">{{item.titre}}</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary"*ngIf="item.description" (click)="getNavigation('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
         </div>
@@ -127,74 +123,42 @@
   
   <!-- Container (Services Section) -->
   <div class="container-fluid text-center">
-<<<<<<< HEAD
-      <h2>SERVICES</h2>
-      <h4>Qu'est ce que nous offrons?</h4>
-      <br>
-      <div class="row">
-        <a href="declare-comptabilite">
-          <div class="col-sm-4">
-          <span class="glyphicon glyphicon-list-alt logo-small"></span>
-=======
       <h2>Services en ligne</h2>
       <br>
       <div class="row">
         <a href="declare-comptabilite">
           <div class="col-sm-3">
           <img src="../../assets/accounts.png" style="width:20% ;height:20%">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
           <h4>comptabilité</h4>
           <p>Tenez votre comptabilité</p>
         </div>
       </a>
       <a href="declare-fiscality">
-<<<<<<< HEAD
-        <div class="col-sm-4">
-          <span class="glyphicon glyphicon-euro logo-small"></span>
-=======
         <div class="col-sm-3">
           <img src="../../assets/budget.png"style="width:20% ;height:20%">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
           <h4>Fiscalité</h4>
           <p>Etablissez vos déclarations fiscales</p>
         </div>
       </a>
       <a routerLink="Documentation">
-<<<<<<< HEAD
-        <div class="col-sm-4">
-          <span class="glyphicon glyphicon-bitcoin logo-small"></span>
-=======
         <div class="col-sm-3">
           <img src="../../assets/salary.png"style="width:20% ;height:20%">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
           <h4>Paie</h4>
           <p>Préparez vos fiches de paie</p>
         </div>
       </a>
-<<<<<<< HEAD
-      </div>
-      <br><br>
-      <div class="row">
-          <a routerLink="Documentation">
-        <div class="col-sm-4_2" >
-          <span class="glyphicon glyphicon-flash logo-small"></span>
-=======
       <a routerLink="Documentation">
         <div class="col-sm-3" >
           <img src="../../assets/operator.png"style="width:10% ;height:10%">
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
           <h4>Conseil & Consultation En ligne</h4>
           <p>Demandez un conseil</p>
         </div>
       </a>
       </div>
-<<<<<<< HEAD
-=======
       
       
           
       
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     </div>
   
     
