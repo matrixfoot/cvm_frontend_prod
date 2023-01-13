@@ -83,4 +83,33 @@
     
   </div>
   </div>
+<<<<<<< HEAD
+=======
+  <!-- add multiple users -->
+  <div class="input-container" id="Check2">
+    <label for="myCheck1">Afficher le formulaire d'ajouts d'utilisateurs</label>
+    <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+  </div>
+  <div id="bodycontainer2">
+      
+    
+
+    <div class="container-fluid"> 
+     
+    
+      <fieldset>
+        <legend> Insérer plusieurs utlisateurs</legend>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label"> Charger document</label>
+            <div class="col-sm-12">
+              <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"(change)="onFileChange($event);">
+            </div>
+        </div>
+        <button class="btn btn-success" (click)="afficher()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
+      </fieldset>
+    <p>{{ errormsg }}</p>
+    
+  </div>
+  </div>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 </div>

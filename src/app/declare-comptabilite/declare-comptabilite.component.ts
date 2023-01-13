@@ -2119,7 +2119,11 @@ if (result.isConfirmed) {
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
+<<<<<<< HEAD
   this.usersservice.modifyUserById(user._id,newuser).then(
+=======
+  this.usersservice.completeUserById(user._id,newuser).then(
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     () => {
       this.reloadPage();
     }
@@ -2131,7 +2135,11 @@ else if (result.isDenied)
   const newuser= new User
   newuser.choixfacture=this.choixfacture
   this.token.saved=true
+<<<<<<< HEAD
   this.usersservice.modifyUserById(user._id,newuser).then(
+=======
+  this.usersservice.completeUserById(user._id,newuser).then(
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     () => {
       this.reloadPage();
     }
@@ -2169,7 +2177,11 @@ if (numero)
   const newuser= new User
   newuser.numeronote=numero
   this.token.saved=true
+<<<<<<< HEAD
   this.usersservice.modifyUserById(user._id,newuser).then(
+=======
+  this.usersservice.completeUserById(user._id,newuser).then(
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     () => {
       this.reloadPage();
     }
@@ -2210,7 +2222,11 @@ else if ((user.choixfacture=='saisie recette'))
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
+<<<<<<< HEAD
 if(this.sousactivite!='Médecin spécialiste')
+=======
+if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&this.sousactivite!='Médecin dentiste')
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 {
   for (let i = 1; i < 32; i++)
           {

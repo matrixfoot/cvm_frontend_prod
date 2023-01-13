@@ -15,7 +15,11 @@
         <h4 *ngIf="user.desactive">Statut du compte:<b *ngIf="user.desactive.statut===false">Compte actif</b><b *ngIf="user.desactive.statut===true">Compte Inactif</b></h4>
         
         <h4 *ngIf="user.desactive">date du statut(heure GMT):<b>  {{ user.desactive.date }}</b></h4>
+<<<<<<< HEAD
         <h4>Mot de passe regénéré le(heure GMT):<b>  {{ user.resetToken }}</b></h4>
+=======
+        <h4>Mot de passe regénéré le(heure GMT):<b>  {{ user.passwordReset}}</b></h4>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
         <h4>Nature utilisateur:<b>  {{ user.nature }}</b></h4>
         <h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
         <h4>Mobile:<b>  {{ user.mobile }}</b></h4>

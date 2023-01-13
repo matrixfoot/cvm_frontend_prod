@@ -128,7 +128,11 @@
     <th>Jour</th>
     <th>Date complète</th>
     <th>N° Note d'honoraire</th>
+<<<<<<< HEAD
     <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
+=======
+    <th *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'">Taux TVA</th>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     <th>Montant HT</th>
     <th>Montant TVA</th>
     <th>Montant DT</th>
@@ -158,7 +162,11 @@
                       class="form-control"formControlName="numeronote"(change)="onChange(i)"placeholder="N° note honoraire"readonly='true'/>
                    </div>
                   </td>
+<<<<<<< HEAD
                   <td *ngIf="sousactivite==='Médecin spécialiste'">
+=======
+                  <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'">
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
                     <div class="col-6">
                         <select class="form-control" placeholder="Taux TVA" id="tauxtva"formControlName="tauxtva" name="tauxtva" >
                           <option selected value="0.07">7%</option>
@@ -226,7 +234,11 @@
                      <p>Totaux</p>
                 </div>
             </td>
+<<<<<<< HEAD
             <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+=======
+            <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'"></td>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
             <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
@@ -238,7 +250,11 @@
                    <p>Totaux19%</p>
               </div>
           </td>
+<<<<<<< HEAD
           <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+=======
+          <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'"></td>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
           <td style="text-align: center;">{{totalht19 | number:'1.3-3'| removeComma}}</td>
           <td style="text-align: center;">{{totaltva19 | number:'1.3-3'| removeComma}}</td>
           <td style="text-align: center;">{{totaldt19 | number:'1.3-3'| removeComma}}</td>
@@ -256,7 +272,11 @@
             <tr>            
             <th>Jour</th>
             <th>Date complète</th>
+<<<<<<< HEAD
             <th *ngIf="sousactivite==='Médecin spécialiste'">Taux TVA</th>
+=======
+            <th *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'">Taux TVA</th>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
             <th>Recette</th>
             <th>Montant HT</th>
             <th>Montant TVA</th>
@@ -278,7 +298,11 @@
                                <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
                            </div>
                           </td>
+<<<<<<< HEAD
                           <td *ngIf="sousactivite==='Médecin spécialiste'">
+=======
+                          <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'">
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
                             <div class="col-6">
                                 <select class="form-control" placeholder="Taux TVA" id="tauxtva"formControlName="tauxtva" name="tauxtva" >
                                 <option selected value="0.07">7%</option>
@@ -330,7 +354,11 @@
                     <td colspan="7"></td>
                     <td>
                         <div>
+<<<<<<< HEAD
                         <button type="button"class="btn btn-primary mb-2" *ngIf="sousactivite==='Médecin spécialiste'" (click)="addammount2()">Ajouter recette</button>   
+=======
+                        <button type="button"class="btn btn-primary mb-2" *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'" (click)="addammount2()">Ajouter recette</button>   
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
                         </div>
                        </td>
                 </tr>
@@ -340,7 +368,11 @@
                              <p>Totaux7%</p>
                         </div>
                     </td>
+<<<<<<< HEAD
                     <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+=======
+                    <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'"></td>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
                     <td style="text-align: center;">{{totalrecette | number:'1.3-3'| removeComma}}</td>
                     <td style="text-align: center;">{{totalht2 | number:'1.3-3'| removeComma}}</td>
                     <td style="text-align: center;">{{totaltva2 | number:'1.3-3'| removeComma}}</td>
@@ -354,7 +386,11 @@
                            <p>Totaux19%</p>
                       </div>
                   </td>
+<<<<<<< HEAD
                   <td *ngIf="sousactivite==='Médecin spécialiste'"></td>
+=======
+                  <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'"></td>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
                   <td style="text-align: center;">{{totalrecette19 | number:'1.3-3'| removeComma}}</td>
                   <td style="text-align: center;">{{totalht219 | number:'1.3-3'| removeComma}}</td>
                   <td style="text-align: center;">{{totaltva219 | number:'1.3-3'| removeComma}}</td>

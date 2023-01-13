@@ -111,7 +111,11 @@
 
 <option value="Réel">Réel</option>
 <option value="Forfait D'assiette">Forfait D'assiette</option>
+<<<<<<< HEAD
 <option value="Non soumis">Non soumis</option>
+=======
+<option value="Non soumis" *ngIf="userForm.controls['activitynature'].value!='Profession Libérale'">Non soumis</option>
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 <option hidden value="Autre">Autre</option>
 </select>
 </div>

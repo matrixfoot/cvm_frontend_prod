@@ -73,11 +73,22 @@ h2{
 }
    
    .container-fluid {
+<<<<<<< HEAD
     padding: 60px 50px;
     background-position: center center; background-size: cover; 
      background-image: url('../../assets/service\ background.jpg');
      
      font-size: 25px;
+=======
+   
+    background-position: center center; background-size: cover; 
+     background-image: url('../../assets/service\ background.jpg');
+     
+   }
+   .container-fluid h4{
+   color: red;
+     
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
    }
    #expertisecont{
     padding: 60px 50px;
@@ -93,10 +104,14 @@ h2{
    .col-sm-4{
      color: red;
    }
+<<<<<<< HEAD
    .col-sm-4_2{
     color: red;
     text-align: center;
   }
+=======
+ 
+>>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
   a:link{
     text-decoration: none;
   }
