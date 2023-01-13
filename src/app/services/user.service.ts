@@ -4,11 +4,7 @@ import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Userdeleted } from '../models/user-deleted.model';
 const API_URL_test = 'http://localhost:3000/api/users/';
-<<<<<<< HEAD
 const API_URL_cloud= 'https://filthy-ruby-moose.cyclic.app/api/users/'
-=======
-const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/users/'
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 @Injectable({ providedIn: 'root' })
 export class UserService {
     
@@ -63,9 +59,6 @@ export class UserService {
         this.usersdeleted$.next(this.usersdeleted);
       }
    
-<<<<<<< HEAD
-    
-=======
      // Add users//
  addusers(user:User[]) {
   return new Promise((resolve, reject) => {
@@ -80,7 +73,6 @@ export class UserService {
       );
     });
 }
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
       
       getUserById(id: string) {
         return new Promise((resolve, reject) => {

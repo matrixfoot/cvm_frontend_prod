@@ -8,12 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { read, utils } from "xlsx"
 import Swal from 'sweetalert2';
 import { ApiServiceService } from '../services/event.service';
-<<<<<<< HEAD
-=======
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
 
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -31,14 +28,10 @@ export class SettingsComponent implements OnInit {
   uploadEvent: any;
   arrayBuffer: string | ArrayBuffer;
   exceljsondata: Event[];
-<<<<<<< HEAD
-  constructor(private token: TokenStorageService,private carousel:CarouselService,private eve:ApiServiceService,private formBuilder: FormBuilder,
-=======
   exceljsondata2: User[];
 
   constructor(private token: TokenStorageService,private carousel:CarouselService,    private userservice: UserService,
     private eve:ApiServiceService,private formBuilder: FormBuilder,
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     private router: Router,) { }
 
   ngOnInit() {
@@ -223,8 +216,6 @@ export class SettingsComponent implements OnInit {
     });
   }
 }
-<<<<<<< HEAD
-=======
 myFunction2() {
   var checkbox:any = document.getElementById("myCheck2");
   var text2 = document.getElementById("bodycontainer2");
@@ -306,7 +297,6 @@ Swal.fire({
     }
   );
 }
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 reloadPage(): void {
   
   setTimeout(() => window.location.reload(), 3000);

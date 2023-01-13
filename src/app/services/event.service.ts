@@ -11,11 +11,7 @@ import { Events } from '../models/event.model';
     providedIn: 'root'
   })
 export class ApiServiceService {
-<<<<<<< HEAD
     API_URL_cloud= 'https://filthy-ruby-moose.cyclic.app/api/events/'
-=======
-    API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/events/'
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
     API_URL_test = 'http://localhost:3000/api/events/';  
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};

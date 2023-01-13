@@ -4,11 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Carouselmodel } from '../models/settings';
 const API_URL_test = 'http://localhost:3000/api/settings/';
-<<<<<<< HEAD
 const API_URL_cloud= 'https://filthy-ruby-moose.cyclic.app/api/settings/'
-=======
-const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/settings/'
->>>>>>> 3dbe58f379b76752bb388cea71d48bb133a1f7db
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
