@@ -44,6 +44,7 @@ export class CollabUserCreateComponent implements OnInit {
       fonction: [null],
       secteur: [null],
       civilite: [null,Validators.required],
+      nature: [null,Validators.required],
       raisonsociale: [null],
       nomsociete: [null],
       clientcode: [null, Validators.required],

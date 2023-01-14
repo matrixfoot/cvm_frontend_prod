@@ -13,6 +13,9 @@
   
 <form  [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <h2>Formulaire D'inscription</h2>
+    <div *ngIf="submitted && f.nature.errors" class="invalid-feedback">
+      <div *ngIf="f.nature.errors.required">Nature Utilisateur est obligatoire</div>
+  </div>
     <div title="indiquer votre type" class="input-container">
      
       <label for="civilite"> Nature utilisateur:</label>  
