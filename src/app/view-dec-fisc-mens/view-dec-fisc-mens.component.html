@@ -656,12 +656,13 @@
 </div>
 
                   
-                <div class="card">
+                <div class="card" *ngIf="decfiscmens">
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
                   <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>              
-                  <button type="button"  (click)="openPDF()" *ngIf="statut==='Valide'"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button>
+                  <button type="button"  (click)="openPDF()" [disabled] = "!showgenerate"
+                  [ngStyle]="{'color': (showgenerate)? 'white': 'red','background-color': (showgenerate)? 'green': 'white'}"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button>
                   <button type="button" id="bottom"class="btn btn-primary btn-sm" (click)="top()"><span><i class="glyphicon glyphicon-arrow-up"></i></span></button>   
                 </div>
