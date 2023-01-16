@@ -144,7 +144,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let user of users"> 
+                    <tr *ngFor="let user of getclients()"> 
                 
                       
                       <td>{{user.email}}</td>
@@ -203,7 +203,7 @@
                     </tr>
                     </thead>
                     <tbody *ngIf="users">
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of getclientsbloqued()">
                 
                       
                       <td>{{user.email}}</td>
@@ -330,7 +330,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of getcollaborateurs()">
                 
                       
                       <td>{{user.email}}</td>
@@ -387,7 +387,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of getconsultants()">
                 
                       
                       <td>{{user.email}}</td>
@@ -444,7 +444,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let user of users">
+                    <tr *ngFor="let user of getcondidates()">
                 
                       
                       <td>{{user.email}}</td>

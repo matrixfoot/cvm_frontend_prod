@@ -208,22 +208,26 @@ filterusers2(id:string)
                 return this.filtredusers=this.users.filter((user) => (user._id === id));
               }
               
-              /*getclients() {
-                return this.users.filter((user) => (user.usertype === 'Client'&&!user.desactive.statut)); 
-              }*/
-              /*getclientsbloqued() {
+              getclients() {
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((filter) => (filter.usertype === 'Client'&&!filter.desactive.statut)); 
+              }
+              getclientsbloqued() {
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return (filtred.filter((user) => user.desactive.statut));
                
-                return (this.users.filter((user) => user.desactive.statut));
-               
-              }*/
+              }
               getcollaborateurs() {
-                return this.users.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
               }
               getconsultants() {
-                return this.users.filter((user) => user.usertype === ('Consultant'||'consultant')); 
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === ('Consultant'||'consultant')); 
               }
               getcondidates() {
-                return this.users.filter((user) => user.usertype === 'Candidat');
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === 'Candidat');
               }
               getusersbyfirstname() {
                 this.firstname=this.searchForm.get('firstname').value;
