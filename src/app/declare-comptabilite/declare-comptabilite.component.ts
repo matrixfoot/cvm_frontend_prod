@@ -188,7 +188,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.matriculefiscale=this.user.matriculefiscale;
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
 || user.regimefiscalimpot=='Autre/null' 
-|| !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.router.navigate(['complete-profil/'+this.currentUser.userId]))
+|| !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.token.saved=true,this.router.navigate(['complete-profil/'+this.currentUser.userId]))
 if(this.activite=='Avocat'||this.activite=='Architectes'||this.activite=='Syndic des copropriétaires'||this.activite=='Ingénieurs-conseil'||this.activite=='Dessinateurs'||this.activite=='Géomètres'||
 this.activite=='Topographes'||this.activite=='Notaire'||this.activite=='Huissiers notaire'||this.activite=='Interprètes'||this.activite=='Expert' )
 {

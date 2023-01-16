@@ -53,8 +53,20 @@ export class AdminBoardComponent implements OnInit {
   filtredusers2: User[] = [];
   prenomfisc: string
   nomfisc: string
-  
-
+  clientactif=false
+  clientbloque=false
+  clientsupptemporairement=false
+  collaborateurs=false
+  consultants=false
+  candidat=false
+  decfiscmensvalide=false
+  decfiscmensnonvalide=false
+  deccomptabilitevalide=false
+  deccomptabilitenonvalide=false
+  candidaturevalide=false
+  candidaturenonvalide=false
+  reclamationtraite=false
+  reclamationnontraite=false
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -197,20 +209,25 @@ filterusers2(id:string)
               }
               
               getclients() {
-                return this.users.filter((user) => (user.usertype === 'Client'&&!user.desactive.statut)); 
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((filter) => (filter.usertype === 'Client'&&!filter.desactive.statut)); 
               }
               getclientsbloqued() {
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return (filtred.filter((user) => user.desactive.statut));
                
-                return (this.users.filter((user) => user.desactive.statut));
               }
               getcollaborateurs() {
-                return this.users.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
               }
               getconsultants() {
-                return this.users.filter((user) => user.usertype === ('Consultant'||'consultant')); 
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === ('Consultant'||'consultant')); 
               }
               getcondidates() {
-                return this.users.filter((user) => user.usertype === 'Candidat');
+                let filtred=this.deccompt.filterByValue(this.users,'desactive')
+                return filtred.filter((user) => user.usertype === 'Candidat');
               }
               getusersbyfirstname() {
                 this.firstname=this.searchForm.get('firstname').value;
@@ -242,14 +259,34 @@ filterusers2(id:string)
               this.dec.getdecfiscmenss();
                                                              
                                                                
-           }    
-           getalldeccomptabilites() {
+           } 
+           getdecfiscmenssvalide() {
                                 
                                                 
-            this.deccompt.getdeccomptabilites();
-                                                           
+            return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Valide'));                                                           
                                                              
-         }                      
+         }  
+         getdecfiscmenssnonvalide() {
+                                
+                                                
+          return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Valide'));                                                           
+                                                           
+       } 
+           getalldeccomptabilites() {                                   
+            this.deccompt.getdeccomptabilites();                                                    
+         }
+         getdeccomptabilitesvalide() {
+                                
+                                                
+          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Valide'));                                                           
+                                                           
+       }  
+       getdeccomptabilitesnonvalide() {
+                                
+                                                
+        return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'));                                                           
+                                                         
+     }                     
              getalldeleted() {
                                 
                                                 
@@ -271,6 +308,18 @@ filterusers2(id:string)
                                                                                                                 
                                                                                                                  
              }
+             getcondidatevalide() {
+                                
+                                                
+              return this.condidates.filter((condidate) => condidate.decision === ('Valide'));                                                           
+                                                               
+           }
+           getcondidatenonvalide() {
+                                
+                                                
+            return this.condidates.filter((condidate) => condidate.decision != ('Valide'));                                                           
+                                                             
+         }
             getcontactreqsbydateinf() {
                                                                                 
               
@@ -292,8 +341,79 @@ filterusers2(id:string)
                                                                                                               
                                                                                                                
            }
+           getcontactvalide() {
+                                
+                                                
+            return this.contacts.filter((contact) => contact.statut === ('Valide'));                                                           
+                                                             
+         }
+         getcontactnonvalide() {
+                                
+                                                
+          return this.contacts.filter((contact) => contact.statut != ('Valide'));                                                           
+                                                           
+       }
            exportusersAsXLSX():void {
             this.excelService.exportAsExcelFile(this.users,[],[],[],[],[], 'sample');
+          }
+          onTabClick(event) {
+   
+          }
+          click1()
+          {
+this.clientactif=true
+          }
+          click2()
+          {
+      this.clientbloque=true      
+          }
+          click3()
+          {
+         this.clientsupptemporairement=true   
+          }
+          click4()
+          {
+            this.collaborateurs=true
+          }
+          click5()
+          {
+            this.consultants=true
+          }
+          click6()
+          {
+            this.candidat=true
+          }
+          click7()
+          {
+            this.decfiscmensvalide=true
+          }
+          click8()
+          {
+            this.decfiscmensnonvalide=true
+          }
+          click9()
+          {
+            this.deccomptabilitevalide=true
+          }
+          click10()
+          {
+            this.deccomptabilitenonvalide=true
+          }
+          click11()
+          {
+            this.candidaturevalide=true
+          }
+          click12()
+          {
+            this.candidaturenonvalide=true
+          }
+          click13()
+          {
+            this.reclamationtraite=true
+          }
+          click14()
+          {
+            this.reclamationnontraite=true
           }
 }
   
