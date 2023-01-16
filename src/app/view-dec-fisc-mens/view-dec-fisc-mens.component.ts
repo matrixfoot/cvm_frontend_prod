@@ -37,6 +37,7 @@ maincontainer=false;
   file:File;
   annee: string;
   sousactivite: string;
+  showgenerate=false
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -154,7 +155,10 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            
+            if(this.statut=='Valide')
+            {
+              this.showgenerate=true
+            }
             if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
             this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
             ||this.activite=='Sage-femmes' )
