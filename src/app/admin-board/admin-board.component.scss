@@ -1,6 +1,12 @@
 h2{
   text-align: center;
 }
+.container-fluid{
+  padding-top: 20px;
+}
+.list-group-item{
+  cursor: pointer;
+}
 #loader {
   position: relative;
   left: 50%;
