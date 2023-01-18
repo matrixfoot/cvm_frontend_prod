@@ -601,18 +601,18 @@
   <tr id="row1"><th colspan="10">المجمـــــــــــــــــــــــــــــــوع</th><th></th></tr>
   <tr id="row1"><th colspan="11"style="text-align: center;font-size:24px">خلاصة الأداءات والمعاليم الواجب دفعها</th></tr>
   <tr id="row1"><th colspan="6">الضريبة أو المعلوم </th><th>مبلغ أصل الأداء</th><th>الطرح (الأداء المدفوع)</th><th>الأداء المستوجب</th><th>خطايا التأخير </th><th>المجمـــــــــوع</th></tr>
-  <tr id="row1"><th colspan="6">الخصم من المورد </th><th>{{totalretenueammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">الأداء على التكوين المهني </th><th>{{totaltfpammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th>{{totalfoprolosammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الخصم من المورد </th><th><span *ngIf="type1">{{totalretenueammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الأداء على التكوين المهني </th><th><span *ngIf="type3">{{totaltfpammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th><span *ngIf="type4">{{totalfoprolosammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم على الاستهلاك </th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">الأداء على القيمة المضافة </th><th>{{totaltvaammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الأداء على القيمة المضافة </th><th><span *ngIf="type2">{{totaltvaammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">معاليم أخرى على رقم المعاملات </th><th><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.montantcontribution  | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">معاليم الطابع الجبائي </th><th>{{totaltimbreammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">معاليم الطابع الجبائي </th><th><span *ngIf="type5">{{totaltimbreammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعاليم الراجعة للجماعات المحلية :</th><th></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم على النزل </th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</th><th>{{totaltclammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</th><th><span *ngIf="type6">{{totaltclammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">معلوم الإجازة</th><th></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم الأدنى </th><th>{{minimumperceptionammount| number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المجموع</th><th>{{totaldeclaration | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>

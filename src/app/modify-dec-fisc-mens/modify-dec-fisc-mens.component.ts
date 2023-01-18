@@ -2513,30 +2513,75 @@ onSubmit() {
 }
 onchoice()
 {
-  Swal.fire({
-    title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
-    
-    icon: 'info',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#555',
-    confirmButtonText: 'oui',
-    cancelButtonText: 'Annuler',
-    denyButtonText: 'non,merci',
-    
-    }).then((result) => {
-    if (result.isConfirmed) {
-      this.onSend() 
-    }
-    else if (result.isDenied)
+  let date= new Date
+  let annee=date.getFullYear()
+  let mois=date.getMonth()
+  let jour=date.getDay()
+  if(this.option171Value!='01')
+  {
+    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value-1<mois||this.option54Value==annee&&this.option171Value-1==mois&&jour>15)
     {
-      this.onSend()
+      Swal.fire({
+        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
+        
+        icon: 'info',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#555',
+        confirmButtonText: 'oui',
+        cancelButtonText: 'Annuler',
+        denyButtonText: 'non,merci',
+        
+        }).then((result) => {
+        if (result.isConfirmed) {
+          this.onSend() 
+        }
+        else if (result.isDenied)
+        {
+          this.onSend()
+        }
+        
+        }).catch(() => {
+        Swal.fire('opération non aboutie!');
+        });
     }
-    
-    }).catch(() => {
-    Swal.fire('opération non aboutie!');
-    });
+      else{
+        this.onSend()
+      }
+  }
+  else{
+    if(this.option54Value<annee-1||this.option54Value==annee-1&&mois<12||this.option54Value==annee-1&&this.option171Value==12&&jour>15)
+    {
+      Swal.fire({
+        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
+        
+        icon: 'info',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#555',
+        confirmButtonText: 'oui',
+        cancelButtonText: 'Annuler',
+        denyButtonText: 'non,merci',
+        
+        }).then((result) => {
+        if (result.isConfirmed) {
+          this.onSend() 
+        }
+        else if (result.isDenied)
+        {
+          this.onSend()
+        }
+        
+        }).catch(() => {
+        Swal.fire('opération non aboutie!');
+        });
+    }
+      else{
+        this.onSend()
+      }
+  }
 }
 onSend() {
   this.loading = true;
