@@ -19,7 +19,12 @@
 
       <div title="indiquer votre décision"class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Indiquer votre décision" id="decision" formControlName="decision"required>
+        <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="decision" formControlName="decision" >
+          <option value="default"> </option>
+          <option *ngFor="let statut of status" [value]="statut">
+              {{statut}}
+          </option>
+        </select>      
       </div> 
       <div title="indiquer votre motif"class="input-container">
         <i class="fa fa-user icon"></i>

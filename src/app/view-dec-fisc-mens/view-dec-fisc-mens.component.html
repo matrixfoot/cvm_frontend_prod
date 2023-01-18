@@ -657,6 +657,14 @@
 
                   
                 <div class="card" *ngIf="decfiscmens">
+
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+                    <option value="default"> </option>
+                    <option *ngFor="let col of collab" [value]="col">
+                        {{col.firstname}} {{col.lastname}}
+                    </option>
+                  </select>   
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>

@@ -13,6 +13,7 @@ import { Decfiscmens } from '../models/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
+import { CommunService } from '../services/commun';
 @Component({
   selector: 'app-modify-dec-fisc-mens',
   templateUrl: './modify-dec-fisc-mens.component.html',
@@ -384,6 +385,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   tauxdt: number;
   tvacollecte19=0.000;
   role: string;
+  status: string[]=[];
   constructor(private formBuilder: FormBuilder,
   
    
@@ -393,7 +395,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     private dec: DecfiscmensService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) {
+    private alertService: AlertService,private commun: CommunService) {
       super();
       this.autreform = this.formBuilder.group({
         ammounts: this.formBuilder.array([ this.createammount() ])
@@ -403,6 +405,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
 
  ngOnInit() {
   this.loading = true;
+  this.status=this.commun.status
   this.isLoggedIn = !!this.tokenStorage.getToken();
   this.currentuser = this.tokenStorage.getUser();
   this.tauxdt=0.600

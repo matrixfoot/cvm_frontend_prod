@@ -19,7 +19,13 @@
         <h4>Motif:<b>  {{ condidate.motif }}</b></h4>
         <h4>Description:<b>  {{ condidate.description }}</b></h4>
       </div>
-      
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+                    <option value="default"> </option>
+                    <option *ngFor="let col of collab" [value]="col">
+                        {{col.firstname}} {{col.lastname}}
+                    </option>
+                  </select>
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Admin)</button>
       <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer candidature</button>
 

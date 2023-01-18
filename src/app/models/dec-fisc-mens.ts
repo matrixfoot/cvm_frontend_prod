@@ -22,6 +22,8 @@ export class Decfiscmens {
     annee:string;
     statut:string;
     motif:string;
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
     
   updated: Date;

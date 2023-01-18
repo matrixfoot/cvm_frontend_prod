@@ -10,6 +10,7 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { CondidateService } from '../services/condidate.service';
 import { Condidate } from '../models/condidate.model';
 import { AlertService } from '../_helpers/alert.service';
+import { CommunService } from '../services/commun';
 
 @Component({
   selector: 'app-modify-condidate',
@@ -28,6 +29,7 @@ export class ModifyCondidateComponent implements OnInit {
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
+  status: string[]=[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -36,12 +38,12 @@ export class ModifyCondidateComponent implements OnInit {
     private cond: CondidateService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) {}
+    private alertService: AlertService,private commun: CommunService) {}
 
 
  ngOnInit() {
   this.loading = true;
-    
+    this.status=this.commun.status
   
   this.route.params.subscribe(
     (params) => {

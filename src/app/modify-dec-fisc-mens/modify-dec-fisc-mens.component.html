@@ -13,11 +13,12 @@
                 <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
                 <form [formGroup]="decfiscmensForm">
                   <div class="form-group">
-                    <label for="fq_name">Statut</label>
+                    <label for="fq_name">Statut</label>    
                     <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
-                    <option value="Valide">Validé</option>
-                    <option value="En cours de traitement">En cours de traitement</option>
-                    <option value="A rectifie">A rectifié</option>
+                      <option value="default"> </option>
+                      <option *ngFor="let statut of status" [value]="statut">
+                          {{statut}}
+                      </option>
                     </select>
                   </div>
                   <div class="form-group">

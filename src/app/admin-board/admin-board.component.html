@@ -8,25 +8,39 @@
     <div class="container-fluid">
       <div class="col col-md-3">			
         <div class="panel-group" id="accordion">
+          <div class="panel panel-default"*ngIf="decfiscmenss.length>0&&deccomptabilites.length>0&&contacts.length>0&&condidates.length>0">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse0">
+              Liste des dossiers</a>
+              </h4>
+            </div>
+            <div id="collapse0" class="panel-collapse collapse in">
+              <ul class="list-group">
+                <li class="list-group-item"(click)="click29()"(click)="getdossiersencours()"><span class="badge">{{dossdecfiscencours+dossdeccompencours+dosscandencours+dosscontactencours}}</span>Dossiers en cours d'éxécution</li>
+                <li class="list-group-item"(click)="click30()"(click)="getdossiersencoursnonaffecte()"><span class="badge">{{dossdecfiscnonaffecte+dossdeccompnonaffecte+dosscandnonaffecte+dosscontactnonaffecte}}</span>Dossiers pas encore affectés</li>
+              </ul>
+            </div>
+            </div>
           <div class="panel panel-default"*ngIf="users">
           <div class="panel-heading">
             <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-            Liste des clients</a>
+            Liste des utilisateurs</a>
             </h4>
           </div>
           <div id="collapse1" class="panel-collapse collapse in">
             <ul class="list-group">
-              <li class="list-group-item"(click)="click1()"><span class="badge"></span>Clients actifs</li>
-              <li class="list-group-item"(click)="click2()"><span class="badge"></span>Clients bloqués</li>
-              <li class="list-group-item"(click)="click3()"><span class="badge"></span>Clients supprimés temporairement</li>
-              <li class="list-group-item"(click)="click4()"><span class="badge"></span>Collaborateurs</li>
-              <li class="list-group-item"(click)="click5()"><span class="badge"></span>Consultants</li>
-              <li class="list-group-item"(click)="click6()"><span class="badge"></span>Candidats</li>
+              <li class="list-group-item"(click)="click1()"><span class="badge">{{ca}}</span>Clients actifs</li>
+              <li class="list-group-item"(click)="click2()"><span class="badge">{{cb}}</span>Clients bloqués</li>
+              <li class="list-group-item"(click)="click3()"><span class="badge">{{del}}</span>Clients supprimés temporairement</li>
+              <li class="list-group-item"(click)="click4()"><span class="badge">{{coll}}</span>Collaborateurs</li>
+              <li class="list-group-item"(click)="click5()"><span class="badge">{{cons}}</span>Consultants</li>
+              <li class="list-group-item"(click)="click6()"><span class="badge">{{condida}}</span>Candidats</li>
             </ul>
           </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default"*ngIf="decfiscmenss.length>0">
           <div class="panel-heading">
             <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
@@ -35,12 +49,12 @@
           </div>
           <div id="collapse2" class="panel-collapse collapse">
             <ul class="list-group">
-              <li class="list-group-item"(click)="click7()"><span class="badge">12</span>Validé</li>
-              <li class="list-group-item"(click)="click8()"><span class="badge">5</span>Pas encore validé</li>
+              <li class="list-group-item"(click)="click7()"><span class="badge">{{decfiscvali}}</span>Validé</li>
+              <li class="list-group-item"(click)="click8()"><span class="badge">{{decfiscnonvali}}</span>Pas encore validé</li>
             </ul>
           </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default"*ngIf="deccomptabilites.length>0">
           <div class="panel-heading">
             <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
@@ -49,12 +63,12 @@
           </div>
           <div id="collapse3" class="panel-collapse collapse">
             <ul class="list-group">
-              <li class="list-group-item"(click)="click9()"><span class="badge">1</span>Validé</li>
-              <li class="list-group-item"(click)="click10()"><span class="badge">5</span>Non validé</li>
+              <li class="list-group-item"(click)="click9()"><span class="badge">{{deccomptvalid}}</span>Validé</li>
+              <li class="list-group-item"(click)="click10()"><span class="badge">{{deccompnonval}}</span>Non validé</li>
             </ul>
           </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default"*ngIf="condidates.length>0">
             <div class="panel-heading">
               <h4 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
@@ -63,12 +77,12 @@
             </div>
             <div id="collapse4" class="panel-collapse collapse">
               <ul class="list-group">
-                <li class="list-group-item"(click)="click11()"><span class="badge">1</span>Validé</li>
-                <li class="list-group-item"(click)="click12()"><span class="badge">5</span>Non validé</li>
+                <li class="list-group-item"(click)="click11()"><span class="badge">{{condval}}</span>Validé</li>
+                <li class="list-group-item"(click)="click12()"><span class="badge">{{condnonal}}</span>Non validé</li>
               </ul>
             </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-default"*ngIf="contacts.length>0">
               <div class="panel-heading">
                 <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
@@ -77,8 +91,8 @@
               </div>
               <div id="collapse5" class="panel-collapse collapse">
                 <ul class="list-group">
-                  <li class="list-group-item"(click)="click13()"><span class="badge">1</span>Traité</li>
-                  <li class="list-group-item"(click)="click14()"><span class="badge">5</span>Non traité</li>
+                  <li class="list-group-item"(click)="click13()"><span class="badge">{{contval}}</span>Traité</li>
+                  <li class="list-group-item"(click)="click14()"><span class="badge">{{contnonval}}</span>Non traité</li>
                 </ul>
               </div>
               </div>
@@ -86,7 +100,176 @@
       </div>
       <div class="col col-md-9"id="tabcontainer">
         <mat-tab-group (selectedTabChange)="onTabClick($event)">
+          <mat-tab label="Dossiers en cours d'éxécution" *ngIf="showdossencours&&dossencours">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Dossiers en cours d'exécution</div>
+              <span (click)="click31()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
+            <div class="col-lg-12">
+              <div class="team-member">
+                <hr>
+                <!--<div class="container-fluid">
+                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                <form [formGroup]="searchForm">
+                 
+                  <div class="searchbar">
+                    
+                    <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+                   <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                  
+                </div>
+                    <div class="searchbar">
+                    
+                      <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
+                     <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    <div class="searchbar">
+                    
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                       <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                      
+                    </div><br>
+                    <div class="searchbar" style="float: right;">
+                      
+                      <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
+                     <a class="search_icon"(click)="getclients()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    </form> 
+                  </div> -->    
+                <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+          
+                  
+                  
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th scope="col">Prenom</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">date de modification</th>     
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let dossenc of dossencours"> 
+                
+                      
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                        <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
+                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                      <td>{{dossenc.created}}</td>
+                      <td>{{dossenc.updated}}</td>
+                      
+                      
+                      
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
+                        
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Dossiers pas encore affectés" *ngIf="showdosspasencoreaffecte&&dossnonaffecte">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Dossiers pas encore affectés</div>
+              <span (click)="click32()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
+            <div class="col-lg-12">
+              <div class="team-member">
+                <hr>
+                <!--<div class="container-fluid">
+                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                <form [formGroup]="searchForm">
+                 
+                  <div class="searchbar">
+                    
+                    <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+                   <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                  
+                </div>
+                    <div class="searchbar">
+                    
+                      <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
+                     <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    <div class="searchbar">
+                    
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                       <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                      
+                    </div><br>
+                    <div class="searchbar" style="float: right;">
+                      
+                      <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
+                     <a class="search_icon"(click)="getclients()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    </form> 
+                  </div> -->    
+                <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+          
+                  
+                  
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th scope="col">Prenom</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">date de modification</th>     
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let dossenc of dossnonaffecte"> 
+                
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                        <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
+                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                      <td>{{dossenc.created}}</td>
+                      <td>{{dossenc.updated}}</td>
+                      
+                      
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
+                      
+                        
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+            </div>
+          </mat-tab>
           <mat-tab label="Clients actifs" *ngIf="clientactif&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Clients actifs</div>
+              <span (click)="click15()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12">
               <div class="team-member">
                 <hr>
@@ -174,6 +357,10 @@
             </div>
           </mat-tab>
           <mat-tab label="Clients bloqués" *ngIf="clientbloque&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Clients bloqués</div>
+              <span (click)="click16()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Clients bloqués</h2>
@@ -233,6 +420,10 @@
             </div>
           </mat-tab>
           <mat-tab label="Clients supprimés temporairement" *ngIf="clientsupptemporairement&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Clients supprimés temporairement</div>
+              <span (click)="click17()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Clients supprimés temporairement</h2>
@@ -302,6 +493,10 @@
             </div>
           </mat-tab>
           <mat-tab label="Collaborateurs" *ngIf="collaborateurs&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Collaborateurs</div>
+              <span (click)="click18()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Collaborateurs</h2>
@@ -359,6 +554,10 @@
             </div>
           </mat-tab>
           <mat-tab label="Consultants" *ngIf="consultants&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Consultants</div>
+              <span (click)="click19()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Consultants</h2>
@@ -416,6 +615,10 @@
             </div>
           </mat-tab>
           <mat-tab label="Candidats" *ngIf="candidat&&users">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Candidats</div>
+              <span (click)="click20()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Candidats</h2>
@@ -473,6 +676,10 @@
             </div>
           </mat-tab>
           <mat-tab label="declaration fiscales valide" *ngIf="decfiscmensvalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">déclaration fiscales valide</div>
+              <span (click)="click21()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <hr>
@@ -538,6 +745,10 @@
             </div>
           </mat-tab>
           <mat-tab label="declaration fiscales non valide" *ngIf="decfiscmensnonvalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">déclaration fiscales non valides</div>
+              <span (click)="click22()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <hr>
@@ -573,7 +784,8 @@
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
                       <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
                       <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
-                     
+                      <th scope="col">Affecté à<i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="affectation" ></i></th>
+
                       
                     </tr>
                     </thead>
@@ -589,7 +801,14 @@
                       <td>{{nomfisc}}</td>
                       <td>{{decfiscmens.statut}}</td>
                       <td>{{decfiscmens.created}}</td>
-                      
+                      <!--<td *ngIf="users">
+                        <select #cricket (change)="update($event)"id="collabfirstname"formControlName="collabfirstname" name="collabfirstname">
+                          <option value="default"> </option>
+                          <option *ngFor="let collaborateur of getcollaborateurs()" [value]="collaborateur">
+                              {{collaborateur.firstname}}
+                          </option>
+                      </select>
+                      </td>-->
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationdecfiscmenss('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
                       
@@ -603,6 +822,10 @@
             </div>
           </mat-tab>
           <mat-tab label="declaration comptables valide" *ngIf="deccomptabilitevalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">déclaration comptables valide</div>
+              <span (click)="click23()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
               <div class="team-member">
                 <h2>Liste des fichiers comptables</h2>
@@ -667,6 +890,10 @@
             </div>
           </mat-tab>
           <mat-tab label="declaration comptables non valide" *ngIf="deccomptabilitenonvalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">déclaration comptables non valides</div>
+              <span (click)="click24()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
               <div class="team-member">
                 <h2>Liste des fichiers comptables</h2>
@@ -731,6 +958,10 @@
             </div>
           </mat-tab>
           <mat-tab label="candidature valide" *ngIf="candidaturevalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Candidatures valides</div>
+              <span (click)="click25()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Candidatures</h2>
@@ -799,6 +1030,10 @@
             </div>
           </mat-tab>
           <mat-tab label="candidature non valide"*ngIf="candidaturenonvalide">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Candidatures non valide</div>
+              <span (click)="click26()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Candidatures</h2>
@@ -867,6 +1102,10 @@
             </div>
           </mat-tab>
           <mat-tab label="réclamation traité" *ngIf="reclamationtraite">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">réclamations traité</div>
+              <span (click)="click27()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Réclamations</h2>
@@ -931,9 +1170,6 @@
                       <td>{{contact.mobile}}</td>
                       <td>{{contact.description}}</td>
                       <td>{{contact.statut}}</td>
-                      
-                      
-                      
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontacts('view-contactreq',contact._id)">Consulter</button></td>
                       
                     
@@ -946,6 +1182,10 @@
             </div>
           </mat-tab>
           <mat-tab label="réclamation pas encore traité" *ngIf="reclamationnontraite">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">réclamation pas encore traité</div>
+              <span (click)="click28()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <h2>Liste des Réclamations</h2>

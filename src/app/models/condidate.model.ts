@@ -1,5 +1,5 @@
 export class Condidate {
-    
+    type:string;
     userId: string;
     email: string;
     _id:string;
@@ -12,6 +12,8 @@ export class Condidate {
     motif:string;
     description:string;
     specialite:string;
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
     
   updated: Date

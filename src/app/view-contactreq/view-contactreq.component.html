@@ -18,7 +18,13 @@
       </div>
       
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Admin)</button>
-      
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+                    <option value="default"> </option>
+                    <option *ngFor="let col of collab" [value]="col">
+                        {{col.firstname}} {{col.lastname}}
+                    </option>
+                  </select>
 
     </div>
     

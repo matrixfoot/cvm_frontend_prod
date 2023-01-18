@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Userdeleted } from '../models/user-deleted.model';
+import { DeccomptabiliteService } from './dec-comptabilite';
 const API_URL_test = 'http://localhost:3000/api/users/';
 const API_URL_cloud= 'https://good-puce-eel-tutu.cyclic.app/api/users/'
 @Injectable({ providedIn: 'root' })
 export class UserService {
+  filtred: User[] = []
     
     
-    constructor(private http: HttpClient) { }
+    
+    constructor(private http: HttpClient,private deccompt:DeccomptabiliteService) { }
     private users: User[] = [
     
     ];

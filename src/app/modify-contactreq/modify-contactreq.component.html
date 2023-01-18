@@ -20,7 +20,12 @@
 
       <div title="indiquer le statut de la réclamation"class="input-container">
         <i class="fa fa-user icon"></i>
-        <input class="input-field" type="text" placeholder="Indiquer le statut de la réclamation" id="statut" formControlName="statut"required>
+        <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
+          <option value="default"> </option>
+          <option *ngFor="let statut of status" [value]="statut">
+              {{statut}}
+          </option>
+        </select>      
       </div> 
       
      

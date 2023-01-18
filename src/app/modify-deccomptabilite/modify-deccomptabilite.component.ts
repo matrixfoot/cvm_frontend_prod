@@ -12,6 +12,7 @@ import { Deccomptabilite } from '../models/dec-comptabilite';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
+import { CommunService } from '../services/commun';
 @Component({
   selector: 'app-modify-deccomptabilite',
   templateUrl: './modify-deccomptabilite.component.html',
@@ -122,6 +123,7 @@ totalht219=0.000;
   public ammounts6: FormArray;
   activitedec: string;
   sousactivitedec: string;
+  status: string[]=[];
   constructor(private fb: FormBuilder,
   
    
@@ -131,7 +133,7 @@ totalht219=0.000;
     private deccompt: DeccomptabiliteService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) {
+    private alertService: AlertService,private commun: CommunService) {
       super();
       this.editionnoteform = this.fb.group({
         ammounts: this.fb.array([ this.createammount() ])
@@ -160,6 +162,7 @@ totalht219=0.000;
 
   ngOnInit() {
     this.loading = true;
+this.status=this.commun.status
     this.currentUser = this.tokenStorage.getUser();
     this.tokenStorage.saved=false;
 

@@ -1,5 +1,5 @@
 export class Contact {
-    
+    type:string;
     userId: string;
     email: string;
     _id:string;
@@ -11,7 +11,8 @@ export class Contact {
     statut:string;
     
     description:string;
-    
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
     
   updated: Date
