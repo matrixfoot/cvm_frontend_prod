@@ -869,7 +869,7 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
               confirmButtonColor: '#3085d6',
             }).then((result) => {
               Swal.fire({
-                title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+                title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas le déclarer pour le moment',
                 icon: 'info',
                 confirmButtonColor: '#3085d6',
               }).then((result) => {}).catch(() => {
@@ -2514,16 +2514,15 @@ onSubmit() {
 onchoice()
 {
   let date= new Date
+  let jour=date.getDate()
   let annee=date.getFullYear()
-  let mois=date.getMonth()
-  let jour=date.getDay()
-  if(this.option171Value!='01')
+  let mois=date.getMonth()+1
+  if(mois!=1)
   {
     if(this.option54Value<annee||this.option54Value==annee&&this.option171Value-1<mois||this.option54Value==annee&&this.option171Value-1==mois&&jour>15)
     {
       Swal.fire({
-        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
-        
+        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',      
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -2549,10 +2548,12 @@ onchoice()
       else{
         this.onSend()
       }
-  }
+  }         
   else{
-    if(this.option54Value<annee-1||this.option54Value==annee-1&&mois<12||this.option54Value==annee-1&&this.option171Value==12&&jour>15)
+    if(this.option54Value<annee-1||this.option54Value==annee-1&&this.option171Value!='12'||this.option54Value==annee-1&&this.option171Value==12&&jour>15)
     {
+     
+
       Swal.fire({
         title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
         

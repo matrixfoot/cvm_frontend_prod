@@ -956,7 +956,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['modify-user/'+this.currentUser.userId]))
-      if (user.regimefiscalimpot=='Réel')
+      /*if (user.regimefiscalimpot=='Réel')
       {
         Swal.fire({
           title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
@@ -976,7 +976,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
         }).catch(() => {
           Swal.fire('opération non aboutie!');
         });
-      }
+      }*/
       this.DecfiscmensService.getdecfiscmens(this.currentUser.userId).then(
         (decfiscmens: Decfiscmens[]) => {
         }
@@ -2802,10 +2802,10 @@ this.DecfiscmensService.create(decfiscmens).then(
             confirmButtonColor: '#3085d6',
           }).then((result) => {
             Swal.fire({
-              title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+              title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas le déclarer pour le moment',
               icon: 'info',
               confirmButtonColor: '#3085d6',
-            }).then((result) => {}).catch(() => {
+            }).then((result) => {this.myFunction11(),this.myFunction9()}).catch(() => {
               Swal.fire('opération non aboutie!')
             })
           }).catch(() => {

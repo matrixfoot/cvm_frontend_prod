@@ -43,6 +43,7 @@ maincontainer=false;
   collab: any[]=[];
   private usersSub: Subscription;
   users: User[]=[];
+  autretvacollecte=0.000;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -217,7 +218,7 @@ public decfiscmens=new Decfiscmens;
 
   this.tvacollecte=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +this.decfiscmens.impottype2.tvacollecter19.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
   + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
-  
+ 
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
 
