@@ -59,7 +59,10 @@ public contact: Contact;
           (contact: Contact) => {
             this.loading = false;
             this.contact = contact;
-            
+            if(this.contact.affecte)
+            {
+              this.optionValue=this.contact.affecte
+            }
             
           }
         );

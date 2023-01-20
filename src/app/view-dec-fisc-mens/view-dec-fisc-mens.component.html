@@ -343,11 +343,11 @@
     ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||
     annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
     ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'||
-    activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht + option71Value | number:'1.3-3'| removeComma}}</span><span>{{ decfiscmens.impottype2.tvacollecter19.chiffreaffaireht + option71Value | number:'1.3-3'| removeComma}}</span></th><td>19%</td><th colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'
+    activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ htsum  | number:'1.3-3'| removeComma}}</span><span>{{ ht19sum  | number:'1.3-3'| removeComma}}</span></th><td>19%</td><th colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'
       ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||annee==='2023'&&activite==='Syndic des copropriétaires'||
       annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
       ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'|| 
-      activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ decfiscmens.impottype2.tvacollecter.tvaammount + option72Value | number:'1.3-3'| removeComma }}</span><span>{{ decfiscmens.impottype2.tvacollecter19.tvaammount + option72Value | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
+      activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ tvasum | number:'1.3-3'| removeComma }}</span><span>{{ tva19sum | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">* عمليات التسليم للنفس</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">-  شراء عقارات : </th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</th></tr>
@@ -661,7 +661,7 @@
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
                   <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
                     <option value="default"> </option>
-                    <option *ngFor="let col of collab" [value]="col">
+                    <option *ngFor="let col of collab" [value]="col._id">
                         {{col.firstname}} {{col.lastname}}
                     </option>
                   </select>   

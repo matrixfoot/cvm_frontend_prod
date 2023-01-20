@@ -58,7 +58,10 @@ export class ViewCondidateComponent implements OnInit {
           (condidate: Condidate) => {
             this.loading = false;
             this.condidate = condidate;
-            
+            if(this.condidate.affecte)
+            {
+              this.optionValue=this.condidate.affecte
+            }
             
           }
         );
@@ -71,7 +74,7 @@ export class ViewCondidateComponent implements OnInit {
     this.router.navigate([link + '/' + id]);
       
   }
-  onSubmit() {
+  affect() {
     this.loading = true;
     const condidate = new Condidate();
     
@@ -98,6 +101,7 @@ export class ViewCondidateComponent implements OnInit {
       }
     );
   }
+  
   onDelete() {
     this.loading = true;
     this.route.params.subscribe(

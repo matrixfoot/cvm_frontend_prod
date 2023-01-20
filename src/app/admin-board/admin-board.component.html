@@ -17,8 +17,8 @@
             </div>
             <div id="collapse0" class="panel-collapse collapse in">
               <ul class="list-group">
-                <li class="list-group-item"(click)="click29()"(click)="getdossiersencours()"><span class="badge">{{dossdecfiscencours+dossdeccompencours+dosscandencours+dosscontactencours}}</span>Dossiers en cours d'éxécution</li>
                 <li class="list-group-item"(click)="click30()"(click)="getdossiersencoursnonaffecte()"><span class="badge">{{dossdecfiscnonaffecte+dossdeccompnonaffecte+dosscandnonaffecte+dosscontactnonaffecte}}</span>Dossiers pas encore affectés</li>
+                <li class="list-group-item"(click)="click29()"(click)="getdossiersencours()"><span class="badge">{{dossdecfiscencours+dossdeccompencours+dosscandencours+dosscontactencours}}</span>Dossiers en cours d'éxécution</li>
               </ul>
             </div>
             </div>
@@ -100,90 +100,7 @@
       </div>
       <div class="col col-md-9"id="tabcontainer">
         <mat-tab-group (selectedTabChange)="onTabClick($event)">
-          <mat-tab label="Dossiers en cours d'éxécution" *ngIf="showdossencours&&dossencours">
-            <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Dossiers en cours d'exécution</div>
-              <span (click)="click31()"><i class="glyphicon glyphicon-remove"></i></span>
-          </ng-template>
-            <div class="col-lg-12">
-              <div class="team-member">
-                <hr>
-                <!--<div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
-                <form [formGroup]="searchForm">
-                 
-                  <div class="searchbar">
-                    
-                    <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
-                   <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-                  
-                </div>
-                    <div class="searchbar">
-                    
-                      <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
-                     <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-                    
-                  </div>
-                    <div class="searchbar">
-                    
-                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
-                       <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-                      
-                    </div><br>
-                    <div class="searchbar" style="float: right;">
-                      
-                      <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
-                     <a class="search_icon"(click)="getclients()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
-                    
-                  </div>
-                    </form> 
-                  </div> -->    
-                <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
-          
-                  
-                  
-                  <table class="table table-striped">
-                    <thead>
-                    <tr>
-                      <th scope="col">Prenom</th>
-                      <th scope="col">Nom</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
-                      <th scope="col">date de modification</th>     
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let dossenc of dossencours"> 
-                
-                      
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
-                        <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
-                        <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
-                        <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
-                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
-                      <td>{{dossenc.created}}</td>
-                      <td>{{dossenc.updated}}</td>
-                      
-                      
-                      
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
-                        
-                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                
-              </div>
-            </div>
-          </mat-tab>
-          <mat-tab label="Dossiers pas encore affectés" *ngIf="showdosspasencoreaffecte&&dossnonaffecte">
+          <mat-tab label="Dossiers pas encore affectés" *ngIf="showdosspasencoreaffecte&&sorteddossnonaffecte">
             <ng-template mat-tab-label style="padding: 3px;">
               <div class="col" style="margin-left: 20px;">Dossiers pas encore affectés</div>
               <span (click)="click32()"><i class="glyphicon glyphicon-remove"></i></span>
@@ -236,7 +153,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let dossenc of dossnonaffecte"> 
+                    <tr *ngFor="let dossenc of sorteddossnonaffecte"> 
                 
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
                         <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
@@ -265,6 +182,93 @@
               </div>
             </div>
           </mat-tab>
+          <mat-tab label="Dossiers en cours d'éxécution" *ngIf="showdossencours&&sorteddossencours">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Dossiers en cours d'exécution</div>
+              <span (click)="click31()"><i class="glyphicon glyphicon-remove"></i></span>
+          </ng-template>
+            <div class="col-lg-12">
+              <div class="team-member">
+                <hr>
+                <!--<div class="container-fluid">
+                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                <form [formGroup]="searchForm">
+                 
+                  <div class="searchbar">
+                    
+                    <input class="search_input" id="email"  formControlName="email"type="text"  placeholder="Chercher par Email">
+                   <a class="search_icon"(click)="getusersbyemail()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                  
+                </div>
+                    <div class="searchbar">
+                    
+                      <input class="search_input" id="lastname"  formControlName="lastname"type="text"  placeholder="Chercher par Nom">
+                     <a class="search_icon"(click)="getusersbylastname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    <div class="searchbar">
+                    
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                       <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                      
+                    </div><br>
+                    <div class="searchbar" style="float: right;">
+                      
+                      <input class="search_input" type="text"  placeholder="Cliquer pour chercher tout" disabled>
+                     <a class="search_icon"(click)="getclients()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
+                    
+                  </div>
+                    </form> 
+                  </div> -->    
+                <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+          
+                  
+                  
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th scope="col">Prenom</th>
+                      <th scope="col">Nom</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">date de modification</th>
+                      <th scope="col">Collaborateur affecté</th>     
+     
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let dossenc of sorteddossencours"> 
+                
+                      
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                        <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                        <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
+                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                      <td>{{dossenc.created}}</td>
+                      <td>{{dossenc.updated}}</td>
+                      <td><span>{{filterusers2(dossenc.affecte)}}{{prenomaffecte}}</span> <span> {{filterusers2(dossenc.affecte)}}{{nomaffecte}}</span></td>
+
+                      
+                      
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
+                        
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+              </div>
+            </div>
+          </mat-tab>
+        
           <mat-tab label="Clients actifs" *ngIf="clientactif&&users">
             <ng-template mat-tab-label style="padding: 3px;">
               <div class="col" style="margin-left: 20px;">Clients actifs</div>

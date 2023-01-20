@@ -3122,9 +3122,9 @@
                       <div class="container-fluid" style="display: inline-flex;">
                       
                       <fieldset>  
-                        <legend>TVA Collecté<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                        <legend>TVA Collectée<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                           activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-                          ||activite==='Sage-femmes'">C.A à 7% (Actes de soin)</span></legend>                 
+                          ||activite==='Sage-femmes'"> C.A à 7% (Actes de soin)</span></legend>                 
 <form  [formGroup]="standardtvacollecteform">
   <fieldset>
 
@@ -3176,9 +3176,11 @@
     </form>
   </fieldset>
    
-  <fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'" style="padding-left: 20px;">  
-    <legend>TVA Collecté C.A à 19% Acte d'esthétique</legend>                 
-<form  [formGroup]="standardtvacollecte19form">
+  <fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'||option54Value==='2023'&&sousactivite==='Médecin vétérinaire'" style="padding-left: 20px;">  
+    <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'">TVA Collecté C.A à 19% (Acte d'esthétique)</legend>                 
+    <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin vétérinaire'">TVA Collecté C.A à 19% (Etudes)</legend>                 
+
+    <form  [formGroup]="standardtvacollecte19form">
 <fieldset style="padding-left: 20px;">
 
 <div class="row">

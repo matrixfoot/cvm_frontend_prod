@@ -37,6 +37,8 @@
               <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='supervisor'" routerLinkActive="active">Paramêtrage Superviseur</a></li>-->
               <li><a routerLink="user-board" *ngIf="role=='basic'"routerLinkActive="active">Tableau de bord Utilisateur</a></li>
               <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='basic'" routerLinkActive="active">Paramêtrage Utilisateur</a></li>-->
+              <li><a routerLink="collab-board" *ngIf="usertype=='Collaborateur'"routerLinkActive="active">Tableau de bord Collaborateur</a></li>
+
             </ul>
           </li>
           <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn"data-toggle="dropdown">Services en ligne<span class="caret"></span></a>

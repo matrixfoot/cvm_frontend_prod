@@ -44,6 +44,10 @@ maincontainer=false;
   private usersSub: Subscription;
   users: User[]=[];
   autretvacollecte=0.000;
+  htsum=0.000;
+  tvasum=0.000;
+  ht19sum=0.000;
+  tva19sum=0.000;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -140,6 +144,10 @@ public decfiscmens=new Decfiscmens;
             
             this.loading = false;
             this.decfiscmens = decfiscmens;
+            if(this.decfiscmens.affecte)
+            {
+              this.optionValue=this.decfiscmens.affecte
+            }
             this.userservice.getUserById(this.decfiscmens.userId).then(
               (user: User) => {
                 console.log(user)
@@ -199,12 +207,31 @@ public decfiscmens=new Decfiscmens;
               this.honoraireretenue=Math.trunc((this.honorairesum* 0.03)*1000)/1000 }
               if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount!==0 ||+this.decfiscmens.impottype2.locationusagecommercial.htammount!==0||
                 +this.decfiscmens.impottype2.operationlotissement.htammount!==0 ||+this.decfiscmens.impottype2.interetpercue.htammount!==0||+this.decfiscmens.impottype2.autretvaspecial.htammount!==0  )      
-    {this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+    {
+    this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
     + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
     this.option72Value= Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 }      
-
-  this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
+      this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
+      this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
+      
+        this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
+        this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+          + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+    } 
+    if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount==0 &&+this.decfiscmens.impottype2.locationusagecommercial.htammount==0&&
+      +this.decfiscmens.impottype2.operationlotissement.htammount==0 &&+this.decfiscmens.impottype2.interetpercue.htammount==0&&+this.decfiscmens.impottype2.autretvaspecial.htammount==0  )
+  {
+    this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht        
+    this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount
+    
+      this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht       
+      this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount
+  }
+    this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
   + +this.decfiscmens.impottype1.honoraire2.montantretenue+ +this.honoraireretenue
       + +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 

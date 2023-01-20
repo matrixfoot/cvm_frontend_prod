@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
@@ -17,12 +16,14 @@ import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {ExcelService} from '../services/excel.service';
 import { Sort } from '../_helpers/sort';
+import { TokenStorageService } from '../services/token-storage.service';
 @Component({
-  selector: 'app-admin-board',
-  templateUrl: './admin-board.component.html',
-  styleUrls: ['./admin-board.component.scss']
+  selector: 'app-collab-board',
+  templateUrl: './collab-board.component.html',
+  styleUrls: ['./collab-board.component.scss']
 })
-export class AdminBoardComponent implements OnInit {
+export class CollabBoardComponent implements OnInit {
+
   public searchForm: FormGroup;
   public loading: boolean;
   public users: User[] = [];
@@ -106,23 +107,23 @@ export class AdminBoardComponent implements OnInit {
   nomaffecte: string;
   sorteddossencours: any[]=[];
   sorteddossnonaffecte: any[]=[];
-  constructor(private formBuilder: FormBuilder,
+  currentuser: User;
+  usertype: string;
+  id: string;
+  constructor(
               private UserService: UserService,
               private cond:CondidateService,
               private cont:ContactService,
               private dec:DecfiscmensService,
               private deccompt:DeccomptabiliteService,
-              private router: Router,
+              private router: Router, private Auth: TokenStorageService,
               private excelService:ExcelService) { }
               ngOnInit() {
-                this.searchForm = this.formBuilder.group({
-              
-                  lastname: [null,],
-                  firstname: [null,],
-                  email: [null,],
-                  date: [null,],
-                
-                })
+                const user = this.Auth.getUser();
+                this.currentuser=user
+                this.usertype=this.currentuser.usertype
+                this.id=this.currentuser._id
+               console.log(this.currentuser)
                 this.contactsSub = this.cont.contactreqs$.subscribe(
                   (contacts) => {
                     this.contacts = contacts;
@@ -194,47 +195,11 @@ export class AdminBoardComponent implements OnInit {
                 );
                this.getall()
                this.getalldeccomptabilites()
-               this.getalldecfiscmenss()
-               this.getalldeleted()
-               this.getclients()
-               this.getclientsbloqued()
-               this.getcollaborateurs()
-               this.getcondidates()
+               this.getalldecfiscmenss()    
                this.getcondidatesall()
-               this.getconsultants()
                this.getcontactsall()
               }
-filterusers(id:string)
-{
-  this.filtredusers=this.deccompt.filterByValue(this.users,id)
-  if(this.filtredusers.length>0)
-  {
-    this.prenom=this.filtredusers[0].firstname
-    this.nom=this.filtredusers[0].lastname
-  }
-  else
-  {
-    this.prenom='utilisateur supprimé'
-    this.nom='utilisateur supprimé'
-  }
-}
-filterusers2(id:string)
-{
-  this.filtredusers2=this.deccompt.filterByValue(this.users2,id)
-  if(this.filtredusers2.length>0)
-  {
-    this.prenomfisc=this.filtredusers2[0].firstname
-    this.nomfisc=this.filtredusers2[0].lastname
-    this.prenomaffecte=this.filtredusers2[0].firstname
-    this.nomaffecte=this.filtredusers2[0].lastname
-  }
-  else
-  {
-    this.prenomfisc='utilisateur supprimé'
-    this.nomfisc='utilisateur supprimé'
-  }
-  
-}
+
               getNavigationusers(link, id){
       
                 this.UserService.getUserById(id);
@@ -269,55 +234,6 @@ filterusers2(id:string)
                  
                 return this.filtredusers=this.users.filter((user) => (user._id === id));
               }
-              
-              getclients() {
-                let filtred=[]
-                filtred=this.deccompt.filterByValue(this.users,'desactive')
-                this.ca=(filtred.filter((filter) => (filter.usertype === 'Client'&&!filter.desactive.statut))).length
-                return filtred.filter((filter) => (filter.usertype === 'Client'&&!filter.desactive.statut)); 
-              }
-              getclientsbloqued() {
-                let filtred=[]
-                filtred=this.deccompt.filterByValue(this.users,'desactive')
-                this.cb=(filtred.filter((user) => user.desactive.statut)).length
-                return (filtred.filter((user) => user.desactive.statut));
-               
-              }
-              getcollaborateurs() {
-                let filtred=[]
-                filtred=this.deccompt.filterByValue(this.users,'desactive')
-                this.coll=(filtred.filter((user) => user.usertype === ('Collaborateur'||'collaborateur'))).length
-                return filtred.filter((user) => user.usertype === ('Collaborateur'||'collaborateur')); 
-              }
-              getconsultants() {
-                let filtred=[]
-                filtred=this.deccompt.filterByValue(this.users,'desactive')
-                this.cons=(filtred.filter((user) => user.usertype === ('Consultant'||'consultant'))).length
-                return filtred.filter((user) => user.usertype === ('Consultant'||'consultant')); 
-              }
-              getcondidates() {
-                let filtred=[]
-                filtred=this.deccompt.filterByValue(this.users,'desactive')
-                this.condida=(filtred.filter((user) => user.usertype === 'Candidat')).length
-                return filtred.filter((user) => user.usertype === 'Candidat');
-              }
-              getusersbyfirstname() {
-                this.firstname=this.searchForm.get('firstname').value;
-                this.UserService.getuserbyfirstname(this.firstname)
-                 
-              }
-              getusersbylastname() {
-                this.lastname=this.searchForm.get('lastname').value;
-                                this.UserService.getuserbylastname(this.lastname)
-                                 
-              }
-              getusersbyemail() {
-                                
-                this.email=this.searchForm.get('email').value;
-                this.UserService.getuserbyemail(this.email);
-                                               
-                                                 
-              }
               getall() {
                                 
                                                 
@@ -325,40 +241,55 @@ filterusers2(id:string)
                                                                
                                                                  
              }
+             filterusers(id:string)
+{
+  this.filtredusers=this.deccompt.filterByValue(this.users,id)
+  if(this.filtredusers.length>0)
+  {
+    this.prenom=this.filtredusers[0].firstname
+    this.nom=this.filtredusers[0].lastname
+  }
+  else
+  {
+    this.prenom='utilisateur supprimé'
+    this.nom='utilisateur supprimé'
+  }
+}
+filterusers2(id:string)
+{
+  this.filtredusers2=this.deccompt.filterByValue(this.users2,id)
+  if(this.filtredusers2.length>0)
+  {
+    this.prenomfisc=this.filtredusers2[0].firstname
+    this.nomfisc=this.filtredusers2[0].lastname
+    this.prenomaffecte=this.filtredusers2[0].firstname
+    this.nomaffecte=this.filtredusers2[0].lastname
+  }
+  else
+  {
+    this.prenomfisc='utilisateur supprimé'
+    this.nomfisc='utilisateur supprimé'
+  }
+  
+}
              getdossiersencours()
              {
-              
-              this.dossdecfiscencours=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.affecte)).length
-              this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.affecte)).length                                   
-              this.dosscandencours=(this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.affecte)).length                                   
-              this.dosscontactencours=(this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.affecte)).length                                   
-       this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.affecte))
-       this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.affecte)))
-       this.dossencours3=((this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.affecte)))
-       this.dossencours4=((this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.affecte)))
+              const user = this.Auth.getUser();
+              this.currentuser=user
+              this.id=this.currentuser._id                                               
+       this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.affecte== this.id))
+       this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.affecte==this.id)))
+       this.dossencours3=((this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.affecte==this.id)))
+       this.dossencours4=((this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.affecte==this.id)))
        this.dossencours=[]
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
+       console.log(this.id)
        const sort = new Sort();
        this.sorteddossencours=this.dossencours.sort(sort.startSort('created','desc',''));
        
             return (this.sorteddossencours);
              }
-             getdossiersencoursnonaffecte()
-             {
-              this.dossdecfiscnonaffecte=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.affecte)).length
-              this.dossdeccompnonaffecte=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.affecte)).length                                   
-              this.dosscandnonaffecte=(this.condidates.filter((condidate) => !condidate.affecte)).length                                   
-              this.dosscontactnonaffecte=(this.contacts.filter((contact) => !contact.affecte)).length                                   
-       this.dossnonaffecte1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.affecte))
-       this.dossnonaffecte2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.affecte)))
-       this.dossnonaffecte3=((this.condidates.filter((condidate) => !condidate.affecte)))
-       this.dossnonaffecte4=((this.contacts.filter((contact) => !contact.affecte)))
-       this.dossnonaffecte=[]
-       this.dossnonaffecte=this.dossnonaffecte.concat(this.dossnonaffecte1,this.dossnonaffecte2,this.dossnonaffecte3,this.dossnonaffecte4) 
-       const sort = new Sort();
-       this.sorteddossnonaffecte=this.dossnonaffecte.sort(sort.startSort('created','desc',''));
-            return (this.sorteddossnonaffecte);
-             }
+             
              getalldecfiscmenss() {
                                 
                                                 
@@ -393,13 +324,7 @@ filterusers2(id:string)
         return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'));                                                           
                                                          
      }                     
-             getalldeleted() {
-                                
-                                                
-              this.UserService.getAlldeleted();
-              this.del=this.usersdeleted.length                                              
-                                                               
-           } 
+          
               getcondidatesbyemail() {
                                                                                 
                 this.email=this.searchForm.get('email').value;
@@ -462,136 +387,5 @@ filterusers2(id:string)
            exportusersAsXLSX():void {
             this.excelService.exportAsExcelFile(this.users,[],[],[],[],[], 'sample');
           }
-          onTabClick(event) {
-   
-          }
-          click1()
-          {
-this.clientactif=true
-          }
-          click2()
-          {
-      this.clientbloque=true      
-          }
-          click3()
-          {
-         this.clientsupptemporairement=true   
-          }
-          click4()
-          {
-            this.collaborateurs=true
-          }
-          click5()
-          {
-            this.consultants=true
-          }
-          click6()
-          {
-            this.candidat=true
-          }
-          click7()
-          {
-            this.decfiscmensvalide=true
-          }
-          click8()
-          {
-            this.decfiscmensnonvalide=true
-          }
-          click9()
-          {
-            this.deccomptabilitevalide=true
-          }
-          click10()
-          {
-            this.deccomptabilitenonvalide=true
-          }
-          click11()
-          {
-            this.candidaturevalide=true
-          }
-          click12()
-          {
-            this.candidaturenonvalide=true
-          }
-          click13()
-          {
-            this.reclamationtraite=true
-          }
-          click14()
-          {
-            this.reclamationnontraite=true
-          }
-          click29()
-          {
-            this.showdossencours=true
-          }
-          click30()
-          {
-            this.showdosspasencoreaffecte=true
-          }
-          click15()
-          {
-this.clientactif=false
-          }
-          click16()
-          {
-      this.clientbloque=false      
-          }
-          click17()
-          {
-         this.clientsupptemporairement=false   
-          }
-          click18()
-          {
-            this.collaborateurs=false
-          }
-          click19()
-          {
-            this.consultants=false
-          }
-          click20()
-          {
-            this.candidat=false
-          }
-          click21()
-          {
-            this.decfiscmensvalide=false
-          }
-          click22()
-          {
-            this.decfiscmensnonvalide=false
-          }
-          click23()
-          {
-            this.deccomptabilitevalide=false
-          }
-          click24()
-          {
-            this.deccomptabilitenonvalide=false
-          }
-          click25()
-          {
-            this.candidaturevalide=false
-          }
-          click26()
-          {
-            this.candidaturenonvalide=false
-          }
-          click27()
-          {
-            this.reclamationtraite=false
-          }
-          click28()
-          {
-            this.reclamationnontraite=false
-          }
-          click31()
-          {
-            this.showdossencours=false
-          }
-          click32()
-          {
-            this.showdosspasencoreaffecte=false
-          }
+         
 }
-  

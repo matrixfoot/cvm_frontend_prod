@@ -1,0 +1,57 @@
+<body>
+    <div class="container-fluid">
+        <h2 (click)="getdossiersencours()" style="cursor: pointer;"> charger dossiers</h2> 
+      <div class="col-lg-12" >
+        <div class="team-member" *ngIf="usertype=='Collaborateur'">
+          <h2>Liste des OF</h2>
+          <hr>        
+          <div class="users-grid" style="overflow-x:auto;">
+    
+            
+            
+            <table class="table table-striped">
+              <thead>
+              <tr>
+          
+                
+                <th scope="col">Prenom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Type</th>
+                <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
+                <th scope="col">date de modification</th>
+                
+                
+                
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let dossenc of sorteddossencours">
+          
+                
+                <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                    <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                    <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
+                  <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                    <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                    <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                  <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                    <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
+                    <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                  <td>{{dossenc.created}}</td>
+                  <td>{{dossenc.updated}}</td>
+                  
+                  
+                  <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
+                  
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </div>    
+    </body>
