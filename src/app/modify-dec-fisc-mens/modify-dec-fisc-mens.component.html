@@ -32,7 +32,31 @@
               </div>
             </div>
             </div>
-
+            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens">
+              <div class="col-lg-12">
+                        <div class="free-quote bg-dark h-100">
+                          <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
+                          <form [formGroup]="decfiscmensForm">
+                            <div class="form-group">
+                              <label for="fq_name">Statut</label>    
+                              <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
+                                <option value="default"> </option>
+                                <option *ngFor="let statut of status" [value]="statut">
+                                    {{statut}}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="fq_email">Motif</label>
+                              <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motifcoll" formControlName="motifcoll"></textarea>
+                            </div>
+                            <div class="form-group">
+                              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      </div>
   
 <div class="container-fluid" *ngIf="currentuser.usertype=='Client'&& currentuser.role!=='admin'">
   <div id="entetedec">

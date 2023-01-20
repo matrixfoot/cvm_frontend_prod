@@ -10,6 +10,8 @@ export class Condidate {
     adresse:string;
     decision:string;
     motif:string;
+    decisioncoll:string;
+    motifcoll:string;
     description:string;
     specialite:string;
     affecte:string;

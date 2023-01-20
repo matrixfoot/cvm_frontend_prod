@@ -30,6 +30,7 @@ export class ModifyCondidateComponent implements OnInit {
   public loading = false;
   errormsg:string;
   status: string[]=[];
+  role: string;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -43,6 +44,8 @@ export class ModifyCondidateComponent implements OnInit {
 
  ngOnInit() {
   this.loading = true;
+  this.currentuser=this.tokenStorage.getUser()
+  this.role=this.currentuser.role
     this.status=this.commun.status
   
   this.route.params.subscribe(
@@ -56,7 +59,8 @@ export class ModifyCondidateComponent implements OnInit {
             
             decision: [this.condidate.decision, Validators.required],
             motif: [this.condidate.motif, Validators.required],
-          
+            decisioncoll: [this.condidate.decisioncoll, Validators.required],
+            motifcoll: [this.condidate.motifcoll, Validators.required],
           });
           this.loading = false;
           
@@ -79,6 +83,30 @@ onSubmit() {
       this.alertService.success(data.message);
       window.scrollTo(0, 0);
       this.router.navigate(['admin-board']);
+    },
+    (error) => {
+      this.loading = false;
+      this.alertService.error(error.error.message);
+      window.scrollTo(0, 0);
+      
+    
+      
+    }
+  );
+}
+onSubmitcoll() {
+  this.loading = true;
+  const condidate = new Condidate();
+  
+  condidate.decisioncoll =this.condidateForm.get('decisioncoll').value;
+  condidate.motifcoll =this.condidateForm.get('motifcoll').value;
+  this.cond.modifycondidateById(this.condidate._id,condidate).then(
+    (data:any) => {
+      this.condidateForm.reset();
+      this.loading = false;
+      this.alertService.success(data.message);
+      window.scrollTo(0, 0);
+      this.router.navigate(['collab-board']);
     },
     (error) => {
       this.loading = false;

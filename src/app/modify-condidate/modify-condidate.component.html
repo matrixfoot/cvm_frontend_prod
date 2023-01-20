@@ -8,7 +8,7 @@
 <div class="bodycontainer">
   <div id="loader" *ngIf="loading"></div>
   
-<div class="container-fluid" *ngIf="!loading">
+<div class="container-fluid" *ngIf="!loading&&role=='admin'">
    
   
 <form  [formGroup]="condidateForm">
@@ -40,5 +40,37 @@
     Modificaion effectuée avec succès!!
   </div>
 </div>
+<div class="container-fluid" *ngIf="!loading&&role=='supervisor'">
+   
+  
+  <form  [formGroup]="condidateForm">
+      <h2>Formulaire De Décision Du Sort Des Candidatures</h2>
+     
+      
+      
+  
+        <div title="indiquer votre décision"class="input-container">
+          <i class="fa fa-user icon"></i>
+          <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="decisioncoll" formControlName="decisioncoll" >
+            <option value="default"> </option>
+            <option *ngFor="let statut of status" [value]="statut">
+                {{statut}}
+            </option>
+          </select>      
+        </div> 
+        <div title="indiquer votre motif"class="input-container">
+          <i class="fa fa-user icon"></i>
+          <input class="input-field" type="text" placeholder="Indiquer votre motif" id="motifcoll" formControlName="motifcoll">
+        </div> 
+       
+      
+    
+      <button class="btn btn-success" (click)="onSubmitcoll()">Envoyer Modification</button>
+    </form>
+    <p>{{ errormsg }}</p>
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Modificaion effectuée avec succès!!
+    </div>
+  </div>
 </div>
 </body>

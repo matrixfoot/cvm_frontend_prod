@@ -122,7 +122,7 @@ export class CollabBoardComponent implements OnInit {
                 const user = this.Auth.getUser();
                 this.currentuser=user
                 this.usertype=this.currentuser.usertype
-                this.id=this.currentuser._id
+                this.id=this.currentuser.userId
                console.log(this.currentuser)
                 this.contactsSub = this.cont.contactreqs$.subscribe(
                   (contacts) => {
@@ -274,18 +274,16 @@ filterusers2(id:string)
 }
              getdossiersencours()
              {
-              const user = this.Auth.getUser();
-              this.currentuser=user
-              this.id=this.currentuser._id                                               
-       this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.affecte== this.id))
-       this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.affecte==this.id)))
-       this.dossencours3=((this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.affecte==this.id)))
-       this.dossencours4=((this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.affecte==this.id)))
+                                                            
+       this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.affecte== this.id&&!decfiscmens.statutcoll))
+       this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.affecte==this.id&&!deccomptabilite.statutcoll)))
+       this.dossencours3=((this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.affecte==this.id&&!condidate.decisioncoll)))
+       this.dossencours4=((this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.affecte==this.id&&!contact.statutcoll)))
        this.dossencours=[]
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        console.log(this.id)
        const sort = new Sort();
-       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','desc',''));
+       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','desc',''))[0];
        
             return (this.sorteddossencours);
              }

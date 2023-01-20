@@ -320,6 +320,8 @@
                     </option>
                   </select> 
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+    <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
+
     <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>
     <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
     <button type="button" class="btn btn-primary"(click)="generateExcel()"> Générer fichier</button>   

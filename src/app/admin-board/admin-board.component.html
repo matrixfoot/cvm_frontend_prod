@@ -230,6 +230,8 @@
                       <th scope="col">Prenom</th>
                       <th scope="col">Nom</th>
                       <th scope="col">Type</th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
                       <th scope="col">date de modification</th>
                       <th scope="col">Collaborateur affecté</th>     
@@ -249,7 +251,9 @@
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
                         <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
-                      <td>{{dossenc.created}}</td>
+                        <td><span *ngIf="dossenc.type==='candidature'">{{dossenc.decision}}</span>{{dossenc.statut}}</td>
+                        <td><span *ngIf="dossenc.type==='candidature'">{{dossenc.decisioncoll}}</span>{{dossenc.statutcoll}}</td>
+                        <td>{{dossenc.created}}</td>
                       <td>{{dossenc.updated}}</td>
                       <td><span>{{filterusers2(dossenc.affecte)}}{{prenomaffecte}}</span> <span> {{filterusers2(dossenc.affecte)}}{{nomaffecte}}</span></td>
 

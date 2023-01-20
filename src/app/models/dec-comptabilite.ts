@@ -46,6 +46,8 @@ codedeclaration:string;
   totalttc19: number;
   statut:string;
   motif:string;
+  statutcoll:string;
+  motifcoll:string;
   affecte:string;
     dateaffectation:Date;
   created:Date;

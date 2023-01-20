@@ -9,7 +9,9 @@ export class Contact {
     mobile:String;
     adresse:string;
     statut:string;
-    
+    statutcoll:string;
+    motifcoll:string;
+
     description:string;
     affecte:string;
     dateaffectation:Date;
