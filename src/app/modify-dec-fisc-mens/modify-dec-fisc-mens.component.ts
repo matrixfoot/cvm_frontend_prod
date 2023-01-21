@@ -872,7 +872,7 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
               confirmButtonColor: '#3085d6',
             }).then((result) => {
               Swal.fire({
-                title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas le déclarer pour le moment',
+                title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
                 icon: 'info',
                 confirmButtonColor: '#3085d6',
               }).then((result) => {}).catch(() => {

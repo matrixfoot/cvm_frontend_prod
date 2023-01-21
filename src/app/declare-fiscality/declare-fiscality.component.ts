@@ -2802,7 +2802,7 @@ this.DecfiscmensService.create(decfiscmens).then(
             confirmButtonColor: '#3085d6',
           }).then((result) => {
             Swal.fire({
-              title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas le déclarer pour le moment',
+              title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
               icon: 'info',
               confirmButtonColor: '#3085d6',
             }).then((result) => {this.myFunction11(),this.myFunction9()}).catch(() => {
@@ -2868,7 +2868,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
     return (
       Swal.fire({
-      title: 'vous ne pouvez pas déposer une déclaration au futur',
+      title: 'vous ne pouvez pas déposer une déclaration non encore échue',
       icon: 'error',
       confirmButtonColor: '#3085d6',
     }).then((result) => {this.option54Value='',this.option171Value=''

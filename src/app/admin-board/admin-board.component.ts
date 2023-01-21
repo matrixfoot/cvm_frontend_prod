@@ -339,7 +339,7 @@ filterusers2(id:string)
        this.dossencours=[]
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        const sort = new Sort();
-       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','desc',''));
+       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc','')); 
        
             return (this.sorteddossencours);
              }
@@ -356,7 +356,7 @@ filterusers2(id:string)
        this.dossnonaffecte=[]
        this.dossnonaffecte=this.dossnonaffecte.concat(this.dossnonaffecte1,this.dossnonaffecte2,this.dossnonaffecte3,this.dossnonaffecte4) 
        const sort = new Sort();
-       this.sorteddossnonaffecte=this.dossnonaffecte.sort(sort.startSort('created','desc',''));
+       this.sorteddossnonaffecte=this.dossnonaffecte.sort(sort.startSort('created','asc',''));
             return (this.sorteddossnonaffecte);
              }
              getalldecfiscmenss() {

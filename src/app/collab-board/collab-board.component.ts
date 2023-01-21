@@ -283,7 +283,7 @@ filterusers2(id:string)
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        console.log(this.id)
        const sort = new Sort();
-       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','desc',''))[0];
+       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''))[0];
        
             return (this.sorteddossencours);
              }
