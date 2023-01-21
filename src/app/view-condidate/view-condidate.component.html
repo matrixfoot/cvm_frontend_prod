@@ -27,7 +27,7 @@
                     </option>
                   </select>
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Admin)</button>
-      <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Collaborateur)</button>
+      <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'&&currentUser.userId=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Collaborateur)</button>
 
       <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer candidature</button>
 
