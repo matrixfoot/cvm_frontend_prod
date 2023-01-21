@@ -200,7 +200,8 @@ this.status=this.commun.status
                 
                   statut: [this.deccomptabilite.statut, Validators.required],
                   motif: [this.deccomptabilite.motif, Validators.required],
-                
+                  statutcoll: [this.deccomptabilite.statutcoll, Validators.required],
+                  motifcoll: [this.deccomptabilite.motifcoll, Validators.required],
                 });
                 this.option1Value=this.deccomptabilite.annee
               this.option2Value=this.deccomptabilite.mois

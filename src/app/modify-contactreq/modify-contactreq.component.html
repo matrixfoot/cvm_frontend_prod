@@ -13,7 +13,7 @@
    
   
 <form  [formGroup]="contactForm">
-    <h2>Formulaire De Décision Du Sort Des Réclamations</h2>
+    <h2>Formulaire De Décision Du Sort Des Réclamations(admin)</h2>
    
     
     
@@ -38,11 +38,11 @@
     Modificaion effectuée avec succès!!
   </div>
 </div>
-<div class="container-fluid" *ngIf="!loading&&role=='supervisor'">
+<div class="container-fluid" *ngIf="role=='supervisor'&&!loading||currentUser._id=='62e666d00bd8a70a2fdd312e'&&!loading">
    
   
   <form  [formGroup]="contactForm">
-      <h2>Formulaire De Décision Du Sort Des Réclamations</h2>
+      <h2>Formulaire De Décision Du Sort Des Réclamations(collab)</h2>
      
       
       

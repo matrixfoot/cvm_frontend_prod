@@ -2,11 +2,16 @@
 <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='admin'&&deccomptabilite">
     <div class="col-lg-12">
               <div class="free-quote bg-dark h-100">
-                <h2 class="my-4 heading  text-center">Formulaire De validation des maquettes comptables</h2>
+                <h2 class="my-4 heading  text-center">Formulaire De validation des maquettes comptables(admin)</h2>
                 <form [formGroup]="deccomptabiliteForm">
                   <div class="form-group">
-                    <label for="fq_name">Statut</label>
-                    <input type="text" class="form-control btn-block" placeholder="Indiquer votre décision" id="statut" formControlName="statut">
+                    <label for="fq_name">Statut</label>    
+                    <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
+                      <option value="default"> </option>
+                      <option *ngFor="let statut of status" [value]="statut">
+                          {{statut}}
+                      </option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label for="fq_email">Motif</label>
@@ -19,14 +24,19 @@
               </div>
             </div>
             </div>
-            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&deccomptabilite">
+            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&deccomptabilite||currentUser._id=='62e666d00bd8a70a2fdd312e'&&deccomptabilite">
               <div class="col-lg-12">
                         <div class="free-quote bg-dark h-100">
-                          <h2 class="my-4 heading  text-center">Formulaire De validation des maquettes comptables</h2>
+                          <h2 class="my-4 heading  text-center">Formulaire De validation des maquettes comptables(collab)</h2>
                           <form [formGroup]="deccomptabiliteForm">
                             <div class="form-group">
-                              <label for="fq_name">Statut</label>
-                              <input type="text" class="form-control btn-block" placeholder="Indiquer votre décision" id="statutcoll" formControlName="statutcoll">
+                              <label for="fq_name">Statut</label>    
+                              <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
+                                <option value="default"> </option>
+                                <option *ngFor="let statut of status" [value]="statut">
+                                    {{statut}}
+                                </option>
+                              </select>
                             </div>
                             <div class="form-group">
                               <label for="fq_email">Motif</label>

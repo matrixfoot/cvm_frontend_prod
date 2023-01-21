@@ -10,7 +10,7 @@
    <div class="padding container-fluid d-flex justify-content-center"*ngIf="currentuser.role=='admin'&&decfiscmens">
     <div class="col-lg-12">
               <div class="free-quote bg-dark h-100">
-                <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
+                <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles(admin)</h2>
                 <form [formGroup]="decfiscmensForm">
                   <div class="form-group">
                     <label for="fq_name">Statut</label>    
@@ -32,10 +32,10 @@
               </div>
             </div>
             </div>
-            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens">
+            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentUser._id=='62e666d00bd8a70a2fdd312e'&&decfiscmens">
               <div class="col-lg-12">
                         <div class="free-quote bg-dark h-100">
-                          <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
+                          <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles(collab)</h2>
                           <form [formGroup]="decfiscmensForm">
                             <div class="form-group">
                               <label for="fq_name">Statut</label>    
