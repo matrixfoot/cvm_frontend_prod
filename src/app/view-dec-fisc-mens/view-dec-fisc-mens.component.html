@@ -390,7 +390,7 @@
   <br>
   <br>
   <br>
-  <tr><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="preptotaltvaammount >= 0">P</th><th *ngIf="preptotaltvaammount >= 0">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{-preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
+  <tr><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="preptotaltvaammount > 1">P</th><th *ngIf="preptotaltvaammount > 0">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{-preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
   <tr><th colspan="4">الفائض من الشهر السابق :</th><th colspan="2">{{ option64Value | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr><th colspan="4">المبلغ المسترجع :</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
  
@@ -666,7 +666,7 @@
                     </option>
                   </select>   
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'&&currentUser.userId=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>

@@ -867,7 +867,7 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
           if(this.role!='admin')
           {
             Swal.fire({
-              title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
+              title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous calculer les pénalités et vous les envoyer',
               icon: 'info',
               confirmButtonColor: '#3085d6',
             }).then((result) => {

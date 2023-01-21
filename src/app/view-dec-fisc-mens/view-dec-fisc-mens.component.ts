@@ -248,7 +248,7 @@ public decfiscmens=new Decfiscmens;
  
   this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
   this.option64Value=this.decfiscmens.impottype2.reporttvamoisprecedent
-
+console.log(this.preptotaltvaammount)
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
   {
     this.totaltvaammount=this.preptotaltvaammount-this.option64Value

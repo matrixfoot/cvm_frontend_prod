@@ -354,9 +354,11 @@ filterusers2(id:string)
        this.dossnonaffecte3=((this.condidates.filter((condidate) => !condidate.affecte)))
        this.dossnonaffecte4=((this.contacts.filter((contact) => !contact.affecte)))
        this.dossnonaffecte=[]
-       this.dossnonaffecte=this.dossnonaffecte.concat(this.dossnonaffecte1,this.dossnonaffecte2,this.dossnonaffecte3,this.dossnonaffecte4) 
+       this.dossnonaffecte=this.dossnonaffecte.concat(this.dossnonaffecte1,this.dossnonaffecte2,this.dossnonaffecte3,this.dossnonaffecte4)
+       console.log(this.dossnonaffecte) 
        const sort = new Sort();
        this.sorteddossnonaffecte=this.dossnonaffecte.sort(sort.startSort('created','asc',''));
+       console.log(this.dossnonaffecte) 
             return (this.sorteddossnonaffecte);
              }
              getalldecfiscmenss() {
@@ -368,14 +370,14 @@ filterusers2(id:string)
            } 
            getdecfiscmenssvalide() {
                                 
-             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Valide'))).length                                   
-            return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Valide'));                                                           
+             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Clôture'))).length                                   
+            return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Clôture'));                                                           
                                                              
          }  
          getdecfiscmenssnonvalide() {
                                 
-          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Valide'))).length                                      
-          return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Valide'));                                                           
+          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Clôture'))).length                                      
+          return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Clôture'));                                                           
                                                            
        } 
            getalldeccomptabilites() {                                   
@@ -383,14 +385,14 @@ filterusers2(id:string)
          }
          getdeccomptabilitesvalide() {
                                 
-          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Valide'))).length                                      
-          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Valide'));                                                           
+          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Clôture'))).length                                      
+          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Clôture'));                                                           
                                                            
        }  
        getdeccomptabilitesnonvalide() {
                                 
-         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'))).length                                       
-        return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'));                                                           
+         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Clôture'))).length                                       
+        return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Clôture'));                                                           
                                                          
      }                     
              getalldeleted() {
@@ -416,14 +418,14 @@ filterusers2(id:string)
              }
              getcondidatevalide() {
                                 
-               this.condval=(this.condidates.filter((condidate) => condidate.decision === ('Valide'))).length                                 
-              return this.condidates.filter((condidate) => condidate.decision === ('Valide'));                                                           
+               this.condval=(this.condidates.filter((condidate) => condidate.decision === ('Clôture'))).length                                 
+              return this.condidates.filter((condidate) => condidate.decision === ('Clôture'));                                                           
                                                                
            }
            getcondidatenonvalide() {
                                 
-             this.condnonal=(this.condidates.filter((condidate) => condidate.decision != ('Valide'))).length                                   
-            return this.condidates.filter((condidate) => condidate.decision != ('Valide'));                                                           
+             this.condnonal=(this.condidates.filter((condidate) => condidate.decision != ('Clôture'))).length                                   
+            return this.condidates.filter((condidate) => condidate.decision != ('Clôture'));                                                           
                                                              
          }
             getcontactreqsbydateinf() {
@@ -449,14 +451,14 @@ filterusers2(id:string)
            }
            getcontactvalide() {
                                 
-             this.contval=(this.contacts.filter((contact) => contact.statut === ('Valide'))).length                                   
-            return this.contacts.filter((contact) => contact.statut === ('Valide'));                                                           
+             this.contval=(this.contacts.filter((contact) => contact.statut === ('Clôture'))).length                                   
+            return this.contacts.filter((contact) => contact.statut === ('Clôture'));                                                           
                                                              
          }
          getcontactnonvalide() {
                                 
-          this.contnonval=(this.contacts.filter((contact) => contact.statut != ('Valide'))).length                                      
-          return this.contacts.filter((contact) => contact.statut != ('Valide'));                                                           
+          this.contnonval=(this.contacts.filter((contact) => contact.statut != ('Clôture'))).length                                      
+          return this.contacts.filter((contact) => contact.statut != ('Clôture'));                                                           
                                                            
        }
            exportusersAsXLSX():void {
