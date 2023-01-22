@@ -2135,7 +2135,7 @@ console.log(deccomptabilite.autre6)
     deccomptabilite.statutcoll =this.deccomptabiliteForm.get('statutcoll').value;
     deccomptabilite.motifcoll =this.deccomptabiliteForm.get('motifcoll').value;
 
-        this.deccompt.modify(this.deccomptabilite._id,deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
+        this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
           (data:any) => {
             this.tokenStorage.saved=true;
             this.deccomptabiliteForm.reset();

@@ -1037,7 +1037,7 @@ if (this.option51Value)
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-+this.option64Value>=0)
   {
     this.totaltvaammount=this.preptotaltvaammount-+this.option64Value
-    console.log('1')
+    this.totalreporttvaammount=0.000
 
   }
   else 
@@ -1087,9 +1087,36 @@ else if (!this.option50Value)
     if (!this.option172Value)
     {
     this.totalfspammount=0
-    }    
+    }     
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
+if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+  &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+{
+  console.log('here')
+  this.prepminimumperceptionammount=0.000
+}
+else
+{
+  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  {
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  {
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  {
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  {
+   this.prepminimumperceptionammount=5.000
+
+  }
+}
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {

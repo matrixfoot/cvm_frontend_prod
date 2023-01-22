@@ -151,14 +151,29 @@ public decfiscmens=new Decfiscmens;
             this.userservice.getUserById(this.decfiscmens.userId).then(
               (user: User) => {
                 console.log(user)
-            if (user.regimefiscalimpot==='Réel')  
+                if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee=='2023')  
+                {
+                 this.prepminimumperceptionammount=20.000
+                }  
+                else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
+                {
+                 this.prepminimumperceptionammount=10.000
+              
+                }
+                else if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee!='2023')  
+                {
+                 this.prepminimumperceptionammount=10.000
+                }  
+                else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
+                {
+                 this.prepminimumperceptionammount=5.000
+              
+                }
+            if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+              &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
             {
-            this.prepminimumperceptionammount=10.000
-            }  
-            else if (user.regimefiscalimpot==='Forfait D\'assiette') 
-            {
-            this.prepminimumperceptionammount=5.000
-            
+              console.log('here')
+              this.prepminimumperceptionammount=0.000
             }
             if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
             
@@ -214,12 +229,12 @@ public decfiscmens=new Decfiscmens;
       + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
       this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
       + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
-      this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
         + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
       
         this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
         + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
-        this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
           + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
     } 
     if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount==0 &&+this.decfiscmens.impottype2.locationusagecommercial.htammount==0&&
@@ -231,6 +246,7 @@ public decfiscmens=new Decfiscmens;
       this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht       
       this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount
   }
+  console.log(this.htsum,this.ht19sum,this.tva19sum,this.tvasum)
     this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
   + +this.decfiscmens.impottype1.honoraire2.montantretenue+ +this.honoraireretenue
@@ -251,6 +267,7 @@ public decfiscmens=new Decfiscmens;
 console.log(this.preptotaltvaammount)
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-this.option64Value>=0)
   {
+    this.totalreporttvaammount=0
     this.totaltvaammount=this.preptotaltvaammount-this.option64Value
   }
   else 
@@ -491,7 +508,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
                           decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
                             basetfp:this.decfiscmens.impottype3.basetfp,
                                                       tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
-                            montanttfpmois:this.decfiscmens.impottype3.montantavance,
+                            montanttfpmois:this.decfiscmens.impottype3.montanttfpmois,
                             reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
                             montantavance:this.decfiscmens.impottype3.montantavance,
                             tfppayer:this.decfiscmens.impottype3.tfppayer,
@@ -508,6 +525,9 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
                 decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
                 chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
                 tclpayer:this.decfiscmens.impottype6.tclpayer,}
+                decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
+                  chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
+                  montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
     decfiscmens.affecte =this.optionValue;
     this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
       (data:any) => {

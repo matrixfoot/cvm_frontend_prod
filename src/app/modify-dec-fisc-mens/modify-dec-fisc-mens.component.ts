@@ -2471,7 +2471,7 @@ onSubmit() {
                         decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
                           basetfp:this.decfiscmens.impottype3.basetfp,
                                                     tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
-                          montanttfpmois:this.decfiscmens.impottype3.montantavance,
+                          montanttfpmois:this.decfiscmens.impottype3.montanttfpmois,
                           reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
                           montantavance:this.decfiscmens.impottype3.montantavance,
                           tfppayer:this.decfiscmens.impottype3.tfppayer,
@@ -2488,6 +2488,9 @@ onSubmit() {
               decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
               chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
               tclpayer:this.decfiscmens.impottype6.tclpayer,}
+              decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
+                chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
+                montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
   decfiscmens.statut =this.decfiscmensForm.get('statut').value;
   decfiscmens.motif =this.decfiscmensForm.get('motif').value;
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
@@ -2615,7 +2618,7 @@ onSubmitcoll() {
                         decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
                           basetfp:this.decfiscmens.impottype3.basetfp,
                                                     tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
-                          montanttfpmois:this.decfiscmens.impottype3.montantavance,
+                          montanttfpmois:this.decfiscmens.impottype3.montanttfpmois,
                           reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
                           montantavance:this.decfiscmens.impottype3.montantavance,
                           tfppayer:this.decfiscmens.impottype3.tfppayer,
@@ -2632,6 +2635,9 @@ onSubmitcoll() {
               decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
               chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
               tclpayer:this.decfiscmens.impottype6.tclpayer,}
+              decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
+              chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
+              montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
   decfiscmens.statutcoll =this.decfiscmensForm.get('statutcoll').value;
   decfiscmens.motifcoll =this.decfiscmensForm.get('motifcoll').value;
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
@@ -3711,6 +3717,7 @@ this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
 console.log(this.preptotaltvaammount,this.option64Value)
 if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount- +this.option64Value>=0)
 {
+  this.totalreporttvaammount=0.000
   this.totaltvaammount=this.preptotaltvaammount- +this.option64Value
 }
 else 
@@ -3761,6 +3768,33 @@ this.totalfoprolosammount=0
     }   
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
+if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+  &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+{
+  console.log('here')
+  this.prepminimumperceptionammount=0.000
+}
+else
+{
+  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  {
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  {
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  {
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  {
+   this.prepminimumperceptionammount=5.000
+
+  }
+}
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
