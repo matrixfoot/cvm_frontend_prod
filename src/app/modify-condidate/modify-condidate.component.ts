@@ -46,7 +46,7 @@ export class ModifyCondidateComponent implements OnInit {
   this.loading = true;
   this.currentuser=this.tokenStorage.getUser()
   this.role=this.currentuser.role
-    this.status=this.commun.status
+  this.status=this.commun.status
   
   this.route.params.subscribe(
     (params) => {

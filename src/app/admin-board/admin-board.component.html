@@ -103,6 +103,7 @@
           <mat-tab label="Dossiers pas encore affectés" *ngIf="showdosspasencoreaffecte&&sorteddossnonaffecte">
             <ng-template mat-tab-label style="padding: 3px;">
               <div class="col" style="margin-left: 20px;">Dossiers pas encore affectés</div>
+              <span (click)="getdossiersencoursnonaffecte()"(click)="click30()"><i class="glyphicon glyphicon-refresh"></i></span>
               <span (click)="click32()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12">
@@ -185,6 +186,7 @@
           <mat-tab label="Dossiers en cours d'éxécution" *ngIf="showdossencours&&sorteddossencours">
             <ng-template mat-tab-label style="padding: 3px;">
               <div class="col" style="margin-left: 20px;">Dossiers en cours d'exécution</div>
+              <span (click)="getdossiersencours()"(click)="click29()"><i class="glyphicon glyphicon-refresh"></i></span>
               <span (click)="click31()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12">
@@ -752,9 +754,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="declaration fiscales non valide" *ngIf="decfiscmensnonvalide">
+          <mat-tab label="dec fiscale En cours d'éxécution" *ngIf="decfiscmensnonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">déclaration fiscales non valides</div>
+              <div class="col" style="margin-left: 20px;">dec fiscale En cours d'éxécution</div>
               <span (click)="click22()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
@@ -897,9 +899,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="declaration comptables non valide" *ngIf="deccomptabilitenonvalide">
+          <mat-tab label="deccomptabilite En cours d'éxécution" *ngIf="deccomptabilitenonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">déclaration comptables non valides</div>
+              <div class="col" style="margin-left: 20px;">deccomptabilite En cours d'éxécution</div>
               <span (click)="click24()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
@@ -1006,7 +1008,8 @@
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
                       <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
                       <th>CV</th>
-                      
+                      <th>Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
+
                       
                     </tr>
                     </thead>
@@ -1024,7 +1027,8 @@
                       <td>{{condidate.decision}}</td>
                       
                       <td><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></td>
-                      
+                      <td>{{condidate.created}}</td>
+
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationcondidates('view-condidate',condidate._id)">Consulter</button></td>
                       
@@ -1037,9 +1041,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="candidature non valide"*ngIf="candidaturenonvalide">
+          <mat-tab label="candidature En cours d'éxécution"*ngIf="candidaturenonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Candidatures non valide</div>
+              <div class="col" style="margin-left: 20px;">candidature En cours d'éxécution</div>
               <span (click)="click26()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
@@ -1078,7 +1082,8 @@
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
                       <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
                       <th>CV</th>
-                      
+                      <th>Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
+
                       
                     </tr>
                     </thead>
@@ -1096,7 +1101,8 @@
                       <td>{{condidate.decision}}</td>
                       
                       <td><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></td>
-                      
+                      <td>{{condidate.created}}</td>
+
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationcondidates('view-condidate',condidate._id)">Consulter</button></td>
                       
@@ -1161,7 +1167,7 @@
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="mobile" ></i></th>
                       <th>Description <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="description" ></i></th>
                       <th>Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="statut" ></i></th>
-                      
+
                       
                     </tr>
                     </thead>
@@ -1189,9 +1195,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="réclamation pas encore traité" *ngIf="reclamationnontraite">
+          <mat-tab label="réclamation En cours d'éxécution" *ngIf="reclamationnontraite">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">réclamation pas encore traité</div>
+              <div class="col" style="margin-left: 20px;">réclamation En cours d'éxécution</div>
               <span (click)="click28()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
