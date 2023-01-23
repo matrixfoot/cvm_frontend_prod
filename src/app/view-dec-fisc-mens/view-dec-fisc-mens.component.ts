@@ -151,42 +151,85 @@ public decfiscmens=new Decfiscmens;
             this.userservice.getUserById(this.decfiscmens.userId).then(
               (user: User) => {
                 console.log(user)
-                if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee=='2023')  
+                if(!user)
                 {
-                 this.prepminimumperceptionammount=20.000
-                }  
-                else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
-                {
-                 this.prepminimumperceptionammount=10.000
+                  if (this.decfiscmens.regimefiscalimpot==='Réel'&&this.decfiscmens.annee=='2023')  
+                  {
+                   this.prepminimumperceptionammount=20.000
+                  }  
+                  else if (this.decfiscmens.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
+                  {
+                   this.prepminimumperceptionammount=10.000
+                
+                  }
+                  else if (this.decfiscmens.regimefiscalimpot==='Réel'&&this.decfiscmens.annee!='2023')  
+                  {
+                   this.prepminimumperceptionammount=10.000
+                  }  
+                  else if (this.decfiscmens.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
+                  {
+                   this.prepminimumperceptionammount=5.000
+                
+                  }
+              if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+                &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+              {
+                console.log('here')
+                this.prepminimumperceptionammount=0.000
+              }
+              if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
               
-                }
-                else if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee!='2023')  
-                {
-                 this.prepminimumperceptionammount=10.000
-                }  
-                else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
-                {
-                 this.prepminimumperceptionammount=5.000
+              {
+                this.totaldeclaration=this.prepminimumperceptionammount
+                this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+              } 
+              else 
+              {
+                this.totaldeclaration=this.preptotaldeclaration
+                this.minimumperceptionammount=0.000
               
-                }
-            if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
-              &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
-            {
-              console.log('here')
-              this.prepminimumperceptionammount=0.000
+              }                
             }
-            if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
-            
+            if (user)
             {
-              this.totaldeclaration=this.prepminimumperceptionammount
-              this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
-            } 
-            else 
-            {
-              this.totaldeclaration=this.preptotaldeclaration
-              this.minimumperceptionammount=0.000
+              if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee=='2023')  
+              {
+               this.prepminimumperceptionammount=20.000
+              }  
+              else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
+              {
+               this.prepminimumperceptionammount=10.000
             
+              }
+              else if (user.regimefiscalimpot==='Réel'&&this.decfiscmens.annee!='2023')  
+              {
+               this.prepminimumperceptionammount=10.000
+              }  
+              else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
+              {
+               this.prepminimumperceptionammount=5.000
+            
+              }
+          if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+            &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+          {
+            console.log('here')
+            this.prepminimumperceptionammount=0.000
+          }
+          if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+          
+          {
+            this.totaldeclaration=this.prepminimumperceptionammount
+            this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+          } 
+          else 
+          {
+            this.totaldeclaration=this.preptotaldeclaration
+            this.minimumperceptionammount=0.000
+          
+          }
             }
+                
               }
             )
             console.log(this.decfiscmens)
@@ -240,7 +283,7 @@ this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.dec
 this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
 + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
       }
-if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Masseur'||
+else if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Masseur'||
 decfiscmens.annee=='2023'&&decfiscmens.activite=='Physiothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ergothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Psychomotricien'||
 decfiscmens.annee=='2023'&&decfiscmens.activite=='Diététicien'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthophoniste'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthoptiste'||
 decfiscmens.annee=='2023'&&decfiscmens.activite=='Sage-femmes')
@@ -248,6 +291,13 @@ decfiscmens.annee=='2023'&&decfiscmens.activite=='Sage-femmes')
         this.htsum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
         + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount        
         this.tvasum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+          + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+      }
+      else
+      {
+        this.htsum=+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount        
+        this.tvasum=+Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
           + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
       }
     } 
@@ -263,10 +313,8 @@ if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount==0 &&+this.d
     decfiscmens.annee=='2023'&&this.activite=='Huissiers notaire'||decfiscmens.annee=='2023'&&this.activite=='Interprètes'||
     decfiscmens.annee=='2023'&&this.activite=='Expert'||decfiscmens.annee=='2023'&&this.activite=='Avocat'||this.activite=='consultant')
     {
-this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-+ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
-this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-+ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht         
+this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount
     }
 if
 (decfiscmens.annee=='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Masseur'||
@@ -274,10 +322,8 @@ decfiscmens.annee=='2023'&&decfiscmens.activite=='Physiothérapeute'||decfiscmen
 decfiscmens.annee=='2023'&&decfiscmens.activite=='Diététicien'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthophoniste'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthoptiste'||
 decfiscmens.annee=='2023'&&decfiscmens.activite=='Sage-femmes')
     {
-      this.htsum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount        
-      this.tvasum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+      this.htsum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht  
+      this.tvasum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount
     }
   }    
       

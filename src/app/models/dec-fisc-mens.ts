@@ -13,7 +13,7 @@ export class Decfiscmens {
     activite:string;
     sousactivite:string;
     datearretactivite:string;
-
+regimefiscalimpot:string;
     firstname:string;
     lastname:string;
     codedeclaration:string;

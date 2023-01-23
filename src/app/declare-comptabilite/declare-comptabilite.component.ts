@@ -1961,6 +1961,7 @@ console.log(deccomptabilite.autre6)
                 montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.activite;
+    decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
     decfiscmens.sousactivite=this.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite

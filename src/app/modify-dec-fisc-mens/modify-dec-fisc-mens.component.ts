@@ -2841,6 +2841,7 @@ onSend() {
               montantcontribution:'',}
   decfiscmens.userId = this.currentuser.userId;
   decfiscmens.activite=this.user.activite;
+  decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
   decfiscmens.sousactivite=this.user.sousactivite;
   decfiscmens.codepostal=this.user.codepostal;
   decfiscmens.adresse=this.user.adresseactivite
@@ -3319,6 +3320,7 @@ onSubmitmodification() {
                 montantcontribution:'',}
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
+    decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
     decfiscmens.sousactivite=this.user.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
