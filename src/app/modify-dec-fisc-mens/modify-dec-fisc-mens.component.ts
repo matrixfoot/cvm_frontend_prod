@@ -1258,6 +1258,7 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
       this.calculateResultForm36()
     })
     this.tokenStorage.saved=false;
+    console.log(this.activite,decfiscmens.activite,this.sousactivite,decfiscmens.sousactivite)
     if (this.activite != decfiscmens.activite&&this.role!='admin'&&this.role!='supervisor'||this.sousactivite != decfiscmens.sousactivite&&this.role!='admin'&&this.role!='supervisor') 
     return (Swal.fire({
       title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',

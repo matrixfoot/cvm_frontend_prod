@@ -1,4 +1,4 @@
-<div *ngIf="decfiscmens" id="all">
+<div *ngIf="decfiscmens.impottype1" id="all">
   <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>
   <button type="button" (click)="bottom()"class="btn btn-primary btn-sm" id="top"><span><i class="glyphicon glyphicon-arrow-down"></i></span></button>   
   <table>
@@ -6,7 +6,7 @@
   <tr><th>Statut de la déclaration:</th><th>{{statut}}</th></tr>
   <tr><th>Motif du statut:</th><th> {{motif}}</th></tr>
 </table>
-<div *ngIf="currentUser.role=='admin'">
+<div *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1">
   <h2> Autre rubriques d'impots du type retenue à la source</h2>
 <table>
   <thead>
@@ -339,15 +339,7 @@
   <tr id="row1"><th colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
     annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td>13%</td><th colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
       annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
-  <tr id="row1"><th colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'||annee==='2023'&&activite==='Syndic des copropriétaires'
-    ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||
-    annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
-    ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'||
-    activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ htsum  | number:'1.3-3'| removeComma}}</span><span>{{ ht19sum  | number:'1.3-3'| removeComma}}</span></th><td>19%</td><th colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'
-      ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||annee==='2023'&&activite==='Syndic des copropriétaires'||
-      annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
-      ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'|| 
-      activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ tvasum | number:'1.3-3'| removeComma }}</span><span>{{ tva19sum | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="2"><span *ngIf="htsum">{{ htsum  | number:'1.3-3'| removeComma}}</span></th><td>19%</td><th colspan="2"><span *ngIf="tvasum">{{ tvasum | number:'1.3-3'| removeComma }}</span></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">* عمليات التسليم للنفس</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="4">-  شراء عقارات : </th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</th></tr>

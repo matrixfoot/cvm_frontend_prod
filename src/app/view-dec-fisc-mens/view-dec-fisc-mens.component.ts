@@ -67,8 +67,8 @@ public decfiscmens=new Decfiscmens;
     height: '80vh'
   };
   public optionValue:any
-  public option71Value:any
-  public option72Value:any
+  public option71Value=0.000
+  public option72Value=0.000
   public option64Value:any
   public honorairesum=0.000
   public honoraireretenue=0.000
@@ -216,38 +216,72 @@ public decfiscmens=new Decfiscmens;
             }
             
 
-
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
             {this.honorairesum= (+this.decfiscmens.impottype1.honoraire1.montantbrut + +this.decfiscmens.impottype1.honoraire3.montantbrut)
               this.honoraireretenue=Math.trunc((this.honorairesum* 0.03)*1000)/1000 }
-              if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount!==0 ||+this.decfiscmens.impottype2.locationusagecommercial.htammount!==0||
-                +this.decfiscmens.impottype2.operationlotissement.htammount!==0 ||+this.decfiscmens.impottype2.interetpercue.htammount!==0||+this.decfiscmens.impottype2.autretvaspecial.htammount!==0  )      
+            
+              
+              
+              if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount!=0 ||+this.decfiscmens.impottype2.locationusagecommercial.htammount!=0||
+                +this.decfiscmens.impottype2.operationlotissement.htammount!=0 ||+this.decfiscmens.impottype2.interetpercue.htammount!=0||+this.decfiscmens.impottype2.autretvaspecial.htammount!=0  )      
     {
     this.option71Value= +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
     + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount
     this.option72Value= Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
       + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
-      this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
-      this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000 
-      
-        this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
-        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
-        this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      if(decfiscmens.annee=='2023'&&this.activite=='Architectes'||decfiscmens.annee=='2023'&&this.activite=='Syndic des copropriétaires'||decfiscmens.annee=='2023'&&this.activite=='Ingénieurs-conseil'
+      ||decfiscmens.annee=='2023'&&this.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&this.activite=='Géomètres'
+      ||decfiscmens.annee=='2023'&&this.activite=='Topographes'||decfiscmens.annee=='2023'&&this.activite=='Notaire'||
+      decfiscmens.annee=='2023'&&this.activite=='Huissiers notaire'||decfiscmens.annee=='2023'&&this.activite=='Interprètes'||
+      decfiscmens.annee=='2023'&&this.activite=='Expert'||decfiscmens.annee=='2023'&&this.activite=='Avocat'||this.activite=='consultant')
+      {
+this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
++ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
+this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
++ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+      }
+if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Masseur'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Physiothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ergothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Psychomotricien'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Diététicien'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthophoniste'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthoptiste'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Sage-femmes')
+      {
+        this.htsum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount        
+        this.tvasum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
           + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+      }
     } 
-    if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount==0 &&+this.decfiscmens.impottype2.locationusagecommercial.htammount==0&&
+
+
+if (+this.decfiscmens.impottype2.locationhabitationmeuble.htammount==0 &&+this.decfiscmens.impottype2.locationusagecommercial.htammount==0&&
       +this.decfiscmens.impottype2.operationlotissement.htammount==0 &&+this.decfiscmens.impottype2.interetpercue.htammount==0&&+this.decfiscmens.impottype2.autretvaspecial.htammount==0  )
   {
-    this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht        
-    this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount
-    
-      this.ht19sum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht       
-      this.tva19sum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount
-  }
-  console.log(this.htsum,this.ht19sum,this.tva19sum,this.tvasum)
-    this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
+    if
+    (decfiscmens.annee=='2023'&&this.activite=='Architectes'||decfiscmens.annee=='2023'&&this.activite=='Syndic des copropriétaires'||decfiscmens.annee=='2023'&&this.activite=='Ingénieurs-conseil'
+    ||decfiscmens.annee=='2023'&&this.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&this.activite=='Géomètres'
+    ||decfiscmens.annee=='2023'&&this.activite=='Topographes'||decfiscmens.annee=='2023'&&this.activite=='Notaire'||
+    decfiscmens.annee=='2023'&&this.activite=='Huissiers notaire'||decfiscmens.annee=='2023'&&this.activite=='Interprètes'||
+    decfiscmens.annee=='2023'&&this.activite=='Expert'||decfiscmens.annee=='2023'&&this.activite=='Avocat'||this.activite=='consultant')
+    {
+this.htsum=+this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
++ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount         
+this.tvasum=+this.decfiscmens.impottype2.tvacollecter.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
++ +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+    }
+if
+(decfiscmens.annee=='2023'&&decfiscmens.activite=='Médecin'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Infirmier'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Masseur'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Physiothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ergothérapeute'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Psychomotricien'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Diététicien'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthophoniste'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Orthoptiste'||
+decfiscmens.annee=='2023'&&decfiscmens.activite=='Sage-femmes')
+    {
+      this.htsum=+this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht+ +this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+      + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount        
+      this.tvasum=+this.decfiscmens.impottype2.tvacollecter19.tvaammount+ +Math.trunc(((+this.decfiscmens.impottype2.locationhabitationmeuble.htammount+ +this.decfiscmens.impottype2.locationusagecommercial.htammount
+        + +this.decfiscmens.impottype2.operationlotissement.htammount+ +this.decfiscmens.impottype2.interetpercue.htammount+ +this.decfiscmens.impottype2.autretvaspecial.htammount)*0.19)*1000)/1000
+    }
+  }    
+      
+  this.totalretenueammount= +this.decfiscmens.impottype1.traitementetsalaire.retenuealasource+ +this.decfiscmens.impottype1.traitementetsalaire.contributionsociale+ +this.decfiscmens.impottype1.location1.montantretenue
   + +this.decfiscmens.impottype1.location2.montantretenue+ +this.decfiscmens.impottype1.location3.montantretenue+ +this.decfiscmens.impottype1.location4.montantretenue
   + +this.decfiscmens.impottype1.honoraire2.montantretenue+ +this.honoraireretenue
       + +this.decfiscmens.impottype1.montant10001.montantretenue+ +this.decfiscmens.impottype1.montant10002.montantretenue+ 
