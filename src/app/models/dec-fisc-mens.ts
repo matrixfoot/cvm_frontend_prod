@@ -29,6 +29,8 @@ regimefiscalimpot:string;
     created:Date;
     
   updated: Date;
+  statutadmin:string[]
+  statutcollab:string[]
 
   impottype1: {
 

@@ -52,6 +52,8 @@ codedeclaration:string;
     dateaffectation:Date;
   created:Date;
 updated: Date;
+statutadmin:string[]
+  statutcollab:string[]
 autre1:Autre[]
 autre2:Autre2[]
 autre3:Autre3[]

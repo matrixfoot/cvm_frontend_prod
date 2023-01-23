@@ -346,6 +346,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   showtfpsalairebrut=false;
   showfoprolossalairebrut=false;
   autreform: FormGroup;
+  decfiscmensFormadmin: FormGroup;
+  decfiscmensFormcollab: FormGroup;
   foprolosapayer=0.000
   tfpapayer=0.000
   tfpareporter=0.000
@@ -382,6 +384,9 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   tclammount19= 0.000;
   chiffreaffaireht19=0.000;
   public ammounts: FormArray;
+  public ammounts1: FormArray;
+  public ammounts2: FormArray;
+
   tauxdt: number;
   tvacollecte19=0.000;
   role: string;
@@ -399,6 +404,12 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
       super();
       this.autreform = this.formBuilder.group({
         ammounts: this.formBuilder.array([ this.createammount() ])
+      })
+      this.decfiscmensFormadmin = this.formBuilder.group({
+        ammounts1: this.formBuilder.array([ this.createammount1() ])
+      })
+      this.decfiscmensFormcollab = this.formBuilder.group({
+        ammounts2: this.formBuilder.array([ this.createammount2() ])
       })
     }
 
@@ -486,14 +497,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               {
                 this.tauxtva='0.19'
               }
-              this.decfiscmensForm = this.formBuilder.group({
-                
-                statut: [this.decfiscmens.statut, Validators.required],
-                motif: [this.decfiscmens.motif, Validators.required],
-                statutcoll: [this.decfiscmens.statutcoll, Validators.required],
-                motifcoll: [this.decfiscmens.motifcoll, Validators.required],
-              
-              });
+             
 
 
               this.option171Value=this.decfiscmens.mois
@@ -662,6 +666,24 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
                 
                 ammounts: new FormArray(decfiscmens.impottype1.autre.map(item => {
                   const group = this.initammounts();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.decfiscmensFormadmin = new FormGroup({
+                
+                ammounts1: new FormArray(decfiscmens.statutadmin.map(item => {
+                  const group = this.initammounts1();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.decfiscmensFormcollab = new FormGroup({
+                
+                ammounts2: new FormArray(decfiscmens.statutcollab.map(item => {
+                  const group = this.initammounts2();
                   //@ts-ignore
                   group.patchValue(item);
                   return group;
@@ -1285,6 +1307,20 @@ initammounts() {
     title: '',
     ammount: '',
     description: ''
+  });
+}
+initammounts1() {
+  return this.formBuilder.group({
+    statut: '',
+    motif: '',
+    duree: ''
+  });
+}
+initammounts2() {
+  return this.formBuilder.group({
+    statutcoll: '',
+    motifcoll: '',
+    duree: ''
   });
 }
 setThreeNumberDecimal($event) {
@@ -2492,12 +2528,12 @@ onSubmit() {
               decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
                 chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
                 montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
-  decfiscmens.statut =this.decfiscmensForm.get('statut').value;
-  decfiscmens.motif =this.decfiscmensForm.get('motif').value;
+                decfiscmens.statutadmin=this.decfiscmensFormadmin.get('ammounts1').value
+
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
       this.tokenStorage.saved=true;
-      this.decfiscmensForm.reset();
+      this.decfiscmensFormadmin.reset();
       this.loading = false;
       Swal.fire({
         position: 'center',
@@ -2639,12 +2675,12 @@ onSubmitcoll() {
               decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
               chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
               montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
-  decfiscmens.statutcoll =this.decfiscmensForm.get('statutcoll').value;
-  decfiscmens.motifcoll =this.decfiscmensForm.get('motifcoll').value;
+              decfiscmens.statutcollab=this.decfiscmensFormcollab.get('ammounts2').value
+
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
       this.tokenStorage.saved=true;
-      this.decfiscmensForm.reset();
+      this.decfiscmensFormcollab.reset();
       this.loading = false;
       Swal.fire({
         position: 'center',
@@ -3819,6 +3855,12 @@ closePopup() {
 get ammountControls() {
   return this.autreform.get('ammounts')['controls'];
 }
+get ammountControls1() {
+  return this.decfiscmensFormadmin.get('ammounts1')['controls'];
+}
+get ammountControls2() {
+  return this.decfiscmensFormcollab.get('ammounts2')['controls'];
+}
 createammount(): FormGroup {
   return this.formBuilder.group({
     title: '',
@@ -3826,12 +3868,32 @@ createammount(): FormGroup {
     description: ''
   });
 } 
-
+createammount1(): FormGroup {
+  return this.formBuilder.group({
+    statut: '',
+    motif: '',
+    duree: ''
+  });
+}
+createammount2(): FormGroup {
+  return this.formBuilder.group({
+    statutcoll: '',
+    motifcoll: '',
+    duree: ''
+  });
+}
 addammount(): void {
   this.ammounts = this.autreform.get('ammounts') as FormArray;
   this.ammounts.push(this.createammount());
 }
-
+addammount1(): void {
+  this.ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
+  this.ammounts1.push(this.createammount1());
+}
+addammount2(): void {
+  this.ammounts2 = this.decfiscmensFormcollab.get('ammounts2') as FormArray;
+  this.ammounts2.push(this.createammount2());
+}
 removeammount(i: number) {
   this.ammounts.removeAt(i);
 }

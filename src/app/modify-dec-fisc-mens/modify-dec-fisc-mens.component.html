@@ -8,54 +8,94 @@
 <div class="bodycontainer">
    
    <div class="padding container-fluid d-flex justify-content-center"*ngIf="currentuser.role=='admin'&&decfiscmens">
-    <div class="col-lg-12">
-              <div class="free-quote bg-dark h-100">
-                <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles(admin)</h2>
-                <form [formGroup]="decfiscmensForm">
-                  <div class="form-group">
-                    <label for="fq_name">Statut</label>    
-                    <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
-                      <option value="default"> </option>
-                      <option *ngFor="let statut of status" [value]="statut">
-                          {{statut}}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="fq_email">Motif</label>
-                    <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motif" formControlName="motif"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
-                  </div>
-                </form>
+    
+    <fieldset >
+      <legend> Formulaire De validation des déclarations mensuelles(admin)</legend>
+    <form [formGroup]="decfiscmensFormadmin">
+      <button type="button" class="btn btn-primary mb-2" (click)="addammount1()">Ajouter statut</button>
+  <fieldset formArrayName="ammounts1" *ngFor="let ammount of ammountControls1; let i = index;">
+    <div [formGroupName]="i">
+      <div class="row">
+        
+        <div class="container-fluid">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="fq_name">Statut</label>    
+              <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
+                <option value="default"> </option>
+                <option *ngFor="let statut of status" [value]="statut">
+                    {{statut}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="fq_email">Motif</label>
+              <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motif" formControlName="motif"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Durée de traitement</label>
+                <input type="text" class="form-control" formControlName="duree" placeholder="décrivez Ce Montant"/>
               </div>
-            </div>
-            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      </fieldset>
+      <div class="text-right">
+        <input type="submit" class="hidden" value="Submit"/>
+    </div>
+    </form>
+  </fieldset>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+  </div> 
+    </div>
             <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentuser._id=='62e666d00bd8a70a2fdd312e'&&decfiscmens">
-              <div class="col-lg-12">
-                        <div class="free-quote bg-dark h-100">
-                          <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles(collab)</h2>
-                          <form [formGroup]="decfiscmensForm">
-                            <div class="form-group">
-                              <label for="fq_name">Statut</label>    
-                              <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
-                                <option value="default"> </option>
-                                <option *ngFor="let statut of status" [value]="statut">
-                                    {{statut}}
-                                </option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="fq_email">Motif</label>
-                              <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motifcoll" formControlName="motifcoll"></textarea>
-                            </div>
-                            <div class="form-group">
-                              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
-                            </div>
-                          </form>
-                        </div>
+              <fieldset >
+                <legend> Formulaire De validation des déclarations mensuelles(collab)</legend>
+              <form [formGroup]="decfiscmensFormcollab">
+                <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Montant</button>
+            <fieldset formArrayName="ammounts2" *ngFor="let ammount of ammountControls2; let i = index;">
+              <div [formGroupName]="i">
+                <div class="row">
+                  
+                  <div class="container-fluid">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="fq_name">Statut</label>    
+                        <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
+                          <option value="default"> </option>
+                          <option *ngFor="let statut of status" [value]="statut">
+                              {{statut}}
+                          </option>
+                        </select>
                       </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="fq_email">Motif</label>
+                        <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motifcoll" formControlName="motifcoll"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label>Durée de traitement</label>
+                        <input type="text" class="form-control" formControlName="duree" placeholder="décrivez Ce Montant"/>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                </fieldset>
+              </form>
+            </fieldset>
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+            </div>
                       </div>
   
 <div class="container-fluid" *ngIf="currentuser.usertype=='Client'&& currentuser.role!=='admin'">

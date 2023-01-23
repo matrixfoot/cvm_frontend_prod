@@ -19,5 +19,6 @@ export class Condidate {
     created:Date;
     
   updated: Date
-      
+  statutadmin:string[]
+  statutcollab:string[] 
     }

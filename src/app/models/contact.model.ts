@@ -18,5 +18,6 @@ export class Contact {
     created:Date;
     
   updated: Date
-      
+  statutadmin:string[]
+  statutcollab:string[] 
     }
