@@ -3907,7 +3907,6 @@ createammount2(): FormGroup {
 finadmin(i:number) {
   let ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
   
-  var checkbox:any = document.getElementById('admin'+`${i}`);
   if (ammounts1.controls[i].value.fintraitement == true)
   { 
     ammounts1.controls[i].patchValue({ datefin: Date.now() });
@@ -3931,6 +3930,39 @@ finadmin(i:number) {
       else
       {
         ammounts1.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+fincollab(i:number) {
+  let ammounts2 = this.decfiscmensFormcollab.get('ammounts2') as FormArray;
+  
+  if (ammounts2.controls[i].value.fintraitement == true)
+  { 
+    ammounts2.controls[i].patchValue({ datefin: Date.now() });
+    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.decfiscmens.dateouverturedossier)/(1000)});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts2.controls[i].patchValue({ datefin: '' });
+    ammounts2.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts2.controls[i].value.fintraitement == true
       }
     }).catch(() => {
       Swal.fire('opération non aboutie!');
