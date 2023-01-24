@@ -277,6 +277,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option201Value:any;
   option202Value:any;
   option203Value:any;
+  option204Value:any;
+
   nature:any;
   message: string;
   sub1:Subscription;
@@ -440,7 +442,14 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             (decfiscmens: Decfiscmens) => {
               
               this.decfiscmens = decfiscmens;
-              
+              if(!this.decfiscmens.dateouverturedossier&&this.user.role=='admin'||!this.decfiscmens.dateouverturedossier&&this.user.role=='supervisor')
+              {
+                this.option204Value=Date.now()
+              }
+              else
+              {
+                this.option204Value=this.decfiscmens.dateouverturedossier
+              }
               this.tokenStorage.saved=false;
               this.nature=this.decfiscmens.nature
 
@@ -1306,21 +1315,27 @@ initammounts() {
   return this.formBuilder.group({
     title: '',
     ammount: '',
-    description: ''
+    description: '',
   });
 }
 initammounts1() {
   return this.formBuilder.group({
-    statut: '',
-    motif: '',
-    duree: ''
+    statut: [{value:'',disabled:true}],
+    motif: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
   });
 }
 initammounts2() {
   return this.formBuilder.group({
-    statutcoll: '',
-    motifcoll: '',
-    duree: ''
+    statutcoll: [{value:'',disabled:true}],
+    motifcoll: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
   });
 }
 setThreeNumberDecimal($event) {
@@ -2528,8 +2543,8 @@ onSubmit() {
               decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
                 chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
                 montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
-                decfiscmens.statutadmin=this.decfiscmensFormadmin.get('ammounts1').value
-
+                decfiscmens.statutadmin=this.decfiscmensFormadmin.getRawValue().ammounts1
+decfiscmens.dateouverturedossier=this.option204Value
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
       this.tokenStorage.saved=true;
@@ -2675,7 +2690,7 @@ onSubmitcoll() {
               decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
               chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
               montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
-              decfiscmens.statutcollab=this.decfiscmensFormcollab.get('ammounts2').value
+              decfiscmens.statutcollab=this.decfiscmensFormcollab.getRawValue().ammounts2
 
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
@@ -3872,15 +3887,56 @@ createammount1(): FormGroup {
   return this.formBuilder.group({
     statut: '',
     motif: '',
-    duree: ''
+    duree: '',
+    datefin: '',
+    fintraitement: ''
+
+
   });
 }
 createammount2(): FormGroup {
   return this.formBuilder.group({
     statutcoll: '',
     motifcoll: '',
-    duree: ''
+    duree: '',
+    datefin: '',
+    fintraitement: ''
+
   });
+}
+finadmin(i:number) {
+  let ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
+  
+  var checkbox:any = document.getElementById('admin'+`${i}`);
+  if (ammounts1.controls[i].value.fintraitement == true)
+  { 
+    ammounts1.controls[i].patchValue({ datefin: Date.now() });
+    ammounts1.controls[i].patchValue({ duree: (Date.now()-this.decfiscmens.dateouverturedossier)/(1000)});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts1.controls[i].patchValue({ datefin: '' });
+    ammounts1.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts1.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
 }
 addammount(): void {
   this.ammounts = this.autreform.get('ammounts') as FormArray;

@@ -16,7 +16,8 @@ export class Contact {
     affecte:string;
     dateaffectation:Date;
     created:Date;
-    
+    dateouverturedossier:number
+
   updated: Date
   statutadmin:string[]
   statutcollab:string[] 

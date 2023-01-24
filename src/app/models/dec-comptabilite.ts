@@ -52,6 +52,8 @@ codedeclaration:string;
     dateaffectation:Date;
   created:Date;
 updated: Date;
+dateouverturedossier:number
+
 statutadmin:string[]
   statutcollab:string[]
 autre1:Autre[]
