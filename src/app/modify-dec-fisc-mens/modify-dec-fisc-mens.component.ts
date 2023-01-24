@@ -3910,7 +3910,7 @@ finadmin(i:number) {
   if (ammounts1.controls[i].value.fintraitement == true)
   { 
     ammounts1.controls[i].patchValue({ datefin: Date.now() });
-    ammounts1.controls[i].patchValue({ duree: (Date.now()-this.decfiscmens.dateouverturedossier)/(1000)});
+    ammounts1.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
   } 
   else 
   {
@@ -3943,7 +3943,7 @@ fincollab(i:number) {
   if (ammounts2.controls[i].value.fintraitement == true)
   { 
     ammounts2.controls[i].patchValue({ datefin: Date.now() });
-    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.decfiscmens.dateouverturedossier)/(1000)});
+    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
   } 
   else 
   {

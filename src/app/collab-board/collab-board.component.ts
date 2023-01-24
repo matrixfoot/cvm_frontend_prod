@@ -274,14 +274,14 @@ filterusers2(id:string)
 }
              getdossiersencours()
              {
-                                                            
-this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut!='Clôturé'&&decfiscmens.statut!='Valide'&&decfiscmens.affecte== this.id))
+//@ts-ignore                                                            
+this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&!decfiscmens.statutadmin.find(e => e.statut==='Valide')&&decfiscmens.affecte== this.id))
 this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut!='Clôturé'&&deccomptabilite.statut!='Valide'&&deccomptabilite.affecte==this.id)))
 this.dossencours3=((this.condidates.filter((condidate) => condidate.decision!='Clôturé'&&condidate.decision!='Valide'&&condidate.affecte==this.id)))
 this.dossencours4=((this.contacts.filter((contact) => contact.statut!='Clôturé'&&contact.statut!='Valide'&&contact.affecte==this.id)))
 this.dossencours=[]
 this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
-       console.log(this.id)
+       console.log(this.dossencours)
        const sort = new Sort();
        this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''))[0];
        
