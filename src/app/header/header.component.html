@@ -41,7 +41,7 @@
 
             </ul>
           </li>
-          <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn"data-toggle="dropdown">Services en ligne<span class="caret"></span></a>
+          <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn&&usertype!='Candidat'"data-toggle="dropdown">Services en ligne<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="declare-comptabilite" routerLinkActive="active">Tenez votre comptabilité</a></li>
               <li><a href="declare-fiscality" routerLinkActive="active">Etablissez vos déclarations fiscales</a></li>

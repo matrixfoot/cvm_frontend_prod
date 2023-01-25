@@ -950,6 +950,12 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     ).subscribe((res:any)=>{
       this.calculateResultForm36()
     })
+    if (user.usertype !='Client') 
+    return (this.token.saved=true,Swal.fire({
+      title: 'fonctionnalité non disponible pour ce type d\'utilisateur',
+      icon: 'info',
+      confirmButtonColor: '#3085d6',
+    }),this.router.navigate(['home']))
       if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
       || user.regimefiscalimpot=='Autre/null'
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
@@ -977,10 +983,12 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
           Swal.fire('opération non aboutie!');
         });
       }*/
+     
       this.DecfiscmensService.getdecfiscmens(this.currentUser.userId).then(
         (decfiscmens: Decfiscmens[]) => {
         }
       )
+      
             }
           )
     

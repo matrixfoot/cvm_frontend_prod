@@ -253,9 +253,21 @@
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
                         <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
-                        <td><span *ngIf="dossenc.type==='candidature'">{{dossenc.decision}}</span>{{dossenc.statut}}</td>
-                        <td><span *ngIf="dossenc.type==='candidature'">{{dossenc.decisioncoll}}</span>{{dossenc.statutcoll}}</td>
-                        <td>{{dossenc.created}}</td>
+                        <td>
+                          <span *ngIf="dossenc.statutadmin">
+                            <ng-container *ngFor="let statut of dossenc.statutadmin">
+                              {{statut.statut}}
+                            </ng-container>
+                          </span>  
+                        </td>
+                        <td>
+                          <span *ngIf="dossenc.statutcollab">
+                            <ng-container *ngFor="let statut of dossenc.statutcollab">
+                              {{statut.statut}}
+                            </ng-container>
+                          </span>     
+                        </td> 
+                      <td>{{dossenc.created}}</td>             
                       <td>{{dossenc.updated}}</td>
                       <td><span>{{filterusers2(dossenc.affecte)}}{{prenomaffecte}}</span> <span> {{filterusers2(dossenc.affecte)}}{{nomaffecte}}</span></td>
 

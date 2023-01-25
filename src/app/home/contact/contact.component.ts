@@ -82,7 +82,7 @@ export class ContactComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre candidature. vous allez recevoir désormais une réponse dans les plus brefs délais ',
+            title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre réclamation. vous allez recevoir désormais une réponse dans les plus brefs délais ',
             showConfirmButton: false,
             timer: 6000 
           });
@@ -102,7 +102,7 @@ export class ContactComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre candidature. vous allez recevoir désormais une réponse dans les plus brefs délais ',
+          title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre réclamation. vous allez recevoir désormais une réponse dans les plus brefs délais ',
           showConfirmButton: false,
           timer: 6000 
         });

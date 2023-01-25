@@ -39,9 +39,21 @@
                   <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.nature}}</span>
                     <span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.type}}</span>
                     <span *ngIf="sorteddossencours.type==='réclamation'">{{sorteddossencours.type}}</span></td>
-                    <td><span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.decision}}</span>{{sorteddossencours.statut}}</td>
-                    <td><span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.decisioncoll}}</span>{{sorteddossencours.statutcoll}}</td>
-                  <td>{{sorteddossencours.created}}</td>
+                    <td>
+                      <span *ngIf="sorteddossencours.statutadmin">
+                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                          {{statut.statut}}
+                        </ng-container>
+                      </span>  
+                    </td>
+                    <td>
+                      <span *ngIf="sorteddossencours.statutcollab">
+                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                          {{statut.statut}}
+                        </ng-container>
+                      </span>  
+                    </td>                  
+                    <td>{{sorteddossencours.created}}</td>
                   <td>{{sorteddossencours.updated}}</td>
                   
                   
