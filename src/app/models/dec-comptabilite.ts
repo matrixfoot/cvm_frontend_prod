@@ -2,10 +2,21 @@
 export class Deccomptabilite {
   userId: string;
   _id:string;
-codedeclaration:string;
   nature:string;
+  registrecommerce:string;
+  matriculefiscale:string;
+  codetva:string;
+  codegenre:string;
+  raisonsociale:string;
+  adresse:string;
+  codepostal:string;
   activite:string;
   sousactivite:string;
+  datearretactivite:string;
+regimefiscalimpot:string;
+  firstname:string;
+  lastname:string;
+  codedeclaration:string;
   mois:string;
   annee:string;
   debitmoisprecedent:string;
