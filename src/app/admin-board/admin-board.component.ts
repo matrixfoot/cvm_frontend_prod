@@ -500,8 +500,8 @@ filterusers2(id:string)
           return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte);                                                           
                                                            
        }
-           exportusersAsXLSX():void {
-            this.excelService.exportAsExcelFile(this.users,[],[],[],[],[], 'sample');
+           exportusersAsXLSX(source:any[],name:string):void {
+            this.excelService.exportAsExcel(source, name);
           }
           onTabClick(event) {
    

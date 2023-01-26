@@ -17,8 +17,8 @@
             </div>
             <div id="collapse0" class="panel-collapse collapse in">
               <ul class="list-group">
-                <li class="list-group-item"(click)="click30()"(click)="getdossiersencoursnonaffecte()"><span class="badge">{{dossdecfiscnonaffecte+dossdeccompnonaffecte+dosscandnonaffecte+dosscontactnonaffecte}}</span>Dossiers pas encore affectés</li>
-                <li class="list-group-item"(click)="click29()"(click)="getdossiersencours()"><span class="badge">{{dossdecfiscencours+dossdeccompencours+dosscandencours+dosscontactencours}}</span>Dossiers en cours d'éxécution</li>
+                <li class="list-group-item"(click)="click30()"(click)="getdossiersencoursnonaffecte()"><span class="badge">{{dossdecfiscnonaffecte+dossdeccompnonaffecte+dosscandnonaffecte+dosscontactnonaffecte}}</span>Dossiers pas encore affectes</li>
+                <li class="list-group-item"(click)="click29()"(click)="getdossiersencours()"><span class="badge">{{dossdecfiscencours+dossdeccompencours+dosscandencours+dosscontactencours}}</span>Dossiers en cours d'execution</li>
               </ul>
             </div>
             </div>
@@ -32,8 +32,8 @@
           <div id="collapse1" class="panel-collapse collapse in">
             <ul class="list-group">
               <li class="list-group-item"(click)="click1()"><span class="badge">{{ca}}</span>Clients actifs</li>
-              <li class="list-group-item"(click)="click2()"><span class="badge">{{cb}}</span>Clients bloqués</li>
-              <li class="list-group-item"(click)="click3()"><span class="badge">{{del}}</span>Clients supprimés temporairement</li>
+              <li class="list-group-item"(click)="click2()"><span class="badge">{{cb}}</span>Clients bloques</li>
+              <li class="list-group-item"(click)="click3()"><span class="badge">{{del}}</span>Clients supprimes temporairement</li>
               <li class="list-group-item"(click)="click4()"><span class="badge">{{coll}}</span>Collaborateurs</li>
               <li class="list-group-item"(click)="click5()"><span class="badge">{{cons}}</span>Consultants</li>
               <li class="list-group-item"(click)="click6()"><span class="badge">{{condida}}</span>Candidats</li>
@@ -44,13 +44,13 @@
           <div class="panel-heading">
             <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-            Liste déclarations fiscales</a>
+            Liste declarations fiscales</a>
             </h4>
           </div>
           <div id="collapse2" class="panel-collapse collapse">
             <ul class="list-group">
-              <li class="list-group-item"(click)="click7()"><span class="badge">{{decfiscvali}}</span>Clôturé</li>
-              <li class="list-group-item"(click)="click8()"><span class="badge">{{decfiscnonvali}}</span>En cours d'éxécution</li>
+              <li class="list-group-item"(click)="click7()"><span class="badge">{{decfiscvali}}</span>Clôture</li>
+              <li class="list-group-item"(click)="click8()"><span class="badge">{{decfiscnonvali}}</span>En cours d'execution</li>
             </ul>
           </div>
           </div>
@@ -63,8 +63,8 @@
           </div>
           <div id="collapse3" class="panel-collapse collapse">
             <ul class="list-group">
-              <li class="list-group-item"(click)="click9()"><span class="badge">{{deccomptvalid}}</span>Clôturé</li>
-              <li class="list-group-item"(click)="click10()"><span class="badge">{{deccompnonval}}</span>En cours d'éxécution</li>
+              <li class="list-group-item"(click)="click9()"><span class="badge">{{deccomptvalid}}</span>Clôture</li>
+              <li class="list-group-item"(click)="click10()"><span class="badge">{{deccompnonval}}</span>En cours d'execution</li>
             </ul>
           </div>
           </div>
@@ -77,8 +77,8 @@
             </div>
             <div id="collapse4" class="panel-collapse collapse">
               <ul class="list-group">
-                <li class="list-group-item"(click)="click11()"><span class="badge">{{condval}}</span>Clôturé</li>
-                <li class="list-group-item"(click)="click12()"><span class="badge">{{condnonal}}</span>En cours d'éxécution</li>
+                <li class="list-group-item"(click)="click11()"><span class="badge">{{condval}}</span>Clôture</li>
+                <li class="list-group-item"(click)="click12()"><span class="badge">{{condnonal}}</span>En cours d'execution</li>
               </ul>
             </div>
             </div>
@@ -86,13 +86,13 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                Liste des réclamations</a>
+                Liste des reclamations</a>
                 </h4>
               </div>
               <div id="collapse5" class="panel-collapse collapse">
                 <ul class="list-group">
-                  <li class="list-group-item"(click)="click13()"><span class="badge">{{contval}}</span>Clôturé</li>
-                  <li class="list-group-item"(click)="click14()"><span class="badge">{{contnonval}}</span>En cours d'éxécution</li>
+                  <li class="list-group-item"(click)="click13()"><span class="badge">{{contval}}</span>Clôture</li>
+                  <li class="list-group-item"(click)="click14()"><span class="badge">{{contnonval}}</span>En cours d'execution</li>
                 </ul>
               </div>
               </div>
@@ -100,14 +100,15 @@
       </div>
       <div class="col col-md-9"id="tabcontainer">
         <mat-tab-group (selectedTabChange)="onTabClick($event)">
-          <mat-tab label="Dossiers pas encore affectés" *ngIf="showdosspasencoreaffecte&&sorteddossnonaffecte">
+          <mat-tab label="Dossiers pas encore affectes" *ngIf="showdosspasencoreaffecte&&sorteddossnonaffecte">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Dossiers pas encore affectés</div>
+              <div class="col" style="margin-left: 20px;">Dossiers pas encore affectes</div>
               <span (click)="getdossiersencoursnonaffecte()"(click)="click30()"><i class="glyphicon glyphicon-refresh"></i></span>
               <span (click)="click32()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12">
               <div class="team-member">
+                <button (click)="exportusersAsXLSX(sorteddossnonaffecte,'dossiers pas encore affectes')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <hr>
                 <!--<div class="container-fluid">
                   <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
@@ -127,7 +128,7 @@
                   </div>
                     <div class="searchbar">
                     
-                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prenom">
                        <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                       
                     </div><br>
@@ -149,30 +150,30 @@
                       <th scope="col">Prenom</th>
                       <th scope="col">Nom</th>
                       <th scope="col">Type</th>
-                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de creation<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
                       <th scope="col">date de modification</th>     
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let dossenc of sorteddossnonaffecte"> 
                 
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'||'declaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
-                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                        <span *ngIf="dossenc.type==='reclamation'">{{dossenc.type}}</span></td>
                       <td>{{dossenc.created}}</td>
                       <td>{{dossenc.updated}}</td>
                       
                       
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Declaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='declaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='reclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
                       
                         
                     </tr>
@@ -183,14 +184,15 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Dossiers en cours d'éxécution" *ngIf="showdossencours&&sorteddossencours">
+          <mat-tab label="Dossiers en cours d'execution" *ngIf="showdossencours&&sorteddossencours">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Dossiers en cours d'exécution</div>
+              <div class="col" style="margin-left: 20px;">Dossiers en cours d'execution</div>
               <span (click)="getdossiersencours()"(click)="click29()"><i class="glyphicon glyphicon-refresh"></i></span>
               <span (click)="click31()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12">
               <div class="team-member">
+                <button (click)="exportusersAsXLSX(sorteddossencours,'dossiers en cours execution')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <hr>
                 <!--<div class="container-fluid">
                   <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
@@ -210,7 +212,7 @@
                   </div>
                     <div class="searchbar">
                     
-                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prenom">
                        <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                       
                     </div><br>
@@ -234,9 +236,9 @@
                       <th scope="col">Type</th>
                       <th scope="col">Statut Admin</th>
                       <th scope="col">Statut Collaborateur</th>
-                      <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de creation<i class="fa fa-sort" aria-hidden="true" [appSort]="dossencours" data-order="desc" data-name="created" ></i></th>
                       <th scope="col">date de modification</th>
-                      <th scope="col">Collaborateur affecté</th>     
+                      <th scope="col">Collaborateur affecte</th>     
      
                     </tr>
                     </thead>
@@ -244,15 +246,15 @@
                     <tr *ngFor="let dossenc of sorteddossencours"> 
                 
                       
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
+                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'||'declaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
-                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
+                        <span *ngIf="dossenc.type==='reclamation'">{{dossenc.type}}</span></td>
                         <td>
                           <span *ngIf="dossenc.statutadmin">
                             <ng-container *ngFor="let statut of dossenc.statutadmin">
@@ -273,10 +275,10 @@
 
                       
                       
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Declaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='declaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='reclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
                         
                     </tr>
                     </tbody>
@@ -296,7 +298,7 @@
               <div class="team-member">
                 <hr>
                 <div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                  <button (click)="exportusersAsXLSX(getclients(),'Clients Actifs')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <form [formGroup]="searchForm">
                  
                   <div class="searchbar">
@@ -313,7 +315,7 @@
                   </div>
                     <div class="searchbar">
                     
-                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prénom">
+                        <input class="search_input" id="firstname"  formControlName="firstname"type="text"  placeholder="Chercher par Prenom">
                        <a class="search_icon"(click)="getusersbyfirstname()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                       
                     </div><br>
@@ -340,9 +342,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
                       
@@ -378,14 +380,15 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Clients bloqués" *ngIf="clientbloque&&users">
+          <mat-tab label="Clients bloques" *ngIf="clientbloque&&users">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Clients bloqués</div>
+              <div class="col" style="margin-left: 20px;">Clients bloques</div>
               <span (click)="click16()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Clients bloqués</h2>
+                <button (click)="exportusersAsXLSX(getclientsbloqued(),'Clients bloques')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
+                <h2>Liste des Clients bloques</h2>
                 <hr>
                     
                 <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
@@ -403,9 +406,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
                       
@@ -441,14 +444,15 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Clients supprimés temporairement" *ngIf="clientsupptemporairement&&users">
+          <mat-tab label="Clients supprimes temporairement" *ngIf="clientsupptemporairement&&users">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">Clients supprimés temporairement</div>
+              <div class="col" style="margin-left: 20px;">Clients supprimes temporairement</div>
               <span (click)="click17()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Clients supprimés temporairement</h2>
+                <button (click)="exportusersAsXLSX(usersdeleted(),'Clients supprimes temporairement')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
+                <h2>Liste des Clients supprimes temporairement</h2>
                 <hr>
                 <div class="container-fluid">
                  
@@ -478,9 +482,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="sousactivite" ></i></th>
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="usersdeleted" data-order="desc" data-name="role" ></i></th>
                       
                     </tr>
@@ -521,6 +525,7 @@
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
+                <button (click)="exportusersAsXLSX(getcollaborateurs(),'Collaborateurs')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <h2>Liste des Collaborateurs</h2>
                 <hr>
                       
@@ -539,9 +544,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
                       
                     </tr>
@@ -582,6 +587,7 @@
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
+                <button (click)="exportusersAsXLSX(getconsultants(),'Consultants')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <h2>Liste des Consultants</h2>
                 <hr>
                       
@@ -600,9 +606,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
                       
                     </tr>
@@ -643,6 +649,7 @@
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
+                <button (click)="exportusersAsXLSX(getcondidates(),'Candidats')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <h2>Liste des Candidats</h2>
                 <hr>
                         
@@ -661,9 +668,9 @@
                       <th scope="col">Type <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="usertype" ></i></th>
                       <th scope="col">Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="mobile" ></i></th>
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
-                      <th scope="col">Nature-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
-                      <th scope="col">Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
+                      <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
+                      <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
                       
                     </tr>
@@ -699,15 +706,15 @@
           </mat-tab>
           <mat-tab label="declaration fiscales valide" *ngIf="decfiscmensvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">déclaration fiscales valide</div>
+              <div class="col" style="margin-left: 20px;">declaration fiscales valide</div>
               <span (click)="click21()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <hr>
                 <div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
-                <form [formGroup]="searchForm">
+                  <button (click)="exportusersAsXLSX(getdecfiscmenssvalide(),'Declarations Clôtures')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
+                  <form [formGroup]="searchForm">
                  
                   
                     
@@ -732,11 +739,11 @@
                       <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="_id" ></i></th>
                       <th scope="col">Nature <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="nature"  ></i></th>
                       <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
-                      <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
+                      <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
                       <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
-                      <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
                      
                       
                     </tr>
@@ -766,16 +773,16 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="dec fiscale En cours d'éxécution" *ngIf="decfiscmensnonvalide">
+          <mat-tab label="dec fiscale En cours d'execution" *ngIf="decfiscmensnonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">dec fiscale En cours d'éxécution</div>
+              <div class="col" style="margin-left: 20px;">dec fiscale En cours d'execution</div>
               <span (click)="click22()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
                 <hr>
                 <div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                  <button (click)="exportusersAsXLSX(getdecfiscmenssnonvalide(),'Declarations en cours execution')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <form [formGroup]="searchForm">
                  
                   
@@ -801,12 +808,12 @@
                       <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="_id" ></i></th>
                       <th scope="col">Nature <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="nature"  ></i></th>
                       <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
-                      <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
+                      <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
                       <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
-                      <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
-                      <th scope="col">Affecté à<i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="affectation" ></i></th>
+                      <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Affecte à<i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="affectation" ></i></th>
 
                       
                     </tr>
@@ -845,7 +852,7 @@
           </mat-tab>
           <mat-tab label="declaration comptables valide" *ngIf="deccomptabilitevalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">déclaration comptables valide</div>
+              <div class="col" style="margin-left: 20px;">declaration comptables valide</div>
               <span (click)="click23()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
@@ -853,7 +860,7 @@
                 <h2>Liste des fichiers comptables</h2>
                 <hr>
                 <div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                  <button (click)="exportusersAsXLSX(getdeccomptabilitesvalide(),'Fichiers pas encore affectes')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <form [formGroup]="searchForm">
                  
                   
@@ -878,11 +885,11 @@
                       
                       
                       <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="mois"  ></i></th>
-                      <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
+                      <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId" ></i></th>
                       <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="statut" ></i></th>
-                      <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
                      
                       
                     </tr>
@@ -911,9 +918,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="deccomptabilite En cours d'éxécution" *ngIf="deccomptabilitenonvalide">
+          <mat-tab label="deccomptabilite En cours d'execution" *ngIf="deccomptabilitenonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">deccomptabilite En cours d'éxécution</div>
+              <div class="col" style="margin-left: 20px;">deccomptabilite En cours d'execution</div>
               <span (click)="click24()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
@@ -921,7 +928,7 @@
                 <h2>Liste des fichiers comptables</h2>
                 <hr>
                 <div class="container-fluid">
-                  <button (click)="exportusersAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:48px;color:blue"></i></button>
+                  <button (click)="exportusersAsXLSX(getdeccomptabilitesnonvalide(),'Fichiers en cours execution')"><i class="fa fa-file-excel-o" style="color:blue"></i></button> 
                 <form [formGroup]="searchForm">
                  
                   
@@ -946,11 +953,11 @@
                       
                       
                       <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="mois"  ></i></th>
-                      <th scope="col">Année <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
+                      <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId" ></i></th>
                       <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="statut" ></i></th>
-                      <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
                      
                       
                     </tr>
@@ -1020,7 +1027,7 @@
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
                       <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
                       <th>CV</th>
-                      <th>Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
+                      <th>Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
 
                       
                     </tr>
@@ -1053,9 +1060,9 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="candidature En cours d'éxécution"*ngIf="candidaturenonvalide">
+          <mat-tab label="candidature En cours d'execution"*ngIf="candidaturenonvalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">candidature En cours d'éxécution</div>
+              <div class="col" style="margin-left: 20px;">candidature En cours d'execution</div>
               <span (click)="click26()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
@@ -1094,7 +1101,7 @@
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
                       <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
                       <th>CV</th>
-                      <th>Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
+                      <th>Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
 
                       
                     </tr>
@@ -1127,32 +1134,32 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="réclamation traité" *ngIf="reclamationtraite">
+          <mat-tab label="reclamation traite" *ngIf="reclamationtraite">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">réclamations traité</div>
+              <div class="col" style="margin-left: 20px;">reclamations traite</div>
               <span (click)="click27()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Réclamations</h2>
+                <h2>Liste des Reclamations</h2>
                 <hr>
                         
                 <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 400px;">
                   <form [formGroup]="searchForm">
                  <div class="dategroup">
-                  <label for="date"> Réclamations Inférieur à:</label>
-                    <div class="searchbar" title="chercher les réclamations avec la date de création inférieur à">
+                  <label for="date"> Reclamations Inferieur à:</label>
+                    <div class="searchbar" title="chercher les reclamations avec la date de creation inferieur à">
                       
-                      <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inférieur à:">
+                      <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inferieur à:">
                      <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                     
                   </div>
                 </div>
                 <div class="dategroup">
-                  <label for="date"> Réclamations Supérieur à:</label>
-                  <div class="searchbar"title="chercher les réclamations avec la date de création supérieur à">
+                  <label for="date"> Reclamations Superieur à:</label>
+                  <div class="searchbar"title="chercher les reclamations avec la date de creation superieur à">
                       
-                    <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="supérieur à:">
+                    <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="superieur à:">
                    <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                   
                 </div>
@@ -1171,7 +1178,7 @@
                     <thead>
                     <tr>
                 
-                      <th>Date Création <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="created" ></i></th>
+                      <th>Date Creation <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="created" ></i></th>
                       <th>Email <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="email" ></i></th>
                       <th>Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="firstname" ></i></th>
                       <th>Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="lastname" ></i></th>
@@ -1207,32 +1214,32 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="réclamation En cours d'éxécution" *ngIf="reclamationnontraite">
+          <mat-tab label="reclamation En cours d'execution" *ngIf="reclamationnontraite">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">réclamation En cours d'éxécution</div>
+              <div class="col" style="margin-left: 20px;">reclamation En cours d'execution</div>
               <span (click)="click28()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Réclamations</h2>
+                <h2>Liste des Reclamations</h2>
                 <hr>
                         
                 <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 400px;">
                   <form [formGroup]="searchForm">
                  <div class="dategroup">
-                  <label for="date"> Réclamations Inférieur à:</label>
-                    <div class="searchbar" title="chercher les réclamations avec la date de création inférieur à">
+                  <label for="date"> Reclamations Inferieur à:</label>
+                    <div class="searchbar" title="chercher les reclamations avec la date de creation inferieur à">
                       
-                      <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inférieur à:">
+                      <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inferieur à:">
                      <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                     
                   </div>
                 </div>
                 <div class="dategroup">
-                  <label for="date"> Réclamations Supérieur à:</label>
-                  <div class="searchbar"title="chercher les réclamations avec la date de création supérieur à">
+                  <label for="date"> Reclamations Superieur à:</label>
+                  <div class="searchbar"title="chercher les reclamations avec la date de creation superieur à">
                       
-                    <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="supérieur à:">
+                    <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="superieur à:">
                    <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
                   
                 </div>
@@ -1251,7 +1258,7 @@
                     <thead>
                     <tr>
                 
-                      <th>Date Création <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="created" ></i></th>
+                      <th>Date Creation <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="created" ></i></th>
                       <th>Email <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="email" ></i></th>
                       <th>Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="firstname" ></i></th>
                       <th>Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="lastname" ></i></th>

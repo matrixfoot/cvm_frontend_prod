@@ -190,12 +190,21 @@ export class ViewDeccomptabiliteComponent implements OnInit {
           }
           this.userservice.getUserById(deccomptabilite.userId).then(
             (user: User) => {
-              this.user = user;
-              this.role=user.role
-              this.usertype=user.usertype
-              this.firstname=user.firstname
-              this.lastname=user.lastname
-              this.sousactivite=user.sousactivite
+              if(user)
+              {
+                this.user = user;
+                this.role=user.role
+                this.usertype=user.usertype
+                this.firstname=user.firstname
+                this.lastname=user.lastname
+                this.sousactivite=user.sousactivite
+              }
+              else
+              {
+                this.firstname=deccomptabilite.firstname
+                this.lastname=deccomptabilite.lastname
+                this.sousactivite=deccomptabilite.sousactivite
+              }
             }
           )
           }
