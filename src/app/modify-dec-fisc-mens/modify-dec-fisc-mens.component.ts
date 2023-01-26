@@ -13,6 +13,7 @@ import { Decfiscmens } from '../models/dec-fisc-mens';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
+import { CommunService } from '../services/commun';
 @Component({
   selector: 'app-modify-dec-fisc-mens',
   templateUrl: './modify-dec-fisc-mens.component.html',
@@ -276,6 +277,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option201Value:any;
   option202Value:any;
   option203Value:any;
+  option204Value:any;
+
   nature:any;
   message: string;
   sub1:Subscription;
@@ -345,6 +348,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   showtfpsalairebrut=false;
   showfoprolossalairebrut=false;
   autreform: FormGroup;
+  decfiscmensFormadmin: FormGroup;
+  decfiscmensFormcollab: FormGroup;
   foprolosapayer=0.000
   tfpapayer=0.000
   tfpareporter=0.000
@@ -381,9 +386,13 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   tclammount19= 0.000;
   chiffreaffaireht19=0.000;
   public ammounts: FormArray;
+  public ammounts1: FormArray;
+  public ammounts2: FormArray;
+
   tauxdt: number;
   tvacollecte19=0.000;
   role: string;
+  status: string[]=[];
   constructor(private formBuilder: FormBuilder,
   
    
@@ -393,18 +402,26 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
     private dec: DecfiscmensService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) {
+    private alertService: AlertService,private commun: CommunService) {
       super();
       this.autreform = this.formBuilder.group({
         ammounts: this.formBuilder.array([ this.createammount() ])
+      })
+      this.decfiscmensFormadmin = this.formBuilder.group({
+        ammounts1: this.formBuilder.array([ this.createammount1() ])
+      })
+      this.decfiscmensFormcollab = this.formBuilder.group({
+        ammounts2: this.formBuilder.array([ this.createammount2() ])
       })
     }
 
 
  ngOnInit() {
   this.loading = true;
+  this.status=this.commun.status
   this.isLoggedIn = !!this.tokenStorage.getToken();
   this.currentuser = this.tokenStorage.getUser();
+  this.role=this.currentuser.role
   this.tauxdt=0.600
   this.userservice.getUserById(this.currentuser.userId).then(
     (user: User) => {
@@ -425,7 +442,14 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             (decfiscmens: Decfiscmens) => {
               
               this.decfiscmens = decfiscmens;
-              
+              if(!this.decfiscmens.dateouverturedossier&&this.user.role=='admin'||!this.decfiscmens.dateouverturedossier&&this.user.role=='supervisor')
+              {
+                this.option204Value=Date.now()
+              }
+              else
+              {
+                this.option204Value=this.decfiscmens.dateouverturedossier
+              }
               this.tokenStorage.saved=false;
               this.nature=this.decfiscmens.nature
 
@@ -482,12 +506,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               {
                 this.tauxtva='0.19'
               }
-              this.decfiscmensForm = this.formBuilder.group({
-                
-                statut: [this.decfiscmens.statut, Validators.required],
-                motif: [this.decfiscmens.motif, Validators.required],
-              
-              });
+             
 
 
               this.option171Value=this.decfiscmens.mois
@@ -656,6 +675,24 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
                 
                 ammounts: new FormArray(decfiscmens.impottype1.autre.map(item => {
                   const group = this.initammounts();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.decfiscmensFormadmin = new FormGroup({
+                
+                ammounts1: new FormArray(decfiscmens.statutadmin.map(item => {
+                  const group = this.initammounts1();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
+              this.decfiscmensFormcollab = new FormGroup({
+                
+                ammounts2: new FormArray(decfiscmens.statutcollab.map(item => {
+                  const group = this.initammounts2();
                   //@ts-ignore
                   group.patchValue(item);
                   return group;
@@ -861,12 +898,12 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
           if(this.role!='admin')
           {
             Swal.fire({
-              title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
+              title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous calculer les pénalités et vous les envoyer',
               icon: 'info',
               confirmButtonColor: '#3085d6',
             }).then((result) => {
               Swal.fire({
-                title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+                title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
                 icon: 'info',
                 confirmButtonColor: '#3085d6',
               }).then((result) => {}).catch(() => {
@@ -1252,7 +1289,8 @@ if(this.decfiscmens.impottype2.reporttvamoisprecedent)
       this.calculateResultForm36()
     })
     this.tokenStorage.saved=false;
-    if (this.activite != decfiscmens.activite&&this.role!='admin'||this.sousactivite != decfiscmens.sousactivite&&this.role!='admin') 
+    console.log(this.activite,decfiscmens.activite,this.sousactivite,decfiscmens.sousactivite)
+    if (this.activite != decfiscmens.activite&&this.role!='admin'&&this.role!='supervisor'||this.sousactivite != decfiscmens.sousactivite&&this.role!='admin'&&this.role!='supervisor') 
     return (Swal.fire({
       title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',
       icon: 'error',
@@ -1277,7 +1315,27 @@ initammounts() {
   return this.formBuilder.group({
     title: '',
     ammount: '',
-    description: ''
+    description: '',
+  });
+}
+initammounts1() {
+  return this.formBuilder.group({
+    statut: [{value:'',disabled:true}],
+    motif: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
+  });
+}
+initammounts2() {
+  return this.formBuilder.group({
+    statutcoll: [{value:'',disabled:true}],
+    motifcoll: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
   });
 }
 setThreeNumberDecimal($event) {
@@ -2465,7 +2523,7 @@ onSubmit() {
                         decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
                           basetfp:this.decfiscmens.impottype3.basetfp,
                                                     tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
-                          montanttfpmois:this.decfiscmens.impottype3.montantavance,
+                          montanttfpmois:this.decfiscmens.impottype3.montanttfpmois,
                           reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
                           montantavance:this.decfiscmens.impottype3.montantavance,
                           tfppayer:this.decfiscmens.impottype3.tfppayer,
@@ -2482,12 +2540,15 @@ onSubmit() {
               decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
               chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
               tclpayer:this.decfiscmens.impottype6.tclpayer,}
-  decfiscmens.statut =this.decfiscmensForm.get('statut').value;
-  decfiscmens.motif =this.decfiscmensForm.get('motif').value;
+              decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
+                chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
+                montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
+                decfiscmens.statutadmin=this.decfiscmensFormadmin.getRawValue().ammounts1
+decfiscmens.dateouverturedossier=this.option204Value
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
     (data:any) => {
       this.tokenStorage.saved=true;
-      this.decfiscmensForm.reset();
+      this.decfiscmensFormadmin.reset();
       this.loading = false;
       Swal.fire({
         position: 'center',
@@ -2508,32 +2569,225 @@ onSubmit() {
     }
   );
 }
+onSubmitcoll() {
+  this.loading = true;
+  const decfiscmens = new Decfiscmens();
+  decfiscmens.impottype1={ type: this.decfiscmens.impottype1.type, traitementetsalaire: { salairebrut:this.decfiscmens.impottype1.traitementetsalaire.salairebrut, 
+    salaireimposable: this.decfiscmens.impottype1.traitementetsalaire.salaireimposable, retenuealasource:this.decfiscmens.impottype1.traitementetsalaire.retenuealasource,
+    contributionsociale:this.decfiscmens.impottype1.traitementetsalaire.contributionsociale, }, 
+  location1: { type: this.decfiscmens.impottype1.location1.type,montantbrut:this.decfiscmens.impottype1.location1.montantbrut, taux:this.decfiscmens.impottype1.location1.taux,
+     montantnet:this.decfiscmens.impottype1.location1.montantnet, montantretenue:this.decfiscmens.impottype1.location1.montantretenue, },
+     location2: { type: this.decfiscmens.impottype1.location2.type,montantbrut:this.decfiscmens.impottype1.location2.montantbrut, taux:this.decfiscmens.impottype1.location2.taux,
+      montantnet:this.decfiscmens.impottype1.location2.montantnet, montantretenue:this.decfiscmens.impottype1.location2.montantretenue, },
+      location3: { type: this.decfiscmens.impottype1.location3.type,montantbrut:this.decfiscmens.impottype1.location3.montantbrut, taux:this.decfiscmens.impottype1.location3.taux,
+        montantnet:this.decfiscmens.impottype1.location3.montantnet, montantretenue:this.decfiscmens.impottype1.location3.montantretenue, },
+        location4: { type: this.decfiscmens.impottype1.location4.type,montantbrut:this.decfiscmens.impottype1.location4.montantbrut, taux:this.decfiscmens.impottype1.location4.taux,
+          montantnet:this.decfiscmens.impottype1.location4.montantnet, montantretenue:this.decfiscmens.impottype1.location4.montantretenue, },
+   honoraire1: {  type:this.decfiscmens.impottype1.honoraire1.type,montantbrut:this.decfiscmens.impottype1.honoraire1.montantbrut, taux:this.decfiscmens.impottype1.honoraire1.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire1.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire1.montantretenue,},
+
+   honoraire2: {  type:this.decfiscmens.impottype1.honoraire2.type,montantbrut:this.decfiscmens.impottype1.honoraire2.montantbrut, taux:this.decfiscmens.impottype1.honoraire2.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire2.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire2.montantretenue,},
+
+   honoraire3: {  type:this.decfiscmens.impottype1.honoraire3.type,montantbrut:this.decfiscmens.impottype1.honoraire3.montantbrut, taux:this.decfiscmens.impottype1.honoraire3.taux,
+     montantnet:this.decfiscmens.impottype1.honoraire3.montantnet, montantretenue:this.decfiscmens.impottype1.honoraire3.montantretenue,},
+     montant10001: {  type:this.decfiscmens.impottype1.montant10001.type,montantbrut:this.decfiscmens.impottype1.montant10001.montantbrut, taux:this.decfiscmens.impottype1.montant10001.taux,
+    montantnet:this.decfiscmens.impottype1.montant10001.montantnet, montantretenue:this.decfiscmens.impottype1.montant10001.montantretenue,},
+   montant10002: {  type:this.decfiscmens.impottype1.montant10002.type,montantbrut:this.decfiscmens.impottype1.montant10002.montantbrut,taux:this.decfiscmens.impottype1.montant10002.taux,
+     montantnet:this.decfiscmens.impottype1.montant10002.montantnet, montantretenue:this.decfiscmens.impottype1.montant10002.montantretenue,},
+     montant10003: {  type:this.decfiscmens.impottype1.montant10003.type,montantbrut:this.decfiscmens.impottype1.montant10003.montantbrut, taux:this.decfiscmens.impottype1.montant10003.taux,
+       montantnet:this.decfiscmens.impottype1.montant10003.montantnet, montantretenue:this.decfiscmens.impottype1.montant10003.montantretenue,}, 
+  montant10004: {  type:this.decfiscmens.impottype1.montant10004.type,montantbrut:this.decfiscmens.impottype1.montant10004.montantbrut, taux:this.decfiscmens.impottype1.montant10004.taux,
+    montantnet:this.decfiscmens.impottype1.montant10004.montantnet, montantretenue:this.decfiscmens.impottype1.montant10004.montantretenue,}, autre: this.decfiscmens.impottype1.autre}
+  decfiscmens.impottype2={ type:this.decfiscmens.impottype2.type,reporttvamoisprecedent:this.decfiscmens.impottype2.reporttvamoisprecedent,tvacollecter:{
+    type:this.decfiscmens.impottype2.tvacollecter.type,
+    chiffreaffaireht:this.decfiscmens.impottype2.tvacollecter.chiffreaffaireht,
+    tvaammount:this.decfiscmens.impottype2.tvacollecter.tvaammount,
+    ammountttc:this.decfiscmens.impottype2.tvacollecter.ammountttc,
+    
+    },tvacollecter19:{
+      type:this.decfiscmens.impottype2.tvacollecter.type,
+      chiffreaffaireht:this.decfiscmens.impottype2.tvacollecter19.chiffreaffaireht,
+      tvaammount:this.decfiscmens.impottype2.tvacollecter19.tvaammount,
+      ammountttc:this.decfiscmens.impottype2.tvacollecter19.ammountttc,
+      
+      },tvarecuperableimmobilier:{
+        type:this.decfiscmens.impottype2.tvarecuperableimmobilier.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva,
+    
+    
+    },
+    tvarecuperableequipement:{
+        type:this.decfiscmens.impottype2.tvarecuperableequipement.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva,
+    achatimporteht:this.decfiscmens.impottype2.tvarecuperableequipement.achatimporteht,
+    achatimportetva:this.decfiscmens.impottype2.tvarecuperableequipement.achatimportetva,
+    
+    
+    },
+    tvarecuperableautreachat:{
+        type:this.decfiscmens.impottype2.tvarecuperableautreachat.type,
+    achatlocauxht:this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht,
+    achatlocauxtva:this.decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva,
+    achatimporteht:this.decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht,
+    achatimportetva:this.decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva,
+    
+    
+    },
+    locationhabitationmeuble:{
+        type:this.decfiscmens.impottype2.locationhabitationmeuble.type,
+        htammount:this.decfiscmens.impottype2.locationhabitationmeuble.htammount,
+        tvaammount:this.decfiscmens.impottype2.locationhabitationmeuble.tvaammount,
+        ttcammount:this.decfiscmens.impottype2.locationhabitationmeuble.ttcammount,
+        },
+    locationusagecommercial:{
+      type:this.decfiscmens.impottype2.locationusagecommercial.type,
+      htammount:this.decfiscmens.impottype2.locationusagecommercial.htammount,
+      tvaammount:this.decfiscmens.impottype2.locationusagecommercial.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.locationusagecommercial.ttcammount,
+            },
+    operationlotissement:{
+      type:this.decfiscmens.impottype2.operationlotissement.type,
+      htammount:this.decfiscmens.impottype2.operationlotissement.htammount,
+      tvaammount:this.decfiscmens.impottype2.operationlotissement.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.operationlotissement.ttcammount,
+                },
+    interetpercue:{
+      type:this.decfiscmens.impottype2.interetpercue.type,
+      htammount:this.decfiscmens.impottype2.interetpercue.htammount,
+      tvaammount:this.decfiscmens.impottype2.interetpercue.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.interetpercue.ttcammount,
+                    },
+    autretvaspecial:{
+      type:this.decfiscmens.impottype2.autretvaspecial.type,
+      htammount:this.decfiscmens.impottype2.autretvaspecial.htammount,
+      tvaammount:this.decfiscmens.impottype2.autretvaspecial.tvaammount,
+      ttcammount:this.decfiscmens.impottype2.autretvaspecial.ttcammount,
+                        taux:this.decfiscmens.impottype2.autretvaspecial.taux,
+                        }    }
+                        decfiscmens.impottype3={ type:this.decfiscmens.impottype3.type,
+                          basetfp:this.decfiscmens.impottype3.basetfp,
+                                                    tfpsalairebrut:this.decfiscmens.impottype3.tfpsalairebrut,
+                          montanttfpmois:this.decfiscmens.impottype3.montanttfpmois,
+                          reporttfpmoisprecedent:this.decfiscmens.impottype3.reporttfpmoisprecedent,
+                          montantavance:this.decfiscmens.impottype3.montantavance,
+                          tfppayer:this.decfiscmens.impottype3.tfppayer,
+                          tfpreporter:this.decfiscmens.impottype3.tfpreporter,
+                          salairesnonsoumistfp:this.decfiscmens.impottype3.salairesnonsoumistfp}
+                          decfiscmens.impottype4={ type:this.decfiscmens.impottype4.type,
+                          basefoprolos:this.decfiscmens.impottype4.basefoprolos,
+                          foprolossalairebrut:this.decfiscmens.impottype4.foprolossalairebrut,
+                          montantfoprolos:this.decfiscmens.impottype4.montantfoprolos,
+                          salairesnonsoumisfoprolos:this.decfiscmens.impottype4.salairesnonsoumisfoprolos}
+                          decfiscmens.impottype5={ type:this.decfiscmens.impottype5.type,
+                          nombrenotehonoraire:this.decfiscmens.impottype5.nombrenotehonoraire,
+              totaldroittimbre:this.decfiscmens.impottype5.totaldroittimbre,}
+              decfiscmens.impottype6={ type:this.decfiscmens.impottype6.type,
+              chiffreaffairettc:this.decfiscmens.impottype6.chiffreaffairettc,
+              tclpayer:this.decfiscmens.impottype6.tclpayer,}
+              decfiscmens.impottype7={ type:this.decfiscmens.impottype7.type,
+              chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
+              montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
+              decfiscmens.statutcollab=this.decfiscmensFormcollab.getRawValue().ammounts2
+
+  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+    (data:any) => {
+      this.tokenStorage.saved=true;
+      this.decfiscmensFormcollab.reset();
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.router.navigate(['collab-board']);
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);
+      
+    
+      
+    }
+  );
+}
 onchoice()
 {
-  Swal.fire({
-    title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
-    
-    icon: 'info',
-    showDenyButton: true,
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#555',
-    confirmButtonText: 'oui',
-    cancelButtonText: 'Annuler',
-    denyButtonText: 'non,merci',
-    
-    }).then((result) => {
-    if (result.isConfirmed) {
-      this.onSend() 
-    }
-    else if (result.isDenied)
+  let date= new Date
+  let jour=date.getDate()
+  let annee=date.getFullYear()
+  let mois=date.getMonth()+1
+  if(mois!=1)
+  {
+    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value-1<mois||this.option54Value==annee&&this.option171Value-1==mois&&jour>15)
     {
-      this.onSend()
+      Swal.fire({
+        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',      
+        icon: 'info',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#555',
+        confirmButtonText: 'oui',
+        cancelButtonText: 'Annuler',
+        denyButtonText: 'non,merci',
+        
+        }).then((result) => {
+        if (result.isConfirmed) {
+          this.onSend() 
+        }
+        else if (result.isDenied)
+        {
+          this.onSend()
+        }
+        
+        }).catch(() => {
+        Swal.fire('opération non aboutie!');
+        });
     }
-    
-    }).catch(() => {
-    Swal.fire('opération non aboutie!');
-    });
+      else{
+        this.onSend()
+      }
+  }         
+  else{
+    if(this.option54Value<annee-1||this.option54Value==annee-1&&this.option171Value!='12'||this.option54Value==annee-1&&this.option171Value==12&&jour>15)
+    {
+     
+
+      Swal.fire({
+        title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',
+        
+        icon: 'info',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#555',
+        confirmButtonText: 'oui',
+        cancelButtonText: 'Annuler',
+        denyButtonText: 'non,merci',
+        
+        }).then((result) => {
+        if (result.isConfirmed) {
+          this.onSend() 
+        }
+        else if (result.isDenied)
+        {
+          this.onSend()
+        }
+        
+        }).catch(() => {
+        Swal.fire('opération non aboutie!');
+        });
+    }
+      else{
+        this.onSend()
+      }
+  }
 }
 onSend() {
   this.loading = true;
@@ -2638,6 +2892,7 @@ onSend() {
               montantcontribution:'',}
   decfiscmens.userId = this.currentuser.userId;
   decfiscmens.activite=this.user.activite;
+  decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
   decfiscmens.sousactivite=this.user.sousactivite;
   decfiscmens.codepostal=this.user.codepostal;
   decfiscmens.adresse=this.user.adresseactivite
@@ -3116,6 +3371,7 @@ onSubmitmodification() {
                 montantcontribution:'',}
     decfiscmens.userId = this.currentuser.userId;
     decfiscmens.activite=this.user.activite;
+    decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
     decfiscmens.sousactivite=this.user.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
@@ -3515,6 +3771,7 @@ this.preptotaltvaammount=this.tvacollecte-this.tvarecuperable
 console.log(this.preptotaltvaammount,this.option64Value)
 if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount- +this.option64Value>=0)
 {
+  this.totalreporttvaammount=0.000
   this.totaltvaammount=this.preptotaltvaammount- +this.option64Value
 }
 else 
@@ -3565,6 +3822,33 @@ this.totalfoprolosammount=0
     }   
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
+if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+  &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+{
+  console.log('here')
+  this.prepminimumperceptionammount=0.000
+}
+else
+{
+  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  {
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  {
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  {
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  {
+   this.prepminimumperceptionammount=5.000
+
+  }
+}
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
@@ -3586,6 +3870,12 @@ closePopup() {
 get ammountControls() {
   return this.autreform.get('ammounts')['controls'];
 }
+get ammountControls1() {
+  return this.decfiscmensFormadmin.get('ammounts1')['controls'];
+}
+get ammountControls2() {
+  return this.decfiscmensFormcollab.get('ammounts2')['controls'];
+}
 createammount(): FormGroup {
   return this.formBuilder.group({
     title: '',
@@ -3593,12 +3883,105 @@ createammount(): FormGroup {
     description: ''
   });
 } 
+createammount1(): FormGroup {
+  return this.formBuilder.group({
+    statut: '',
+    motif: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ''
 
+
+  });
+}
+createammount2(): FormGroup {
+  return this.formBuilder.group({
+    statutcoll: '',
+    motifcoll: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ''
+
+  });
+}
+finadmin(i:number) {
+  let ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
+  
+  if (ammounts1.controls[i].value.fintraitement == true)
+  { 
+    ammounts1.controls[i].patchValue({ datefin: Date.now() });
+    ammounts1.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts1.controls[i].patchValue({ datefin: '' });
+    ammounts1.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts1.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+fincollab(i:number) {
+  let ammounts2 = this.decfiscmensFormcollab.get('ammounts2') as FormArray;
+  
+  if (ammounts2.controls[i].value.fintraitement == true)
+  { 
+    ammounts2.controls[i].patchValue({ datefin: Date.now() });
+    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts2.controls[i].patchValue({ datefin: '' });
+    ammounts2.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts2.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
 addammount(): void {
   this.ammounts = this.autreform.get('ammounts') as FormArray;
   this.ammounts.push(this.createammount());
 }
-
+addammount1(): void {
+  this.ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
+  this.ammounts1.push(this.createammount1());
+}
+addammount2(): void {
+  this.ammounts2 = this.decfiscmensFormcollab.get('ammounts2') as FormArray;
+  this.ammounts2.push(this.createammount2());
+}
 removeammount(i: number) {
   this.ammounts.removeAt(i);
 }

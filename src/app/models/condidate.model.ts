@@ -1,5 +1,5 @@
 export class Condidate {
-    
+    type:string;
     userId: string;
     email: string;
     _id:string;
@@ -10,10 +10,16 @@ export class Condidate {
     adresse:string;
     decision:string;
     motif:string;
+    decisioncoll:string;
+    motifcoll:string;
     description:string;
     specialite:string;
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
-    
+    dateouverturedossier:number
+
   updated: Date
-      
+  statutadmin:string[]
+  statutcollab:string[] 
     }

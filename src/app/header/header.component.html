@@ -33,13 +33,15 @@
             <ul class="dropdown-menu">
               <li><a routerLink="admin-board" *ngIf="role=='admin'" routerLinkActive="active">Tableau de bord Admin</a></li>
               <li><a routerLink="settings" *ngIf="role=='admin'" routerLinkActive="active">Paramêtrage Admin</a></li>
-              <li><a routerLink="supervisor-board" *ngIf="role=='supervisor'"routerLinkActive="active">Tableau de bord Superviseur</a></li>
+              <!--<li><a routerLink="supervisor-board" *ngIf="role=='supervisor'"routerLinkActive="active">Tableau de bord Superviseur</a></li>-->
               <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='supervisor'" routerLinkActive="active">Paramêtrage Superviseur</a></li>-->
               <li><a routerLink="user-board" *ngIf="role=='basic'"routerLinkActive="active">Tableau de bord Utilisateur</a></li>
               <!--<li class="disabled"><a routerLink="settings" *ngIf="role=='basic'" routerLinkActive="active">Paramêtrage Utilisateur</a></li>-->
+              <li><a routerLink="collab-board" *ngIf="usertype=='Collaborateur'"routerLinkActive="active">Tableau de bord Collaborateur</a></li>
+
             </ul>
           </li>
-          <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn"data-toggle="dropdown">Services en ligne<span class="caret"></span></a>
+          <li class="dropdown" style="cursor: pointer;"><a class="dropdown-toggle" *ngIf="isLoggedIn&&usertype!='Candidat'"data-toggle="dropdown">Services en ligne<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="declare-comptabilite" routerLinkActive="active">Tenez votre comptabilité</a></li>
               <li><a href="declare-fiscality" routerLinkActive="active">Etablissez vos déclarations fiscales</a></li>

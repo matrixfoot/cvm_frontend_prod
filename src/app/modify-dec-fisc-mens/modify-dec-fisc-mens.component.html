@@ -6,32 +6,116 @@
   
 
 <div class="bodycontainer">
-   
    <div class="padding container-fluid d-flex justify-content-center"*ngIf="currentuser.role=='admin'&&decfiscmens">
-    <div class="col-lg-12">
-              <div class="free-quote bg-dark h-100">
-                <h2 class="my-4 heading  text-center">Formulaire De validation des déclarations mensuelles</h2>
-                <form [formGroup]="decfiscmensForm">
-                  <div class="form-group">
-                    <label for="fq_name">Statut</label>
-                    <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
-                    <option value="Valide">Validé</option>
-                    <option value="En cours de traitement">En cours de traitement</option>
-                    <option value="A rectifie">A rectifié</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label for="fq_email">Motif</label>
-                    <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motif" formControlName="motif"></textarea>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
-                  </div>
-                </form>
+    
+    <fieldset >
+      <legend> Formulaire De validation des déclarations mensuelles(admin)</legend>
+      <h3><span> Date ouverture dossier: </span>{{option204Value | customDate}}</h3>
+    <form [formGroup]="decfiscmensFormadmin">
+      <button type="button" class="btn btn-primary mb-2" (click)="addammount1()">Ajouter statut</button>
+  <fieldset formArrayName="ammounts1" *ngFor="let ammount of ammountControls1; let i = index;">
+    <div [formGroupName]="i">
+      <div class="row">
+        
+        <div class="container-fluid">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="fq_name">Statut</label>    
+              <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
+                <option value="default"> </option>
+                <option *ngFor="let statut of status" [value]="statut">
+                    {{statut}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="fq_email">Motif</label>
+              <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motif" formControlName="motif"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Date de fin de traitement</label>
+                <input type="text" class="form-control" [value]="decfiscmensFormadmin.controls['ammounts1'].controls[i].controls.datefin.value | customDate" formControlName="datefin" readonly='true'/>
+                <div class="col-6"style="width:20px">
+                  <input type="checkbox" id="{{ 'myCheck3' + i }}" (change)="finadmin(i)"  formControlName=fintraitement/>
+               </div>
               </div>
+        </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Durée de traitement</label>
+                <input type="text" class="form-control" formControlName="duree" readonly='true'/>
+              </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      </fieldset>
+      <div class="text-right">
+        <input type="submit" class="hidden" value="Submit"/>
+    </div>
+    </form>
+  </fieldset>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+  </div> 
+    </div>
+            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentuser._id=='62e666d00bd8a70a2fdd312e'&&decfiscmens">
+              <fieldset >
+                <legend> Formulaire De validation des déclarations mensuelles(collab)</legend>
+                <h3><span> Date ouverture dossier</span>{{option204Value | customDate}}</h3>
+                <form [formGroup]="decfiscmensFormcollab">
+                <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Montant</button>
+            <fieldset formArrayName="ammounts2" *ngFor="let ammount of ammountControls2; let i = index;">
+              <div [formGroupName]="i">
+                <div class="row">
+                  
+                  <div class="container-fluid">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="fq_name">Statut</label>    
+                        <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
+                          <option value="default"> </option>
+                          <option *ngFor="let statut of status" [value]="statut">
+                              {{statut}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label for="fq_email">Motif</label>
+                        <textarea cols="30" rows="10"type="text" class="form-control btn-block" placeholder="Indiquer votre motif" id="motifcoll" formControlName="motifcoll"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                          <label>Date de fin de traitement</label>
+                          <input type="text" class="form-control" [value]="decfiscmensFormcollab.controls['ammounts2'].controls[i].controls.datefin.value | customDate"formControlName="datefin" readonly='true'/>
+                          <div class="col-6"style="width:20px">
+                            <input type="checkbox" id="{{ 'admin' + i }}" (change)="fincollab(i)"  formControlName=fintraitement/>
+                         </div>
+                        </div>
+                  </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                          <label>Durée de traitement</label>
+                          <input type="text" class="form-control" formControlName="duree" readonly='true'/>
+                        </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+                </fieldset>
+              </form>
+            </fieldset>
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
             </div>
-            </div>
-
+                      </div>
   
 <div class="container-fluid" *ngIf="currentuser.usertype=='Client'&& currentuser.role!=='admin'">
   <div id="entetedec">
@@ -895,10 +979,10 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
             <!-- tva collecté form-->
             <div class="container-fluid"style="display: inline-flex;">
             
-            <fieldset>  
-              <legend>TVA Collecté<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+            <fieldset>   
+              <legend>TVA Collectée<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
                 activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-                ||activite==='Sage-femmes'">C.A à 7% (Actes de soin)</span></legend>
+                ||activite==='Sage-femmes'"> C.A à 7% (Actes de soin)</span></legend>
     <form  [formGroup]="standardtvacollecteform">
 <fieldset>
 
@@ -949,8 +1033,9 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 </fieldset>
 </form>
 </fieldset>
-<fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'" style="padding-left: 20px;">  
-  <legend>TVA Collecté C.A à 19% Acte d'esthétique</legend>                 
+<fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'||option54Value==='2023'&&sousactivite==='Médecin vétérinaire'" style="padding-left: 20px;">  
+  <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'">TVA Collecté C.A à 19% (Acte d'esthétique)</legend>                 
+  <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin vétérinaire'">TVA Collecté C.A à 19% (Etudes)</legend>                 
   <form  [formGroup]="standardtvacollecte19form">
   <fieldset style="padding-left: 20px;">
 
@@ -1232,18 +1317,18 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                 <colgroup span="2"></colgroup>
                 <colgroup span="2"></colgroup>
                 <thead>
-                <tr>
-                  <td rowspan="2"></td>
-                  <th colspan="2" scope="colgroup">Achats locaux</th>
-                  <th colspan="2" scope="colgroup">Achats importés</th>
-                </tr>
-                <tr>
-                  <th scope="col">Hors Taxes</th>
-                  <th scope="col">TVA</th>
-                  <th scope="col">Hors Taxes</th>
-                  <th scope="col">TVA</th>
-                </tr>
-              </thead>
+                  <tr>
+                    <td rowspan="2"></td>
+                    <th colspan="2" scope="colgroup"style="text-align: center;">Achats locaux</th>
+                    <th colspan="2" scope="colgroup"style="text-align: center;">Achats importés</th>
+                  </tr>
+                  <tr>
+                    <th scope="col"style="text-align: center;">Hors Taxes</th>
+                    <th scope="col"style="text-align: center;">TVA</th>
+                    <th scope="col"style="text-align: center;">Hors Taxes</th>
+                    <th scope="col"style="text-align: center;">TVA</th>
+                  </tr>
+                </thead>
               <tbody>
                 <tr id="tvaform" [formGroup]="standardtvarecuperableequipementform">
                   <th scope="row">Achat Equipements</th>

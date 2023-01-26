@@ -1575,6 +1575,19 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
     deccomptabilite.nature='déclaration comptable';
     deccomptabilite.annee=this.option1Value
     deccomptabilite.mois=this.option2Value
+    deccomptabilite.activite=this.user.activite;
+    deccomptabilite.regimefiscalimpot=this.user.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.user.sousactivite;
+    deccomptabilite.codepostal=this.user.codepostal;
+    deccomptabilite.adresse=this.user.adresseactivite
+    deccomptabilite.firstname=this.user.firstname
+    deccomptabilite.lastname=this.user.lastname
+    deccomptabilite.raisonsociale=this.user.raisonsociale
+    deccomptabilite.codegenre=this.user.codegenre
+    deccomptabilite.codetva=this.user.codetva
+    deccomptabilite.matriculefiscale=this.user.matriculefiscale
+    deccomptabilite.registrecommerce=this.user.registrecommerce
+    deccomptabilite.datearretactivite=this.user.datearretactivite
     deccomptabilite.debitmoisprecedent=this.relevemanuelform.get('soldemoisprecedentdebit').value
     deccomptabilite.creditmoisprecedent=this.relevemanuelform.get('soldemoisprecedentcredit').value
     deccomptabilite.moisreleve=this.relevemanuelform.get('mois').value
@@ -1961,6 +1974,7 @@ console.log(deccomptabilite.autre6)
                 montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.activite;
+    decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
     decfiscmens.sousactivite=this.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
@@ -2210,7 +2224,7 @@ else if ((user.choixfacture=='saisie recette'))
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
-if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&this.sousactivite!='Médecin dentiste')
+if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&this.sousactivite!='Médecin dentiste'&&this.sousactivite!='Médecin vétérinaire')
 {
   for (let i = 1; i < 32; i++)
           {

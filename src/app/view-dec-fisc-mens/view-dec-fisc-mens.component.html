@@ -1,12 +1,12 @@
-<div *ngIf="decfiscmens" id="all">
+<div *ngIf="decfiscmens.impottype1" id="all">
   <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>
   <button type="button" (click)="bottom()"class="btn btn-primary btn-sm" id="top"><span><i class="glyphicon glyphicon-arrow-down"></i></span></button>   
   <table>
-  <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
-  <tr><th>Statut de la déclaration:</th><td>{{statut}}</td></tr>
-  <tr><th>Motif du statut:</th><td> {{motif}}</td></tr>
+  <tr><th>Date de création de la déclaration:</th><th colspan="2">{{ decfiscmens.created |customDate}}</th><th>Date de modification de la déclaration:</th><th colspan="2">{{ decfiscmens.updated|customDate }}</th></tr>
+  <tr><th>Statut de la déclaration:</th><th>{{statut}}</th></tr>
+  <tr><th>Motif du statut:</th><th> {{motif}}</th></tr>
 </table>
-<div *ngIf="currentUser.role=='admin'">
+<div *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1">
   <h2> Autre rubriques d'impots du type retenue à la source</h2>
 <table>
   <thead>
@@ -18,9 +18,9 @@
 </thead>
   <tbody>
     <tr *ngFor="let ammount of decfiscmens.impottype1.autre; let i = index;">
-      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].title | lowercase}}</td>
-      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].ammount| lowercase}}</td>
-      <td  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].description| lowercase}}</td>
+      <th  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].title | lowercase}}</th>
+      <th  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].ammount| lowercase}}</th>
+      <th  style="text-align: center;"> {{decfiscmens.impottype1.autre[i].description| lowercase}}</th>
     </tr>
   </tbody>
 </table>
@@ -34,12 +34,12 @@
              <div class="table-responsive p-2">
                 <table>
                   <tr>
-                    <td style="border: none">
+                    <th style="border: none">
                       <img src="../../assets/DGI_logo.png" id="dgi" class="navbar-left" alt="image-DGI">
-                    </td>
-                    <td style="border: none;">
+                    </th>
+                    <th style="border: none;">
                       <img src="../../assets/ministere-de-leconomie-et-des-finances.jpg" id="finance"  alt="image-finance">
-                    </td>
+                    </th>
                   </tr>
                 </table>
                 <strong style="font-size: 24px;">التصريح الشهري بالأداءات</strong>  
@@ -70,37 +70,37 @@
     <th style="min-width:50px">معلوم الإجازة </th> 
   </tr>
   <tr id="row1" >
-  <td style="text-align: center;"> <span *ngIf="type1"> X</span></td>
-  <td style="text-align: center;"><span *ngIf="type3">X</span></td>
-  <td style="text-align: center;"><span *ngIf="type4">X</span></td>
-  <td></td>
-  <td style="text-align: center;"><span *ngIf="type2">X</span></td>
-  <td style="text-align: center;"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  <th style="text-align: center;"> <span *ngIf="type1"> X</span></th>
+  <th style="text-align: center;"><span *ngIf="type3">X</span></th>
+  <th style="text-align: center;"><span *ngIf="type4">X</span></th>
+  <th></th>
+  <th style="text-align: center;"><span *ngIf="type2">X</span></th>
+  <th style="text-align: center;"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-    ||activite==='Sage-femmes'">X</span></td>
-  <td></td>
-  <td style="text-align: center;"><span *ngIf="type5">X</span></td>
-  <td style="text-align: center;"><span *ngIf="type6">X</span></td>
-  <td></td>
-  <td></td>
+    ||activite==='Sage-femmes'">X</span></th>
+  <th></th>
+  <th style="text-align: center;"><span *ngIf="type5">X</span></th>
+  <th style="text-align: center;"><span *ngIf="type6">X</span></th>
+  <th></th>
+  <th></th>
   </tr>
   <tr id="row1"><th colspan="11" style="text-align: center;font-size: 20px;">الخصم من المورد</th></tr>
   <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
-  <tr id="row1"><th colspan="6">1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</th><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.salaireimposable | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.retenuealasource | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">2- المرتبات والأجور واالمكافآت و المنح والامتازات العينية  الأخرى المدفوعة للأجانب</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">3- المساهمة الاجتماعية التضامنية المستوجبة على المرتبات و الأجورو المنح و الجرايات و الإيرادات العمرية</th><td colspan="2"></td><td></td><td colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.contributionsociale | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">4- العمولات وأجور الوساطة والأكرية ومكافآت الأنشطة غير التجارية</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* المدفوعة للمقيمين والمستقرين</th><td colspan="5"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2">{{ decfiscmens.impottype1.location1.montantbrut  | number:'1.3-3'| removeComma}}</td><td>10%</td><td colspan="2">{{ decfiscmens.impottype1.location1.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2">{{ decfiscmens.impottype1.location2.montantbrut  | number:'1.3-3'| removeComma}}</td><td>10%</td><td colspan="2">{{ decfiscmens.impottype1.location2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">* المدفوعة لغير المقيمين وغير المستقرين</th><td colspan="5"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2">{{ decfiscmens.impottype1.location3.montantbrut  | number:'1.3-3'| removeComma}}</td><td>15%</td><td colspan="2">{{ decfiscmens.impottype1.location3.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2">{{ decfiscmens.impottype1.location4.montantbrut  | number:'1.3-3'| removeComma}}</td><td>15%</td><td colspan="2">{{ decfiscmens.impottype1.location4.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">5- الأتعاب المدفوعة للأشخاص الطبيعيين غير الخاضعين للنظام الحقيقي</th><td colspan="2">{{ decfiscmens.impottype1.honoraire2.montantbrut  | number:'1.3-3'| removeComma}}</td><td>10%</td><td colspan="2">{{ decfiscmens.impottype1.honoraire2.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">6- الأتعاب المدفوعة للأشخاص المعنويين الخاضعين للضريبة على الشركات و التجمعات و شركات الأشخاص و ما شابهها و الأشخاص الطبيعيين الخاضعين للضريبة على الدخل حسب النظام الحقيقي</th><td colspan="2"><span *ngIf="honorairesum>0">{{ honorairesum  | number:'1.3-3'| removeComma}}</span></td><td>3%</td><td colspan="2"><span *ngIf="honoraireretenue>0">{{ honoraireretenue | number:'1.3-3'| removeComma}}</span></td></tr>
-  <tr id="row1"><th colspan="6">7- المكافآت المدفوعة إلى الفنانين و المبدعين</th><td colspan="2"></td><td>5%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><td colspan="2"></td><td>5%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
+  <tr id="row1"><th colspan="6">1- المرتبات والأجور والجرايات والإيرادات العمرية التي تحملت خصما من المورد طبقا للقانون العام</th><th colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.salaireimposable | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.retenuealasource | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">2- المرتبات والأجور واالمكافآت و المنح والامتازات العينية  الأخرى المدفوعة للأجانب</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">3- المساهمة الاجتماعية التضامنية المستوجبة على المرتبات و الأجورو المنح و الجرايات و الإيرادات العمرية</th><th colspan="2"></th><th></th><th colspan="2">{{ decfiscmens.impottype1.traitementetsalaire.contributionsociale | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">4- العمولات وأجور الوساطة والأكرية ومكافآت الأنشطة غير التجارية</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* المدفوعة للمقيمين والمستقرين</th><th colspan="5"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2">{{ decfiscmens.impottype1.location1.montantbrut  | number:'1.3-3'| removeComma}}</th><td>10%</td><th colspan="2">{{ decfiscmens.impottype1.location1.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2">{{ decfiscmens.impottype1.location2.montantbrut  | number:'1.3-3'| removeComma}}</th><td>10%</td><th colspan="2">{{ decfiscmens.impottype1.location2.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">* المدفوعة لغير المقيمين وغير المستقرين</th><th colspan="5"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2">{{ decfiscmens.impottype1.location3.montantbrut  | number:'1.3-3'| removeComma}}</th><td>15%</td><th colspan="2">{{ decfiscmens.impottype1.location3.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2">{{ decfiscmens.impottype1.location4.montantbrut  | number:'1.3-3'| removeComma}}</th><td>15%</td><th colspan="2">{{ decfiscmens.impottype1.location4.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">5- الأتعاب المدفوعة للأشخاص الطبيعيين غير الخاضعين للنظام الحقيقي</th><th colspan="2">{{ decfiscmens.impottype1.honoraire2.montantbrut  | number:'1.3-3'| removeComma}}</th><td>10%</td><th colspan="2">{{ decfiscmens.impottype1.honoraire2.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">6- الأتعاب المدفوعة للأشخاص المعنويين الخاضعين للضريبة على الشركات و التجمعات و شركات الأشخاص و ما شابهها و الأشخاص الطبيعيين الخاضعين للضريبة على الدخل حسب النظام الحقيقي</th><th colspan="2"><span *ngIf="honorairesum>0">{{ honorairesum  | number:'1.3-3'| removeComma}}</span></th><th>3%</th><th colspan="2"><span *ngIf="honoraireretenue>0">{{ honoraireretenue | number:'1.3-3'| removeComma}}</span></th></tr>
+  <tr id="row1"><th colspan="6">7- المكافآت المدفوعة إلى الفنانين و المبدعين</th><th colspan="2"></th><td>5%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">8- أكرية النزل المدفوعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين الخاضعين للنظام الحقيقي</th><th colspan="2"></th><td>5%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">9- المكافآت المدفوعة مقابل النجاعة في إسداء الخدمات لفائدة الغير </th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
   <br>
   <br>
   <br>
@@ -127,36 +127,36 @@
   <br>
   <br>
   <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
-  <tr id="row1"><th colspan="6">10- فوائد الإيداعات بالحسابات الخاصة للادخار لدى المؤسسات البنكية و صندوق الادخار التونسي</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">11- مداخيل رؤوس الأموال المنقولة الأخرى </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* الراجعة للمقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* الراجعة لغير المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">12- حصص الأسهم </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص الطبيعيين المقيمين </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين  غير المقيمين </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">13- المكافآت والمنح المسندة لأعضاء المجالس والهيئات واللجان</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6"> * الراجعة للمقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">*  الراجعة لغير المقيمين </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><td colspan="2"></td><td>20%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">14- التأجيرات المدفوعة للأجراء وغير الأجراء مقابل عمل وقتي أو ظرفي خارج نشاطهم الأصلي</th><td colspan="2"></td><td>15%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">15- فوائد القروض المدفوعة للمؤسسات البنكية غير المستقرة بالبلاد التونسية </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">16- سعر التفويت في العقارات و في الحقوق المتعلقة بها المصرح به بالعقد</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* بالنسبة إلى المقيمين و المستقرين</th><td colspan="2"></td><td>2.5%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* بالنسبة إلى غير المقيمين و غير المستقرين </th><td colspan="2"></td><td>2.5%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</th><td colspan="2">{{ decfiscmens.impottype1.montant10001.montantbrut  | number:'1.3-3'| removeComma}}</td><td>1%</td><td colspan="2">{{ decfiscmens.impottype1.montant10001.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</th><td colspan="2">{{ decfiscmens.impottype1.montant10002.montantbrut  | number:'1.3-3'| removeComma}}</td><td>0.5%</td><td colspan="2">{{ decfiscmens.impottype1.montant10002.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</th><td colspan="2">{{ decfiscmens.impottype1.montant10003.montantbrut  | number:'1.3-3'| removeComma}}</td><td>0.5%</td><td colspan="2">{{ decfiscmens.impottype1.montant10003.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">* لدى المؤسسات الأخرى</th><td colspan="2">{{ decfiscmens.impottype1.montant10004.montantbrut  | number:'1.3-3'| removeComma}}</td><td>1.5%</td><td colspan="2">{{ decfiscmens.impottype1.montant10004.montantretenue | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">10- فوائد الإيداعات بالحسابات الخاصة للادخار لدى المؤسسات البنكية و صندوق الادخار التونسي</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">11- مداخيل رؤوس الأموال المنقولة الأخرى </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* الراجعة للمقيمين </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* الراجعة لغير المقيمين </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">12- حصص الأسهم </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص الطبيعيين المقيمين </th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* الراجعة إلى الأشخاص المعنويين و الأشخاص الطبيعيين  غير المقيمين </th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">13- المكافآت والمنح المسندة لأعضاء المجالس والهيئات واللجان</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6"> * الراجعة للمقيمين </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">*  الراجعة لغير المقيمين </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون</th><th colspan="2"></th><td>20%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">14- التأجيرات المدفوعة للأجراء وغير الأجراء مقابل عمل وقتي أو ظرفي خارج نشاطهم الأصلي</th><th colspan="2"></th><td>15%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">15- فوائد القروض المدفوعة للمؤسسات البنكية غير المستقرة بالبلاد التونسية </th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">16- سعر التفويت في العقارات و في الحقوق المتعلقة بها المصرح به بالعقد</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* بالنسبة إلى المقيمين و المستقرين</th><th colspan="2"></th><th>2.5%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* بالنسبة إلى غير المقيمين و غير المستقرين </th><th colspan="2"></th><th>2.5%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص طبيعيون</th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">● أشخاص معنويون غير مستقرون بالنسبة للعقارات و الحقوق المتعلقة بها و الحقوق الاجتماعية في الشركات المدنية العقارية</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">17- المبالغ المدفوعة بعنوان الاقتناءات من سلع و معدات و تجهيزات و خدمات التي تساوي أو تفوق 1000 بما في ذلك الأداء على القيمة المضافة </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 15%</th><th colspan="2">{{ decfiscmens.impottype1.montant10001.montantbrut  | number:'1.3-3'| removeComma}}</th><td>1%</td><th colspan="2">{{ decfiscmens.impottype1.montant10001.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الخاضعة للضريبة على الشركات بنسبة 10%</th><th colspan="2">{{ decfiscmens.impottype1.montant10002.montantbrut  | number:'1.3-3'| removeComma}}</th><th>0.5%</th><th colspan="2">{{ decfiscmens.impottype1.montant10002.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الفردية المنتفعة بطرح ثلثي المداخيل</th><th colspan="2">{{ decfiscmens.impottype1.montant10003.montantbrut  | number:'1.3-3'| removeComma}}</th><th>0.5%</th><th colspan="2">{{ decfiscmens.impottype1.montant10003.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">* لدى المؤسسات الأخرى</th><th colspan="2">{{ decfiscmens.impottype1.montant10004.montantbrut  | number:'1.3-3'| removeComma}}</th><td>1.5%</td><th colspan="2">{{ decfiscmens.impottype1.montant10004.montantretenue | number:'1.3-3'| removeComma}}</th></tr>
   <br>
   <br>
   <br>
@@ -187,20 +187,20 @@
   <br>
   <br>
  <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
- <tr id="row1"><th colspan="6">18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</th><td colspan="2"></td><td>25%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">19- خصم الأداء على القيمة المضافة من المورد بعنوان العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسة بالبلاد التونسية</th><td colspan="2"></td><td>100%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">20- المكافآت المدفوعة إلى غير المقيمين الذين ينجزون أشغال بناء أو عمليات تركيب أو  أو خدمات أخرى لا تتجاوز مدتها ستة أشهر</th><td colspan="2"></td><td>5%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td colspan="2"></td><td>25%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">* منشآت دائمة أخرى</th><td colspan="2"></td><td>15%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </th><td colspan="2"></td><td>1%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td>10%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td>15%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td>15%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td>15%</td><td colspan="2"></td></tr>
- <tr id="row1"><th colspan="6">25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</th><td colspan="2"></td><td>25%</td><td colspan="2"></td></tr>                
+ <tr id="row1"><th colspan="6">18- خصم الأداء على القيمة المضافة من الموردعلى المبالغ المدفوعة من قبل المؤسسات والمنشأت العمومية والتي تساوي أو تفوق 1000 دينار بما في ذلك الأداء على القيمة المضافة</th><th colspan="2"></th><td>25%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">19- خصم الأداء على القيمة المضافة من المورد بعنوان العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسة بالبلاد التونسية</th><th colspan="2"></th><th>100%</th><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">20- المكافآت المدفوعة إلى غير المقيمين الذين ينجزون أشغال بناء أو عمليات تركيب أو  أو خدمات أخرى لا تتجاوز مدتها ستة أشهر</th><th colspan="2"></th><td>5%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">21- المبالغ المدفوعة إلى غير المقيمين الذين ينشطون في إطار منشأت دائمة والذين لا يودعون التصريح في الوجود قبل بدأ النشاط</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">* منشآت دائمة تابعة لمؤسسات مقيمة ببلد أو إقليم ذي نظام جبائي تفاضلي</th><th colspan="2"></th><td>25%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">* منشآت دائمة أخرى</th><th colspan="2"></th><td>15%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">22- التسبقة الموظفة على البيوعات المؤسسات الصناعية و مؤسسات تجارة الجملة إلى الأشخاص الطبيعية الخاضعين لضربة على الداخل حسب النظام التقديري في صنف الأرباح الصناعية والتجارية أو على قاعدة تقديرية في صنف أرباح المهن غير التجارية </th><th colspan="2"></th><td>1%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">23- القيمة الزائدة المتأتية من تفويت الأشخاص غير المقيمين و غير المستقرين في الأسهم أو في المنابات الاجتماعية أو في حصص الصناديق المنصوص عليها بالتشريع المتعلق بها</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><th colspan="2"></th><td>10%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><th colspan="2"></th><td>15%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">24- المكافآت الأخرى المدفوعة إلى غير المقيمين غير المستقرين</th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><th colspan="2"></th><td>15%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><th colspan="2"></th><td>15%</td><th colspan="2"></th></tr>
+ <tr id="row1"><th colspan="6">25- المكافآت الراجعة إلى أشخاص مقيمين أو مستقرين ببلد أو إقليم ذي نظام جبائي تفاضلي</th><th colspan="2"></th><td>25%</td><th colspan="2"></th></tr>                
   <br>
   <br>
   <br>
@@ -256,37 +256,37 @@
   <br>
   <br>
 <tr id="row1"><th colspan="6">البيانات</th><th colspan="2">أساس الخصم</th><th colspan="1">النسبة</th><th colspan="2">مبلغ الخصم</th></tr>
-<tr id="row1"><th colspan="6">26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><td colspan="2"></td><td>1.5%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><td colspan="2"></td><td>1%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </th><td colspan="2"></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</th><td colspan="2"></td><td>25%</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</th><td colspan="2"></td><td>3%</td><td colspan="2"></td></tr>
+<tr id="row1"><th colspan="6">26- مبلغ العمولة الراجعة إلى الموزعين المعتمدين لمشغلي شبكة الإتصالات </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">*   أشخاص طبيعيون </th><th colspan="2"></th><td>1.5%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">*   أشخاص معنويون </th><th colspan="2"></th><td>1%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">27- الخصم من المورد بعنوان معالم التسجيل المستوجبة على عقود الصفقات العمومية </th><th colspan="2"></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">28- الخصم من المورد بعنوان المبالغ المتأتية من ألعاب الرهان والحظ واليانصيب</th><th colspan="2"></th><td>25%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">29- مبلغ الضريبة الموظفة على بيوعات مؤسسات الإنتاج الصناعي والمؤسسات الناشطة في قطاع التجارة لفائدة المتدخلين في توزيع السلع والمنتجات والخدمات والتي لاتتجاوز قيمتهاالجملية 20,000 دينار سنويا</th><th colspan="2"></th><th>3%</th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="6">المجموع</th><th colspan="5">{{ totalretenueammount | number:'1.3-3'| removeComma}}</th></tr>
   
   <tr><th colspan="11"style="text-align: center;font-size: 20px;">الأداء على التكوين المهني </th></tr>
-  <tr id="row1"><th colspan="7">الانتفاع بالتسبقةعلى الأداء على التكوين المهني</th><th>نعم</th><td></td><th>لا</th><td></td></tr>
+  <tr id="row1"><th colspan="7">الانتفاع بالتسبقةعلى الأداء على التكوين المهني</th><th>نعم</th><th></th><th>لا</th><th></th></tr>
   <tr id="row1"><th colspan="6">البيــــــــــانـــــــــــــــات</th><th>أساس الأداء </th><th>النسبة</th><th>الأداء المستوجب</th><th colspan="2">الأداء القابل للطرح</th></tr>
-  <tr id="row1"><th colspan="6">* الصناعات المعملية </th><td></td><td>1%</td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">* الأنشطة الأخرى </th><td>{{ decfiscmens.impottype3.basetfp  | number:'1.3-3'| removeComma}}</td><td>2%</td><td>{{ decfiscmens.impottype3.montanttfpmois | number:'1.3-3'| removeComma}}</td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">طرح مبلغ التسبقة </th><td></td><td></td><td></td><td colspan="2">{{ decfiscmens.impottype3.montantavance  | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </th><td></td><td></td><td></td><td colspan="2">{{ decfiscmens.impottype3.reporttfpmoisprecedent | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="6">طرح مبلغ العائدات التي لم يتسن طرحها </th><th></th><td></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th></th><td></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th></th><td></td><td></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="6">المجمـــــــــــــــــــــوع</th><td></td><td></td><td>{{totaltfpammount| number:'1.3-3'| removeComma}}</td><td colspan="2"><span *ngIf="tfpareporter>0">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</span></td></tr>
+  <tr id="row1"><th colspan="6">* الصناعات المعملية </th><th></th><td>1%</td><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">* الأنشطة الأخرى </th><th>{{ decfiscmens.impottype3.basetfp  | number:'1.3-3'| removeComma}}</th><td>2%</td><th>{{ decfiscmens.impottype3.montanttfpmois | number:'1.3-3'| removeComma}}</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ التسبقة </th><th></th><th></th><th></th><th colspan="2">{{ decfiscmens.impottype3.montantavance  | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ فائض التسبقة الذي لم يتسن طرحه </th><th></th><th></th><th></th><th colspan="2">{{ decfiscmens.impottype3.reporttfpmoisprecedent | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="6">طرح مبلغ العائدات التي لم يتسن طرحها </th><th></th><th></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">مبالغ إضافية للطرح بعنوان التسبقة أو العائدات </th><th></th><th></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">مبالغ للطرح من فائض العائدات التي لم يتسن طرحها</th><th></th><th></th><th></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">المجمـــــــــــــــــــــوع</th><th></th><th></th><th>{{totaltfpammount| number:'1.3-3'| removeComma}}</th><th colspan="2"><span *ngIf="tfpareporter>0">({{ decfiscmens.impottype3.tfpreporter | number:'1.3-3'| removeComma}})</span></th></tr>
   <tr id="row1"><th colspan="6">الباقي : (ب) مستوجب أو (ف) فائض</th><th colspan="2"> <span *ngIf="tfpapayer>0">P</span></th><th colspan="3"> <span *ngIf="tfpareporter>0">R</span></th></tr>
   <br>
  
   
-  <tr id="row1"><th colspan="7">مؤسسة معفاة </th><th>نعم</th><td></td><th>لا</th><td></td></tr>
-  <tr id="row1"><th colspan="3">قرار المصادقة في المبالغ النهائية بعنوان طرح التسبقة</th><th>رفض</th><td></td><th >قبول</th><td></td><th colspan="4">تاريخ استلام مقرر المصادقة</th></tr>
+  <tr id="row1"><th colspan="7">مؤسسة معفاة </th><th>نعم</th><th></th><th>لا</th><th></th></tr>
+  <tr id="row1"><th colspan="3">قرار المصادقة في المبالغ النهائية بعنوان طرح التسبقة</th><th>رفض</th><th></th><th >قبول</th><th></th><th colspan="4">تاريخ استلام مقرر المصادقة</th></tr>
   <tr id="row1"><th colspan="7"></th><th>اليوم</th><th>الشهر</th><th colspan="2">السنة</th></tr>
-  <tr id="row1"><th colspan="7">مؤسسة معفاة </th><th>نعم</th><td></td><th>لا</th><td></td></tr>
+  <tr id="row1"><th colspan="7">مؤسسة معفاة </th><th>نعم</th><th></th><th>لا</th><th></th></tr>
   <br>
   <tr ><th colspan="11"style="text-align: center;font-size: 20px;">المساهمة في صندوق النهوض بالمسكن لفائدة الأجراء </th></tr>
   <tr id="row1"><th colspan="4">أساس المساهمة </th><th colspan="3">النسبة</th><th colspan="4">المساهمة المستوجبة </th></tr>
-  <tr id="row1"><td  colspan="4">{{ decfiscmens.impottype4.basefoprolos  | number:'1.3-3'| removeComma}}</td><td colspan="3">1%</td><td  colspan="4">{{ decfiscmens.impottype4.montantfoprolos | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th  colspan="4">{{ decfiscmens.impottype4.basefoprolos  | number:'1.3-3'| removeComma}}</th><td colspan="3">1%</td><th  colspan="4">{{ decfiscmens.impottype4.montantfoprolos | number:'1.3-3'| removeComma}}</th></tr>
 <br>
 <br>
 <br>
@@ -319,54 +319,46 @@
 <br>
   <tr><th colspan="11"style="text-align: center;font-size: 20px;">المعلوم على الاستهلاك</th></tr>
   <tr id="row1"><th colspan="4">البيــــــــــانـــــــــــــــات</th><th colspan="2">المبلغ</th><th>النسبة </th><th colspan="2">المعلوم المستوجب</th><th colspan="2">المعلوم القابل للطرح</th></tr>
-   <tr id="row1"><th colspan="4">1- رقم المعاملات دون اعتبار المعلوم على الاستهلاك والأداء على القيمة المضافة</th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">2- الشراءات:</th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">شراءات محلية </th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">شراءات موردة </th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">المجموع</th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">الفائض من الشهر السابق </th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">المبالغ المسترجعة </th><th colspan="2"></th><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-   <tr id="row1"><th colspan="4">الباقي المستوجب أو الفائض (ب) أو (ف)</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
+   <tr id="row1"><th colspan="4">1- رقم المعاملات دون اعتبار المعلوم على الاستهلاك والأداء على القيمة المضافة</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">2- الشراءات:</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">شراءات محلية </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">شراءات موردة </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">المجموع</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">الفائض من الشهر السابق </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">المبالغ المسترجعة </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+   <tr id="row1"><th colspan="4">الباقي المستوجب أو الفائض (ب) أو (ف)</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
 
 <tr><th colspan="11"style="text-align: center;font-size: 20px;">الأداء على القيمة المضافة (أ.ق.م)</th></tr>
 <tr id="row1"><th colspan="4">البيــــــــــانـــــــــــــــات</th><th colspan="2">المبلغ</th><th>النسبة </th><th colspan="2">أ.ق.م. المستوجب</th><th colspan="2">أ.ق. م. القابل للطــرح</th></tr>
-  <tr id="row1"><th rowspan="3"colspan="4">1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><td colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  <tr id="row1"><th rowspan="3"colspan="4">1- رقم المعاملات الخاضع للأداء على القيمة المضافة دون اعتبـار أ. ق . م </th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-    ||activite==='Sage-femmes'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></td><th>7%</th><td colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+    ||activite==='Sage-femmes'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td>7%</td><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
       activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-      ||activite==='Sage-femmes'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span></td><td colspan="2"></td></tr>
-  <tr id="row1"><td colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
-    annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></td><th>13%</th><td colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
-      annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span></td><td colspan="2"></td></tr>
-  <tr id="row1"><td colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'||annee==='2023'&&activite==='Syndic des copropriétaires'
-    ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||
-    annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
-    ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'||
-    activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span><span>{{ decfiscmens.impottype2.tvacollecter19.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></td><th>19%</th><td colspan="2"><span *ngIf="annee==='2023'&&activite==='Architectes'
-      ||annee==='2023'&&activite==='Ingénieurs-conseil'||annee==='2023'&&activite==='Dessinateurs'||annee==='2023'&&activite==='Syndic des copropriétaires'||
-      annee==='2023'&&activite==='Géomètres'||annee==='2023'&&activite==='Topographes'||annee==='2023'&&activite==='Notaire'
-      ||annee==='2023'&&activite==='Huissiers notaire'||annee==='2023'&&activite==='Interprètes'||
-      activite==='Expert'&&annee==='2023'||annee==='2023'&&activite==='Avocat'||activite==='Consultant'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span><span>{{ decfiscmens.impottype2.tvacollecter19.tvaammount | number:'1.3-3'| removeComma}}</span></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* عمليات التسليم للنفس</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">-  شراء عقارات : </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="4">-  شراء معدات : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht | number:'1.3-3'| removeComma }}</td><td></td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</td><td></td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimportetva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr id="row1"><th colspan="4">   -  شراءات أخرى  : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* محلية</th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr id="row1"><th colspan="4">* موردة </th><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  | number:'1.3-3'| removeComma}}</td><td></td><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva | number:'1.3-3'| removeComma }}</td></tr>
-  <tr id="row1"><th colspan="4">3- طروحات أخرى : </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">*  أ. ق. م. المستوجب على المبالغ التي تساوي أو تفوق 1000 دينار بما في ذلك أ. ق. م. ومبلغ الخصم من المورد</th><td colspan="2"></td><td>25%</td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">*   أ. ق. م. المستوجب على العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسات بالبلاد التونسية </th><td colspan="2"></td><td>100%</td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">*   أ. ق. م. تقديري على وسائل النقل </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">*   عمليات التسليم للنفس</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">4-التعديلات  :</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">   -   طرح إضافي :</th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* بعنوان عمليات الفسخ والإلغاء </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">* بعنوان عمليات أخرى </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
-  <tr id="row1"><th colspan="4">   -  إعادة دفع </th><td colspan="2"></td><td></td><td colspan="2"></td><td colspan="2"></td></tr>
+      ||activite==='Sage-femmes'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
+    annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td>13%</td><th colspan="2"><span *ngIf="annee!='2023'&&activite==='Avocat'||annee!='2023'&&activite==='Expert'|| annee!='2023'&&activite==='Architectes'||annee!='2023'&&activite==='Ingénieurs-conseil'||annee!='2023'&&activite==='Dessinateurs'||annee!='2023'&&activite==='Géomètres'||
+      annee!='2023'&&activite==='Topographes'||annee!='2023'&&activite==='Syndic des copropriétaires'||annee!='2023'&&activite==='Notaire'||annee!='2023'&&activite==='Huissiers notaire'||annee!='2023'&&activite==='Interprètes'">{{ decfiscmens.impottype2.tvacollecter.tvaammount | number:'1.3-3'| removeComma}}</span></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="2"><span *ngIf="htsum">{{ htsum  | number:'1.3-3'| removeComma}}</span></th><td>19%</td><th colspan="2"><span *ngIf="tvasum">{{ tvasum | number:'1.3-3'| removeComma }}</span></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">* عمليات التسليم للنفس</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">2- الشراءات الخاضعـــــة لــ أ. ق. م. دون اعتبار أ. ق. م. والتي تخول حق الطرح</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">-  شراء عقارات : </th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxht | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableimmobilier.achatlocauxtva | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="4">-  شراء معدات : </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">* محلية</th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxht | number:'1.3-3'| removeComma }}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatlocauxtva | number:'1.3-3'| removeComma }}</th></tr>
+  <tr id="row1"><th colspan="4">* موردة </th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimporteht | number:'1.3-3'| removeComma }}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableequipement.achatimportetva | number:'1.3-3'| removeComma }}</th></tr>
+  <tr id="row1"><th colspan="4">   -  شراءات أخرى  : </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">* محلية</th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxht  | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatlocauxtva | number:'1.3-3'| removeComma }}</th></tr>
+  <tr id="row1"><th colspan="4">* موردة </th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimporteht  | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype2.tvarecuperableautreachat.achatimportetva | number:'1.3-3'| removeComma }}</th></tr>
+  <tr id="row1"><th colspan="4">3- طروحات أخرى : </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">*  أ. ق. م. المستوجب على المبالغ التي تساوي أو تفوق 1000 دينار بما في ذلك أ. ق. م. ومبلغ الخصم من المورد</th><th colspan="2"></th><td>25%</td><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">*   أ. ق. م. المستوجب على العمليات المنجزة مع الأشخاص الذين ليست لهم مؤسسات بالبلاد التونسية </th><th colspan="2"></th><th>100%</th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">*   أ. ق. م. تقديري على وسائل النقل </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">*   عمليات التسليم للنفس</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">4-التعديلات  :</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">   -   طرح إضافي :</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">* بعنوان عمليات الفسخ والإلغاء </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">* بعنوان عمليات أخرى </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="4">   -  إعادة دفع </th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="7">المجمـــــــــــــــــــــوع</th><th colspan="2">{{tvacollecte | number:'1.3-3'| removeComma}}</th><th colspan="2">{{tvarecuperable | number:'1.3-3'| removeComma}}</th></tr>
   <br>
   <br>
@@ -390,7 +382,7 @@
   <br>
   <br>
   <br>
-  <tr><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="preptotaltvaammount >= 0">P</th><th *ngIf="preptotaltvaammount >= 0">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{-preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
+  <tr><th colspan="4">الباقي : (ب) مستوجب أو (ف) فائض (I) - (II)</th><th *ngIf="preptotaltvaammount > 0">P</th><th *ngIf="preptotaltvaammount > 0">{{preptotaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="0 > preptotaltvaammount">R</th><th *ngIf="0 > preptotaltvaammount">{{-preptotaltvaammount | number:'1.3-3'| removeComma}}</th></tr>
   <tr><th colspan="4">الفائض من الشهر السابق :</th><th colspan="2">{{ option64Value | number:'1.3-3'| removeComma}}</th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
   <tr><th colspan="4">المبلغ المسترجع :</th><th colspan="2"></th><th></th><th colspan="2"></th><th colspan="2"></th></tr>
  
@@ -403,7 +395,7 @@
   <tr><th colspan="11" style="border-bottom: 2px solid #ddd;border-right: 2px solid #ddd;border-left: 2px solid #ddd;">الباقي من فائض الأداء المطلوب استرجاعه والذي تم إيقاف حق طرحه</th></tr>
 
 
-<tr id="row1"><th colspan="5">الباقي : (ب) مستوجب أو (ف) فائض</th><td colspan="2">{{totaltvaammount | number:'1.3-3'| removeComma}}</td><td>P</td><td colspan="2"> <span *ngIf="totalreporttvaammount">{{totalreporttvaammount | number:'1.3-3'| removeComma}}</span></td><td ><span *ngIf="totalreporttvaammount">R</span></td></tr>
+<tr id="row1"><th colspan="5">الباقي : (ب) مستوجب أو (ف) فائض</th><th colspan="2"*ngIf="totaltvaammount > 0">{{totaltvaammount | number:'1.3-3'| removeComma}}</th><th *ngIf="totaltvaammount > 0">P</th><th colspan="2"> <span *ngIf="totalreporttvaammount">{{totalreporttvaammount | number:'1.3-3'| removeComma}}</span></th><th ><span *ngIf="totalreporttvaammount">R</span></th></tr>
 <tr id="row1"><th colspan="11" style="font-size: 20px;">نسبة الطرح المائوية بعنوان النشاط الخاضع بصفة جزئية</th></tr>
 <tr id="row1"><th colspan="4">السنة المالية الجارية</th><th colspan="4">السنة المالية الفارطة</th><th colspan="3">الفارق</th></tr>
 <tr id="row1"><th colspan="4"></th><th colspan="4"></th><th colspan="3"></th></tr>
@@ -423,13 +415,13 @@
 <tr><th colspan="11"style="text-align: center;font-size: 20px;">معاليم أخرى على رقم المعاملات</th></tr>
 <tr id="row1"><th colspan="5">المعلــــــــــــــــوم</th><th colspan="2">الأســـــاس (د) </th><th colspan="2">النسبة </th><th colspan="2">المعلوم المستوجب (د) </th></tr>
 <tr id="row1"><th colspan="5">1- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاعات الصناعة و الخدمات و الصناعات التقليدية </th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">  المعلوم المهني </th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">المعلوم على المصبرات الغذائية </th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">  المعلوم المهني </th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">المعلوم على المصبرات الغذائية </th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">2- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في القطاع الفلاحي والصيد البحري</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">المعلوم الموظف على منتوجات الصيد البحري </th><th colspan="2"></th><th colspan="2">2%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">المعلوم الموظف على منتوجات الصيد البحري </th><th colspan="2"></th><td colspan="2">2%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">المعلوم على القطانيا والصوجا </th><th colspan="2"></th><th colspan="2">2.5%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">المعلوم على الخضر والغلال </th><th colspan="2"></th><th colspan="2">2%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5"> المعلوم على اللحوم </th><th colspan="2"></th><th colspan="2">0,050 د/ كغ</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">المعلوم على الخضر والغلال </th><th colspan="2"></th><td colspan="2">2%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5"> المعلوم على اللحوم </th><th colspan="2"></th><td colspan="2">0,050 د/ كغ</td><th colspan="2"></th></tr>
 <br>
 <br>
 <br>
@@ -448,7 +440,7 @@
 <br>
 <tr id="row1"><th colspan="5">المعلــــــــــــــــوم</th><th colspan="2">الأســـــاس (د) </th><th colspan="2">النسبة </th><th colspan="2">المعلوم المستوجب (د) </th></tr>
 <tr id="row1"><th colspan="5">3- استخلاصات لفائدة صندوق تنمية القدرة التنافسية في قطاع السياحة</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">المعلوم الموظف على مستغلي المؤسسات السياحية والمطاعم السياحية المصنفة </th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">المعلوم الموظف على مستغلي المؤسسات السياحية والمطاعم السياحية المصنفة </th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5"> المعلوم على الرحلات الجوية و البحرية الدولية</th><th colspan="2"></th><th colspan="2">20 د/ مسافر</th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">4- الأتاوة لفائدة صندوق تنمية المواصلات وتكنولوجيات المعلومات والاتصال</th><th colspan="2"></th><th colspan="2">5%</th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">5- استخلاصات لفائدة الصندوق الوطني للتشغيل </th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
@@ -464,21 +456,21 @@
 <tr id="row1"><th colspan="5">معلوم على المصابيح والأنابيب </th><th colspan="2"></th><th colspan="2">40%</th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">معلوم على المنتجات الطاقية المستهلكة</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">9- معلوم على الألعاب التي تتم المشاركة فيها مباشرة بالهاتف أو عن طريق المراسلات القصيرة أو الموزع الصوتي </th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">10- معلوم لفائدة صندوق التشجيع على الإبداع الأدبي والفني</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">11- معلوم لفائدة صندوق تمويل الراحة البيولوجية في قطاع الصيد البحري</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">10- معلوم لفائدة صندوق التشجيع على الإبداع الأدبي والفني</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">11- معلوم لفائدة صندوق تمويل الراحة البيولوجية في قطاع الصيد البحري</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 
 <tr id="row1"><th colspan="5">12- أتاوة الدعم لفائدة الصندوق العام للتعويض </th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">الأتاوة الموظفة على المطاعم المصنفة طبقا للتشريع الجاري به العمل والمقاهي من الصنف الثاني والصنف الثالث وقاعات الشاي </th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">الأتاوة الموظفة على المطاعم المصنفة طبقا للتشريع الجاري به العمل والمقاهي من الصنف الثاني والصنف الثالث وقاعات الشاي </th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">    الأتاوة الموظفة على الملاهي و الملاهي الليلية غير التابعة لمؤسسة سياحية و محلات صنع المرطبات</th><th colspan="2"></th><th colspan="2">3%</th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">13- معلوم تضامني لفائدة صندوق تعويض الأضرار الفلاحية الناجمة عن الجوائح الطبيعية موظف على:</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">الخضر و الغلال</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">الحبوب المجمعة من قبل ديوان الحبوب</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">الزيتون</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">منتجات الصيد البحري</th><th colspan="2"></th><th colspan="2">1%</th><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">الخضر و الغلال</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">الحبوب المجمعة من قبل ديوان الحبوب</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">الزيتون</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
+<tr id="row1"><th colspan="5">منتجات الصيد البحري</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">14- معلوم الإقامة بالنزل السياحية</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">15- معلوم لفائدة صندوق دعم الصحة العمومية </th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
   activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-  ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><th colspan="2">1%</th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td colspan="2">1%</td><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.montantcontribution  | number:'1.3-3'| removeComma}}</span></th></tr>
 <tr id="row1"><th colspan="5">16- المعلوم على السكر</th><th colspan="2"></th><th colspan="2">0,100 د/كغ</th><th colspan="2"></th></tr>
@@ -525,25 +517,25 @@
 
   <tr id="row1"><th colspan="3">رقم الفرع الثانوي</th><th colspan="3">الوثيقة الخاضعة للمعلوم </th><th colspan="2">عدد الوثائق </th><th colspan="3">المعلوم المستوجب (د) </th></tr>
   <tr id="row1"><th colspan="3"></th><th>الرمز</th><th colspan="2">نوع الوثيقة</th><th colspan="2"></th><th colspan="3"></th></tr>
-  <tr id="row1"><th colspan="3"></th><th></th><td colspan="2"></td><td colspan="2">{{ decfiscmens.impottype5.nombrenotehonoraire}}</td><td colspan="3"></td></tr>
-  <tr id="row1"><th colspan="8">المجموع</th><td colspan="3">{{ decfiscmens.impottype5.totaldroittimbre | number:'1.3-3'| removeComma}}</td></tr>
-  <tr id="row1"><th colspan="8">المجموع العام</th><td colspan="3"></td></tr>
+  <tr id="row1"><th colspan="3"></th><th></th><th colspan="2"></th><th colspan="2">{{ decfiscmens.impottype5.nombrenotehonoraire}}</th><th colspan="3"></th></tr>
+  <tr id="row1"><th colspan="8">المجموع</th><th colspan="3">{{ decfiscmens.impottype5.totaldroittimbre | number:'1.3-3'| removeComma}}</th></tr>
+  <tr id="row1"><th colspan="8">المجموع العام</th><th colspan="3"></th></tr>
   
   <tr id="row1"><th colspan="11"style="text-align: center;font-size: 20px">المعلوم على النزل</th></tr>
   <tr id="row1"><th colspan="6" style="border: none;"></th><th colspan="2">أساس المعلوم (د) </th><th>النسبة</th><th colspan="2">المعلوم المستوجب </th></tr>
-  <tr id="row1"><th colspan="6">رقم المعاملات الخام </th><th colspan="2"></th><th>2%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">رقم المعاملات الخام </th><th colspan="2"></th><td>2%</td><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="11"style="text-align: center;font-size: 20px">المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية </th></tr>
   <tr id="row1"><th colspan="6">1- مؤسسات تروج قصرا منتجات خاضعة لنظام المصادقة الإدارية للأسعار </th><th colspan="2">أساس المعلوم (د) </th><th>النسبة</th><th colspan="2">المعلوم المستوجب </th></tr>
-  <tr id="row1"><th colspan="6">رقم المعاملات المحلي الخام المحقق</th><th colspan="2"></th><th>0.1%</th><th colspan="2"></th></tr>
-  <tr id="row1"><th colspan="6">رقم المعاملات المتأتي من التصدير </th><th colspan="2"></th><th>0.1%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">رقم المعاملات المحلي الخام المحقق</th><th colspan="2"></th><td>0.1%</td><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">رقم المعاملات المتأتي من التصدير </th><th colspan="2"></th><td>0.1%</td><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="6">2- مؤسسات تدفع المعلوم على المؤسسات على أساس 25% من الضريبة عل الدخل أو الضريبة على الشركات</th><th colspan="2">أساس المعلوم (د) </th><th>النسبة</th><th colspan="2">المعلوم المستوجب </th></tr>
-  <tr id="row1"><th colspan="6">الضريبة على الدخل أو على الشركات المستوجبة </th><th colspan="2"></th><th>25%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">الضريبة على الدخل أو على الشركات المستوجبة </th><th colspan="2"></th><td>25%</td><th colspan="2"></th></tr>
   
    
   <tr id="row1"><th colspan="6">3- مؤسسات أخرى </th><th colspan="2">أساس المعلوم (د) </th><th>النسبة</th><th colspan="2">المعلوم المستوجب </th></tr>
-  <tr id="row1"><th colspan="6">رقم المعاملات المحلي الخام المحقق</th><td colspan="2">{{ decfiscmens.impottype6.chiffreaffairettc | number:'1.3-3'| removeComma }}</td><th>0.2%</th><td colspan="2">{{ decfiscmens.impottype6.tclpayer | number:'1.3-3'| removeComma}}</td></tr>
+  <tr id="row1"><th colspan="6">رقم المعاملات المحلي الخام المحقق</th><th colspan="2">{{ decfiscmens.impottype6.chiffreaffairettc | number:'1.3-3'| removeComma }}</th><th>0.2%</th><th colspan="2">{{ decfiscmens.impottype6.tclpayer | number:'1.3-3'| removeComma}}</th></tr>
   
-  <tr id="row1"><th colspan="6">رقم المعاملات المتأتي من التصدير  و من العمليات المنتفعة بنفس النظام الجبائي للتصدير</th><th colspan="2"></th><th>0.1%</th><th colspan="2"></th></tr>
+  <tr id="row1"><th colspan="6">رقم المعاملات المتأتي من التصدير  و من العمليات المنتفعة بنفس النظام الجبائي للتصدير</th><th colspan="2"></th><td>0.1%</td><th colspan="2"></th></tr>
   <tr id="row1"><th colspan="9">المعلوم على المؤسسات ذات الصبغة الصناعية أو التجارية أو المهنية</th><th colspan="2"></th></tr>
   <br>
   <br>
@@ -601,18 +593,18 @@
   <tr id="row1"><th colspan="10">المجمـــــــــــــــــــــــــــــــوع</th><th></th></tr>
   <tr id="row1"><th colspan="11"style="text-align: center;font-size:24px">خلاصة الأداءات والمعاليم الواجب دفعها</th></tr>
   <tr id="row1"><th colspan="6">الضريبة أو المعلوم </th><th>مبلغ أصل الأداء</th><th>الطرح (الأداء المدفوع)</th><th>الأداء المستوجب</th><th>خطايا التأخير </th><th>المجمـــــــــوع</th></tr>
-  <tr id="row1"><th colspan="6">الخصم من المورد </th><th>{{totalretenueammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">الأداء على التكوين المهني </th><th>{{totaltfpammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th>{{totalfoprolosammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الخصم من المورد </th><th><span *ngIf="type1">{{totalretenueammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الأداء على التكوين المهني </th><th><span *ngIf="type3">{{totaltfpammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th><span *ngIf="type4">{{totalfoprolosammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم على الاستهلاك </th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">الأداء على القيمة المضافة </th><th>{{totaltvaammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">الأداء على القيمة المضافة </th><th><span *ngIf="type2">{{totaltvaammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">معاليم أخرى على رقم المعاملات </th><th><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.montantcontribution  | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">معاليم الطابع الجبائي </th><th>{{totaltimbreammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">معاليم الطابع الجبائي </th><th><span *ngIf="type5">{{totaltimbreammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعاليم الراجعة للجماعات المحلية :</th><th></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم على النزل </th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</th><th>{{totaltclammount | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
+  <tr id="row1"><th colspan="6">المعلوم على المؤسسات ذات الصبغة  الصناعية أو التجارية أو المهنية</th><th><span *ngIf="type6">{{totaltclammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">معلوم الإجازة</th><th></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم الأدنى </th><th>{{minimumperceptionammount| number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المجموع</th><th>{{totaldeclaration | number:'1.3-3'| removeComma}}</th><th></th><th></th><th></th><th></th></tr>
@@ -657,7 +649,16 @@
 
                   
                 <div class="card" *ngIf="decfiscmens">
+
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+                    <option value="default"> </option>
+                    <option *ngFor="let col of collab" [value]="col._id">
+                        {{col.firstname}} {{col.lastname}}
+                    </option>
+                  </select>   
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser._id=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>

@@ -8,6 +8,7 @@ import { stringify } from 'querystring';
 import { Contact } from '../../models/contact.model';
 import { mimeType } from '../../_helpers/mime-type.validator';
 import { AlertService } from '../../_helpers/alert.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -78,8 +79,14 @@ export class ContactComponent implements OnInit {
         (data:any) => {
           this.contactform.reset();
           this.loading = false;
-          this.alertService.success('Votre requête a été envoyé avec succès!');
-          window.scrollTo(0, 0);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre réclamation. vous allez recevoir désormais une réponse dans les plus brefs délais ',
+            showConfirmButton: false,
+            timer: 6000 
+          });
+          this.router.navigate(['home'])
         },
         (error) => {
           this.loading = false;
@@ -92,8 +99,14 @@ export class ContactComponent implements OnInit {
       (data:any) => {
         this.contactform.reset();
         this.loading = false;
-        this.alertService.success('Votre requête a été envoyé avec succès!');
-        window.scrollTo(0, 0);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'réclamation envoyée avec succès! un email vous a été envoyer pour confirmer la réception de votre réclamation. vous allez recevoir désormais une réponse dans les plus brefs délais ',
+          showConfirmButton: false,
+          timer: 6000 
+        });
+        this.router.navigate(['home'])
       },
       (error) => {
         this.loading = false;

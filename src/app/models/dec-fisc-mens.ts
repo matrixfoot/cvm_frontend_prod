@@ -13,7 +13,7 @@ export class Decfiscmens {
     activite:string;
     sousactivite:string;
     datearretactivite:string;
-
+regimefiscalimpot:string;
     firstname:string;
     lastname:string;
     codedeclaration:string;
@@ -22,9 +22,15 @@ export class Decfiscmens {
     annee:string;
     statut:string;
     motif:string;
+    statutcoll:string;
+    motifcoll:string;
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
-    
+    dateouverturedossier:number
   updated: Date;
+  statutadmin:string[]
+  statutcollab:string[]
 
   impottype1: {
 

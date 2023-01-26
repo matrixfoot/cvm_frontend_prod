@@ -36,17 +36,121 @@ export class ModifyUserComponent implements OnInit {
   codepostalPattern: "^[a-zA-Z0-9]+{4}$"
 
   errormsg:string;
-  activites: any[];
-  sousactivites: any[];
-  specialites: any[];
-  sousspecialites: any[];
-  sousactivitesavocat: string[];
-  sousactivitesmedecin: string[];
-  specialitesmedecinspecialiste: string[];
+  activites: any[]=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
+  "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
+  "Ingénieurs-conseil","Topographes","Syndic des copropriétaires","Autre"];
+  sousactivites: any[]=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation","Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"];
+  specialites: any[]=["Chirurgie générale",
+  "Chirurgie pédiatrique",
+  "Chirurgie carcinologique",
+  "Chirurgie cardio-vasculaire",
+  "Chirurgie vasculaire périphérique",
+  "Chirurgie neurologique",
+  "Chirurgie orthopédique et traumatologique",
+  "Chirurgie plastique, réparatrice et esthétique",
+  "Chirurgie urologique",
+  "Gynéco-obstétrique",
+  "ORL",
+  "Stomatologie et chirurgie maxillo-faciale",
+  "Ophtalmologie",
+  "Chirurgie thoracique",
+  "Anesthésie réanimation",
+  "Psychiatrie",
+  "Pédo-psychiatrie",
+  "Imagerie médicale",
+  "Anatomie",
+  "Anatomie et cytologie pathologiques",
+  "Carcinologie médicale",
+  "Cardiologie",
+  "Dermatologie",
+  "Endocrinologie",
+  "Gastro-entérologie",
+  "Hématologie clinique",
+  "Maladies infectieuses",
+  "Médecine d’urgence",
+  "Médecine de travail",
+  "Médecine interne",
+  "Médecine légale",
+  "Médecine physique, rééducation et réadaptation fonctionnelle",
+  "Médecine préventive et communautaire",
+  "Néphrologie",
+  "Neurologie",
+  "Nutrition et maladies nutritionnelles",
+  "Pédiatrie",
+  "Pneumologie",
+  "Radiothérapie carcinologique",
+  "Réanimation médicale",
+  "Rhumatologie",
+  "Biophysique et médecine nucléaire",
+  "Génétique",
+  "Biologie médicale option biochimie",
+  "Biologie médicale option hématologie",
+  "Biologie médicale option parasitologie",
+  "Biologie médicale option microbiologie",
+  "Biologie médicale option immunologie",
+  "Histo-embryologie",
+  "Pharmacologie",
+  "Physiologie et explorations fonctionnelles"];
+  sousspecialites: any[]=[];
+  sousactivitesavocat: string[]=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation"];
+  sousactivitesmedecin: string[]=["Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"];
+  specialitesmedecinspecialiste: string[]=["Chirurgie générale",
+  "Chirurgie pédiatrique",
+  "Chirurgie carcinologique",
+  "Chirurgie cardio-vasculaire",
+  "Chirurgie vasculaire périphérique",
+  "Chirurgie neurologique",
+  "Chirurgie orthopédique et traumatologique",
+  "Chirurgie plastique, réparatrice et esthétique",
+  "Chirurgie urologique",
+  "Gynéco-obstétrique",
+  "ORL",
+  "Stomatologie et chirurgie maxillo-faciale",
+  "Ophtalmologie",
+  "Chirurgie thoracique",
+  "Anesthésie réanimation",
+  "Psychiatrie",
+  "Pédo-psychiatrie",
+  "Imagerie médicale",
+  "Anatomie",
+  "Anatomie et cytologie pathologiques",
+  "Carcinologie médicale",
+  "Cardiologie",
+  "Dermatologie",
+  "Endocrinologie",
+  "Gastro-entérologie",
+  "Hématologie clinique",
+  "Maladies infectieuses",
+  "Médecine d’urgence",
+  "Médecine de travail",
+  "Médecine interne",
+  "Médecine légale",
+  "Médecine physique, rééducation et réadaptation fonctionnelle",
+  "Médecine préventive et communautaire",
+  "Néphrologie",
+  "Neurologie",
+  "Nutrition et maladies nutritionnelles",
+  "Pédiatrie",
+  "Pneumologie",
+  "Radiothérapie carcinologique",
+  "Réanimation médicale",
+  "Rhumatologie",
+  "Biophysique et médecine nucléaire",
+  "Génétique",
+  "Biologie médicale option biochimie",
+  "Biologie médicale option hématologie",
+  "Biologie médicale option parasitologie",
+  "Biologie médicale option microbiologie",
+  "Biologie médicale option immunologie",
+  "Histo-embryologie",
+  "Pharmacologie",
+  "Physiologie et explorations fonctionnelles"];
   selected: any;
   activitesassociation: string[];
-  activitesassociations: any[];
-  activitesliberales: string[];
+  activitesassociations: any[]=["Syndic des copropriétaires"];
+  activitesliberales: string[]=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
+  "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
+  "Ingénieurs-conseil","Topographes","Autre"];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -58,121 +162,8 @@ export class ModifyUserComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.activites=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
-    "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
-    "Ingénieurs-conseil","Topographes","Syndic des copropriétaires","Autre"]
-    this.activitesassociations=["Syndic des copropriétaires"]
-    this.activitesliberales=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
-    "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
-    "Ingénieurs-conseil","Topographes","Autre"]
-this.sousactivites=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation","Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
 
-this.specialites=["Chirurgie générale",
-"Chirurgie pédiatrique",
-"Chirurgie carcinologique",
-"Chirurgie cardio-vasculaire",
-"Chirurgie vasculaire périphérique",
-"Chirurgie neurologique",
-"Chirurgie orthopédique et traumatologique",
-"Chirurgie plastique, réparatrice et esthétique",
-"Chirurgie urologique",
-"Gynéco-obstétrique",
-"ORL",
-"Stomatologie et chirurgie maxillo-faciale",
-"Ophtalmologie",
-"Chirurgie thoracique",
-"Anesthésie réanimation",
-"Psychiatrie",
-"Pédo-psychiatrie",
-"Imagerie médicale",
-"Anatomie",
-"Anatomie et cytologie pathologiques",
-"Carcinologie médicale",
-"Cardiologie",
-"Dermatologie",
-"Endocrinologie",
-"Gastro-entérologie",
-"Hématologie clinique",
-"Maladies infectieuses",
-"Médecine d’urgence",
-"Médecine de travail",
-"Médecine interne",
-"Médecine légale",
-"Médecine physique, rééducation et réadaptation fonctionnelle",
-"Médecine préventive et communautaire",
-"Néphrologie",
-"Neurologie",
-"Nutrition et maladies nutritionnelles",
-"Pédiatrie",
-"Pneumologie",
-"Radiothérapie carcinologique",
-"Réanimation médicale",
-"Rhumatologie",
-"Biophysique et médecine nucléaire",
-"Génétique",
-"Biologie médicale option biochimie",
-"Biologie médicale option hématologie",
-"Biologie médicale option parasitologie",
-"Biologie médicale option microbiologie",
-"Biologie médicale option immunologie",
-"Histo-embryologie",
-"Pharmacologie",
-"Physiologie et explorations fonctionnelles"]
-this.sousspecialites=[]
-this.sousactivitesavocat=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation"]
-this.sousactivitesmedecin=["Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"]
 
-this.specialitesmedecinspecialiste=["Chirurgie générale",
-"Chirurgie pédiatrique",
-"Chirurgie carcinologique",
-"Chirurgie cardio-vasculaire",
-"Chirurgie vasculaire périphérique",
-"Chirurgie neurologique",
-"Chirurgie orthopédique et traumatologique",
-"Chirurgie plastique, réparatrice et esthétique",
-"Chirurgie urologique",
-"Gynéco-obstétrique",
-"ORL",
-"Stomatologie et chirurgie maxillo-faciale",
-"Ophtalmologie",
-"Chirurgie thoracique",
-"Anesthésie réanimation",
-"Psychiatrie",
-"Pédo-psychiatrie",
-"Imagerie médicale",
-"Anatomie",
-"Anatomie et cytologie pathologiques",
-"Carcinologie médicale",
-"Cardiologie",
-"Dermatologie",
-"Endocrinologie",
-"Gastro-entérologie",
-"Hématologie clinique",
-"Maladies infectieuses",
-"Médecine d’urgence",
-"Médecine de travail",
-"Médecine interne",
-"Médecine légale",
-"Médecine physique, rééducation et réadaptation fonctionnelle",
-"Médecine préventive et communautaire",
-"Néphrologie",
-"Neurologie",
-"Nutrition et maladies nutritionnelles",
-"Pédiatrie",
-"Pneumologie",
-"Radiothérapie carcinologique",
-"Réanimation médicale",
-"Rhumatologie",
-"Biophysique et médecine nucléaire",
-"Génétique",
-"Biologie médicale option biochimie",
-"Biologie médicale option hématologie",
-"Biologie médicale option parasitologie",
-"Biologie médicale option microbiologie",
-"Biologie médicale option immunologie",
-"Histo-embryologie",
-"Pharmacologie",
-"Physiologie et explorations fonctionnelles"]
      if (this.tokenStorage.getToken()){
       this.isloggedin=true;
       this.currentuser =this.tokenStorage.getUser()
@@ -180,7 +171,27 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
         (user: User) => {
           this.loading = false;
           this.user = user;
-          
+          if(this.user.sousactivite!="Médecin spécialiste")
+          {
+            this.specialites=[]
+          }
+          if(this.user.activite=='Avocat')
+    {
+this.sousactivites=this.sousactivitesavocat
+    }
+    if (this.user.activite=='Médecin')
+    {
+      this.sousactivites=this.sousactivitesmedecin
+
+    }
+    if(this.user.natureactivite=='associations et syndics')
+    {
+this.activites=this.activitesassociations
+    }
+    else if (this.user.natureactivite=='Profession Libérale')
+    {
+      this.activites=this.activitesliberales
+    }
           if (this.user.matriculefiscale){
           this.userForm = this.formBuilder.group({
               
@@ -214,8 +225,8 @@ this.specialitesmedecinspecialiste=["Chirurgie générale",
             fiscaltvaassobli: [{value:"Assujeti Obligatoire",disabled:true}],
             fiscalmat: [this.user.matriculefiscale.split(' ')[0],[Validators.pattern(this.fiscalmatPattern),Validators.maxLength(7),Validators.required]],
             fiscalmatletter: [this.user.matriculefiscale.split(' ')[1].split('/')[0],[Validators.pattern(this.fiscalmatletterPattern),Validators.maxLength(1),Validators.required]],
-            fiscalmatinchanged: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
-            fiscalmatinchanged2: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1].split('/')[0],disabled:true}],
+            fiscalmatinchanged: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[1],disabled:true}],
+            fiscalmatinchanged2: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[2],disabled:true}],
             fiscalmatnumbers: [this.user.matriculefiscale.split('/')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             adresseactivite: [this.user.adresseactivite,],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],

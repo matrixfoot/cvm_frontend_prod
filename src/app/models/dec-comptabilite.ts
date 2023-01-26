@@ -2,10 +2,21 @@
 export class Deccomptabilite {
   userId: string;
   _id:string;
-codedeclaration:string;
   nature:string;
+  registrecommerce:string;
+  matriculefiscale:string;
+  codetva:string;
+  codegenre:string;
+  raisonsociale:string;
+  adresse:string;
+  codepostal:string;
   activite:string;
   sousactivite:string;
+  datearretactivite:string;
+regimefiscalimpot:string;
+  firstname:string;
+  lastname:string;
+  codedeclaration:string;
   mois:string;
   annee:string;
   debitmoisprecedent:string;
@@ -46,8 +57,16 @@ codedeclaration:string;
   totalttc19: number;
   statut:string;
   motif:string;
+  statutcoll:string;
+  motifcoll:string;
+  affecte:string;
+    dateaffectation:Date;
   created:Date;
 updated: Date;
+dateouverturedossier:number
+
+statutadmin:string[]
+  statutcollab:string[]
 autre1:Autre[]
 autre2:Autre2[]
 autre3:Autre3[]

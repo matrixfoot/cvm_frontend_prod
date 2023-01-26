@@ -17,7 +17,7 @@
     <p>veuillez renseigner les champs obligatoires (*)</p>
     
     
-    <div title="indiquer votre type" class="input-container">
+    <div title="indiquer votre type" class="input-container" *ngIf="user.usertype != 'Candidat'">
      
       <label for="civilite"> Nature utilisateur:</label>  
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
@@ -71,7 +71,7 @@
           <input class="input-field" type="text" placeholder="Confirmez Votre Numéro Mobile" id="confirmmobile" formControlName="confirmmobile" >
         </div>
       </div>
-      <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature">
+      <div title="indiquer votre nature d'activité"class="input-container"id="idactivitynature"*ngIf="user.usertype == 'Client'">
         <label for="activitynature"> Nature D'activité:</label>
         <i class="fa fa-fort-awesome icon"></i>
   <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature"(change)="update0($event)"  [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
@@ -90,7 +90,7 @@
       <i class="fa fa-fort-awesome icon"></i>
       <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
     </div>
-    <div title="indiquer votre activité"class="input-container" id="idactivity">
+    <div title="indiquer votre activité"class="input-container" id="idactivity"*ngIf="user.usertype == 'Client'">
       <label for="activity"> Activité:</label> 
       <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
@@ -112,7 +112,7 @@
     <i class="fa fa-fort-awesome icon"></i>
     <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
   </div>
-  <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity">
+  <div title="indiquer votre sous-activité"class="input-container"id="idunderactivity"*ngIf="user.usertype == 'Client'">
     <label for="underactivity"> Sous-Activité:</label>    
     <i class="fa fa-fort-awesome icon"></i>
     <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"(click)="sort()"(change)="update2($event)"formControlName="underactivity" name="underactivity" >
@@ -129,7 +129,7 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
 </div>
-<div title="indiquer votre spécialité"class="input-container"id="idspecialite">
+<div title="indiquer votre spécialité"class="input-container"id="idspecialite"*ngIf="user.usertype == 'Client'">
   <label for="underactivity"> Spécialité:</label>    
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="specialite" (click)="sort()"(change)="update3($event)"name="specialite" >
@@ -141,7 +141,7 @@
 <option hidden value="Autre">Autre</option>
 </select>
 </div>
-<div title="indiquer votre sous-spécialité"class="input-container"id="idsousspecialite">
+<div title="indiquer votre sous-spécialité"class="input-container"id="idsousspecialite"*ngIf="user.usertype == 'Client'">
   <label for="underactivity"> Sous-Spécialité:</label>    
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre Sous-Spécilaité" id="sousspecialite" formControlName="sousspecialite" name="sousspecialite" >
@@ -153,7 +153,7 @@
 <option hidden value="Autre">Autre</option>
 </select>
 </div>
-<div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"id="idfiscalimpot">
+<div title="indiquer votre régime fiscal en matières d'impôts directs"class="input-container"id="idfiscalimpot"*ngIf="user.usertype == 'Client'">
   <label for="fiscalimpot"> Régime Fiscal En Matières D'impôts Directs:</label>     
   <i class="fa fa-fort-awesome icon"></i>
 <select  class="input-field" placeholder="Entrer Votre régime fiscal en matières d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
@@ -175,7 +175,7 @@
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matières d'impôts directs" id="selectfiscalimpot" formControlName="selectfiscalimpot">
 </div>
-<div class="input-container" id="idfiscaltvaassobli">
+<div class="input-container" id="idfiscaltvaassobli"*ngIf="user.usertype == 'Client'">
   <label for="fiscaltvaassobli"> Régime Fiscal En Matières D'impôts TVA:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" type="text" placeholder="Modifier Votre régime fiscal en matières de TVA" id="fiscaltvaassobli" formControlName="fiscaltvaassobli">
@@ -197,7 +197,7 @@
   <div *ngIf="f.fiscalmatnumbers.errors.length">Saisissez uniquement 3 chiffres</div>
   <div *ngIf="f.fiscalmatnumbers.errors.required">3ème partie obligatoire</div>
 </div>
-<div class="input-container-disabled"id="idfiscalmat">
+<div class="input-container-disabled"id="idfiscalmat"*ngIf="user.usertype == 'Client'">
   <label for="fiscalmat"> Matricule Fiscale:</label>
   <i class="fa fa-fort-awesome icon"></i>
   <input class="input-field" style="width: 25%;"type="text"  id="fiscalmat" formControlName="fiscalmat"
@@ -249,14 +249,14 @@
     </div>
 
 
-    <div title="indiquer votre nomsociete"class="input-container" id="input6">
+    <div title="indiquer votre nomsociete"class="input-container" id="input6"*ngIf="user.usertype == 'Client'">
       <label for="fiscalmat"> Nom Societe:</label>  
       <i class="fa fa-fort-awesome icon"></i>
         <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
       </div>
 
 
-      <div title="indiquer votre secteur"class="input-container" id="input7">
+      <div title="indiquer votre secteur"class="input-container" id="input7"*ngIf="user.usertype == 'Client'">
         <label for="fiscalmat"> Secteur:</label>
         <i class="fa fa-fort-awesome icon" ></i> 
        

@@ -1,0 +1,73 @@
+<body>
+    <div class="container-fluid">
+        <h2 (click)="getdossiersencours()" style="cursor: pointer;"> charger dossiers</h2> 
+      <div class="col-lg-12" >
+        <div class="team-member" *ngIf="usertype=='Collaborateur'&&sorteddossencours">
+          <h2>Liste des OF</h2>
+          <hr>        
+          <div class="users-grid" style="overflow-x:auto;">
+    
+            
+            
+            <table class="table table-striped">
+              <thead>
+              <tr>
+          
+                
+                <th scope="col">Prenom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Type</th>
+                <th scope="col">Statut Admin</th>
+                <th scope="col">Statut Collaborateur</th>
+                <th scope="col">Date de création<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
+                <th scope="col">date de modification</th>
+                
+                
+                
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+          
+                
+                <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{prenomfisc}}</span>
+                    <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{prenom}}</span>
+                    <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.firstname}}</span></td>
+                  <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{nomfisc}}</span>
+                    <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{nom}}</span>
+                    <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.lastname}}</span></td>
+                  <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.nature}}</span>
+                    <span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.type}}</span>
+                    <span *ngIf="sorteddossencours.type==='réclamation'">{{sorteddossencours.type}}</span></td>
+                    <td>
+                      <span *ngIf="sorteddossencours.statutadmin">
+                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                          {{statut.statut}}
+                        </ng-container>
+                      </span>  
+                    </td>
+                    <td>
+                      <span *ngIf="sorteddossencours.statutcollab">
+                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                          {{statut.statut}}
+                        </ng-container>
+                      </span>  
+                    </td>                  
+                    <td>{{sorteddossencours.created}}</td>
+                  <td>{{sorteddossencours.updated}}</td>
+                  
+                  
+                  <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',sorteddossencours._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencours._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencours._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencours._id)">Consulter</button></td>
+                  
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </div>    
+    </body>

@@ -950,13 +950,19 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     ).subscribe((res:any)=>{
       this.calculateResultForm36()
     })
+    if (user.usertype !='Client') 
+    return (this.token.saved=true,Swal.fire({
+      title: 'fonctionnalité non disponible pour ce type d\'utilisateur',
+      icon: 'info',
+      confirmButtonColor: '#3085d6',
+    }),this.router.navigate(['home']))
       if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
       || user.regimefiscalimpot=='Autre/null'
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['modify-user/'+this.currentUser.userId]))
-      if (user.regimefiscalimpot=='Réel')
+      /*if (user.regimefiscalimpot=='Réel')
       {
         Swal.fire({
           title: 'Votre régime fiscale en matière d\'impôts directs est le régime réel. Voulez vous établir votre déclaration à travers le module comptabilité?',
@@ -976,11 +982,13 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
         }).catch(() => {
           Swal.fire('opération non aboutie!');
         });
-      }
+      }*/
+     
       this.DecfiscmensService.getdecfiscmens(this.currentUser.userId).then(
         (decfiscmens: Decfiscmens[]) => {
         }
       )
+      
             }
           )
     
@@ -1037,7 +1045,7 @@ if (this.option51Value)
   if (this.preptotaltvaammount >= 0 && this.preptotaltvaammount-+this.option64Value>=0)
   {
     this.totaltvaammount=this.preptotaltvaammount-+this.option64Value
-    console.log('1')
+    this.totalreporttvaammount=0.000
 
   }
   else 
@@ -1087,9 +1095,36 @@ else if (!this.option50Value)
     if (!this.option172Value)
     {
     this.totalfspammount=0
-    }    
+    }     
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
+if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+  &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+{
+  console.log('here')
+  this.prepminimumperceptionammount=0.000
+}
+else
+{
+  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  {
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  {
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  {
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  {
+   this.prepminimumperceptionammount=5.000
+
+  }
+}
 if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
 
 {
@@ -2272,6 +2307,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
                 montantcontribution:'',}
     decfiscmens.userId = this.currentUser.userId;
     decfiscmens.activite=this.user.activite;
+    decfiscmens.regimefiscalimpot=this.user.regimefiscalimpot;
     decfiscmens.sousactivite=this.user.sousactivite;
     decfiscmens.codepostal=this.user.codepostal;
     decfiscmens.adresse=this.user.adresseactivite
@@ -2797,15 +2833,15 @@ this.DecfiscmensService.create(decfiscmens).then(
           var text5 = document.getElementById("Month");
           var text2 = document.getElementById("tabcontainer");
           Swal.fire({
-            title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous les calculer et vous envoyer le montant exact',
+            title: 'Ce module ne concerne que les déclarations initiales et ne tient pas compte des pénalités de retard. Après votre validation des données saisies, nous pouvons vous calculer les pénalités et vous les envoyer',
             icon: 'info',
             confirmButtonColor: '#3085d6',
           }).then((result) => {
             Swal.fire({
-              title: 'tous les types d\'impôts sont cochés, veuillez décocher le type d\'impôt que vous n\'allez pas déclarer',
+              title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
               icon: 'info',
               confirmButtonColor: '#3085d6',
-            }).then((result) => {}).catch(() => {
+            }).then((result) => {this.myFunction11(),this.myFunction9()}).catch(() => {
               Swal.fire('opération non aboutie!')
             })
           }).catch(() => {
@@ -2868,7 +2904,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
     return (
       Swal.fire({
-      title: 'vous ne pouvez pas déposer une déclaration au futur',
+      title: 'vous ne pouvez pas déposer une déclaration non encore échue',
       icon: 'error',
       confirmButtonColor: '#3085d6',
     }).then((result) => {this.option54Value='',this.option171Value=''

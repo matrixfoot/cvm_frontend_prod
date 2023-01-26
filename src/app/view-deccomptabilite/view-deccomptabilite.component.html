@@ -5,7 +5,7 @@
     <tr><th>Date de création du fichier:</th><td colspan="2">{{ deccomptabilite.created |customDate}}</td><th>Date de modification du fichier:</th><td colspan="2">{{ deccomptabilite.updated|customDate }}</td></tr>
     <tr><th>Statut du fichier:</th><td>{{statut}}</td></tr>
     <tr><th>Motif du statut:</th><td> {{motif}}</td></tr>
-    <tr><th>Nom:</th><td> {{firstname}}</td><th>Prénom:</th><td> {{lastname}}</td></tr>
+    <tr><th>Nom:</th><td> {{lastname}}</td><th>Prénom:</th><td> {{firstname}}</td></tr>
     <tr><th>Nature:</th><td> {{nature}}</td></tr>
     <tr><th>Mois:</th><td> {{deccomptabilite.mois}}</td><th>Annee:</th><td> {{deccomptabilite.annee}}</td></tr>
 
@@ -312,7 +312,16 @@
     </fieldset>
 </div>
 <div class="card">
+    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+                    <option value="default"> </option>
+                    <option *ngFor="let col of collab" [value]="col._id">
+                        {{col.firstname}} {{col.lastname}}
+                    </option>
+                  </select> 
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+    <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser._id=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
+
     <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>
     <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
     <button type="button" class="btn btn-primary"(click)="generateExcel()"> Générer fichier</button>   

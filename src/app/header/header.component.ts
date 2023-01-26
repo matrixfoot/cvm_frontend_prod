@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit{
     showModeratorBoard = false;
     username: string;
     lastname: string;
+  usertype: any;
 
   constructor(
     private router: Router,
@@ -35,7 +36,7 @@ export class HeaderComponent implements OnInit{
     if (this.isLoggedIn) {
       const user = this.Auth.getUser();
       this.role = user.role;
-      
+      this.usertype=user.usertype
       this.username = user.Firstname;
 this.lastname= user.Lastname;
     }

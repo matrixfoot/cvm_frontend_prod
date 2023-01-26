@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Deccomptabilite } from '../models/dec-comptabilite';
 import { User } from '../models/user.model';
@@ -69,6 +70,11 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   debitmoisprecedent: string;
   creditmoisprecedent: string;
   sousactivite: string;
+  private usersSub: Subscription;
+  users: User[]=[];
+  collab: any[]=[];
+  errormsg: any;
+  optionValue: any;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -84,6 +90,24 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.tokenStorage.getUser();
+    if(this.currentUser.role==='admin')
+    {
+      this.userservice.getAll()
+      this.usersSub = this.userservice.users$.subscribe(
+        (users) => {
+          this.users = users;
+          this.loading = false;
+          let filtred=[]
+          filtred=this.deccompt.filterByValue(this.users,'desactive')
+          this.collab=filtred.filter((user) => user.usertype === ('Collaborateur'||'collaborateur'))
+          },
+        (error) => {
+          this.loading = false;
+          this.errormsg=error.message;
+        }
+      );
+      
+    }
     this.userservice.getUserById(this.currentUser.userId).then(
       (user: User) => {
         this.currentUser = user;
@@ -97,6 +121,10 @@ export class ViewDeccomptabiliteComponent implements OnInit {
           (deccomptabilite: Deccomptabilite) => {
             this.loading = false;
             this.deccomptabilite = deccomptabilite;
+            if(this.deccomptabilite.affecte)
+            {
+              this.optionValue=this.deccomptabilite.affecte
+            }
             this.statut=deccomptabilite.statut
             this.motif=deccomptabilite.motif
             this.nature=deccomptabilite.nature
@@ -162,12 +190,21 @@ export class ViewDeccomptabiliteComponent implements OnInit {
           }
           this.userservice.getUserById(deccomptabilite.userId).then(
             (user: User) => {
-              this.user = user;
-              this.role=user.role
-              this.usertype=user.usertype
-              this.firstname=user.firstname
-              this.lastname=user.lastname
-              this.sousactivite=user.sousactivite
+              if(user)
+              {
+                this.user = user;
+                this.role=user.role
+                this.usertype=user.usertype
+                this.firstname=user.firstname
+                this.lastname=user.lastname
+                this.sousactivite=user.sousactivite
+              }
+              else
+              {
+                this.firstname=deccomptabilite.firstname
+                this.lastname=deccomptabilite.lastname
+                this.sousactivite=deccomptabilite.sousactivite
+              }
             }
           )
           }
@@ -184,6 +221,33 @@ this.excelService.exportAsExcelFile(this.deccomptabilite.autre1,this.deccomptabi
       
     this.router.navigate([link + '/' + id]);
       
+  }
+  affect()
+  {
+    this.loading = true;
+  const deccomptabilite=this.deccomptabilite
+  deccomptabilite.affecte =this.optionValue;
+  
+  this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
+    (data:any) => {
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'fichier comptable affectée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
+      this.router.navigate(['admin-board']);
+    },
+    (error) => {
+      this.loading = false;
+     
+      
+    
+      
+    }
+  );
   }
   onDelete() {
     this.loading = true;

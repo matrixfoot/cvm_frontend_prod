@@ -27,6 +27,7 @@ export class ModifyContactreqComponent implements OnInit {
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
+  role: string;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -40,8 +41,8 @@ export class ModifyContactreqComponent implements OnInit {
 
  ngOnInit() {
   this.loading = true;
-    
-  
+  this.currentuser=this.tokenStorage.getUser()  
+  this.role=this.currentuser.role
   this.route.params.subscribe(
     (params) => {
       this.cont.getContactreqById(params.id).then(
@@ -52,7 +53,8 @@ export class ModifyContactreqComponent implements OnInit {
           this.contactForm = this.formBuilder.group({
             
             statut: [this.contact.statut, Validators.required],
-           
+            statutcoll: [this.contact.statutcoll, Validators.required],
+
           
           });
           this.loading = false;
@@ -76,6 +78,30 @@ onSubmit() {
       this.alertService.success(data.message);
       window.scrollTo(0, 0);
       this.router.navigate(['admin-board']);
+    },
+    (error) => {
+      this.loading = false;
+      this.alertService.error(error.error.message);
+      window.scrollTo(0, 0);
+      
+    
+      
+    }
+  );
+}
+onSubmitcoll() {
+  this.loading = true;
+  const contactreq = new Contact();
+  
+  contactreq.statutcoll =this.contactForm.get('statutcoll').value;
+  
+  this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+    (data:any) => {
+      this.contactForm.reset();
+      this.loading = false;
+      this.alertService.success(data.message);
+      window.scrollTo(0, 0);
+      this.router.navigate(['collab-board']);
     },
     (error) => {
       this.loading = false;

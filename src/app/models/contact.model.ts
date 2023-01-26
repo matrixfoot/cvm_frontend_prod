@@ -1,5 +1,5 @@
 export class Contact {
-    
+    type:string;
     userId: string;
     email: string;
     _id:string;
@@ -9,11 +9,16 @@ export class Contact {
     mobile:String;
     adresse:string;
     statut:string;
-    
+    statutcoll:string;
+    motifcoll:string;
+
     description:string;
-    
+    affecte:string;
+    dateaffectation:Date;
     created:Date;
-    
+    dateouverturedossier:number
+
   updated: Date
-      
+  statutadmin:string[]
+  statutcollab:string[] 
     }

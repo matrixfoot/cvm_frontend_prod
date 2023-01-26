@@ -40,6 +40,8 @@ import { ViewCarouselComponent } from './view-carousel/view-carousel.component';
 import { ModifyCarouselComponent } from './modify-carousel/modify-carousel.component';
 import { ModifyDeccomptabiliteComponent } from './modify-deccomptabilite/modify-deccomptabilite.component';
 import { ViewDeccomptabiliteComponent } from './view-deccomptabilite/view-deccomptabilite.component';
+import { CollabBoardComponent } from './collab-board/collab-board.component';
+
 const routes: Routes = [
   
    
@@ -118,6 +120,8 @@ const routes: Routes = [
 { path: 'reset-password/:token', component: ResetPasswordComponent},
 { path: 'admin-board', component: AdminBoardComponent},
 { path: 'user-board', component: UserBoardComponent},
+{ path: 'collab-board', component: CollabBoardComponent},
+
 { path: 'career', component: CareerComponent},
 { path: 'supervisor-board', component: SupervisorBoardComponent},
 
