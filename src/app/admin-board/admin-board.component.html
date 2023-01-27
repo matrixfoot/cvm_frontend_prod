@@ -258,14 +258,14 @@
                         <td>
                           <span *ngIf="dossenc.statutadmin">
                             <ng-container *ngFor="let statut of dossenc.statutadmin">
-                              {{statut.statut}}
+                              <td  style="display: block;">{{statut.statut}}</td>
                             </ng-container>
                           </span>  
                         </td>
                         <td>
                           <span *ngIf="dossenc.statutcollab">
                             <ng-container *ngFor="let statut of dossenc.statutcollab">
-                              {{statut.statut}}
+                              {{statut.statutcoll}}
                             </ng-container>
                           </span>     
                         </td> 
@@ -344,10 +344,10 @@
                       <th scope="col">Clientcode <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="clientcode" ></i></th>
                       <th scope="col">Nature-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="natureactivite"></i></th>
                       <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
-                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
-                      
+                      <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>      
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
-                      
+                      <th scope="col">D.comptabilité <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="droitcompta" ></i></th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -367,7 +367,8 @@
                       <td>{{user.sousactivite}}</td>
                       
                       <td>{{user.role}}</td>
-                      
+                      <td>{{user.droitcompta}}</td>
+
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationusers('view-user',user._id)">Consulter</button></td>
                       
@@ -742,7 +743,8 @@
                       <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
-                      <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
                      
                       
@@ -758,7 +760,20 @@
                       <td>{{decfiscmens.annee}}</td>
                       <td ><span *ngIf="users2&&decfiscmenss">{{filterusers2(decfiscmens.userId)}}</span>{{prenomfisc}}</td>
                       <td>{{nomfisc}}</td>
-                      <td>{{decfiscmens.statut}}</td>
+                      <td>
+                        <span *ngIf="decfiscmens.statutadmin">
+                          <ng-container *ngFor="let statut of decfiscmens.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="decfiscmens.statutcollab">
+                          <ng-container *ngFor="let statut of decfiscmens.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td> 
                       <td>{{decfiscmens.created}}</td>
                       
                       
@@ -811,8 +826,10 @@
                       <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
-                      <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
+                      <th scope="col">Date de modification <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="updated" ></i></th>
                       <th scope="col">Affecte à<i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="affectation" ></i></th>
 
                       
@@ -828,8 +845,23 @@
                       <td>{{decfiscmens.annee}}</td>
                       <td ><span *ngIf="users2&&decfiscmenss">{{filterusers2(decfiscmens.userId)}}</span>{{prenomfisc}}</td>
                       <td>{{nomfisc}}</td>
-                      <td>{{decfiscmens.statut}}</td>
+                      <td>
+                        <span *ngIf="decfiscmens.statutadmin">
+                          <ng-container *ngFor="let statut of decfiscmens.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="decfiscmens.statutcollab">
+                          <ng-container *ngFor="let statut of decfiscmens.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td> 
                       <td>{{decfiscmens.created}}</td>
+                      <td>{{decfiscmens.updated}}</td>
+                      <td><span>{{filterusers2(decfiscmens.affecte)}}{{prenomaffecte}}</span> <span> {{filterusers2(decfiscmens.affecte)}}{{nomaffecte}}</span></td>
                       <!--<td *ngIf="users">
                         <select #cricket (change)="update($event)"id="collabfirstname"formControlName="collabfirstname" name="collabfirstname">
                           <option value="default"> </option>
@@ -888,7 +920,8 @@
                       <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId" ></i></th>
-                      <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="statut" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
                      
                       
@@ -903,7 +936,20 @@
                       <td>{{deccomptabilite.annee}}</td>
                       <td><span *ngIf="users&&deccomptabilites">{{filterusers(deccomptabilite.userId)}}</span>{{prenom}}</td>
                       <td>{{nom}}</td>
-                      <td>{{deccomptabilite.statut}}</td>
+                      <td>
+                        <span *ngIf="deccomptabilite.statutadmin">
+                          <ng-container *ngFor="let statut of deccomptabilite.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="deccomptabilite.statutcollab">
+                          <ng-container *ngFor="let statut of deccomptabilite.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>
                       <td>{{deccomptabilite.created}}</td>
                       
                       
@@ -956,7 +1002,8 @@
                       <th scope="col">Annee <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="annee" ></i></th>
                       <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId"  ></i></th>
                       <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="userId" ></i></th>
-                      <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="statut" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th scope="col">Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="deccomptabilites" data-order="desc" data-name="created" ></i></th>
                      
                       
@@ -971,7 +1018,20 @@
                       <td>{{deccomptabilite.annee}}</td>
                       <td><span *ngIf="users&&deccomptabilites">{{filterusers(deccomptabilite.userId)}}</span>{{prenom}}</td>
                       <td>{{nom}}</td>
-                      <td>{{deccomptabilite.statut}}</td>
+                      <td>
+                        <span *ngIf="deccomptabilite.statutadmin">
+                          <ng-container *ngFor="let statut of deccomptabilite.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="deccomptabilite.statutcollab">
+                          <ng-container *ngFor="let statut of deccomptabilite.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>
                       <td>{{deccomptabilite.created}}</td>
                       
                       
@@ -1025,7 +1085,8 @@
                       <th>Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="lastname" ></i></th>
                       <th>Adresse <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="adresse" ></i></th>
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
-                      <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th>CV</th>
                       <th>Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
 
@@ -1043,8 +1104,20 @@
                       <td>{{condidate.lastname}}</td>
                       <td>{{condidate.adresse}}</td>
                       <td>{{condidate.mobile}}</td>
-                      <td>{{condidate.decision}}</td>
-                      
+                      <td>
+                        <span *ngIf="condidate.statutadmin">
+                          <ng-container *ngFor="let statut of condidate.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="condidate.statutcollab">
+                          <ng-container *ngFor="let statut of condidate.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>                      
                       <td><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></td>
                       <td>{{condidate.created}}</td>
 
@@ -1099,7 +1172,8 @@
                       <th>Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="lastname" ></i></th>
                       <th>Adresse <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="adresse" ></i></th>
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="mobile" ></i></th>
-                      <th>Decision <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="decision" ></i></th>
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       <th>CV</th>
                       <th>Date de creation <i class="fa fa-sort" aria-hidden="true" [appSort]="condidates" data-order="desc" data-name="created" ></i></th>
 
@@ -1117,8 +1191,20 @@
                       <td>{{condidate.lastname}}</td>
                       <td>{{condidate.adresse}}</td>
                       <td>{{condidate.mobile}}</td>
-                      <td>{{condidate.decision}}</td>
-                      
+                      <td>
+                        <span *ngIf="condidate.statutadmin">
+                          <ng-container *ngFor="let statut of condidate.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="condidate.statutcollab">
+                          <ng-container *ngFor="let statut of condidate.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>                      
                       <td><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></td>
                       <td>{{condidate.created}}</td>
 
@@ -1185,8 +1271,8 @@
                       <th>Fichier Joint</th>
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="mobile" ></i></th>
                       <th>Description <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="description" ></i></th>
-                      <th>Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="statut" ></i></th>
-
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>
                       
                     </tr>
                     </thead>
@@ -1202,7 +1288,20 @@
                       <td><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fichier</a></td>
                       <td>{{contact.mobile}}</td>
                       <td>{{contact.description}}</td>
-                      <td>{{contact.statut}}</td>
+                      <td>
+                        <span *ngIf="contact.statutadmin">
+                          <ng-container *ngFor="let statut of contact.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="contact.statutcollab">
+                          <ng-container *ngFor="let statut of contact.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontacts('view-contactreq',contact._id)">Consulter</button></td>
                       
                     
@@ -1265,8 +1364,8 @@
                       <th>Fichier Joint</th>
                       <th>Mobile <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="mobile" ></i></th>
                       <th>Description <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="description" ></i></th>
-                      <th>Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="contacts" data-order="desc" data-name="statut" ></i></th>
-                      
+                      <th scope="col">Statut Admin</th>
+                      <th scope="col">Statut Collaborateur</th>                      
                       
                     </tr>
                     </thead>
@@ -1282,8 +1381,20 @@
                       <td><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fichier</a></td>
                       <td>{{contact.mobile}}</td>
                       <td>{{contact.description}}</td>
-                      <td>{{contact.statut}}</td>
-                      
+                      <td>
+                        <span *ngIf="contact.statutadmin">
+                          <ng-container *ngFor="let statut of contact.statutadmin">
+                            <td  style="display: block;">{{statut.statut}}</td>
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="contact.statutcollab">
+                          <ng-container *ngFor="let statut of contact.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>     
+                      </td>                      
                       
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationcontacts('view-contactreq',contact._id)">Consulter</button></td>

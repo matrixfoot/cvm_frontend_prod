@@ -169,6 +169,7 @@ this.salaireform = this.fb.group({
   else return (
     this.token.saved=true,
     this.router.navigate(['login']));
+    
     this.tauxdt=0.600    
     this.DeccomptabiliteService.getdeccomptabilite(this.currentUser.userId).then(
       (deccomptabilite: Deccomptabilite) => {
@@ -186,6 +187,12 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.specialite=this.user.specialite
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
+    if (user.droitcompta !='Autorisé') 
+    return (this.token.saved=true,Swal.fire({
+      title: 'fonctionnalité non disponible,veuillez contacter votre cabinet Macompta pour débloquer la situation',
+      icon: 'info',
+      confirmButtonColor: '#3085d6',
+    }),this.router.navigate(['home']))
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
 || user.regimefiscalimpot=='Autre/null' 
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.token.saved=true,this.router.navigate(['complete-profil/'+this.currentUser.userId]))

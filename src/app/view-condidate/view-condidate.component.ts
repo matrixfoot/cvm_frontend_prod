@@ -25,6 +25,9 @@ export class ViewCondidateComponent implements OnInit {
   currentUser: any;
   users: User[]=[];
   public optionValue:any
+  filtredcollab: any[];
+  prenomcollab: any;
+  nomcollab: any;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private cond: CondidateService,
@@ -69,6 +72,16 @@ export class ViewCondidateComponent implements OnInit {
     );
     
   }
+  filterusers(id:string)
+{
+  this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
+  if(this.filtredcollab.length>0)
+  {
+    this.prenomcollab=this.filtredcollab[0].firstname
+    this.nomcollab=this.filtredcollab[0].lastname
+  }
+  
+}
   getNavigation(link, id){
       
     this.router.navigate([link + '/' + id]);

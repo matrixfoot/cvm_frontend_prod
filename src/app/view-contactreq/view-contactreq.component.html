@@ -13,8 +13,41 @@
         <h4>Nom et Prénom:<b>  {{ contact.firstname }} {{ contact.lastname }}</b></h4> 
         <h4>Mobile:<b>  {{ contact.mobile }}</b></h4>
         <h4>Fichier Joint:<b><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fiche</a></b></h4>
-        <h4>Statut:<b>  {{ contact.statut }}</b></h4>
-        <h4>Description:<b>  {{ contact.description }}</b></h4>
+        <h4><table>
+          <thead>
+            <tr>
+              <th  style="text-align: center;">Statuts:</th>
+              <th  style="text-align: center;">Motifs:</th>
+              <th  style="text-align: center;">date traitement:</th>
+            </tr>  
+            </thead>
+              <tbody>
+                <tr *ngFor="let statut of contact.statutadmin">
+                  <td  style="text-align: center;"> {{statut.statut}}</td>
+                  <td  style="text-align: center;"> {{statut.motif}}</td>
+                  <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                </tr>
+              </tbody>
+          </table></h4>
+
+          <h4><tr><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
+          <h4><table *ngIf="currentUser.role=='admin'&&contact||currentUser.role=='supervisor'&&contact">
+            <thead>
+              <tr>
+                <th  style="text-align: center;">Statuts:</th>
+                <th  style="text-align: center;">Motifs:</th>
+                <th  style="text-align: center;">date traitement:</th>
+              </tr>  
+              </thead>
+                <tbody>
+                  <tr *ngFor="let statut of contact.statutcollab">
+                    <td  style="text-align: center;"> {{statut.statutcoll}}</td>
+                    <td  style="text-align: center;"> {{statut.motifcoll}}</td>
+                    <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                  </tr>
+                </tbody>
+            </table></h4>
+          <h4>Description:<b>  {{ contact.description }}</b></h4>
       </div>
       
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Admin)</button>

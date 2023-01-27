@@ -17,7 +17,7 @@ export class User {
   secteur:string;
   civilite:string;
   nature:string;
-
+droitcompta:string
   ficheUrl:string;
   natureactivite:string;
   activite:string

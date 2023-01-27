@@ -410,7 +410,7 @@ filterusers2(id:string)
           this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'))).length                                      
                       //@ts-ignore                    
 
-          return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'));                                                           
                                                            
        }  
        getdeccomptabilitesnonvalide() {

@@ -26,6 +26,9 @@ public contact: Contact;
   private usersSub: Subscription;
   users: User[]=[];
   collab: any[]=[];
+  filtredcollab: any[];
+  prenomcollab: any;
+  nomcollab: any;
   constructor(private router: Router,
     private route: ActivatedRoute,
     private cont: ContactService,
@@ -70,6 +73,16 @@ public contact: Contact;
     );
     
   }
+  filterusers(id:string)
+{
+  this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
+  if(this.filtredcollab.length>0)
+  {
+    this.prenomcollab=this.filtredcollab[0].firstname
+    this.nomcollab=this.filtredcollab[0].lastname
+  }
+  
+}
   getNavigation(link, id){
       
     this.router.navigate([link + '/' + id]);

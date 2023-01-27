@@ -4,7 +4,7 @@
 
     <h2>Informations générales</h2>
     
-    <div class="card">
+    <div class="card"*ngIf="condidate">
       
       <div class="container-fluid">
         <h4 >Données Candidature:</h4><hr>
@@ -15,8 +15,41 @@
         <h4>CV:<b><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></b></h4>
         <h4>Spécialité Demandée:<b>  {{ condidate.specialite }}</b></h4>
         <h4>Adresse:<b>  {{ condidate.adresse }}</b></h4>
-        <h4>Décision:<b>  {{ condidate.decision }}</b></h4>
-        <h4>Motif:<b>  {{ condidate.motif }}</b></h4>
+        <h4><table>
+          <thead>
+            <tr>
+              <th  style="text-align: center;">Statuts:</th>
+              <th  style="text-align: center;">Motifs:</th>
+              <th  style="text-align: center;">date traitement:</th>
+            </tr>  
+            </thead>
+              <tbody>
+                <tr *ngFor="let statut of condidate.statutadmin">
+                  <td  style="text-align: center;"> {{statut.statut}}</td>
+                  <td  style="text-align: center;"> {{statut.motif}}</td>
+                  <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                </tr>
+              </tbody>
+          </table></h4>
+
+          <h4><tr><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
+          <h4><table *ngIf="currentUser.role=='admin'&&condidate||currentUser.role=='supervisor'&&condidate">
+            <thead>
+              <tr>
+                <th  style="text-align: center;">Statuts:</th>
+                <th  style="text-align: center;">Motifs:</th>
+                <th  style="text-align: center;">date traitement:</th>
+              </tr>  
+              </thead>
+                <tbody>
+                  <tr *ngFor="let statut of condidate.statutcollab">
+                    <td  style="text-align: center;"> {{statut.statutcoll}}</td>
+                    <td  style="text-align: center;"> {{statut.motifcoll}}</td>
+                    <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                  </tr>
+                </tbody>
+            </table></h4>
+        
         <h4>Description:<b>  {{ condidate.description }}</b></h4>
       </div>
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
