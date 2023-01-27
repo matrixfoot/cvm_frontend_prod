@@ -86,7 +86,7 @@
               <div class="panel-heading">
                 <h4 class="panel-title">
                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-                Liste des reclamations</a>
+                Liste des réclamations</a>
                 </h4>
               </div>
               <div id="collapse5" class="panel-collapse collapse">
@@ -157,23 +157,23 @@
                     <tbody>
                     <tr *ngFor="let dossenc of sorteddossnonaffecte"> 
                 
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'||'declaration comptable'">{{dossenc.nature}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
-                        <span *ngIf="dossenc.type==='reclamation'">{{dossenc.type}}</span></td>
+                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
                       <td>{{dossenc.created}}</td>
                       <td>{{dossenc.updated}}</td>
                       
                       
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Declaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='declaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='reclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>
                       
                         
                     </tr>
@@ -246,15 +246,15 @@
                     <tr *ngFor="let dossenc of sorteddossencours"> 
                 
                       
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{prenomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{prenom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.firstname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
-                        <span *ngIf="dossenc.nature==='declaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
+                        <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
-                      <td><span *ngIf="dossenc.nature==='Declaration Mensuelle'||'declaration comptable'">{{dossenc.nature}}</span>
+                      <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
-                        <span *ngIf="dossenc.type==='reclamation'">{{dossenc.type}}</span></td>
+                        <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
                         <td>
                           <span *ngIf="dossenc.statutadmin">
                             <ng-container *ngFor="let statut of dossenc.statutadmin">
@@ -275,10 +275,10 @@
 
                       
                       
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Declaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='declaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
-                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='reclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
+                        <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>                      
                         
                     </tr>
                     </tbody>
@@ -852,7 +852,7 @@
           </mat-tab>
           <mat-tab label="declaration comptables valide" *ngIf="deccomptabilitevalide">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">declaration comptables valide</div>
+              <div class="col" style="margin-left: 20px;">déclaration comptables valide</div>
               <span (click)="click23()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading&&users">
@@ -1136,19 +1136,19 @@
           </mat-tab>
           <mat-tab label="reclamation traite" *ngIf="reclamationtraite">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">reclamations traite</div>
+              <div class="col" style="margin-left: 20px;">réclamations traite</div>
               <span (click)="click27()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Reclamations</h2>
+                <h2>Liste des réclamations</h2>
                 <hr>
                         
                 <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 400px;">
                   <form [formGroup]="searchForm">
                  <div class="dategroup">
-                  <label for="date"> Reclamations Inferieur à:</label>
-                    <div class="searchbar" title="chercher les reclamations avec la date de creation inferieur à">
+                  <label for="date"> réclamations Inferieur à:</label>
+                    <div class="searchbar" title="chercher les réclamations avec la date de creation inferieur à">
                       
                       <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inferieur à:">
                      <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
@@ -1156,8 +1156,8 @@
                   </div>
                 </div>
                 <div class="dategroup">
-                  <label for="date"> Reclamations Superieur à:</label>
-                  <div class="searchbar"title="chercher les reclamations avec la date de creation superieur à">
+                  <label for="date"> réclamations Superieur à:</label>
+                  <div class="searchbar"title="chercher les réclamations avec la date de creation superieur à">
                       
                     <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="superieur à:">
                    <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
@@ -1216,19 +1216,19 @@
           </mat-tab>
           <mat-tab label="reclamation En cours d'execution" *ngIf="reclamationnontraite">
             <ng-template mat-tab-label style="padding: 3px;">
-              <div class="col" style="margin-left: 20px;">reclamation En cours d'execution</div>
+              <div class="col" style="margin-left: 20px;">réclamation En cours d'execution</div>
               <span (click)="click28()"><i class="glyphicon glyphicon-remove"></i></span>
           </ng-template>
             <div class="col-lg-12" *ngIf="!loading">
               <div class="team-member">
-                <h2>Liste des Reclamations</h2>
+                <h2>Liste des réclamations</h2>
                 <hr>
                         
                 <div class="users-grid" style="overflow-x:auto;overflow-y: auto;height: 400px;">
                   <form [formGroup]="searchForm">
                  <div class="dategroup">
-                  <label for="date"> Reclamations Inferieur à:</label>
-                    <div class="searchbar" title="chercher les reclamations avec la date de creation inferieur à">
+                  <label for="date"> réclamations Inferieur à:</label>
+                    <div class="searchbar" title="chercher les réclamations avec la date de creation inferieur à">
                       
                       <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="inferieur à:">
                      <a class="search_icon"(click)="getcontactreqsbydateinf()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>
@@ -1236,8 +1236,8 @@
                   </div>
                 </div>
                 <div class="dategroup">
-                  <label for="date"> Reclamations Superieur à:</label>
-                  <div class="searchbar"title="chercher les reclamations avec la date de creation superieur à">
+                  <label for="date"> réclamations Superieur à:</label>
+                  <div class="searchbar"title="chercher les réclamations avec la date de creation superieur à">
                       
                     <input class="search_input" id="date"  formControlName="date"type="date"  placeholder="superieur à:">
                    <a class="search_icon"(click)="getcontactreqsbydatesup()" style="cursor: pointer;"> <i class="fas fa-search"></i></a>

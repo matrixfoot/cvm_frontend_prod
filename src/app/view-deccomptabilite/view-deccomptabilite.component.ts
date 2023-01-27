@@ -125,8 +125,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
             {
               this.optionValue=this.deccomptabilite.affecte
             }
-            this.statut=deccomptabilite.statut
-            this.motif=deccomptabilite.motif
+           
             this.nature=deccomptabilite.nature
             this.moisreleve=deccomptabilite.moisreleve
             this.anneereleve=deccomptabilite.anneereleve

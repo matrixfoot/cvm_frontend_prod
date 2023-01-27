@@ -8,17 +8,12 @@ export class Contact {
     lastname:string;
     mobile:String;
     adresse:string;
-    statut:string;
-    statutcoll:string;
-    motifcoll:string;
-
     description:string;
     affecte:string;
-    dateaffectation:Date;
+    dateaffectation:string;
     created:Date;
     dateouverturedossier:number
-
-  updated: Date
-  statutadmin:string[]
-  statutcollab:string[] 
+    updated: Date
+    statutadmin:string[]
+    statutcollab:string[] 
     }

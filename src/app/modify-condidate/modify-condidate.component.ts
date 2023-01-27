@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
@@ -31,6 +31,7 @@ export class ModifyCondidateComponent implements OnInit {
   errormsg:string;
   status: string[]=[];
   role: string;
+  option204Value: number;
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -39,9 +40,18 @@ export class ModifyCondidateComponent implements OnInit {
     private cond: CondidateService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService,private commun: CommunService) {}
-
-
+    private alertService: AlertService,private commun: CommunService) {
+      this.condidateFormadmin = this.formBuilder.group({
+        ammounts1: this.formBuilder.array([ this.createammount1() ])
+      })
+      this.condidateFormcollab = this.formBuilder.group({
+        ammounts2: this.formBuilder.array([ this.createammount2() ])
+      })
+    }
+    condidateFormadmin: FormGroup;
+    condidateFormcollab: FormGroup;
+    public ammounts1: FormArray;
+    public ammounts2: FormArray;
  ngOnInit() {
   this.loading = true;
   this.currentuser=this.tokenStorage.getUser()
@@ -55,27 +65,84 @@ export class ModifyCondidateComponent implements OnInit {
           
           this.condidate = condidate;
           
-          this.condidateForm = this.formBuilder.group({
-            
-            decision: [this.condidate.decision, Validators.required],
-            motif: [this.condidate.motif, Validators.required],
-            decisioncoll: [this.condidate.decisioncoll, Validators.required],
-            motifcoll: [this.condidate.motifcoll, Validators.required],
-          });
+          if(!this.condidate.dateouverturedossier&&this.currentuser.role=='admin'||!this.condidate.dateouverturedossier&&this.currentuser.role=='supervisor')
+              {
+                this.option204Value=Date.now()
+              }
+              else
+              {
+                this.option204Value=this.condidate.dateouverturedossier
+              }
           this.loading = false;
-          
+          this.condidateFormadmin = new FormGroup({              
+            ammounts1: new FormArray(condidate.statutadmin.map(item => {
+              const group = this.initammounts1();
+              //@ts-ignore
+              group.patchValue(item);
+              return group;
+            }))
+          });
+          this.condidateFormcollab = new FormGroup({        
+            ammounts2: new FormArray(condidate.statutcollab.map(item => {
+              const group = this.initammounts2();
+              //@ts-ignore
+              group.patchValue(item);
+              return group;
+            }))
+          });
         }
       );
     }
   );
+  
+}
+initammounts1() {
+  return this.formBuilder.group({
+    statut: [{value:'',disabled:true}],
+    motif: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
 
+  });
+}
+initammounts2() {
+  return this.formBuilder.group({
+    statutcoll: [{value:'',disabled:true}],
+    motifcoll: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
+  });
+}
+createammount1(): FormGroup {
+  return this.formBuilder.group({
+    statut: '',
+    motif: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ''
+
+
+  });
+}
+createammount2(): FormGroup {
+  return this.formBuilder.group({
+    statutcoll: '',
+    motifcoll: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ''
+
+  });
 }
 onSubmit() {
   this.loading = true;
   const condidate = new Condidate();
-  
-  condidate.decision =this.condidateForm.get('decision').value;
-  condidate.motif =this.condidateForm.get('motif').value;
+   
+  condidate.statutadmin=this.condidateFormadmin.getRawValue().ammounts1
+condidate.dateouverturedossier=this.option204Value
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
     (data:any) => {
       this.condidateForm.reset();
@@ -98,8 +165,8 @@ onSubmitcoll() {
   this.loading = true;
   const condidate = new Condidate();
   
-  condidate.decisioncoll =this.condidateForm.get('decisioncoll').value;
-  condidate.motifcoll =this.condidateForm.get('motifcoll').value;
+  condidate.statutcollab=this.condidateFormcollab.getRawValue().ammounts1
+condidate.dateouverturedossier=this.option204Value
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
     (data:any) => {
       this.condidateForm.reset();

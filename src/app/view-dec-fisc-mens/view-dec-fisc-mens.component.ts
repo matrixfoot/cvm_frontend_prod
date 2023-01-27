@@ -48,6 +48,9 @@ maincontainer=false;
   tvasum=0.000;
   ht19sum=0.000;
   tva19sum=0.000;
+  prenomcollab: any;
+  nomcollab: any;
+  filtredcollab: any[];
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -216,8 +219,7 @@ public decfiscmens=new Decfiscmens;
             console.log('here')
             this.prepminimumperceptionammount=0.000
           }
-          if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
-          
+          if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0) 
           {
             this.totaldeclaration=this.prepminimumperceptionammount
             this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
@@ -225,11 +227,9 @@ public decfiscmens=new Decfiscmens;
           else 
           {
             this.totaldeclaration=this.preptotaldeclaration
-            this.minimumperceptionammount=0.000
-          
+            this.minimumperceptionammount=0.000 
           }
-            }
-                
+            }     
               }
             )
             console.log(this.decfiscmens)
@@ -237,8 +237,6 @@ public decfiscmens=new Decfiscmens;
             this.sousactivite=this.decfiscmens.sousactivite
             this.tfpapayer=this.decfiscmens.impottype3.tfppayer
             this.tfpareporter=this.decfiscmens.impottype3.tfpreporter
-            this.statut=this.decfiscmens.statut
-            this.motif=this.decfiscmens.motif
             this.annee=this.decfiscmens.annee
             this.type1=this.decfiscmens.impottype1.type
             this.type2=this.decfiscmens.impottype2.type
@@ -246,7 +244,8 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            if(this.statut=='Clôture')
+            //@ts-ignore
+            if(this.decfiscmens.statutadmin.find(e => e.statut==='Clôturé'))
             {
               console.log(this.statut)
               this.showgenerate=true
@@ -390,12 +389,19 @@ console.log(this.honoraireretenue)
     );
 
   }
+  filterusers(id:string)
+{
+  this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
+  if(this.filtredcollab.length>0)
+  {
+    this.prenomcollab=this.filtredcollab[0].firstname
+    this.nomcollab=this.filtredcollab[0].lastname
+  }
   
+}
   public openPDF(): void {
 this.loading=true
 const self =this
-
-
 const data = document.getElementById('deccont');
 html2canvas(data,{scale:2}).then((canvas:any) => {
   const imgWidth = 208;

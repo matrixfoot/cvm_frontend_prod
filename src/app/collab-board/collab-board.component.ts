@@ -303,33 +303,11 @@ this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,thi
                                                              
                                                                
            } 
-           getdecfiscmenssvalide() {
-                                
-             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Valide'))).length                                   
-            return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut === ('Valide'));                                                           
-                                                             
-         }  
-         getdecfiscmenssnonvalide() {
-                                
-          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Valide'))).length                                      
-          return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statut != ('Valide'));                                                           
-                                                           
-       } 
+          
            getalldeccomptabilites() {                                   
             this.deccompt.getdeccomptabilites();                                                    
          }
-         getdeccomptabilitesvalide() {
-                                
-          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Valide'))).length                                      
-          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut === ('Valide'));                                                           
-                                                           
-       }  
-       getdeccomptabilitesnonvalide() {
-                                
-         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'))).length                                       
-        return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statut != ('Valide'));                                                           
-                                                         
-     }                     
+                        
           
               getcondidatesbyemail() {
                                                                                 
@@ -345,18 +323,7 @@ this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,thi
                                                                                                                 
                                                                                                                  
              }
-             getcondidatevalide() {
-                                
-               this.condval=(this.condidates.filter((condidate) => condidate.decision === ('Valide'))).length                                 
-              return this.condidates.filter((condidate) => condidate.decision === ('Valide'));                                                           
-                                                               
-           }
-           getcondidatenonvalide() {
-                                
-             this.condnonal=(this.condidates.filter((condidate) => condidate.decision != ('Valide'))).length                                   
-            return this.condidates.filter((condidate) => condidate.decision != ('Valide'));                                                           
-                                                             
-         }
+           
             getcontactreqsbydateinf() {
                                                                                 
               
@@ -378,18 +345,7 @@ this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,thi
                                                                                                               
                                                                                                                
            }
-           getcontactvalide() {
-                                
-             this.contval=(this.contacts.filter((contact) => contact.statut === ('Valide'))).length                                   
-            return this.contacts.filter((contact) => contact.statut === ('Valide'));                                                           
-                                                             
-         }
-         getcontactnonvalide() {
-                                
-          this.contnonval=(this.contacts.filter((contact) => contact.statut != ('Valide'))).length                                      
-          return this.contacts.filter((contact) => contact.statut != ('Valide'));                                                           
-                                                           
-       }
+           
            exportusersAsXLSX():void {
             this.excelService.exportAsExcelFile(this.users,[],[],[],[],[], 'sample');
           }

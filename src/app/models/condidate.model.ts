@@ -8,14 +8,11 @@ export class Condidate {
     lastname:string;
     mobile:String;
     adresse:string;
-    decision:string;
-    motif:string;
-    decisioncoll:string;
-    motifcoll:string;
+    
     description:string;
     specialite:string;
     affecte:string;
-    dateaffectation:Date;
+    dateaffectation:string;
     created:Date;
     dateouverturedossier:number
 
