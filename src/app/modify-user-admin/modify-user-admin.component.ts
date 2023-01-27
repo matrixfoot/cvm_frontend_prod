@@ -47,6 +47,7 @@ export class ModifyUserAdminComponent implements OnInit {
               
               role: [this.user.role, Validators.required],
               droitcompta: [this.user.droitcompta, Validators.required],
+              rolesuperviseur: [this.user.rolesuperviseur, Validators.required],
               firstname: [this.user.firstname, Validators.required],
               lastname: [this.user.lastname, Validators.required],
               confirmemail: [null,],
@@ -93,6 +94,7 @@ export class ModifyUserAdminComponent implements OnInit {
     user.userId = this.user._id;
     user.role = this.userForm.get('role').value;
     user.droitcompta = this.userForm.get('droitcompta').value;
+    user.rolesuperviseur = this.userForm.get('rolesuperviseur').value;
     user.email = this.userForm.get('email').value;
     user.password =this.userForm.get('password').value;
     user.firstname = this.userForm.get('firstname').value;

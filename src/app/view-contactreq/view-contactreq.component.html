@@ -51,7 +51,7 @@
       </div>
       
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Admin)</button>
-      <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser._id=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Collaborateur)</button>
+      <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-contactreq', contact._id)">Modifier Statut Réclamation (Collaborateur)</button>
 
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
                   <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">

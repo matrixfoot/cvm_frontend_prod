@@ -292,7 +292,8 @@ this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,thi
        console.log(this.dossencours)
        const sort = new Sort();
        this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''))[0];
-       
+       console.log(this.sorteddossencours)
+
             return (this.sorteddossencours);
              }
              

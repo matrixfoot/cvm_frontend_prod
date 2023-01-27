@@ -1119,6 +1119,78 @@ setdate(i: number) {
   get ammountControls6() {
     return this.salaireform.get('ammounts6')['controls'];
   }
+  get ammountControls7() {
+    return this.deccomptabiliteFormadmin.get('ammounts7')['controls'];
+  }
+  get ammountControls8() {
+    return this.deccomptabiliteFormcollab.get('ammounts8')['controls'];
+  }
+  finadmin(i:number) {
+    let ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
+    
+    if (ammounts7.controls[i].value.fintraitement == true)
+    { 
+      ammounts7.controls[i].patchValue({ datefin: Date.now() });
+      ammounts7.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
+    } 
+    else 
+    {
+      Swal.fire({
+        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          ammounts7.controls[i].patchValue({ datefin: '' });
+      ammounts7.controls[i].patchValue({ duree: ''});
+        }
+        else
+        {
+          ammounts7.controls[i].value.fintraitement == true
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
+  fincollab(i:number) {
+    let ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
+    
+    if (ammounts8.controls[i].value.fintraitement == true)
+    { 
+      ammounts8.controls[i].patchValue({ datefin: Date.now() });
+      ammounts8.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
+    } 
+    else 
+    {
+      Swal.fire({
+        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          ammounts8.controls[i].patchValue({ datefin: '' });
+      ammounts8.controls[i].patchValue({ duree: ''});
+        }
+        else
+        {
+          ammounts8.controls[i].value.fintraitement == true
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
   createammount() 
   : FormGroup {
     
@@ -1216,6 +1288,14 @@ setdate(i: number) {
       image:'0',
       contientfiche:false
     });
+  }
+  addammount7(): void {
+    this.ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
+    this.ammounts7.push(this.createammount7());
+  }
+  addammount8(): void {
+    this.ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
+    this.ammounts8.push(this.createammount8());
   }
    addammount(){
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
@@ -1662,6 +1742,19 @@ this.removeammount6(i)
     this.loading = true;
     const deccomptabilite:Deccomptabilite = this.deccomptabilite;
     deccomptabilite.userId = this.currentUser.userId;
+    deccomptabilite.activite=this.currentUser.activite;
+    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.currentUser.sousactivite;
+    deccomptabilite.codepostal=this.currentUser.codepostal;
+    deccomptabilite.adresse=this.currentUser.adresseactivite
+    deccomptabilite.firstname=this.currentUser.firstname
+    deccomptabilite.lastname=this.currentUser.lastname
+    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
+    deccomptabilite.codegenre=this.currentUser.codegenre
+    deccomptabilite.codetva=this.currentUser.codetva
+    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
+    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
+    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
     deccomptabilite.totalht=this.totalht
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
@@ -1944,19 +2037,19 @@ console.log(deccomptabilite.autre6)
     this.loading = true;
     const deccomptabilite:Deccomptabilite = this.deccomptabilite;
     deccomptabilite.userId = this.currentUser.userId;
-    deccomptabilite.activite=this.user.activite;
-    deccomptabilite.regimefiscalimpot=this.user.regimefiscalimpot;
-    deccomptabilite.sousactivite=this.user.sousactivite;
-    deccomptabilite.codepostal=this.user.codepostal;
-    deccomptabilite.adresse=this.user.adresseactivite
-    deccomptabilite.firstname=this.user.firstname
-    deccomptabilite.lastname=this.user.lastname
-    deccomptabilite.raisonsociale=this.user.raisonsociale
-    deccomptabilite.codegenre=this.user.codegenre
-    deccomptabilite.codetva=this.user.codetva
-    deccomptabilite.matriculefiscale=this.user.matriculefiscale
-    deccomptabilite.registrecommerce=this.user.registrecommerce
-    deccomptabilite.datearretactivite=this.user.datearretactivite
+    deccomptabilite.activite=this.currentUser.activite;
+    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.currentUser.sousactivite;
+    deccomptabilite.codepostal=this.currentUser.codepostal;
+    deccomptabilite.adresse=this.currentUser.adresseactivite
+    deccomptabilite.firstname=this.currentUser.firstname
+    deccomptabilite.lastname=this.currentUser.lastname
+    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
+    deccomptabilite.codegenre=this.currentUser.codegenre
+    deccomptabilite.codetva=this.currentUser.codetva
+    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
+    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
+    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
     deccomptabilite.totalht=this.totalht
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
@@ -2207,13 +2300,13 @@ console.log(deccomptabilite.autre6)
     deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
     deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
     deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
-    deccomptabilite.statutadmin=this.deccomptabiliteFormcollab.getRawValue().ammounts8
+    deccomptabilite.statutcollab=this.deccomptabiliteFormcollab.getRawValue().ammounts8
   deccomptabilite.dateouverturedossier=this.option204Value 
 
         this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
+            this.deccomptabiliteFormcollab.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',
@@ -2496,7 +2589,7 @@ console.log(deccomptabilite.autre6)
         this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
+            this.deccomptabiliteFormadmin.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',

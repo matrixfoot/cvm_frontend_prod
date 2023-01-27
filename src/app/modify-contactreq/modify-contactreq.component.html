@@ -38,7 +38,7 @@
     Modificaion effectuée avec succès!!
   </div>
 </div>
-<div class="container-fluid" *ngIf="role=='supervisor'&&!loading||currentUser._id=='62e666d00bd8a70a2fdd312e'&&!loading">
+<div class="container-fluid" *ngIf="role=='supervisor'&&!loading||currentUser.rolesuperviseur=='Autorisé'&&!loading">
    
   
   <form  [formGroup]="contactForm">

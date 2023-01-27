@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <h2 (click)="getdossiersencours()" style="cursor: pointer;"> charger dossiers</h2> 
       <div class="col-lg-12" >
-        <div class="team-member" *ngIf="usertype=='Collaborateur'&&sorteddossencours">
+        <div class="team-member" *ngIf="usertype=='Collaborateur'&&dossencours.length>0">
           <h2>Liste des OF</h2>
           <hr>        
           <div class="users-grid" style="overflow-x:auto;">

@@ -63,7 +63,7 @@
     <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
   </div> 
     </div>
-            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentuser._id=='62e666d00bd8a70a2fdd312e'&&decfiscmens">
+            <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentuser.rolesuperviseur=='Autorisé'&&decfiscmens">
               <fieldset >
                 <legend> Formulaire De validation des déclarations mensuelles(collab)</legend>
                 <h3><span> Date ouverture dossier</span>{{option204Value | customDate}}</h3>

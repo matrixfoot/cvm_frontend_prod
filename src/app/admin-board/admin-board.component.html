@@ -549,7 +549,8 @@
                       <th scope="col">Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="activite" ></i></th>
                       <th scope="col">Sous-Activite <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="sousactivite" ></i></th>
                       <th scope="col">Role <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="role" ></i></th>
-                      
+                      <th scope="col">rolesuperviseur <i class="fa fa-sort" aria-hidden="true" [appSort]="users" data-order="desc" data-name="rolesuperviseur" ></i></th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -561,14 +562,15 @@
                       
                 
                       <td>{{user.lastname}}</td>
-                      <td >{{user.usertype}}</td>
+                      <td>{{user.usertype}}</td>
                       <td>{{user.mobile}}</td>
                       <td>{{user.clientcode}}</td>
                       <td>{{user.natureactivite}}</td>
                       <td>{{user.activite}}</td>
                       <td>{{user.sousactivite}}</td>
                       <td>{{user.role}}</td>
-                      
+                      <td>{{user.rolesuperviseur}}</td>
+
                       
                       <td>  <button type="button" class="btn btn-success" (click)="getNavigationusers('view-user',user._id)">Consulter</button></td>
                       
