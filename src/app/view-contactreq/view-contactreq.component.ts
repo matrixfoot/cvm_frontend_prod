@@ -38,7 +38,7 @@ public contact: Contact;
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.token.getUser();
-    if(this.currentUser.role==='admin')
+    if(this.currentUser.role==='admin'||'supervisor')
     {
       this.userservice.getAll()
       this.usersSub = this.userservice.users$.subscribe(
@@ -82,7 +82,6 @@ public contact: Contact;
   {
     this.prenomcollab=this.filtredcollab[0].firstname
     this.nomcollab=this.filtredcollab[0].lastname
-    console.log(this.prenomcollab,this.nomcollab)
   }
   
 }

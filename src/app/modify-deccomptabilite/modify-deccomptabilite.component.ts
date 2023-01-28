@@ -202,8 +202,8 @@ this.status=this.commun.status
             this.option204Value=this.deccomptabilite.dateouverturedossier
           }
                 //general functions oninit
-                if (this.activite != deccomptabilite.activite&&this.role!='admin'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin') 
-                return (Swal.fire({
+                if (this.activite != deccomptabilite.activite&&this.role!='admin'&&this.role!='supervisor'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin'&&this.role!='supervisor') 
+                return (Swal.fire({ 
                   title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',
                   icon: 'error',
                   confirmButtonColor: '#3085d6',
@@ -445,7 +445,7 @@ createammount7(): FormGroup {
     motif: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
 
   });
@@ -456,7 +456,7 @@ createammount8(): FormGroup {
     motifcoll: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
   });
 }

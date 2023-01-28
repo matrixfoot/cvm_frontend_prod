@@ -53,7 +53,7 @@
   </form>
 </fieldset>
 <div class="form-group">
-  <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+  <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitadmin()"value="Sauvegarder Décision"[disabled]="deccomptabiliteFormadmin.invalid">  
 </div> 
   </div>
   <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&deccomptabilite||currentUser.rolesuperviseur=='Autorisé'&&deccomptabilite">
@@ -106,7 +106,7 @@
     </form>
   </fieldset>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision"[disabled]="deccomptabiliteFormcollab.invalid">  
   </div>
             </div>
 <div class="container-fluid" *ngIf="usertype=='Client'&& role!=='admin'">

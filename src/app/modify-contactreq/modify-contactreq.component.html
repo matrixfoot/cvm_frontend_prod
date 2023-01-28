@@ -63,7 +63,7 @@
     </form>
   </fieldset>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision"[disabled]="contactFormadmin.invalid">  
   </div> 
     </div>
     <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&contact||currentuser.rolesuperviseur=='Autorisé'&&contact">
@@ -116,7 +116,7 @@
       </form>
     </fieldset>
     <div class="form-group">
-      <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+      <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision"[disabled]="contactFormcollab.invalid">  
     </div>
               </div>
 </div>

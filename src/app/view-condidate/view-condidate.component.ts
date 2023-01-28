@@ -37,7 +37,7 @@ export class ViewCondidateComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.token.getUser();
-    if(this.currentUser.role==='admin')
+    if(this.currentUser.role==='admin'||'supervisor')
     {
       this.userservice.getAll()
       this.usersSub = this.userservice.users$.subscribe(

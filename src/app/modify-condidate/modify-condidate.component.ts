@@ -203,7 +203,7 @@ createammount1(): FormGroup {
     motif: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
 
   });
@@ -214,7 +214,7 @@ createammount2(): FormGroup {
     motifcoll: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
   });
 }

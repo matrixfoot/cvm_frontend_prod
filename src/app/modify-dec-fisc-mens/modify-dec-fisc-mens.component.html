@@ -60,7 +60,7 @@
     </form>
   </fieldset>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision"[disabled]="decfiscmensFormadmin.invalid">  
   </div> 
     </div>
             <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&decfiscmens||currentuser.rolesuperviseur=='Autorisé'&&decfiscmens">
@@ -113,7 +113,7 @@
               </form>
             </fieldset>
             <div class="form-group">
-              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+              <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision"[disabled]="decfiscmensFormcollab.invalid">  
             </div>
                       </div>
   
@@ -328,14 +328,14 @@
             </div>
             <hr *ngIf="optionValue">
              
-            <!-- traitement et salaires form-->
+            <!-- traitements et salaires form-->
             
             <div class="container-fluid">
               <form  [formGroup]="standardtraitementsalaireform">
                 
                 
                 <fieldset>
-                  <legend>Traitement et salaires</legend>
+                  <legend>traitements et salaires</legend>
                   <div class="row">
                     <div class="col-6">
                         <div class="form-group">
@@ -373,17 +373,17 @@
                  </fieldset>
               </form>
             </div>
-<!-- location, commission, courtage et vacation section-->
+<!-- loyer, commission, courtage et vacation section-->
           <div class="container-fluid">
               <fieldset>
-                <legend>Location, commission, courtage et vacation</legend>
+                <legend>loyer, commission, courtage et vacation</legend>
               
             <table class="table table-striped">
               <thead>
                 <tr>
             
                   
-<th>Rubrique location, commission, courtage et vacation</th>
+<th>Rubrique loyer, commission, courtage et vacation</th>
 <th>Total des montants bruts</th>
 <th>Taux</th>
 <th>Montant total des retenues à la source</th>
@@ -395,7 +395,7 @@
                 </thead>
                 
               <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyer, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
               <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                 <td>
                   <p> Servis aux personnes physiques résidentes </p>
@@ -425,7 +425,7 @@
         </div></td>
         
             </tr>
-            <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+            <!-- loyer, commission, courtage et vacation (résidents et personnes morales)form--> 
             <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
               <td>
                 <p> Servis aux personnes morales résidentes </p>
@@ -455,7 +455,7 @@
       </div></td>
       
           </tr>
-           <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+           <!-- loyer, commission, courtage et vacation (non résidents et personnes physiques)form--> 
            <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
             <td>
               <p> Servis aux personnes physiques non résidentes </p>
@@ -485,7 +485,7 @@
     </div></td>
     
         </tr>
-          <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+          <!-- loyer, commission, courtage et vacation (non résidents et personnes morales)form--> 
           <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
             <td>
               <p> Servis aux personnes morales non résidentes </p>

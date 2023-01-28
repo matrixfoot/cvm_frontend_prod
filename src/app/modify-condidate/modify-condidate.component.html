@@ -62,7 +62,7 @@
     </form>
   </fieldset>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision">  
+    <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmit()"value="Sauvegarder Décision"[disabled]="condidateFormadmin.invalid">  
   </div> 
     </div>
     <div class="padding container-fluid d-flex justify-content-center"*ngIf="role=='supervisor'&&condidate||currentuser.rolesuperviseur=='Autorisé'&&condidate">
@@ -115,7 +115,7 @@
       </form>
     </fieldset>
     <div class="form-group">
-      <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision">  
+      <input type="submit" class="btn btn-primary text-white py-2 px-4 btn-block" (click)="onSubmitcoll()"value="Sauvegarder Décision"[disabled]="condidateFormcollab.invalid">  
     </div>
               </div>
 </div>

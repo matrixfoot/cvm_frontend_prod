@@ -328,7 +328,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
-  retenues: Array<string> = ['traitement et salaires','location, commission, courtage et vacation',  'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
+  retenues: Array<string> = ['traitements et salaires','loyer, commission, courtage et vacation',  'honoraires', 'montants supérieur à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
   showretenuetab=false;
@@ -2931,7 +2931,7 @@ if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.type='loyer, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
 decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
 decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
 decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
@@ -2940,7 +2940,7 @@ if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.type='loyer, commission, courtage et vacation servis aux personnes résidentes personnes morales'
 decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
 decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
 decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
@@ -2949,7 +2949,7 @@ if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==nu
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.type='loyer, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
 decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
 decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
 decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
@@ -2958,7 +2958,7 @@ if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.type='loyer, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
 decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
 decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
 decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -3410,7 +3410,7 @@ if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.type='loyer, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
 decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
 decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
 decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
@@ -3419,7 +3419,7 @@ if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.type='loyer, commission, courtage et vacation servis aux personnes résidentes personnes morales'
 decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
 decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
 decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
@@ -3428,7 +3428,7 @@ if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==nu
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.type='loyer, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
 decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
 decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
 decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
@@ -3437,7 +3437,7 @@ if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.type='loyer, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
 decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
 decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
 decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -3889,7 +3889,7 @@ createammount1(): FormGroup {
     motif: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
 
   });
@@ -3900,7 +3900,7 @@ createammount2(): FormGroup {
     motifcoll: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
   });
 }
@@ -4036,7 +4036,7 @@ keyPressNumbers(event) {
 }
 update(e){
   this.selected = e.target.value
-  if(this.selected=='location, commission, courtage et vacation')
+  if(this.selected=='loyer, commission, courtage et vacation')
   {this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -4049,14 +4049,14 @@ update(e){
   this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()}
-  else if(this.selected=='traitement et salaires')
+  else if(this.selected=='traitements et salaires')
   {this.standardtraitementsalaireform.controls['brutsalary'].reset()
   this.standardtraitementsalaireform.controls['imposalary'].reset()
   this.standardtraitementsalaireform.controls['retenuesalary'].reset()
   this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
 
   }
-  else if (this.selected=='honoraire')
+  else if (this.selected=='honoraires')
   {this.standardhonorairephysiquereelform.controls['brutammount'].reset()
   this.standardhonorairephysiquereelform.controls['netammount'].reset()
   this.standardhonorairephysiquereelform.controls['retenueammount'].reset()
