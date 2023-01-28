@@ -10,6 +10,8 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { ContactService } from '../services/contact.service';
 import { Contact } from '../models/contact.model';
 import { AlertService } from '../_helpers/alert.service';
+import { CommunService } from '../services/commun';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modify-contactreq',
@@ -30,9 +32,10 @@ export class ModifyContactreqComponent implements OnInit {
   role: string;
   option204Value: number;
   contactFormadmin: FormGroup;
-  condtactFormcollab: FormGroup;
+  contactFormcollab: FormGroup;
   public ammounts1: FormArray;
   public ammounts2: FormArray;
+  status: string[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -41,18 +44,19 @@ export class ModifyContactreqComponent implements OnInit {
     private cont: ContactService,
     private auth: AuthService,
     private tokenStorage: TokenStorageService,
-    private alertService: AlertService) {
+    private alertService: AlertService,private commun: CommunService) {
       this.contactFormadmin = this.formBuilder.group({
         ammounts1: this.formBuilder.array([ this.createammount1() ])
       })
-      this.condtactFormcollab = this.formBuilder.group({
+      this.contactFormcollab = this.formBuilder.group({
         ammounts2: this.formBuilder.array([ this.createammount2() ])
       })
     }
 
 
- ngOnInit() {
+ ngOnInit() { 
   this.loading = true;
+  this.status=this.commun.status
   this.currentuser=this.tokenStorage.getUser()  
   this.role=this.currentuser.role
   this.route.params.subscribe(
@@ -79,7 +83,7 @@ export class ModifyContactreqComponent implements OnInit {
               return group;
             }))
           });
-          this.condtactFormcollab = new FormGroup({        
+          this.contactFormcollab = new FormGroup({        
             ammounts2: new FormArray(contact.statutcollab.map(item => {
               const group = this.initammounts2();
               //@ts-ignore
@@ -92,6 +96,86 @@ export class ModifyContactreqComponent implements OnInit {
     }
   );
 
+}
+finadmin(i:number) {
+  let ammounts1 = this.contactFormadmin.get('ammounts1') as FormArray;
+  
+  if (ammounts1.controls[i].value.fintraitement == true)
+  { 
+    ammounts1.controls[i].patchValue({ datefin: Date.now() });
+    ammounts1.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts1.controls[i].patchValue({ datefin: '' });
+    ammounts1.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts1.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+fincollab(i:number) {
+  let ammounts2 = this.contactFormcollab.get('ammounts2') as FormArray;
+  
+  if (ammounts2.controls[i].value.fintraitement == true)
+  { 
+    ammounts2.controls[i].patchValue({ datefin: Date.now() });
+    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts2.controls[i].patchValue({ datefin: '' });
+    ammounts2.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts2.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+get ammountControls1() {
+  return this.contactFormadmin.get('ammounts1')['controls'];
+}
+get ammountControls2() {
+  return this.contactFormcollab.get('ammounts2')['controls'];
+}
+addammount1(): void {
+  this.ammounts1 = this.contactFormadmin.get('ammounts1') as FormArray;
+  this.ammounts1.push(this.createammount1());
+}
+addammount2(): void {
+  this.ammounts2 = this.contactFormcollab.get('ammounts2') as FormArray;
+  this.ammounts2.push(this.createammount2());
 }
 initammounts1() {
   return this.formBuilder.group({
@@ -142,10 +226,15 @@ onSubmit() {
   contactreq.dateouverturedossier=this.option204Value  
   this.cont.modifycontactreqById(this.contact._id,contactreq).then(
     (data:any) => {
-      this.contactForm.reset();
+      this.contactFormadmin.reset();
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
       this.router.navigate(['admin-board']);
     },
     (error) => {
@@ -162,14 +251,19 @@ onSubmitcoll() {
   this.loading = true;
   const contactreq = new Contact();
   
-  contactreq.statutcollab=this.condtactFormcollab.getRawValue().ammounts1
+  contactreq.statutcollab=this.contactFormcollab.getRawValue().ammounts2
   contactreq.dateouverturedossier=this.option204Value  
   this.cont.modifycontactreqById(this.contact._id,contactreq).then(
     (data:any) => {
-      this.contactForm.reset();
+      this.contactFormcollab.reset();
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
       this.router.navigate(['collab-board']);
     },
     (error) => {

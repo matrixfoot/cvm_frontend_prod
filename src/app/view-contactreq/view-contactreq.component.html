@@ -6,14 +6,15 @@
     
     <div class="card">
       
-      <div class="container-fluid">
+      <div class="container-fluid"*ngIf="contact">
         <h4 >Données Réclamation:</h4><hr>
         <h4>Crée le(heure GMT):<b>  {{ contact.created }}</b></h4>
         <h4>Dernière modification  le(heure GMT):<b>  {{ contact.updated }}</b></h4>
         <h4>Nom et Prénom:<b>  {{ contact.firstname }} {{ contact.lastname }}</b></h4> 
         <h4>Mobile:<b>  {{ contact.mobile }}</b></h4>
         <h4>Fichier Joint:<b><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fiche</a></b></h4>
-        <h4><table>
+        <h4>
+          <table>
           <thead>
             <tr>
               <th  style="text-align: center;">Statuts:</th>
@@ -29,7 +30,6 @@
                 </tr>
               </tbody>
           </table></h4>
-
           <h4><tr><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
           <h4><table *ngIf="currentUser.role=='admin'&&contact||currentUser.role=='supervisor'&&contact">
             <thead>

@@ -11,6 +11,7 @@ import { CondidateService } from '../services/condidate.service';
 import { Condidate } from '../models/condidate.model';
 import { AlertService } from '../_helpers/alert.service';
 import { CommunService } from '../services/commun';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modify-condidate',
@@ -96,6 +97,86 @@ export class ModifyCondidateComponent implements OnInit {
   );
   
 }
+finadmin(i:number) {
+  let ammounts1 = this.condidateFormadmin.get('ammounts1') as FormArray;
+  
+  if (ammounts1.controls[i].value.fintraitement == true)
+  { 
+    ammounts1.controls[i].patchValue({ datefin: Date.now() });
+    ammounts1.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts1.controls[i].patchValue({ datefin: '' });
+    ammounts1.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts1.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+fincollab(i:number) {
+  let ammounts2 = this.condidateFormcollab.get('ammounts2') as FormArray;
+  
+  if (ammounts2.controls[i].value.fintraitement == true)
+  { 
+    ammounts2.controls[i].patchValue({ datefin: Date.now() });
+    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
+  } 
+  else 
+  {
+    Swal.fire({
+      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'supprimer',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        ammounts2.controls[i].patchValue({ datefin: '' });
+    ammounts2.controls[i].patchValue({ duree: ''});
+      }
+      else
+      {
+        ammounts2.controls[i].value.fintraitement == true
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+    
+  }
+}
+get ammountControls1() {
+  return this.condidateFormadmin.get('ammounts1')['controls'];
+}
+get ammountControls2() {
+  return this.condidateFormcollab.get('ammounts2')['controls'];
+}
+addammount1(): void {
+  this.ammounts1 = this.condidateFormadmin.get('ammounts1') as FormArray;
+  this.ammounts1.push(this.createammount1());
+}
+addammount2(): void {
+  this.ammounts2 = this.condidateFormcollab.get('ammounts2') as FormArray;
+  this.ammounts2.push(this.createammount2());
+}
 initammounts1() {
   return this.formBuilder.group({
     statut: [{value:'',disabled:true}],
@@ -145,10 +226,15 @@ onSubmit() {
 condidate.dateouverturedossier=this.option204Value
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
     (data:any) => {
-      this.condidateForm.reset();
+      this.condidateFormadmin.reset();
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
       this.router.navigate(['admin-board']);
     },
     (error) => {
@@ -169,10 +255,15 @@ onSubmitcoll() {
 condidate.dateouverturedossier=this.option204Value
   this.cond.modifycondidateById(this.condidate._id,condidate).then(
     (data:any) => {
-      this.condidateForm.reset();
+      this.condidateFormcollab.reset();
       this.loading = false;
-      this.alertService.success(data.message);
-      window.scrollTo(0, 0);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès',
+        showConfirmButton: false,
+        timer: 3000
+      });
       this.router.navigate(['collab-board']);
     },
     (error) => {

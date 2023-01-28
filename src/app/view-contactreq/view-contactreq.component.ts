@@ -62,9 +62,11 @@ public contact: Contact;
           (contact: Contact) => {
             this.loading = false;
             this.contact = contact;
+            
             if(this.contact.affecte)
             {
               this.optionValue=this.contact.affecte
+              this.filterusers(this.contact.affecte)
             }
             
           }
@@ -80,6 +82,7 @@ public contact: Contact;
   {
     this.prenomcollab=this.filtredcollab[0].firstname
     this.nomcollab=this.filtredcollab[0].lastname
+    console.log(this.prenomcollab,this.nomcollab)
   }
   
 }
