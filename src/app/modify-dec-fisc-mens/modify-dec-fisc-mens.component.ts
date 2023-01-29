@@ -770,19 +770,20 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
             tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
             taux: [{value:"0.02",disabled:true}],
-            avanceammount: this.decfiscmens.impottype3.montantavance,
+            avanceammount: [this.decfiscmens.impottype3.montantavance],
             tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
-            salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
+            salairesnonsoumistfp: [this.decfiscmens.impottype3.salairesnonsoumistfp],
             tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
-            tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
+            tfpammountreportmoisprecedent: [this.decfiscmens.impottype3.reporttfpmoisprecedent],
             tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
           });
+          console.log(this.decfiscmens.impottype3.montantavance,this.decfiscmens.impottype3.reporttfpmoisprecedent)
           this.standardfoprolosform =this.formBuilder.group({
             basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
             foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
             taux: [{value:"0.01",disabled:true}],
-            salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
-            foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
+            salairesnonsoumisfoprolos: [this.decfiscmens.impottype4.salairesnonsoumisfoprolos],
+            foprolosammount: [this.decfiscmens.impottype4.montantfoprolos],
           });
         this.standarddroittimbreform =this.formBuilder.group({
           nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],

@@ -39,6 +39,7 @@ export class UserBoardComponent implements OnInit {
   
   public condidates: Condidate[] = [];
   public decfiscmenss: Decfiscmens[] = [];
+  showgenerate: boolean;
   
   
   constructor(

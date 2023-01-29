@@ -18,7 +18,7 @@
         </tr>
       </tbody>
   </table>
-  <tr><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
+  <tr *ngIf="decfiscmens.affecte"><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
   <table *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1||currentUser.role=='supervisor'&&decfiscmens.impottype1">
     <thead>
       <tr>

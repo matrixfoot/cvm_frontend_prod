@@ -30,7 +30,7 @@
                 </tr>
               </tbody>
           </table></h4>
-          <h4><tr><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
+          <h4 *ngIf="contact.affecte"><tr><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
           <h4><table *ngIf="currentUser.role=='admin'&&contact||currentUser.role=='supervisor'&&contact">
             <thead>
               <tr>

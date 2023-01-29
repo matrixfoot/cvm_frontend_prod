@@ -122,7 +122,7 @@ public decfiscmens=new Decfiscmens;
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.token.getUser();
-  if(this.currentUser.role==='admin'||'supervisor')
+  if(this.currentUser.role==='admin'||this.currentUser.role==='supervisor')
   {
     this.userservice.getAll()
     this.usersSub = this.userservice.users$.subscribe(
@@ -391,12 +391,17 @@ console.log(this.honoraireretenue)
   }
   filterusers(id:string)
 {
+  if(this.collab.length>0)
+{
   this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
+  console.log(this.collab)
   if(this.filtredcollab.length>0)
   {
     this.prenomcollab=this.filtredcollab[0].firstname
     this.nomcollab=this.filtredcollab[0].lastname
   }
+}
+ 
   
 }
   public openPDF(): void {

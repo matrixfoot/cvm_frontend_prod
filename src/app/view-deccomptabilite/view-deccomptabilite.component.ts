@@ -90,7 +90,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.currentUser = this.tokenStorage.getUser();
-    if(this.currentUser.role==='admin'||'supervisor')
+    if(this.currentUser.role==='admin'||this.currentUser.role==='supervisor')
     {
       this.userservice.getAll()
       this.usersSub = this.userservice.users$.subscribe(

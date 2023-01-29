@@ -32,7 +32,7 @@
               </tbody>
           </table></h4>
 
-          <h4><tr><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
+          <h4 *ngIf="condidate.affecte"><tr><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
           <h4><table *ngIf="currentUser.role=='admin'&&condidate||currentUser.role=='supervisor'&&condidate">
             <thead>
               <tr>
