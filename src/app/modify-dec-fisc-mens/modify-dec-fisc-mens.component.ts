@@ -821,11 +821,10 @@ if(this.decfiscmens.mois!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.dec.decfiscmenss.find(e => verifyannee1=e.annee === this.decfiscmens.annee);
-  console.log(verifyannee1)
+  this.dec.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
+
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
@@ -866,10 +865,9 @@ this.standardtfpform.patchValue({
 }
 else if(this.decfiscmens.mois==='01')
 {
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.decfiscmens.annee-1);
-  if(verifyannee1&&verifymois1)
-{ 
+  this.dec.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
+{
   let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+

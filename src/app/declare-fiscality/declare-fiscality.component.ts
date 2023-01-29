@@ -2841,9 +2841,7 @@ this.DecfiscmensService.create(decfiscmens).then(
               title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
               icon: 'info',
               confirmButtonColor: '#3085d6',
-            }).then((result) => {this.myFunction11(),this.myFunction9()}).catch(() => {
-              Swal.fire('opération non aboutie!')
-            })
+            }).then((result) => {this.myFunction11(),this.myFunction9()})
           }).catch(() => {
             Swal.fire('opération non aboutie!')
           })
@@ -3420,11 +3418,9 @@ if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
-  console.log(verifyannee1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
 reporttfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.tfpreporter
 avancetfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.montantavance
@@ -3436,9 +3432,8 @@ this.standardtfpform.patchValue({
 }
 else if(this.option171Value==='01')
 {
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
-  if(verifyannee1&&verifymois1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
 { 
 reporttfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype3.tfpreporter
 this.standardtfpform.patchValue({
@@ -3544,11 +3539,10 @@ if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
-  console.log(verifyannee1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
+
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
@@ -3567,9 +3561,8 @@ if(reporttva>0)
 }
 else if(this.option171Value==='01')
 {
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
-  if(verifyannee1&&verifymois1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
