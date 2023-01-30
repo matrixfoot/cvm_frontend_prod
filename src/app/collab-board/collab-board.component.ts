@@ -291,8 +291,18 @@ this.dossencours=[]
 this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        console.log(this.dossencours)
        const sort = new Sort();
-       this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''))[0];
-       console.log(this.sorteddossencours)
+       if(this.currentuser.rolesuperviseur=='Autorisé')
+       {
+        this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''));
+        console.log('here1')
+        console.log(this.sorteddossencours)
+       }
+       else
+       {
+        this.sorteddossencours=this.dossencours.sort(sort.startSort('created','asc',''))[0];
+        console.log('here2')
+        console.log(this.sorteddossencours)
+       }
 
             return (this.sorteddossencours);
              }

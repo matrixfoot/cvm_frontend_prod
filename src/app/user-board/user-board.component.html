@@ -89,7 +89,13 @@
             <td>{{decfiscmens.annee}}</td>
             <td>{{prenom}}</td>
             <td>{{nom}}</td>
-            <td>{{decfiscmens.statut}}</td>
+            <td>
+              <span *ngIf="decfiscmens.statutadmin.length>0">
+                <ng-container *ngFor="let statut of decfiscmens.statutadmin">
+                  <td  style="display: block;">{{statut.statut}}</td>
+                </ng-container>
+              </span>  
+            </td>
             <td>{{decfiscmens.created | customDate}}</td>
             <td>
               <span *ngIf="decfiscmens.statutadmin.length>0">
