@@ -4,37 +4,27 @@
   <table>
   <thead>
     <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
+    <tr *ngIf="decfiscmens.affecte&&currentUser.role=='admin'||decfiscmens.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
     <tr>
       <th  style="text-align: center;">Statuts:</th>
       <th  style="text-align: center;">Motifs:</th>
       <th  style="text-align: center;">date traitement:</th>
+      <th  style="text-align: center;">durée cumulée de traitement:</th>
+      <th  style="text-align: center;">traité par:</th>
+
     </tr>  
     </thead>
       <tbody>
-        <tr *ngFor="let statut of decfiscmens.statutadmin">
-          <td  style="text-align: center;"> {{statut.statut}}</td>
-          <td  style="text-align: center;"> {{statut.motif}}</td>
+        <tr *ngFor="let statut of sortedallstatuts">
+          <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+          <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
           <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+          <td  style="text-align: center;"> {{statut.duree}}</td>
+          <td  style="text-align: center;"><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
         </tr>
-      </tbody>
+      </tbody> 
   </table>
-  <tr *ngIf="decfiscmens.affecte"><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
-  <table *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1||currentUser.role=='supervisor'&&decfiscmens.impottype1">
-    <thead>
-      <tr>
-        <th  style="text-align: center;">Statuts:</th>
-        <th  style="text-align: center;">Motifs:</th>
-        <th  style="text-align: center;">date traitement:</th>
-      </tr>  
-      </thead>
-        <tbody>
-          <tr *ngFor="let statut of decfiscmens.statutcollab">
-            <td  style="text-align: center;"> {{statut.statutcoll}}</td>
-            <td  style="text-align: center;"> {{statut.motifcoll}}</td>
-            <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
-          </tr>
-        </tbody>
-    </table>
+ 
 <div *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1">
   <h2> Autre rubriques d'impots du type retenue à la source</h2>
 <table>

@@ -22,6 +22,7 @@ import { AbstractControl, FormGroup } from '@angular/forms';
 import { ViewportScroller } from '@angular/common';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { Subscription } from 'rxjs';
+import { Sort } from '../_helpers/sort';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -51,6 +52,8 @@ maincontainer=false;
   prenomcollab: any;
   nomcollab: any;
   filtredcollab: any[];
+  allstatuts: any[];
+  sortedallstatuts: any[];
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -144,9 +147,13 @@ public decfiscmens=new Decfiscmens;
       (params: Params) => {
         this.dec.getDecfiscmensreqById(params.id).then(
           (decfiscmens: Decfiscmens) => {
-            
+            this.allstatuts=[]
+            const sort = new Sort();
             this.loading = false;
             this.decfiscmens = decfiscmens;
+            this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
+            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
+            console.log(this.sortedallstatuts)
             if(this.decfiscmens.affecte)
             {
               this.optionValue=this.decfiscmens.affecte
@@ -394,7 +401,6 @@ console.log(this.honoraireretenue)
   if(this.collab.length>0)
 {
   this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
-  console.log(this.collab)
   if(this.filtredcollab.length>0)
   {
     this.prenomcollab=this.filtredcollab[0].firstname
