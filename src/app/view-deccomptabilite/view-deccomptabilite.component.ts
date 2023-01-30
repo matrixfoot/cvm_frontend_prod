@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Deccomptabilite } from '../models/dec-comptabilite';
@@ -10,6 +12,7 @@ import { ExcelService } from '../services/excel.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { UserService } from '../services/user.service';
 import { AlertService } from '../_helpers/alert.service';
+import { Sort } from '../_helpers/sort';
 
 @Component({
   selector: 'app-view-deccomptabilite',
@@ -75,6 +78,11 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   collab: any[]=[];
   errormsg: any;
   optionValue: any;
+  allstatuts: any[];
+  sortedallstatuts: any[];
+  filtredcollab: any[];
+  prenomcollab: any;
+  nomcollab: any;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -119,8 +127,12 @@ export class ViewDeccomptabiliteComponent implements OnInit {
       (params) => {
         this.deccompt.getDeccomptabilitereqById(params.id).then(
           (deccomptabilite: Deccomptabilite) => {
+            this.allstatuts=[]
+            const sort = new Sort();
             this.loading = false;
             this.deccomptabilite = deccomptabilite;
+            this.allstatuts=this.allstatuts.concat(this.deccomptabilite.statutadmin,this.deccomptabilite.statutcollab)
+            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
             if(this.deccomptabilite.affecte)
             {
               this.optionValue=this.deccomptabilite.affecte
@@ -211,6 +223,41 @@ export class ViewDeccomptabiliteComponent implements OnInit {
       }
     )
   }
+  filterusers(id:string)
+  {
+    this.filtredcollab=this.deccompt.filterByValue(this.collab,id)
+    if(this.filtredcollab.length>0)
+    {
+      this.prenomcollab=this.filtredcollab[0].firstname
+      this.nomcollab=this.filtredcollab[0].lastname
+    }
+    
+  }
+  public payement(): void {
+    const self =this
+    const data = document.getElementById('payementinvoice');
+    html2canvas(data,{scale:2}).then((canvas:any) => {
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+      heightLeft -= pageHeight;
+      const doc = new jsPDF('p', 'mm');
+      doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+        heightLeft -= pageHeight;
+      }
+       
+      doc.save(`facture_${self.deccomptabilite.mois}_${self.deccomptabilite.annee}`);
+    });
+    
+    
+    
+      } 
   generateExcel()
   {
 this.excelService.exportAsExcelFile(this.deccomptabilite.autre1,this.deccomptabilite.autre2,this.deccomptabilite.autre3,

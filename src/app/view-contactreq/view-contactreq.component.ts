@@ -10,6 +10,7 @@ import { Contact } from '../models/contact.model';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Sort } from '../_helpers/sort';
 
 
 @Component({
@@ -29,6 +30,8 @@ public contact: Contact;
   filtredcollab: any[];
   prenomcollab: any;
   nomcollab: any;
+  allstatuts: any[];
+  sortedallstatuts: any[];
   constructor(private router: Router,
     private route: ActivatedRoute,
     private cont: ContactService,
@@ -60,8 +63,12 @@ public contact: Contact;
       (params: Params) => {
         this.cont.getContactreqById(params.id).then(
           (contact: Contact) => {
+            this.allstatuts=[]
+            const sort = new Sort();
             this.loading = false;
             this.contact = contact;
+            this.allstatuts=this.allstatuts.concat(this.contact.statutadmin,this.contact.statutcollab)
+            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
             
             if(this.contact.affecte)
             {

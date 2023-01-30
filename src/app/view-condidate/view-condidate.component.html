@@ -15,40 +15,31 @@
         <h4>CV:<b><a href="{{condidate.ficheUrl}}" target="_blank">Aperçu CV</a></b></h4>
         <h4>Spécialité Demandée:<b>  {{ condidate.specialite }}</b></h4>
         <h4>Adresse:<b>  {{ condidate.adresse }}</b></h4>
-        <h4><table>
-          <thead>
-            <tr>
-              <th  style="text-align: center;">Statuts:</th>
-              <th  style="text-align: center;">Motifs:</th>
-              <th  style="text-align: center;">date traitement:</th>
-            </tr>  
-            </thead>
-              <tbody>
-                <tr *ngFor="let statut of condidate.statutadmin">
-                  <td  style="text-align: center;"> {{statut.statut}}</td>
-                  <td  style="text-align: center;"> {{statut.motif}}</td>
-                  <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
-                </tr>
-              </tbody>
-          </table></h4>
-
-          <h4 *ngIf="condidate.affecte"><tr><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
-          <h4><table *ngIf="currentUser.role=='admin'&&condidate||currentUser.role=='supervisor'&&condidate">
+        
+          <table>
             <thead>
+              <tr *ngIf="condidate.dateouverturedossier&&currentUser.role=='admin'||condidate.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{condidate.dateouverturedossier|customDate}}</td></tr> 
+              <tr *ngIf="condidate.affecte&&currentUser.role=='admin'||condidate.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
               <tr>
                 <th  style="text-align: center;">Statuts:</th>
                 <th  style="text-align: center;">Motifs:</th>
                 <th  style="text-align: center;">date traitement:</th>
+                <th  style="text-align: center;">durée cumulée de traitement:</th>
+                <th  style="text-align: center;">traité par:</th>
+          
               </tr>  
               </thead>
                 <tbody>
-                  <tr *ngFor="let statut of condidate.statutcollab">
-                    <td  style="text-align: center;"> {{statut.statutcoll}}</td>
-                    <td  style="text-align: center;"> {{statut.motifcoll}}</td>
+                  <tr *ngFor="let statut of sortedallstatuts">
+                    <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+                    <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
                     <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                    <td  style="text-align: center;"> {{statut.duree}}</td>
+                    <td  style="text-align: center;"><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
                   </tr>
-                </tbody>
-            </table></h4>
+                </tbody> 
+            </table>
+        
         
         <h4>Description:<b>  {{ condidate.description }}</b></h4>
       </div>

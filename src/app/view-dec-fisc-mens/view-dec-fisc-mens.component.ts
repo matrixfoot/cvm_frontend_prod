@@ -153,7 +153,6 @@ public decfiscmens=new Decfiscmens;
             this.decfiscmens = decfiscmens;
             this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
             this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
-            console.log(this.sortedallstatuts)
             if(this.decfiscmens.affecte)
             {
               this.optionValue=this.decfiscmens.affecte
@@ -410,6 +409,31 @@ console.log(this.honoraireretenue)
  
   
 }
+public payement(): void {
+  const self =this
+  const data = document.getElementById('payementinvoice');
+  html2canvas(data,{scale:2}).then((canvas:any) => {
+    const imgWidth = 208;
+    const pageHeight = 295;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    let heightLeft = imgHeight;
+    let position = 0;
+    heightLeft -= pageHeight;
+    const doc = new jsPDF('p', 'mm');
+    doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+    while (heightLeft >= 0) {
+      position = heightLeft - imgHeight;
+      doc.addPage();
+      doc.addImage(canvas, 'PNG', 0, position, imgWidth, imgHeight, '', 'FAST');
+      heightLeft -= pageHeight;
+    }
+     
+    doc.save(`facture_${self.decfiscmens.mois}_${self.decfiscmens.annee}`);
+  });
+  
+  
+  
+    } 
   public openPDF(): void {
 this.loading=true
 const self =this

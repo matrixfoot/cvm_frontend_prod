@@ -15,38 +15,29 @@
         <h4>Fichier Joint:<b><a href="{{contact.ficheUrl}}" target="_blank">Aperçu Fiche</a></b></h4>
         <h4>
           <table>
-          <thead>
-            <tr>
-              <th  style="text-align: center;">Statuts:</th>
-              <th  style="text-align: center;">Motifs:</th>
-              <th  style="text-align: center;">date traitement:</th>
-            </tr>  
-            </thead>
-              <tbody>
-                <tr *ngFor="let statut of contact.statutadmin">
-                  <td  style="text-align: center;"> {{statut.statut}}</td>
-                  <td  style="text-align: center;"> {{statut.motif}}</td>
-                  <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
-                </tr>
-              </tbody>
-          </table></h4>
-          <h4 *ngIf="contact.affecte"><tr><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr></h4> 
-          <h4><table *ngIf="currentUser.role=='admin'&&contact||currentUser.role=='supervisor'&&contact">
             <thead>
+              <tr *ngIf="contact.dateouverturedossier&&currentUser.role=='admin'||contact.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{contact.dateouverturedossier|customDate}}</td></tr> 
+              <tr *ngIf="contact.affecte&&currentUser.role=='admin'||contact.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(contact.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
               <tr>
                 <th  style="text-align: center;">Statuts:</th>
                 <th  style="text-align: center;">Motifs:</th>
                 <th  style="text-align: center;">date traitement:</th>
+                <th  style="text-align: center;">durée cumulée de traitement:</th>
+                <th  style="text-align: center;">traité par:</th>
+          
               </tr>  
               </thead>
                 <tbody>
-                  <tr *ngFor="let statut of contact.statutcollab">
-                    <td  style="text-align: center;"> {{statut.statutcoll}}</td>
-                    <td  style="text-align: center;"> {{statut.motifcoll}}</td>
+                  <tr *ngFor="let statut of sortedallstatuts">
+                    <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+                    <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
                     <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+                    <td  style="text-align: center;"> {{statut.duree}}</td>
+                    <td  style="text-align: center;"><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
                   </tr>
-                </tbody>
-            </table></h4>
+                </tbody> 
+            </table>
+          </h4>
           <h4>Description:<b>  {{ contact.description }}</b></h4>
       </div>
       

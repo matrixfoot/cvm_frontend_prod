@@ -10,6 +10,7 @@ import { Condidate } from '../models/condidate.model';
 import { Subscription } from 'rxjs';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import Swal from 'sweetalert2';
+import { Sort } from '../_helpers/sort';
 
 @Component({
   selector: 'app-view-condidate',
@@ -28,6 +29,8 @@ export class ViewCondidateComponent implements OnInit {
   filtredcollab: any[];
   prenomcollab: any;
   nomcollab: any;
+  allstatuts: any[];
+  sortedallstatuts: any[];
   constructor(private router: Router,
     private route: ActivatedRoute,
     private cond: CondidateService,
@@ -59,8 +62,12 @@ export class ViewCondidateComponent implements OnInit {
       (params: Params) => {
         this.cond.getCondidateById(params.id).then(
           (condidate: Condidate) => {
+            this.allstatuts=[]
+            const sort = new Sort();
             this.loading = false;
             this.condidate = condidate;
+            this.allstatuts=this.allstatuts.concat(this.condidate.statutadmin,this.condidate.statutcollab)
+            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
             if(this.condidate.affecte)
             {
               this.optionValue=this.condidate.affecte
