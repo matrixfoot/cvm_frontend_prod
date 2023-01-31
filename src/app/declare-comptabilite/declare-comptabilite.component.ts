@@ -190,7 +190,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     console.log(this.sousactivite)
     if (user.droitcompta !='Autorisé') 
     return (this.token.saved=true,Swal.fire({
-      title: 'fonctionnalité non disponible,veuillez contacter votre cabinet Macompta pour débloquer la situation',
+      title: 'fonctionnalité non disponible,veuillez contacter Macompta pour débloquer la situation',
       icon: 'info',
       confirmButtonColor: '#3085d6',
     }),this.router.navigate(['home']))

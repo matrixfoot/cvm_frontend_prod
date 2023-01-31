@@ -110,6 +110,7 @@ export class CollabBoardComponent implements OnInit {
   currentuser: User;
   usertype: string;
   id: string;
+  decfiscmens: Decfiscmens;
   constructor(
               private UserService: UserService,
               private cond:CondidateService,
@@ -199,7 +200,44 @@ export class CollabBoardComponent implements OnInit {
                this.getcondidatesall()
                this.getcontactsall()
               }
+              debutcompteurdecfiscale(id)
+              {
 
+                this.dec.getDecfiscmensreqById(id).then(
+                  (decfiscmens: Decfiscmens) => {
+                    
+                    this.decfiscmens = decfiscmens;
+                    console.log(this.decfiscmens.dateouverturedossier)
+
+                    if(!this.decfiscmens.dateouverturedossier&&this.currentuser.role=='admin'||!this.decfiscmens.dateouverturedossier&&this.currentuser.role=='supervisor')
+{
+  
+  this.decfiscmens.dateouverturedossier=Date.now()
+  console.log(this.decfiscmens.dateouverturedossier)
+
+  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+    (data:any) => {
+      console.log(this.decfiscmens.dateouverturedossier)
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);
+      
+    
+      
+    }
+  );
+}
+                    
+                  }
+                )
+
+               
+              }
+      
+                
+              
               getNavigationusers(link, id){
       
                 this.UserService.getUserById(id);
