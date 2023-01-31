@@ -187,6 +187,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.specialite=this.user.specialite
     this.regimefiscalimpot=this.user.regimefiscalimpot;
     this.matriculefiscale=this.user.matriculefiscale;
+    console.log(this.sousactivite)
     if (user.droitcompta !='Autorisé') 
     return (this.token.saved=true,Swal.fire({
       title: 'fonctionnalité non disponible,veuillez contacter votre cabinet Macompta pour débloquer la situation',
@@ -410,7 +411,7 @@ this.loading=false
              })
            
             }
-  settva(i: number) {
+  settva(i: number) { 
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
      console.log(this.tauxtva)
@@ -491,54 +492,55 @@ const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
         this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=this.tauxdt
-         const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
-         const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
-         console.log(this.activite)
-         console.log(this.tauxtva)
-         if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
+        const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
+        const mrecette19= +this.recettejournaliereform.get('ammounts2').value.at(i).recette19
+        const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
+        console.log(this.activite)
+        console.log(this.tauxtva)
+         if(mrecette19!=0)
          {
-const montantttc=+(mrecette).toFixed(3) 
-         const montantht=+((+montantttc-mtimbre)/(1+ 0.19)).toFixed(3)
-         const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
-         console.log(montantttc)
+         const montantttc19=+(mrecette19).toFixed(3) 
+         const montantht19=+((+montantttc19-mtimbre)/(1+ 0.19)).toFixed(3)
+         const montanttva19=+(montantttc19-montantht19-mtimbre).toFixed(3)
+         console.log(montantttc19)
          ammounts2.at(i).patchValue({
-          montantht:montantht,
-          montanttva:montanttva,
-          montantttc:montantttc,
+          montantht19:montantht19,
+          montanttva19:montanttva19,
+          montantttc19:montantttc19,
           montantdt:this.tauxdt
-
          })
-         this.totalht219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-          acc += +(curr.montantht || 0);
+         this.totalht219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montantht19 || 0);
           return acc;
         },0);
-        this.totaltva219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-          acc += +(curr.montanttva || 0);
+        this.totaltva219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montanttva19 || 0);
           return acc;
         },0);
-         if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+         if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
         {
-          this.totaldt219 =+(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
+          this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
             acc += +(curr.montantdt || 0);
             return acc;
           },0);
         }
         
-        this.totalttc219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-          acc += +(curr.montantttc || 0);
+        this.totalttc219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montantttc19 || 0);
           return acc;
         },0);
-        this.totalrecette19 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-          acc += +(curr.recette || 0);
+        this.totalrecette19 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.recette19 || 0);
           return acc;
         },0);
         this.realht219=this.totalht219
         this.realdt219=this.totaldt219
         console.log(this.realht2,this.realdt2,this.realdt1)
          }
-         else 
+         else if(mrecette!=0)
          {
-          const montantttc=+(mrecette).toFixed(3) 
+
+         const montantttc=+(mrecette).toFixed(3) 
          const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
          const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
          console.log(montantttc)
@@ -549,27 +551,27 @@ const montantttc=+(mrecette).toFixed(3)
           montantdt:this.tauxdt
 
          })
-         this.totalht2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+         this.totalht2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
           acc += +(curr.montantht || 0);
           return acc;
         },0);
-        this.totaltva2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+        this.totaltva2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
           acc += +(curr.montanttva || 0);
           return acc;
         },0);
          if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
         {
-          this.totaldt2 =+(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+          this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
             acc += +(curr.montantdt || 0);
             return acc;
           },0);
         }
         
-        this.totalttc2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+        this.totalttc2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
           acc += +(curr.montantttc || 0);
           return acc;
         },0);
-        this.totalrecette = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+        this.totalrecette = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
           acc += +(curr.recette || 0);
           return acc;
         },0);
@@ -577,7 +579,6 @@ const montantttc=+(mrecette).toFixed(3)
         this.realdt2=this.totaldt2
         console.log(this.realht2,this.realdt2,this.realdt1)
          }
-        ammounts2.controls[i].get('tauxtva').disable();
         }
         setht3(i: number) {
           let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
@@ -997,11 +998,16 @@ let totalcreditbis:any
       jour: '',
       date: '',
       recette:'',
+      recette19:'',
       montantht:'0',
       tauxtva:'0.07',
       montanttva:'0',
       montantdt:'0',
       montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
 
     });
   }
@@ -2231,8 +2237,7 @@ else if ((user.choixfacture=='saisie recette'))
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
-if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&this.sousactivite!='Médecin dentiste'&&this.sousactivite!='Médecin vétérinaire')
-{
+
   for (let i = 1; i < 32; i++)
           {
             this.addammount2()
@@ -2263,7 +2268,7 @@ if(this.sousactivite!='Médecin spécialiste'&&this.sousactivite!='Médecin'&&th
 
             
           }
-}
+
   
 }
   }
