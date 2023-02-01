@@ -392,7 +392,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   tauxdt: number;
   tvacollecte19=0.000;
   role: string;
-  status: string[]=[];
+  statuscollab: string[]=[];
+  statusadmin: string[]=[];
   constructor(private formBuilder: FormBuilder,
   
    
@@ -418,7 +419,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
 
  ngOnInit() {
   this.loading = true;
-  this.status=this.commun.status
+  this.statuscollab=this.commun.statuscollab
+  this.statusadmin=this.commun.statusadmin
   this.isLoggedIn = !!this.tokenStorage.getToken();
   this.currentuser = this.tokenStorage.getUser();
   this.role=this.currentuser.role

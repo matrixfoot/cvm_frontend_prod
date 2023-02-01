@@ -170,7 +170,7 @@
                       <td>{{dossenc.updated}}</td>
                       
                       
-                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',dossenc._id)">Consulter</button>
+                      <td>  <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="debutcompteurdecfiscale('view-decfiscmens',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="getNavigationusers('view-condidate',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="getNavigationusers('view-contactreq',dossenc._id)">Consulter</button></td>

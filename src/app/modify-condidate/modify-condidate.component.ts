@@ -30,7 +30,8 @@ export class ModifyCondidateComponent implements OnInit {
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
-  status: string[]=[];
+  statusadmin: string[]=[];
+  statuscollab: string[]=[];
   role: string;
   option204Value: number;
   constructor(private formBuilder: FormBuilder,
@@ -57,8 +58,9 @@ export class ModifyCondidateComponent implements OnInit {
   this.loading = true;
   this.currentuser=this.tokenStorage.getUser()
   this.role=this.currentuser.role
-  this.status=this.commun.status
-  
+  this.statusadmin=this.commun.statusadmin
+  this.statuscollab=this.commun.statuscollab
+
   this.route.params.subscribe(
     (params) => {
       this.cond.getCondidateById(params.id).then(

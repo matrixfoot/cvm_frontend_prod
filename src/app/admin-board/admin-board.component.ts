@@ -106,6 +106,7 @@ export class AdminBoardComponent implements OnInit {
   nomaffecte: string;
   sorteddossencours: any[]=[];
   sorteddossnonaffecte: any[]=[];
+  decfiscmens: Decfiscmens;
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -204,6 +205,37 @@ export class AdminBoardComponent implements OnInit {
                this.getconsultants()
                this.getcontactsall()
               }
+              debutcompteurdecfiscale(link,id)
+              {
+
+                this.dec.getDecfiscmensreqById(id).then(
+                  (decfiscmens: Decfiscmens) => {
+                    
+                    this.decfiscmens = decfiscmens;
+
+                    if(!this.decfiscmens.dateouverturedossier)
+{
+  
+  this.decfiscmens.dateouverturedossier=Date.now()
+
+  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
 filterusers(id:string)
 {
   this.filtredusers=this.deccompt.filterByValue(this.users,id)

@@ -128,7 +128,8 @@ totalht219=0.000;
   public ammounts6: FormArray;
   activitedec: string;
   sousactivitedec: string;
-  status: string[]=[];
+  statusadmin: string[];
+  statuscollab: string[];
   constructor(private fb: FormBuilder,
   
    
@@ -173,8 +174,9 @@ totalht219=0.000;
 
   ngOnInit() {
     this.loading = true;
-this.status=this.commun.status
-    this.currentUser = this.tokenStorage.getUser();
+    this.statusadmin=this.commun.statusadmin
+    this.statuscollab=this.commun.statuscollab
+        this.currentUser = this.tokenStorage.getUser();
     this.role=this.currentUser.role
     this.tokenStorage.saved=false;
 

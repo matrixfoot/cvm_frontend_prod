@@ -11,11 +11,12 @@
       <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
       <tr *ngIf="decfiscmens.dateouverturedossier&&currentUser.role=='admin'||decfiscmens.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{decfiscmens.dateouverturedossier|customDate}}</td></tr> 
       <tr *ngIf="decfiscmens.affecte&&currentUser.role=='admin'||decfiscmens.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
+      <tr *ngIf="currentUser.role=='admin'||currentUser.role=='supervisor'"><th>durée de traitement:</th><td>{{countdown}}</td></tr> 
       <tr>
         <th  style="text-align: center;">Statuts:</th>
         <th  style="text-align: center;">Motifs:</th>
         <th  style="text-align: center;">date traitement:</th>
-        <th  style="text-align: center;">durée cumulée de traitement:</th>
+        <th  style="text-align: center;">durée de traitement:</th>
         <th  style="text-align: center;">traité par:</th>
   
       </tr>  
@@ -686,12 +687,12 @@
                     </option>
                   </select>   
                   <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="traite()">Marquer comme traité (Collaborateur)</button>
                   <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
                   <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
                   <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
                   <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>              
-                  <button type="button"  (click)="openPDF()" [disabled] = "!showgenerate"
+                  <button type="button"  (click)="openPDF()" [disabled] = "!showgenerate&&currentUser.role=='basic'"
                   [ngStyle]="{'color': (showgenerate)? 'white': 'red','background-color': (showgenerate)? 'green': 'white'}"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button>
                   <button type="button" id="bottom"class="btn btn-primary btn-sm" (click)="top()"><span><i class="glyphicon glyphicon-arrow-up"></i></span></button>   
                 </div>

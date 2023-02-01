@@ -35,7 +35,8 @@ export class ModifyContactreqComponent implements OnInit {
   contactFormcollab: FormGroup;
   public ammounts1: FormArray;
   public ammounts2: FormArray;
-  status: string[];
+  statusadmin: string[];
+  statuscollab: string[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
@@ -56,8 +57,9 @@ export class ModifyContactreqComponent implements OnInit {
 
  ngOnInit() { 
   this.loading = true;
-  this.status=this.commun.status
-  this.currentuser=this.tokenStorage.getUser()  
+  this.statusadmin=this.commun.statusadmin
+  this.statuscollab=this.commun.statuscollab
+    this.currentuser=this.tokenStorage.getUser()  
   this.role=this.currentuser.role
   this.route.params.subscribe(
     (params) => {

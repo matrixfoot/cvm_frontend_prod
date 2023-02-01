@@ -23,7 +23,7 @@
               <label for="fq_name">Statut</label>    
               <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
                 <option value="default"> </option>
-                <option *ngFor="let statut of status" [value]="statut">
+                <option *ngFor="let statut of statusadmin" [value]="statut">
                     {{statut}}
                 </option>
               </select>
@@ -68,7 +68,7 @@
                 <legend> Formulaire De validation des déclarations mensuelles(collab)</legend>
                 <h3><span> Date ouverture dossier</span>{{option204Value | customDate}}</h3>
                 <form [formGroup]="decfiscmensFormcollab">
-                <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Montant</button>
+                <button type="button" class="btn btn-primary mb-2" (click)="addammount2()">Ajouter Statut</button>
             <fieldset formArrayName="ammounts2" *ngFor="let ammount of ammountControls2; let i = index;">
               <div [formGroupName]="i">
                 <div class="row">
@@ -79,7 +79,8 @@
                         <label for="fq_name">Statut</label>    
                         <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
                           <option value="default"> </option>
-                          <option *ngFor="let statut of status" [value]="statut">
+                          <option hidden value="en cours de traitement">en cours de traitement</option>
+                          <option *ngFor="let statut of statuscollab" [value]="statut">
                               {{statut}}
                           </option>
                         </select>

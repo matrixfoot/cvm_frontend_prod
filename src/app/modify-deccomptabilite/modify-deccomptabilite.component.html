@@ -16,7 +16,7 @@
             <label for="fq_name">Statut</label>    
             <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statut" formControlName="statut" >
               <option value="default"> </option>
-              <option *ngFor="let statut of status" [value]="statut">
+              <option *ngFor="let statut of statusadmin" [value]="statut">
                   {{statut}}
               </option>
             </select>
@@ -72,7 +72,7 @@
               <label for="fq_name">Statut</label>    
               <select  class="form-control btn-block" placeholder="Entrer Votre décision" id="fiscalimpot" id="statutcoll" formControlName="statutcoll" >
                 <option value="default"> </option>
-                <option *ngFor="let statut of status" [value]="statut">
+                <option *ngFor="let statut of statuscollab" [value]="statut">
                     {{statut}}
                 </option>
               </select>

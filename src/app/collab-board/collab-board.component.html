@@ -57,8 +57,8 @@
                   <td>{{sorteddossencour.updated}}</td>
                   
                   
-                  <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',sorteddossencour._id)"
-                    (click)="debutcompteurdecfiscale(sorteddossencour._id)">Consulter</button>
+                  <td>  
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'"(click)="debutcompteurdecfiscale('view-decfiscmens',sorteddossencours._id)">Consulter</button>
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencour._id)">Consulter</button>
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencour._id)">Consulter</button>
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencour._id)">Consulter</button></td>
@@ -96,7 +96,7 @@
                     <td>{{sorteddossencours.updated}}</td>
                     
                     
-                    <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',sorteddossencours._id)">Consulter</button>
+                    <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="debutcompteurdecfiscale('view-decfiscmens',sorteddossencours._id)">Consulter</button>
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencours._id)">Consulter</button>
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencours._id)">Consulter</button>
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencours._id)">Consulter</button></td>

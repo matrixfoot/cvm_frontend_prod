@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class CommunService {
 
-    status:string[]=['Clôturé','Valide','En cours de verification','à rectifié']
+    statuscollab:string[]=['traité']
+    statusadmin:string[]=['en cours de supervision','supervisé','en cours de validation','validé','en cours de clôture','clôturé','à rectifié']
+
   constructor() {
 
   }

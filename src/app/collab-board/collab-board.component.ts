@@ -200,41 +200,65 @@ export class CollabBoardComponent implements OnInit {
                this.getcondidatesall()
                this.getcontactsall()
               }
-              debutcompteurdecfiscale(id)
+              debutcompteurdecfiscale(link,id)
               {
 
                 this.dec.getDecfiscmensreqById(id).then(
                   (decfiscmens: Decfiscmens) => {
                     
                     this.decfiscmens = decfiscmens;
-                    console.log(this.decfiscmens.dateouverturedossier)
-
-                    if(!this.decfiscmens.dateouverturedossier&&this.currentuser.role=='admin'||!this.decfiscmens.dateouverturedossier&&this.currentuser.role=='supervisor')
+  //@ts-ignore
+  if(this.decfiscmens.statutcollab.length>0)
 {
-  
-  this.decfiscmens.dateouverturedossier=Date.now()
-  console.log(this.decfiscmens.dateouverturedossier)
-
-  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
-    (data:any) => {
-      console.log(this.decfiscmens.dateouverturedossier)
-    },
-    (error) => {
-      this.loading = false;
-      
-      window.scrollTo(0, 0);
-      
-    
-      
-    }
+  //@ts-ignore
+  if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll!='en cours de traitement')
+  { 
+    this.decfiscmens.statutcollab.push
+    //@ts-ignore
+    ({
+      statutcoll:'en cours de traitement',
+      motifcoll:'',
+      datefin:Date.now(),
+    })
+    this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+      (data:any) => {
+        this.router.navigate([link + '/' + id]); 
+      },
+      (error) => {
+        this.loading = false;
+        
+        window.scrollTo(0, 0);     
+  }
   );
+  }
+  else 
+  {
+    this.router.navigate([link + '/' + id]); 
+  } 
 }
-                    
-                  }
-                )
-
-               
-              }
+ else
+ {
+  this.decfiscmens.statutcollab.push
+    //@ts-ignore
+    ({
+      statutcoll:'en cours de traitement',
+      motifcoll:'',
+      datefin:Date.now(),
+    })
+    this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+      (data:any) => {
+        this.router.navigate([link + '/' + id]); 
+      },
+      (error) => {
+        this.loading = false;
+        
+        window.scrollTo(0, 0);     
+  }
+  );
+ }                   
+}
+)
+}
       
                 
               
