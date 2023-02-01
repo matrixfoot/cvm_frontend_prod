@@ -679,7 +679,7 @@
                   
                 <div class="card" *ngIf="decfiscmens">
 
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
+                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()"> <span *ngIf="!decfiscmens.affecte">Affecter collaborateur(Admin)</span> <span *ngIf="decfiscmens.affecte">Réaffecter collaborateur(Admin)</span></button>
                   <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
                     <option value="default"> </option>
                     <option *ngFor="let col of collab" [value]="col._id">

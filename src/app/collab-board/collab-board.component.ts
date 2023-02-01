@@ -342,7 +342,7 @@ filterusers2(id:string)
               this.getcondidatesall()
               this.getcontactsall()
 //@ts-ignore                                                            
-this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&!decfiscmens.statutadmin.find(e => e.statut==='Valide')&&decfiscmens.affecte== this.id))
+this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='affecté')&&!decfiscmens.statutcollab.find(e => e.statutcoll==='traité')&&decfiscmens.affecte== this.id))
 //@ts-ignore                                                            
 this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='Valide')&&deccomptabilite.affecte==this.id)))
 //@ts-ignore                                                            
