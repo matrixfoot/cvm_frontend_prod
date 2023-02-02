@@ -736,6 +736,14 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
             datefin:Date.now(),
             duree:this.countdown,     
           })
+          decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutcoll:'en cours de traitement',
+            motifcoll:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
           this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
             (data:any) => {
               this.loading = false;
@@ -814,6 +822,14 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
             datefin:Date.now(),
             duree:this.countdown,     
           })
+          decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutcoll:'en cours de traitement',
+            motifcoll:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
           this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
             (data:any) => {
               this.loading = false;
@@ -891,6 +907,14 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
             motif:'',
             datefin:Date.now(),
             duree:this.countdown,     
+          })
+          decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutcoll:'en cours de traitement',
+            motifcoll:'',
+            datefin:Date.now(),
+            duree:'',     
           })
           this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
             (data:any) => {
@@ -1511,6 +1535,8 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
                   chiffreaffaireht:this.decfiscmens.impottype7.chiffreaffaireht,
                   montantcontribution:this.decfiscmens.impottype7.montantcontribution,}
                   decfiscmens.statutadmin=this.decfiscmens.statutadmin
+                  decfiscmens.statutcollab=this.decfiscmens.statutcollab
+
     decfiscmens.affecte =this.optionValue;
     decfiscmens.statutadmin.push
     //@ts-ignore
@@ -1519,6 +1545,14 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
       motif:'',
       datefin:Date.now(),
       duree:this.countdown,     
+    })
+    decfiscmens.statutcollab.push
+    //@ts-ignore
+    ({
+      statutcoll:'en cours de traitement',
+      motifcoll:'',
+      datefin:Date.now(),
+      duree:'',     
     })
     this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
       (data:any) => {

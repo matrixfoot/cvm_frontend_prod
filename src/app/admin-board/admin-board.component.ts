@@ -215,7 +215,9 @@ export class AdminBoardComponent implements OnInit {
                     if(this.decfiscmens.statutcollab.length>0)
 {
                       //@ts-ignore
-if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté')
+if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'&&this.decfiscmens.statutadmin.length==1
+                      //@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier')
                       {
                         
                         this.decfiscmens.statutadmin.push

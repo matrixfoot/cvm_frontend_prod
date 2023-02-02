@@ -336,30 +336,38 @@ filterusers2(id:string)
 }
              getdossiersencours()
              {
+              this.dossencours1=new Array
+              this.dossencours2=new Array
+              this.dossencours3=new Array
+              this.dossencours4=new Array
+
               this.getall()
               this.getalldeccomptabilites()
               this.getalldecfiscmenss()
               this.getcondidatesall()
               this.getcontactsall()
+ this.decfiscmenss.forEach((item, index) => { 
+  if(item.statutadmin.length>0&&item.statutcollab.length>0)
+      {
                //@ts-ignore                                                            
-this.dossencours1=(this.decfiscmenss.filter((decfiscmens) =>{
-  if(decfiscmens.statutadmin.length>0&&decfiscmens.statutcollab.length>0)
-  {
-//@ts-ignore                                                            
-decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='affecté'&&decfiscmens.statutcollab[decfiscmens.statutcollab.length-1].statutcoll!='traité'&&decfiscmens.affecte== this.id
-//@ts-ignore                                                            
-|| decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='à rectifier'&&decfiscmens.statutcollab[decfiscmens.statutcollab.length-1].statutcoll!='traité'&&decfiscmens.affecte== this.id 
-  }
-   else
-   {
-    //@ts-ignore
-    decfiscmens.affecte== this.id&&decfiscmens.statutadmin.find(e => e.statut==='affecté')&&decfiscmens.statutcollab.statutcoll=='en cours de traitement'
-   }             
-}
+        if(item.statutadmin[item.statutadmin.length-1].statut=='affecté'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id
+      //@ts-ignore                                                            
+        ||item.statutadmin[item.statutadmin.length-1].statut=='à rectifier'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id)
+        {
+          this.dossencours1.push(item)
+          console.log('1',this.dossencours1)
+        }
+      }
+      else if(
+      //@ts-ignore                                                            
+    item.affecte==this.id&&item.statutadmin.find(e => e.statut==='affecté')&&item.statutcollab.length==0)
+      {
+        this.dossencours1.push(item)
+        console.log('2',this.dossencours1)
+      }
 
-)
-
-)
+   }
+   )
 //@ts-ignore                                                            
 this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='Valide')&&deccomptabilite.affecte==this.id)))
 //@ts-ignore                                                            
