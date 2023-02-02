@@ -212,8 +212,80 @@ export class AdminBoardComponent implements OnInit {
                   (decfiscmens: Decfiscmens) => {
                     
                     this.decfiscmens = decfiscmens;
+                    if(this.decfiscmens.statutcollab.length>0)
+{
+                      //@ts-ignore
+if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
 
-                    if(!this.decfiscmens.dateouverturedossier)
+                      if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.decfiscmens.dateouverturedossier)
 {
   
   this.decfiscmens.dateouverturedossier=Date.now()

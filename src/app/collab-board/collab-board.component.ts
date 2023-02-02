@@ -341,8 +341,25 @@ filterusers2(id:string)
               this.getalldecfiscmenss()
               this.getcondidatesall()
               this.getcontactsall()
+               //@ts-ignore                                                            
+this.dossencours1=(this.decfiscmenss.filter((decfiscmens) =>{
+  if(decfiscmens.statutadmin.length>0&&decfiscmens.statutcollab.length>0)
+  {
 //@ts-ignore                                                            
-this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='affecté')&&!decfiscmens.statutcollab.find(e => e.statutcoll==='traité')&&decfiscmens.affecte== this.id))
+decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='affecté'&&decfiscmens.statutcollab[decfiscmens.statutcollab.length-1].statutcoll!='traité'&&decfiscmens.affecte== this.id
+//@ts-ignore                                                            
+|| decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='à rectifier'&&decfiscmens.statutcollab[decfiscmens.statutcollab.length-1].statutcoll!='traité'&&decfiscmens.affecte== this.id 
+  }
+   else
+   {
+    //@ts-ignore
+    decfiscmens.affecte== this.id&&decfiscmens.statutadmin.find(e => e.statut==='affecté')&&decfiscmens.statutcollab.statutcoll=='en cours de traitement'
+   }             
+}
+
+)
+
+)
 //@ts-ignore                                                            
 this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='Valide')&&deccomptabilite.affecte==this.id)))
 //@ts-ignore                                                            
@@ -366,7 +383,9 @@ this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,thi
         console.log(this.sorteddossencours)
        }
 
-            return (this.sorteddossencours);
+            return (this.sorteddossencours); 
+              
+
              }
              
              getalldecfiscmenss() {
