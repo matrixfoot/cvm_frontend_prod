@@ -245,7 +245,7 @@ if(this.activite=='Consultant')
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option1Value>anneactuel||this.option2Value>=moisactuel)
+    if (this.option1Value>anneactuel||this.option1Value==anneactuel&&this.option2Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration au futur',
@@ -267,7 +267,7 @@ if(this.activite=='Consultant')
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Modifier le fichier existant',
-            cancelButtonText: 'Modifier le mois',
+            cancelButtonText: 'actualiser déclaration',
           }).then((result) => 
           {
             if (result.value) {
@@ -278,8 +278,9 @@ if(this.activite=='Consultant')
             }
             else{
               this.loading=false
-             this.option2Value=''
-  
+              this.token.saved=true
+             this.reloadPage()
+
             }
           }).catch(() => {
             this.loading=false
@@ -308,7 +309,7 @@ this.loading=false
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option1Value>anneactuel||this.option2Value>=moisactuel)
+    if (this.option1Value>anneactuel||this.option1Value==anneactuel&&this.option2Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration au futur',

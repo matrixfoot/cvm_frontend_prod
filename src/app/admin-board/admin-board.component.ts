@@ -439,21 +439,21 @@ filterusers2(id:string)
               this.getcondidatesall()
               this.getcontactsall()
               //@ts-ignore                                                            
-              this.dossdecfiscencours=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte)).length
+              this.dossdecfiscencours=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte)).length
               //@ts-ignore                                                            
-              this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)).length                                   
+              this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)).length                                   
               //@ts-ignore                                                            
-              this.dosscandencours=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)).length                                   
+              this.dosscandencours=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
               //@ts-ignore                                                            
-              this.dosscontactencours=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)).length                                   
+              this.dosscontactencours=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                   
        //@ts-ignore                                                            
-              this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte))
+              this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte))
        //@ts-ignore                                                            
-              this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)))
+              this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)))
        //@ts-ignore                                                            
-              this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)))
+              this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)))
        //@ts-ignore                                                            
-              this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)))
+              this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)))
        this.dossencours=[]
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        const sort = new Sort();
@@ -493,18 +493,18 @@ filterusers2(id:string)
            } 
            getdecfiscmenssvalide() {
             //@ts-ignore                    
-             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='Clôturé'))).length                                   
+             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='clôturé'))).length                                   
                         //@ts-ignore                    
-             return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+             return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                              
          }  
          getdecfiscmenssnonvalide() {
                        //@ts-ignore                    
                      
-          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte)).length                                      
+          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte)).length                                      
                       //@ts-ignore                    
 
-          return this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte);                                                           
+          return this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte);                                                           
                                                            
        } 
            getalldeccomptabilites() {                                   
@@ -513,19 +513,19 @@ filterusers2(id:string)
          getdeccomptabilitesvalide() {
                       //@ts-ignore                    
                       
-          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'))).length                                      
+          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='clôturé'))).length                                      
                       //@ts-ignore                    
 
-          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                            
        }  
        getdeccomptabilitesnonvalide() {
                      //@ts-ignore                    
                        
-         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)).length                                       
+         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)).length                                       
                     //@ts-ignore                    
 
-         return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte);                                                           
+         return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte);                                                           
                                                          
      }                     
              getalldeleted() {
@@ -552,19 +552,19 @@ filterusers2(id:string)
              getcondidatevalide() {
                            //@ts-ignore                    
                  
-               this.condval=(this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='Clôturé'))).length                                 
+               this.condval=(this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'))).length                                 
                           //@ts-ignore                    
 
-               return this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+               return this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                                
            }
            getcondidatenonvalide() {
                          //@ts-ignore                    
                    
-             this.condnonal=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)).length                                   
+             this.condnonal=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
                         //@ts-ignore                    
 
-             return this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte);                                                           
+             return this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte);                                                           
                                                              
          }
             getcontactreqsbydateinf() {
@@ -591,19 +591,19 @@ filterusers2(id:string)
            getcontactvalide() {
                          //@ts-ignore                    
                    
-             this.contval=(this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='Clôturé'))).length                                   
+             this.contval=(this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'))).length                                   
                         //@ts-ignore                    
 
-             return this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+             return this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                              
          }
          getcontactnonvalide() {
                       //@ts-ignore                    
                       
-          this.contnonval=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)).length                                      
+          this.contnonval=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                      
                       //@ts-ignore                    
 
-          return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte);                                                           
+          return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte);                                                           
                                                            
        }
            exportusersAsXLSX(source:any[],name:string):void {

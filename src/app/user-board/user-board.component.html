@@ -100,9 +100,9 @@
             <td>
               <span *ngIf="decfiscmens.statutadmin.length>0">
                 <ng-container *ngFor="let statut of decfiscmens.statutadmin">
-                  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)"*ngIf="decfiscmens.statutadmin.length>0&&statut.statut=='Clôturé'">Consulter</button>
+                  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)"*ngIf="decfiscmens.statutadmin.length>0&&statut.statut=='clôturé'">Consulter</button>
                 </ng-container>
-              </span>  
+              </span>   
               
             </td>
             <td>  <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button></td>

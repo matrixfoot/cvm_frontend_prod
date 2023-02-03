@@ -369,11 +369,11 @@ filterusers2(id:string)
    }
    )
 //@ts-ignore                                                            
-this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='Valide')&&deccomptabilite.affecte==this.id)))
+this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='validé')&&deccomptabilite.affecte==this.id)))
 //@ts-ignore                                                            
-this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&!condidate.statutadmin.find(e => e.statut==='Valide')&&condidate.affecte==this.id)))
+this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&!condidate.statutadmin.find(e => e.statut==='validé')&&condidate.affecte==this.id)))
 //@ts-ignore                                                            
-this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&!contact.statutadmin.find(e => e.statut==='Valide')&&contact.affecte==this.id)))
+this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&!contact.statutadmin.find(e => e.statut==='validé')&&contact.affecte==this.id)))
 this.dossencours=[]
 this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        console.log(this.dossencours)

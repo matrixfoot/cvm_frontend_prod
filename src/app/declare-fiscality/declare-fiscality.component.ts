@@ -2789,7 +2789,8 @@ this.DecfiscmensService.create(decfiscmens).then(
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
+    console.log(anneactuel,moisactuel)
+    if (this.option54Value>anneactuel||this.option54Value==anneactuel&&this.option171Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration au futur',
@@ -2810,7 +2811,7 @@ this.DecfiscmensService.create(decfiscmens).then(
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Modifier la déclaration existente',
-            cancelButtonText: 'Modifier le mois',
+            cancelButtonText: 'actualiser déclaration',
           }).then((result) => 
           {
             if (result.value) {
@@ -2820,8 +2821,9 @@ this.DecfiscmensService.create(decfiscmens).then(
   
             }
             else{
-             this.option171Value=''
-  
+              this.token.saved=true
+             this.reloadPage()
+
             }
           }).catch(() => {
             Swal.fire('opération non aboutie!')
@@ -2899,7 +2901,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
+    if (this.option54Value>anneactuel||this.option54Value==anneactuel&&this.option171Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration non encore échue',
@@ -4323,6 +4325,11 @@ if(reporttva>0)
          
         
       }
+    }
+    reloadPage(): void {
+  
+      window.location.reload();
+      
     }
 }
 
