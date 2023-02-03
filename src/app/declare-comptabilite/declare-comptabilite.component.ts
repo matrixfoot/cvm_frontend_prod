@@ -240,7 +240,7 @@ if(this.activite=='Consultant')
     {
       this.tauxdt=1.000
     }
-    /*
+    
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -254,7 +254,7 @@ if(this.activite=='Consultant')
     }).then((result) => {this.option1Value='',this.option2Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))*/
+    }))
     this.DeccomptabiliteService.geexistenttdeccomptabilite(this.currentUser.userId,this.option1Value,this.option2Value).then(
       (data:Deccomptabilite[]) => {
         
@@ -303,7 +303,7 @@ this.loading=false
 
   }
   verifyfutur(e)
-  {/*
+  {
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
@@ -319,7 +319,7 @@ this.loading=false
     }).catch(() => {
       Swal.fire('opération non aboutie!')
     }))
-  */
+  
   }
   onTabClick(event) {
    

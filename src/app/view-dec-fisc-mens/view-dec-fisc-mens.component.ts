@@ -554,7 +554,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
   top(): void {
     this.scroller.scrollToAnchor("top");
   }
-  decideadmin()
+  async decideadmin()
   {
     this.loading = true;
     const decfiscmens = new Decfiscmens();
@@ -771,9 +771,11 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
     //@ts-ignore
     if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='en cours de validation')
     { 
-      Swal.fire({
+      await Swal.fire({
         title: 'Veuillez choisir entre les alternatives suivantes!',
-        
+        input: 'text',
+        inputLabel: 'motif(facultatif)',
+        inputValue: '',
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -783,13 +785,14 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
         cancelButtonText: 'Annuler',
         denyButtonText: 'à rectifier',
         
-        }).then((result) => {
-        if (result.isConfirmed) {
+      }).then((result) => {
+        if (result.isConfirmed) 
+        {
           decfiscmens.statutadmin.push
           //@ts-ignore
           ({
             statut:'validé',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -818,7 +821,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
           //@ts-ignore
           ({
             statut:'à rectifier',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -860,6 +863,9 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
       Swal.fire({
         title: 'Veuillez choisir entre les alternatives suivantes!',
         
+        input: 'text',
+        inputLabel: 'motif(facultatif)',
+        inputValue: '',
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -875,7 +881,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
           //@ts-ignore
           ({
             statut:'clôturé',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -904,7 +910,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
           //@ts-ignore
           ({
             statut:'à rectifier',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -944,7 +950,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
   }
    
   }
-  traite()
+  async traite()
   {
     this.loading = true;
     const decfiscmens = new Decfiscmens();
@@ -1075,33 +1081,53 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
     //@ts-ignore
     if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll!='traité')
     { 
-      decfiscmens.statutcollab.push
-      //@ts-ignore
-      ({
-        statutcoll:'traité',
-        motifcoll:'',
-        datefin:Date.now(),
-        duree:this.countdown,     
-      })
-      this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
-        (data:any) => {
-          this.loading = false;
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'déclaration affectée avec succès',
-            showConfirmButton: false,
-            timer: 3000
-          });
-          this.router.navigate(['collab-board']);
-        },
-        (error) => {
-          this.loading = false;
-          
-          window.scrollTo(0, 0);  
+      await Swal.fire({
+        title: 'Veuillez choisir entre les alternatives suivantes!',
+        input: 'text',
+        inputLabel: 'motif(facultatif)',
+        inputValue: '',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#555',
+        confirmButtonText: 'marquer comme validé',
+        cancelButtonText: 'Annuler',
+        
+      }).then((result) => {
+        if (result.isConfirmed) 
+        {
+          decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutcoll:'traité',
+            motifcoll:result.value,
+            datefin:Date.now(),
+            duree:this.countdown,     
+          })
+          this.dec.modifydecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+            (data:any) => {
+              this.loading = false;
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'déclaration affectée avec succès',
+                showConfirmButton: false,
+                timer: 3000
+              });
+              this.router.navigate(['collab-board']);
+            },
+            (error) => {
+              this.loading = false;
+              
+              window.scrollTo(0, 0);  
+            }
+          );
         }
-      );
+     
+      
     }
+      )
+  }
     else
     {
       this.router.navigate(['collab-board']);

@@ -245,7 +245,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   option169Value:any;
   option170Value:any;
   option171Value:any;
-  option172Value=false;
+  option172Value=true;
   option173Value=false;
   option174Value:any;
   option175Value:any;
@@ -2723,9 +2723,15 @@ onchoice()
   let jour=date.getDate()
   let annee=date.getFullYear()
   let mois=date.getMonth()+1
+  console.log(this.option54Value)
+  console.log(this.option171Value)
+  console.log(annee)
+  console.log(mois)
+  console.log(jour)
+
   if(mois!=1)
   {
-    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value-1<mois||this.option54Value==annee&&this.option171Value-1==mois&&jour>15)
+    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value<mois-1||this.option54Value==annee&&this.option171Value==mois-1&&jour>15)
     {
       Swal.fire({
         title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',      
