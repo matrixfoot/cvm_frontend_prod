@@ -20,6 +20,7 @@
             <thead>
               <tr *ngIf="condidate.dateouverturedossier&&currentUser.role=='admin'||condidate.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{condidate.dateouverturedossier|customDate}}</td></tr> 
               <tr *ngIf="condidate.affecte&&currentUser.role=='admin'||condidate.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(condidate.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
+              <tr *ngIf="currentUser.role=='admin'||currentUser.role=='supervisor'"><th>durée de traitement:</th><td>{{countdown}}</td></tr> 
               <tr>
                 <th  style="text-align: center;">Statuts:</th>
                 <th  style="text-align: center;">Motifs:</th>
@@ -43,18 +44,22 @@
         
         <h4>Description:<b>  {{ condidate.description }}</b></h4>
       </div>
-      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
-                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
-                    <option value="default"> </option>
-                    <option *ngFor="let col of collab" [value]="col._id">
-                        {{col.firstname}} {{col.lastname}}
-                    </option>
-                  </select>
-      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Admin)</button>
-      <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-condidate', condidate._id)">Modifier Données Candidature  (Collaborateur)</button>
-
-      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer candidature</button>
-
+        <tr style="display: flex"><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()"> <span *ngIf="!condidate.affecte">Affecter collaborateur(Admin)</span> <span *ngIf="condidate.affecte">Réaffecter collaborateur(Admin)</span></button><span><select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+          <option value="default"> </option>
+          <option *ngFor="let col of collab" [value]="col._id">
+              {{col.firstname}} {{col.lastname}}
+          </option>
+        </select></span></tr>
+        <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="decideadmin()">Modifier Statut Déclaration fiscale (Admin)</button></tr>
+        <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="traite()">Marquer comme traité (Collaborateur)</button></tr>
+        <tr><button type="button" class="btn btn-danger"(click)="onDelete()"*ngIf="currentUser.role=='admin'">supprimer candidature</button></tr>
+        <tr *ngIf="currentUser.role=='admin'"><label for="underactivity"> Gérer les statuts:</label>
+          <span><select #cricket (change)="update($event)">
+            <option value="default"> </option>
+            <option (click)="deletestatutcollab()">supprimer le dernier statut collaborateur</option>
+            <option (click)="deletestatutadmin()">supprimer le dernier statut admin</option>
+          </select></span></tr>
+     
     </div>
     
     </body>

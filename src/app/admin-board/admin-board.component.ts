@@ -107,6 +107,8 @@ export class AdminBoardComponent implements OnInit {
   sorteddossencours: any[]=[];
   sorteddossnonaffecte: any[]=[];
   decfiscmens: Decfiscmens;
+  condidate: Condidate;
+  contact: Contact;
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -293,6 +295,219 @@ if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutc
   this.decfiscmens.dateouverturedossier=Date.now()
 
   this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
+
+//debutcompteurcontactreq
+debutcontact(link,id)
+              {
+
+                this.cont.getContactreqById(id).then(
+                  (contact: Contact) => {
+                    
+                    this.contact = contact;
+                    if(this.contact.statutcollab.length>0)
+{
+                      //@ts-ignore
+if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'&&this.contact.statutadmin.length==1
+                      //@ts-ignore
+||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='à rectifier')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+
+                      if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.contact.dateouverturedossier)
+{
+  
+  this.contact.dateouverturedossier=Date.now()
+
+  this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
+//debutcompteurcondidate
+debutcandidature(link,id)
+              {
+
+                this.cond.getCondidateById(id).then(
+                  (condidate: Condidate) => {
+                    
+                    this.condidate = condidate;
+                    if(this.condidate.statutcollab.length>0)
+{
+                      //@ts-ignore
+if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='affecté'&&this.condidate.statutadmin.length==1
+                      //@ts-ignore
+||this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='à rectifier')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+
+                      if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.condidate.dateouverturedossier)
+{
+  
+  this.condidate.dateouverturedossier=Date.now()
+
+  this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
     (data:any) => {
       this.router.navigate([link + '/' + id]); 
     },

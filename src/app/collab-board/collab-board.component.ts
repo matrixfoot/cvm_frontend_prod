@@ -368,12 +368,53 @@ filterusers2(id:string)
 
    }
    )
+   this.condidates.forEach((item, index) => { 
+    if(item.statutadmin.length>0&&item.statutcollab.length>0)
+        {
+                 //@ts-ignore                                                            
+          if(item.statutadmin[item.statutadmin.length-1].statut=='affecté'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id
+        //@ts-ignore                                                            
+          ||item.statutadmin[item.statutadmin.length-1].statut=='à rectifier'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id)
+          {
+            this.dossencours3.push(item)
+            console.log('1',this.dossencours3)
+          }
+        }
+        else if(
+        //@ts-ignore                                                            
+      item.affecte==this.id&&item.statutadmin.find(e => e.statut==='affecté')&&item.statutcollab.length==0)
+        {
+          this.dossencours3.push(item)
+          console.log('2',this.dossencours3)
+        }
+  
+     }
+     )
+     this.contacts.forEach((item, index) => { 
+      if(item.statutadmin.length>0&&item.statutcollab.length>0)
+          {
+                   //@ts-ignore                                                            
+            if(item.statutadmin[item.statutadmin.length-1].statut=='affecté'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id
+          //@ts-ignore                                                            
+            ||item.statutadmin[item.statutadmin.length-1].statut=='à rectifier'&&item.statutcollab[item.statutcollab.length-1].statutcoll!='traité'&&item.affecte== this.id)
+            {
+              this.dossencours4.push(item)
+              console.log('1',this.dossencours4)
+            }
+          }
+          else if(
+          //@ts-ignore                                                            
+        item.affecte==this.id&&item.statutadmin.find(e => e.statut==='affecté')&&item.statutcollab.length==0)
+          {
+            this.dossencours4.push(item)
+            console.log('2',this.dossencours4)
+          }
+    
+       }
+       )
 //@ts-ignore                                                            
 this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&!deccomptabilite.statutadmin.find(e => e.statut==='validé')&&deccomptabilite.affecte==this.id)))
-//@ts-ignore                                                            
-this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&!condidate.statutadmin.find(e => e.statut==='validé')&&condidate.affecte==this.id)))
-//@ts-ignore                                                            
-this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&!contact.statutadmin.find(e => e.statut==='validé')&&contact.affecte==this.id)))
+
 this.dossencours=[]
 this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        console.log(this.dossencours)

@@ -1090,7 +1090,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#555',
-        confirmButtonText: 'marquer comme validé',
+        confirmButtonText: 'marquer comme traité',
         cancelButtonText: 'Annuler',
         
       }).then((result) => {
@@ -1110,7 +1110,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
               Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'déclaration affectée avec succès',
+                title: 'déclaration traité avec succès',
                 showConfirmButton: false,
                 timer: 3000
               });
