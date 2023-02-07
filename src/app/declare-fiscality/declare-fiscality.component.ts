@@ -1590,17 +1590,25 @@ calculateResultForm1()
   {
   
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+    const chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+    const tvaammount19=+ Math.trunc((+chiffreaffaireht19*0.19)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      const ammountttc19=+ Math.trunc((+tvaammount19+ +chiffreaffaireht19)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const montantcontribution19=+ Math.trunc((+chiffreaffaireht19*+taux3)*1000)/1000;
       this.chiffreaffaireht=chiffreaffaireht
+      this.chiffreaffaireht19=chiffreaffaireht19
       this.ammountttc=ammountttc
+      this.ammounttc19=ammountttc19
       this.fspammount=montantcontribution
+      this.fspammount19=montantcontribution19
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount=+ (Math.trunc((+ammountttc*+taux2)*1000)/1000);
+      this.tclammount19=+ (Math.trunc((+ammountttc19*+taux2)*1000)/1000);
       this.totaltclammount=+this.tclammount+ +this.tclammount19
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
@@ -1624,17 +1632,25 @@ calculateResultForm1()
   {
   
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const ammountttc19=+this.standardtvacollecte19form.get('ammountttc').value
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount19=+ Math.trunc(((+ammountttc19*+0.19)/(1+ +0.19))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
+      const ammountht19=+ Math.trunc((+ammountttc19- +tvaammount19)*1000)/1000
       this.ammountttc=ammountttc
+      this.ammountttc=ammountttc19
       this.chiffreaffaireht=ammountht
+      this.chiffreaffaireht=ammountht19
       this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.tclammount19=+ Math.trunc((ammountttc19*taux2)*1000)/1000;
       this.totaltclammount=+this.tclammount+ +this.tclammount19
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution19=+ Math.trunc((+ammountht19*+taux3)*1000)/1000;
       this.fspammount=montantcontribution
+      this.fspammount19=montantcontribution19
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
@@ -1656,21 +1672,28 @@ calculateResultForm1()
   }
   calculateResultForm44()
   {
-  
     const chiffreaffaireht=+this.standardtvacollecte19form.get('chiffreaffaireht').value
+    const chiffreaffaireht07=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+    const tvaammount07=+ Math.trunc((+chiffreaffaireht*+taux4)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      const ammountttc07=+ Math.trunc((+tvaammount07+ +chiffreaffaireht07)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+chiffreaffaireht07*+taux3)*1000)/1000;
       this.chiffreaffaireht19=chiffreaffaireht
-
+      this.chiffreaffaireht=chiffreaffaireht07
+      this.fspammount=montantcontribution07
       this.fspammount19=montantcontribution
       this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      this.tclammount=+ Math.trunc((+ammountttc07*+taux2)*1000)/1000;
       this.totaltclammount=+this.tclammount+ +this.tclammount19
       this.tvacollecte119=tvaammount
       this.standardtvacollecte19form.patchValue({
@@ -1693,27 +1716,36 @@ calculateResultForm1()
   calculateResultForm45()
   {
   
-    const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const ammountttc=+this.standardtvacollecte19form.get('ammountttc').value
+    const ammountttc07=+this.standardtvacollecteform.get('ammountttc').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount07=+ Math.trunc(((+ammountttc07*+taux4)/(1+ +taux4))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.chiffreaffaireht19=ammountht
+      const ammountht07=+ Math.trunc((+ammountttc07- +tvaammount07)*1000)/1000
 
+      this.chiffreaffaireht19=ammountht
+      this.chiffreaffaireht=ammountht07
+      this.tclammount=+ Math.trunc((ammountttc07*taux2)*1000)/1000;
       this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
       this.totaltclammount=+this.tclammount+ +this.tclammount19
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+ammountht07*+taux3)*1000)/1000;
       this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
       this.fspammount19=montantcontribution
+      this.fspammount=montantcontribution07
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tvacollecte119=tvaammount
-      this.standardtvacollecteform.patchValue({
+      this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
           chiffreaffaireht: ammountht
         },{emitEvent: false} 
         );
-      this.standardtvacollecteform.updateValueAndValidity();
+      this.standardtvacollecte19form.updateValueAndValidity();
       this.standardtclform.patchValue({
         
         chiffreaffairettc:+this.ammountttc+ +this.ammounttc19,tclapayer:this.totaltclammount},{emitEvent: false} 
