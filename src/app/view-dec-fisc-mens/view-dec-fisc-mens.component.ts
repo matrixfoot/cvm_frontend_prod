@@ -1570,13 +1570,15 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
                   decfiscmens.statutcollab=this.decfiscmens.statutcollab
 
     decfiscmens.affecte =this.optionValue;
+    this.filterusers(this.optionValue)
     decfiscmens.statutadmin.push
     //@ts-ignore
     ({
       statut:'affecté',
       motif:'',
       datefin:Date.now(),
-      duree:this.countdown,     
+      duree:this.countdown,
+      collaborateur:this.prenomcollab+' '+this.nomcollab     
     })
     decfiscmens.statutcollab.push
     //@ts-ignore

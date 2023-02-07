@@ -23,7 +23,7 @@
       </thead>
         <tbody>
           <tr *ngFor="let statut of sortedallstatuts">
-            <td  style="text-align: center;"> <span *ngIf="statut.statutclient">{{statut.statutclient}}</span><span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+            <td  style="text-align: center;"> <span *ngIf="statut.statutclient">{{statut.statutclient}}</span><span *ngIf="statut.statut">{{statut.statut}}:{{statut.collaborateur}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
             <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
             <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
             <td  style="text-align: center;"> {{statut.duree}}</td>
