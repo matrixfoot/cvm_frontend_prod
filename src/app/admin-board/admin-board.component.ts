@@ -109,6 +109,8 @@ export class AdminBoardComponent implements OnInit {
   decfiscmens: Decfiscmens;
   condidate: Condidate;
   contact: Contact;
+  dossencoursvalide: any[]=[];
+  dossencoursnonvalide: any[]=[];
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -219,7 +221,11 @@ export class AdminBoardComponent implements OnInit {
                       //@ts-ignore
 if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'&&this.decfiscmens.statutadmin.length==1
                       //@ts-ignore
-||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier')
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier'
+                      //@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='clôturé'
+//@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='en cours de supervision'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut!='supervisé')
                       {
                         
                         this.decfiscmens.statutadmin.push
@@ -648,21 +654,30 @@ filterusers2(id:string)
              }
              getdossiersencours()
              {
+              this.dossencours1=new Array
               this.getall()
               this.getalldeccomptabilites()
               this.getalldecfiscmenss()
               this.getcondidatesall()
               this.getcontactsall()
-              //@ts-ignore                                                            
-              this.dossdecfiscencours=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte)).length
+              this.decfiscmenss.forEach((item, index) => { 
+                if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                    {
+                             //@ts-ignore                                                            
+                      if(item.statutadmin[item.statutadmin.length-1].statut!='clôturé'&&item.affecte)
+                      {
+                        this.dossencours1.push(item)
+                      }
+                    }
+                 }
+                 )
+              this.dossdecfiscencours=this.dossencours1.length
               //@ts-ignore                                                            
               this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)).length                                   
               //@ts-ignore                                                            
               this.dosscandencours=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
               //@ts-ignore                                                            
               this.dosscontactencours=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                   
-       //@ts-ignore                                                            
-              this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte))
        //@ts-ignore                                                            
               this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)))
        //@ts-ignore                                                            
@@ -707,19 +722,37 @@ filterusers2(id:string)
                                                                
            } 
            getdecfiscmenssvalide() {
-            //@ts-ignore                    
-             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='clôturé'))).length                                   
-                        //@ts-ignore                    
-             return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='clôturé'));                                                           
+            this.dossencoursvalide=[]
+            this.decfiscmenss.forEach((item, index) => { 
+              if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                  {
+            //@ts-ignore                                                            
+                    if(item.statutadmin[item.statutadmin.length-1].statut=='clôturé')
+                    {
+                      this.dossencoursvalide.push(item)
+                    }
+                  }
+               }
+               )
+            this.decfiscvali=this.dossencoursvalide.length                   
+             return this.dossencoursvalide;                                                           
                                                              
          }  
          getdecfiscmenssnonvalide() {
-                       //@ts-ignore                    
-                     
-          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte)).length                                      
-                      //@ts-ignore                    
-
-          return this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='clôturé')&&decfiscmens.affecte);                                                           
+          this.dossencoursnonvalide=[]
+          this.decfiscmenss.forEach((item, index) => { 
+            if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                {
+          //@ts-ignore                                                            
+                  if(item.statutadmin[item.statutadmin.length-1].statut!='clôturé')
+                  {
+                    this.dossencoursnonvalide.push(item)
+                  }
+                }
+             }
+             )
+          this.decfiscnonvali=this.dossencoursnonvalide.length                   
+           return this.dossencoursnonvalide;                                                          
                                                            
        } 
            getalldeccomptabilites() {                                   

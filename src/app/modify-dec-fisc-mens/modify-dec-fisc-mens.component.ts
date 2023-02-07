@@ -2716,7 +2716,7 @@ onSubmitcoll() {
       
     }
   );
-}
+} 
 onchoice()
 {
   let date= new Date
@@ -2913,7 +2913,17 @@ onSend() {
   decfiscmens.datearretactivite=this.user.datearretactivite
   decfiscmens.annee=this.option54Value
   decfiscmens.mois=this.option171Value
-  
+  decfiscmens.statutcollab=this.decfiscmens.statutcollab
+  decfiscmens.affecte=this.decfiscmens.affecte
+  decfiscmens.statutcollab.push
+        //@ts-ignore
+        ({
+          statutclient:'déposé par le client',
+          motifclient:'',
+          datefin:Date.now(),
+          duree:'',     
+        })
+  decfiscmens.affecte=''
   if (this.option48Value) 
   {
     if (this.option48Value&&!this.option65Value)
@@ -3392,7 +3402,17 @@ onSubmitmodification() {
     decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
     decfiscmens.mois=this.option171Value
-    
+    decfiscmens.statutcollab=this.decfiscmens.statutcollab
+    decfiscmens.affecte=this.decfiscmens.affecte
+    decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutclient:'modifié par le client',
+            motifclient:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
+    decfiscmens.affecte=''
     if (this.option48Value) 
     {
       if (this.option48Value&&!this.option65Value)

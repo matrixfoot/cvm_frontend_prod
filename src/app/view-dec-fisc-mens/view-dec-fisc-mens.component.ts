@@ -687,7 +687,10 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
     { 
       Swal.fire({
         title: 'Veuillez choisir entre les alternatives suivantes!',
-        
+        input: 'text',
+        inputLabel: 'motif(facultatif)',
+        inputValue: '',
+        returnInputValueOnDeny: true,
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -703,7 +706,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
           //@ts-ignore
           ({
             statut:'supervisé',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -732,7 +735,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
           //@ts-ignore
           ({
             statut:'à rectifier',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -776,6 +779,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
         input: 'text',
         inputLabel: 'motif(facultatif)',
         inputValue: '',
+        returnInputValueOnDeny: true,
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -866,6 +870,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
         input: 'text',
         inputLabel: 'motif(facultatif)',
         inputValue: '',
+        returnInputValueOnDeny: true,
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -1086,6 +1091,7 @@ html2canvas(data,{scale:2}).then((canvas:any) => {
         input: 'text',
         inputLabel: 'motif(facultatif)',
         inputValue: '',
+        returnInputValueOnDeny: true,
         icon: 'info',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
