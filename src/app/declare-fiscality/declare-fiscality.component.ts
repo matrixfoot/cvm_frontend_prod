@@ -1609,7 +1609,7 @@ calculateResultForm1()
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount=+ (Math.trunc((+ammountttc*+taux2)*1000)/1000);
       this.tclammount19=+ (Math.trunc((+ammountttc19*+taux2)*1000)/1000);
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1646,7 +1646,7 @@ calculateResultForm1()
       this.chiffreaffaireht=ammountht19
       this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
       this.tclammount19=+ Math.trunc((ammountttc19*taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
       const montantcontribution19=+ Math.trunc((+ammountht19*+taux3)*1000)/1000;
       this.fspammount=montantcontribution
@@ -1694,7 +1694,7 @@ calculateResultForm1()
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
       this.tclammount=+ Math.trunc((+ammountttc07*+taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       this.tvacollecte119=tvaammount
       this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
@@ -1731,7 +1731,7 @@ calculateResultForm1()
       this.chiffreaffaireht=ammountht07
       this.tclammount=+ Math.trunc((ammountttc07*taux2)*1000)/1000;
       this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
       const montantcontribution07=+ Math.trunc((+ammountht07*+taux3)*1000)/1000;
       this.ammounttc19=ammountttc
