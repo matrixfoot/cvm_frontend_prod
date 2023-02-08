@@ -99,8 +99,8 @@
             <td>{{decfiscmens.created | customDate}}</td>
             <td>
               <span *ngIf="decfiscmens.statutadmin.length>0">
-                <ng-container *ngFor="let statut of decfiscmens.statutadmin">
-                  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)"*ngIf="decfiscmens.statutadmin.length>0&&statut.statut=='clôturé'">Consulter</button>
+                <ng-container *ngIf="decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='clôturé'">
+                  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button>
                 </ng-container>
               </span>   
               

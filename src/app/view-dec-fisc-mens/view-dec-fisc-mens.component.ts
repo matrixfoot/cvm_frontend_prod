@@ -256,7 +256,7 @@ public decfiscmens=new Decfiscmens;
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
             //@ts-ignore
-            if(this.decfiscmens.statutadmin.find(e => e.statut==='clôturé'))
+            if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1]=='clôturé')
             {
               console.log(this.statut)
               this.showgenerate=true
