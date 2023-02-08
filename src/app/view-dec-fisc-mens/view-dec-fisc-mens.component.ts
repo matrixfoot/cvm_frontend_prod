@@ -59,6 +59,7 @@ maincontainer=false;
   public interval$ = interval(1000);
   selected: any;
   statusadmin: string[];
+  totaltime: number;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -157,6 +158,10 @@ public decfiscmens=new Decfiscmens;
             this.loading = false;
             this.decfiscmens = decfiscmens;
             this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
+            this.totaltime = +this.allstatuts.reduce((acc,curr)=>{
+              acc += +(curr.duree || 0);
+              return acc;
+            },0);
             this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
             if(this.decfiscmens.affecte)
             {

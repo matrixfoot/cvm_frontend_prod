@@ -562,6 +562,13 @@ filterusers2(id:string)
   }
   
 }
+getadmincollabview(link, id){
+      
+  this.UserService.getUserById(id);
+  this.router.navigate([]).then((result) => {
+    window.open(link + '/' + id, '_blank');
+  });; 
+}
               getNavigationusers(link, id){
       
                 this.UserService.getUserById(id);

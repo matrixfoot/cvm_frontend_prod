@@ -100,6 +100,12 @@ const routes: Routes = [
 { path: 'modify-decfiscmens/:id', component: ModifyDecFiscMensComponent,canDeactivate: [CanDeactivateGuard]
     
 },
+{ path: 'admin-board/modify-decfiscmens/:id', component: ModifyDecFiscMensComponent
+    
+},
+{ path: 'supervisor-board/modify-decfiscmens/:id', component: ModifyDecFiscMensComponent
+    
+},
 { path: 'modify-deccomptabilite/:id', component: ModifyDeccomptabiliteComponent,canDeactivate: [CanDeactivateGuard]
     
 },

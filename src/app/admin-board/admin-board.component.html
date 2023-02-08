@@ -279,7 +279,8 @@
                         <button type="button" class="btn btn-success" *ngIf="dossenc.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='candidature'"(click)="debutcandidature('view-condidate',dossenc._id)">Consulter</button>
                         <button type="button" class="btn btn-success" *ngIf="dossenc.type==='réclamation'"(click)="debutcontact('view-contactreq',dossenc._id)">Consulter</button></td>                      
-                        
+                       <td><button type="button" class="btn btn-success" *ngIf="dossenc.nature==='Déclaration Mensuelle'"(click)="getadmincollabview('modify-decfiscmens',dossenc._id)"target="_blank">Consulter maquette</button>
+                       </td> 
                     </tr>
                     </tbody>
                   </table>

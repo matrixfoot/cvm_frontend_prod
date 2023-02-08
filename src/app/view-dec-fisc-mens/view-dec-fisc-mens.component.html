@@ -29,6 +29,14 @@
             <td  style="text-align: center;"> {{statut.duree}}</td>
             <td  style="text-align: center;"><span *ngIf="statut.statutclient">Client</span><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
           </tr>
+          <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Total traitement</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totaltime}}</td>
+        </tr>
         </tbody> 
     </table>
 </div>  

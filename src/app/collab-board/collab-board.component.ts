@@ -259,7 +259,13 @@ export class CollabBoardComponent implements OnInit {
 }
 )
 }
+getadmincollabview(link, id){
       
+  this.UserService.getUserById(id);
+  this.router.navigate([]).then((result) => {
+    window.open(link + '/' + id, '_blank');
+  });; 
+}   
                 
               
               getNavigationusers(link, id){

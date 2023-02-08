@@ -62,7 +62,8 @@
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencour._id)">Consulter</button>
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencour._id)">Consulter</button>
                     <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencour._id)">Consulter</button></td>
-                  
+                    <td><button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'"(click)="getadmincollabview('modify-decfiscmens',sorteddossencours._id)"target="_blank">Consulter maquette</button>
+
               </tr>
               </tbody>
               <tbody *ngIf="currentuser.rolesuperviseur!='Autorisé'">
@@ -100,7 +101,7 @@
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencours._id)">Consulter</button>
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencours._id)">Consulter</button>
                       <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencours._id)">Consulter</button></td>
-                    
+                      <td><button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="getadmincollabview('modify-decfiscmens',sorteddossencours._id)"target="_blank">Consulter maquette</button>
                 </tr>
                 </tbody>
             </table>
