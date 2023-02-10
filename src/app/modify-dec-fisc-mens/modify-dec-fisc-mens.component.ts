@@ -328,7 +328,7 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
-  retenues: Array<string> = ['traitement et salaires','location, commission, courtage et vacation',  'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
+  retenues: Array<string> = ['traitements et salaires','loyers, commissions, courtages et vacations',  'honoraires', 'montants supérieurs à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
   showretenuetab=false;
@@ -392,7 +392,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   tauxdt: number;
   tvacollecte19=0.000;
   role: string;
-  status: string[]=[];
+  statuscollab: string[]=[];
+  statusadmin: string[]=[];
   constructor(private formBuilder: FormBuilder,
   
    
@@ -418,7 +419,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
 
  ngOnInit() {
   this.loading = true;
-  this.status=this.commun.status
+  this.statuscollab=this.commun.statuscollab
+  this.statusadmin=this.commun.statusadmin
   this.isLoggedIn = !!this.tokenStorage.getToken();
   this.currentuser = this.tokenStorage.getUser();
   this.role=this.currentuser.role
@@ -770,19 +772,20 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             basetfp: [{value:this.decfiscmens.impottype3.basetfp,disabled:true}],
             tfpsalairebrut: [this.decfiscmens.impottype3.tfpsalairebrut],
             taux: [{value:"0.02",disabled:true}],
-            avanceammount: this.decfiscmens.impottype3.montantavance,
+            avanceammount: [this.decfiscmens.impottype3.montantavance],
             tfpapayer: [{value:this.decfiscmens.impottype3.tfppayer,disabled:true}],
-            salairesnonsoumistfp: this.decfiscmens.impottype3.salairesnonsoumistfp,
+            salairesnonsoumistfp: [this.decfiscmens.impottype3.salairesnonsoumistfp],
             tfpammountmoisactuel: [{value:this.decfiscmens.impottype3.montanttfpmois,disabled:true}],
-            tfpammountreportmoisprecedent: this.decfiscmens.impottype3.reporttfpmoisprecedent,
+            tfpammountreportmoisprecedent: [this.decfiscmens.impottype3.reporttfpmoisprecedent],
             tfpareporter: [{value:this.decfiscmens.impottype3.tfpreporter,disabled:true}],
           });
+          console.log(this.decfiscmens.impottype3.montantavance,this.decfiscmens.impottype3.reporttfpmoisprecedent)
           this.standardfoprolosform =this.formBuilder.group({
             basefoprolos: [{value:this.decfiscmens.impottype4.basefoprolos,disabled:true}],
             foprolossalairebrut: [this.decfiscmens.impottype4.foprolossalairebrut],
             taux: [{value:"0.01",disabled:true}],
-            salairesnonsoumisfoprolos: this.decfiscmens.impottype4.salairesnonsoumisfoprolos,
-            foprolosammount: this.decfiscmens.impottype4.montantfoprolos,
+            salairesnonsoumisfoprolos: [this.decfiscmens.impottype4.salairesnonsoumisfoprolos],
+            foprolosammount: [this.decfiscmens.impottype4.montantfoprolos],
           });
         this.standarddroittimbreform =this.formBuilder.group({
           nombrenotehonoraire: [this.decfiscmens.impottype5.nombrenotehonoraire],
@@ -821,11 +824,10 @@ if(this.decfiscmens.mois!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.dec.decfiscmenss.find(e => verifyannee1=e.annee === this.decfiscmens.annee);
-  console.log(verifyannee1)
+  this.dec.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
+
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.decfiscmens.annee))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
@@ -866,10 +868,9 @@ this.standardtfpform.patchValue({
 }
 else if(this.decfiscmens.mois==='01')
 {
-  this.dec.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.dec.decfiscmenss.find(e => verifyannee1=+e.annee === +this.decfiscmens.annee-1);
-  if(verifyannee1&&verifymois1)
-{ 
+  this.dec.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
+{
   let tvarecuperable=+(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
   +(this.dec.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.decfiscmens.annee-1))[0].impottype2.tvarecuperableimmobilier.achatlocauxtva+
@@ -1792,8 +1793,8 @@ calculateResultForm23()
     console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
-      const tclapayer=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
-      const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const tclapayer=+ Math.trunc(((+ammountttc+ +this.ammounttc19)*+taux2)*1000)/1000;
+      const montantcontribution=+ Math.trunc(((+chiffreaffaireht+ +chiffreaffaireht19)*+taux3)*1000)/1000;
       this.chiffreaffaireht=chiffreaffaireht
       this.chiffreaffaireht19=chiffreaffaireht19
       this.ammountttc=ammountttc
@@ -1830,8 +1831,8 @@ calculateResultForm23()
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.tclammount=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
-      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      this.tclammount=+ Math.trunc(((+ammountttc+ +this.ammounttc19)*+taux2)*1000)/1000;
+      const montantcontribution=+ Math.trunc(((+ammountht+ +this.chiffreaffaireht19)*+taux3)*1000)/1000;
       this.fspammount=montantcontribution
       this.totaltclammount=Math.trunc((this.tclammount+this.tclammount19)*1000)/1000
       this.totalfspammount=Math.trunc((this.fspammount+this.fspammount19)*1000)/1000
@@ -2715,16 +2716,22 @@ onSubmitcoll() {
       
     }
   );
-}
+} 
 onchoice()
 {
   let date= new Date
   let jour=date.getDate()
   let annee=date.getFullYear()
   let mois=date.getMonth()+1
+  console.log(this.option54Value)
+  console.log(this.option171Value)
+  console.log(annee)
+  console.log(mois)
+  console.log(jour)
+
   if(mois!=1)
   {
-    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value-1<mois||this.option54Value==annee&&this.option171Value-1==mois&&jour>15)
+    if(this.option54Value<annee||this.option54Value==annee&&this.option171Value<mois-1||this.option54Value==annee&&this.option171Value==mois-1&&jour>15)
     {
       Swal.fire({
         title: 'Me calculer et m\'envoyer le montant des pénalités de retard!',      
@@ -2906,7 +2913,17 @@ onSend() {
   decfiscmens.datearretactivite=this.user.datearretactivite
   decfiscmens.annee=this.option54Value
   decfiscmens.mois=this.option171Value
-  
+  decfiscmens.statutcollab=this.decfiscmens.statutcollab
+  decfiscmens.affecte=this.decfiscmens.affecte
+  decfiscmens.statutcollab.push
+        //@ts-ignore
+        ({
+          statutclient:'déposé par le client',
+          motifclient:'',
+          datefin:Date.now(),
+          duree:'',     
+        })
+  decfiscmens.affecte=''
   if (this.option48Value) 
   {
     if (this.option48Value&&!this.option65Value)
@@ -2931,7 +2948,7 @@ if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes physiques'
 decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
 decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
 decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
@@ -2940,7 +2957,7 @@ if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes morales'
 decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
 decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
 decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
@@ -2949,7 +2966,7 @@ if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==nu
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes physiques'
 decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
 decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
 decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
@@ -2958,7 +2975,7 @@ if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null
 {
 decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes morales'
 decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
 decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
 decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -3385,7 +3402,17 @@ onSubmitmodification() {
     decfiscmens.datearretactivite=this.user.datearretactivite
     decfiscmens.annee=this.option54Value
     decfiscmens.mois=this.option171Value
-    
+    decfiscmens.statutcollab=this.decfiscmens.statutcollab
+    decfiscmens.affecte=this.decfiscmens.affecte
+    decfiscmens.statutcollab.push
+          //@ts-ignore
+          ({
+            statutclient:'modifié par le client',
+            motifclient:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
+    decfiscmens.affecte=''
     if (this.option48Value) 
     {
       if (this.option48Value&&!this.option65Value)
@@ -3410,7 +3437,7 @@ if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes physiques'
 decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
 decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
 decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
@@ -3419,7 +3446,7 @@ if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes morales'
 decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
 decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
 decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
@@ -3428,7 +3455,7 @@ if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==nu
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes physiques'
 decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
 decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
 decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
@@ -3437,7 +3464,7 @@ if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes morales'
 decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
 decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
 decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -3889,7 +3916,7 @@ createammount1(): FormGroup {
     motif: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
 
   });
@@ -3900,7 +3927,7 @@ createammount2(): FormGroup {
     motifcoll: '',
     duree: '',
     datefin: '',
-    fintraitement: ''
+    fintraitement: ['', Validators.required]
 
   });
 }
@@ -4036,7 +4063,7 @@ keyPressNumbers(event) {
 }
 update(e){
   this.selected = e.target.value
-  if(this.selected=='location, commission, courtage et vacation')
+  if(this.selected=='loyers, commissions, courtages et vacations')
   {this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
   this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -4049,14 +4076,14 @@ update(e){
   this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
   this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()}
-  else if(this.selected=='traitement et salaires')
+  else if(this.selected=='traitements et salaires')
   {this.standardtraitementsalaireform.controls['brutsalary'].reset()
   this.standardtraitementsalaireform.controls['imposalary'].reset()
   this.standardtraitementsalaireform.controls['retenuesalary'].reset()
   this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
 
   }
-  else if (this.selected=='honoraire')
+  else if (this.selected=='honoraires')
   {this.standardhonorairephysiquereelform.controls['brutammount'].reset()
   this.standardhonorairephysiquereelform.controls['netammount'].reset()
   this.standardhonorairephysiquereelform.controls['retenueammount'].reset()

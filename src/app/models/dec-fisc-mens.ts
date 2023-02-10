@@ -20,12 +20,8 @@ regimefiscalimpot:string;
     nature:string;
     mois:string;
     annee:string;
-    statut:string;
-    motif:string;
-    statutcoll:string;
-    motifcoll:string;
     affecte:string;
-    dateaffectation:Date;
+    dateaffectation:string;
     created:Date;
     dateouverturedossier:number
   updated: Date;

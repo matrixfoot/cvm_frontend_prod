@@ -1,15 +1,39 @@
   <div *ngIf="deccomptabilite">
     <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>   
-  <h2 style="text-align: center;"> Entête du fichier</h2>
-  <table>
-    <tr><th>Date de création du fichier:</th><td colspan="2">{{ deccomptabilite.created |customDate}}</td><th>Date de modification du fichier:</th><td colspan="2">{{ deccomptabilite.updated|customDate }}</td></tr>
-    <tr><th>Statut du fichier:</th><td>{{statut}}</td></tr>
-    <tr><th>Motif du statut:</th><td> {{motif}}</td></tr>
-    <tr><th>Nom:</th><td> {{lastname}}</td><th>Prénom:</th><td> {{firstname}}</td></tr>
-    <tr><th>Nature:</th><td> {{nature}}</td></tr>
-    <tr><th>Mois:</th><td> {{deccomptabilite.mois}}</td><th>Annee:</th><td> {{deccomptabilite.annee}}</td></tr>
-
-  </table>
+    <div id="payementinvoice">
+        <h2>Détails traitement: <span>{{deccomptabilite.mois}}</span>-<span>{{deccomptabilite.annee}}</span></h2> 
+        <div class="col-sm-3"style="margin:0">
+          <img src="../../assets/company_logo.png" id="logo" class="navbar-left" alt="image-DGI"style="width:20% ;height:20%;border: none">
+        </div>
+        <table id="table1">
+    <thead>
+        <tr><th>Date de création du fichier:</th><td colspan="2">{{ deccomptabilite.created |customDate}}</td><th>Date de modification du fichier:</th><td colspan="2">{{ deccomptabilite.updated|customDate }}</td></tr>
+        <tr><th>Nom:</th><td> {{lastname}}</td><th>Prénom:</th><td> {{firstname}}</td></tr>
+        <tr><th>Nature:</th><td> {{nature}}</td></tr>
+        <tr><th>Mois:</th><td> {{deccomptabilite.mois}}</td><th>Annee:</th><td> {{deccomptabilite.annee}}</td></tr>
+        <tr *ngIf="deccomptabilite.dateouverturedossier&&currentUser.role=='admin'||deccomptabilite.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{deccomptabilite.dateouverturedossier|customDate}}</td></tr> 
+      <tr *ngIf="deccomptabilite.affecte&&currentUser.role=='admin'||deccomptabilite.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(deccomptabilite.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
+      <tr>
+        <th  style="text-align: center;">Statuts:</th>
+        <th  style="text-align: center;">Motifs:</th>
+        <th  style="text-align: center;">date traitement:</th>
+        <th  style="text-align: center;">durée cumulée de traitement:</th>
+        <th  style="text-align: center;">traité par:</th>
+  
+      </tr>  
+      </thead>
+        <tbody>
+          <tr *ngFor="let statut of sortedallstatuts">
+            <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+            <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
+            <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+            <td  style="text-align: center;"> {{statut.duree}}</td>
+            <td  style="text-align: center;"><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
+          </tr>
+        </tbody> 
+    </table>
+    </div>
+    <button type="button" class="btn btn-success"(click)="payement()">Générer facture</button>              
 <div id="loader" *ngIf="loading"></div>
 <div class="col-lg-12" *ngIf="!loading">
   <!--edition note section-->
@@ -320,7 +344,7 @@
                     </option>
                   </select> 
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-    <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser._id=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
+    <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
 
     <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>
     <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>

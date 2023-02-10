@@ -80,7 +80,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let decfiscmens of decfiscmenss">
+          <tr *ngFor="let decfiscmens of decfiscmenss; let i = index">
       
             
             <td>{{decfiscmens._id}}</td>
@@ -89,9 +89,22 @@
             <td>{{decfiscmens.annee}}</td>
             <td>{{prenom}}</td>
             <td>{{nom}}</td>
-            <td>{{decfiscmens.statut}}</td>
+            <td>
+              <span *ngIf="decfiscmens.statutadmin.length>0">
+                <ng-container *ngFor="let statut of decfiscmens.statutadmin">
+                  <td  style="display: block;">{{statut.statut}}</td>
+                </ng-container>
+              </span>  
+            </td>
             <td>{{decfiscmens.created | customDate}}</td>
-            <td>  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button></td>
+            <td>
+              <span *ngIf="decfiscmens.statutadmin.length>0">
+                <ng-container *ngIf="decfiscmens.statutadmin[decfiscmens.statutadmin.length-1].statut=='clôturé'">
+                  <button type="button" class="btn btn-success" (click)="getNavigation('view-decfiscmens',decfiscmens._id)">Consulter</button>
+                </ng-container>
+              </span>   
+              
+            </td>
             <td>  <button type="button" class="btn btn-primary" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button></td>
           
           </tr>

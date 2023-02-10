@@ -375,9 +375,9 @@
                         </form>
                       </fieldset>
                       </div>
-                      <!-- traitement et salaires form-->
+                      <!-- traitements et salaires form-->
                       
-                      <div class="container-fluid"*ngIf="optionValue == 'traitement et salaires'">
+                      <div class="container-fluid"*ngIf="optionValue == 'traitements et salaires'">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -420,8 +420,8 @@
                            </fieldset>
                         </form>
                       </div>
-<!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="optionValue == 'location, commission, courtage et vacation'">
+<!-- loyers, commissions, courtages et vacations section-->
+                    <div class="container-fluid"*ngIf="optionValue == 'loyers, commissions, courtages et vacations'">
                         <fieldset>
                           <legend>{{optionValue}}</legend>
                         
@@ -430,7 +430,7 @@
                           <tr>
                       
                             
-          <th>Rubrique location, commission, courtage et vacation</th>
+          <th>Rubrique loyers, commissions, courtages et vacations</th>
           <th>Total des montants bruts</th>
           <th>Taux</th>
           <th>Montant total des retenues à la source</th>
@@ -442,7 +442,7 @@
                           </thead>
                           
                         <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyers, commissions, courtages et vacations (résidents et personnes phyisiques)form--> 
                         <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                           <td>
                             <p> Servis aux personnes physiques résidentes </p>
@@ -472,7 +472,7 @@
                   </div></td>
                   
                       </tr>
-                      <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+                      <!-- loyers, commissions, courtages et vacations (résidents et personnes morales)form--> 
                       <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
                         <td>
                           <p> Servis aux personnes morales résidentes </p>
@@ -502,7 +502,7 @@
                 </div></td>
                 
                     </tr>
-                     <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+                     <!-- loyers, commissions, courtages et vacations (non résidents et personnes physiques)form--> 
                      <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
                       <td>
                         <p> Servis aux personnes physiques non résidentes </p>
@@ -532,7 +532,7 @@
               </div></td>
               
                   </tr>
-                    <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+                    <!-- loyers, commissions, courtages et vacations (non résidents et personnes morales)form--> 
                     <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
                       <td>
                         <p> Servis aux personnes morales non résidentes </p>
@@ -572,7 +572,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="optionValue == 'honoraire'">
+<div class="container-fluid"*ngIf="optionValue == 'honoraires'">
 <fieldset>
     <legend>{{optionValue}}</legend>
   
@@ -689,7 +689,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="optionValue == 'montant supérieur à 1000 dt'">
+<div class="container-fluid"*ngIf="optionValue == 'montants supérieurs à 1000 dt'">
 <fieldset>
     <legend>{{optionValue}}</legend>
   
@@ -910,9 +910,9 @@
                           </div>
                         </form>
                       </div>
-                     <!-- traitement et salaires form-->
+                     <!-- traitements et salaires form-->
                       
-                     <div class="container-fluid"*ngIf="option3Value == 'traitement et salaires' &&option4Value">
+                     <div class="container-fluid"*ngIf="option3Value == 'traitements et salaires' &&option4Value">
                       <form  [formGroup]="standardtraitementsalaireform">
                         
                         
@@ -955,8 +955,8 @@
                          </fieldset>
                       </form>
                     </div>
-<!-- location, commission, courtage et vacation section-->
-                  <div class="container-fluid"*ngIf="option3Value == 'location, commission, courtage et vacation'&&option4Value">
+<!-- loyers, commissions, courtages et vacations section-->
+                  <div class="container-fluid"*ngIf="option3Value == 'loyers, commissions, courtages et vacations'&&option4Value">
                       <fieldset>
                         <legend>{{option3Value}}</legend>
                       
@@ -965,7 +965,7 @@
                         <tr>
                     
                           
-        <th>Rubrique location, commission, courtage et vacation</th>
+        <th>Rubrique loyers, commissions, courtages et vacations</th>
         <th>Total des montants bruts</th>
         <th>Taux</th>
         <th>Montant total des retenues à la source</th>
@@ -977,7 +977,7 @@
                         </thead>
                         
                       <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyers, commissions, courtages et vacations (résidents et personnes phyisiques)form--> 
                       <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                         <td>
                           <p> Servis aux personnes physiques résidentes </p>
@@ -1007,7 +1007,7 @@
                 </div></td>
                 
                     </tr>
-                    <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+                    <!-- loyers, commissions, courtages et vacations (résidents et personnes morales)form--> 
                     <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
                       <td>
                         <p> Servis aux personnes morales résidentes </p>
@@ -1037,7 +1037,7 @@
               </div></td>
               
                   </tr>
-                   <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+                   <!-- loyers, commissions, courtages et vacations (non résidents et personnes physiques)form--> 
                    <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
                     <td>
                       <p> Servis aux personnes physiques non résidentes </p>
@@ -1067,7 +1067,7 @@
             </div></td>
             
                 </tr>
-                  <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+                  <!-- loyers, commissions, courtages et vacations (non résidents et personnes morales)form--> 
                   <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
                     <td>
                       <p> Servis aux personnes morales non résidentes </p>
@@ -1107,7 +1107,7 @@
 
                   </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option3Value == 'honoraire'&&option4Value">
+<div class="container-fluid"*ngIf="option3Value == 'honoraires'&&option4Value">
 <fieldset>
   <legend>{{option3Value}}</legend>
 
@@ -1224,7 +1224,7 @@
     
       </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option3Value == 'montant supérieur à 1000 dt'&&option4Value">
+<div class="container-fluid"*ngIf="option3Value == 'montants supérieurs à 1000 dt'&&option4Value">
 <fieldset>
   <legend>{{option3Value}}</legend>
 
@@ -1444,9 +1444,9 @@
                         </div>
                       </form>
                     </div>
-                    <!-- traitement et salaires form-->                 
+                    <!-- traitements et salaires form-->                 
                       
-                      <div class="container-fluid"*ngIf="option19Value == 'traitement et salaires'&&option18Value">
+                      <div class="container-fluid"*ngIf="option19Value == 'traitements et salaires'&&option18Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -1489,8 +1489,8 @@
                            </fieldset>
                         </form>
                       </div>
-<!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option19Value == 'location, commission, courtage et vacation'&&option18Value">
+<!-- loyers, commissions, courtages et vacations section-->
+                    <div class="container-fluid"*ngIf="option19Value == 'loyers, commissions, courtages et vacations'&&option18Value">
                         <fieldset>
                           <legend>{{option19Value}}</legend>
                         
@@ -1499,7 +1499,7 @@
                           <tr>
                       
                             
-          <th>Rubrique location, commission, courtage et vacation</th>
+          <th>Rubrique loyers, commissions, courtages et vacations</th>
           <th>Total des montants bruts</th>
           <th>Taux</th>
           <th>Montant total des retenues à la source</th>
@@ -1511,7 +1511,7 @@
                           </thead>
                           
                         <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyers, commissions, courtages et vacations (résidents et personnes phyisiques)form--> 
                         <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                           <td>
                             <p> Servis aux personnes physiques résidentes </p>
@@ -1541,7 +1541,7 @@
                   </div></td>
                   
                       </tr>
-                      <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+                      <!-- loyers, commissions, courtages et vacations (résidents et personnes morales)form--> 
                       <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
                         <td>
                           <p> Servis aux personnes morales résidentes </p>
@@ -1571,7 +1571,7 @@
                 </div></td>
                 
                     </tr>
-                     <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+                     <!-- loyers, commissions, courtages et vacations (non résidents et personnes physiques)form--> 
                      <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
                       <td>
                         <p> Servis aux personnes physiques non résidentes </p>
@@ -1601,7 +1601,7 @@
               </div></td>
               
                   </tr>
-                    <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+                    <!-- loyers, commissions, courtages et vacations (non résidents et personnes morales)form--> 
                     <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
                       <td>
                         <p> Servis aux personnes morales non résidentes </p>
@@ -1641,7 +1641,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option19Value == 'honoraire'&&option18Value">
+<div class="container-fluid"*ngIf="option19Value == 'honoraires'&&option18Value">
 <fieldset>
     <legend>{{option19Value}}</legend>
   
@@ -1758,7 +1758,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option19Value == 'montant supérieur à 1000 dt'&&option18Value">
+<div class="container-fluid"*ngIf="option19Value == 'montants supérieurs à 1000 dt'&&option18Value">
 <fieldset>
     <legend>{{option19Value}}</legend>
   
@@ -1979,9 +1979,9 @@
                         </div>
                       </form>
                     </div>
-                      <!-- traitement et salaires form-->
+                      <!-- traitements et salaires form-->
                       
-                      <div class="container-fluid"*ngIf="option29Value == 'traitement et salaires'&&option27Value">
+                      <div class="container-fluid"*ngIf="option29Value == 'traitements et salaires'&&option27Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -2024,8 +2024,8 @@
                            </fieldset>
                         </form>
                       </div>
-<!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option29Value == 'location, commission, courtage et vacation'&&option27Value">
+<!-- loyers, commissions, courtages et vacations section-->
+                    <div class="container-fluid"*ngIf="option29Value == 'loyers, commissions, courtages et vacations'&&option27Value">
                         <fieldset>
                           <legend>{{option29Value}}</legend>
                         
@@ -2034,7 +2034,7 @@
                           <tr>
                       
                             
-          <th>Rubrique location, commission, courtage et vacation</th>
+          <th>Rubrique loyers, commissions, courtages et vacations</th>
           <th>Total des montants bruts</th>
           <th>Taux</th>
           <th>Montant total des retenues à la source</th>
@@ -2046,7 +2046,7 @@
                           </thead>
                           
                         <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyers, commissions, courtages et vacations (résidents et personnes phyisiques)form--> 
                         <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                           <td>
                             <p> Servis aux personnes physiques résidentes </p>
@@ -2076,7 +2076,7 @@
                   </div></td>
                   
                       </tr>
-                      <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+                      <!-- loyers, commissions, courtages et vacations (résidents et personnes morales)form--> 
                       <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
                         <td>
                           <p> Servis aux personnes morales résidentes </p>
@@ -2106,7 +2106,7 @@
                 </div></td>
                 
                     </tr>
-                     <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+                     <!-- loyers, commissions, courtages et vacations (non résidents et personnes physiques)form--> 
                      <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
                       <td>
                         <p> Servis aux personnes physiques non résidentes </p>
@@ -2136,7 +2136,7 @@
               </div></td>
               
                   </tr>
-                    <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+                    <!-- loyers, commissions, courtages et vacations (non résidents et personnes morales)form--> 
                     <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
                       <td>
                         <p> Servis aux personnes morales non résidentes </p>
@@ -2176,7 +2176,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option29Value == 'honoraire'&&option27Value">
+<div class="container-fluid"*ngIf="option29Value == 'honoraires'&&option27Value">
 <fieldset>
     <legend>{{option29Value}}</legend>
   
@@ -2293,7 +2293,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option29Value == 'montant supérieur à 1000 dt'&&option27Value">
+<div class="container-fluid"*ngIf="option29Value == 'montants supérieurs à 1000 dt'&&option27Value">
 <fieldset>
     <legend>{{option29Value}}</legend>
   
@@ -2513,9 +2513,9 @@
                         </div>
                       </form>
                     </div>
-                      <!-- traitement et salaires form-->
+                      <!-- traitements et salaires form-->
                       
-                      <div class="container-fluid"*ngIf="option40Value == 'traitement et salaires'&&option38Value">
+                      <div class="container-fluid"*ngIf="option40Value == 'traitements et salaires'&&option38Value">
                         <form  [formGroup]="standardtraitementsalaireform">
                           
                           
@@ -2558,8 +2558,8 @@
                            </fieldset>
                         </form>
                       </div>
-<!-- location, commission, courtage et vacation section-->
-                    <div class="container-fluid"*ngIf="option40Value == 'location, commission, courtage et vacation'&&option38Value">
+<!-- loyers, commissions, courtages et vacations section-->
+                    <div class="container-fluid"*ngIf="option40Value == 'loyers, commissions, courtages et vacations'&&option38Value">
                         <fieldset>
                           <legend>{{option40Value}}</legend>
                         
@@ -2568,7 +2568,7 @@
                           <tr>
                       
                             
-          <th>Rubrique location, commission, courtage et vacation</th>
+          <th>Rubrique loyers, commissions, courtages et vacations</th>
           <th>Total des montants bruts</th>
           <th>Taux</th>
           <th>Montant total des retenues à la source</th>
@@ -2580,7 +2580,7 @@
                           </thead>
                           
                         <tbody>
-<!-- location, commission, courtage et vacation (résidents et personnes phyisiques)form--> 
+<!-- loyers, commissions, courtages et vacations (résidents et personnes phyisiques)form--> 
                         <tr id="tvaform" [formGroup]="standardlocationresidentesphysiqueform">
                           <td>
                             <p> Servis aux personnes physiques résidentes </p>
@@ -2610,7 +2610,7 @@
                   </div></td>
                   
                       </tr>
-                      <!-- location, commission, courtage et vacation (résidents et personnes morales)form--> 
+                      <!-- loyers, commissions, courtages et vacations (résidents et personnes morales)form--> 
                       <tr id="tvaform" [formGroup]="standardlocationresidentesmoraleform">
                         <td>
                           <p> Servis aux personnes morales résidentes </p>
@@ -2640,7 +2640,7 @@
                 </div></td>
                 
                     </tr>
-                     <!-- location, commission, courtage et vacation (non résidents et personnes physiques)form--> 
+                     <!-- loyers, commissions, courtages et vacations (non résidents et personnes physiques)form--> 
                      <tr id="tvaform" [formGroup]="standardlocationnonresidentesphysiquesform">
                       <td>
                         <p> Servis aux personnes physiques non résidentes </p>
@@ -2670,7 +2670,7 @@
               </div></td>
               
                   </tr>
-                    <!-- location, commission, courtage et vacation (non résidents et personnes morales)form--> 
+                    <!-- loyers, commissions, courtages et vacations (non résidents et personnes morales)form--> 
                     <tr id="tvaform" [formGroup]="standardlocationnonresidentesmoralesform">
                       <td>
                         <p> Servis aux personnes morales non résidentes </p>
@@ -2710,7 +2710,7 @@
 
                     </div>
 <!-- honoraires section-->
-<div class="container-fluid"*ngIf="option40Value == 'honoraire'&&option38Value">
+<div class="container-fluid"*ngIf="option40Value == 'honoraires'&&option38Value">
 <fieldset>
     <legend>{{option40Value}}</legend>
   
@@ -2827,7 +2827,7 @@
       
         </div>
 <!-- mont supérieures à 1000 dt section-->
-<div class="container-fluid"*ngIf="option40Value == 'montant supérieur à 1000 dt'&&option38Value">
+<div class="container-fluid"*ngIf="option40Value == 'montants supérieurs à 1000 dt'&&option38Value">
 <fieldset>
     <legend>{{option40Value}}</legend>
   
@@ -3611,7 +3611,7 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
                           <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label>Nomre de notes d'honoraires</label>
+                                    <label>nombre de notes d'honoraires</label>
                                     <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                     class="form-control"appTwoDigitDecimaNumber  formControlName="nombrenotehonoraire" placeholder="Montant en DT et à 3 chiffres après la virgule"/>
                                   </div>

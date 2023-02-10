@@ -108,6 +108,11 @@ totalht219=0.000;
   realht119=0.000;
   realdt219=0.000;
   realdt119=0.000;
+  option204Value: number;
+  deccomptabiliteFormadmin: FormGroup;
+  deccomptabiliteFormcollab: FormGroup;
+  public ammounts7: FormArray;
+  public ammounts8: FormArray;
   deccomptabiliteForm: FormGroup;
   editionnoteform: FormGroup;
   public ammounts: FormArray;
@@ -123,7 +128,8 @@ totalht219=0.000;
   public ammounts6: FormArray;
   activitedec: string;
   sousactivitedec: string;
-  status: string[]=[];
+  statusadmin: string[];
+  statuscollab: string[];
   constructor(private fb: FormBuilder,
   
    
@@ -158,12 +164,19 @@ totalht219=0.000;
   this.salaireform = this.fb.group({
     ammounts6: this.fb.array([ this.createammount6() ])
   });
+  this.deccomptabiliteFormadmin = this.fb.group({
+    ammounts7: this.fb.array([ this.createammount7() ])
+  })
+  this.deccomptabiliteFormcollab = this.fb.group({
+    ammounts8: this.fb.array([ this.createammount8() ])
+  })
     }
 
   ngOnInit() {
     this.loading = true;
-this.status=this.commun.status
-    this.currentUser = this.tokenStorage.getUser();
+    this.statusadmin=this.commun.statusadmin
+    this.statuscollab=this.commun.statuscollab
+        this.currentUser = this.tokenStorage.getUser();
     this.role=this.currentUser.role
     this.tokenStorage.saved=false;
 
@@ -182,9 +195,17 @@ this.status=this.commun.status
               (deccomptabilite: Deccomptabilite) => {
                 
                 this.deccomptabilite = deccomptabilite;
+                if(!this.deccomptabilite.dateouverturedossier&&this.role=='admin'||!this.deccomptabilite.dateouverturedossier&&this.role=='supervisor')
+          {
+            this.option204Value=Date.now()
+          }
+          else
+          {
+            this.option204Value=this.deccomptabilite.dateouverturedossier
+          }
                 //general functions oninit
-                if (this.activite != deccomptabilite.activite&&this.role!='admin'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin') 
-                return (Swal.fire({
+                if (this.activite != deccomptabilite.activite&&this.role!='admin'&&this.role!='supervisor'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin'&&this.role!='supervisor') 
+                return (Swal.fire({ 
                   title: 'vous ne pouvez pas modifier une déclaration existente avec une activité/sous activité différente',
                   icon: 'error',
                   confirmButtonColor: '#3085d6',
@@ -196,13 +217,22 @@ this.status=this.commun.status
                   Swal.fire('opération non aboutie!')
                 })) 
                 this.nature=deccomptabilite.nature
-                this.deccomptabiliteForm = this.fb.group({
-                
-                  statut: [this.deccomptabilite.statut, Validators.required],
-                  motif: [this.deccomptabilite.motif, Validators.required],
-                  statutcoll: [this.deccomptabilite.statutcoll, Validators.required],
-                  motifcoll: [this.deccomptabilite.motifcoll, Validators.required],
+                this.deccomptabiliteFormadmin = new FormGroup({              
+                  ammounts7: new FormArray(deccomptabilite.statutadmin.map(item => {
+                    const group = this.initammounts7();
+                    //@ts-ignore
+                    group.patchValue(item);
+                    return group;
+                  }))
                 });
+                this.deccomptabiliteFormcollab = new FormGroup({        
+                  ammounts8: new FormArray(deccomptabilite.statutcollab.map(item => {
+                    const group = this.initammounts8();
+                    //@ts-ignore
+                    group.patchValue(item);
+                    return group;
+                  }))
+                }); 
                 this.option1Value=this.deccomptabilite.annee
               this.option2Value=this.deccomptabilite.mois
               if (this.deccomptabilite.autre1.length>0||this.deccomptabilite.autre2.length>0)
@@ -243,13 +273,7 @@ this.status=this.commun.status
                 this.showsalairetab=true
                 this.showpaiemanuel=true
               }
-              this.deccomptabiliteForm = this.fb.group({
-                
-                statut: [this.deccomptabilite.statut, Validators.required],
-                motif: [this.deccomptabilite.motif, Validators.required],
-                statutcoll: [this.deccomptabilite.statutcoll, Validators.required],
-                motifcoll: [this.deccomptabilite.motifcoll, Validators.required],
-              });
+            
               this.editionnoteform = new FormGroup({
                 
                 ammounts: new FormArray(deccomptabilite.autre1.map(item => {
@@ -396,6 +420,47 @@ this.status=this.commun.status
     )
     
 
+}
+initammounts7() {
+  return this.fb.group({
+    statut: [{value:'',disabled:true}],
+    motif: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
+  });
+}
+initammounts8() {
+  return this.fb.group({
+    statutcoll: [{value:'',disabled:true}],
+    motifcoll: [{value:'',disabled:true}],
+    duree: [{value:'',disabled:true}],
+    datefin: [{value:'',disabled:true}],
+    fintraitement: [{value:'',disabled:true}],
+
+  });
+}
+createammount7(): FormGroup {
+  return this.fb.group({
+    statut: '',
+    motif: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ['', Validators.required]
+
+
+  });
+}
+createammount8(): FormGroup {
+  return this.fb.group({
+    statutcoll: '',
+    motifcoll: '',
+    duree: '',
+    datefin: '',
+    fintraitement: ['', Validators.required]
+
+  });
 }
 canDeactivate():boolean {  
     
@@ -1056,6 +1121,78 @@ setdate(i: number) {
   get ammountControls6() {
     return this.salaireform.get('ammounts6')['controls'];
   }
+  get ammountControls7() {
+    return this.deccomptabiliteFormadmin.get('ammounts7')['controls'];
+  }
+  get ammountControls8() {
+    return this.deccomptabiliteFormcollab.get('ammounts8')['controls'];
+  }
+  finadmin(i:number) {
+    let ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
+    
+    if (ammounts7.controls[i].value.fintraitement == true)
+    { 
+      ammounts7.controls[i].patchValue({ datefin: Date.now() });
+      ammounts7.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
+    } 
+    else 
+    {
+      Swal.fire({
+        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          ammounts7.controls[i].patchValue({ datefin: '' });
+      ammounts7.controls[i].patchValue({ duree: ''});
+        }
+        else
+        {
+          ammounts7.controls[i].value.fintraitement == true
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
+  fincollab(i:number) {
+    let ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
+    
+    if (ammounts8.controls[i].value.fintraitement == true)
+    { 
+      ammounts8.controls[i].patchValue({ datefin: Date.now() });
+      ammounts8.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
+    } 
+    else 
+    {
+      Swal.fire({
+        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          ammounts8.controls[i].patchValue({ datefin: '' });
+      ammounts8.controls[i].patchValue({ duree: ''});
+        }
+        else
+        {
+          ammounts8.controls[i].value.fintraitement == true
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
   createammount() 
   : FormGroup {
     
@@ -1153,6 +1290,14 @@ setdate(i: number) {
       image:'0',
       contientfiche:false
     });
+  }
+  addammount7(): void {
+    this.ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
+    this.ammounts7.push(this.createammount7());
+  }
+  addammount8(): void {
+    this.ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
+    this.ammounts8.push(this.createammount8());
   }
    addammount(){
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
@@ -1599,6 +1744,19 @@ this.removeammount6(i)
     this.loading = true;
     const deccomptabilite:Deccomptabilite = this.deccomptabilite;
     deccomptabilite.userId = this.currentUser.userId;
+    deccomptabilite.activite=this.currentUser.activite;
+    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.currentUser.sousactivite;
+    deccomptabilite.codepostal=this.currentUser.codepostal;
+    deccomptabilite.adresse=this.currentUser.adresseactivite
+    deccomptabilite.firstname=this.currentUser.firstname
+    deccomptabilite.lastname=this.currentUser.lastname
+    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
+    deccomptabilite.codegenre=this.currentUser.codegenre
+    deccomptabilite.codetva=this.currentUser.codetva
+    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
+    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
+    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
     deccomptabilite.totalht=this.totalht
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
@@ -1881,19 +2039,19 @@ console.log(deccomptabilite.autre6)
     this.loading = true;
     const deccomptabilite:Deccomptabilite = this.deccomptabilite;
     deccomptabilite.userId = this.currentUser.userId;
-    deccomptabilite.activite=this.user.activite;
-    deccomptabilite.regimefiscalimpot=this.user.regimefiscalimpot;
-    deccomptabilite.sousactivite=this.user.sousactivite;
-    deccomptabilite.codepostal=this.user.codepostal;
-    deccomptabilite.adresse=this.user.adresseactivite
-    deccomptabilite.firstname=this.user.firstname
-    deccomptabilite.lastname=this.user.lastname
-    deccomptabilite.raisonsociale=this.user.raisonsociale
-    deccomptabilite.codegenre=this.user.codegenre
-    deccomptabilite.codetva=this.user.codetva
-    deccomptabilite.matriculefiscale=this.user.matriculefiscale
-    deccomptabilite.registrecommerce=this.user.registrecommerce
-    deccomptabilite.datearretactivite=this.user.datearretactivite
+    deccomptabilite.activite=this.currentUser.activite;
+    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.currentUser.sousactivite;
+    deccomptabilite.codepostal=this.currentUser.codepostal;
+    deccomptabilite.adresse=this.currentUser.adresseactivite
+    deccomptabilite.firstname=this.currentUser.firstname
+    deccomptabilite.lastname=this.currentUser.lastname
+    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
+    deccomptabilite.codegenre=this.currentUser.codegenre
+    deccomptabilite.codetva=this.currentUser.codetva
+    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
+    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
+    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
     deccomptabilite.totalht=this.totalht
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
@@ -2144,13 +2302,13 @@ console.log(deccomptabilite.autre6)
     deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
     deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
     deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
-    deccomptabilite.statutcoll =this.deccomptabiliteForm.get('statutcoll').value;
-    deccomptabilite.motifcoll =this.deccomptabiliteForm.get('motifcoll').value;
+    deccomptabilite.statutcollab=this.deccomptabiliteFormcollab.getRawValue().ammounts8
+  deccomptabilite.dateouverturedossier=this.option204Value 
 
         this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
+            this.deccomptabiliteFormcollab.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',
@@ -2427,13 +2585,13 @@ console.log(deccomptabilite.autre6)
     deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
     deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
     deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
-    deccomptabilite.statutcoll =this.deccomptabiliteForm.get('statut').value;
-    deccomptabilite.motifcoll =this.deccomptabiliteForm.get('motif').value;
+    deccomptabilite.statutadmin=this.deccomptabiliteFormadmin.getRawValue().ammounts7
+    deccomptabilite.dateouverturedossier=this.option204Value 
 
         this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
+            this.deccomptabiliteFormadmin.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',

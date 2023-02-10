@@ -1,11 +1,48 @@
 <div *ngIf="decfiscmens.impottype1" id="all">
   <button type="button" class="btn btn-danger btn-sm" id="backbutton"routerLink="/"><span><i class="glyphicon glyphicon-arrow-left"></i></span></button>
   <button type="button" (click)="bottom()"class="btn btn-primary btn-sm" id="top"><span><i class="glyphicon glyphicon-arrow-down"></i></span></button>   
-  <table>
-  <tr><th>Date de création de la déclaration:</th><th colspan="2">{{ decfiscmens.created |customDate}}</th><th>Date de modification de la déclaration:</th><th colspan="2">{{ decfiscmens.updated|customDate }}</th></tr>
-  <tr><th>Statut de la déclaration:</th><th>{{statut}}</th></tr>
-  <tr><th>Motif du statut:</th><th> {{motif}}</th></tr>
-</table>
+<div id="payementinvoice">
+  <h2>Détails traitement: <span>{{decfiscmens.mois}}</span>-<span>{{decfiscmens.annee}}</span></h2> 
+  <div class="col-sm-3"style="margin:0">
+    <img src="../../assets/company_logo.png" id="logo" class="navbar-left" alt="image-DGI"style="width:20% ;height:20%;border: none">
+  </div>
+  <table id="table1" >
+    <thead>
+      <tr><th>Date de création de la déclaration:</th><td colspan="2">{{ decfiscmens.created |customDate}}</td><th>Date de modification de la déclaration:</th><td colspan="2">{{ decfiscmens.updated|customDate }}</td></tr>
+      <tr *ngIf="decfiscmens.dateouverturedossier&&currentUser.role=='admin'||decfiscmens.dateouverturedossier&&currentUser.role=='supervisor'"><th>date ouverture dossier:</th><td>{{decfiscmens.dateouverturedossier|customDate}}</td></tr> 
+      <tr *ngIf="decfiscmens.affecte&&currentUser.role=='admin'||decfiscmens.affecte&&currentUser.role=='supervisor'"><th>Collaborateur affecté:</th><td>{{filterusers(decfiscmens.affecte)}}{{prenomcollab}}&nbsp;{{nomcollab}}</td></tr> 
+      <tr *ngIf="currentUser.role=='admin'||currentUser.role=='supervisor'"><th>durée de traitement:</th><td>{{countdown}}</td></tr> 
+      <tr>
+        <th  style="text-align: center;">Statuts:</th>
+        <th  style="text-align: center;">Motifs:</th>
+        <th  style="text-align: center;">date traitement:</th>
+        <th  style="text-align: center;">durée de traitement:</th>
+        <th  style="text-align: center;">traité par:</th>
+  
+      </tr>  
+      </thead>
+        <tbody>
+          <tr *ngFor="let statut of sortedallstatuts">
+            <td  style="text-align: center;"> <span *ngIf="statut.statutclient">{{statut.statutclient}}</span><span *ngIf="statut.statut">{{statut.statut}}:{{statut.collaborateur}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+            <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
+            <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
+            <td  style="text-align: center;"> {{statut.duree}}</td>
+            <td  style="text-align: center;"><span *ngIf="statut.statutclient">Client</span><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
+          </tr>
+          <tr id="resultrow">
+            <td colspan="3">
+                <div class="col-6">
+                     <p>Total traitement</p>
+                </div>
+            </td>
+            <td style="text-align: center;">{{totaltime}}</td>
+        </tr>
+        </tbody> 
+    </table>
+</div>  
+<button type="button" class="btn btn-success"(click)="payement()">Générer facture</button>              
+
+ 
 <div *ngIf="currentUser.role=='admin'&&decfiscmens.impottype1">
   <h2> Autre rubriques d'impots du type retenue à la source</h2>
 <table>
@@ -649,21 +686,29 @@
 
                   
                 <div class="card" *ngIf="decfiscmens">
-
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
-                  <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
-                    <option value="default"> </option>
-                    <option *ngFor="let col of collab" [value]="col._id">
-                        {{col.firstname}} {{col.lastname}}
-                    </option>
-                  </select>   
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Admin)</button>
-                  <button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser._id=='62e666d00bd8a70a2fdd312e'" (click)="getNavigation('modify-decfiscmens', decfiscmens._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
-                  <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button>
-                  <button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button>
-                  <button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button>
-                  <button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button>              
-                  <button type="button"  (click)="openPDF()" [disabled] = "!showgenerate"
-                  [ngStyle]="{'color': (showgenerate)? 'white': 'red','background-color': (showgenerate)? 'green': 'white'}"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button>
+<table style="text-align: left;">
+  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()"> <span *ngIf="!decfiscmens.affecte">Affecter collaborateur(Admin)</span> <span *ngIf="decfiscmens.affecte">Réaffecter collaborateur(Admin)</span></button><span><select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+    <option value="default"> </option>
+    <option *ngFor="let col of collab" [value]="col._id">
+        {{col.firstname}} {{col.lastname}}
+    </option>
+  </select></span></tr>
+  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="decideadmin()">Modifier Statut Déclaration fiscale (Admin)</button></tr>
+<tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="traite()">Marquer comme traité (Collaborateur)</button></tr>
+<tr><button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button></tr>
+<tr><button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button></tr>
+<tr><button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button></tr>
+<tr><button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button></tr>
+<tr><button type="button"  (click)="openPDF()" [disabled] = "!showgenerate&&currentUser.role=='basic'"
+  [ngStyle]="{'color': (showgenerate)? 'white': 'red','background-color': (showgenerate)? 'green': 'white'}"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button></tr>
+<tr *ngIf="currentUser.role=='admin'"><label for="underactivity"> Gérer les statuts:</label>
+  <span><select #cricket (change)="update($event)">
+    <option value="default"> </option>
+    <option (click)="deletestatutcollab()">supprimer le dernier statut collaborateur</option>
+    <option (click)="deletestatutadmin()">supprimer le dernier statut admin</option>
+  </select></span></tr>
+</table>
+                    
+                  
                   <button type="button" id="bottom"class="btn btn-primary btn-sm" (click)="top()"><span><i class="glyphicon glyphicon-arrow-up"></i></span></button>   
                 </div>

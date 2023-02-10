@@ -13,7 +13,7 @@ export class Deccomptabilite {
   activite:string;
   sousactivite:string;
   datearretactivite:string;
-regimefiscalimpot:string;
+  regimefiscalimpot:string;
   firstname:string;
   lastname:string;
   codedeclaration:string;
@@ -55,15 +55,11 @@ regimefiscalimpot:string;
   totaltva19: number;
   totaldt19: number;
   totalttc19: number;
-  statut:string;
-  motif:string;
-  statutcoll:string;
-  motifcoll:string;
   affecte:string;
-    dateaffectation:Date;
+  dateaffectation:string;
   created:Date;
-updated: Date;
-dateouverturedossier:number
+  updated: Date;
+  dateouverturedossier:number
 
 statutadmin:string[]
   statutcollab:string[]

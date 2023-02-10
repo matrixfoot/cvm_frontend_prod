@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <h2 (click)="getdossiersencours()" style="cursor: pointer;"> charger dossiers</h2> 
       <div class="col-lg-12" >
-        <div class="team-member" *ngIf="usertype=='Collaborateur'&&sorteddossencours">
+        <div class="team-member" *ngIf="usertype=='Collaborateur'&&dossencours.length>0">
           <h2>Liste des OF</h2>
           <hr>        
           <div class="users-grid" style="overflow-x:auto;">
@@ -12,7 +12,7 @@
             <table class="table table-striped">
               <thead>
               <tr>
-          
+           
                 
                 <th scope="col">Prenom</th>
                 <th scope="col">Nom</th>
@@ -26,44 +26,84 @@
                 
               </tr>
               </thead>
-              <tbody>
-              <tr>
+              <tbody *ngIf="currentuser.rolesuperviseur=='Autorisé'">
+              <tr *ngFor="let sorteddossencour of sorteddossencours">
           
                 
-                <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{prenomfisc}}</span>
-                    <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{prenom}}</span>
-                    <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.firstname}}</span></td>
-                  <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{nomfisc}}</span>
-                    <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{nom}}</span>
-                    <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.lastname}}</span></td>
-                  <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.nature}}</span>
-                    <span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.type}}</span>
-                    <span *ngIf="sorteddossencours.type==='réclamation'">{{sorteddossencours.type}}</span></td>
+                <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencour.userId)}}{{prenomfisc}}</span>
+                    <span *ngIf="sorteddossencour.nature==='déclaration comptable'">{{filterusers(sorteddossencour.userId)}}{{prenom}}</span>
+                    <span *ngIf="!sorteddossencour.nature">{{sorteddossencour.firstname}}</span></td>
+                  <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencour.userId)}}{{nomfisc}}</span>
+                    <span *ngIf="sorteddossencour.nature==='déclaration comptable'">{{filterusers(sorteddossencour.userId)}}{{nom}}</span>
+                    <span *ngIf="!sorteddossencour.nature">{{sorteddossencour.lastname}}</span></td>
+                  <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencour.nature}}</span>
+                    <span *ngIf="sorteddossencour.type==='candidature'">{{sorteddossencour.type}}</span>
+                    <span *ngIf="sorteddossencour.type==='réclamation'">{{sorteddossencour.type}}</span></td>
                     <td>
-                      <span *ngIf="sorteddossencours.statutadmin">
-                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                      <span *ngIf="sorteddossencour.statutadmin">
+                        <ng-container *ngFor="let statut of sorteddossencour.statutadmin">
                           {{statut.statut}}
                         </ng-container>
                       </span>  
                     </td>
                     <td>
-                      <span *ngIf="sorteddossencours.statutcollab">
-                        <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
-                          {{statut.statut}}
+                      <span *ngIf="sorteddossencour.statutcollab">
+                        <ng-container *ngFor="let statut of sorteddossencour.statutcollab">
+                          {{statut.statutcoll}}
                         </ng-container>
                       </span>  
                     </td>                  
-                    <td>{{sorteddossencours.created}}</td>
-                  <td>{{sorteddossencours.updated}}</td>
+                    <td>{{sorteddossencour.created}}</td>
+                  <td>{{sorteddossencour.updated}}</td>
                   
                   
-                  <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="getNavigationusers('view-decfiscmens',sorteddossencours._id)">Consulter</button>
-                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencours._id)">Consulter</button>
-                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencours._id)">Consulter</button>
-                    <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencours._id)">Consulter</button></td>
-                  
+                  <td>  
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'"(click)="debutcompteurdecfiscale('view-decfiscmens',sorteddossencours._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencour._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencour._id)">Consulter</button>
+                    <button type="button" class="btn btn-success" *ngIf="sorteddossencour.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencour._id)">Consulter</button></td>
+                    <td><button type="button" class="btn btn-success" *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'"(click)="getadmincollabview('modify-decfiscmens',sorteddossencours._id)"target="_blank">Consulter maquette</button>
+
               </tr>
               </tbody>
+              <tbody *ngIf="currentuser.rolesuperviseur!='Autorisé'">
+                <tr>
+            
+                  
+                  <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{prenomfisc}}</span>
+                      <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{prenom}}</span>
+                      <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.firstname}}</span></td>
+                    <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{nomfisc}}</span>
+                      <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{nom}}</span>
+                      <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.lastname}}</span></td>
+                    <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.nature}}</span>
+                      <span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.type}}</span>
+                      <span *ngIf="sorteddossencours.type==='réclamation'">{{sorteddossencours.type}}</span></td>
+                      <td>
+                        <span *ngIf="sorteddossencours.statutadmin">
+                          <ng-container *ngFor="let statut of sorteddossencours.statutadmin">
+                            {{statut.statut}}
+                          </ng-container>
+                        </span>  
+                      </td>
+                      <td>
+                        <span *ngIf="sorteddossencours.statutcollab">
+                          <ng-container *ngFor="let statut of sorteddossencours.statutcollab">
+                            {{statut.statutcoll}}
+                          </ng-container>
+                        </span>  
+                      </td>                  
+                      <td>{{sorteddossencours.created}}</td>
+                    <td>{{sorteddossencours.updated}}</td>
+                    
+                    
+                    <td>  <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="debutcompteurdecfiscale('view-decfiscmens',sorteddossencours._id)">Consulter</button>
+                      <button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='déclaration comptable'"(click)="getNavigationusers('view-deccomptabilite',sorteddossencours._id)">Consulter</button>
+                      <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='candidature'"(click)="getNavigationusers('view-condidate',sorteddossencours._id)">Consulter</button>
+                      <button type="button" class="btn btn-success" *ngIf="sorteddossencours.type==='réclamation'"(click)="getNavigationusers('view-contactreq',sorteddossencours._id)">Consulter</button></td>
+                      <td><button type="button" class="btn btn-success" *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'"(click)="getadmincollabview('modify-decfiscmens',sorteddossencours._id)"target="_blank">Consulter maquette</button>
+                </tr>
+                </tbody>
             </table>
           </div>
           

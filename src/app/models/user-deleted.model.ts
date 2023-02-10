@@ -31,6 +31,9 @@ export class Userdeleted {
     verified:Date;
     created:Date;
     acceptTerms:Boolean;
+    droitcompta:string
+    rolesuperviseur:string
+
   resetToken: Boolean;
   passwordReset:Boolean;
   updated: Date;
