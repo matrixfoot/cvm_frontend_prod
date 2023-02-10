@@ -394,6 +394,8 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
   role: string;
   statuscollab: string[]=[];
   statusadmin: string[]=[];
+  currentdate=new Date()
+  date1=new Date('04.01.2023')
   constructor(private formBuilder: FormBuilder,
   
    
@@ -463,24 +465,28 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
               this.totalfspammount=+this.decfiscmens.impottype7.montantcontribution
               
               this.totaltimbreammount=+this.decfiscmens.impottype5.totaldroittimbre
-        if (this.user.regimefiscalimpot=='Réel'&&this.decfiscmens.annee!='2023') 
-      {
-       this.prepminimumperceptionammount=10.000
-      }  
-      else if (this.user.regimefiscalimpot=='Forfait D\'assiette'&&this.decfiscmens.annee!='2023') 
-      {
-       this.prepminimumperceptionammount=5.000
-    
-      }
-      else if (this.user.regimefiscalimpot=='Réel'&&this.decfiscmens.annee=='2023') 
-      {
-       this.prepminimumperceptionammount=20.000
-      }  
-      else if (this.user.regimefiscalimpot=='Forfait D\'assiette'&&this.decfiscmens.annee=='2023') 
-      {
-       this.prepminimumperceptionammount=10.000
-     
-      }
+              if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
+              {
+               console.log(this.date1,this.currentdate) 
+               this.prepminimumperceptionammount=20.000
+              }  
+              else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
+              {
+                console.log(this.date1,this.currentdate) 
+               this.prepminimumperceptionammount=10.000
+            
+              }
+              else if (this.user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
+              {
+                console.log(this.date1,this.currentdate) 
+               this.prepminimumperceptionammount=10.000
+              }  
+              else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
+              {
+                console.log(this.date1,this.currentdate) 
+               this.prepminimumperceptionammount=5.000
+            
+              }
     if(decfiscmens.annee=='2023'&&decfiscmens.activite=='Architectes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Ingénieurs-conseil'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Dessinateurs'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Géomètres'||
     decfiscmens.annee=='2023'&&decfiscmens.activite=='Topographes'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Notaire'||decfiscmens.annee=='2023'&&decfiscmens.activite=='Syndic des copropriétaires'||
@@ -3857,21 +3863,25 @@ if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpam
 }
 else
 {
-  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
   {
+   console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=20.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
 
   }
-  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  else if (this.user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=5.000
 
   }
