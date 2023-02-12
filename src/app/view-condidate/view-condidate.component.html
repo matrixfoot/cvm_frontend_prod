@@ -50,7 +50,7 @@
               {{col.firstname}} {{col.lastname}}
           </option>
         </select></span></tr>
-        <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="decideadmin()">Modifier Statut Déclaration fiscale (Admin)</button></tr>
+        <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="decideadmin()">Modifier Statut Candidature (Admin)</button></tr>
         <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="traite()">Marquer comme traité (Collaborateur)</button></tr>
         <tr><button type="button" class="btn btn-danger"(click)="onDelete()"*ngIf="currentUser.role=='admin'">supprimer candidature</button></tr>
         <tr *ngIf="currentUser.role=='admin'"><label for="underactivity"> Gérer les statuts:</label>

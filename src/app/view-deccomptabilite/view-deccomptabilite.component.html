@@ -343,7 +343,7 @@
                         {{col.firstname}} {{col.lastname}}
                     </option>
                   </select> 
-    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut fichier comptable (Admin)</button>
     <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
 
     <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>

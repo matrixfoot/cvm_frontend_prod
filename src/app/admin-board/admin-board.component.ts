@@ -219,7 +219,7 @@ export class AdminBoardComponent implements OnInit {
                     if(this.decfiscmens.statutcollab.length>0)
 {
                       //@ts-ignore
-if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'&&this.decfiscmens.statutadmin.length==1
+if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'
                       //@ts-ignore
 ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier'
                       //@ts-ignore
@@ -330,9 +330,12 @@ debutcontact(link,id)
                     if(this.contact.statutcollab.length>0)
 {
                       //@ts-ignore
-if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'&&this.contact.statutadmin.length==1
+if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'
                       //@ts-ignore
-||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='à rectifier')
+||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='à rectifier'
+
+ //@ts-ignore
+ ||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'&&this.contact.statutadmin[this.contact.statutadmin.length-2].statut=='affecté')
                       {
                         
                         this.contact.statutadmin.push
@@ -435,8 +438,9 @@ debutcandidature(link,id)
                     this.condidate = condidate;
                     if(this.condidate.statutcollab.length>0)
 {
+  console.log('here')
                       //@ts-ignore
-if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='affecté'&&this.condidate.statutadmin.length==1
+if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='affecté'
                       //@ts-ignore
 ||this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='à rectifier')
                       {
@@ -510,7 +514,7 @@ if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=
 
   if(!this.condidate.dateouverturedossier)
 {
-  
+  console.log('here')
   this.condidate.dateouverturedossier=Date.now()
 
   this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
