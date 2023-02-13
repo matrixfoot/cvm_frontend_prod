@@ -50,6 +50,21 @@ export class ContactService {
           );
         });
       }
+      getContact(email: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'contact' ,{email}).subscribe(
+            (contacts: Contact[]) => {
+              if (contacts) {
+                this.contactreqs = contacts;
+                this.emitContactreqs();
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        });
+      }
       getContactreqssup(date: string) {
         return new Promise((resolve, reject) => {
           this.http.post(API_URL_cloud +'filtercontactreqsup' ,{date}).subscribe(

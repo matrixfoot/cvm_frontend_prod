@@ -3270,7 +3270,7 @@ this.loading = false;
 Swal.fire({
   position: 'center',
   icon: 'success',
-  title: 'déclaration modifiée avec succès! un email vous a été envoyer pour confirmer la modification de votre déclaration. vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+  title: 'déclaration modifiée avec succès!vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
   showConfirmButton: false,
   timer: 6000 
 });
@@ -3755,7 +3755,7 @@ this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
   Swal.fire({
     position: 'center',
     icon: 'success',
-    title: 'déclaration modifiée avec succès! un email vous a été envoyer pour confirmer la modification de votre déclaration. vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+    title: 'déclaration modifiée avec succès! vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
     showConfirmButton: false,
     timer: 6000 
   });
