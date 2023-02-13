@@ -85,5 +85,26 @@ export class DueDateTimelineComponent implements OnInit {
                 }
                 
               }
+              voirdetail(link, id)
+              {
+                if (this.isLoggedIn) 
+                {
+                  this.router.navigate([link + '/' + id]); 
+                }
+                else 
+                {
+                  Swal.fire({
+                    title: 'veuillez vous inscrire/se connecter pour consulter cette section',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                  }).then((result) => {
+                    this.router.navigate(['login'])
+                    this.loading=false
+                  }).catch(() => {
+                    Swal.fire('opération non aboutie!')
+                  })
+                }
+                
+              }
 }
   
