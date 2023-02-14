@@ -20,7 +20,7 @@
           <tr *ngFor="let event of events">
       
             <td id="date">{{event.date | date : "dd-MM-y"}}</td>
-            <td > <a (click)="getNavigation('view-event',event._id)" style="cursor: pointer;" routerLinkActive="active"> {{event.title}}</a>&nbsp;
+            <td > <a (click)="voirdetail('view-event',event._id)" style="cursor: pointer;" routerLinkActive="active"> {{event.title}}</a>&nbsp;
               <a class="btn btn-primary"*ngIf="event.description" style="font-size: 10px" (click)="voirdetail('view-event',event._id)">Lire Plus</a></td>
           </tr>
           </tbody>

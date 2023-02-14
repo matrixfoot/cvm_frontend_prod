@@ -498,7 +498,7 @@ const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
         const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
         console.log(this.activite)
         console.log(this.tauxtva)
-         if(mrecette19!=0)
+         if(mrecette19!=0&&mrecette==0)
          {
          const montantttc19=+(mrecette19).toFixed(3) 
          const montantht19=+((+montantttc19-mtimbre)/(1+ 0.19)).toFixed(3)
@@ -538,7 +538,7 @@ const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
         this.realdt219=this.totaldt219
         console.log(this.realht2,this.realdt2,this.realdt1)
          }
-         else if(mrecette!=0)
+         else if(mrecette!=0&&mrecette19==0)
          {
 
          const montantttc=+(mrecette).toFixed(3) 
@@ -579,6 +579,78 @@ const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
         this.realht2=this.totalht2
         this.realdt2=this.totaldt2
         console.log(this.realht2,this.realdt2,this.realdt1)
+         }
+         else
+         {
+          const montantttc19=+(mrecette19).toFixed(3) 
+          const montantht19=+((+montantttc19-(mtimbre/2))/(1+ 0.19)).toFixed(3)
+          const montanttva19=+(montantttc19-montantht19-(mtimbre/2)).toFixed(3)
+          const montantttc=+(mrecette).toFixed(3) 
+         const montantht=+((+montantttc-(mtimbre/2))/(1+ +this.tauxtva)).toFixed(3)
+         const montanttva=+(montantttc-montantht-(mtimbre/2)).toFixed(3)
+          console.log(montantttc19)
+          ammounts2.at(i).patchValue({
+           montantht19:montantht19,
+           montanttva19:montanttva19,
+           montantttc19:montantttc19,
+           montantht:montantht,
+          montanttva:montanttva,
+          montantttc:montantttc,
+           montantdt:this.tauxdt
+          })
+          this.totalht219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+            acc += +(curr.montantht19 || 0);
+            return acc;
+          },0);
+          this.totaltva219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+            acc += +(curr.montanttva19 || 0);
+            return acc;
+          },0);
+           if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+          {
+            this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+              acc += +(curr.montantdt || 0);
+              return acc;
+            },0);
+          }
+          
+          this.totalttc219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+            acc += +(curr.montantttc19 || 0);
+            return acc;
+          },0);
+          this.totalrecette19 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+            acc += +(curr.recette19 || 0);
+            return acc;
+          },0);
+          
+         this.totalht2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montantht || 0);
+          return acc;
+        },0);
+        this.totaltva2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montanttva || 0);
+          return acc;
+        },0);
+         if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+        {
+          this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+            acc += +(curr.montantdt || 0);
+            return acc;
+          },0);
+        }
+        
+        this.totalttc2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.montantttc || 0);
+          return acc;
+        },0);
+        this.totalrecette = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+          acc += +(curr.recette || 0);
+          return acc;
+        },0);
+        this.realht219=this.totalht219
+        this.realdt219=this.totaldt219
+        this.realht2=this.totalht2
+        this.realdt2=this.totaldt2
          }
         }
         setht3(i: number) {

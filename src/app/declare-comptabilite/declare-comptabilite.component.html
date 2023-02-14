@@ -307,7 +307,8 @@
                                class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
                             </div>
                            </td>
-                           <td>
+                           <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                           &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                class="form-control"formControlName="montantht19"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"readonly='true'/>
@@ -319,7 +320,8 @@
                                class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
                             </div>
                            </td>
-                           <td>
+                           <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                           &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
                             <div class="col-6">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                class="form-control"formControlName="montanttva19"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" readonly='true'/>
@@ -337,7 +339,8 @@
                                class="form-control"formControlName="montantttc"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"readonly='true'/>
                             </div>
                            </td>
-                           <td>
+                           <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                           &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
                             <div class="col-6"(click)="setThreeNumberDecimal($event)">
                                  <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
                                class="form-control"formControlName="montantttc19"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TTC"readonly='true'/>
@@ -394,7 +397,7 @@
                   <td style="text-align: center;">{{totalht219 | number:'1.3-3'| removeComma}}</td>
                   <td></td>
                   <td style="text-align: center;">{{totaltva219 | number:'1.3-3'| removeComma}}</td>
-                  <td style="text-align: center;">{{totaldt219 | number:'1.3-3'| removeComma}}</td>
+                  <td></td>
                   <td></td>
                   <td style="text-align: center;">{{totalttc219 | number:'1.3-3'| removeComma}}</td>
 
