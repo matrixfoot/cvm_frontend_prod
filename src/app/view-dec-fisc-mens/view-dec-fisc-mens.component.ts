@@ -270,12 +270,16 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            //@ts-ignore
-            if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
+            if(this.decfiscmens.statutadmin.length>0)
             {
-              console.log(this.statut)
-              this.showgenerate=true
+ //@ts-ignore
+ if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
+ {
+   console.log(this.statut)
+   this.showgenerate=true
+ }
             }
+           
             if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
             this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
             ||this.activite=='Sage-femmes' )

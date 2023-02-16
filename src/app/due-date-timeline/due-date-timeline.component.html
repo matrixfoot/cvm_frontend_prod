@@ -9,12 +9,14 @@
     <div class="container-fluid">
 		<h2 style="text-align:center">Rappelez Vous!</h2>
 		<hr>
-            
-      <div class="users-grid" style="overflow-x:auto;overflow-y: auto;">
+    <div id="diagonaltext" class="container-fluid">
+      Macompta
+    </div>
+          <div class="users-grid" style="overflow-x:auto;overflow-y: auto;">
 
         
         
-        <table class="table table-striped">
+        <table class="">
           
           <tbody>
           <tr *ngFor="let event of events">
@@ -27,7 +29,7 @@
         </table>
       </div>
        <hr>
-       <div style="text-align: center;">
+       <div style="text-align: center;margin-top: 360px;">
         <a class="btn btn-primary"(click)="voirtout()">Voir tout le calendrier</a>
        </div>
     </div>

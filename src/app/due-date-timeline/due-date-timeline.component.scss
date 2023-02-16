@@ -14,19 +14,22 @@
   margin-top: 200px;
   }
 table {
+  position: absolute;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
- 
   border: 1px solid #ddd;
+  z-index: 2;
 }
-.table::before
+#diagonaltext
 {
-  background-repeat: repeat;
-  background-image: url('../../assets/company_logo.png'); 
-  background-position: center center;
-  background-size:40%;
-opacity: 0.75;
+  position: absolute;
+  rotate: -60deg;
+  opacity: 0.2;
+  font-size:80px;
+  margin-top:130px;
+  z-index: 1;
+  color: red;
 }
 
 .container-fluid{
@@ -37,6 +40,7 @@ th, td {
   text-align: left;
   padding: 8px;
   font-size: small;
+  background-color: transparent;
 }
 #date{
   width:90px

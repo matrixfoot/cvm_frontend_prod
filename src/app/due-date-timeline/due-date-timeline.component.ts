@@ -73,8 +73,8 @@ export class DueDateTimelineComponent implements OnInit {
                 else 
                 {
                   Swal.fire({
-                    title: 'veuillez vous inscrire/se connecter pour consulter cette section',
-                    icon: 'error',
+                    title: 'connection/inscription obligatoire',
+                    icon: 'info',
                     confirmButtonColor: '#3085d6',
                   }).then((result) => {
                     this.router.navigate(['login'])
@@ -94,8 +94,8 @@ export class DueDateTimelineComponent implements OnInit {
                 else 
                 {
                   Swal.fire({
-                    title: 'veuillez vous inscrire/se connecter pour consulter cette section',
-                    icon: 'error',
+                    title: 'connection/inscription obligatoire',
+                    icon: 'info',
                     confirmButtonColor: '#3085d6',
                   }).then((result) => {
                     this.router.navigate(['login'])
