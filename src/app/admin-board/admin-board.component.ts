@@ -68,6 +68,8 @@ export class AdminBoardComponent implements OnInit {
   candidaturenonvalide=false
   reclamationtraite=false
   reclamationnontraite=false
+  clienttotal=0;
+  utilconnecte=0;
   ca=0;
   cb=0;
   coll=0;
@@ -111,6 +113,8 @@ export class AdminBoardComponent implements OnInit {
   contact: Contact;
   dossencoursvalide: any[]=[];
   dossencoursnonvalide: any[]=[];
+  showdallusers: boolean;
+  showconnected: boolean;
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -607,7 +611,18 @@ getadmincollabview(link, id){
                  
                 return this.filtredusers=this.users.filter((user) => (user._id === id));
               }
-              
+              getallusers() {
+                let filtred=[]
+                filtred=this.deccompt.filterByValue(this.users,'desactive')
+                this.clienttotal=filtred.length
+                return filtred; 
+              }
+              getconnectedusers() {
+                let filtred=[]
+                filtred=this.deccompt.filterByValue(this.users,'desactive')
+                this.utilconnecte=(filtred.filter((filter) => (filter.connected === true))).length
+                return filtred.filter((filter) => (filter.connected === true)); 
+              }
               getclients() {
                 let filtred=[]
                 filtred=this.deccompt.filterByValue(this.users,'desactive')
@@ -999,5 +1014,22 @@ this.clientactif=false
           {
             this.showdosspasencoreaffecte=false
           }
+          click33()
+          {
+            this.showdallusers=true
+          }
+          click34()
+          {
+            this.showdallusers=false
+          }
+          click35()
+          {
+            this.showconnected=true
+          }
+          click36()
+          {
+            this.showconnected=false
+          }
+          
 }
   

@@ -33,7 +33,7 @@ export class Userdeleted {
     acceptTerms:Boolean;
     droitcompta:string
     rolesuperviseur:string
-
+    connected: Boolean;
   resetToken: Boolean;
   passwordReset:Boolean;
   updated: Date;

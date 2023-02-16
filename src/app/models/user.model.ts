@@ -45,6 +45,8 @@ rolesuperviseur:string
 resetToken: Boolean;
 passwordReset:Boolean;
 updated: Date;
+connected: Boolean;
+
 desactive:{statut: string, date:Date};
 restaured:Date;
     

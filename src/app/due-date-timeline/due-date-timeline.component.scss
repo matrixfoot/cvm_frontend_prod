@@ -17,9 +17,18 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  
+ 
   border: 1px solid #ddd;
 }
+.table::before
+{
+  background-repeat: repeat;
+  background-image: url('../../assets/company_logo.png'); 
+  background-position: center center;
+  background-size:40%;
+opacity: 0.75;
+}
+
 .container-fluid{
   margin-top: 20px;
   
@@ -32,6 +41,3 @@ th, td {
 #date{
   width:90px
 }
-
-
-tr:nth-child(even){background-color: #f2f2f2}
