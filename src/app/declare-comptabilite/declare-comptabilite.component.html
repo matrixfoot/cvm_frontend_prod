@@ -121,19 +121,19 @@
 <div class="container-fluid" id="invoiceform"*ngIf="showinvoiceform===true">
     <!--edition note section-->
     <fieldset id="editionnote" *ngIf="showeditionnote">
-    <legend>Edition de notes d'honoraires</legend>
+    <legend>Factures du mois {{option2Value}} de l'année {{option1Value}}</legend>
     <table class="table table-striped" id="editionnotesection" [formGroup]="editionnoteform">
     <thead>
     <tr>            
     <th>Jour</th>
     <th>Date complète</th>
-    <th>N° Note d'honoraire</th>
+    <th>N° de facture</th>
     <th *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'||'Médecin vétérinaire'">Taux TVA</th>
     <th>Montant HT</th>
     <th>Montant TVA</th>
     <th>Montant DT</th>
     <th>Montant TTC</th>
-    <th>Règlement</th>
+    <th>Client</th>
 
     </tr>
     </thead>
@@ -192,16 +192,17 @@
                       class="form-control"formControlName="montantttc"(change)="setht(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
                    </div>
                   </td>
-                  <td>
+                  <td style="width: 150px;display: block;">
                     <div class="col-6">
-                        <select class="form-control" placeholder="Entrer Votre mode de règelemnt" id="reglement"formControlName="reglement" name="reglement" >
-                        <option value="default"> </option>
-                        <option  value="Espèce">Espèce</option>
-                        <option  value="Chèque">Chèque</option>
-                        <option  value="Traite">Traite</option>
-                        <option  value="Non réglé">Non réglé</option>
-                    </select>
-                </div>
+                      <select class="form-control"placeholder="Client" id="client"#someHashName formControlName="client" name="client" >
+                        <option hidden [value]=""></option>
+                        
+                        <option value="Autre">Autre</option>
+                      </select>
+                        </div>
+                        <div class="col-6"*ngIf="someHashName?.value == 'Autre'">
+                          <input class="form-control" type="text" placeholder="client" id="client" formControlName="autreclient">
+                        </div>
                   </td>
                  
                  

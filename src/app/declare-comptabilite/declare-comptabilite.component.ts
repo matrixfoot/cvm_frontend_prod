@@ -1060,7 +1060,9 @@ let totalcreditbis:any
         montanttva:'0',
         montantdt:this.tauxdt,
         montantttc:'0',
-        reglement:'',
+        client:'',
+        autreclient:'',
+
 
   
       });
@@ -1486,7 +1488,8 @@ console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6
           montanttva:'',
           montantdt:'',
           montantttc:'',
-          reglement:''
+          client:'',
+          autreclient:''
          })
         for (let i = 0; i < ammounts.length; i++)
       {
@@ -1851,7 +1854,9 @@ console.log(deccomptabilite.autre3)
     montanttva:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
-    reglement:item.reglement,
+    client:item.client,
+    autreclient:item.autreclient,
+
   })
   console.log(deccomptabilite.autre1)
  
@@ -2205,15 +2210,15 @@ this.usersservice.getUserById(this.currentUser.userId).then(
 if (!user.choixfacture)
 {
 Swal.fire({
-title: 'Veuillez choisir le mode de déclaration du chiffre d\'affaire. Notez que ce choix effectué ne peut être changé que suite à une demande au cabinet MaCompta',
+title: 'Veuillez préciser votre méthode de gestion concernant le chiffre d\'affaires. il est à noter que votre choix ne peut être changé au cours de la même année que suite à une demande à adresser à Macompta',
 icon: 'info',
 showDenyButton: true,
 showCancelButton: true,
 confirmButtonColor: '#3085d6',
 cancelButtonColor: '#555',
-confirmButtonText: 'Edition des notes d\'honoraire',
+confirmButtonText: 'Edition de factures',
 cancelButtonText: 'Annuler',
-denyButtonText: 'Saisie des recettes journalières',
+denyButtonText: 'Recettes journalières',
 
 }).then((result) => {
 if (result.isConfirmed) {
@@ -2253,9 +2258,9 @@ if (user.choixfacture=='edition note')
   if(!user.numeronote)
   {
 const { value: numero } = await Swal.fire({
-  title: 'Renseigner votre 1er numéro de note d\'honoraire',
+  title: 'Renseigner le numéro de la première facture de l\'année concernée',
   input: 'text',
-  inputLabel: '1er numéro de note',
+  inputLabel: 'numéro',
   inputValue: '',
   showCancelButton: true,
   inputValidator: (value) => {

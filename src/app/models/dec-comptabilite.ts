@@ -80,7 +80,9 @@ export interface Autre {
         montanttva:string,
         montantdt:string,
         montantttc:string,
-        reglement:string,
+        client:string,
+        autreclient:string,
+
 }
 export interface Autre2 {
       type:string,
