@@ -1922,7 +1922,8 @@ console.log(deccomptabilite.autre3)
     montanttva:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
-    reglement:item.reglement,
+    client:item.client,
+    autreclient:item.autreclient
   })
   console.log(deccomptabilite.autre1)
  
@@ -2217,8 +2218,9 @@ console.log(deccomptabilite.autre3)
     montanttva:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
-    reglement:item.reglement,
-  })
+    client:item.client,
+    autreclient:item.autreclient
+    })
   console.log(deccomptabilite.autre1)
  
         } 
@@ -2500,8 +2502,9 @@ console.log(deccomptabilite.autre3)
     montanttva:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
-    reglement:item.reglement,
-  })
+    client:item.client,
+    autreclient:item.autreclient
+    })
   console.log(deccomptabilite.autre1)
  
         } 
