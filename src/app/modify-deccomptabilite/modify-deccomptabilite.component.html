@@ -194,7 +194,7 @@
   <button id="resetbutton" class="btn btn-secondary" type="button" (click)="restartform()"
         *ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true">Réinitialiser tout</button>
         <button id="sendbutton" class="btn btn-success"*ngIf="option3Value===true||option4Value===true||option5Value===true||option6Value===true" 
-        type="button" (click)="onSend()"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider Déclaration</button>
+        type="button" (click)="onSend()"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider les données</button>
   <!--datacontainer-->
   <div class="container-fluid"id="tabcontainer">
     <mat-tab-group (selectedTabChange)="onTabClick($event)">

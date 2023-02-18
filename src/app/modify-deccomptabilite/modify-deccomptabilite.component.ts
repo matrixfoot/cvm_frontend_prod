@@ -2036,6 +2036,302 @@ console.log(deccomptabilite.autre6)
 
   
   }
+  onSend() {
+    this.loading = true;
+    const deccomptabilite:Deccomptabilite = this.deccomptabilite;
+    deccomptabilite.userId = this.currentUser.userId;
+    deccomptabilite.activite=this.currentUser.activite;
+    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
+    deccomptabilite.sousactivite=this.currentUser.sousactivite;
+    deccomptabilite.codepostal=this.currentUser.codepostal;
+    deccomptabilite.adresse=this.currentUser.adresseactivite
+    deccomptabilite.firstname=this.currentUser.firstname
+    deccomptabilite.lastname=this.currentUser.lastname
+    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
+    deccomptabilite.codegenre=this.currentUser.codegenre
+    deccomptabilite.codetva=this.currentUser.codetva
+    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
+    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
+    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
+    deccomptabilite.totalht=this.totalht
+    deccomptabilite.totaltva=this.totaltva
+    deccomptabilite.totaldt=this.totaldt
+    deccomptabilite.totalttc=this.totalttc
+    deccomptabilite.totalht2=this.totalht2
+    deccomptabilite.totaltva2=this.totaltva2
+    deccomptabilite.totaldt2=this.totaldt2
+    deccomptabilite.totalttc2=this.totalttc2
+    deccomptabilite.totalrecette=this.totalrecette
+    deccomptabilite.totalht219=this.totalht219
+    deccomptabilite.totaltva219=this.totaltva219
+    deccomptabilite.totaldt219=this.totaldt219
+    deccomptabilite.totalttc219=this.totalttc219
+    deccomptabilite.totalrecette19=this.totalrecette19
+    deccomptabilite.totalht3=this.totalht3
+    deccomptabilite.totaltva3=this.totaltva3
+    deccomptabilite.totaldt3=this.totaldt3
+    deccomptabilite.totalttc3=this.totalttc3
+    deccomptabilite.totaldebit=this.totaldebit
+    deccomptabilite.totalcredit=this.totalcredit
+    deccomptabilite.totalsoldemois=this.totalsoldemois
+    deccomptabilite.totalsalairebrut=this.totalsalairebrut
+    deccomptabilite.totalcnss=this.totalcnss
+    deccomptabilite.totalsalaireimposable=this.totalsalaireimposable
+    deccomptabilite.totalretenueimpot=this.totalretenueimpot
+    deccomptabilite.totalavancepret=this.totalavancepret
+    deccomptabilite.totalsalairenet=this.totalsalairenet
+    deccomptabilite.autre1=[]
+    deccomptabilite.autre2=[]
+    deccomptabilite.autre3=[]
+    deccomptabilite.autre4=[]
+    deccomptabilite.autre5=[]
+    deccomptabilite.autre6=[]
+
+    if(this.option1Value==''||this.option2Value=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez indiquer le mois et l\'année de la déclaration',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }))
+    }
+
+    if (this.option4Value) 
+    {
+      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+      for (let i = 0; i < ammounts3.length; i++)
+      {
+        
+ammounts3.controls[i].get('fournisseur').enable();
+ammounts3.controls[i].get('numerofacture').enable();    
+const item = ammounts3.value.at(i);
+if (item.fournisseur==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.autrefournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.natureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+if (item.natureachat==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.fournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.autrenatureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+if (item.natureachat==='Autre'&&item.fournisseur==='Autre')
+{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.autrefournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.autrenatureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+else{
+  deccomptabilite.autre3.push({
+    type: '3',
+    jour: item.jour,
+    date: item.date,
+    fournisseur: item.fournisseur,
+    autrefournisseur: item.autrefournisseur,
+    numerofacture:item.numerofacture,
+    natureachat:item.natureachat,
+    autrenatureachat:item.autrenatureachat,
+  montantht:item.montantht,
+  montanttva:item.montanttva,
+  montantdt:item.montantdt,
+  montantttc:item.montantttc,
+  reglement:item.reglement,
+  ficheUrl:'',
+  contientfiche:item.contientfiche
+
+})
+}
+
+
+
+console.log(deccomptabilite.autre3)
+
+
+         
+      }
+       
+    }
+      if(this.option3Value)
+      {
+        let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+        for (let i = 0; i < ammounts.length; i++)
+       
+        {
+          const item = ammounts.value.at(i);
+  deccomptabilite.autre1.push({
+    type:'1',
+    jour: item.jour,
+    date: item.date,
+    numeronote:item.numeronote,
+    montantht:item.montantht,
+    montanttva:item.montanttva,
+    montantdt:item.montantdt,
+    montantttc:item.montantttc,
+    client:item.client,
+    autreclient:item.autreclient
+  })
+  console.log(deccomptabilite.autre1)
+ 
+        } 
+        let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+        for (let i = 0; i < ammounts2.length; i+=1)
+        {
+          const item = ammounts2.value.at(i);
+  deccomptabilite.autre2.push({
+    type:'2',
+    jour: item.jour,
+    date: item.date,
+    recette:item.recette,
+    montantht:item.montantht,
+    montanttva:item.montanttva,
+    montantdt:item.montantdt,
+    montantttc:item.montantttc,
+  
+  })
+  console.log(deccomptabilite.autre2)
+  
+        } 
+      }
+    if (this.option5Value) 
+    {
+      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+      for (let i = 0; i < ammounts4.length; i++)
+      {
+        const item = ammounts4.value.at(i);
+deccomptabilite.autre4.push({
+        type: '4',
+        jour: item.jour,
+      date: item.date,
+      debit:item.debit,
+      credit:item.credit,
+
+}) 
+console.log(deccomptabilite.autre4)
+      }
+      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+      for (let i = 0; i < ammounts5.length; i++)
+      {
+        const item = ammounts5.value.at(i);
+deccomptabilite.autre5.push({
+        type: '5',
+        annee: item.annee,
+        mois: item.mois,
+      ficheUrl:'',
+      contientfiche:item.contientfiche
+
+})
+console.log(deccomptabilite.autre5)
+      } 
+    }
+    if (this.option6Value) 
+    {
+      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+      for (let i = 0; i < ammounts6.length; i++)
+      {
+        const item = ammounts6.value.at(i);
+deccomptabilite.autre6.push({
+        type: '6',
+        matricule: item.matricule,
+      nomprenom: item.nomprenom,
+      salairebrut:item.salairebrut,
+      montantcnss:item.montantcnss,
+      montantimposable:item.montantimposable,
+      montantretenue:item.montantretenue,
+      montantavance:item.montantavance,
+      salairenet:item.salairenet,
+      reglement:item.reglement,
+      ficheUrl:'',
+      contientfiche:item.contientfiche
+})
+console.log(deccomptabilite.autre6)
+
+      } 
+    }
+    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
+    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
+    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
+    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
+    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
+    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
+    
+
+        this.deccompt.modify(this.deccomptabilite._id,deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
+          (data:any) => {
+            this.tokenStorage.saved=true;
+            this.deccomptabiliteForm.reset();
+            this.loading = false;
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'déclaration modifiée avec succès',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.router.navigate(['admin-board']);
+          },
+          (error) => {
+            this.loading = false;
+            
+            window.scrollTo(0, 0);
+            
+          
+            
+          }
+        )  
+
+  
+  }
   onSubmitcoll() {
     this.loading = true;
     const deccomptabilite:Deccomptabilite = this.deccomptabilite;
