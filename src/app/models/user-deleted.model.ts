@@ -37,6 +37,8 @@ export class Userdeleted {
   resetToken: Boolean;
   passwordReset:Boolean;
   updated: Date;
+  choixfacture:string[]
+  numeronote:string[]
   desactive:{statut: string, date:Date};
   deleted:Date;
       

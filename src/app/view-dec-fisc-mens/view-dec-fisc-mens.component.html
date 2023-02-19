@@ -685,23 +685,23 @@
 </div>
 
                   
-                <div class="card" *ngIf="decfiscmens">
+                <div class="card" *ngIf="showbuttons">
 <table style="text-align: left;">
-  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'&&decfiscmens.updated" (click)="affect()"> <span *ngIf="!decfiscmens.affecte">Affecter collaborateur(Admin)</span> <span *ngIf="decfiscmens.affecte">Réaffecter collaborateur(Admin)</span></button><span><select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
+  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()"> <span *ngIf="!decfiscmens.affecte">Affecter collaborateur(Admin)</span> <span *ngIf="decfiscmens.affecte">Réaffecter collaborateur(Admin)</span></button><span><select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
     <option value="default"> </option>
     <option *ngFor="let col of collab" [value]="col._id">
         {{col.firstname}} {{col.lastname}}
     </option>
-  </select></span></tr>
-  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'&&decfiscmens.updated" (click)="decideadmin()">Modifier Statut Déclaration fiscale (Admin)</button></tr>
-<tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'&&decfiscmens.updated||currentUser.rolesuperviseur=='Autorisé'&&decfiscmens.updated" (click)="traite()">Marquer comme traité (Collaborateur)</button></tr>
+  </select></span></tr> 
+  <tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="decideadmin()">Modifier Statut Déclaration fiscale (Admin)</button></tr>
+<tr><button type="button" class="btn btn-success" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="traite()">Marquer comme traité (Collaborateur)</button></tr>
 <tr><button type="button" class="btn btn-primary"*ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-decfiscmens',decfiscmens._id)">Modifier/Compléter</button></tr>
 <tr><button type="button" class="btn btn-danger" *ngIf="currentUser.role=='admin'" (click)="onDelete()">Supprimer Déclaration</button></tr>
 <tr><button type="button" class="hidden"(click)="generateExcel()"> Générer Déclaration</button></tr>
 <tr><button type="button" class="hidden"(click)="load2()">Visualiser Déclaration</button></tr>
 <tr><button type="button"  (click)="openPDF()" [disabled] = "!showgenerate&&currentUser.role=='basic'"
   [ngStyle]="{'color': (showgenerate)? 'white': 'red','background-color': (showgenerate)? 'green': 'white'}"><i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Générer Déclaration(PDF)</button></tr>
-<tr *ngIf="currentUser.role=='admin'&&decfiscmens.updated"><label for="underactivity"> Gérer les statuts:</label>
+<tr *ngIf="currentUser.role=='admin'"><label for="underactivity"> Gérer les statuts:</label>
   <span><select #cricket (change)="update($event)">
     <option value="default"> </option>
     <option (click)="deletestatutcollab()">supprimer le dernier statut collaborateur</option>

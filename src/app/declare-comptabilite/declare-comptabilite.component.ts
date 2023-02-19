@@ -2207,7 +2207,8 @@ this.usersservice.getUserById(this.currentUser.userId).then(
     this.loading = false;
     this.user = user;
   //vérification du renseignement de la méthode de décalaration du chiffre d'affaire  
-if (!user.choixfacture)
+  //@ts-ignore
+  if (!user.choixfacture.find(e => e.annee==`${this.option1Value}`))
 {
 Swal.fire({
 title: 'Veuillez préciser votre méthode de gestion concernant le chiffre d\'affaires. il est à noter que votre choix ne peut être changé au cours de la même année que suite à une demande à adresser à Macompta',
@@ -2222,9 +2223,14 @@ denyButtonText: 'Recettes journalières',
 
 }).then((result) => {
 if (result.isConfirmed) {
-  this.choixfacture='edition note'
   const newuser= new User
-  newuser.choixfacture=this.choixfacture
+  newuser.choixfacture=user.choixfacture
+  newuser.choixfacture.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    choix:'edition note'   
+  })  
   this.token.saved=true
   this.usersservice.completeUserById(user._id,newuser).then(
     () => {
@@ -2234,9 +2240,14 @@ if (result.isConfirmed) {
 }
 else if (result.isDenied)
 {
-  this.choixfacture='saisie recette'
   const newuser= new User
-  newuser.choixfacture=this.choixfacture
+  newuser.choixfacture=user.choixfacture
+  newuser.choixfacture.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    choix:'saisie recette'
+  })  
   this.token.saved=true
   this.usersservice.completeUserById(user._id,newuser).then(
     () => {
@@ -2253,9 +2264,11 @@ else if (result.isDismissed)
 Swal.fire('opération non aboutie!');
 });
 }
-if (user.choixfacture=='edition note')
+  //@ts-ignore
+if (user.choixfacture.find(e => e.choix=='edition note'&&e.annee==`${this.option1Value}`))
 {
-  if(!user.numeronote)
+    //@ts-ignore
+  if(!user.numeronote.find(e => e.annee==`${this.option1Value}`))
   {
 const { value: numero } = await Swal.fire({
   title: 'Renseigner le numéro de la première facture de l\'année concernée',
@@ -2274,8 +2287,14 @@ if (numero)
 {
   Swal.fire(`votre premier numéro est ${numero}`)
   const newuser= new User
-  newuser.numeronote=numero
-  this.token.saved=true
+  newuser.numeronote=user.numeronote
+  newuser.numeronote.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    numero: numero   
+  }) 
+    this.token.saved=true
   this.usersservice.completeUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
@@ -2299,7 +2318,7 @@ let numerofactureverif:any
   {
     console.log('here')
     ammounts.at(0).patchValue({
-      numeronote:user.numeronote
+      numeronote:(this.DeccomptabiliteService.filterByValue(user.numeronote,`${this.option1Value}`))[0].numero
      })
   }
   else if (numerofactureverif>0)
@@ -2312,7 +2331,8 @@ let numerofactureverif:any
   })
 }
 }
-else if ((user.choixfacture=='saisie recette'))
+  //@ts-ignore
+else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='saisie recette'))
 {
   this.showinvoiceform=true
   this.showrecettejour=true

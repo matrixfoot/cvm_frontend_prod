@@ -60,6 +60,7 @@ maincontainer=false;
   selected: any;
   statusadmin: string[];
   totaltime: number;
+  showbuttons= false;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -275,11 +276,17 @@ public decfiscmens=new Decfiscmens;
  //@ts-ignore
  if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
  {
-   console.log(this.statut)
    this.showgenerate=true
  }
             }
-           
+            if(this.decfiscmens.statutcollab.length>0)
+            {
+ //@ts-ignore
+ if(this.decfiscmens.statutcollab.find(e => e.statutclient==='déposé par le client'))
+ {
+   this.showbuttons=true
+ }
+            }
             if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
             this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
             ||this.activite=='Sage-femmes' )

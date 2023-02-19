@@ -1613,131 +1613,124 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
   restartform()
   {
     this.loading = true;
-    let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-    let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts)
-    {    ammounts.reset()
-      for (let i = 1; i < ammounts.length; i++)
-    {
-this.removeammount(i)
-    }
-      this.totalht=0.000
-      this.totaltva=0.000
-      this.totaldt=0.000
-      this.totalttc=0.000
-    }
-    else if (ammounts2)
-    {
-      ammounts2.reset()
-      this.totalht2=0.000
-      this.totaltva2=0.000
-      this.totaldt2=0.000
-      this.totalttc2=0.000
-    }
-    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    ammounts3.reset()
-    for (let i = 1; i < ammounts3.length; i++)
-    {
-this.removeammount3(i)
-    }
-    this.totalht3=0.000
-      this.totaltva3=0.000
-      this.totaldt3=0.000
-      this.totalttc3=0.000
-      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-      ammounts4.reset()
-      ammounts5.reset()
-      for (let i = 1; i < ammounts5.length; i++)
-      {
-  this.removeammount5(i)
-      }
-  this.totaldebit=0.000
-  this.totalcredit=0.000
-  this.totalsoldemois=0.000
-  let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-  ammounts6.reset()
-  this.totalsalairebrut=0.000
-  this.totalcnss=0.000
-  this.totalsalaireimposable=0.000
-  this.totalretenueimpot=0.000
-  this.totalavancepret=0.000
-  this.totalsalairenet=0.000
-  for (let i = 1; i < ammounts6.length; i++)
-  {
-this.removeammount6(i)
-  }
+this.resetcaall()
+this.resetachatall()
+this.resetbanqueall()
+this.resetsalaireall()
   this.loading=false
-
+console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6)
   }
   resetcaall()
   {
-    let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-    let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-    if(ammounts)
-    {    ammounts.reset()
-      for (let i = 1; i < ammounts.length; i++)
+    if (this.option3Value)
     {
-this.removeammount(i)
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+      let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+      if(ammounts.length>0)
+      {  
+        ammounts.at(0).patchValue({
+          jour:'',
+          date:'',
+          montantht:'',
+          montanttva:'',
+          montantdt:'',
+          montantttc:'',
+          client:'',
+          autreclient:''
+         })
+        for (let i = 0; i < ammounts.length; i++)
+      {
+  this.removeammount(i)
+      }
+        this.totalht=0.000
+        this.totaltva=0.000
+        this.totaldt=0.000
+        this.totalttc=0.000
+      }
+      else if (ammounts2)
+      {
+        ammounts2.reset()
+        this.totalht2=0.000
+        this.totaltva2=0.000
+        this.totaldt2=0.000
+        this.totalttc2=0.000
+      }
     }
-      this.totalht=0.000
-      this.totaltva=0.000
-      this.totaldt=0.000
-      this.totalttc=0.000
-    }
-    else if (ammounts2)
-    {
-      ammounts2.reset()
-      this.totalht2=0.000
-      this.totaltva2=0.000
-      this.totaldt2=0.000
-      this.totalttc2=0.000
-    }
+    
 
   }
   resetachatall()
   {
-    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    ammounts3.reset()
-    for (let i = 1; i < ammounts3.length; i++)
+    if(this.option4Value)
     {
-this.removeammount3(i)
+      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+      ammounts3.reset()
+      var text3 = document.getElementById('achat'+`${0}`);
+      text3.style.display="none"
+      for (let i = 1; i < ammounts3.length; i++)
+      {
+  var text2 = document.getElementById('achat'+`${i}`);
+  this.removeammount3(i)
+  text2.style.display="none"
+      }
+      this.uploadFilesautre3=[]
+      this.totalht3=0.000
+        this.totaltva3=0.000
+        this.totaldt3=0.000
+        this.totalttc3=0.000
     }
-    this.totalht3=0.000
-      this.totaltva3=0.000
-      this.totaldt3=0.000
-      this.totalttc3=0.000
+    
 
   }
   resetbanqueall()
   {
-    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-    let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-    ammounts4.reset()
-    ammounts5.reset()
-    for (let i = 1; i < ammounts5.length; i++)
+    if(this.option5Value)
     {
-this.removeammount5(i)
+      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+      var text3 = document.getElementById('releve'+`${0}`);
+      text3.style.display="none"    
+
+      ammounts4.reset()
+      ammounts5.reset()
+      for (let i = 1; i < ammounts5.length; i++)
+      {
+        var text2 = document.getElementById('releve'+`${i}`);
+        this.removeammount5(i)
+        text2.style.display="none"    
+      }
+      this.uploadFilesautre5=[]
+  this.totaldebit=0.000
+  this.totalcredit=0.000
+  this.totalsoldemois=0.000
     }
-this.totaldebit=0.000
-this.totalcredit=0.000
-this.totalsoldemois=0.000
+    
 
   }
   resetsalaireall()
   {
-    let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-    ammounts6.reset()
-    this.totalsalairebrut=0.000
-    this.totalcnss=0.000
-    this.totalsalaireimposable=0.000
-    this.totalretenueimpot=0.000
-    this.totalavancepret=0.000
-    this.totalsalairenet=0.000
-    for (let i = 1; i < ammounts6.length; i++)
+    if(this.option6Value)
     {
-this.removeammount6(i)
+      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+      var text4 = document.getElementById('salaire'+`${0}`);
+      text4.style.display="none"
+      ammounts6.reset()
+      this.totalsalairebrut=0.000
+      this.totalcnss=0.000
+      this.totalsalaireimposable=0.000
+      this.totalretenueimpot=0.000
+      this.totalavancepret=0.000
+      this.totalsalairenet=0.000
+      for (let i = 1; i < ammounts6.length; i++)
+      {
+        var text2 = document.getElementById('salaire'+`${i}`);
+        this.removeammount6(i)
+        text2.style.display="none"
+          }
+      this.uploadFilesautre6=[]
     }
+    
+
   }
   //save method to only accounting file
   onSubmit() {
@@ -2002,6 +1995,17 @@ console.log(deccomptabilite.autre6)
 
       } 
     }
+    deccomptabilite.statutcollab=this.deccomptabilite.statutcollab
+    deccomptabilite.affecte=this.deccomptabilite.affecte
+    deccomptabilite.statutcollab.push
+          //@ts-ignore
+          ({
+            statutclient:'modifié par le client',
+            motifclient:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
+    deccomptabilite.affecte=''
     deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
     deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
     deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
@@ -2013,7 +2017,6 @@ console.log(deccomptabilite.autre6)
         this.deccompt.modify(this.deccomptabilite._id,deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',
@@ -2022,7 +2025,6 @@ console.log(deccomptabilite.autre6)
               showConfirmButton: false,
               timer: 3000
             });
-            this.router.navigate(['admin-board']);
           },
           (error) => {
             this.loading = false;
@@ -2171,7 +2173,7 @@ if (item.natureachat==='Autre'&&item.fournisseur==='Autre')
   contientfiche:item.contientfiche
 
 })
-}
+} 
 else{
   deccomptabilite.autre3.push({
     type: '3',
@@ -2298,6 +2300,17 @@ console.log(deccomptabilite.autre6)
 
       } 
     }
+    deccomptabilite.statutcollab=this.deccomptabilite.statutcollab
+    deccomptabilite.affecte=this.deccomptabilite.affecte
+    deccomptabilite.statutcollab.push
+          //@ts-ignore
+          ({
+            statutclient:'déposé par le client',
+            motifclient:'',
+            datefin:Date.now(),
+            duree:'',     
+          })
+    deccomptabilite.affecte=''
     deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
     deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
     deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
@@ -2309,7 +2322,6 @@ console.log(deccomptabilite.autre6)
         this.deccompt.modify(this.deccomptabilite._id,deccomptabilite,this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6).then(
           (data:any) => {
             this.tokenStorage.saved=true;
-            this.deccomptabiliteForm.reset();
             this.loading = false;
             Swal.fire({
               position: 'center',
@@ -2318,7 +2330,7 @@ console.log(deccomptabilite.autre6)
               showConfirmButton: false,
               timer: 3000
             });
-            this.router.navigate(['admin-board']);
+            this.router.navigate(['user-board']);
           },
           (error) => {
             this.loading = false;
@@ -2332,587 +2344,7 @@ console.log(deccomptabilite.autre6)
 
   
   }
-  onSubmitcoll() {
-    this.loading = true;
-    const deccomptabilite:Deccomptabilite = this.deccomptabilite;
-    deccomptabilite.userId = this.currentUser.userId;
-    deccomptabilite.activite=this.currentUser.activite;
-    deccomptabilite.regimefiscalimpot=this.currentUser.regimefiscalimpot;
-    deccomptabilite.sousactivite=this.currentUser.sousactivite;
-    deccomptabilite.codepostal=this.currentUser.codepostal;
-    deccomptabilite.adresse=this.currentUser.adresseactivite
-    deccomptabilite.firstname=this.currentUser.firstname
-    deccomptabilite.lastname=this.currentUser.lastname
-    deccomptabilite.raisonsociale=this.currentUser.raisonsociale
-    deccomptabilite.codegenre=this.currentUser.codegenre
-    deccomptabilite.codetva=this.currentUser.codetva
-    deccomptabilite.matriculefiscale=this.currentUser.matriculefiscale
-    deccomptabilite.registrecommerce=this.currentUser.registrecommerce
-    deccomptabilite.datearretactivite=this.currentUser.datearretactivite
-    deccomptabilite.totalht=this.totalht
-    deccomptabilite.totaltva=this.totaltva
-    deccomptabilite.totaldt=this.totaldt
-    deccomptabilite.totalttc=this.totalttc
-    deccomptabilite.totalht2=this.totalht2
-    deccomptabilite.totaltva2=this.totaltva2
-    deccomptabilite.totaldt2=this.totaldt2
-    deccomptabilite.totalttc2=this.totalttc2
-    deccomptabilite.totalrecette=this.totalrecette
-    deccomptabilite.totalht219=this.totalht219
-    deccomptabilite.totaltva219=this.totaltva219
-    deccomptabilite.totaldt219=this.totaldt219
-    deccomptabilite.totalttc219=this.totalttc219
-    deccomptabilite.totalrecette19=this.totalrecette19
-    deccomptabilite.totalht3=this.totalht3
-    deccomptabilite.totaltva3=this.totaltva3
-    deccomptabilite.totaldt3=this.totaldt3
-    deccomptabilite.totalttc3=this.totalttc3
-    deccomptabilite.totaldebit=this.totaldebit
-    deccomptabilite.totalcredit=this.totalcredit
-    deccomptabilite.totalsoldemois=this.totalsoldemois
-    deccomptabilite.totalsalairebrut=this.totalsalairebrut
-    deccomptabilite.totalcnss=this.totalcnss
-    deccomptabilite.totalsalaireimposable=this.totalsalaireimposable
-    deccomptabilite.totalretenueimpot=this.totalretenueimpot
-    deccomptabilite.totalavancepret=this.totalavancepret
-    deccomptabilite.totalsalairenet=this.totalsalairenet
-    deccomptabilite.autre1=[]
-    deccomptabilite.autre2=[]
-    deccomptabilite.autre3=[]
-    deccomptabilite.autre4=[]
-    deccomptabilite.autre5=[]
-    deccomptabilite.autre6=[]
-
-    if(this.option1Value==''||this.option2Value=='')
-    {
-      return (
-        Swal.fire({
-        title: 'veuillez indiquer le mois et l\'année de la déclaration',
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
-      }).catch(() => {
-        Swal.fire('opération non aboutie!')
-      }))
-    }
-
-    if (this.option4Value) 
-    {
-      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-      for (let i = 0; i < ammounts3.length; i++)
-      {
-        
-ammounts3.controls[i].get('fournisseur').enable();
-ammounts3.controls[i].get('numerofacture').enable();    
-const item = ammounts3.value.at(i);
-if (item.fournisseur==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.autrefournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.natureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-if (item.natureachat==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.fournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.autrenatureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-if (item.natureachat==='Autre'&&item.fournisseur==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.autrefournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.autrenatureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-else{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.fournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.natureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-
-
-
-console.log(deccomptabilite.autre3)
-
-
-         
-      }
-       
-    }
-      if(this.option3Value)
-      {
-        let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-        for (let i = 0; i < ammounts.length; i++)
-       
-        {
-          const item = ammounts.value.at(i);
-  deccomptabilite.autre1.push({
-    type:'1',
-    jour: item.jour,
-    date: item.date,
-    numeronote:item.numeronote,
-    montantht:item.montantht,
-    montanttva:item.montanttva,
-    montantdt:item.montantdt,
-    montantttc:item.montantttc,
-    client:item.client,
-    autreclient:item.autreclient
-    })
-  console.log(deccomptabilite.autre1)
  
-        } 
-        let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-        for (let i = 0; i < ammounts2.length; i+=1)
-        {
-          const item = ammounts2.value.at(i);
-  deccomptabilite.autre2.push({
-    type:'2',
-    jour: item.jour,
-    date: item.date,
-    recette:item.recette,
-    montantht:item.montantht,
-    montanttva:item.montanttva,
-    montantdt:item.montantdt,
-    montantttc:item.montantttc,
-  
-  })
-  console.log(deccomptabilite.autre2)
-  
-        } 
-      }
-    if (this.option5Value) 
-    {
-      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-      for (let i = 0; i < ammounts4.length; i++)
-      {
-        const item = ammounts4.value.at(i);
-deccomptabilite.autre4.push({
-        type: '4',
-        jour: item.jour,
-      date: item.date,
-      debit:item.debit,
-      credit:item.credit,
-
-}) 
-console.log(deccomptabilite.autre4)
-      }
-      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-      for (let i = 0; i < ammounts5.length; i++)
-      {
-        const item = ammounts5.value.at(i);
-deccomptabilite.autre5.push({
-        type: '5',
-        annee: item.annee,
-        mois: item.mois,
-      ficheUrl:'',
-      contientfiche:item.contientfiche
-
-})
-console.log(deccomptabilite.autre5)
-      } 
-    }
-    if (this.option6Value) 
-    {
-      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-      for (let i = 0; i < ammounts6.length; i++)
-      {
-        const item = ammounts6.value.at(i);
-deccomptabilite.autre6.push({
-        type: '6',
-        matricule: item.matricule,
-      nomprenom: item.nomprenom,
-      salairebrut:item.salairebrut,
-      montantcnss:item.montantcnss,
-      montantimposable:item.montantimposable,
-      montantretenue:item.montantretenue,
-      montantavance:item.montantavance,
-      salairenet:item.salairenet,
-      reglement:item.reglement,
-      ficheUrl:'',
-      contientfiche:item.contientfiche
-})
-console.log(deccomptabilite.autre6)
-
-      } 
-    }
-    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
-    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
-    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
-    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
-    deccomptabilite.statutcollab=this.deccomptabiliteFormcollab.getRawValue().ammounts8
-  deccomptabilite.dateouverturedossier=this.option204Value 
-
-        this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
-          (data:any) => {
-            this.tokenStorage.saved=true;
-            this.deccomptabiliteFormcollab.reset();
-            this.loading = false;
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'déclaration modifiée avec succès',
-              showConfirmButton: false,
-              timer: 3000
-            });
-            this.router.navigate(['collab-board']);
-          },
-          (error) => {
-            this.loading = false;
-            
-            window.scrollTo(0, 0);
-            
-          
-            
-          }
-        )  
-
-  
-  }
-  onSubmitadmin() {
-    this.loading = true;
-    const deccomptabilite:Deccomptabilite = this.deccomptabilite;
-    deccomptabilite.userId = this.currentUser.userId;
-    deccomptabilite.totalht=this.totalht
-    deccomptabilite.totaltva=this.totaltva
-    deccomptabilite.totaldt=this.totaldt
-    deccomptabilite.totalttc=this.totalttc
-    deccomptabilite.totalht2=this.totalht2
-    deccomptabilite.totaltva2=this.totaltva2
-    deccomptabilite.totaldt2=this.totaldt2
-    deccomptabilite.totalttc2=this.totalttc2
-    deccomptabilite.totalrecette=this.totalrecette
-    deccomptabilite.totalht219=this.totalht219
-    deccomptabilite.totaltva219=this.totaltva219
-    deccomptabilite.totaldt219=this.totaldt219
-    deccomptabilite.totalttc219=this.totalttc219
-    deccomptabilite.totalrecette19=this.totalrecette19
-    deccomptabilite.totalht3=this.totalht3
-    deccomptabilite.totaltva3=this.totaltva3
-    deccomptabilite.totaldt3=this.totaldt3
-    deccomptabilite.totalttc3=this.totalttc3
-    deccomptabilite.totaldebit=this.totaldebit
-    deccomptabilite.totalcredit=this.totalcredit
-    deccomptabilite.totalsoldemois=this.totalsoldemois
-    deccomptabilite.totalsalairebrut=this.totalsalairebrut
-    deccomptabilite.totalcnss=this.totalcnss
-    deccomptabilite.totalsalaireimposable=this.totalsalaireimposable
-    deccomptabilite.totalretenueimpot=this.totalretenueimpot
-    deccomptabilite.totalavancepret=this.totalavancepret
-    deccomptabilite.totalsalairenet=this.totalsalairenet
-    deccomptabilite.autre1=[]
-    deccomptabilite.autre2=[]
-    deccomptabilite.autre3=[]
-    deccomptabilite.autre4=[]
-    deccomptabilite.autre5=[]
-    deccomptabilite.autre6=[]
-
-    if(this.option1Value==''||this.option2Value=='')
-    {
-      return (
-        Swal.fire({
-        title: 'veuillez indiquer le mois et l\'année de la déclaration',
-        icon: 'error',
-        confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
-      }).catch(() => {
-        Swal.fire('opération non aboutie!')
-      }))
-    }
-
-    if (this.option4Value) 
-    {
-      let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-      for (let i = 0; i < ammounts3.length; i++)
-      {
-        
-ammounts3.controls[i].get('fournisseur').enable();
-ammounts3.controls[i].get('numerofacture').enable();    
-const item = ammounts3.value.at(i);
-if (item.fournisseur==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.autrefournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.natureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-if (item.natureachat==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.fournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.autrenatureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-if (item.natureachat==='Autre'&&item.fournisseur==='Autre')
-{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.autrefournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.autrenatureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-else{
-  deccomptabilite.autre3.push({
-    type: '3',
-    jour: item.jour,
-    date: item.date,
-    fournisseur: item.fournisseur,
-    autrefournisseur: item.autrefournisseur,
-    numerofacture:item.numerofacture,
-    natureachat:item.natureachat,
-    autrenatureachat:item.autrenatureachat,
-  montantht:item.montantht,
-  montanttva:item.montanttva,
-  montantdt:item.montantdt,
-  montantttc:item.montantttc,
-  reglement:item.reglement,
-  ficheUrl:'',
-  contientfiche:item.contientfiche
-
-})
-}
-
-
-
-console.log(deccomptabilite.autre3)
-
-
-         
-      }
-       
-    }
-      if(this.option3Value)
-      {
-        let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-        for (let i = 0; i < ammounts.length; i++)
-       
-        {
-          const item = ammounts.value.at(i);
-  deccomptabilite.autre1.push({
-    type:'1',
-    jour: item.jour,
-    date: item.date,
-    numeronote:item.numeronote,
-    montantht:item.montantht,
-    montanttva:item.montanttva,
-    montantdt:item.montantdt,
-    montantttc:item.montantttc,
-    client:item.client,
-    autreclient:item.autreclient
-    })
-  console.log(deccomptabilite.autre1)
- 
-        } 
-        let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-        for (let i = 0; i < ammounts2.length; i+=1)
-        {
-          const item = ammounts2.value.at(i);
-  deccomptabilite.autre2.push({
-    type:'2',
-    jour: item.jour,
-    date: item.date,
-    recette:item.recette,
-    montantht:item.montantht,
-    montanttva:item.montanttva,
-    montantdt:item.montantdt,
-    montantttc:item.montantttc,
-  
-  })
-  console.log(deccomptabilite.autre2)
-  
-        } 
-      }
-    if (this.option5Value) 
-    {
-      let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-      for (let i = 0; i < ammounts4.length; i++)
-      {
-        const item = ammounts4.value.at(i);
-deccomptabilite.autre4.push({
-        type: '4',
-        jour: item.jour,
-      date: item.date,
-      debit:item.debit,
-      credit:item.credit,
-
-}) 
-console.log(deccomptabilite.autre4)
-      }
-      let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-      for (let i = 0; i < ammounts5.length; i++)
-      {
-        const item = ammounts5.value.at(i);
-deccomptabilite.autre5.push({
-        type: '5',
-        annee: item.annee,
-        mois: item.mois,
-      ficheUrl:'',
-      contientfiche:item.contientfiche
-
-})
-console.log(deccomptabilite.autre5)
-      } 
-    }
-    if (this.option6Value) 
-    {
-      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-      for (let i = 0; i < ammounts6.length; i++)
-      {
-        const item = ammounts6.value.at(i);
-deccomptabilite.autre6.push({
-        type: '6',
-        matricule: item.matricule,
-      nomprenom: item.nomprenom,
-      salairebrut:item.salairebrut,
-      montantcnss:item.montantcnss,
-      montantimposable:item.montantimposable,
-      montantretenue:item.montantretenue,
-      montantavance:item.montantavance,
-      salairenet:item.salairenet,
-      reglement:item.reglement,
-      ficheUrl:'',
-      contientfiche:item.contientfiche
-})
-console.log(deccomptabilite.autre6)
-
-      } 
-    }
-    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
-    deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
-    deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
-    deccomptabilite.autre6=deccomptabilite.autre6.filter(item => (item.salairebrut!='0'&&item.salairebrut!=''&&item.salairebrut!=null));
-    deccomptabilite.statutadmin=this.deccomptabiliteFormadmin.getRawValue().ammounts7
-    deccomptabilite.dateouverturedossier=this.option204Value 
-
-        this.deccompt.completedeccomptabilitereqById(this.deccomptabilite._id,deccomptabilite).then(
-          (data:any) => {
-            this.tokenStorage.saved=true;
-            this.deccomptabiliteFormadmin.reset();
-            this.loading = false;
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'déclaration modifiée avec succès',
-              showConfirmButton: false,
-              timer: 3000
-            });
-            this.router.navigate(['admin-board']);
-          },
-          (error) => {
-            this.loading = false;
-            
-            window.scrollTo(0, 0);
-            
-          
-            
-          }
-        )  
-
-  
-  }
   collectfile() :File[]{
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
     for (let i = 0; i < ammounts3.length; i++)
@@ -2945,25 +2377,30 @@ this.userservice.getUserById(this.currentUser.userId).then(
     this.loading = false;
     this.user = user;
   //vérification du renseignement de la méthode de décalaration du chiffre d'affaire  
-if (!user.choixfacture)
+  //@ts-ignore
+  if (!user.choixfacture.find(e => e.annee==`${this.option1Value}`))
 {
 Swal.fire({
-title: 'Veuillez choisir le mode de déclaration du chiffre d\'affaire. Notez que ce choix effectué ne peut être changé que suite à une demande au cabinet MaCompta',
-
+title: 'Veuillez préciser votre méthode de gestion concernant le chiffre d\'affaires. il est à noter que votre choix ne peut être changé au cours de la même année que suite à une demande à adresser à Macompta',
 icon: 'info',
 showDenyButton: true,
 showCancelButton: true,
 confirmButtonColor: '#3085d6',
 cancelButtonColor: '#555',
-confirmButtonText: 'Edition des notes d\'honoraire',
+confirmButtonText: 'Edition de factures',
 cancelButtonText: 'Annuler',
-denyButtonText: 'Saisie des recettes journalières',
+denyButtonText: 'Recettes journalières',
 
 }).then((result) => {
 if (result.isConfirmed) {
-  this.choixfacture='edition note'
   const newuser= new User
-  newuser.choixfacture=this.choixfacture
+  newuser.choixfacture=user.choixfacture
+  newuser.choixfacture.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    choix:'edition note'   
+  })  
   this.tokenStorage.saved=true
   this.userservice.completeUserById(user._id,newuser).then(
     () => {
@@ -2973,9 +2410,14 @@ if (result.isConfirmed) {
 }
 else if (result.isDenied)
 {
-  this.choixfacture='saisie recette'
   const newuser= new User
-  newuser.choixfacture=this.choixfacture
+  newuser.choixfacture=user.choixfacture
+  newuser.choixfacture.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    choix:'saisie recette'
+  })  
   this.tokenStorage.saved=true
   this.userservice.completeUserById(user._id,newuser).then(
     () => {
@@ -2983,19 +2425,25 @@ else if (result.isDenied)
     }
   )
 }
-
+else if (result.isDismissed)
+{
+  this.showcatab=false;
+  this.option3Value=false;
+}
 }).catch(() => {
 Swal.fire('opération non aboutie!');
 });
 }
-if (user.choixfacture=='edition note')
+  //@ts-ignore
+if (user.choixfacture.find(e => e.choix=='edition note'&&e.annee==`${this.option1Value}`))
 {
-  if(!user.numeronote)
+    //@ts-ignore
+  if(!user.numeronote.find(e => e.annee==`${this.option1Value}`))
   {
 const { value: numero } = await Swal.fire({
-  title: 'Renseigner votre 1er numéro de note d\'honoraire',
+  title: 'Renseigner le numéro de la première facture de l\'année concernée',
   input: 'text',
-  inputLabel: '1er numéro de note',
+  inputLabel: 'numéro',
   inputValue: '',
   showCancelButton: true,
   inputValidator: (value) => {
@@ -3005,31 +2453,61 @@ const { value: numero } = await Swal.fire({
   }
 })
 
-if (numero) {
+if (numero) 
+{
   Swal.fire(`votre premier numéro est ${numero}`)
   const newuser= new User
-  newuser.numeronote=numero
-  this.tokenStorage.saved=true
+  newuser.numeronote=user.numeronote
+  newuser.numeronote.push
+  //@ts-ignore
+  ({
+    annee:`${this.option1Value}`,
+    numero: numero   
+  }) 
+    this.tokenStorage.saved=true
   this.userservice.completeUserById(user._id,newuser).then(
     () => {
       this.reloadPage();
     }
-  )}
+  )
+}
 
-    }
+  }
   this.showinvoiceform=true
   this.showeditionnote=true
   this.showrecettejour=false
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
   ammounts.at(0).patchValue({
-    numeronote:this.user.numeronote
+    montantdt:this.tauxdt
    })
+let numerofactureverif:any
+  this.deccompt.deccomptabilites.forEach(element => numerofactureverif=element.autre1.length)
+  console.log(numerofactureverif)
+
+  if (numerofactureverif<1||!numerofactureverif)
+  {
+    console.log('here')
+    ammounts.at(0).patchValue({
+      numeronote:(this.deccompt.filterByValue(user.numeronote,`${this.option1Value}`))[0].numero
+     })
+  }
+  else if (numerofactureverif>0)
+  {
+    console.log('here2')
+    const c=Math.max(...(this.deccompt.deccomptabilites.map(a => Math.max(...a.autre1.map(b => +b.numeronote)))).map(b => b))+1
+    console.log(JSON.stringify(c) )
+    ammounts.at(0).patchValue({
+      numeronote:JSON.stringify(c) 
+  })
 }
-else if ((user.choixfacture=='saisie recette'))
+}
+  //@ts-ignore
+else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='saisie recette'))
 {
   this.showinvoiceform=true
   this.showrecettejour=true
   this.showeditionnote=false
+
   for (let i = 1; i < 32; i++)
           {
             this.addammount2()
@@ -3060,6 +2538,8 @@ else if ((user.choixfacture=='saisie recette'))
 
             
           }
+
+  
 }
   }
 )
