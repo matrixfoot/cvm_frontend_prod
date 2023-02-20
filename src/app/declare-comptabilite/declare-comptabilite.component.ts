@@ -195,7 +195,7 @@ this.usersservice.getUserById(this.currentUser.userId).then(
       confirmButtonColor: '#3085d6',
     }),this.router.navigate(['home']))
 if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-|| user.regimefiscalimpot=='Autre/null' 
+|| user.regimefiscalimpot=='Autre/null' || !user.dateeffet
 || !user.regimefiscalimpot || user.matriculefiscale.length<17) return (this.token.saved=true,this.router.navigate(['complete-profil/'+this.currentUser.userId]))
 if ( !user.ficheUrl) 
   return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['modify-user/'+this.currentUser.userId]))

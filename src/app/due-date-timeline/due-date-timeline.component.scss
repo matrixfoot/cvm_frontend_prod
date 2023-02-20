@@ -20,6 +20,10 @@ table {
   width: 100%;
   border: 1px solid #ddd;
   z-index: 2;
+  background-color: transparent;
+  table-layout:fixed;
+  margin-top: 90px;
+
 }
 #diagonaltext
 {
@@ -35,6 +39,9 @@ table {
 .container-fluid{
   margin-top: 20px;
   
+}
+table, tbody, tr, th, td{
+  background-color: rgba(0, 0, 0, 0.0) !important;
 }
 th, td {
   text-align: left;

@@ -106,6 +106,10 @@
   <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
   <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
 </div>
+<label for="activity"style="min-width: 30px;width: 200px"> Date d'effet:</label> 
+<div class="col-6"id="idfiscalmat">
+  <input class="input-field" type="date" placeholder="Modifier Votre Date d'effet" id="dateeffet" formControlName="dateeffet">
+</div>
   </div>
   <div class="input-container"id="selectactivity"*ngIf="option1Value == 'Autre'">
     <label for="activity"> Activité:</label> 

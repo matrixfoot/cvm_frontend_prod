@@ -7,29 +7,28 @@
 <div id="loader" *ngIf="loading"></div>
   <div class="col-lg-12" *ngIf="!loading">
     <div class="container-fluid">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <table class="table table-striped">
+          
+            <tbody>
+            <tr *ngFor="let event of events">
+        
+              <td id="date">{{event.date | date : "dd-MM-y"}}</td>
+              <td > <a (click)="voirdetail('view-event',event._id)" style="cursor: pointer;" routerLinkActive="active"> {{event.title}}</a>&nbsp;
+                <a class="btn btn-primary"*ngIf="event.description" style="font-size: 10px" (click)="voirdetail('view-event',event._id)">Lire Plus</a></td>
+            </tr>
+            </tbody>
+          </table>
+         </div>
+       </div>
 		<h2 style="text-align:center">Rappelez Vous!</h2>
 		<hr>
     <div id="diagonaltext" class="container-fluid">
       Macompta
     </div>
-          <div class="users-grid" style="overflow-x:auto;overflow-y: auto;">
-
         
-        
-        <table class="">
-          
-          <tbody>
-          <tr *ngFor="let event of events">
-      
-            <td id="date">{{event.date | date : "dd-MM-y"}}</td>
-            <td > <a (click)="voirdetail('view-event',event._id)" style="cursor: pointer;" routerLinkActive="active"> {{event.title}}</a>&nbsp;
-              <a class="btn btn-primary"*ngIf="event.description" style="font-size: 10px" (click)="voirdetail('view-event',event._id)">Lire Plus</a></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-       <hr>
-       <div style="text-align: center;margin-top: 360px;">
+       <div style="text-align: center;margin-top: 420px;">
         <a class="btn btn-primary"(click)="voirtout()">Voir tout le calendrier</a>
        </div>
     </div>

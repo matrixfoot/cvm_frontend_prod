@@ -958,7 +958,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       confirmButtonColor: '#3085d6',
     }),this.router.navigate(['home']))
       if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || user.regimefiscalimpot=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'|| !user.dateeffet
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 

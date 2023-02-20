@@ -29,6 +29,7 @@ rolesuperviseur:string
   regimefiscaltva:string
   matriculefiscale:string
   adresseactivite:string
+  dateeffet:Date;
   codepostal:string
   raisonsociale:string;
   nomsociete:string;
