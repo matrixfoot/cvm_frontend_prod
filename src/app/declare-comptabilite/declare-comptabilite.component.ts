@@ -482,29 +482,43 @@ this.loading=false
     setht(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
       const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
+      const mttc19= this.editionnoteform.get('ammounts').value.at(i).montantttc19
       const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
 
       console.log()
-      if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
+      if(mttc!=0&&mttc19==0)
       {
-const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
+      const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
       const montanttva=(mttc-mdt-montantht).toFixed(3)
       ammounts.at(i).patchValue({
        montantht:montantht,
        montanttva:montanttva
       })
       }
-      else 
+      else if(mttc==0&&mttc19!=0)
       {
-       const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
-      const montanttva=(mttc-mdt-montantht).toFixed(3)
+       const montantht19=+((mttc19-mdt)/(1+ 0.19)).toFixed(3)
+      const montanttva19=(mttc19-mdt-montantht19).toFixed(3)
+      ammounts.at(i).patchValue({
+       montantht19:montantht19,
+       montanttva19:montanttva19
+      })
+      }
+      else
+      {
+      const montantht=+((mttc-mdt/2)/(1+ +this.tauxtva)).toFixed(3)
+      const montanttva=(mttc-mdt/2-montantht).toFixed(3)
       ammounts.at(i).patchValue({
        montantht:montantht,
        montanttva:montanttva
       })
+       const montantht19=+((mttc19-mdt/2)/(1+ 0.19)).toFixed(3)
+      const montanttva19=(mttc19-mdt/2-montantht19).toFixed(3)
+      ammounts.at(i).patchValue({
+       montantht19:montantht19,
+       montanttva19:montanttva19
+      })
       }
-      ammounts.controls[i].get('tauxtva').disable(); 
-     
       }
       setht2(i: number) {
         let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;

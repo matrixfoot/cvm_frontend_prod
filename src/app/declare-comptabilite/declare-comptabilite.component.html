@@ -286,7 +286,7 @@
             <th>Date complète</th>
             <th>Recette<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
               activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-              ||activite==='Sage-femmes'"> C.A à 7% (Actes de soin)</span></th>
+              ||activite==='Sage-femmes'"> C.A à 7% </span><span *ngIf="activite==='Médecin'"></span> (Actes de soin)</th>
             <th *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
             &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">Recette 19%</th>
             <th>Montant HT</th>
