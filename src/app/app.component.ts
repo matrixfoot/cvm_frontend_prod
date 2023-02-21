@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
     this.currentUser = this.token.getUser();
     this.isloggedin=!!this.token.getToken();
     this.usertype=this.currentUser.usertype;
+    
     if (this.isloggedin)
     {
       setTimeout(() => this.childModal.show()
@@ -44,7 +45,6 @@ export class AppComponent implements OnInit {
     this.bnIdle.startWatching(900).subscribe((isTimedOut: boolean) => {
       if (isTimedOut) {
         this.childModal.hide();
-        this.userservice.disconnectUser(this.token.getUser().userId,this.token.getUser()) 
         this.token.signOut();
         this.router.navigate(['login']);
         this.reloadPage()

@@ -51,7 +51,7 @@ private deccomptabilitesSub: Subscription;
   regimefiscalimpot:string;
   regimefiscaltva:string;
   matriculefiscale:string;
-  currentUser: any;
+  currentUser: User;
   user:User;
   choixfacture:string;
   option1Value:any
@@ -99,10 +99,6 @@ foprolosapayer=0.000
   public ammounts: FormArray;
   recettejournaliereform: FormGroup;
   public ammounts2: FormArray;
-  editionnoteform19: FormGroup;
-  public ammounts7: FormArray;
-  recettejournaliereform19: FormGroup;
-  public ammounts8: FormArray;
   factureachatform: FormGroup;
   public ammounts3: FormArray;
   relevemanuelform: FormGroup;
@@ -128,6 +124,8 @@ foprolosapayer=0.000
   realht119=0.000;
   realdt219=0.000;
   realdt119=0.000;
+  realht19=0.000;
+  realdt19=0.000;
 
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
@@ -247,7 +245,7 @@ if(this.activite=='Consultant')
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option1Value>anneactuel||this.option1Value==anneactuel&&this.option2Value>=moisactuel)
+    /*if (this.option1Value>anneactuel||this.option1Value==anneactuel&&this.option2Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration au futur',
@@ -256,10 +254,31 @@ if(this.activite=='Consultant')
     }).then((result) => {this.option1Value='',this.option2Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))
-    this.DeccomptabiliteService.geexistenttdeccomptabilite(this.currentUser.userId,this.option1Value,this.option2Value).then(
-      (data:Deccomptabilite[]) => {
-        
+    }))*/
+    let deffet= new Date(this.user.dateeffet)
+    if (this.option1Value<deffet.getFullYear()||this.option1Value==deffet.getFullYear()&&this.option2Value<deffet.getMonth()+1)
+    return (
+      Swal.fire({
+      title: 'vous ne pouvez pas choisir une date antérieure à votre date d\'effet',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.option1Value='',this.option2Value=''
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }), this.loading=false) 
+    if (this.option2Value!=deffet.getMonth()+1&&this.option1Value==deffet.getFullYear()&&!this.DeccomptabiliteService.deccomptabilites.find((e =>e.annee === this.option1Value&&+e.mois === this.option2Value-1))
+      ||this.option2Value!='01'&&this.option1Value>deffet.getFullYear()&&!this.DeccomptabiliteService.deccomptabilites.find((e =>e.annee === this.option1Value&&+e.mois === this.option2Value-1)))
+    return (
+      Swal.fire({
+      title: 'veuillez tenez votre comptabilité du mois précédent',
+      icon: 'error',
+      confirmButtonColor: '#3085d6',
+    }).then((result) => {this.option1Value='',this.option2Value=''
+    }).catch(() => {
+      Swal.fire('opération non aboutie!')
+    }), this.loading=false) 
+    this.DeccomptabiliteService.geexistenttdeccomptabilite(this.user._id,this.option1Value,this.option2Value).then(
+      (data:Deccomptabilite[]) => {    
         if (data.length>0)
         {
           Swal.fire({
@@ -302,12 +321,12 @@ this.loading=false
       }
       
     )
-   
+    
 
   }
   verifyfutur(e)
   {
-    let date=new Date()
+    /*let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
@@ -321,7 +340,7 @@ this.loading=false
 
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))
+    }))*/
   
   }
   onTabClick(event) {
@@ -417,12 +436,13 @@ this.loading=false
   settva(i: number) { 
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
+     const mht19= this.editionnoteform.get('ammounts').value.at(i).montantht19
      console.log(this.tauxtva)
      if (+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
      {
-      const montanttva=(mht*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva).toFixed(3)
+      const montanttva19=(mht19*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva).toFixed(3)
       ammounts.at(i).patchValue({
-        montanttva:montanttva
+        montanttva:montanttva19
        })
      }
      else 
@@ -432,7 +452,6 @@ this.loading=false
         montanttva:montanttva
        })
      }
-     ammounts.controls[i].get('tauxtva').disable();
     }
     settva2(i: number) {
       let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -467,29 +486,29 @@ this.loading=false
         }
     setht(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-       const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
-       const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
+      const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
+      const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
 
-       console.log()
-       if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
-       {
+      console.log()
+      if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
+      {
 const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
-       const montanttva=(mttc-mdt-montantht).toFixed(3)
-       ammounts.at(i).patchValue({
-        montantht:montantht,
-        montanttva:montanttva
-       })
-       }
-       else 
-       {
-        const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
-       const montanttva=(mttc-mdt-montantht).toFixed(3)
-       ammounts.at(i).patchValue({
-        montantht:montantht,
-        montanttva:montanttva
-       })
-       }
-       ammounts.controls[i].get('tauxtva').disable();  
+      const montanttva=(mttc-mdt-montantht).toFixed(3)
+      ammounts.at(i).patchValue({
+       montantht:montantht,
+       montanttva:montanttva
+      })
+      }
+      else 
+      {
+       const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+      const montanttva=(mttc-mdt-montantht).toFixed(3)
+      ammounts.at(i).patchValue({
+       montantht:montantht,
+       montanttva:montanttva
+      })
+      }
+      ammounts.controls[i].get('tauxtva').disable(); 
      
       }
       setht2(i: number) {
@@ -845,7 +864,6 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
   this.realht119=this.totalht19
   this.realdt119=this.totaldt19
 }
-
         
       }
       onChange2(i: number){
@@ -1056,10 +1074,14 @@ let totalcreditbis:any
         date: '',
         numeronote: '',
         montantht:'0',
-        tauxtva:'0.07',
-        montanttva:'0',
-        montantdt:this.tauxdt,
-        montantttc:'0',
+      tauxtva:'0.07',
+      montanttva:'0',
+      montantdt:'0',
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
         client:'',
         autreclient:'',
 
