@@ -46,7 +46,7 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   regimefiscalimpot:string;
   regimefiscaltva:string;
   matriculefiscale:string;
-  currentUser: any;
+  currentUser: User;
   user:User;
   usertype:string
   role:string
@@ -176,10 +176,9 @@ totalht219=0.000;
     this.loading = true;
     this.statusadmin=this.commun.statusadmin
     this.statuscollab=this.commun.statuscollab
-        this.currentUser = this.tokenStorage.getUser();
+    this.currentUser = this.tokenStorage.getUser();
     this.role=this.currentUser.role
     this.tokenStorage.saved=false;
-
     this.userservice.getUserById(this.currentUser.userId).then(
       (user: User) => {
         this.loading = false;
@@ -2372,7 +2371,8 @@ console.log(deccomptabilite.autre6)
       this.showcatab=true;
       this.option3Value=true;
 //verify user choice about method of declaring invoices
-this.userservice.getUserById(this.currentUser.userId).then(
+console.log(this.currentUser._id)
+this.userservice.getUserById(this.currentUser._id).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;
@@ -2628,7 +2628,7 @@ else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='
       this.showbanquetab=true;
       this.option5Value=true;
       //verify user choice about method of declaring sales
-this.userservice.getUserById(this.currentUser.userId).then(
+this.userservice.getUserById(this.currentUser._id).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;
@@ -2730,7 +2730,7 @@ this.userservice.getUserById(this.currentUser.userId).then(
       this.showsalairetab=true;
       this.option6Value=true;
     //verify user choice about method of declaring salary
-this.userservice.getUserById(this.currentUser.userId).then(
+this.userservice.getUserById(this.currentUser._id).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;

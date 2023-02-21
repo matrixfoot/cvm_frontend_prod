@@ -438,20 +438,15 @@ this.loading=false
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
      const mht19= this.editionnoteform.get('ammounts').value.at(i).montantht19
      console.log(this.tauxtva)
-     if (+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
-     {
-      const montanttva19=(mht19*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva).toFixed(3)
+      const montanttva19=(mht19*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva19).toFixed(3)
       ammounts.at(i).patchValue({
-        montanttva:montanttva19
+        montanttva19:montanttva19
        })
-     }
-     else 
-     {
       const montanttva=(mht*+this.tauxtva).toFixed(3)
       ammounts.at(i).patchValue({
         montanttva:montanttva
        })
-     }
+     
     }
     settva2(i: number) {
       let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -1074,9 +1069,9 @@ let totalcreditbis:any
         date: '',
         numeronote: '',
         montantht:'0',
-      tauxtva:'0.07',
+      tauxtva:this.tauxtva,
       montanttva:'0',
-      montantdt:'0',
+      montantdt:this.tauxdt,
       montantttc:'0',
       montantht19:'0',
       tauxtva19:'0.19',
@@ -1099,9 +1094,9 @@ let totalcreditbis:any
       recette:'',
       recette19:'',
       montantht:'0',
-      tauxtva:'0.07',
+      tauxtva:this.tauxtva,
       montanttva:'0',
-      montantdt:'0',
+      montantdt:this.tauxdt,
       montantttc:'0',
       montantht19:'0',
       tauxtva19:'0.19',

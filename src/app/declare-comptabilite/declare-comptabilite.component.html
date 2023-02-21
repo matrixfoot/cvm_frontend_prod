@@ -259,7 +259,8 @@
             <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
         </tr>
-        <tr id="resultrow">
+        <tr id="resultrow"*ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+        &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
           <td colspan="3">
               <div class="col-6">
                    <p>Totaux19%</p>
