@@ -12,9 +12,7 @@ import { Deccomptabilite } from '../models/dec-comptabilite';
 import Swal from 'sweetalert2';
 import { merge, Subject, Subscription } from 'rxjs';
 import { ComponentCanDeactivate  } from '../services/component-can-deactivate';
-import { stringify } from 'querystring';
 import { Decfiscmens } from '../models/dec-fisc-mens';
-import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-declare-comptabilite',
   templateUrl: './declare-comptabilite.component.html',
@@ -61,6 +59,10 @@ private deccomptabilitesSub: Subscription;
   option5Value=false
   option6Value=false
   option7Value:string
+  option8Value:any
+  option9Value:any
+  option10Value:any
+  option11Value:any
   totalht=0.000
   totaltva=0.000
   realtotaltva=0.000
@@ -97,6 +99,8 @@ tfpapayer=0.000
 foprolosapayer=0.000
   editionnoteform: FormGroup;
   public ammounts: FormArray;
+  editionnotepastform: FormGroup;
+  public ammounts0: FormArray;
   recettejournaliereform: FormGroup;
   public ammounts2: FormArray;
   factureachatform: FormGroup;
@@ -126,7 +130,19 @@ foprolosapayer=0.000
   realdt119=0.000;
   realht19=0.000;
   realdt19=0.000;
-
+  totalht019=0.000;
+  totaltva019=0.000;
+  totaldt019=0.000;
+  totalttc019=0.000;
+  realht019=0.000;
+  realdt019=0.000;
+  totalht0=0.000
+  totaltva0=0.000
+  realtotaltva0=0.000
+  totaldt0=0.000
+  totalttc0=0.000
+  realht0=0.000
+realdt0=0.000
   constructor(
     private token: TokenStorageService,private router: Router,private route: ActivatedRoute,private DecfiscmensService :DecfiscmensService,
     private alertService: AlertService,private usersservice: UserService,private DeccomptabiliteService :DeccomptabiliteService,private fb: FormBuilder
@@ -135,7 +151,9 @@ foprolosapayer=0.000
     this.editionnoteform = this.fb.group({
       ammounts: this.fb.array([ this.createammount() ])
    });
-   
+   this.editionnotepastform = this.fb.group({
+    ammounts0: this.fb.array([ this.createammount0() ])
+ });
    this.recettejournaliereform = this.fb.group({
     ammounts2: this.fb.array([ this.createammount2() ])
  });
@@ -350,6 +368,24 @@ this.loading=false
     $event.target.value = $event.target.value ? $event.target.value : 0;
     $event.target.value = parseFloat($event.target.value).toFixed(3);
   }
+  setdate0(i: number) {
+    let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+    
+     const j= this.editionnotepastform.get('ammounts0').value.at(i).jour
+     if (ammounts0.value.find(element => element.jour > j))
+     return (alert('une note existe avec une date supérieure'),ammounts0.at(i).patchValue({
+      jour:''
+     }))
+     if (j>31)
+     return (alert('veuillez entrer un jour valide'),ammounts0.at(i).patchValue({
+      jour:''
+     }))
+     const date=j+'/'+this.option10Value+'/'+this.option1Value
+     ammounts0.at(i).patchValue({
+      date:date
+     })
+   
+    }
   setdate(i: number) {
   let ammounts = this.editionnoteform.get('ammounts') as FormArray;
   
@@ -433,6 +469,21 @@ this.loading=false
              })
            
             }
+            settva0(i: number) { 
+              let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+               const mht= this.editionnotepastform.get('ammounts0').value.at(i).montantht
+               const mht19= this.editionnotepastform.get('ammounts0').value.at(i).montantht19
+               console.log(this.tauxtva)
+                const montanttva19=(mht19*+(this.editionnotepastform.getRawValue().ammounts0)[i].tauxtva19).toFixed(3)
+                ammounts0.at(i).patchValue({
+                  montanttva19:montanttva19
+                 })
+                const montanttva=(mht*+this.tauxtva).toFixed(3)
+                ammounts0.at(i).patchValue({
+                  montanttva:montanttva
+                 })
+               
+              }
   settva(i: number) { 
     let ammounts = this.editionnoteform.get('ammounts') as FormArray;
      const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
@@ -479,11 +530,52 @@ this.loading=false
          })
        
         }
+        setht0(i: number) {
+          let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+          const mttc= +this.editionnotepastform.get('ammounts0').value.at(i).montantttc
+          const mttc19= +this.editionnotepastform.get('ammounts0').value.at(i).montantttc19
+          const mdt= +this.editionnotepastform.get('ammounts0').value.at(i).montantdt
+    
+          console.log()
+          if(mttc!=0&&mttc19==0)
+          {
+          const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+          const montanttva=(mttc-mdt-montantht).toFixed(3)
+          ammounts0.at(i).patchValue({
+           montantht:montantht,
+           montanttva:montanttva
+          })
+          }
+          else if(mttc==0&&mttc19!=0)
+          {
+           const montantht19=+((mttc19-mdt)/(1+ 0.19)).toFixed(3)
+          const montanttva19=(mttc19-mdt-montantht19).toFixed(3)
+          ammounts0.at(i).patchValue({
+           montantht19:montantht19,
+           montanttva19:montanttva19
+          })
+          }
+          else
+          {
+          const montantht=+((mttc-mdt/2)/(1+ +this.tauxtva)).toFixed(3)
+          const montanttva=(mttc-mdt/2-montantht).toFixed(3)
+          ammounts0.at(i).patchValue({
+           montantht:montantht,
+           montanttva:montanttva
+          })
+           const montantht19=+((mttc19-mdt/2)/(1+ 0.19)).toFixed(3)
+          const montanttva19=(mttc19-mdt/2-montantht19).toFixed(3)
+          ammounts0.at(i).patchValue({
+           montantht19:montantht19,
+           montanttva19:montanttva19
+          })
+          }
+          }
     setht(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-      const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
-      const mttc19= this.editionnoteform.get('ammounts').value.at(i).montantttc19
-      const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
+      const mttc= +this.editionnoteform.get('ammounts').value.at(i).montantttc
+      const mttc19= +this.editionnoteform.get('ammounts').value.at(i).montantttc19
+      const mdt= +this.editionnoteform.get('ammounts').value.at(i).montantdt
 
       console.log()
       if(mttc!=0&&mttc19==0)
@@ -530,7 +622,7 @@ this.loading=false
         console.log(this.tauxtva)
          if(mrecette19!=0&&mrecette==0)
          {
-         const montantttc19=+(mrecette19).toFixed(3) 
+         const montantttc19=+(mrecette19+mtimbre).toFixed(3) 
          const montantht19=+((+montantttc19-mtimbre)/(1+ 0.19)).toFixed(3)
          const montanttva19=+(montantttc19-montantht19-mtimbre).toFixed(3)
          console.log(montantttc19)
@@ -550,6 +642,7 @@ this.loading=false
         },0);
          if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
         {
+          console.log('1')
           this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
             acc += +(curr.montantdt || 0);
             return acc;
@@ -571,7 +664,7 @@ this.loading=false
          else if(mrecette!=0&&mrecette19==0)
          {
 
-         const montantttc=+(mrecette).toFixed(3) 
+         const montantttc=+(mrecette+mtimbre).toFixed(3) 
          const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
          const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
          console.log(montantttc)
@@ -592,6 +685,7 @@ this.loading=false
         },0);
          if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
         {
+          console.log('1')
           this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
             acc += +(curr.montantdt || 0);
             return acc;
@@ -612,10 +706,10 @@ this.loading=false
          }
          else
          {
-          const montantttc19=+(mrecette19).toFixed(3) 
+          const montantttc19=+(mrecette19+(mtimbre/2)).toFixed(3) 
           const montantht19=+((+montantttc19-(mtimbre/2))/(1+ 0.19)).toFixed(3)
           const montanttva19=+(montantttc19-montantht19-(mtimbre/2)).toFixed(3)
-          const montantttc=+(mrecette).toFixed(3) 
+          const montantttc=+(mrecette+(mtimbre/2)).toFixed(3) 
          const montantht=+((+montantttc-(mtimbre/2))/(1+ +this.tauxtva)).toFixed(3)
          const montanttva=+(montantttc-montantht-(mtimbre/2)).toFixed(3)
           console.log(montantttc19)
@@ -638,6 +732,8 @@ this.loading=false
           },0);
            if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
           {
+            console.log('1')
+
             this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
               acc += +(curr.montantdt || 0);
               return acc;
@@ -663,6 +759,8 @@ this.loading=false
         },0);
          if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
         {
+          console.log('1')
+
           this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
             acc += +(curr.montantdt || 0);
             return acc;
@@ -718,19 +816,86 @@ this.loading=false
           },0);
         
           }
+          setttc0(i: number) {
+            let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+             const mht= +(this.editionnotepastform.get('ammounts0').value).at(i).montantht
+             const mht19= +(this.editionnotepastform.get('ammounts0').value).at(i).montantht19
+             const mtva= +(this.editionnotepastform.get('ammounts0').value.at(i).montanttva)
+             const mtva19= +(this.editionnotepastform.get('ammounts0').value.at(i).montanttva19)
+             const mdt= +(this.editionnotepastform.get('ammounts0').value).at(i).montantdt
+      
+             console.log(mht)
+             if(mht!=0&&mht19==0)
+             {
+              const montantttc=(mht+ +mtva+mdt).toFixed(3)
+             ammounts0.at(i).patchValue({
+              montantttc:montantttc
+             })
+            
+             }
+             else if(mht==0&&mht19!=0)
+             {
+              const montantttc19=(mht19+ +mtva19+mdt).toFixed(3)
+      
+              ammounts0.at(i).patchValue({
+               montantttc19:montantttc19
+              })
+             }
+             else
+             {
+              const montantttc=(mht+ +mtva+(mdt/2)).toFixed(3)
+             ammounts0.at(i).patchValue({
+              montantttc:montantttc
+             })
+             const montantttc19=(mht19+ +mtva19+(mdt/2)).toFixed(3)
+      
+              ammounts0.at(i).patchValue({
+               montantttc19:montantttc19
+              })
+             
+             }
+            
+             ammounts0.controls[i].get('tauxtva').disable();
+            }
     setttc(i: number) {
       let ammounts = this.editionnoteform.get('ammounts') as FormArray;
        const mht= +(this.editionnoteform.get('ammounts').value).at(i).montantht
-       const mtva= (this.editionnoteform.get('ammounts').value.at(i).montanttva)
+       const mht19= +(this.editionnoteform.get('ammounts').value).at(i).montantht19
+       const mtva= +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+       const mtva19= +(this.editionnoteform.get('ammounts').value.at(i).montanttva19)
        const mdt= +(this.editionnoteform.get('ammounts').value).at(i).montantdt
 
        console.log(mht)
-       
-       const montantttc=(mht+ +mtva+mdt).toFixed(3)
-
+       if(mht!=0&&mht19==0)
+       {
+        const montantttc=(mht+ +mtva+mdt).toFixed(3)
        ammounts.at(i).patchValue({
         montantttc:montantttc
        })
+      
+       }
+       else if(mht==0&&mht19!=0)
+       {
+        const montantttc19=(mht19+ +mtva19+mdt).toFixed(3)
+
+        ammounts.at(i).patchValue({
+         montantttc19:montantttc19
+        })
+       }
+       else
+       {
+        const montantttc=(mht+ +mtva+(mdt/2)).toFixed(3)
+       ammounts.at(i).patchValue({
+        montantttc:montantttc
+       })
+       const montantttc19=(mht19+ +mtva19+(mdt/2)).toFixed(3)
+
+        ammounts.at(i).patchValue({
+         montantttc19:montantttc19
+        })
+       
+       }
+      
        ammounts.controls[i].get('tauxtva').disable();
       }
       setttc2(i: number) {
@@ -824,97 +989,135 @@ this.loading=false
                  })
                
                 }
+                onChange0(i: number){
+                  const totalht = (this.editionnotepastform.get('ammounts0').value.at(i).montantht || 0)
+                  const totaltva = (this.editionnotepastform.get('ammounts0').value.at(i).montanttva || 0)
+                  const totaldt = (this.editionnotepastform.get('ammounts0').value.at(i).montantdt || 0)
+                  const totalttc = (this.editionnotepastform.get('ammounts0').value.at(i).montantttc || 0)
+                  console.log((this.editionnotepastform.getRawValue().ammounts0)[i].tauxtva)
+            
+            this.totalht0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montantht || 0);
+              return acc;
+            },0);
+            this.totaltva0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montanttva || 0);
+              return acc;
+            },0);
+            this.totaldt0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montantdt || 0);
+              return acc;
+            },0);
+            this.totalttc0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montantttc || 0);
+              return acc;
+            },0);
+            this.realht0=this.totalht0
+            this.realdt0=this.totaldt0
+          
+          
+            this.totalht019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montantht19 || 0);
+              return acc;
+            },0);
+            this.totaltva019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montanttva19 || 0);
+              return acc;
+            },0);
+           
+            this.totalttc019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+              acc += +(curr.montantttc19 || 0);
+              return acc;
+            },0);
+            this.realht019=this.totalht019
+            this.realdt019=this.totaldt019
+          
+                  
+                }
       onChange(i: number){
         const totalht = (this.editionnoteform.get('ammounts').value.at(i).montantht || 0)
         const totaltva = (this.editionnoteform.get('ammounts').value.at(i).montanttva || 0)
         const totaldt = (this.editionnoteform.get('ammounts').value.at(i).montantdt || 0)
         const totalttc = (this.editionnoteform.get('ammounts').value.at(i).montantttc || 0)
         console.log((this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-        if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.07||!(this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-{
-  this.totalht = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+  
+  this.totalht = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
     acc += +(curr.montantht || 0);
     return acc;
   },0);
-  this.totaltva = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+  this.totaltva = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
     acc += +(curr.montanttva || 0);
     return acc;
   },0);
-  this.totaldt = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+  this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
     acc += +(curr.montantdt || 0);
     return acc;
   },0);
-  this.totalttc = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+  this.totalttc = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
     acc += +(curr.montantttc || 0);
     return acc;
   },0);
   this.realht1=this.totalht
   this.realdt1=this.totaldt
-}
-else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
-{
-  console.log(+(this.DeccomptabiliteService.filterByValue((this.editionnoteform.getRawValue().ammounts),'0.19')))
-  this.totalht19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantht || 0);
+
+
+  this.totalht19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
     return acc;
   },0);
-  this.totaltva19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montanttva || 0);
+  this.totaltva19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
     return acc;
   },0);
-  this.totaldt19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantdt || 0);
-    return acc;
-  },0);
-  this.totalttc19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantttc || 0);
+ 
+  this.totalttc19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
     return acc;
   },0);
   this.realht119=this.totalht19
   this.realdt119=this.totaldt19
-}
+
         
       }
       onChange2(i: number){
         
-        if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.07||!(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva)
-{
-  this.totalht2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+        console.log('hre')
+
+  this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
     acc += +(curr.montantht || 0);
     return acc;
   },0);
-  this.totaltva2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
     acc += +(curr.montanttva || 0);
     return acc;
   },0);
-  this.totaldt2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-    acc += +(curr.montantdt || 0);
-    return acc;
-  },0);
-  this.totalttc2 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+          {
+            console.log('hre')
+            this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+              acc += +(curr.montantdt || 0);
+              return acc;
+            },0);
+          }
+  this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
     acc += +(curr.montantttc || 0);
     return acc;
   },0);
-}
-else if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
-{
-  this.totalht219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantht || 0);
+
+  this.totalht219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
     return acc;
   },0);
-  this.totaltva219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montanttva || 0);
+  this.totaltva219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
     return acc;
   },0);
-  this.totaldt219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantdt || 0);
+ 
+  this.totalttc219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
     return acc;
   },0);
-  this.totalttc219 = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantttc || 0);
-    return acc;
-  },0);
-}
+
         
       }
       async onChange3(i: number){
@@ -1056,6 +1259,9 @@ let totalcreditbis:any
     }
   }
   //Ajout de formulaire de création  edition note + recette journaliere
+  get ammountControls0() {
+    return this.editionnotepastform.get('ammounts0')['controls'];
+  }
   get ammountControls() {
     return this.editionnoteform.get('ammounts')['controls'];
   }
@@ -1074,6 +1280,30 @@ let totalcreditbis:any
   get ammountControls6() {
     return this.salaireform.get('ammounts6')['controls'];
   }
+  createammount0() 
+  : FormGroup {
+    
+      return this.fb.group({
+        type:'1',
+        jour: '',
+        date: '',
+        numeronote: '',
+        montantht:'0',
+      tauxtva:this.tauxtva,
+      montanttva:'0',
+      montantdt:this.tauxdt,
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
+        client:'',
+        autreclient:'',
+
+
+  
+      });
+    }
   createammount() 
   : FormGroup {
     
@@ -1110,7 +1340,7 @@ let totalcreditbis:any
       montantht:'0',
       tauxtva:this.tauxtva,
       montanttva:'0',
-      montantdt:this.tauxdt,
+      montantdt:'0',
       montantttc:'0',
       montantht19:'0',
       tauxtva19:'0.19',
@@ -1183,12 +1413,64 @@ let totalcreditbis:any
       contientfiche:false
     });
   }
+  addammount0(){
+    this.ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+    this.ammounts0.push(this.createammount0());
+    const i=this.ammounts0.length
+    if(this.ammounts0.at(i-2).value.montantht!='0'&&this.ammounts0.at(i-2).value.montantht!=''||this.ammounts0.at(i-2).value.montantht19!='0'&&this.ammounts0.at(i-2).value.montantht19!='')
+    {
+      this.ammounts0.at(i-1).patchValue({
+        numeronote:+(this.ammounts0.at(i-2).value.numeronote)+1
+       })
+    }
+    else 
+    {
+      this.ammounts0.at(i-1).patchValue({
+        numeronote:+(this.ammounts0.at(i-2).value.numeronote)
+       })
+    }
+    
+ 
+  this.totalht0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht || 0);
+    return acc;
+  },0);
+  this.totaltva0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva || 0);
+    return acc;
+  },0);
+  this.totaldt0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantdt || 0);
+    return acc;
+  },0);
+  this.totalttc0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc || 0);
+    return acc;
+  },0);
+ 
+
+
+  this.totalht019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
+    return acc;
+  },0);
+  this.totaltva019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
+    return acc;
+  },0);
+ 
+  this.totalttc019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
+    return acc;
+  },0);
+ 
+
+  }
    addammount(){
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
- 
     this.ammounts.push(this.createammount());
     const i=this.ammounts.length
-    if(this.ammounts.at(i-2).value.montantht!='0'&&this.ammounts.at(i-2).value.montantht!='')
+    if(this.ammounts.at(i-2).value.montantht!='0'&&this.ammounts.at(i-2).value.montantht!=''||this.ammounts0.at(i-2).value.montantht19!='0'&&this.ammounts0.at(i-2).value.montantht19!='')
     {
       this.ammounts.at(i-1).patchValue({
         numeronote:+(this.ammounts.at(i-2).value.numeronote)+1
@@ -1201,47 +1483,41 @@ let totalcreditbis:any
        })
     }
     
-    if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.07||!(this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-{
-  this.totalht = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+ 
+  this.totalht = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantht || 0);
     return acc;
   },0);
-  this.totaltva = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totaltva = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montanttva || 0);
     return acc;
   },0);
-  this.totaldt = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totaldt = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantdt || 0);
     return acc;
   },0);
-  this.totalttc = +(this.DeccomptabiliteService.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totalttc = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantttc || 0);
     return acc;
   },0);
  
-}
-else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
-{
-  console.log(+(this.DeccomptabiliteService.filterByValue((this.editionnoteform.getRawValue().ammounts),'0.19')))
-  this.totalht19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantht || 0);
+
+
+  this.totalht19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
     return acc;
   },0);
-  this.totaltva19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montanttva || 0);
-    return acc;
-  },0);
-  this.totaldt19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantdt || 0);
-    return acc;
-  },0);
-  this.totalttc19 = +(this.DeccomptabiliteService.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantttc || 0);
+  this.totaltva19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
     return acc;
   },0);
  
-}
+  this.totalttc19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
+    return acc;
+  },0);
+ 
+
   }
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -1384,6 +1660,26 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
       return acc;
     },0);
   }
+  removeammount0(i: number) {
+    const j =this.ammounts0.length
+    this.ammounts0.removeAt(j-1);
+    this.totalht0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantht || 0);
+      return acc;
+    },0);
+    this.totaltva0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montanttva || 0);
+      return acc;
+    },0);
+    this.totaldt0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdt || 0);
+      return acc;
+    },0);
+    this.totalttc0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantttc || 0);
+      return acc;
+    },0);
+  }
   removeammount(i: number) {
     const j =this.ammounts.length
     this.ammounts.removeAt(j-1);
@@ -1416,11 +1712,13 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
       acc += +(curr.montanttva || 0);
       return acc;
     },0);
+    if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+    {
       this.totaldt2 =+(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
         acc += +(curr.montantdt || 0);
         return acc;
       },0);
-    
+    }
     this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
       acc += +(curr.montantttc || 0);
       return acc;
@@ -1503,6 +1801,38 @@ this.resetbanqueall()
 this.resetsalaireall()
   this.loading=false
 console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6)
+  }
+  restartcapast()
+  {
+    let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+    if(ammounts0.length>0)
+    {  
+      ammounts0.at(0).patchValue({
+       type:'1',
+        jour: '',
+        date: '',
+        numeronote: '',
+        montantht:'0',
+      tauxtva:this.tauxtva,
+      montanttva:'0',
+      montantdt:this.tauxdt,
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
+        client:'',
+        autreclient:'',
+       })
+      for (let i = 0; i < ammounts0.length; i++)
+    {
+this.removeammount(i)
+    }
+      this.totalht0=0.000
+      this.totaltva0=0.000
+      this.totaldt0=0.000
+      this.totalttc0=0.000
+    }
   }
   resetcaall()
   {
@@ -2663,6 +2993,64 @@ this.usersservice.getUserById(this.currentUser.userId).then(
         Swal.fire('opération non aboutie!');
       });
       
+    }
+  }
+  myFunction5() {
+    var checkbox:any = document.getElementById("choice");
+    var text2 = document.getElementById("block2");
+    var text3 = document.getElementById("editionnotepast");
+
+    if (checkbox.checked == true){
+      text2.style.display = "none";
+      text3.style.display = "block";
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+      let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+      let i=ammounts.length
+      let numeronote= +ammounts.value.at(i-1).numeronote 
+      ammounts0.at(0).patchValue({
+        montantdt:this.tauxdt,
+        numeronote:numeronote+1
+       })
+      
+    } 
+    else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au factures des mois précédents, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Réinitialiser',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+   this.restartcapast()       
+this.option10Value=''
+          text3.style.display = "none";
+        }
+        else{
+          checkbox.checked = true
+          text3.style.display = "block";
+
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+    }
+  }
+  myFunction6() {
+    var checkbox:any = document.getElementById("choice1");
+    var text2 = document.getElementById("block1");
+    var text3 = document.getElementById("editionnotepast");
+
+    if (checkbox.checked == true){
+      text2.style.display = "none";
+      text3.style.display = "none";
+
+      
+    } else {
+       
+      text2.style.display = "block";
     }
   }
   docjoint3(i:number) {

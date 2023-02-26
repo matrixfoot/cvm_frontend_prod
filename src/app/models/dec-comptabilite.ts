@@ -63,6 +63,7 @@ export class Deccomptabilite {
 
 statutadmin:string[]
   statutcollab:string[]
+autre0:Autre0[]
 autre1:Autre[]
 autre2:Autre2[]
 autre3:Autre3[]
@@ -70,7 +71,22 @@ autre4:Autre4[]
 autre5:Autre5[]
 autre6:Autre6[]
 }
+export interface Autre0 {
+  type:string,
+  jour: string,
+  date: string,
+  numeronote:string,
+  montantht:string,
+  montantht19:string,
+  montanttva:string,
+  montanttva19:string,
+  montantdt:string,
+  montantttc:string,
+  montantttc19:string,
+  client:string,
+  autreclient:string,
 
+}
 export interface Autre {
         type:string,
         jour: string,

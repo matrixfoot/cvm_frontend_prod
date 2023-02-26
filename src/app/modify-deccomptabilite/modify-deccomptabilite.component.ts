@@ -5,9 +5,10 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { User } from '../models/user.model';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
-import { Subscription,merge } from 'rxjs';
+import { Subscription,merge, Subject } from 'rxjs';
 import { MustMatch } from '../_helpers/must-match.validator';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
+import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { Deccomptabilite } from '../models/dec-comptabilite';
 import { AlertService } from '../_helpers/alert.service';
 import Swal from 'sweetalert2';
@@ -25,7 +26,7 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   uploadFilesautre5: File[] = [];
   uploadFilesautre6: File[] = [];
   deccomptabilite:Deccomptabilite;
- 
+  private deccomptabilitesSub: Subscription;
   isLoggedIn=false
   loading=false;
   showeditionnote=false;
@@ -39,6 +40,9 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   showsalairetab=false
   showinvoiceform=false
   showdocjoint3=false
+  showdocjoint5=false
+  showdocjoint6=false
+
   errormsg:string;
   natureactivite:string;
   activite:string;
@@ -48,22 +52,21 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   matriculefiscale:string;
   currentUser: User;
   user:User;
-  usertype:string
-  role:string
-  nature:string
-  ficheUrl:string
   choixfacture:string;
-  option1Value:string
-  option2Value:string
+  option1Value:any
+  option2Value:any
   option3Value=false
   option4Value=false
   option5Value=false
   option6Value=false
   option7Value:string
-  tauxtva: string;
-  tauxdt:any;
+  option8Value:any
+  option9Value:any
+  option10Value:any
+  option11Value:any
   totalht=0.000
   totaltva=0.000
+  realtotaltva=0.000
   totaldt=0.000
   totalttc=0.000
   totalht2=0.000
@@ -84,7 +87,7 @@ export class ModifyDeccomptabiliteComponent extends ComponentCanDeactivate imple
   totalretenueimpot=0.000
   totalavancepret=0.000
   totalsalairenet=0.000
-  realht1=0.000
+realht1=0.000
 realdt1=0.000
 realht2=0.000
 realdt2=0.000
@@ -95,7 +98,25 @@ realsalaireimposable6=0.000
 realretenue6=0.000
 tfpapayer=0.000
 foprolosapayer=0.000
-totalht219=0.000;
+  editionnoteform: FormGroup;
+  public ammounts: FormArray;
+  editionnotepastform: FormGroup;
+  public ammounts0: FormArray;
+  recettejournaliereform: FormGroup;
+  public ammounts2: FormArray;
+  factureachatform: FormGroup;
+  public ammounts3: FormArray;
+  relevemanuelform: FormGroup;
+  public ammounts4: FormArray;
+  relevejointform: FormGroup;
+  public ammounts5: FormArray;
+  salaireform: FormGroup;
+  public ammounts6: FormArray;
+  private destroyed$ = new Subject<void>();
+  tauxtva: string;
+  tauxdt:any;
+  specialite: string;
+  totalht219=0.000;
   totaltva219=0.000;
   totaldt219=0.000;
   totalttc219=0.000;
@@ -108,29 +129,28 @@ totalht219=0.000;
   realht119=0.000;
   realdt219=0.000;
   realdt119=0.000;
+  realht19=0.000;
+  realdt19=0.000;
+  totalht019=0.000;
+  totaltva019=0.000;
+  totaldt019=0.000;
+  totalttc019=0.000;
+  realht019=0.000;
+  realdt019=0.000;
+  totalht0=0.000
+  totaltva0=0.000
+  realtotaltva0=0.000
+  totaldt0=0.000
+  totalttc0=0.000
+  realht0=0.000
+realdt0=0.000
+  role: string;
+  usertype: string;
   option204Value: number;
-  deccomptabiliteFormadmin: FormGroup;
-  deccomptabiliteFormcollab: FormGroup;
-  public ammounts7: FormArray;
-  public ammounts8: FormArray;
-  deccomptabiliteForm: FormGroup;
-  editionnoteform: FormGroup;
-  public ammounts: FormArray;
-  recettejournaliereform: FormGroup;
-  public ammounts2: FormArray;
-  factureachatform: FormGroup;
-  public ammounts3: FormArray;
-  relevemanuelform: FormGroup;
-  public ammounts4: FormArray;
-  relevejointform: FormGroup;
-  public ammounts5: FormArray;
-  salaireform: FormGroup;
-  public ammounts6: FormArray;
-  activitedec: string;
-  sousactivitedec: string;
-  statusadmin: string[];
-  statuscollab: string[];
-  constructor(private fb: FormBuilder,
+  nature: string;
+  constructor(
+    private DecfiscmensService :DecfiscmensService,
+    private fb: FormBuilder,
   
    
     private userservice: UserService,
@@ -141,6 +161,9 @@ totalht219=0.000;
     private tokenStorage: TokenStorageService,
     private alertService: AlertService,private commun: CommunService) {
       super();
+      this.editionnotepastform = this.fb.group({
+        ammounts0: this.fb.array([ this.createammount0() ])
+     });
       this.editionnoteform = this.fb.group({
         ammounts: this.fb.array([ this.createammount() ])
      });
@@ -164,44 +187,68 @@ totalht219=0.000;
   this.salaireform = this.fb.group({
     ammounts6: this.fb.array([ this.createammount6() ])
   });
-  this.deccomptabiliteFormadmin = this.fb.group({
-    ammounts7: this.fb.array([ this.createammount7() ])
-  })
-  this.deccomptabiliteFormcollab = this.fb.group({
-    ammounts8: this.fb.array([ this.createammount8() ])
-  })
+
     }
 
   ngOnInit() {
     this.loading = true;
-    this.statusadmin=this.commun.statusadmin
-    this.statuscollab=this.commun.statuscollab
+    
     this.currentUser = this.tokenStorage.getUser();
     this.role=this.currentUser.role
     this.tokenStorage.saved=false;
+    this.tauxdt=0.600    
     this.userservice.getUserById(this.currentUser.userId).then(
       (user: User) => {
         this.loading = false;
-        this.currentUser = user;
-        this.role=user.role
-        this.usertype=user.usertype
-        this.activite=user.activite
-        this.sousactivite=user.sousactivite
-        console.log(this.currentUser)
+    this.user = user;
+    this.natureactivite=this.user.natureactivite;
+    this.activite=this.user.activite;
+    this.sousactivite=this.user.sousactivite;
+    this.specialite=this.user.specialite
+    this.regimefiscalimpot=this.user.regimefiscalimpot;
+    this.matriculefiscale=this.user.matriculefiscale;
+    this.usertype=this.user.usertype
         this.route.params.subscribe(
           (params) => {
             this.deccompt.getDeccomptabilitereqById(params.id).then(
               (deccomptabilite: Deccomptabilite) => {
                 
                 this.deccomptabilite = deccomptabilite;
-                if(!this.deccomptabilite.dateouverturedossier&&this.role=='admin'||!this.deccomptabilite.dateouverturedossier&&this.role=='supervisor')
-          {
-            this.option204Value=Date.now()
-          }
-          else
-          {
-            this.option204Value=this.deccomptabilite.dateouverturedossier
-          }
+                if(deccomptabilite.annee=='2023')
+                {
+                  this.tauxdt=1.000
+                }
+                else if(deccomptabilite.annee!='2023')
+                {
+                  this.tauxdt=0.600
+                }
+                if(deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Architectes'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Ingénieurs-conseil'||
+                deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Dessinateurs'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Géomètres'||
+                deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Topographes'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Notaire'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Syndic des copropriétaires'||
+                deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Expert'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Huissiers notaire'||
+                deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Interprètes'||deccomptabilite.annee=='2023'&&deccomptabilite.activite=='Avocat')
+                {
+                  this.tauxtva='0.19'
+                }
+                     
+                  if(deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Architectes'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Ingénieurs-conseil'||
+                  deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Dessinateurs'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Géomètres'||
+                  deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Topographes'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Syndic des copropriétaires'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Notaire'||
+                  deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Huissiers notaire'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Interprètes'
+                  ||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Expert'||deccomptabilite.annee!='2023'&&deccomptabilite.activite=='Avocat' )
+                  {
+                    this.tauxtva='0.13' 
+                  }
+                  if(deccomptabilite.activite=='Médecin'||deccomptabilite.activite=='Infirmier'||deccomptabilite.activite=='Masseur'||deccomptabilite.activite=='Physiothérapeute'||
+                  deccomptabilite.activite=='Ergothérapeute'||deccomptabilite.activite=='Psychomotricien'||deccomptabilite.activite=='Diététicien'||deccomptabilite.activite=='Orthophoniste'||
+                  deccomptabilite.activite=='Orthoptiste'||deccomptabilite.activite=='Sage-femmes')
+                  {
+                    this.tauxtva='0.07'
+                  }
+                  if(deccomptabilite.activite=='Consultant')
+                  {
+                    this.tauxtva='0.19'
+                  }
                 //general functions oninit
                 if (this.activite != deccomptabilite.activite&&this.role!='admin'&&this.role!='supervisor'||this.sousactivite != deccomptabilite.sousactivite&&this.role!='admin'&&this.role!='supervisor') 
                 return (Swal.fire({ 
@@ -215,23 +262,7 @@ totalht219=0.000;
                 }).catch(() => {
                   Swal.fire('opération non aboutie!')
                 })) 
-                this.nature=deccomptabilite.nature
-                this.deccomptabiliteFormadmin = new FormGroup({              
-                  ammounts7: new FormArray(deccomptabilite.statutadmin.map(item => {
-                    const group = this.initammounts7();
-                    //@ts-ignore
-                    group.patchValue(item);
-                    return group;
-                  }))
-                });
-                this.deccomptabiliteFormcollab = new FormGroup({        
-                  ammounts8: new FormArray(deccomptabilite.statutcollab.map(item => {
-                    const group = this.initammounts8();
-                    //@ts-ignore
-                    group.patchValue(item);
-                    return group;
-                  }))
-                }); 
+                this.nature=deccomptabilite.nature 
                 this.option1Value=this.deccomptabilite.annee
               this.option2Value=this.deccomptabilite.mois
               if (this.deccomptabilite.autre1.length>0||this.deccomptabilite.autre2.length>0)
@@ -272,7 +303,15 @@ totalht219=0.000;
                 this.showsalairetab=true
                 this.showpaiemanuel=true
               }
-            
+              this.editionnotepastform = new FormGroup({
+                
+                ammounts0: new FormArray(deccomptabilite.autre0.map(item => {
+                  const group = this.createammount0();
+                  //@ts-ignore
+                  group.patchValue(item);
+                  return group;
+                }))
+              });
               this.editionnoteform = new FormGroup({
                 
                 ammounts: new FormArray(deccomptabilite.autre1.map(item => {
@@ -348,8 +387,16 @@ totalht219=0.000;
                 acc += +(curr.montantht || 0);
                 return acc;
               },0);
+              this.totalht19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montantht19 || 0);
+                return acc;
+              },0);
               this.totaltva = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
                 acc += +(curr.montanttva || 0);
+                return acc;
+              },0);
+              this.totaltva19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montanttva19 || 0);
                 return acc;
               },0);
               this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
@@ -360,12 +407,24 @@ totalht219=0.000;
                 acc += +(curr.montantttc || 0);
                 return acc;
               },0);
+              this.totalttc19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+                acc += +(curr.montantttc19 || 0);
+                return acc;
+              },0);
               this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
                 acc += +(curr.montantht || 0);
                 return acc;
               },0);
+              this.totalht219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montantht19 || 0);
+                return acc;
+              },0);
               this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
                 acc += +(curr.montanttva || 0);
+                return acc;
+              },0);
+              this.totaltva219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montanttva19 || 0);
                 return acc;
               },0);
               this.totaldt2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
@@ -374,6 +433,10 @@ totalht219=0.000;
               },0);
               this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
                 acc += +(curr.montantttc || 0);
+                return acc;
+              },0);
+              this.totalttc219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+                acc += +(curr.montantttc19 || 0);
                 return acc;
               },0);
               this.totaldebit = +(this.relevemanuelform.get('ammounts4').value).reduce((acc,curr)=>{
@@ -419,47 +482,6 @@ totalht219=0.000;
     )
     
 
-}
-initammounts7() {
-  return this.fb.group({
-    statut: [{value:'',disabled:true}],
-    motif: [{value:'',disabled:true}],
-    duree: [{value:'',disabled:true}],
-    datefin: [{value:'',disabled:true}],
-    fintraitement: [{value:'',disabled:true}],
-
-  });
-}
-initammounts8() {
-  return this.fb.group({
-    statutcoll: [{value:'',disabled:true}],
-    motifcoll: [{value:'',disabled:true}],
-    duree: [{value:'',disabled:true}],
-    datefin: [{value:'',disabled:true}],
-    fintraitement: [{value:'',disabled:true}],
-
-  });
-}
-createammount7(): FormGroup {
-  return this.fb.group({
-    statut: '',
-    motif: '',
-    duree: '',
-    datefin: '',
-    fintraitement: ['', Validators.required]
-
-
-  });
-}
-createammount8(): FormGroup {
-  return this.fb.group({
-    statutcoll: '',
-    motifcoll: '',
-    duree: '',
-    datefin: '',
-    fintraitement: ['', Validators.required]
-
-  });
 }
 canDeactivate():boolean {  
     
@@ -1102,6 +1124,9 @@ setdate(i: number) {
     }
   }
   //Ajout de formulaire de création  edition note + recette journaliere
+  get ammountControls0() {
+    return this.editionnotepastform.get('ammounts0')['controls'];
+  }
   get ammountControls() {
     return this.editionnoteform.get('ammounts')['controls'];
   }
@@ -1120,78 +1145,30 @@ setdate(i: number) {
   get ammountControls6() {
     return this.salaireform.get('ammounts6')['controls'];
   }
-  get ammountControls7() {
-    return this.deccomptabiliteFormadmin.get('ammounts7')['controls'];
-  }
-  get ammountControls8() {
-    return this.deccomptabiliteFormcollab.get('ammounts8')['controls'];
-  }
-  finadmin(i:number) {
-    let ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
+  createammount0() 
+  : FormGroup {
     
-    if (ammounts7.controls[i].value.fintraitement == true)
-    { 
-      ammounts7.controls[i].patchValue({ datefin: Date.now() });
-      ammounts7.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
-    } 
-    else 
-    {
-      Swal.fire({
-        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'supprimer',
-        cancelButtonText: 'Annuler',
-      }).then((result) => {
-        if (result.value) {
-          ammounts7.controls[i].patchValue({ datefin: '' });
-      ammounts7.controls[i].patchValue({ duree: ''});
-        }
-        else
-        {
-          ammounts7.controls[i].value.fintraitement == true
-        }
-      }).catch(() => {
-        Swal.fire('opération non aboutie!');
+      return this.fb.group({
+        type:'1',
+        jour: '',
+        date: '',
+        numeronote: '',
+        montantht:'0',
+      tauxtva:this.tauxtva,
+      montanttva:'0',
+      montantdt:this.tauxdt,
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
+        client:'',
+        autreclient:'',
+
+
+  
       });
-      
     }
-  }
-  fincollab(i:number) {
-    let ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
-    
-    if (ammounts8.controls[i].value.fintraitement == true)
-    { 
-      ammounts8.controls[i].patchValue({ datefin: Date.now() });
-      ammounts8.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
-    } 
-    else 
-    {
-      Swal.fire({
-        title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'supprimer',
-        cancelButtonText: 'Annuler',
-      }).then((result) => {
-        if (result.value) {
-          ammounts8.controls[i].patchValue({ datefin: '' });
-      ammounts8.controls[i].patchValue({ duree: ''});
-        }
-        else
-        {
-          ammounts8.controls[i].value.fintraitement == true
-        }
-      }).catch(() => {
-        Swal.fire('opération non aboutie!');
-      });
-      
-    }
-  }
   createammount() 
   : FormGroup {
     
@@ -1201,11 +1178,17 @@ setdate(i: number) {
         date: '',
         numeronote: '',
         montantht:'0',
-        tauxtva:'0.07',
-        montanttva:'0',
-        montantdt:this.tauxdt,
-        montantttc:'0',
-        reglement:'',
+      tauxtva:this.tauxtva,
+      montanttva:'0',
+      montantdt:this.tauxdt,
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
+        client:'',
+        autreclient:'',
+
 
   
       });
@@ -1218,11 +1201,16 @@ setdate(i: number) {
       jour: '',
       date: '',
       recette:'',
+      recette19:'',
       montantht:'0',
-      tauxtva:'0.07',
+      tauxtva:this.tauxtva,
       montanttva:'0',
       montantdt:'0',
       montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
 
     });
   }
@@ -1290,20 +1278,64 @@ setdate(i: number) {
       contientfiche:false
     });
   }
-  addammount7(): void {
-    this.ammounts7 = this.deccomptabiliteFormadmin.get('ammounts7') as FormArray;
-    this.ammounts7.push(this.createammount7());
-  }
-  addammount8(): void {
-    this.ammounts8 = this.deccomptabiliteFormcollab.get('ammounts8') as FormArray;
-    this.ammounts8.push(this.createammount8());
+  addammount0(){
+    this.ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+    this.ammounts0.push(this.createammount0());
+    const i=this.ammounts0.length
+    if(this.ammounts0.at(i-2).value.montantht!='0'&&this.ammounts0.at(i-2).value.montantht!=''||this.ammounts0.at(i-2).value.montantht19!='0'&&this.ammounts0.at(i-2).value.montantht19!='')
+    {
+      this.ammounts0.at(i-1).patchValue({
+        numeronote:+(this.ammounts0.at(i-2).value.numeronote)+1
+       })
+    }
+    else 
+    {
+      this.ammounts0.at(i-1).patchValue({
+        numeronote:+(this.ammounts0.at(i-2).value.numeronote)
+       })
+    }
+    
+ 
+  this.totalht0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht || 0);
+    return acc;
+  },0);
+  this.totaltva0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva || 0);
+    return acc;
+  },0);
+  this.totaldt0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantdt || 0);
+    return acc;
+  },0);
+  this.totalttc0 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc || 0);
+    return acc;
+  },0);
+ 
+
+
+  this.totalht019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
+    return acc;
+  },0);
+  this.totaltva019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
+    return acc;
+  },0);
+ 
+  this.totalttc019 = +(this.ammounts0.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
+    return acc;
+  },0);
+ 
+
   }
    addammount(){
     this.ammounts = this.editionnoteform.get('ammounts') as FormArray;
- 
     this.ammounts.push(this.createammount());
     const i=this.ammounts.length
-    if(this.ammounts.at(i-2).value.montantht!='0'&&this.ammounts.at(i-2).value.montantht!='')
+    if(this.ammounts.at(i-2).value.montantht!='0'&&this.ammounts.at(i-2).value.montantht!=''||this.ammounts0.at(i-2).value.montantht19!='0'&&this.ammounts0.at(i-2).value.montantht19!='')
     {
       this.ammounts.at(i-1).patchValue({
         numeronote:+(this.ammounts.at(i-2).value.numeronote)+1
@@ -1316,47 +1348,41 @@ setdate(i: number) {
        })
     }
     
-    if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.07||!(this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-{
-  this.totalht = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+ 
+  this.totalht = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantht || 0);
     return acc;
   },0);
-  this.totaltva = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totaltva = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montanttva || 0);
     return acc;
   },0);
-  this.totaldt = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totaldt = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantdt || 0);
     return acc;
   },0);
-  this.totalttc = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+  this.totalttc = +(this.ammounts.value).reduce((acc,curr)=>{
     acc += +(curr.montantttc || 0);
     return acc;
   },0);
  
-}
-else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
-{
-  console.log(+(this.deccompt.filterByValue((this.editionnoteform.getRawValue().ammounts),'0.19')))
-  this.totalht19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantht || 0);
+
+
+  this.totalht19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montantht19 || 0);
     return acc;
   },0);
-  this.totaltva19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montanttva || 0);
-    return acc;
-  },0);
-  this.totaldt19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantdt || 0);
-    return acc;
-  },0);
-  this.totalttc19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-    acc += +(curr.montantttc || 0);
+  this.totaltva19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montanttva19 || 0);
     return acc;
   },0);
  
-}
+  this.totalttc19 = +(this.ammounts.value).reduce((acc,curr)=>{
+    acc += +(curr.montantttc19 || 0);
+    return acc;
+  },0);
+ 
+
   }
   addammount2(): void {
     this.ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
@@ -1499,6 +1525,26 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
       return acc;
     },0);
   }
+  removeammount0(i: number) {
+    const j =this.ammounts0.length
+    this.ammounts0.removeAt(j-1);
+    this.totalht0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantht || 0);
+      return acc;
+    },0);
+    this.totaltva0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montanttva || 0);
+      return acc;
+    },0);
+    this.totaldt0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantdt || 0);
+      return acc;
+    },0);
+    this.totalttc0 = +(this.editionnotepastform.get('ammounts').value).reduce((acc,curr)=>{
+      acc += +(curr.montantttc || 0);
+      return acc;
+    },0);
+  }
   removeammount(i: number) {
     const j =this.ammounts.length
     this.ammounts.removeAt(j-1);
@@ -1531,11 +1577,13 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
       acc += +(curr.montanttva || 0);
       return acc;
     },0);
+    if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+    {
       this.totaldt2 =+(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
         acc += +(curr.montantdt || 0);
         return acc;
       },0);
-    
+    }
     this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
       acc += +(curr.montantttc || 0);
       return acc;
@@ -1607,8 +1655,7 @@ else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
       acc += +(curr.salairenet || 0);
       return acc;
     },0);
-  }
-  //resetformsfunctions
+  }  //resetformsfunctions
   restartform()
   {
     this.loading = true;

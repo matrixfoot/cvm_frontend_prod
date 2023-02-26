@@ -212,12 +212,7 @@
                        class="form-control"formControlName="montantttc19"(change)="setht(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
                     </div>
                    </td>
-                  <td>
-                   <div class="col-6">
-                        <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
-                      class="form-control"formControlName="montantttc"(change)="setht(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange(i)"placeholder="Montant TTC"/>
-                   </div>
-                  </td>
+                 
                   <td style="width: 150px;display: block;">
                     <div class="col-6">
                       <select class="form-control"placeholder="Client" id="client"#someHashName formControlName="client" name="client" >
@@ -235,7 +230,7 @@
                 
         </tr>
         <tr>
-            <td colspan="7"></td>
+            <td colspan="11"></td>
             <td>
               <div>
               <button type="button" class="btn btn-danger btn-sm"*ngIf="editionnoteform.get('ammounts').value.length>1" (click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
@@ -250,32 +245,235 @@
         <tr id="resultrow">
             <td colspan="3">
                 <div class="col-6">
-                     <p>Totaux</p>
+                     <p>Totaux<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                      activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+                      ||activite==='Sage-femmes'"> (C.A à 7%) </span></p>
                 </div>
             </td>
-            <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'||'Médecin vétérinaire'"></td>
             <td style="text-align: center;">{{totalht | number:'1.3-3'| removeComma}}</td>
+            <td></td>
             <td style="text-align: center;">{{totaltva | number:'1.3-3'| removeComma}}</td>
+            <td></td>
             <td style="text-align: center;">{{totaldt | number:'1.3-3'| removeComma}}</td>
             <td style="text-align: center;">{{totalttc | number:'1.3-3'| removeComma}}</td>
+            <td></td>
         </tr>
         <tr id="resultrow"*ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
         &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
           <td colspan="3">
               <div class="col-6">
-                   <p>Totaux19%</p>
+                   <p>Totaux<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                    activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+                    ||activite==='Sage-femmes'"> (C.A à 19%) </span></p>
               </div>
           </td>
-          <td *ngIf="sousactivite==='Médecin spécialiste'||'Médecin'||'Médecin dentiste'||'Médecin vétérinaire'"></td>
+          <td></td>
           <td style="text-align: center;">{{totalht19 | number:'1.3-3'| removeComma}}</td>
+          <td></td>
           <td style="text-align: center;">{{totaltva19 | number:'1.3-3'| removeComma}}</td>
-          <td style="text-align: center;">{{totaldt19 | number:'1.3-3'| removeComma}}</td>
+          <td></td>
+          <td></td>
           <td style="text-align: center;">{{totalttc19 | number:'1.3-3'| removeComma}}</td>
       </tr>
     </tbody>
     
     </table>
     </fieldset>
+    <!--étape de décision-->
+<hr style="height:2px;border-width:0;color:gray;background-color:gray">
+<div title="indiquer votre choix"class="col-6">
+  <div class="form-group">
+  <label for="choice"> Avez vous d'autres factures relatifs aux mois précédents:</label>    
+  <div id="block1"><input type="checkbox"  id="choice"class="input-field"(click)="myFunction5()"[(ngModel)]="option8Value">Oui</div>  
+  <div id="block2"><input type="checkbox"  id="choice1"class="input-field"[(ngModel)]="option9Value"(click)="myFunction6()">Non</div>
+</div>
+</div>
+<!--edition note section (passé)-->
+<fieldset id="editionnotepast">
+  <fieldset>
+    <legend>Choix du mois</legend>
+    <div class="checkbox-container" id="datelist">
+        
+         <div class="input-container" id="Month"> 
+           <i class="glyphicon glyphicon-time"></i>
+           <label for="month">Sélectionner mois</label>
+           <select id="month" name="month" [(ngModel)]="option10Value">
+            <option></option>
+            <option value="01">(01)janvier</option>
+                           <option value="02">(02)février</option>
+                           <option value="03">(03)Mars</option>
+                           <option value="04">(04)avril</option>
+                           <option value="05">(05)Mai</option>
+                           <option value="06">(06)juin</option>
+                           <option value="07">(07)juillet</option>
+                           <option value="08">(08)août</option>
+                           <option value="09">(09)septembre</option>
+                           <option value="10">(10)octobre</option>
+                           <option value="11">(11)novembre</option>
+                           <option value="12">(12)décembre</option>
+          </select>
+         </div>
+      
+     </div>
+</fieldset>
+  <legend>Factures du mois {{option10Value}} de l'année {{option1Value}}</legend>
+  <table class="table table-striped" id="editionnotesection" [formGroup]="editionnotepastform">
+  <thead>
+  <tr>            
+  <th>Jour</th>
+  <th>Date complète</th>
+  <th>N° de facture</th>
+  <th>Montant HT</th>
+  <th *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+          &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">Montant HT19</th>
+  <th>Montant TVA</th>
+  <th *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+          &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">Montant TVA19</th>
+  <th>Montant DT</th>
+  <th>Montant TTC</th>
+  <th *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+          &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">Montant TTC19</th> 
+  <th>Client</th>
+
+  </tr>
+  </thead>
+  <tbody formArrayName="ammounts0">
+      
+      <tr *ngFor="let ammount of ammountControls0; let i = index;"[formGroupName]="i">
+             
+              <td style="width: 50px;">
+                  <div class="col-6">
+                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace(/\./g,'')" 
+                         class="form-control"(change)="setdate0(i)"formControlName="jour"placeholder="Jour"/>
+                  </div>
+                 </td>
+                 <td style="width: 150px;">
+                 <div class="col-6">
+                     <input type="text"class="form-control"formControlName="date"placeholder="Date"readonly='true'/>
+                 </div>
+                </td>
+                <td style="width: 50px;">
+                 <div class="col-6">
+                      <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                    class="form-control"formControlName="numeronote"(change)="onChange0(i)"placeholder="N° note honoraire"readonly='true'/>
+                 </div>
+                </td>
+                
+                
+                <td>
+                  <div class="col-6">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montantht"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"
+                     (change)="settva0(i)"(change)="setttc0(i)"(change)="onChange0(i)"/>
+                  </div>
+                 </td>
+                 <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                 &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
+                  <div class="col-6">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montantht19"(blur)="setThreeNumberDecimal($event)"placeholder="Montant HT"
+                     (change)="settva0(i)"(change)="setttc0(i)"(change)="onChange0(i)"/>
+                  </div>
+                 </td>
+                 <td>
+                  <div class="col-6">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montanttva"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" (change)="onChange0(i)"/>
+                  </div>
+                 </td>
+                 <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                 &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
+                  <div class="col-6">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montanttva19"(blur)="setThreeNumberDecimal($event)"placeholder="Montant TVA" (change)="onChange0(i)"/>
+                  </div>
+                 </td>
+                 <td>
+                  <div class="col-6">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')" 
+                     class="form-control"formControlName="montantdt"(blur)="setThreeNumberDecimal($event)"placeholder="Montant DT"(change)="onChange0(i)"/>
+                  </div>
+                 </td>
+                 <td>
+                  <div class="col-6"(click)="setThreeNumberDecimal($event)">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montantttc"(change)="setht0(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange0(i)"placeholder="Montant TTC"/>
+                  </div>
+                 </td>
+                 <td *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+                 &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
+                  <div class="col-6"(click)="setThreeNumberDecimal($event)">
+                       <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+                     class="form-control"formControlName="montantttc19"(change)="setht0(i)"(blur)="setThreeNumberDecimal($event)"(change)="onChange0(i)"placeholder="Montant TTC"/>
+                  </div>
+                 </td>
+               
+                <td style="width: 150px;display: block;">
+                  <div class="col-6">
+                    <select class="form-control"placeholder="Client" id="client"#someHashName formControlName="client" name="client" >
+                      <option hidden [value]=""></option>
+                      
+                      <option value="Autre">Autre</option>
+                    </select>
+                      </div>
+                      <div class="col-6"*ngIf="someHashName?.value == 'Autre'">
+                        <input class="form-control" type="text" placeholder="client" id="client" formControlName="autreclient">
+                      </div>
+                </td>
+               
+               
+              
+      </tr>
+      <tr>
+          <td colspan="11"></td>
+          <td>
+            <div>
+            <button type="button" class="btn btn-danger btn-sm"*ngIf="editionnotepastform.get('ammounts0').value.length>1" (click)="removeammount0(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+            </div>
+           </td>
+          <td>
+              <div>
+              <button type="button" class="btn btn-primary mb-2" (click)="addammount0()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+              </div>
+             </td>
+      </tr>
+      <tr id="resultrow">
+          <td colspan="3">
+              <div class="col-6">
+                   <p>Totaux<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                    activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+                    ||activite==='Sage-femmes'"> (C.A à 7%) </span></p>
+              </div>
+          </td>
+          <td style="text-align: center;">{{totalht0 | number:'1.3-3'| removeComma}}</td>
+          <td></td>
+          <td style="text-align: center;">{{totaltva0 | number:'1.3-3'| removeComma}}</td>
+          <td></td>
+          <td style="text-align: center;">{{totaldt0 | number:'1.3-3'| removeComma}}</td>
+          <td style="text-align: center;">{{totalttc0 | number:'1.3-3'| removeComma}}</td>
+          <td></td>
+      </tr>
+      <tr id="resultrow"*ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
+      &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
+        <td colspan="3">
+            <div class="col-6">
+                 <p>Totaux<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+                  activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
+                  ||activite==='Sage-femmes'"> (C.A à 19%) </span></p>
+            </div>
+        </td>
+        <td></td>
+        <td style="text-align: center;">{{totalht019 | number:'1.3-3'| removeComma}}</td>
+        <td></td>
+        <td style="text-align: center;">{{totaltva019 | number:'1.3-3'| removeComma}}</td>
+        <td></td>
+        <td></td>
+        <td style="text-align: center;">{{totalttc019 | number:'1.3-3'| removeComma}}</td>
+    </tr>
+  </tbody>
+  
+  </table>
+  </fieldset>
     <!--recette journaliére-->
     <fieldset id="recettejournaliere" *ngIf="showrecettejour">
         <legend>Recette journaliere</legend>
@@ -286,7 +484,7 @@
             <th>Date complète</th>
             <th>Recette<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
               activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-              ||activite==='Sage-femmes'"> C.A à 7% </span><span *ngIf="activite==='Médecin'"></span> (Actes de soin)</th>
+              ||activite==='Sage-femmes'"> C.A à 7% </span><span *ngIf="activite==='Médecin'">(Actes de soin)</span> </th>
             <th *ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
             &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">Recette 19%</th>
             <th>Montant HT</th>
@@ -410,7 +608,6 @@
                     <td style="text-align: center;">{{totaldt2 | number:'1.3-3'| removeComma}}</td>
                     <td style="text-align: center;">{{totalttc2 | number:'1.3-3'| removeComma}}</td>
                     <td></td>
-
                 </tr>
                 <tr id="resultrow"*ngIf="option1Value==='2023'&&sousactivite==='Médecin spécialiste'||option1Value==='2023'&&sousactivite==='Médecin'||option1Value==='2023'
                 &&sousactivite==='Médecin dentiste'||option1Value==='2023'&&sousactivite==='Médecin vétérinaire'">
