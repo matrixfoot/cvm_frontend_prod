@@ -90,8 +90,6 @@ export class ContactComponent implements OnInit {
         },
         (error) => {
           this.loading = false;
-          this.alertService.error(error.error.error);
-          window.scrollTo(0, 0);
         }
       ));
    }

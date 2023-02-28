@@ -260,8 +260,7 @@ this.sousspecialites=[]
       (error) => {
         this.loading = false;
         
-        this.alertService.error(JSON.stringify(error.error.error) );
-        window.scrollTo(0, 0);
+       
         
       }
     );
