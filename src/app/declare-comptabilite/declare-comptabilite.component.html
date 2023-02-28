@@ -281,7 +281,7 @@
     </fieldset>
     <!--étape de décision-->
 <hr style="height:2px;border-width:0;color:gray;background-color:gray">
-<div title="indiquer votre choix"class="col-6">
+<div title="indiquer votre choix"class="col-6"*ngIf="showeditionnote&&!showrecettejour">
   <div class="form-group">
   <label for="choice"> Avez vous d'autres factures relatifs aux mois précédents:</label>    
   <div id="block1"><input type="checkbox"  id="choice"class="input-field"(click)="myFunction5()"[(ngModel)]="option8Value">Oui</div>  

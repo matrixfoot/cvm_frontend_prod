@@ -192,7 +192,6 @@ realdt0=0.000
 
   ngOnInit() {
     this.loading = true;
-    
     this.currentUser = this.tokenStorage.getUser();
     this.role=this.currentUser.role
     this.tokenStorage.saved=false;
@@ -270,6 +269,10 @@ realdt0=0.000
                 this.option3Value=true
                 this.showcatab=true
                 this.showinvoiceform=true
+                if(this.deccomptabilite.autre0.length>0)
+                {
+    this.option8Value=true
+                }
                 if(this.deccomptabilite.autre1.length>0)
                 {
     this.showeditionnote=true
@@ -581,223 +584,413 @@ setdate(i: number) {
              })
            
             }
-            settva(i: number) {
-              let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-               const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
+            settva0(i: number) { 
+              let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+               const mht= this.editionnotepastform.get('ammounts0').value.at(i).montantht
+               const mht19= this.editionnotepastform.get('ammounts0').value.at(i).montantht19
                console.log(this.tauxtva)
-               if (+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
-               {
-                const montanttva=(mht*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva).toFixed(3)
-                ammounts.at(i).patchValue({
-                  montanttva:montanttva
+                const montanttva19=(mht19*+(this.editionnotepastform.getRawValue().ammounts0)[i].tauxtva19).toFixed(3)
+                ammounts0.at(i).patchValue({
+                  montanttva19:montanttva19
                  })
-               }
-               else 
-               {
                 const montanttva=(mht*+this.tauxtva).toFixed(3)
-                ammounts.at(i).patchValue({
+                ammounts0.at(i).patchValue({
                   montanttva:montanttva
                  })
-               }
-               ammounts.controls[i].get('tauxtva').disable();
-              }
-              settva2(i: number) {
-                let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-                 const mht= this.recettejournaliereform.get('ammounts2').value.at(i).montantht
-                 console.log(mht)
-                 if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
-                 {
-                  const montanttva=(mht*+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva).toFixed(3)
-                  ammounts2.at(i).patchValue({
-                   montanttva:montanttva
-                  })
-                 }
-                 else 
-                 {
-                  const montanttva=(mht*+this.tauxtva).toFixed(3)
-                  ammounts2.at(i).patchValue({
-                   montanttva:montanttva
-                  })
-                 }
-                 ammounts2.controls[i].get('tauxtva').disable(); 
-                }
-      settva3(i: number) {
-        let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-         const mht= this.factureachatform.get('ammounts3').value.at(i).montantht
-         console.log(mht)
-         
-         const montanttva=(mht*0.13).toFixed(3)
-         ammounts3.at(i).patchValue({
-          montanttva:montanttva
-         })
-       
-        }
-        setht(i: number) {
-          let ammounts = this.editionnoteform.get('ammounts') as FormArray;
-           const mttc= this.editionnoteform.get('ammounts').value.at(i).montantttc
-           const mdt= this.editionnoteform.get('ammounts').value.at(i).montantdt
-    
-           console.log()
-           if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.19)
-           {
-    const montantht=+((mttc-mdt)/(1+ 0.19)).toFixed(3)
-           const montanttva=(mttc-mdt-montantht).toFixed(3)
-           ammounts.at(i).patchValue({
-            montantht:montantht,
-            montanttva:montanttva
-           })
-           }
-           else 
-           {
-            const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
-           const montanttva=(mttc-mdt-montantht).toFixed(3)
-           ammounts.at(i).patchValue({
-            montantht:montantht,
-            montanttva:montanttva
-           })
-           }
-           ammounts.controls[i].get('tauxtva').disable();  
-         
-          }
-          setht2(i: number) {
-            let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-            this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=this.tauxdt
-             const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
-             const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
-             console.log(this.activite)
-             console.log(this.tauxtva)
-             if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
-             {
-    const montantttc=+(mrecette).toFixed(3) 
-             const montantht=+((+montantttc-mtimbre)/(1+ 0.19)).toFixed(3)
-             const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
-             console.log(montantttc)
-             ammounts2.at(i).patchValue({
-              montantht:montantht,
-              montanttva:montanttva,
-              montantttc:montantttc,
-              montantdt:this.tauxdt
-    
-             })
-             this.totalht219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantht || 0);
-              return acc;
-            },0);
-            this.totaltva219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montanttva || 0);
-              return acc;
-            },0);
-             if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
-            {
-              this.totaldt219 =+(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-                acc += +(curr.montantdt || 0);
-                return acc;
-              },0);
-            }
-            
-            this.totalttc219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantttc || 0);
-              return acc;
-            },0);
-            this.totalrecette19 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.recette || 0);
-              return acc;
-            },0);
-            this.realht219=this.totalht219
-            this.realdt219=this.totaldt219
-            console.log(this.realht2,this.realdt2,this.realdt1)
-             }
-             else 
-             {
-              const montantttc=+(mrecette).toFixed(3) 
-             const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
-             const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
-             console.log(montantttc)
-             ammounts2.at(i).patchValue({
-              montantht:montantht,
-              montanttva:montanttva,
-              montantttc:montantttc,
-              montantdt:this.tauxdt
-    
-             })
-             this.totalht2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-              acc += +(curr.montantht || 0);
-              return acc;
-            },0);
-            this.totaltva2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-              acc += +(curr.montanttva || 0);
-              return acc;
-            },0);
-             if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
-            {
-              this.totaldt2 =+(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-                acc += +(curr.montantdt || 0);
-                return acc;
-              },0);
-            }
-            
-            this.totalttc2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-              acc += +(curr.montantttc || 0);
-              return acc;
-            },0);
-            this.totalrecette = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-              acc += +(curr.recette || 0);
-              return acc;
-            },0);
-            this.realht2=this.totalht2
-            this.realdt2=this.totaldt2
-            console.log(this.realht2,this.realdt2,this.realdt1)
-             }
-            ammounts2.controls[i].get('tauxtva').disable();
-            }
-            setht3(i: number) {
-              let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-               const mttc= this.factureachatform.get('ammounts3').value.at(i).montantttc
-               const mdt= this.factureachatform.get('ammounts3').value.at(i).montantdt
-    
-               console.log()
                
-               const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
-               const montanttva=+(mttc-montantht-mdt).toFixed(3)
-               const montantdt=(mttc-montantht-montanttva).toFixed(3)
-    
-               ammounts3.at(i).patchValue({
-                montantht:montantht,
-                montanttva:montanttva,
-                montantdt:montantdt,
-    
-               })
-               this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-                acc += +(curr.montantht || 0);
-                return acc;
-              },0);
-              this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-                acc += +(curr.montanttva || 0);
-                return acc;
-              },0);
-              this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-                acc += +(curr.montantdt || 0);
-                return acc;
-              },0);
-              this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
-                acc += +(curr.montantttc || 0);
-                return acc;
-              },0);
-            
               }
+              settva(i: number) { 
+                let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+                 const mht= this.editionnoteform.get('ammounts').value.at(i).montantht
+                 const mht19= this.editionnoteform.get('ammounts').value.at(i).montantht19
+                 console.log(this.tauxtva)
+                  const montanttva19=(mht19*+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva19).toFixed(3)
+                  ammounts.at(i).patchValue({
+                    montanttva19:montanttva19
+                   })
+                  const montanttva=(mht*+this.tauxtva).toFixed(3)
+                  ammounts.at(i).patchValue({
+                    montanttva:montanttva
+                   })
+                 
+                }
+              
+                settva3(i: number) {
+                  let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+                   const mht= this.factureachatform.get('ammounts3').value.at(i).montantht
+                   console.log(mht)
+                   const montanttva=(mht*+this.tauxtva).toFixed(3)
+                   ammounts3.at(i).patchValue({
+                    montanttva:montanttva
+                   })
+                 
+                  }
+                  setht0(i: number) {
+                    let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+                    const mttc= +this.editionnotepastform.get('ammounts0').value.at(i).montantttc
+                    const mttc19= +this.editionnotepastform.get('ammounts0').value.at(i).montantttc19
+                    const mdt= +this.editionnotepastform.get('ammounts0').value.at(i).montantdt
+              
+                    console.log()
+                    if(mttc!=0&&mttc19==0)
+                    {
+                    const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+                    const montanttva=(mttc-mdt-montantht).toFixed(3)
+                    ammounts0.at(i).patchValue({
+                     montantht:montantht,
+                     montanttva:montanttva
+                    })
+                    }
+                    else if(mttc==0&&mttc19!=0)
+                    {
+                     const montantht19=+((mttc19-mdt)/(1+ 0.19)).toFixed(3)
+                    const montanttva19=(mttc19-mdt-montantht19).toFixed(3)
+                    ammounts0.at(i).patchValue({
+                     montantht19:montantht19,
+                     montanttva19:montanttva19
+                    })
+                    }
+                    else
+                    {
+                    const montantht=+((mttc-mdt/2)/(1+ +this.tauxtva)).toFixed(3)
+                    const montanttva=(mttc-mdt/2-montantht).toFixed(3)
+                    ammounts0.at(i).patchValue({
+                     montantht:montantht,
+                     montanttva:montanttva
+                    })
+                     const montantht19=+((mttc19-mdt/2)/(1+ 0.19)).toFixed(3)
+                    const montanttva19=(mttc19-mdt/2-montantht19).toFixed(3)
+                    ammounts0.at(i).patchValue({
+                     montantht19:montantht19,
+                     montanttva19:montanttva19
+                    })
+                    }
+                    }
+              setht(i: number) {
+                let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+                const mttc= +this.editionnoteform.get('ammounts').value.at(i).montantttc
+                const mttc19= +this.editionnoteform.get('ammounts').value.at(i).montantttc19
+                const mdt= +this.editionnoteform.get('ammounts').value.at(i).montantdt
+          
+                console.log()
+                if(mttc!=0&&mttc19==0)
+                {
+                const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+                const montanttva=(mttc-mdt-montantht).toFixed(3)
+                ammounts.at(i).patchValue({
+                 montantht:montantht,
+                 montanttva:montanttva
+                })
+                }
+                else if(mttc==0&&mttc19!=0)
+                {
+                 const montantht19=+((mttc19-mdt)/(1+ 0.19)).toFixed(3)
+                const montanttva19=(mttc19-mdt-montantht19).toFixed(3)
+                ammounts.at(i).patchValue({
+                 montantht19:montantht19,
+                 montanttva19:montanttva19
+                })
+                }
+                else
+                {
+                const montantht=+((mttc-mdt/2)/(1+ +this.tauxtva)).toFixed(3)
+                const montanttva=(mttc-mdt/2-montantht).toFixed(3)
+                ammounts.at(i).patchValue({
+                 montantht:montantht,
+                 montanttva:montanttva
+                })
+                 const montantht19=+((mttc19-mdt/2)/(1+ 0.19)).toFixed(3)
+                const montanttva19=(mttc19-mdt/2-montantht19).toFixed(3)
+                ammounts.at(i).patchValue({
+                 montantht19:montantht19,
+                 montanttva19:montanttva19
+                })
+                }
+                }
+                setht2(i: number) {
+                  let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
+                  this.recettejournaliereform.get('ammounts2').value.at(i).montantdt=this.tauxdt
+                  const mrecette= +this.recettejournaliereform.get('ammounts2').value.at(i).recette
+                  const mrecette19= +this.recettejournaliereform.get('ammounts2').value.at(i).recette19
+                  const mtimbre= +this.recettejournaliereform.get('ammounts2').value.at(i).montantdt
+                  console.log(this.activite)
+                  console.log(this.tauxtva)
+                   if(mrecette19!=0&&mrecette==0)
+                   {
+                   const montantttc19=+(mrecette19+mtimbre).toFixed(3) 
+                   const montantht19=+((+montantttc19-mtimbre)/(1+ 0.19)).toFixed(3)
+                   const montanttva19=+(montantttc19-montantht19-mtimbre).toFixed(3)
+                   console.log(montantttc19)
+                   ammounts2.at(i).patchValue({
+                    montantht19:montantht19,
+                    montanttva19:montanttva19,
+                    montantttc19:montantttc19,
+                    montantdt:this.tauxdt
+                   })
+                   this.totalht219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantht19 || 0);
+                    return acc;
+                  },0);
+                  this.totaltva219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montanttva19 || 0);
+                    return acc;
+                  },0);
+                   if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+                  {
+                    console.log('1')
+                    this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montantdt || 0);
+                      return acc;
+                    },0);
+                  }
+                  
+                  this.totalttc219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantttc19 || 0);
+                    return acc;
+                  },0);
+                  this.totalrecette19 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.recette19 || 0);
+                    return acc;
+                  },0);
+                  this.realht219=this.totalht219
+                  this.realdt219=this.totaldt219
+                  console.log(this.realht2,this.realdt2,this.realdt1)
+                   }
+                   else if(mrecette!=0&&mrecette19==0)
+                   {
+          
+                   const montantttc=+(mrecette+mtimbre).toFixed(3) 
+                   const montantht=+((+montantttc-mtimbre)/(1+ +this.tauxtva)).toFixed(3)
+                   const montanttva=+(montantttc-montantht-mtimbre).toFixed(3)
+                   console.log(montantttc)
+                   ammounts2.at(i).patchValue({
+                    montantht:montantht,
+                    montanttva:montanttva,
+                    montantttc:montantttc,
+                    montantdt:this.tauxdt
+          
+                   })
+                   this.totalht2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantht || 0);
+                    return acc;
+                  },0);
+                  this.totaltva2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montanttva || 0);
+                    return acc;
+                  },0);
+                   if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+                  {
+                    console.log('1')
+                    this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montantdt || 0);
+                      return acc;
+                    },0);
+                  }
+                  
+                  this.totalttc2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantttc || 0);
+                    return acc;
+                  },0);
+                  this.totalrecette = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.recette || 0);
+                    return acc;
+                  },0);
+                  this.realht2=this.totalht2
+                  this.realdt2=this.totaldt2
+                  console.log(this.realht2,this.realdt2,this.realdt1)
+                   }
+                   else
+                   {
+                    const montantttc19=+(mrecette19+(mtimbre/2)).toFixed(3) 
+                    const montantht19=+((+montantttc19-(mtimbre/2))/(1+ 0.19)).toFixed(3)
+                    const montanttva19=+(montantttc19-montantht19-(mtimbre/2)).toFixed(3)
+                    const montantttc=+(mrecette+(mtimbre/2)).toFixed(3) 
+                   const montantht=+((+montantttc-(mtimbre/2))/(1+ +this.tauxtva)).toFixed(3)
+                   const montanttva=+(montantttc-montantht-(mtimbre/2)).toFixed(3)
+                    console.log(montantttc19)
+                    ammounts2.at(i).patchValue({
+                     montantht19:montantht19,
+                     montanttva19:montanttva19,
+                     montantttc19:montantttc19,
+                     montantht:montantht,
+                    montanttva:montanttva,
+                    montantttc:montantttc,
+                     montantdt:this.tauxdt
+                    })
+                    this.totalht219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montantht19 || 0);
+                      return acc;
+                    },0);
+                    this.totaltva219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montanttva19 || 0);
+                      return acc;
+                    },0);
+                     if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+                    {
+                      console.log('1')
+          
+                      this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                        acc += +(curr.montantdt || 0);
+                        return acc;
+                      },0);
+                    }
+                    
+                    this.totalttc219 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montantttc19 || 0);
+                      return acc;
+                    },0);
+                    this.totalrecette19 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.recette19 || 0);
+                      return acc;
+                    },0);
+                    
+                   this.totalht2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantht || 0);
+                    return acc;
+                  },0);
+                  this.totaltva2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montanttva || 0);
+                    return acc;
+                  },0);
+                   if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||+this.recettejournaliereform.get('ammounts2').value.at(i).recette!=0)
+                  {
+                    console.log('1')
+          
+                    this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                      acc += +(curr.montantdt || 0);
+                      return acc;
+                    },0);
+                  }
+                  
+                  this.totalttc2 = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.montantttc || 0);
+                    return acc;
+                  },0);
+                  this.totalrecette = +this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                    acc += +(curr.recette || 0);
+                    return acc;
+                  },0);
+                  this.realht219=this.totalht219
+                  this.realdt219=this.totaldt219
+                  this.realht2=this.totalht2
+                  this.realdt2=this.totaldt2
+                   }
+                  }
+                  setht3(i: number) {
+                    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+                     const mttc= this.factureachatform.get('ammounts3').value.at(i).montantttc
+                     const mdt= this.factureachatform.get('ammounts3').value.at(i).montantdt
+          
+                     console.log()
+                     
+                     const montantht=+((mttc-mdt)/(1+ +this.tauxtva)).toFixed(3)
+                     const montanttva=+(mttc-montantht-mdt).toFixed(3)
+                     const montantdt=(mttc-montantht-montanttva).toFixed(3)
+          
+                     ammounts3.at(i).patchValue({
+                      montantht:montantht,
+                      montanttva:montanttva,
+                      montantdt:montantdt,
+          
+                     })
+                     this.totalht3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                      acc += +(curr.montantht || 0);
+                      return acc;
+                    },0);
+                    this.totaltva3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                      acc += +(curr.montanttva || 0);
+                      return acc;
+                    },0);
+                    this.totaldt3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                      acc += +(curr.montantdt || 0);
+                      return acc;
+                    },0);
+                    this.totalttc3 = +(this.factureachatform.get('ammounts3').value).reduce((acc,curr)=>{
+                      acc += +(curr.montantttc || 0);
+                      return acc;
+                    },0);
+                  
+                    }
+                    setttc0(i: number) {
+                      let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+                       const mht= +(this.editionnotepastform.get('ammounts0').value).at(i).montantht
+                       const mht19= +(this.editionnotepastform.get('ammounts0').value).at(i).montantht19
+                       const mtva= +(this.editionnotepastform.get('ammounts0').value.at(i).montanttva)
+                       const mtva19= +(this.editionnotepastform.get('ammounts0').value.at(i).montanttva19)
+                       const mdt= +(this.editionnotepastform.get('ammounts0').value).at(i).montantdt
+                
+                       console.log(mht)
+                       if(mht!=0&&mht19==0)
+                       {
+                        const montantttc=(mht+ +mtva+mdt).toFixed(3)
+                       ammounts0.at(i).patchValue({
+                        montantttc:montantttc
+                       })
+                      
+                       }
+                       else if(mht==0&&mht19!=0)
+                       {
+                        const montantttc19=(mht19+ +mtva19+mdt).toFixed(3)
+                
+                        ammounts0.at(i).patchValue({
+                         montantttc19:montantttc19
+                        })
+                       }
+                       else
+                       {
+                        const montantttc=(mht+ +mtva+(mdt/2)).toFixed(3)
+                       ammounts0.at(i).patchValue({
+                        montantttc:montantttc
+                       })
+                       const montantttc19=(mht19+ +mtva19+(mdt/2)).toFixed(3)
+                
+                        ammounts0.at(i).patchValue({
+                         montantttc19:montantttc19
+                        })
+                       
+                       }
+                      
+                       ammounts0.controls[i].get('tauxtva').disable();
+                      }
               setttc(i: number) {
                 let ammounts = this.editionnoteform.get('ammounts') as FormArray;
                  const mht= +(this.editionnoteform.get('ammounts').value).at(i).montantht
-                 const mtva= (this.editionnoteform.get('ammounts').value.at(i).montanttva)
+                 const mht19= +(this.editionnoteform.get('ammounts').value).at(i).montantht19
+                 const mtva= +(this.editionnoteform.get('ammounts').value.at(i).montanttva)
+                 const mtva19= +(this.editionnoteform.get('ammounts').value.at(i).montanttva19)
                  const mdt= +(this.editionnoteform.get('ammounts').value).at(i).montantdt
           
                  console.log(mht)
-                 
-                 const montantttc=(mht+ +mtva+mdt).toFixed(3)
-          
+                 if(mht!=0&&mht19==0)
+                 {
+                  const montantttc=(mht+ +mtva+mdt).toFixed(3)
                  ammounts.at(i).patchValue({
                   montantttc:montantttc
                  })
+                
+                 }
+                 else if(mht==0&&mht19!=0)
+                 {
+                  const montantttc19=(mht19+ +mtva19+mdt).toFixed(3)
+          
+                  ammounts.at(i).patchValue({
+                   montantttc19:montantttc19
+                  })
+                 }
+                 else
+                 {
+                  const montantttc=(mht+ +mtva+(mdt/2)).toFixed(3)
+                 ammounts.at(i).patchValue({
+                  montantttc:montantttc
+                 })
+                 const montantttc19=(mht19+ +mtva19+(mdt/2)).toFixed(3)
+          
+                  ammounts.at(i).patchValue({
+                   montantttc19:montantttc19
+                  })
+                 
+                 }
+                
                  ammounts.controls[i].get('tauxtva').disable();
                 }
                 setttc2(i: number) {
@@ -846,143 +1039,180 @@ setdate(i: number) {
                       return acc;
                     },0);
                     }
-          setimposable(i: number) {
-            let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-             const mbrut= +(this.salaireform.get('ammounts6').value).at(i).salairebrut
-             const mcnss= (this.salaireform.get('ammounts6').value.at(i).montantcnss)
-      
-             
-             const montantimposable=(+mbrut- +mcnss).toFixed(3)
-      
-             ammounts6.at(i).patchValue({
-              montantimposable:montantimposable
-             })
-           
-            }
-            setnet(i: number) {
-              let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-               const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
-               const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
-               const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
-               const mabrut= +(this.salaireform.get('ammounts6').value).at(i).salairebrut
-               const mcnss= +(this.salaireform.get('ammounts6').value).at(i).montantcnss
-
-               
-               const salairenet=(+mabrut- +mcnss- +mretenue- +mavance).toFixed(3)
-        
-               ammounts6.at(i).patchValue({
-                salairenet:salairenet
-               })
-             
-              }
-              setbrut(i: number) {
-                let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
-                const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
-               const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
-               const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
-               const mcnss= +(this.salaireform.get('ammounts6').value.at(i).montantcnss)
-
+                    setimposable(i: number) {
+                      let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+                       const mbrut= +(this.salaireform.get('ammounts6').value).at(i).salairebrut
+                       const mcnss= (this.salaireform.get('ammounts6').value.at(i).montantcnss)
+                
+                       
+                       const montantimposable=(+mbrut- +mcnss).toFixed(3)
+                
+                       ammounts6.at(i).patchValue({
+                        montantimposable:montantimposable
+                       })
+                     
+                      }
+                      setnet(i: number) {
+                        let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+                         const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
+                         const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
+                         const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
+                         const mabrut= +(this.salaireform.get('ammounts6').value).at(i).salairebrut
+                         const mcnss= +(this.salaireform.get('ammounts6').value).at(i).montantcnss
           
-                 
-                 const salairebrut=(+mimposable+ +mretenue+ +mavance+ +mcnss).toFixed(3)
+                         
+                         const salairenet=(+mabrut- +mcnss- +mretenue- +mavance).toFixed(3)
+                  
+                         ammounts6.at(i).patchValue({
+                          salairenet:salairenet
+                         })
+                       
+                        }
+                        setbrut(i: number) {
+                          let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+                          const mimposable= +(this.salaireform.get('ammounts6').value).at(i).montantimposable
+                         const mretenue= +(this.salaireform.get('ammounts6').value.at(i).montantretenue)
+                         const mavance= +(this.salaireform.get('ammounts6').value).at(i).montantavance
+                         const mcnss= +(this.salaireform.get('ammounts6').value.at(i).montantcnss)
           
-                 ammounts6.at(i).patchValue({
-                  salairebrut:salairebrut
-                 })
-               
-                }
+                    
+                           
+                           const salairebrut=(+mimposable+ +mretenue+ +mavance+ +mcnss).toFixed(3)
+                    
+                           ammounts6.at(i).patchValue({
+                            salairebrut:salairebrut
+                           })
+                         
+                          }
+                          onChange0(i: number){
+                            const totalht = (this.editionnotepastform.get('ammounts0').value.at(i).montantht || 0)
+                            const totaltva = (this.editionnotepastform.get('ammounts0').value.at(i).montanttva || 0)
+                            const totaldt = (this.editionnotepastform.get('ammounts0').value.at(i).montantdt || 0)
+                            const totalttc = (this.editionnotepastform.get('ammounts0').value.at(i).montantttc || 0)
+                            console.log((this.editionnotepastform.getRawValue().ammounts0)[i].tauxtva)
+                      
+                      this.totalht0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montantht || 0);
+                        return acc;
+                      },0);
+                      this.totaltva0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montanttva || 0);
+                        return acc;
+                      },0);
+                      this.totaldt0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montantdt || 0);
+                        return acc;
+                      },0);
+                      this.totalttc0 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montantttc || 0);
+                        return acc;
+                      },0);
+                      this.realht0=this.totalht0
+                      this.realdt0=this.totaldt0
+                    
+                    
+                      this.totalht019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montantht19 || 0);
+                        return acc;
+                      },0);
+                      this.totaltva019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montanttva19 || 0);
+                        return acc;
+                      },0);
+                     
+                      this.totalttc019 = +(this.editionnotepastform.get('ammounts0').value).reduce((acc,curr)=>{
+                        acc += +(curr.montantttc19 || 0);
+                        return acc;
+                      },0);
+                      this.realht019=this.totalht019
+                      this.realdt019=this.totaldt019
+                    
+                            
+                          }
                 onChange(i: number){
                   const totalht = (this.editionnoteform.get('ammounts').value.at(i).montantht || 0)
                   const totaltva = (this.editionnoteform.get('ammounts').value.at(i).montanttva || 0)
                   const totaldt = (this.editionnoteform.get('ammounts').value.at(i).montantdt || 0)
                   const totalttc = (this.editionnoteform.get('ammounts').value.at(i).montantttc || 0)
                   console.log((this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-                  if(+(this.editionnoteform.getRawValue().ammounts)[i].tauxtva===0.07||!(this.editionnoteform.getRawValue().ammounts)[i].tauxtva)
-          {
-            this.totalht = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+            
+            this.totalht = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
               acc += +(curr.montantht || 0);
               return acc;
             },0);
-            this.totaltva = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+            this.totaltva = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
               acc += +(curr.montanttva || 0);
               return acc;
             },0);
-            this.totaldt = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+            this.totaldt = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
               acc += +(curr.montantdt || 0);
               return acc;
             },0);
-            this.totalttc = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.07')).reduce((acc,curr)=>{
+            this.totalttc = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
               acc += +(curr.montantttc || 0);
               return acc;
             },0);
             this.realht1=this.totalht
             this.realdt1=this.totaldt
-          }
-          else if((this.editionnoteform.getRawValue().ammounts)[i].tauxtva=='0.19')
-          {
-            console.log(+(this.deccompt.filterByValue((this.editionnoteform.getRawValue().ammounts),'0.19')))
-            this.totalht19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantht || 0);
+          
+          
+            this.totalht19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+              acc += +(curr.montantht19 || 0);
               return acc;
             },0);
-            this.totaltva19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montanttva || 0);
+            this.totaltva19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+              acc += +(curr.montanttva19 || 0);
               return acc;
             },0);
-            this.totaldt19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantdt || 0);
-              return acc;
-            },0);
-            this.totalttc19 = +(this.deccompt.filterByValue(this.editionnoteform.getRawValue().ammounts,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantttc || 0);
+           
+            this.totalttc19 = +(this.editionnoteform.get('ammounts').value).reduce((acc,curr)=>{
+              acc += +(curr.montantttc19 || 0);
               return acc;
             },0);
             this.realht119=this.totalht19
             this.realdt119=this.totaldt19
-          }
           
                   
                 }
                 onChange2(i: number){
-        
-                  if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.07||!(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva)
-          {
-            this.totalht2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+                  
+                  console.log('hre')
+          
+            this.totalht2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
               acc += +(curr.montantht || 0);
               return acc;
             },0);
-            this.totaltva2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+            this.totaltva2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
               acc += +(curr.montanttva || 0);
               return acc;
             },0);
-            this.totaldt2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
-              acc += +(curr.montantdt || 0);
-              return acc;
-            },0);
-            this.totalttc2 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.07')).reduce((acc,curr)=>{
+            if(this.recettejournaliereform.get('ammounts2').value.at(i).recette!=''||this.recettejournaliereform.get('ammounts2').value.at(i).recette19!=0)
+                    {
+                      console.log('hre')
+                      this.totaldt2 =+this.recettejournaliereform.getRawValue().ammounts2.reduce((acc,curr)=>{
+                        acc += +(curr.montantdt || 0);
+                        return acc;
+                      },0);
+                    }
+            this.totalttc2 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
               acc += +(curr.montantttc || 0);
               return acc;
             },0);
-          }
-          else if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
-          {
-            this.totalht219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantht || 0);
+          
+            this.totalht219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+              acc += +(curr.montantht19 || 0);
               return acc;
             },0);
-            this.totaltva219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montanttva || 0);
+            this.totaltva219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+              acc += +(curr.montanttva19 || 0);
               return acc;
             },0);
-            this.totaldt219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantdt || 0);
+           
+            this.totalttc219 = +(this.recettejournaliereform.get('ammounts2').value).reduce((acc,curr)=>{
+              acc += +(curr.montantttc19 || 0);
               return acc;
             },0);
-            this.totalttc219 = +(this.deccompt.filterByValue(this.recettejournaliereform.getRawValue().ammounts2,'0.19')).reduce((acc,curr)=>{
-              acc += +(curr.montantttc || 0);
-              return acc;
-            },0);
-          }
+          
                   
                 }
                 async onChange3(i: number){
@@ -1666,6 +1896,38 @@ this.resetsalaireall()
   this.loading=false
 console.log(this.uploadFilesautre3,this.uploadFilesautre5,this.uploadFilesautre6)
   }
+  restartcapast()
+  {
+    let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+    if(ammounts0.length>0)
+    {  
+      ammounts0.at(0).patchValue({
+       type:'1',
+        jour: '',
+        date: '',
+        numeronote: '',
+        montantht:'0',
+      tauxtva:this.tauxtva,
+      montanttva:'0',
+      montantdt:this.tauxdt,
+      montantttc:'0',
+      montantht19:'0',
+      tauxtva19:'0.19',
+      montanttva19:'0',
+      montantttc19:'0',
+        client:'',
+        autreclient:'',
+       })
+      for (let i = 0; i < ammounts0.length; i++)
+    {
+this.removeammount(i)
+    }
+      this.totalht0=0.000
+      this.totaltva0=0.000
+      this.totaldt0=0.000
+      this.totalttc0=0.000
+    }
+  }
   resetcaall()
   {
     if (this.option3Value)
@@ -1958,9 +2220,12 @@ console.log(deccomptabilite.autre3)
     date: item.date,
     numeronote:item.numeronote,
     montantht:item.montantht,
+    montantht19:item.montantht,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
+    montantttc19:item.montantttc,
     client:item.client,
     autreclient:item.autreclient
   })
@@ -1976,10 +2241,14 @@ console.log(deccomptabilite.autre3)
     jour: item.jour,
     date: item.date,
     recette:item.recette,
+    recette19:item.recette19,
     montantht:item.montantht,
+    montantht19:item.montantht,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
+    montantttc19:item.montantttc,
   
   })
   console.log(deccomptabilite.autre2)
@@ -2263,9 +2532,12 @@ console.log(deccomptabilite.autre3)
     date: item.date,
     numeronote:item.numeronote,
     montantht:item.montantht,
+    montantht19:item.montantht,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
+    montantttc19:item.montantttc,
     client:item.client,
     autreclient:item.autreclient
   })
@@ -2281,10 +2553,14 @@ console.log(deccomptabilite.autre3)
     jour: item.jour,
     date: item.date,
     recette:item.recette,
+    recette19:item.recette19,
     montantht:item.montantht,
+    montantht19:item.montantht,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
+    montantttc19:item.montantttc,
   
   })
   console.log(deccomptabilite.autre2)
@@ -2391,24 +2667,7 @@ console.log(deccomptabilite.autre6)
   
   }
  
-  collectfile() :File[]{
-    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-    for (let i = 0; i < ammounts3.length; i++)
-    {
-       this.uploadFilesautre3.push(ammounts3.value.at(i).image);
-    }
-    console.log(this.uploadFilesautre3)
-    return this.uploadFilesautre3
-  }
-  collectfile2() :File[]{
-    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
-    for (let i = 0; i < ammounts5.length; i++)
-    {
-       this.uploadFilesautre5.push(ammounts5.value.at(i).image);
-    }
-    console.log(this.uploadFilesautre5)
-    return this.uploadFilesautre5
-  }
+ 
   //datalistfunctions
   myFunction1() {
     var checkbox:any = document.getElementById("myCheck1");
@@ -2418,8 +2677,7 @@ console.log(deccomptabilite.autre6)
       this.showcatab=true;
       this.option3Value=true;
 //verify user choice about method of declaring invoices
-console.log(this.currentUser._id)
-this.userservice.getUserById(this.currentUser._id).then(
+this.userservice.getUserById(this.currentUser.userId).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;
@@ -2590,7 +2848,6 @@ else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='
 }
   }
 )
-
       
       
 
@@ -2651,7 +2908,7 @@ else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='
           this.resetachatall();
           this.showachattab=false;
           this.option4Value=false;
-          
+          this.uploadFilesautre3=[]
 
         }
         else{
@@ -2675,7 +2932,7 @@ else if (user.choixfacture.find(e => e.annee==`${this.option1Value}`&&e.choix=='
       this.showbanquetab=true;
       this.option5Value=true;
       //verify user choice about method of declaring sales
-this.userservice.getUserById(this.currentUser._id).then(
+this.userservice.getUserById(this.currentUser.userId).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;
@@ -2696,43 +2953,49 @@ this.userservice.getUserById(this.currentUser._id).then(
       if (result.isConfirmed) {
         this.showrelevemanuel=true
         this.showrelevejoint=false
-        for (let i = 1; i < 32; i++)
-          {
-            this.addammount4()
-            let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
-            ammounts4.at(i).patchValue({
-              jour:i
-             })
-             this.setdate4(i)
-          }
-          this.removeammount4(0)
-          if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
-          {
-            this.removeammount4(30)
-          }
-          if(this.option2Value=='02')
-          {
-            if(+this.option1Value % 4 ==0)
-            {
-            this.removeammount4(30)
-            this.removeammount4(29)
-            }
-            else 
-            {
-            this.removeammount4(30)
-            this.removeammount4(29)
-            this.removeammount4(28)
-            }
+        //for (let i = 1; i < 32; i++)
+         // {
+           // this.addammount4()
+           // let ammounts4 = this.relevemanuelform.get('ammounts4') as FormArray;
+           // ammounts4.at(i).patchValue({
+            //  jour:i
+          //   })
+         //    this.setdate4(i)
+       //   }
+       //   this.removeammount4(0)
+      //    if(this.option2Value==='04'||this.option2Value==='06'||this.option2Value==='09'||this.option2Value==='11')
+      //    {
+      //      this.removeammount4(30)
+       //   }
+       //   if(this.option2Value=='02')
+      //    {
+         //   if(+this.option1Value % 4 ==0)
+         //   {
+         //   this.removeammount4(30)
+         //   this.removeammount4(29)
+         //   }
+         //   else 
+         //   {
+         //   this.removeammount4(30)
+         ////   this.removeammount4(29)
+         //   this.removeammount4(28)
+         //   }
 
             
-          }
+          //}
       }
       else if (result.isDenied)
       {
         this.showrelevejoint=true
         this.showrelevemanuel=false
       }
-      
+      else if (result.isDismissed)
+      {
+        this.showrelevejoint=false
+        this.showrelevemanuel=false
+        this.showbanquetab=false;
+        this.option5Value=false;
+      }
       }).catch(() => {
       Swal.fire('opération non aboutie!');
       }); 
@@ -2753,7 +3016,7 @@ this.userservice.getUserById(this.currentUser._id).then(
           this.resetbanqueall();
           this.showbanquetab=false;
           this.option5Value=false;
-          
+          this.uploadFilesautre5=[]
 
         }
         else{
@@ -2777,7 +3040,7 @@ this.userservice.getUserById(this.currentUser._id).then(
       this.showsalairetab=true;
       this.option6Value=true;
     //verify user choice about method of declaring salary
-this.userservice.getUserById(this.currentUser._id).then(
+this.userservice.getUserById(this.currentUser.userId).then(
   async (user: User) => {
     this.loading = false;
     this.user = user;
@@ -2804,7 +3067,13 @@ this.userservice.getUserById(this.currentUser._id).then(
         this.showpaiemanuel=false
         this.router.navigate(['declare-paie'])
       }
-      
+      else if (result.isDismissed)
+{
+  this.showpaiemanuel=false
+
+  this.showsalairetab=false;
+  this.option6Value=false;
+}
       }).catch(() => {
       Swal.fire('opération non aboutie!');
       }); 
@@ -2827,6 +3096,7 @@ this.userservice.getUserById(this.currentUser._id).then(
           this.resetsalaireall();
           this.showsalairetab=false;
           this.option6Value=false;
+          this.uploadFilesautre6=[]
         }
         else
         {
@@ -2839,13 +3109,83 @@ this.userservice.getUserById(this.currentUser._id).then(
       
     }
   }
+  myFunction5() {
+    var checkbox:any = document.getElementById("choice");
+    var text2 = document.getElementById("block2");
+    var text3 = document.getElementById("editionnotepast");
+
+    if (checkbox.checked == true){
+      text2.style.display = "none";
+      text3.style.display = "block";
+      let ammounts = this.editionnoteform.get('ammounts') as FormArray;
+      let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+      let i=ammounts.length
+      let numeronote= +ammounts.value.at(i-1).numeronote 
+      ammounts0.at(0).patchValue({
+        montantdt:this.tauxdt,
+        numeronote:numeronote+1
+       })
+      
+    } 
+    else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au factures des mois précédents, voulez vous continuer?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Réinitialiser',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+   this.restartcapast()       
+this.option10Value=''
+          text3.style.display = "none";
+        }
+        else{
+          checkbox.checked = true
+          text3.style.display = "block";
+
+        }
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+    }
+  }
+  myFunction6() {
+    var checkbox:any = document.getElementById("choice1");
+    var text2 = document.getElementById("block1");
+    var text3 = document.getElementById("editionnotepast");
+
+    if (checkbox.checked == true){
+      text2.style.display = "none";
+      text3.style.display = "none";
+
+      
+    } else {
+       
+      text2.style.display = "block";
+    }
+  }
   docjoint3(i:number) {
     let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
-
-    var text2 = document.getElementById(`${i}`);
     
+    var text2 = document.getElementById('achat'+`${i}`);
+    var checkbox:any = document.getElementById('myCheck3'+`${i}`);
     if (ammounts3.controls[i].value.contientfiche == true)
     {
+      if (ammounts3.value.at(i).montantht=='0'||ammounts3.value.at(i).montantht=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez saisir des données valides pour le type achat avant d\'insérer un fichier',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }),checkbox.checked = false)
+    } 
       text2.style.display = "block";
       ammounts3.controls[i].patchValue({ contientfiche: true });
       console.log(ammounts3.controls[i].value.contientfiche)
@@ -2882,6 +3222,118 @@ this.userservice.getUserById(this.currentUser._id).then(
       
     }
   }
+  docjoint5(i:number) {
+    let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
+
+    var text2 = document.getElementById('releve'+`${i}`);
+    var checkbox:any = document.getElementById('myCheck5'+`${i}`);
+
+    if (ammounts5.controls[i].value.contientfiche == true)
+    {
+      if (ammounts5.value.at(i).mois=='0'||ammounts5.value.at(i).mois=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez saisir des données valides pour le type banque avant d\'insérer un fichier',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }),checkbox.checked = false)
+    } 
+      text2.style.display = "block";
+      ammounts5.controls[i].patchValue({ contientfiche: true });
+      console.log(ammounts5.controls[i].value.contientfiche)
+
+    } else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de supprimer le fichier joint, voulez vous continuer?',
+        
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          text2.style.display = "none";
+          this.uploadFilesautre5.splice(i,1)
+          ammounts5.controls[i].patchValue({ contientfiche: false });
+          console.log(ammounts5.controls[i].value.contientfiche)
+
+
+        }
+        else{
+          text2.style.display = "block";
+          ammounts5.controls[i].patchValue({ contientfiche: true });
+          console.log(ammounts5.controls[i].value.contientfiche)
+
+        }
+
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
+  docjoint6(i:number) {
+    let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
+
+    var text2 = document.getElementById('salaire'+`${i}`);
+    var checkbox:any = document.getElementById('myCheck6'+`${i}`);
+
+    if (ammounts6.controls[i].value.contientfiche == true)
+    {
+      if (ammounts6.value.at(i).salairebrut=='0'||ammounts6.value.at(i).salairebrut=='')
+    {
+      return (
+        Swal.fire({
+        title: 'veuillez saisir des données valides pour le type salaire avant d\'insérer un fichier',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      }).then((result) => {this.loading=false
+      }).catch(() => {
+        Swal.fire('opération non aboutie!')
+      }),checkbox.checked = false)
+    } 
+      text2.style.display = "block";
+      ammounts6.controls[i].patchValue({ contientfiche: true });
+      console.log(ammounts6.controls[i].value.contientfiche)
+
+    } else {
+      Swal.fire({
+        title: 'Vous êtes sur le point de supprimer le fichier joint, voulez vous continuer?',
+        
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'supprimer',
+        cancelButtonText: 'Annuler',
+      }).then((result) => {
+        if (result.value) {
+          text2.style.display = "none";
+          this.uploadFilesautre6.splice(i,1)
+          ammounts6.controls[i].patchValue({ contientfiche: false });
+          console.log(ammounts6.controls[i].value.contientfiche)
+
+
+        }
+        else{
+          text2.style.display = "block";
+          ammounts6.controls[i].patchValue({ contientfiche: true });
+          console.log(ammounts6.controls[i].value.contientfiche)
+
+        }
+
+      }).catch(() => {
+        Swal.fire('opération non aboutie!');
+      });
+      
+    }
+  }
   update(e)
   {}
   onImagePick(event: Event,i:number) {
@@ -2893,8 +3345,13 @@ this.userservice.getUserById(this.currentUser._id).then(
     if (file)
     {
       ammounts3.controls[i].patchValue({ image: file });  
-      ammounts3.controls[i].updateValueAndValidity();
-      this.uploadFilesautre3.push(ammounts3.value.at(i).image);
+      ammounts3.controls[i].updateValueAndValidity(); 
+         
+       if (ammounts3.value.at(i).montantht!=''&&ammounts3.value.at(i).montantht!='0')
+{
+  this.uploadFilesautre3.push(ammounts3.value.at(i).image);
+
+}
     }
     
     console.log(this.uploadFilesautre3)
@@ -2907,13 +3364,33 @@ this.userservice.getUserById(this.currentUser._id).then(
     };
   }
   onImagePick2(event: Event,i:number) {
+    this.uploadFilesautre5.splice(i,1)
     let ammounts5 = this.relevejointform.get('ammounts5') as FormArray;
     // let fileName = (event.target as HTMLInputElement).files[0].name;
      //ammounts3.controls[i].patchValue({ image: fileName });  
      const file = (event.target as HTMLInputElement).files[0];
-     ammounts5.controls[i].patchValue({ image: file });  
-     ammounts5.controls[i].updateValueAndValidity();
-     this.uploadFilesautre5.push(ammounts5.value.at(i).image);
+     if (file)
+{
+  ammounts5.controls[i].patchValue({ image: file });  
+  ammounts5.controls[i].updateValueAndValidity();
+  if (ammounts5.value.at(i).mois=='0'||ammounts5.value.at(i).mois=='')
+      {
+        return (
+          Swal.fire({
+          title: 'veuillez saisir des données valides pour le type banque avant d\'insérer un fichier',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        }).then((result) => {this.loading=false
+        }).catch(() => {
+          Swal.fire('opération non aboutie!')
+        }))
+      }  
+  if (ammounts5.value.at(i).mois!=''&&ammounts5.value.at(i).mois!='0')
+  {
+    this.uploadFilesautre5.push(ammounts5.value.at(i).image);
+  
+  }}
+     
      console.log(this.uploadFilesautre5)
      const reader = new FileReader();
      reader.onload = () => {
@@ -2926,13 +3403,33 @@ this.userservice.getUserById(this.currentUser._id).then(
     
   }
   onImagePick3(event: Event,i:number) {
+    this.uploadFilesautre6.splice(i,1)
     let ammounts6 = this.salaireform.get('ammounts6') as FormArray;
     // let fileName = (event.target as HTMLInputElement).files[0].name;
      //ammounts3.controls[i].patchValue({ image: fileName });  
      const file = (event.target as HTMLInputElement).files[0];
-     ammounts6.controls[i].patchValue({ image: file });  
-     ammounts6.controls[i].updateValueAndValidity();
-     this.uploadFilesautre6.push(ammounts6.value.at(i).image);
+     if (file)
+     {
+      ammounts6.controls[i].patchValue({ image: file });  
+      ammounts6.controls[i].updateValueAndValidity();
+      if (ammounts6.value.at(i).salairebrut=='0'||ammounts6.value.at(i).salairebrut=='')
+      {
+        return (
+          Swal.fire({
+          title: 'veuillez saisir des données valides pour le type salaire avant d\'insérer un fichier',
+          icon: 'error',
+          confirmButtonColor: '#3085d6',
+        }).then((result) => {this.loading=false
+        }).catch(() => {
+          Swal.fire('opération non aboutie!')
+        }))
+      }  
+      if (ammounts6.value.at(i).salairebrut!=''&&ammounts6.value.at(i).salairebrut!='0')
+      {
+        this.uploadFilesautre6.push(ammounts6.value.at(i).image);
+      
+      }     }
+    
      console.log(this.uploadFilesautre6)
      const reader = new FileReader();
      reader.onload = () => {
@@ -2943,6 +3440,69 @@ this.userservice.getUserById(this.currentUser._id).then(
      };
      reader.readAsDataURL(file);
     
+  }
+  async verifyinvoice(i:number)
+  {
+    let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
+    let invoice1:any
+    let invoice2:any
+    let invoice3:any
+    let invoice4:any
+    let invoice5:any
+    let invoice6:any
+    let fourexist:any
+    let factexist:any
+    let anneeexist:any
+let fournisseurs=[]
+let numerosfacture=[]
+let annees=[]
+    this.deccompt.deccomptabilites.forEach(element => element.autre3.forEach(e => (invoice1=e.fournisseur === ammounts3.value.at(i).fournisseur,fournisseurs.push({
+      invoice1
+    }))));
+    fournisseurs.find(e => fourexist=e.invoice1===true);
+    this.deccompt.deccomptabilites.forEach(element => (invoice2=element.annee===this.option1Value,annees.push({
+      invoice2
+    })))
+    annees.find(e => anneeexist=e.invoice2===true);
+    this.deccompt.deccomptabilites.forEach(element => element.autre3.forEach(e => (invoice3=e.numerofacture === ammounts3.value.at(i).numerofacture,console.log(invoice3),numerosfacture.push({
+      invoice3
+    }))));
+    numerosfacture.find(e => factexist=e.invoice3===true);
+    //console.log(annees)
+    /*console.log(fournisseurs)
+    console.log(numerosfacture)
+    console.log(invoice2)
+    console.log(this.DeccomptabiliteService.deccomptabilites)
+    console.log(fourexist)
+    console.log(factexist)*/
+    if(ammounts3.length>1)
+    {
+      let ammounts3sliced=ammounts3.getRawValue().slice(0,-1)
+      ammounts3sliced.find(e => invoice4=e.fournisseur === ammounts3.getRawValue()[i].fournisseur);
+      ammounts3sliced.find(e => invoice5=e.autrefournisseur === ammounts3.value.at(i).autrefournisseur);
+      ammounts3sliced.find(e => invoice6=e.numerofacture === ammounts3.getRawValue()[i].numerofacture);
+      console.log(ammounts3sliced)
+    }
+    console.log(fournisseurs)
+    console.log(numerosfacture)
+if(ammounts3.value.at(i).fournisseur&&ammounts3.value.at(i).numerofacture)
+{
+  if(fourexist&&anneeexist&&factexist||invoice4&&invoice5&&invoice6)
+  try {
+    console.log('here')
+      const result = await Swal.fire({
+        title: 'numéro facture pour cette année dèjà utilisé',
+        icon: 'error',
+        confirmButtonColor: '#3085d6',
+      });
+      this.loading = false;
+      ammounts3.controls[i].patchValue({ numerofacture: '',fournisseur:'' });  
+    } catch {
+      Swal.fire('opération non aboutie!');
+    }
+}
+    
+
   }
   ngOnDestroy(){
   

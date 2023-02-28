@@ -28,11 +28,31 @@ export class Deccomptabilite {
   realtotaltva:number
   totaldt:number
   totalttc:number
+  totalht19:number
+  totaltva19:number
+  realtotaltva19:number
+  totaldt19:number
+  totalttc19:number
+  totalht0:number
+  totaltva0:number
+  realtotaltva0:number
+  totaldt0:number
+  totalttc0:number
+  totalht019:number
+  totaltva019:number
+  realtotaltva019:number
+  totaldt019:number
+  totalttc019:number
   totalht2:number
   totaltva2:number
   totaldt2:number
   totalttc2:number
+  totalht219:number
+  totaltva219:number
+  totaldt219:number
+  totalttc219:number
   totalrecette:number
+  totalrecette19:number
   totalht3:number
   totaltva3:number
   totaldt3:number 
@@ -46,22 +66,12 @@ export class Deccomptabilite {
   totalretenueimpot:number
   totalavancepret:number
   totalsalairenet:number
-  totalht219: number;
-  totaltva219: number;
-  totaldt219: number;
-  totalttc219: number;
-  totalrecette19: number;
-  totalht19: number;
-  totaltva19: number;
-  totaldt19: number;
-  totalttc19: number;
   affecte:string;
   dateaffectation:string;
   created:Date;
   updated: Date;
   dateouverturedossier:number
-
-statutadmin:string[]
+  statutadmin:string[]
   statutcollab:string[]
 autre0:Autre0[]
 autre1:Autre[]
@@ -93,9 +103,15 @@ export interface Autre {
         date: string,
         numeronote:string,
         montantht:string,
+        montantht19:string,
+
         montanttva:string,
+        montanttva19:string,
+
         montantdt:string,
         montantttc:string,
+        montantttc19:string,
+
         client:string,
         autreclient:string,
 
@@ -105,10 +121,17 @@ export interface Autre2 {
       jour: string,
       date: string,
       recette:string,
+      recette19:string,
+
       montantht:string,
+      montantht19:string,
+
       montanttva:string,
+      montanttva19:string,
+
       montantdt:string,
       montantttc:string,
+      montantttc19:string,
 }
 export interface Autre3 {
       type:string,

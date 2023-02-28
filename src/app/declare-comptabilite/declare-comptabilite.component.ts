@@ -310,7 +310,7 @@ if(this.activite=='Consultant')
           }).then((result) => 
           {
             if (result.value) {
-            
+              this.token.saved=true
               this.router.navigate(['modify-deccomptabilite/'+data[0]._id])
 
   this.loading=false
@@ -499,26 +499,7 @@ this.loading=false
        })
      
     }
-    settva2(i: number) {
-      let ammounts2 = this.recettejournaliereform.get('ammounts2') as FormArray;
-       const mht= this.recettejournaliereform.get('ammounts2').value.at(i).montantht
-       console.log(mht)
-       if(+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva===0.19)
-       {
-        const montanttva=(mht*+(this.recettejournaliereform.getRawValue().ammounts2)[i].tauxtva).toFixed(3)
-        ammounts2.at(i).patchValue({
-         montanttva:montanttva
-        })
-       }
-       else 
-       {
-        const montanttva=(mht*+this.tauxtva).toFixed(3)
-        ammounts2.at(i).patchValue({
-         montanttva:montanttva
-        })
-       }
-       ammounts2.controls[i].get('tauxtva').disable(); 
-      }
+   
       settva3(i: number) {
         let ammounts3 = this.factureachatform.get('ammounts3') as FormArray;
          const mht= this.factureachatform.get('ammounts3').value.at(i).montantht
@@ -2044,6 +2025,10 @@ this.removeammount(i)
     deccomptabilite.creditmoisprecedent=this.relevemanuelform.get('soldemoisprecedentcredit').value
     deccomptabilite.moisreleve=this.relevemanuelform.get('mois').value
     deccomptabilite.anneereleve=this.relevemanuelform.get('annee').value
+    deccomptabilite.totalht0=this.totalht0
+    deccomptabilite.totaltva0=this.totaltva0
+    deccomptabilite.totaldt0=this.totaldt0
+    deccomptabilite.totalttc0=this.totalttc0
     deccomptabilite.totalht=this.totalht
     deccomptabilite.totaltva=this.totaltva
     deccomptabilite.totaldt=this.totaldt
@@ -2052,6 +2037,10 @@ this.removeammount(i)
     deccomptabilite.totaltva19=this.totaltva19
     deccomptabilite.totaldt19=this.totaldt19
     deccomptabilite.totalttc19=this.totalttc19
+    deccomptabilite.totalht019=this.totalht019
+    deccomptabilite.totaltva019=this.totaltva019
+    deccomptabilite.totaldt019=this.totaldt019
+    deccomptabilite.totalttc019=this.totalttc019
     deccomptabilite.totalht2=this.totalht2
     deccomptabilite.totaltva2=this.totaltva2
     deccomptabilite.totaldt2=this.totaldt2
@@ -2077,6 +2066,7 @@ this.removeammount(i)
     deccomptabilite.totalsalairenet=this.totalsalairenet
     deccomptabilite.activite=this.activite
     deccomptabilite.sousactivite=this.sousactivite
+    deccomptabilite.autre0=[]
     deccomptabilite.autre1=[]
     deccomptabilite.autre2=[]
     deccomptabilite.autre3=[]
@@ -2201,6 +2191,30 @@ console.log(deccomptabilite.autre3)
     }
       if(this.option3Value)
       {
+        let ammounts0 = this.editionnotepastform.get('ammounts0') as FormArray;
+        for (let i = 0; i < ammounts0.length; i++)
+       
+        {
+          const item = ammounts0.value.at(i);
+  deccomptabilite.autre0.push({
+    type:'0',
+    jour: item.jour,
+    date: item.date,
+    numeronote:item.numeronote,
+    montantht:item.montantht,
+    montantht19:item.montantht19,
+    montanttva:item.montanttva,
+    montanttva19:item.montanttva19,
+    montantdt:item.montantdt,
+    montantttc:item.montantttc,
+    montantttc19:item.montantttc19,
+    client:item.client,
+    autreclient:item.autreclient,
+
+  })
+  console.log(deccomptabilite.autre1)
+ 
+        } 
         let ammounts = this.editionnoteform.get('ammounts') as FormArray;
         for (let i = 0; i < ammounts.length; i++)
        
@@ -2212,9 +2226,12 @@ console.log(deccomptabilite.autre3)
     date: item.date,
     numeronote:item.numeronote,
     montantht:item.montantht,
+    montantht19:item.montantht19,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva19,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
+    montantttc19:item.montantttc19,
     client:item.client,
     autreclient:item.autreclient,
 
@@ -2231,11 +2248,14 @@ console.log(deccomptabilite.autre3)
     jour: item.jour,
     date: item.date,
     recette:item.recette,
+    recette19:item.recette19,
     montantht:item.montantht,
+    montantht19:item.montantht19,
     montanttva:item.montanttva,
+    montanttva19:item.montanttva19,
     montantdt:item.montantdt,
     montantttc:item.montantttc,
-  
+    montantttc19:item.montantttc19,
   })
   console.log(deccomptabilite.autre2)
   
@@ -2296,8 +2316,9 @@ console.log(deccomptabilite.autre6)
 
       } 
     }
-    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
-    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null));
+    deccomptabilite.autre0=deccomptabilite.autre0.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null)||(item.montantht19!='0'&&item.montantht19!=''&&item.montantht19!=null));
+    deccomptabilite.autre1=deccomptabilite.autre1.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null)||(item.montantht19!='0'&&item.montantht19!=''&&item.montantht19!=null));
+    deccomptabilite.autre2=deccomptabilite.autre2.filter(item => (item.recette!='0'&&item.recette!=''&&item.recette!=null)||(item.recette19!='0'&&item.recette19!=''&&item.recette19!=null));
     deccomptabilite.autre3=deccomptabilite.autre3.filter(item => (item.montantht!='0'&&item.montantht!=''&&item.montantht!=null));
     deccomptabilite.autre4=deccomptabilite.autre4.filter(item => (item.jour!='0'&&item.jour!=''&&item.jour!=null));
     deccomptabilite.autre5=deccomptabilite.autre5.filter(item => (item.mois!='0'&&item.mois!=''&&item.mois!=null));
