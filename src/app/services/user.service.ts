@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 import { Userdeleted } from '../models/user-deleted.model';
 import { DeccomptabiliteService } from './dec-comptabilite';
 const API_URL_test = 'http://localhost:3000/api/users/';
-const API_URL_cloud= 'http://196.203.16.222:3000/api/users/'
+const API_URL_cloud= 'http://196.203.16.222:3001/api/users/'
 @Injectable({ providedIn: 'root' })
 export class UserService {
   filtred: User[] = []
