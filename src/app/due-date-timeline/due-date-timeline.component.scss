@@ -14,24 +14,41 @@
   margin-top: 200px;
   }
 table {
+  position: absolute;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  
   border: 1px solid #ddd;
+  z-index: 2;
+  background-color: transparent;
+  table-layout:fixed;
+  margin-top: 90px;
+
 }
+#diagonaltext
+{
+  position: absolute;
+  rotate: -60deg;
+  opacity: 0.2;
+  font-size:80px;
+  margin-top:130px;
+  z-index: 1;
+  color: red;
+}
+
 .container-fluid{
   margin-top: 20px;
   
+}
+table, tbody, tr, th, td{
+  background-color: rgba(0, 0, 0, 0.0) !important;
 }
 th, td {
   text-align: left;
   padding: 8px;
   font-size: small;
+  background-color: transparent;
 }
 #date{
   width:90px
 }
-
-
-tr:nth-child(even){background-color: #f2f2f2}

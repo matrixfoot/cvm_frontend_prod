@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Contact } from '../models/contact.model';
 const API_URL_test = 'http://localhost:3000/api/contactreqs/';
-const API_URL_cloud= 'https://filthy-ruby-moose.cyclic.app/api/contactreqs/'
+const API_URL_cloud= 'http://196.203.16.222:3000/api/contactreqs/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -46,6 +46,21 @@ export class ContactService {
             },
             (error) => {
               reject(error); 
+            }
+          );
+        });
+      }
+      getContact(email: string) {
+        return new Promise((resolve, reject) => {
+          this.http.post(API_URL_cloud +'contact' ,{email}).subscribe(
+            (contacts: Contact[]) => {
+              if (contacts) {
+                this.contactreqs = contacts;
+                this.emitContactreqs();
+              }
+            },
+            (error) => {
+              console.log(error);
             }
           );
         });

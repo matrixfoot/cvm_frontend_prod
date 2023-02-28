@@ -129,13 +129,23 @@
         <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
           <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
       </div>
+      <div *ngIf="submitted && f.indicatif.errors" class="invalid-feedback">
+        <div *ngIf="f.indicatif.errors.required">Indicatif Mobile Obligatoire </div>
+    </div>
+       
+       
+    
       <div class="input-container">
         <label for="mobile"> N° Mobile Utilisateur:</label>
         <i class="fa fa-phone icon"></i>
+        <input class="input-field" type="text" placeholder="Indicatif pays" id="indicatif" 
+        [ngClass]="{ 'is-invalid': submitted && f.indicatif.errors }"formControlName="indicatif" style="width: 100px;">
         <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" 
         [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"formControlName="mobile">
        
       </div>
+    
+     
       
   </div>
   <div class="error-container">

@@ -4,6 +4,13 @@
 h2{
     text-align: center;
   }
+  body
+  {
+    margin-top: 200px;
+  }
+  .list-group-item{
+    cursor: pointer;
+  }
   #loader {
     position: relative;
     left: 50%;

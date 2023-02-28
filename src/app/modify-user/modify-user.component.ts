@@ -229,6 +229,7 @@ this.activites=this.activitesassociations
             fiscalmatinchanged2: [{value:this.user.matriculefiscale.split(' ')[1].split('/')[2],disabled:true}],
             fiscalmatnumbers: [this.user.matriculefiscale.split('/')[3],[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
             adresseactivite: [this.user.adresseactivite,],
+            dateeffet: [this.user.dateeffet],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
             nomsociete: [this.user.nomsociete,],
             clientcode: [{value:this.user.clientcode,disabled:true}],
@@ -270,6 +271,7 @@ this.activites=this.activitesassociations
               fiscalmatinchanged2: [{value:"P",disabled:true}],
               fiscalmatnumbers: ["000",[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
               adresseactivite: [this.user.adresseactivite,],
+              dateeffet: [this.user.dateeffet],
               codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
               nomsociete: [this.user.nomsociete,],
               clientcode: [{value:this.user.clientcode,disabled:true}],
@@ -333,6 +335,7 @@ this.activites=this.activitesassociations
     user.specialite = this.userForm.get('specialite').value;
     user.sousspecialite = this.userForm.get('sousspecialite').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
+    user.dateeffet = this.userForm.get('dateeffet').value;
     user.codepostal = this.userForm.get('codepostal').value;
     user.secteur = this.userForm.get('secteur').value;
     user.civilite = this.userForm.get('civilite').value;

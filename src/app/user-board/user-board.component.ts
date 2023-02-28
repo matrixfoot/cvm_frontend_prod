@@ -14,6 +14,8 @@ import { DecfiscmensService } from '../services/dec-fisc-mens';
 import { DeccomptabiliteService } from '../services/dec-comptabilite';
 
 import { Decfiscmens } from '../models/dec-fisc-mens';
+import { ContactService } from '../services/contact.service';
+import { Contact } from '../models/contact.model';
 
 @Component({
   selector: 'app-user-board',
@@ -27,6 +29,7 @@ export class UserBoardComponent implements OnInit {
   role: string;
   isLoggedIn = false;
   private condidatesSub: Subscription;
+  private contactsub: Subscription;
   private decfiscmenssSub: Subscription;
   public decfiscmens: Decfiscmens;
   public errormsg:string;
@@ -38,13 +41,24 @@ export class UserBoardComponent implements OnInit {
   
   
   public condidates: Condidate[] = [];
+  public contacts: Contact[] = [];
   public decfiscmenss: Decfiscmens[] = [];
-  
-  
+  showgenerate: boolean;
+  candidaturevalide=false
+  candidaturenonvalide=false
+  reclamationtraite=false
+  reclamationnontraite=false
+  decfiscmenswindow=false
+  decfiscmensnumber=0;
+  condval=0;
+  condnonal=0;
+  contval=0;
+  contnonval=0;
   constructor(
               
     private Auth: TokenStorageService,
     private cond:CondidateService,
+    private cont:ContactService,
     private deccompt: DeccomptabiliteService,
     private router: Router,
     private dec: DecfiscmensService,
@@ -84,12 +98,25 @@ export class UserBoardComponent implements OnInit {
    if (this.usertype=='Candidat'||this.usertype=='candidat')
    {    this.cond.getCondidate(this.email);
    }
-   
+   this.contactsub = this.cont.contactreqs$.subscribe(
+    (contacts) => {
+      this.contacts = contacts;
+      this.loading = false;
+    },
+    (error) => {
+      this.loading = false;
+      
+      this.errormsg=error.message;
+    }
+  );
+    this.cont.getContact(this.email);
+ 
     this.decfiscmenssSub = this.dec.decfiscmenss$.subscribe(
       (decfiscmenss) => {
         this.decfiscmenss = decfiscmenss;
         this.loading = false;
-        
+        this.decfiscmensnumber=this.decfiscmenss.length
+
       },
       (error) => {
         this.loading = false;
@@ -106,7 +133,6 @@ export class UserBoardComponent implements OnInit {
         this.decfiscmens = decfiscmens;
         this.converteddate=this.addHours(this.decfiscmens.created);
         this.decfiscmens.created=this.converteddate
-        
         console.log(this.converteddate)
         
       }
@@ -116,19 +142,102 @@ export class UserBoardComponent implements OnInit {
     
   }
   
+  getNavigationcondidates(link, id){
+
+    this.router.navigate([link + '/' + id]); 
+  }
   getNavigation(link, id){
 
-    this.cond.getCondidateById(id);
+    this.router.navigate([link + '/' + id]); 
+  }
+  getNavigationcontacts(link, id){
+
     this.router.navigate([link + '/' + id]); 
   }
   addHours(date:Date) {
     date.setTime(date.getTime() * 60 * 60 * 1000);
 
     return date;
-  }   
-    
-    
-  
+  }  
+getcondidatevalide() {
+  //@ts-ignore                    
+
+this.condval=(this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'))).length                                 
+ //@ts-ignore                    
+
+return this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'));                                                           
+                                      
+}
+getcondidatenonvalide() {
+//@ts-ignore                    
+
+this.condnonal=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
+//@ts-ignore                    
+
+return this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte);                                                           
+                                    
+} 
+getcontactvalide() {
+  //@ts-ignore                    
+
+this.contval=(this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'))).length                                   
+ //@ts-ignore                    
+
+return this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'));                                                           
+                                      
+}
+getcontactnonvalide() {
+//@ts-ignore                    
+
+this.contnonval=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                      
+//@ts-ignore                    
+
+return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte);                                                           
+                                    
+} 
+onTabClick(event) {
+   
+}
+  click7()
+          {
+            this.decfiscmenswindow=true
+          } 
+          click11()
+          {
+            this.candidaturevalide=true
+          }
+          click12()
+          {
+            this.candidaturenonvalide=true
+          }
+          click13()
+          {
+            this.reclamationtraite=true
+          }
+          click14()
+          {
+            this.reclamationnontraite=true
+          }  
+          click32()
+          {
+            this.decfiscmenswindow=false
+          }
+          click25()
+          {
+            this.candidaturevalide=false
+          }
+          click26()
+          {
+            this.candidaturenonvalide=false
+          }
+          click27()
+          {
+            this.reclamationtraite=false
+          }
+          click28()
+          {
+            this.reclamationnontraite=false
+          }
   }
   
 

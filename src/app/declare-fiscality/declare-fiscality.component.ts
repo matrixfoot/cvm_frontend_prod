@@ -313,7 +313,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   selectedTab: number = 0;
   autretva: Array<string> = ['location à usage d\'habitation meublé', 'location à usage commercial', 'location à usage industriel', 'location à usage professionnel',
 'location à usage artisanal','opérations de lotissement','intérêts perçus'];
-  retenues: Array<string> = ['traitement et salaires','location, commission, courtage et vacation',  'honoraire', 'montant supérieur à 1000 dt', 'Autre'];
+  retenues: Array<string> = ['traitements et salaires','loyers, commissions, courtages et vacations',  'honoraires', 'montants supérieurs à 1000 dt', 'Autre'];
   choices: Array<string> = ['servis aux personnes non résidentes',  'servis aux personnes résidentes'];
   selected = "----"
   showretenuetab=false;
@@ -373,7 +373,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   chiffreaffaireht=0.000;
   tclammount19= 0.000;
   chiffreaffaireht19=0.000;
-  
+  currentdate=new Date()
+  date1=new Date('04.01.2023')
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder) {
     super();
@@ -389,7 +390,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     else return (
       this.token.saved=true,
       this.router.navigate(['login']));  
-    this.tauxdt=0.600      
+    this.tauxdt=0.600        
     this.usersservice.getUserById(this.currentUser.userId).then(
             (user: User) => {
               this.loading = false;
@@ -957,7 +958,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       confirmButtonColor: '#3085d6',
     }),this.router.navigate(['home']))
       if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || user.regimefiscalimpot=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'|| !user.dateeffet
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 
@@ -1106,21 +1107,25 @@ if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpam
 }
 else
 {
-  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
   {
+   console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=20.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
 
   }
-  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  else if (this.user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=5.000
 
   }
@@ -1590,18 +1595,26 @@ calculateResultForm1()
   {
   
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
+    const chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+    const tvaammount19=+ Math.trunc((+chiffreaffaireht19*0.19)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      const ammountttc19=+ Math.trunc((+tvaammount19+ +chiffreaffaireht19)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const montantcontribution19=+ Math.trunc((+chiffreaffaireht19*+taux3)*1000)/1000;
       this.chiffreaffaireht=chiffreaffaireht
+      this.chiffreaffaireht19=chiffreaffaireht19
       this.ammountttc=ammountttc
+      this.ammounttc19=ammountttc19
       this.fspammount=montantcontribution
+      this.fspammount19=montantcontribution19
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount=+ (Math.trunc((+ammountttc*+taux2)*1000)/1000);
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.tclammount19=+ (Math.trunc((+ammountttc19*+taux2)*1000)/1000);
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1624,17 +1637,25 @@ calculateResultForm1()
   {
   
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const ammountttc19=+this.standardtvacollecte19form.get('ammountttc').value
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount19=+ Math.trunc(((+ammountttc19*+0.19)/(1+ +0.19))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
+      const ammountht19=+ Math.trunc((+ammountttc19- +tvaammount19)*1000)/1000
       this.ammountttc=ammountttc
+      this.ammountttc=ammountttc19
       this.chiffreaffaireht=ammountht
+      this.chiffreaffaireht=ammountht19
       this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.tclammount19=+ Math.trunc((ammountttc19*taux2)*1000)/1000;
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution19=+ Math.trunc((+ammountht19*+taux3)*1000)/1000;
       this.fspammount=montantcontribution
+      this.fspammount19=montantcontribution19
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tvacollecte1=tvaammount
       this.standardtvacollecteform.patchValue({
@@ -1656,22 +1677,29 @@ calculateResultForm1()
   }
   calculateResultForm44()
   {
-  
     const chiffreaffaireht=+this.standardtvacollecte19form.get('chiffreaffaireht').value
+    const chiffreaffaireht07=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+    const tvaammount07=+ Math.trunc((+chiffreaffaireht*+taux4)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+      const ammountttc07=+ Math.trunc((+tvaammount07+ +chiffreaffaireht07)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+chiffreaffaireht07*+taux3)*1000)/1000;
       this.chiffreaffaireht19=chiffreaffaireht
-
+      this.chiffreaffaireht=chiffreaffaireht07
+      this.fspammount=montantcontribution07
       this.fspammount19=montantcontribution
       this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.tclammount=+ Math.trunc((+ammountttc07*+taux2)*1000)/1000;
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       this.tvacollecte119=tvaammount
       this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
@@ -1693,27 +1721,36 @@ calculateResultForm1()
   calculateResultForm45()
   {
   
-    const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const ammountttc=+this.standardtvacollecte19form.get('ammountttc').value
+    const ammountttc07=+this.standardtvacollecteform.get('ammountttc').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount07=+ Math.trunc(((+ammountttc07*+taux4)/(1+ +taux4))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.chiffreaffaireht19=ammountht
+      const ammountht07=+ Math.trunc((+ammountttc07- +tvaammount07)*1000)/1000
 
+      this.chiffreaffaireht19=ammountht
+      this.chiffreaffaireht=ammountht07
+      this.tclammount=+ Math.trunc((ammountttc07*taux2)*1000)/1000;
       this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
-      this.totaltclammount=+this.tclammount+ +this.tclammount19
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
       const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+ammountht07*+taux3)*1000)/1000;
       this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
       this.fspammount19=montantcontribution
+      this.fspammount=montantcontribution07
       this.totalfspammount=+this.fspammount+ +this.fspammount19
       this.tvacollecte119=tvaammount
-      this.standardtvacollecteform.patchValue({
+      this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
           chiffreaffaireht: ammountht
         },{emitEvent: false} 
         );
-      this.standardtvacollecteform.updateValueAndValidity();
+      this.standardtvacollecte19form.updateValueAndValidity();
       this.standardtclform.patchValue({
         
         chiffreaffairettc:+this.ammountttc+ +this.ammounttc19,tclapayer:this.totaltclammount},{emitEvent: false} 
@@ -2361,7 +2398,7 @@ if (this.standardlocationresidentesphysiqueform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location1.type='location, commission, courtage et vacation servis aux personnes résidentes personnes physiques'
+decfiscmens.impottype1.location1.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes physiques'
 decfiscmens.impottype1.location1.montantbrut=this.standardlocationresidentesphysiqueform.get('brutammount').value
 decfiscmens.impottype1.location1.montantnet=this.standardlocationresidentesphysiqueform.get('netammount').value
 decfiscmens.impottype1.location1.montantretenue=this.standardlocationresidentesphysiqueform.get('retenueammount').value
@@ -2370,7 +2407,7 @@ if (this.standardlocationresidentesmoraleform.get('netammount').value!==null)
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location2.type='location, commission, courtage et vacation servis aux personnes résidentes personnes morales'
+decfiscmens.impottype1.location2.type='loyers, commissions, courtages et vacations servis aux personnes résidentes personnes morales'
 decfiscmens.impottype1.location2.montantbrut=this.standardlocationresidentesmoraleform.get('brutammount').value
 decfiscmens.impottype1.location2.montantnet=this.standardlocationresidentesmoraleform.get('netammount').value
 decfiscmens.impottype1.location2.montantretenue=this.standardlocationresidentesmoraleform.get('retenueammount').value
@@ -2379,7 +2416,7 @@ if (this.standardlocationnonresidentesphysiquesform.get('netammount').value!==nu
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location3.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes physiques'
+decfiscmens.impottype1.location3.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes physiques'
 decfiscmens.impottype1.location3.montantbrut=this.standardlocationnonresidentesphysiquesform.get('brutammount').value
 decfiscmens.impottype1.location3.montantnet=this.standardlocationnonresidentesphysiquesform.get('netammount').value
 decfiscmens.impottype1.location3.montantretenue=this.standardlocationnonresidentesphysiquesform.get('retenueammount').value
@@ -2388,7 +2425,7 @@ if (this.standardlocationnonresidentesmoralesform.get('netammount').value!==null
 {
   decfiscmens.impottype1.type='Retenue à la source'
 
-decfiscmens.impottype1.location4.type='location, commission, courtage et vacation servis aux personnes non résidentes personnes morales'
+decfiscmens.impottype1.location4.type='loyers, commissions, courtages et vacations servis aux personnes non résidentes personnes morales'
 decfiscmens.impottype1.location4.montantbrut=this.standardlocationnonresidentesmoralesform.get('brutammount').value
 decfiscmens.impottype1.location4.montantnet=this.standardlocationnonresidentesmoralesform.get('netammount').value
 decfiscmens.impottype1.location4.montantretenue=this.standardlocationnonresidentesmoralesform.get('retenueammount').value
@@ -2774,22 +2811,22 @@ this.DecfiscmensService.create(decfiscmens).then(
       this.standarddroittimbreform.patchValue({
         taux:this.tauxdt
       })
-      if (this.user.regimefiscalimpot==='Réel')  
-      {
-       this.prepminimumperceptionammount=20.000
-      }  
-      else if (this.user.regimefiscalimpot==='Forfait D\'assiette') 
-      {
-       this.prepminimumperceptionammount=10.000
-
-      }
     }
-    /*
+    if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
+    {
+     this.prepminimumperceptionammount=20.000
+    }  
+    else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
+    {
+     this.prepminimumperceptionammount=10.000
+
+    }
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
+    console.log(anneactuel,moisactuel)
+    if (this.option54Value>anneactuel||this.option54Value==anneactuel&&this.option171Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration au futur',
@@ -2798,7 +2835,7 @@ this.DecfiscmensService.create(decfiscmens).then(
     }).then((result) => {this.option54Value='',this.option171Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))*/
+    }))
     this.DecfiscmensService.geexistenttdecfiscmens(this.currentUser.userId,this.option54Value,this.option171Value).then(
       (data:Decfiscmens[]) => {
         if (data.length>0)
@@ -2810,7 +2847,7 @@ this.DecfiscmensService.create(decfiscmens).then(
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Modifier la déclaration existente',
-            cancelButtonText: 'Modifier le mois',
+            cancelButtonText: 'actualiser déclaration',
           }).then((result) => 
           {
             if (result.value) {
@@ -2820,8 +2857,9 @@ this.DecfiscmensService.create(decfiscmens).then(
   
             }
             else{
-             this.option171Value=''
-  
+              this.token.saved=true
+             this.reloadPage()
+
             }
           }).catch(() => {
             Swal.fire('opération non aboutie!')
@@ -2841,9 +2879,7 @@ this.DecfiscmensService.create(decfiscmens).then(
               title: 'Tous les impôts dont vous êtes normalement redevables sont cochés. Vous pouvez décochez l\'impôt que vous ne désirez pas déclarer pour le moment',
               icon: 'info',
               confirmButtonColor: '#3085d6',
-            }).then((result) => {this.myFunction11(),this.myFunction9()}).catch(() => {
-              Swal.fire('opération non aboutie!')
-            })
+            }).then((result) => {this.myFunction11(),this.myFunction9()})
           }).catch(() => {
             Swal.fire('opération non aboutie!')
           })
@@ -2896,12 +2932,12 @@ this.DecfiscmensService.create(decfiscmens).then(
     )
   }
   verifyfutur(e)
-  {/*
+  {
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1
     console.log(anneactuel,moisactuel)
-    if (this.option54Value>anneactuel||this.option171Value>=moisactuel)
+    if (this.option54Value>anneactuel||this.option54Value==anneactuel&&this.option171Value>=moisactuel)
     return (
       Swal.fire({
       title: 'vous ne pouvez pas déposer une déclaration non encore échue',
@@ -2910,13 +2946,13 @@ this.DecfiscmensService.create(decfiscmens).then(
     }).then((result) => {this.option54Value='',this.option171Value=''
     }).catch(() => {
       Swal.fire('opération non aboutie!')
-    }))*/
+    }))
    
   }
   update(e){
     this.selected = e.target.value
     
-    if(this.selected=='location, commission, courtage et vacation')
+    if(this.selected=='loyers, commissions, courtages et vacations')
     {this.standardlocationresidentesphysiqueform.controls['brutammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['netammount'].reset()
     this.standardlocationresidentesphysiqueform.controls['retenueammount'].reset()
@@ -2929,14 +2965,14 @@ this.DecfiscmensService.create(decfiscmens).then(
     this.standardlocationnonresidentesphysiquesform.controls['brutammount'].reset()
     this.standardlocationnonresidentesphysiquesform.controls['netammount'].reset()
     this.standardlocationnonresidentesphysiquesform.controls['retenueammount'].reset()}
-    else if(this.selected=='traitement et salaires')
+    else if(this.selected=='traitements et salaires')
     {this.standardtraitementsalaireform.controls['brutsalary'].reset()
     this.standardtraitementsalaireform.controls['imposalary'].reset()
     this.standardtraitementsalaireform.controls['retenuesalary'].reset()
     this.standardtraitementsalaireform.controls['solidaritycontribution'].reset()
 
     }
-    else if (this.selected=='honoraire')
+    else if (this.selected=='honoraires')
     {this.standardhonorairephysiquereelform.controls['brutammount'].reset()
     this.standardhonorairephysiquereelform.controls['netammount'].reset()
     this.standardhonorairephysiquereelform.controls['retenueammount'].reset()
@@ -3420,11 +3456,9 @@ if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
-  console.log(verifyannee1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
 reporttfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.tfpreporter
 avancetfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype3.montantavance
@@ -3436,9 +3470,8 @@ this.standardtfpform.patchValue({
 }
 else if(this.option171Value==='01')
 {
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
-  if(verifyannee1&&verifymois1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
 { 
 reporttfp=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype3.tfpreporter
 this.standardtfpform.patchValue({
@@ -3544,11 +3577,10 @@ if(this.option171Value!='01')
 {
   mois1=mois.findIndex(selected)
   desiredmois1=mois[+(mois1-1)]
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === desiredmois1);
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=e.annee === this.option54Value);
-  console.log(verifyannee1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === desiredmois1&&e.annee === this.option54Value));
+
   console.log(verifymois1)
-  if(verifyannee1&&verifymois1)
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois===desiredmois1&&p.annee===this.option54Value))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
@@ -3567,9 +3599,8 @@ if(reporttva>0)
 }
 else if(this.option171Value==='01')
 {
-  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=e.mois === '12');
-  this.DecfiscmensService.decfiscmenss.find(e => verifyannee1=+e.annee === +this.option54Value-1);
-  if(verifyannee1&&verifymois1)
+  this.DecfiscmensService.decfiscmenss.find(e => verifymois1=(e.mois === '12'&&+e.annee === +this.option54Value-1));
+  if(verifymois1)
 { 
   let tvarecuperable=+(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableautreachat.achatimportetva+ 
   +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatlocauxtva+ +(this.DecfiscmensService.decfiscmenss.filter(p => p.mois==='12'&&+p.annee===+this.option54Value-1))[0].impottype2.tvarecuperableequipement.achatimportetva+ 
@@ -4330,6 +4361,11 @@ if(reporttva>0)
          
         
       }
+    }
+    reloadPage(): void {
+  
+      window.location.reload();
+      
     }
 }
 

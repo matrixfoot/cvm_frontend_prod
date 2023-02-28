@@ -13,6 +13,7 @@
 <form  [formGroup]="userForm">
   <h2>Formulaire De Modification Des Données Utilisateurs</h2> 
   <div title="indiquer votre type utilisateur" class="input-container">
+    <label for="fiscalmat"> Type utilisateur:</label>
     <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
    
 <select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
@@ -89,7 +90,24 @@
 <option *ngFor="let user of users" [value]="user.role" >{{user.role}}</option>
 </datalist>
 </div>
-
+<div title="attribuer acces aux utilisateurs"class="input-container">
+  <label for="fiscalmat"> Droit à la comptabilité:</label>
+  <i class="fa fa-fort-awesome icon" ></i> 
+  <select  class="input-field"  placeholder="Entrer Votre accès au compta"id="droitcompta" formControlName="droitcompta" name="droitcompta" >
+    <option hidden >Entrer Votre access compta</option>
+    <option value="Autorisé">Autorisé</option>
+    <option value="Non Autorisé">Non Autorisé</option>
+    </select>
+</div>
+<div title="attribuer role superviseur"class="input-container">
+  <label for="fiscalmat"> Possède role superviseur:</label>
+  <i class="fa fa-fort-awesome icon" ></i> 
+  <select  class="input-field"  placeholder="Possède role superviseur"id="rolesuperviseur" formControlName="rolesuperviseur" name="rolesuperviseur" >
+    <option hidden >Entrer Votre access compta</option>
+    <option value="Autorisé">Autorisé</option>
+    <option value="Non Autorisé">Non Autorisé</option>
+    </select>
+</div>
 <div class="email-container">
   <div class="input-container">
     <i class="fa fa-envelope icon"></i>

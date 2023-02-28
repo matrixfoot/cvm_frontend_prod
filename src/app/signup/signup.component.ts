@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
       confirmpassword: [null, Validators.required],
       firstname: [null, Validators.required],
       confirmemail: [null, Validators.required],
+      indicatif: ["216",[Validators.required]],
       mobile: [null, Validators.required],
       confirmmobile: [null, Validators.required],
       usertype: [null, Validators.required],
@@ -52,7 +53,6 @@ export class SignupComponent implements OnInit {
     {
       validator: [MustMatch('email','confirmemail'),MustMatch('mobile','confirmmobile')]
     });
-    this.signupForm.reset();
     
     
   }
@@ -85,7 +85,7 @@ export class SignupComponent implements OnInit {
   }
     const email = this.signupForm.get('email').value;
     
-    const mobile = this.signupForm.get('mobile').value;
+    const mobile = this.signupForm.get('indicatif').value+this.signupForm.get('mobile').value; 
     const usertype = this.signupForm.get('usertype').value;
     
     const password = this.signupForm.get('password').value;

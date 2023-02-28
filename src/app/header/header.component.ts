@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import Swal from 'sweetalert2';
+import { UserService } from '../services/user.service';
 
 
 
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit{
   constructor(
     private router: Router,
               private Auth: TokenStorageService,
-             
+              private userservice: UserService,
+
               ) { }
 
   ngOnInit() {
@@ -60,10 +62,12 @@ this.lastname= user.Lastname;
       cancelButtonText: 'Annuler',
     }).then((result) => {
       if (result.value) {
-     
+        console.log(this.Auth.getUser().userId)
+        console.log(this.Auth.getUser())
+    this.userservice.disconnectUser(this.Auth.getUser().userId,this.Auth.getUser()) 
     this.Auth.signOut();
     this.router.navigate(['login']);  
-    this.reloadPage();
+this.reloadPage()
       }
       else{
         

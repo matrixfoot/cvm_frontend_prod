@@ -22,6 +22,7 @@ export class Userdeleted {
     regimefiscaltva:string
     matriculefiscale:string
     adresseactivite:string
+    dateeffet:Date;
     codepostal:string
     raisonsociale:string;
     nomsociete:string;
@@ -31,9 +32,14 @@ export class Userdeleted {
     verified:Date;
     created:Date;
     acceptTerms:Boolean;
+    droitcompta:string
+    rolesuperviseur:string
+    connected: Boolean;
   resetToken: Boolean;
   passwordReset:Boolean;
   updated: Date;
+  choixfacture:string[]
+  numeronote:string[]
   desactive:{statut: string, date:Date};
   deleted:Date;
       

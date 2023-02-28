@@ -20,10 +20,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           if (error.error instanceof ErrorEvent) {
             console.log('this is client side error');
             errorMsg = `Error: ${error.error.message}`;
+
           }
           else {
             console.log('this is server side error');
             errorMsg = `Error Code: ${error.status},  Message: ${JSON.stringify( error.error.error)}`;
+            console.log(`${JSON.stringify(error)}`);
           }
           if (error.status===415 ){
           Swal.fire({
@@ -46,7 +48,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: JSON.stringify( error.error.error),
+              html: error.error,
             })};
           return throwError(errorMsg);
         })

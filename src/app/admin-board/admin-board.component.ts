@@ -68,6 +68,8 @@ export class AdminBoardComponent implements OnInit {
   candidaturenonvalide=false
   reclamationtraite=false
   reclamationnontraite=false
+  clienttotal=0;
+  utilconnecte=0;
   ca=0;
   cb=0;
   coll=0;
@@ -106,6 +108,13 @@ export class AdminBoardComponent implements OnInit {
   nomaffecte: string;
   sorteddossencours: any[]=[];
   sorteddossnonaffecte: any[]=[];
+  decfiscmens: Decfiscmens;
+  condidate: Condidate;
+  contact: Contact;
+  dossencoursvalide: any[]=[];
+  dossencoursnonvalide: any[]=[];
+  showdallusers: boolean;
+  showconnected: boolean;
   constructor(private formBuilder: FormBuilder,
               private UserService: UserService,
               private cond:CondidateService,
@@ -204,6 +213,332 @@ export class AdminBoardComponent implements OnInit {
                this.getconsultants()
                this.getcontactsall()
               }
+              debutcompteurdecfiscale(link,id)
+              {
+
+                this.dec.getDecfiscmensreqById(id).then(
+                  (decfiscmens: Decfiscmens) => {
+                    
+                    this.decfiscmens = decfiscmens;
+                    if(this.decfiscmens.statutcollab.length>0)
+{
+                      //@ts-ignore
+if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'
+                      //@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier'
+                      //@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='clôturé'
+//@ts-ignore
+||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='en cours de supervision'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut!='supervisé')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+
+                      if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.decfiscmens.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.decfiscmens.dateouverturedossier)
+{
+  
+  this.decfiscmens.dateouverturedossier=Date.now()
+
+  this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
+
+//debutcompteurcontactreq
+debutcontact(link,id)
+              {
+
+                this.cont.getContactreqById(id).then(
+                  (contact: Contact) => {
+                    
+                    this.contact = contact;
+                    if(this.contact.statutcollab.length>0)
+{
+                      //@ts-ignore
+if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'
+                      //@ts-ignore
+||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='à rectifier'
+
+ //@ts-ignore
+ ||this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='affecté'&&this.contact.statutadmin[this.contact.statutadmin.length-2].statut=='affecté')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+
+                      if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll=='traité'&&this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.contact.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.contact.dateouverturedossier)
+{
+  
+  this.contact.dateouverturedossier=Date.now()
+
+  this.cont.modifycontactreqById(this.contact._id,this.contact).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
+//debutcompteurcondidate
+debutcandidature(link,id)
+              {
+
+                this.cond.getCondidateById(id).then(
+                  (condidate: Condidate) => {
+                    
+                    this.condidate = condidate;
+                    if(this.condidate.statutcollab.length>0)
+{
+  console.log('here')
+                      //@ts-ignore
+if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='affecté'
+                      //@ts-ignore
+||this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='à rectifier')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de supervision',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+
+                      if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='supervisé')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de validation',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                                              //@ts-ignore
+                      if(this.condidate.statutcollab[this.condidate.statutcollab.length-1].statutcoll=='traité'&&this.condidate.statutadmin[this.condidate.statutadmin.length-1].statut=='validé')
+                      {
+                        
+                        this.condidate.statutadmin.push
+                        //@ts-ignore
+                        ({
+                          statut:'en cours de clôture',
+                          motif:'',
+                          datefin:Date.now(),
+                        })                      
+                        this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+                          (data:any) => {
+                            this.router.navigate([link + '/' + id]); 
+                          },
+                          (error) => {
+                            this.loading = false;
+                            
+                            window.scrollTo(0, 0);     
+                      }
+                      );
+                      }
+                      
+}
+                   
+
+  if(!this.condidate.dateouverturedossier)
+{
+  console.log('here')
+  this.condidate.dateouverturedossier=Date.now()
+
+  this.cond.modifycondidateById(this.condidate._id,this.condidate).then(
+    (data:any) => {
+      this.router.navigate([link + '/' + id]); 
+    },
+    (error) => {
+      this.loading = false;
+      
+      window.scrollTo(0, 0);     
+}
+);
+}
+else 
+{
+  this.router.navigate([link + '/' + id]); 
+}                    
+}
+)
+}
 filterusers(id:string)
 {
   this.filtredusers=this.deccompt.filterByValue(this.users,id)
@@ -234,6 +569,13 @@ filterusers2(id:string)
     this.nomfisc='utilisateur supprimé'
   }
   
+}
+getadmincollabview(link, id){
+      
+  this.UserService.getUserById(id);
+  this.router.navigate([]).then((result) => {
+    window.open(link + '/' + id, '_blank');
+  });; 
 }
               getNavigationusers(link, id){
       
@@ -269,7 +611,18 @@ filterusers2(id:string)
                  
                 return this.filtredusers=this.users.filter((user) => (user._id === id));
               }
-              
+              getallusers() {
+                let filtred=[]
+                filtred=this.deccompt.filterByValue(this.users,'desactive')
+                this.clienttotal=filtred.length
+                return filtred; 
+              }
+              getconnectedusers() {
+                let filtred=[]
+                filtred=this.deccompt.filterByValue(this.users,'desactive')
+                this.utilconnecte=(filtred.filter((filter) => (filter.connected === true))).length
+                return filtred.filter((filter) => (filter.connected === true)); 
+              }
               getclients() {
                 let filtred=[]
                 filtred=this.deccompt.filterByValue(this.users,'desactive')
@@ -327,27 +680,36 @@ filterusers2(id:string)
              }
              getdossiersencours()
              {
+              this.dossencours1=new Array
               this.getall()
               this.getalldeccomptabilites()
               this.getalldecfiscmenss()
               this.getcondidatesall()
               this.getcontactsall()
+              this.decfiscmenss.forEach((item, index) => { 
+                if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                    {
+                             //@ts-ignore                                                            
+                      if(item.statutadmin[item.statutadmin.length-1].statut!='clôturé'&&item.affecte)
+                      {
+                        this.dossencours1.push(item)
+                      }
+                    }
+                 }
+                 )
+              this.dossdecfiscencours=this.dossencours1.length
               //@ts-ignore                                                            
-              this.dossdecfiscencours=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte)).length
+              this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)).length                                   
               //@ts-ignore                                                            
-              this.dossdeccompencours=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)).length                                   
+              this.dosscandencours=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
               //@ts-ignore                                                            
-              this.dosscandencours=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)).length                                   
-              //@ts-ignore                                                            
-              this.dosscontactencours=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)).length                                   
+              this.dosscontactencours=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                   
        //@ts-ignore                                                            
-              this.dossencours1=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte))
+              this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)))
        //@ts-ignore                                                            
-              this.dossencours2=((this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)))
+              this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)))
        //@ts-ignore                                                            
-              this.dossencours3=((this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)))
-       //@ts-ignore                                                            
-              this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)))
+              this.dossencours4=((this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)))
        this.dossencours=[]
        this.dossencours=this.dossencours.concat(this.dossencours1,this.dossencours2,this.dossencours3,this.dossencours4) 
        const sort = new Sort();
@@ -386,19 +748,37 @@ filterusers2(id:string)
                                                                
            } 
            getdecfiscmenssvalide() {
-            //@ts-ignore                    
-             this.decfiscvali=(this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='Clôturé'))).length                                   
-                        //@ts-ignore                    
-             return this.decfiscmenss.filter((decfiscmens) => decfiscmens.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+            this.dossencoursvalide=[]
+            this.decfiscmenss.forEach((item, index) => { 
+              if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                  {
+            //@ts-ignore                                                            
+                    if(item.statutadmin[item.statutadmin.length-1].statut=='clôturé')
+                    {
+                      this.dossencoursvalide.push(item)
+                    }
+                  }
+               }
+               )
+            this.decfiscvali=this.dossencoursvalide.length                   
+             return this.dossencoursvalide;                                                           
                                                              
          }  
          getdecfiscmenssnonvalide() {
-                       //@ts-ignore                    
-                     
-          this.decfiscnonvali=(this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte)).length                                      
-                      //@ts-ignore                    
-
-          return this.decfiscmenss.filter((decfiscmens) => !decfiscmens.statutadmin.find(e => e.statut==='Clôturé')&&decfiscmens.affecte);                                                           
+          this.dossencoursnonvalide=[]
+          this.decfiscmenss.forEach((item, index) => { 
+            if(item.statutadmin.length>0&&item.statutcollab.length>0)
+                {
+          //@ts-ignore                                                            
+                  if(item.statutadmin[item.statutadmin.length-1].statut!='clôturé')
+                  {
+                    this.dossencoursnonvalide.push(item)
+                  }
+                }
+             }
+             )
+          this.decfiscnonvali=this.dossencoursnonvalide.length                   
+           return this.dossencoursnonvalide;                                                          
                                                            
        } 
            getalldeccomptabilites() {                                   
@@ -407,19 +787,19 @@ filterusers2(id:string)
          getdeccomptabilitesvalide() {
                       //@ts-ignore                    
                       
-          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'))).length                                      
+          this.deccomptvalid=(this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='clôturé'))).length                                      
                       //@ts-ignore                    
 
-          return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+          return this.deccomptabilites.filter((deccomptabilite) => deccomptabilite.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                            
        }  
        getdeccomptabilitesnonvalide() {
                      //@ts-ignore                    
                        
-         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte)).length                                       
+         this.deccompnonval=(this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte)).length                                       
                     //@ts-ignore                    
 
-         return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='Clôturé')&&deccomptabilite.affecte);                                                           
+         return this.deccomptabilites.filter((deccomptabilite) => !deccomptabilite.statutadmin.find(e => e.statut==='clôturé')&&deccomptabilite.affecte);                                                           
                                                          
      }                     
              getalldeleted() {
@@ -446,19 +826,19 @@ filterusers2(id:string)
              getcondidatevalide() {
                            //@ts-ignore                    
                  
-               this.condval=(this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='Clôturé'))).length                                 
+               this.condval=(this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'))).length                                 
                           //@ts-ignore                    
 
-               return this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+               return this.condidates.filter((condidate) => condidate.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                                
            }
            getcondidatenonvalide() {
                          //@ts-ignore                    
                    
-             this.condnonal=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte)).length                                   
+             this.condnonal=(this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte)).length                                   
                         //@ts-ignore                    
 
-             return this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='Clôturé')&&condidate.affecte);                                                           
+             return this.condidates.filter((condidate) => !condidate.statutadmin.find(e => e.statut==='clôturé')&&condidate.affecte);                                                           
                                                              
          }
             getcontactreqsbydateinf() {
@@ -485,19 +865,19 @@ filterusers2(id:string)
            getcontactvalide() {
                          //@ts-ignore                    
                    
-             this.contval=(this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='Clôturé'))).length                                   
+             this.contval=(this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'))).length                                   
                         //@ts-ignore                    
 
-             return this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='Clôturé'));                                                           
+             return this.contacts.filter((contact) => contact.statutadmin.find(e => e.statut==='clôturé'));                                                           
                                                              
          }
          getcontactnonvalide() {
                       //@ts-ignore                    
                       
-          this.contnonval=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte)).length                                      
+          this.contnonval=(this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte)).length                                      
                       //@ts-ignore                    
 
-          return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='Clôturé')&&contact.affecte);                                                           
+          return this.contacts.filter((contact) => !contact.statutadmin.find(e => e.statut==='clôturé')&&contact.affecte);                                                           
                                                            
        }
            exportusersAsXLSX(source:any[],name:string):void {
@@ -634,5 +1014,22 @@ this.clientactif=false
           {
             this.showdosspasencoreaffecte=false
           }
+          click33()
+          {
+            this.showdallusers=true
+          }
+          click34()
+          {
+            this.showdallusers=false
+          }
+          click35()
+          {
+            this.showconnected=true
+          }
+          click36()
+          {
+            this.showconnected=false
+          }
+          
 }
   
