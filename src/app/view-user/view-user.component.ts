@@ -99,7 +99,6 @@ export class ViewUserComponent implements OnInit {
             this.user=user;
             Swal.fire({
               title: 'Veuillez confirmer la désactivation!',
-              
               icon: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',

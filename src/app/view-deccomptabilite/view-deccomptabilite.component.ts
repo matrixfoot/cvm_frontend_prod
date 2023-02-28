@@ -83,6 +83,7 @@ export class ViewDeccomptabiliteComponent implements OnInit {
   filtredcollab: any[];
   prenomcollab: any;
   nomcollab: any;
+  showbuttons=false;
   constructor(
     private userservice: UserService,
     private route: ActivatedRoute,
@@ -137,7 +138,14 @@ export class ViewDeccomptabiliteComponent implements OnInit {
             {
               this.optionValue=this.deccomptabilite.affecte
             }
-           
+            if(this.deccomptabilite.statutcollab.length>0)
+            {
+ //@ts-ignore
+ if(this.deccomptabilite.statutcollab.find(e => e.statutclient==='déposé par le client'))
+ {
+   this.showbuttons=true
+ }
+            }
             this.nature=deccomptabilite.nature
             this.moisreleve=deccomptabilite.moisreleve
             this.anneereleve=deccomptabilite.anneereleve

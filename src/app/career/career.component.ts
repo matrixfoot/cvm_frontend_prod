@@ -28,30 +28,33 @@ export class CareerComponent implements OnInit {
   currentuser: any;
   activite: string;
   usertype: string;
+  isLoggedIn: boolean;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private cond: CondidateService,
     private alertService: AlertService,private tokenStorage: TokenStorageService,private userservice: UserService,) { }
 
   ngOnInit() {
-    this.currentuser = this.tokenStorage.getUser();
-    this.userservice.getUserById(this.currentuser.userId).then(
-      (user: User) => {
-        this.currentuser=user
-        this.usertype=user.usertype
-        if (this.usertype != 'Candidat') 
-        return (Swal.fire({
-          title: 'vous ne pouvez pas déposer une candidature avec votre type utilisateur existant',
-          icon: 'error',
-          confirmButtonColor: '#3085d6',
-        }).then((result) => {
-          this.router.navigate(['home'])
-          this.loading=false
-        }).catch(() => {
-          Swal.fire('opération non aboutie!')
-        })) 
-      })
-   
+    this.isLoggedIn = !!this.tokenStorage.getToken();
+    if (this.isLoggedIn) {
+      this.currentuser = this.tokenStorage.getUser();  
+      this.userservice.getUserById(this.currentuser.userId).then(
+        (user: User) => {
+          this.currentuser=user
+          this.usertype=user.usertype
+          if (this.usertype != 'Candidat') 
+          return (Swal.fire({
+            title: 'vous ne pouvez pas déposer une candidature avec votre type utilisateur existant',
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+          }).then((result) => {
+            this.router.navigate(['home'])
+            this.loading=false
+          }).catch(() => {
+            Swal.fire('opération non aboutie!')
+          })) 
+        })
+    }
     this.condidateform = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       
@@ -109,8 +112,6 @@ export class CareerComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.alertService.error(error.error.error);
-        window.scrollTo(0, 0);
       }
     );
   }

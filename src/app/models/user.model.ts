@@ -4,8 +4,8 @@ export class User {
   email: string;
   _id:string;
   Firstname:string;
-  choixfacture:string;
-  numeronote:string;
+  choixfacture:string[];
+  numeronote:string[];
   Lastname:string;
   password: string;
   confirmpassword: string;
@@ -29,6 +29,7 @@ rolesuperviseur:string
   regimefiscaltva:string
   matriculefiscale:string
   adresseactivite:string
+  dateeffet:Date;
   codepostal:string
   raisonsociale:string;
   nomsociete:string;
@@ -45,6 +46,8 @@ rolesuperviseur:string
 resetToken: Boolean;
 passwordReset:Boolean;
 updated: Date;
+connected: Boolean;
+
 desactive:{statut: string, date:Date};
 restaured:Date;
     

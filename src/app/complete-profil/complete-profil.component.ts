@@ -141,6 +141,7 @@ this.sousspecialites=[]
             image: [this.user.ficheUrl||''],
             selectactivity:[null,],
             adresseactivite: [this.user.adresseactivite,],
+            dateeffet: [this.user.dateeffet,[Validators.required]],
             codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
             underactivity: [this.user.sousactivite,],
             selectunderactivity:[null,],
@@ -193,6 +194,7 @@ this.sousspecialites=[]
               fiscalmatinchanged2: [{value:"P",disabled:true}],
               fiscalmatnumbers: ["000",[Validators.pattern(this.fiscalmatnumbersPattern),Validators.maxLength(3),Validators.required]],
               adresseactivite: [this.user.adresseactivite,],
+              dateeffet: [this.user.dateeffet,[Validators.required]],
               codepostal:[this.user.codepostal,[Validators.maxLength(4)]],
               nomsociete: [this.user.nomsociete,],
               clientcode: [{value:this.user.clientcode,disabled:true}],
@@ -238,6 +240,7 @@ this.sousspecialites=[]
     +this.userForm.get('fiscalmatinchanged2').value+'/'+this.userForm.get('fiscalmatnumbers').value;
     user.regimefiscaltva = this.userForm.get('fiscaltvaassobli').value;
     user.adresseactivite = this.userForm.get('adresseactivite').value;
+    user.dateeffet = this.userForm.get('dateeffet').value;
     user.codepostal = this.userForm.get('codepostal').value;
     user.specialite = this.userForm.get('specialite').value;
     user.sousspecialite = this.userForm.get('sousspecialite').value;
@@ -257,8 +260,7 @@ this.sousspecialites=[]
       (error) => {
         this.loading = false;
         
-        this.alertService.error(JSON.stringify(error.error.error) );
-        window.scrollTo(0, 0);
+       
         
       }
     );

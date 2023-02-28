@@ -7,6 +7,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
+import { UserService } from './services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,7 +22,9 @@ export class AppComponent implements OnInit {
   public interval$ = interval(1000);
 
   @ViewChild('childModal', { static: false }) childModal: ModalDirective;
-  constructor(private token: TokenStorageService,private modalService: BsModalService,private bnIdle: BnNgIdleService,private router: Router) {
+  constructor(private token: TokenStorageService,private modalService: BsModalService,
+    private bnIdle: BnNgIdleService,private router: Router,private userservice: UserService,
+    ) {
     
   }
 
@@ -29,6 +32,7 @@ export class AppComponent implements OnInit {
     this.currentUser = this.token.getUser();
     this.isloggedin=!!this.token.getToken();
     this.usertype=this.currentUser.usertype;
+    
     if (this.isloggedin)
     {
       setTimeout(() => this.childModal.show()
@@ -68,6 +72,7 @@ export class AppComponent implements OnInit {
   }
   logout() {
     this.childModal.hide();
+    this.userservice.disconnectUser(this.token.getUser().userId,this.token.getUser()) 
     this.token.signOut();
     this.router.navigate(['login']);
     this.reloadPage()

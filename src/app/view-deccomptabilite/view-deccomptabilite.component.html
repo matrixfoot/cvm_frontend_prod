@@ -17,18 +17,18 @@
         <th  style="text-align: center;">Statuts:</th>
         <th  style="text-align: center;">Motifs:</th>
         <th  style="text-align: center;">date traitement:</th>
-        <th  style="text-align: center;">durée cumulée de traitement:</th>
+        <th  style="text-align: center;">durée de traitement:</th>
         <th  style="text-align: center;">traité par:</th>
   
       </tr>  
       </thead>
         <tbody>
           <tr *ngFor="let statut of sortedallstatuts">
-            <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
+            <td  style="text-align: center;"><span *ngIf="statut.statutclient">{{statut.statutclient}}</span> <span *ngIf="statut.statut">{{statut.statut}}</span><span *ngIf="statut.statutcoll">{{statut.statutcoll}}</span> </td>
             <td  style="text-align: center;"> <span *ngIf="statut.statut">{{statut.motif}}</span><span *ngIf="statut.statutcoll">{{statut.motifcoll}}</span></td>
             <td  style="text-align: center;"> {{statut.datefin| customDate}}</td>
             <td  style="text-align: center;"> {{statut.duree}}</td>
-            <td  style="text-align: center;"><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
+            <td  style="text-align: center;"><span *ngIf="statut.statutclient">Client</span><span *ngIf="statut.statut">Admin</span><span *ngIf="statut.statutcoll">Collaborateur</span></td>
           </tr>
         </tbody> 
     </table>
@@ -335,7 +335,7 @@
             </table>
     </fieldset>
 </div>
-<div class="card">
+<div class="card"*ngIf="showbuttons">
     <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="affect()">Affecter collaborateur(Admin)</button>
                   <select #cricket [(ngModel)]="optionValue"*ngIf="currentUser.role=='admin'">
                     <option value="default"> </option>
@@ -343,7 +343,7 @@
                         {{col.firstname}} {{col.lastname}}
                     </option>
                   </select> 
-    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Admin)</button>
+    <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut fichier comptable (Admin)</button>
     <button type="button" class="btn btn-primary" *ngIf="currentUser.role=='supervisor'||currentUser.rolesuperviseur=='Autorisé'" (click)="getNavigation('modify-deccomptabilite', deccomptabilite._id)">Modifier Statut Déclaration fiscale (Collaborateur)</button>
 
     <button type="button" class="hidden" *ngIf="currentUser.role=='basic'" (click)="getNavigation('modify-deccomptabilite',deccomptabilite._id)">Modifier/Compléter</button>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
+              private userservice: UserService,
               private tokenStorage: TokenStorageService
               ) { }
 
@@ -61,6 +63,10 @@ export class LoginComponent implements OnInit {
         this.firstname=this.tokenStorage.getUser().Firstname;
         this.lastname=this.tokenStorage.getUser().Lastname;
         this.civilite=this.tokenStorage.getUser().civilite;
+        console.log(this.tokenStorage.getUser().userId)
+        console.log(this.tokenStorage.getUser())
+
+        this.userservice.connectUser(this.tokenStorage.getUser().userId,this.tokenStorage.getUser())
         this.router.navigate(['home'])
         this.reloadPage();
         
@@ -69,7 +75,6 @@ export class LoginComponent implements OnInit {
       },
       error: error => {
         this.loading = false;
-        this.errorMessage = JSON.stringify(error.error.error);
         this.isLoginFailed = true;
       }
     });

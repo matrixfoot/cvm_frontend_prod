@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Deccomptabilite } from '../models/dec-comptabilite';
 const API_URL_test= 'http://localhost:3000/api/deccomptabilite/';
-const API_URL_cloud= 'https://filthy-ruby-moose.cyclic.app/api/deccomptabilite/'
+const API_URL_cloud= 'http://196.203.16.222:3001/api/deccomptabilite/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -132,21 +132,21 @@ return new Promise((resolve, reject) => {
           );
         });
       }
-    
+     
      
     
-      modify(id: string, deccomptabilitereq: Deccomptabilite, image3: File[]|string, image5: File[]|string, image6: File[]|string) {
+      modify(id: string,deccomptabilite: Deccomptabilite, image3: File[], image5: File[], image6: File[]) {
         return new Promise((resolve, reject) => {
           const deccomptabiliteData = new FormData();
-        const filtredautre3=this.filterByValue(deccomptabilitereq.autre3,'true')
-        const filtredautre5=this.filterByValue(deccomptabilitereq.autre5,'true')
-        const filtredautre6=this.filterByValue(deccomptabilitereq.autre6,'true')
+        const filtredautre3=this.filterByValue(deccomptabilite.autre3,'true')
+        const filtredautre5=this.filterByValue(deccomptabilite.autre5,'true')
+        const filtredautre6=this.filterByValue(deccomptabilite.autre6,'true')
 
-        deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilitereq));
+        deccomptabiliteData.append('deccomptabilite', JSON.stringify(deccomptabilite));
         
           for (let i = 0; i < image3.length; i++)
           {
-            deccomptabiliteData.append('image', image3[i],'t'+filtredautre3[i].type+filtredautre3[i].fournisseur+filtredautre3[i].numerofacture+deccomptabilitereq.mois+deccomptabilitereq.annee); 
+            deccomptabiliteData.append('image', image3[i],'t'+filtredautre3[i].type+filtredautre3[i].fournisseur+filtredautre3[i].numerofacture+deccomptabilite.mois+deccomptabilite.annee); 
           }
         
        
@@ -157,10 +157,10 @@ return new Promise((resolve, reject) => {
         
           for (let i = 0; i < image6.length; i++)
           {
-            deccomptabiliteData.append('image', image6[i],'t'+filtredautre6[i].type+filtredautre6[i].matricule+deccomptabilitereq.mois+deccomptabilitereq.annee); 
+            deccomptabiliteData.append('image', image6[i],'t'+filtredautre6[i].type+filtredautre6[i].matricule+deccomptabilite.mois+deccomptabilite.annee); 
           }
         console.log(deccomptabiliteData)
-          this.http.put(API_URL_cloud + id, deccomptabiliteData).subscribe(
+          this.http.put(API_URL_test + id, deccomptabiliteData).subscribe(
             (response) => {
               resolve(response);
             },

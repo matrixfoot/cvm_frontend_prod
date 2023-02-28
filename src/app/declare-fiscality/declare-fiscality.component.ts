@@ -373,7 +373,8 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
   chiffreaffaireht=0.000;
   tclammount19= 0.000;
   chiffreaffaireht19=0.000;
-  
+  currentdate=new Date()
+  date1=new Date('04.01.2023')
   constructor(private token: TokenStorageService,private router: Router,private route: ActivatedRoute,
     private alertService: AlertService,private usersservice: UserService,private DecfiscmensService :DecfiscmensService,private fb: FormBuilder) {
     super();
@@ -389,7 +390,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
     else return (
       this.token.saved=true,
       this.router.navigate(['login']));  
-    this.tauxdt=0.600      
+    this.tauxdt=0.600        
     this.usersservice.getUserById(this.currentUser.userId).then(
             (user: User) => {
               this.loading = false;
@@ -957,7 +958,7 @@ export class DeclareFiscalityComponent extends ComponentCanDeactivate implements
       confirmButtonColor: '#3085d6',
     }),this.router.navigate(['home']))
       if (!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
-      || user.regimefiscalimpot=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'|| !user.dateeffet
       || !user.regimefiscalimpot || user.matriculefiscale.length<17) 
       return (console.log(this.token.saved=true,this.token.saved),this.router.navigate(['complete-profil/'+this.currentUser.userId]))
       if ( !user.ficheUrl) 
@@ -1106,21 +1107,25 @@ if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpam
 }
 else
 {
-  if (this.user.regimefiscalimpot==='Réel'&&this.option54Value=='2023')  
+  if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
   {
+   console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=20.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value=='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
 
   }
-  else if (this.user.regimefiscalimpot==='Réel'&&this.option54Value!='2023')  
+  else if (this.user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=10.000
   }  
-  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.option54Value!='2023') 
+  else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
   {
+    console.log(this.date1,this.currentdate) 
    this.prepminimumperceptionammount=5.000
 
   }
@@ -2806,17 +2811,16 @@ this.DecfiscmensService.create(decfiscmens).then(
       this.standarddroittimbreform.patchValue({
         taux:this.tauxdt
       })
-      if (this.user.regimefiscalimpot==='Réel')  
-      {
-       this.prepminimumperceptionammount=20.000
-      }  
-      else if (this.user.regimefiscalimpot==='Forfait D\'assiette') 
-      {
-       this.prepminimumperceptionammount=10.000
-
-      }
     }
-    
+    if (this.user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
+    {
+     this.prepminimumperceptionammount=20.000
+    }  
+    else if (this.user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
+    {
+     this.prepminimumperceptionammount=10.000
+
+    }
     let date=new Date()
     let anneactuel=date.getFullYear()
     let moisactuel=date.getMonth()+1

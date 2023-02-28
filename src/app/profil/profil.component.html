@@ -10,8 +10,8 @@
       <div class="container-fluid">
         <h4 >Utilisateur connecté:</h4><hr><h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
         <h4>Nature utilisateur:<b>  {{ user.nature }}</b></h4>
-        <h4>Crée le(heure GMT):<b>  {{ user.created }}</b></h4>
-        <h4>Dernière modificationle(heure GMT):<b>  {{ user.updated }}</b></h4>
+        <h4>Crée le(heure GMT):<b>  {{ user.created | customDate}}</b></h4>
+        <h4>Dernière modificationle(heure GMT):<b>  {{ user.updated | customDate}}</b></h4>
         <h4>Numéro mobile:<b>  {{ user.mobile }}</b></h4>
         <h4>Type utilisateur:<b>  {{ user.usertype }}</b></h4>
         <h4 class="hidden">Fonction:<b>  {{ user.fonction }}</b></h4>
@@ -31,6 +31,7 @@
         <h4>Régime fiscal en matières de TVA:<b>  {{ user.regimefiscaltva }}</b></h4>
         <h4>Matricule Fiscale:<b>  {{ user.matriculefiscale }}</b></h4>
         <h4>Adresse D'activité:<b>  {{ user.adresseactivite}}</b></h4>
+        <h4>Date d'effet:<b>  {{ user.dateeffet | customDate}}</b></h4>
         <h4>Code Postal:<b>  {{ user.codepostal }}</b></h4>
       </div>
       <div *ngIf="user.usertype=='Client'"><button type="button" class="btn btn-success" (click)="getNavigation('complete-profil', currentUser.userId)" 
