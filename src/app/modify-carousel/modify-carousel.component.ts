@@ -55,7 +55,37 @@ export class ModifyCarouselComponent implements OnInit {
             rang: [carousel.rang],
 
             description: [carousel.description],
-            file: [carousel.ficheUrl]
+            file: [carousel.ficheUrl],
+              //@ts-ignore
+
+            type: [carousel.tarifs[0].type],
+              //@ts-ignore
+
+            annee: [carousel.tarifs[0].annee],
+              //@ts-ignore
+
+            debut: [carousel.tarifs[0].debut],
+              //@ts-ignore
+
+            fin: [carousel.tarifs[0].fin],
+              //@ts-ignore
+
+            nature: [carousel.tarifs[0].nature],
+              //@ts-ignore
+
+            natureactivite: [carousel.tarifs[0].natureactivite],
+              //@ts-ignore
+
+            activite: [carousel.tarifs[0].activite],
+              //@ts-ignore
+
+            sousactivite: [carousel.tarifs[0].sousactivite],
+              //@ts-ignore
+
+            impot: [carousel.tarifs[0].impot],
+              //@ts-ignore
+
+            prix: [carousel.tarifs[0].prix],
 
           
           });
@@ -68,14 +98,47 @@ export class ModifyCarouselComponent implements OnInit {
   );
 
 }
+setThreeNumberDecimal($event) {
+  $event.target.value = $event.target.value ? $event.target.value : 0;
+  $event.target.value = parseFloat($event.target.value).toFixed(3);
+}
 onSubmit() {
   this.loading = true;
   const carousel = new Carouselmodel();
+  carousel.tarifs=this.carousel.tarifs
   carousel._id=this.carousel._id
   carousel.titre =this.carouselform.get('titre').value;
   carousel.commentaire =this.carouselform.get('commentaire').value;
   carousel.rang =this.carouselform.get('rang').value;
   carousel.description =this.carouselform.get('description').value;
+  //@ts-ignore
+  carousel.tarifs[0].type =this.carouselform.get('type').value;
+    //@ts-ignore
+  carousel.tarifs[0].annee =this.carouselform.get('annee').value;
+    //@ts-ignore
+
+  carousel.tarifs[0].debut =this.carouselform.get('debut').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].fin =this.carouselform.get('fin').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].nature =this.carouselform.get('nature').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].natureactivite =this.carouselform.get('natureactivite').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].activite =this.carouselform.get('activite').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].sousactivite =this.carouselform.get('sousactivite').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].impot =this.carouselform.get('impot').value;
+  //@ts-ignore
+
+  carousel.tarifs[0].prix =this.carouselform.get('prix').value;
   carousel.ficheUrl = '';
   this.caro.modify(carousel._id, carousel, this.carouselform.get('file').value).then(
     (data:any) => {

@@ -4,12 +4,13 @@ import { Carouselmodel } from '../models/settings';
 import { CarouselService } from '../services/settings';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { read, utils } from "xlsx"
 import Swal from 'sweetalert2';
 import { ApiServiceService } from '../services/event.service';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { CommunService } from '../services/commun';
 
 @Component({
   selector: 'app-settings',
@@ -29,17 +30,37 @@ export class SettingsComponent implements OnInit {
   arrayBuffer: string | ArrayBuffer;
   exceljsondata: Event[];
   exceljsondata2: User[];
-
-  constructor(private token: TokenStorageService,private carousel:CarouselService,    private userservice: UserService,
-    private eve:ApiServiceService,private formBuilder: FormBuilder,
-    private router: Router,) { }
+  tarifform: FormGroup;
+  public ammounts: FormArray;
+  public type: any[]=["Tarif de base","Tarif spécial"];
+  nature: any[];
+  natureactivite: any[];
+  activite: any[];
+  sousactivite: any[];
+  regimeimpot: any[];
+  actualites: Carouselmodel[];
+  tarifs: Carouselmodel[];
+  constructor(private token: TokenStorageService,private carousel:CarouselService,private userservice: UserService,
+    private eve:ApiServiceService,private formBuilder: FormBuilder,private commun: CommunService,
+    private router: Router,) {
+      this.tarifform = this.formBuilder.group({
+        ammounts: this.formBuilder.array([ this.createammount() ])
+     });
+     }
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
+    this.nature=this.commun.nature
+    this.natureactivite=this.commun.natureactivite
+    this.activite=this.commun.activites
+    this.sousactivite=this.commun.sousactivites
+    this.regimeimpot=this.commun.regimeimpot
     this.carouselsSub = this.carousel.carousels$.subscribe(
       (carousels) => {
         this.carousels = carousels;
-        
+        this.actualites=this.carousels.filter(p => p.tarifs.length==0)
+        this.tarifs=this.carousels.filter(p => p.tarifs.length>0)
+        console.log(this.tarifs)
         this.loading = false;
       },
       (error) => {
@@ -62,8 +83,38 @@ export class SettingsComponent implements OnInit {
       
     });
   }
-  
+  createammount(): FormGroup {
+    return this.formBuilder.group({
+      type: '',
+      annee: '',
+      debut: '',
+      fin: '',
+      nature: '',
+      natureactivite: '',
+      activite: '',
+      sousactivite: '',
+      impot: '',
+      prix: '',
+    });
+  }
+
+ 
   get f() { return this.carouselform.controls; }
+  get ammountControls() {
+    return this.tarifform.get('ammounts')['controls'];
+  }
+  setThreeNumberDecimal($event) {
+    $event.target.value = $event.target.value ? $event.target.value : 0;
+    $event.target.value = parseFloat($event.target.value).toFixed(3);
+  }
+  sort()
+  {
+    this.nature.sort()
+    this.natureactivite.sort()
+    this.activite.sort()
+    this.sousactivite.sort()
+    this.regimeimpot.sort()
+  }
   saveactualite() {
     this.loading = true;
    
@@ -123,7 +174,31 @@ export class SettingsComponent implements OnInit {
     );
   }
   }
-
+  savetarif() {
+    this.loading = true;
+   
+    const carousel = new Carouselmodel();
+  carousel.tarifs =[];
+  carousel.tarifs=this.tarifform.get('ammounts').value
+      this.carousel.createwithoutfile(carousel).then(
+        (data:any) => {
+          this.carouselform.reset();
+          this.loading = false;
+          this.reloadPage()
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'tarifs ajoutée avec succès!',
+            showConfirmButton: false,
+            timer: 6000 
+          });
+        },
+        (error) => {
+          this.loading = false;
+          
+        }
+      )
+  }
   onImagePick(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.carouselform.get('image').patchValue(file);
@@ -224,6 +299,37 @@ myFunction2() {
   } else {
     Swal.fire({
       title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au formulaire d\'ajout d\'utilisateurs, voulez vous continuer?',
+      
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Réinitialiser',
+      cancelButtonText: 'Annuler',
+    }).then((result) => {
+      if (result.value) {
+        
+        this.carouselform.reset();
+        text2.style.display = "none";
+      }
+      else{
+        checkbox.checked = true
+        text2.style.display = "block";
+
+      }
+    }).catch(() => {
+      Swal.fire('opération non aboutie!');
+    });
+  }
+}
+myFunction3() {
+  var checkbox:any = document.getElementById("myCheck3");
+  var text2 = document.getElementById("bodycontainer3");
+  if (checkbox.checked == true){
+    text2.style.display = "block";
+  } else {
+    Swal.fire({
+      title: 'Vous êtes sur le point de réinitialiser tous les donnés relatifs au formulaire d\'ajout des tarifs, voulez vous continuer?',
       
       icon: 'warning',
       showCancelButton: true,

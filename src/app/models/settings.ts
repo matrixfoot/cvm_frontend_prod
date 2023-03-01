@@ -8,5 +8,6 @@ ficheUrl: string;
 description:string;  
 created:Date;
 updated: Date
+tarifs:string[]
       
     }
