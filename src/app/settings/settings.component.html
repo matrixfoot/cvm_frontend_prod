@@ -22,13 +22,55 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let carousel of carousels">
+      <tr *ngFor="let carousel of actualites">
   
         
         <td>{{carousel.titre}}</td>
         <td>{{carousel.commentaire}}</td>
         <td>{{carousel.rang}}</td>
         <td><a href="{{carousel.ficheUrl}}" target="_blank">Aperçu document joint</a></td>
+        <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2 style="text-align: center;">Paramêtrage des tarifs</h2>
+  <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+    <table class="table table-striped">
+      <thead>
+      <tr>
+  
+        
+        <th scope="col">Type tarif</th>
+        <th scope="col">Annee</th>
+        <th scope="col">Date début</th>
+        <th scope="col">Date fin</th>
+        <th scope="col">Nature utilisateur</th>
+        <th scope="col">Nature activité</th>
+        <th scope="col">Activité</th>
+        <th scope="col">Sous-activité</th>
+        <th scope="col">Régime impôt</th>
+        <th scope="col">Prix</th>
+        
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let carousel of tarifs">
+        <td>{{carousel.tarifs[0].type}}</td>
+        <td>{{carousel.tarifs[0].annee}}</td>
+        <td>{{carousel.tarifs[0].debut}}</td>
+        <td>{{carousel.tarifs[0].fin}}</td>
+        <td>{{carousel.tarifs[0].nature}}</td>
+        <td>{{carousel.tarifs[0].natureactivite}}</td>
+        <td>{{carousel.tarifs[0].activite}}</td>
+        <td>{{carousel.tarifs[0].sousactivite}}</td>
+        <td>{{carousel.tarifs[0].impot}}</td>
+        <td>{{carousel.tarifs[0].prix}}</td>
         <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
         <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
         <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
@@ -106,6 +148,134 @@
         <button class="btn btn-success" (click)="afficher()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
       </fieldset>
     <p>{{ errormsg }}</p>
+    
+  </div>
+  </div>
+  <!--add tarifs-->
+  <div class="input-container" id="Check3">
+    <label for="myCheck3">Afficher le formulaire d'ajouts de tarifs</label>
+    <input type="checkbox" id="myCheck3" (click)="myFunction3()">
+  </div>
+  <div id="bodycontainer3">
+      
+    
+
+    <div class="container-fluid"> 
+        <fieldset >
+         <legend > Tarifs</legend>
+       <form [formGroup]="tarifform">
+         <button type="button" class="hidden" (click)="addammount()">Ajouter Tarif</button>
+     <fieldset formArrayName="ammounts" 
+       *ngFor="let ammount of ammountControls; let i = index;">
+       <div [formGroupName]="i">
+         <div class="row">
+           <div class="col-6">
+               <h4>Tarif {{i + 1}}</h4>
+               <div class="col-6 text-right">
+                 <button type="button" class="hidden" (click)="removeammount(i)">Supprimer Tarif</button>
+             </div>
+           </div>
+           <div class="container-fluid">
+            <div class="col-6">
+              <div class="form-group">
+                  <label>Type Tarif</label>
+                  <select  class="input-field" placeholder="Entrer type tarif" id="activity" style="width: 150px;"formControlName="type" name="type" >
+                    <option value=""></option>
+                    <option *ngFor="let typ of type" [value]="typ">
+                      {{typ}}
+                  </option>
+                  </select>
+              </div>
+          </div>
+             <div class="col-6">
+                 <div class="form-group">
+                     <label>Annee</label>
+                     <input type="text" class="form-control" formControlName="annee" placeholder="annee"/>
+                   </div>
+             </div>
+             <div class="col-6">
+              <div class="form-group">
+                  <label>Date Début</label>
+                  <input type="date" class="form-control" formControlName="debut" placeholder="date début"/>
+                </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+                <label>Date Fin</label>
+                <input type="date" class="form-control" formControlName="fin" placeholder="date fin"/>
+              </div>
+        </div>
+        
+        <div class="col-6">
+          <div class="form-group">
+              <label>Nature</label>
+              <select  class="input-field" placeholder="Entrer nature" id="activity" style="width: 150px;"formControlName="nature" (click)="sort()"name="nature" >
+                <option value=""></option>
+                <option *ngFor="let natur of nature" [value]="natur">
+                  {{natur}}
+              </option>
+              </select>
+          </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+            <label>Nature Activité</label>
+            <select  class="input-field" placeholder="Entrer nature activité" id="activity" style="width: 150px;"formControlName="natureactivite" (click)="sort()"name="natureactivite" >
+              <option value=""></option>
+              <option *ngFor="let natureact of natureactivite" [value]="natureact">
+                {{natureact}}
+            </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Activité</label>
+          <select  class="input-field" placeholder="Entrer activité" id="activity" style="width: 150px;"formControlName="activite" (click)="sort()"name="activite" >
+            <option value=""></option>
+            <option *ngFor="let act of activite" [value]="act">
+              {{act}}
+          </option>
+          </select>
+      </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+        <label>Sous Activité</label>
+        <select  class="input-field" placeholder="Entrer sous activité" id="activity" style="width: 150px;"formControlName="sousactivite" (click)="sort()"name="sousactivite" >
+          <option value=""></option>
+          <option *ngFor="let sousact of sousactivite" [value]="sousact">
+            {{sousact}}
+        </option>
+        </select>
+    </div>
+</div>
+<div class="col-6">
+  <div class="form-group">
+      <label>Régime impôt</label>
+      <select  class="input-field" placeholder="Entrer regime impot" id="activity" style="width: 150px;"formControlName="impot" name="impot" >
+        <option value=""></option>
+        <option *ngFor="let regimpot of regimeimpot" [value]="regimpot">
+          {{regimpot}}
+      </option>
+      </select>
+  </div>
+</div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Prix</label>
+          <input type="text" onkeyup="value=value.replace(/[^0-9^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.').replace(/^0+/, '')" 
+          class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="prix" placeholder="prix"/>
+        </div>
+  </div>
+           </div>
+         </div>
+       </div>
+         </fieldset>
+       </form>
+       <button class="btn btn-success" (click)="savetarif()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Ajouter tarif</button>
+     </fieldset>
+     
     
   </div>
   </div>

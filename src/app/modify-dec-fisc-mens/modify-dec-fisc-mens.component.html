@@ -1428,33 +1428,33 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
           <tr>
             
            <td style="text-align: center;"> 
-              <div><input type="checkbox" id="myCheck8" (click)="myFunction8()"[(ngModel)]="option48Value" /></div>
+              <div><input type="checkbox" id="myCheck8" (click)="myFunction8()"[(ngModel)]="option48Value" disabled/></div>
               <div><label for="rb1">Retenue à La Source</label></div>
            </td>
            <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
-              <div><input type="checkbox" id="myCheck9" (click)="myFunction9()"[(ngModel)]="option49Value" /></div>
+              <div><input type="checkbox" id="myCheck9" (click)="myFunction9()"[(ngModel)]="option49Value" disabled/></div>
               <div><label for="rb1">TFP</label></div>
             </td>
             <td style="text-align: center;">
-              <div><input type="checkbox" id="myCheck10"(click)="myFunction10()"[(ngModel)]="option50Value" /></div>
+              <div><input type="checkbox" id="myCheck10"(click)="myFunction10()"[(ngModel)]="option50Value" disabled/></div>
               <div><label for="rb1">Foprolos</label></div>
             </td>
             <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
-              <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" /></div>
+              <div><input type="checkbox" id="myCheck11" (click)="myFunction11()"[(ngModel)]="option51Value" disabled/></div>
               <div><label for="rb1">TVA</label></div>
             </td>
             <td style="text-align: center;"*ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
             activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
             ||activite==='Sage-femmes'">
-              <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" /></div>
+              <div><input type="checkbox" id="myCheck30" (click)="myFunction30()"[(ngModel)]="option172Value" disabled/></div>
               <div><label for="rb1">Fonds de soutien à la santé publique</label></div>
             </td>
             <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
-              <div><input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" /></div>
+              <div><input type="checkbox" id="myCheck12" (click)="myFunction12()"[(ngModel)]="option52Value" disabled/></div>
               <div><label for="rb1">Droit de timbre</label></div>
             </td>
             <td style="text-align: center;"*ngIf="activite!='Syndic des copropriétaires'">
-              <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" /></div>
+              <div><input type="checkbox" id="myCheck13" (click)="myFunction13()"[(ngModel)]="option53Value" disabled/></div>
               <div><label for="rb1">TCL</label></div>
             </td>
             
@@ -1463,26 +1463,26 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
             
           <td>
             
-             <div><input *ngIf="showretenueverif===true" type="checkbox" id="myCheck24" (click)="myFunction24()"[(ngModel)]="option65Value" /></div>
+             <div><input *ngIf="showretenueverif===true" type="checkbox" id="myCheck24" (click)="myFunction24()"[(ngModel)]="option65Value" disabled/></div>
              <div><label  *ngIf="option65Value===true" style="color: green;">Validé</label></div>
              <div><label  *ngIf="option65Value===false" style="color: red;">Non Validé</label></div>
 
              
           </td>
           <td *ngIf="activite!='Syndic des copropriétaires'">
-             <div><input  *ngIf="showtfpverif===true" type="checkbox" id="myCheck25" (click)="myFunction25()"[(ngModel)]="option66Value" /></div>
+             <div><input  *ngIf="showtfpverif===true" type="checkbox" id="myCheck25" (click)="myFunction25()"[(ngModel)]="option66Value" disabled/></div>
              <div><label *ngIf="option66Value===true" style="color: green;">Validé</label></div>
              <div><label  *ngIf="option66Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
            <td>
-            <div><input *ngIf="showfoprolosverif===true" type="checkbox" id="myCheck26"(click)="myFunction26()"[(ngModel)]="option67Value" /></div>
+            <div><input *ngIf="showfoprolosverif===true" type="checkbox" id="myCheck26"(click)="myFunction26()"[(ngModel)]="option67Value" disabled/></div>
               <div><label *ngIf="option67Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option67Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
            <td *ngIf="activite!='Syndic des copropriétaires'">
-            <div><input *ngIf="showtvaverif===true" type="checkbox" id="myCheck27" (click)="myFunction27()"[(ngModel)]="option68Value" /></div>
+            <div><input *ngIf="showtvaverif===true" type="checkbox" id="myCheck27" (click)="myFunction27()"[(ngModel)]="option68Value" disabled/></div>
               <div><label *ngIf="option68Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option68Value===false" style="color: red;">Non Validé</label></div>
 
@@ -1490,19 +1490,19 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
            <td *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
            activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
            ||activite==='Sage-femmes'">
-            <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" /></div>
+            <div><input *ngIf="showfspverif===true" type="checkbox" id="myCheck31" (click)="myFunction31()"[(ngModel)]="option173Value" disabled/></div>
               <div><label *ngIf="option173Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option173Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
            <td *ngIf="activite!='Syndic des copropriétaires'">
-            <div><input *ngIf="showtimbreverif===true" type="checkbox" id="myCheck28" (click)="myFunction28()"[(ngModel)]="option69Value" /></div>
+            <div><input *ngIf="showtimbreverif===true" type="checkbox" id="myCheck28" (click)="myFunction28()"[(ngModel)]="option69Value" disabled/></div>
               <div><label *ngIf="option69Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option69Value===false" style="color: red;">Non Validé</label></div>
 
            </td>
            <td *ngIf="activite!='Syndic des copropriétaires'">
-            <div><input *ngIf="showtclverif===true" type="checkbox" id="myCheck29" (click)="myFunction29()"[(ngModel)]="option70Value" /></div>
+            <div><input *ngIf="showtclverif===true" type="checkbox" id="myCheck29" (click)="myFunction29()"[(ngModel)]="option70Value" disabled/></div>
               <div><label *ngIf="option70Value===true" style="color: green;">Validé</label></div>
               <div><label  *ngIf="option70Value===false" style="color: red;">Non Validé</label></div>
 
@@ -2277,9 +2277,9 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
             <div class="container-fluid"style="display: inline-flex;">
             
             <fieldset>   
-              <legend>TVA Collectée<span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
-                activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-                ||activite==='Sage-femmes'"> C.A à 7% (Actes de soin)</span></legend>
+              <legend>TVA Collectée<span *ngIf="decfiscmens.activite==='Médecin'||decfiscmens.activite==='Infirmier'||decfiscmens.activite==='Masseur'||decfiscmens.activite==='Physiothérapeute'||
+                decfiscmens.activite==='Ergothérapeute'||decfiscmens.activite==='Psychomotricien'||decfiscmens.activite==='Diététicien'||decfiscmens.activite==='Orthophoniste'||decfiscmens.activite==='Orthoptiste'
+                ||decfiscmens.activite==='Sage-femmes'"> C.A à 7% (Actes de soin)</span></legend>
     <form  [formGroup]="standardtvacollecteform">
 <fieldset>
 
@@ -2294,20 +2294,20 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 <div class="col-6">
   <div class="form-group"> 
     <label>Taux</label> 
-    <input type="text" class="form-control" value="13%" *ngIf="option54Value!='2023'&&activite==='Architectes'||option54Value!='2023'&&activite==='Ingénieurs-conseil'||
-    option54Value!='2023'&&activite==='Dessinateurs'||option54Value!='2023'&&activite==='Géomètres'||option54Value!='2023'&&activite==='Syndic des copropriétaires'||
-    option54Value!='2023'&&activite==='Topographes'||option54Value!='2023'&&activite==='Notaire'||option54Value!='2023'&&activite==='Huissiers notaire'
-    ||option54Value!='2023'&&activite==='Interprètes'||activite==='Expert'&&option54Value!='2023'||option54Value!='2023'&&activite==='Avocat'"disabled/>
+    <input type="text" class="form-control" value="13%" *ngIf="option54Value!='2023'&&decfiscmens.activite==='Architectes'||option54Value!='2023'&&decfiscmens.activite==='Ingénieurs-conseil'||
+    option54Value!='2023'&&decfiscmens.activite==='Dessinateurs'||option54Value!='2023'&&decfiscmens.activite==='Géomètres'||option54Value!='2023'&&decfiscmens.activite==='Syndic des copropriétaires'||
+    option54Value!='2023'&&decfiscmens.activite==='Topographes'||option54Value!='2023'&&decfiscmens.activite==='Notaire'||option54Value!='2023'&&decfiscmens.activite==='Huissiers notaire'
+    ||option54Value!='2023'&&decfiscmens.activite==='Interprètes'||decfiscmens.activite==='Expert'&&option54Value!='2023'||option54Value!='2023'&&decfiscmens.activite==='Avocat'"disabled/>
     
-    <input type="text" class="form-control" value="19%" *ngIf="option54Value==='2023'&&activite==='Architectes'||option54Value==='2023'&&activite==='Syndic des copropriétaires'
-    ||option54Value==='2023'&&activite==='Ingénieurs-conseil'||option54Value==='2023'&&activite==='Dessinateurs'||
-    option54Value==='2023'&&activite==='Géomètres'||option54Value==='2023'&&activite==='Topographes'||option54Value==='2023'&&activite==='Notaire'
-    ||option54Value==='2023'&&activite==='Huissiers notaire'||option54Value==='2023'&&activite==='Interprètes'||
-    activite==='Expert'&&option54Value==='2023'||option54Value==='2023'&&activite==='Avocat'||activite==='Consultant'"disabled/>
+    <input type="text" class="form-control" value="19%" *ngIf="option54Value==='2023'&&decfiscmens.activite==='Architectes'||option54Value==='2023'&&decfiscmens.activite==='Syndic des copropriétaires'
+    ||option54Value==='2023'&&decfiscmens.activite==='Ingénieurs-conseil'||option54Value==='2023'&&decfiscmens.activite==='Dessinateurs'||
+    option54Value==='2023'&&decfiscmens.activite==='Géomètres'||option54Value==='2023'&&decfiscmens.activite==='Topographes'||option54Value==='2023'&&decfiscmens.activite==='Notaire'
+    ||option54Value==='2023'&&decfiscmens.activite==='Huissiers notaire'||option54Value==='2023'&&decfiscmens.activite==='Interprètes'||
+    decfiscmens.activite==='Expert'&&option54Value==='2023'||option54Value==='2023'&&decfiscmens.activite==='Avocat'||decfiscmens.activite==='Consultant'"disabled/>
     
-    <input type="text" class="form-control" value="7%" *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
-    activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-    ||activite==='Sage-femmes'"disabled/>
+    <input type="text" class="form-control" value="7%" *ngIf="decfiscmens.activite==='Médecin'||decfiscmens.activite==='Infirmier'||decfiscmens.activite==='Masseur'||decfiscmens.activite==='Physiothérapeute'||
+    decfiscmens.activite==='Ergothérapeute'||decfiscmens.activite==='Psychomotricien'||decfiscmens.activite==='Diététicien'||decfiscmens.activite==='Orthophoniste'||decfiscmens.activite==='Orthoptiste'
+    ||decfiscmens.activite==='Sage-femmes'"disabled/>
 
   </div>
 </div>
@@ -2330,9 +2330,9 @@ class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event
 </fieldset>
 </form>
 </fieldset>
-<fieldset *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'||option54Value==='2023'&&sousactivite==='Médecin vétérinaire'" style="padding-left: 20px;">  
-  <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin spécialiste'||option54Value==='2023'&&sousactivite==='Médecin'||option54Value==='2023'&&sousactivite==='Médecin dentiste'">TVA Collecté C.A à 19% (Acte d'esthétique)</legend>                 
-  <legend *ngIf="option54Value==='2023'&&sousactivite==='Médecin vétérinaire'">TVA Collecté C.A à 19% (Etudes)</legend>                 
+<fieldset *ngIf="option54Value==='2023'&&decfiscmens.activite==='Médecin spécialiste'||option54Value==='2023'&&decfiscmens.activite==='Médecin'||option54Value==='2023'&&decfiscmens.activite==='Médecin dentiste'||option54Value==='2023'&&decfiscmens.activite==='Médecin vétérinaire'" style="padding-left: 20px;">  
+  <legend *ngIf="option54Value==='2023'&&decfiscmens.activite==='Médecin spécialiste'||option54Value==='2023'&&decfiscmens.activite==='Médecin'||option54Value==='2023'&&decfiscmens.activite==='Médecin dentiste'">TVA Collecté C.A à 19% (Acte d'esthétique)</legend>                 
+  <legend *ngIf="option54Value==='2023'&&decfiscmens.activite==='Médecin vétérinaire'">TVA Collecté C.A à 19% (Etudes)</legend>                 
   <form  [formGroup]="standardtvacollecte19form">
   <fieldset style="padding-left: 20px;">
 

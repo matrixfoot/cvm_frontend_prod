@@ -3,7 +3,7 @@
   <body>
 <div class="card">
       
-      <div class="container-fluid">
+      <div class="container-fluid"*ngIf="carousel.tarifs.length==0">
         <h4 >Données Actualité:</h4><hr>
         <h4>Crée le(heure GMT):<b>  {{ carousel.created }}</b></h4>
         <h4>Dernière modification  le(heure GMT):<b>  {{ carousel.updated }}</b></h4>
@@ -12,7 +12,21 @@
         <h4>Description:<b>  {{ carousel.description }}</b></h4>
         <h4>document joint:<b><a href="{{carousel.ficheUrl}}" target="_blank">Aperçu document joint</a></b></h4>
       </div>
-      
+      <div class="container-fluid"*ngIf="carousel.tarifs.length>0">
+        <h4 >Données Tarifs:</h4><hr>
+        <h4>Crée le(heure GMT):<b>  {{ carousel.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ carousel.updated }}</b></h4>
+        <h4>Type tarif:<b>  {{ carousel.tarifs[0].type }}</b></h4>
+        <h4>Annee:<b>  {{ carousel.tarifs[0].annee }}</b></h4>
+        <h4>Date début:<b>  {{ carousel.tarifs[0].debut }}</b></h4>
+        <h4>Date fin:<b>  {{ carousel.tarifs[0].fin }}</b></h4>
+        <h4>Nature utilisateur:<b>  {{ carousel.tarifs[0].nature }}</b></h4>
+        <h4>Nature activité:<b>  {{ carousel.tarifs[0].natureactivite }}</b></h4>
+        <h4>Activité:<b>  {{ carousel.tarifs[0].activite }}</b></h4>
+        <h4>Sous-activité:<b>  {{ carousel.tarifs[0].sousactivite }}</b></h4>
+        <h4>Régime d'impôt:<b>  {{ carousel.tarifs[0].impot }}</b></h4>
+        <h4>Prix:<b>  {{ carousel.tarifs[0].prix }}</b></h4>
+      </div>
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-carousel', carousel._id)">Modifier actualité</button>
       <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer Actualié</button>
 
