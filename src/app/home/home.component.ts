@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   sortedcarousels: Carouselmodel[];
   noWrapSlides = false;
   showIndicator = true;
+  actualites: Carouselmodel[];
   constructor(
     private carousel:CarouselService,private router: Router
   ) {}
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
     this.carouselsSub = this.carousel.carousels$.subscribe(
       (carousels) => {
         this.carousels = carousels; 
-        this.sortedcarousels=this.carousels.sort((a, b) => a.rang - b.rang);
+        this.actualites=this.carousels.filter(p => p.tarifs.length==0)
+        this.sortedcarousels=this.actualites.sort((a, b) => a.rang - b.rang);
       },
       (error) => {
         
