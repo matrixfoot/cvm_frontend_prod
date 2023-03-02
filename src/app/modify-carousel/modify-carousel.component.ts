@@ -140,7 +140,7 @@ onSubmit() {
 
   carousel.tarifs[0].prix =this.carouselform.get('prix').value;
   carousel.ficheUrl = '';
-  this.caro.modify(carousel._id, carousel, this.carouselform.get('file').value).then(
+  this.caro.modify(carousel._id, carousel, this.carouselform.get('file').value||'').then(
     (data:any) => {
       console.log(data)
       this.loading = false;

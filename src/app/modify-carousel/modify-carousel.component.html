@@ -133,15 +133,7 @@
     class="form-control"appTwoDigitDecimaNumber (blur)="setThreeNumberDecimal($event)" formControlName="prix" placeholder="prix"/>
   </div>
 </div>
-<div class="form-group" >
-  <label for="inputCV">Attacher votre document joint</label>                   
- <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf" disabled>
- <div class="image-preview" *ngIf="imagePreview">
-   <img [src]="imagePreview" alt="">
- </div>
- <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
 
-</div>
       <button class="btn btn-success" (click)="onSubmit()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Modifier Actualité</button>
     </form> 
   </div>
