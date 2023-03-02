@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   sortedcarousels: Carouselmodel[];
   noWrapSlides = false;
   showIndicator = true;
+  actualites: Carouselmodel[];
   constructor(
     private carousel:CarouselService,private router: Router
   ) {}
