@@ -1790,7 +1790,6 @@ calculateResultForm23()
   
     const chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
-    this.ammounttc19 =+this.standardtvacollecte19form.get('ammountttc').value
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
@@ -1798,16 +1797,21 @@ calculateResultForm23()
     console.log(this.tauxtva)
     console.log(this.activite)
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
-      const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
-      const tclapayer=+ Math.trunc(((+ammountttc+ +this.ammounttc19)*+taux2)*1000)/1000;
-      const montantcontribution=+ Math.trunc(((+chiffreaffaireht+ +chiffreaffaireht19)*+taux3)*1000)/1000;
-      this.chiffreaffaireht=chiffreaffaireht
-      this.chiffreaffaireht19=chiffreaffaireht19
-      this.ammountttc=ammountttc
-      this.tclammount=tclapayer
-      this.totaltclammount=Math.trunc((this.tclammount+this.tclammount19)*1000)/1000
-      this.totalfspammount=Math.trunc((this.fspammount+this.fspammount19)*1000)/1000
-      this.fspammount=montantcontribution
+    const tvaammount19=+ Math.trunc((+chiffreaffaireht19*0.19)*1000)/1000;
+    const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
+    const ammountttc19=+ Math.trunc((+tvaammount19+ +chiffreaffaireht19)*1000)/1000
+    const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+    const montantcontribution19=+ Math.trunc((+chiffreaffaireht19*+taux3)*1000)/1000;
+    this.chiffreaffaireht=chiffreaffaireht
+    this.chiffreaffaireht19=chiffreaffaireht19
+    this.ammountttc=ammountttc
+    this.ammounttc19=ammountttc19
+    this.fspammount=montantcontribution
+    this.fspammount19=montantcontribution19
+    this.totalfspammount=+this.fspammount+ +this.fspammount19
+    this.tclammount=+ (Math.trunc((+ammountttc*+taux2)*1000)/1000);
+    this.tclammount19=+ (Math.trunc((+ammountttc19*+taux2)*1000)/1000);
+    this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000  
       this.tvacollecte=tvaammount
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
@@ -1825,25 +1829,36 @@ calculateResultForm23()
           chiffreaffaireht:this.chiffreaffaireht+this.chiffreaffaireht19,
           montantcontribution:this.totalfspammount
         });
+        this.standardfspform.updateValueAndValidity();
   }
   calculateResultForm38()
   {
   
     const ammountttc=+this.standardtvacollecteform.get('ammountttc').value
-    this.ammounttc19=+this.standardtvacollecte19form.get('ammountttc').value
-    this.chiffreaffaireht19=+this.standardtvacollecte19form.get('chiffreaffaireht').value
+    const ammountttc19=+this.standardtvacollecte19form.get('ammountttc').value
+   
     const taux=+this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount19=+ Math.trunc(((+ammountttc19*+0.19)/(1+ +0.19))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.tclammount=+ Math.trunc(((+ammountttc+ +this.ammounttc19)*+taux2)*1000)/1000;
-      const montantcontribution=+ Math.trunc(((+ammountht+ +this.chiffreaffaireht19)*+taux3)*1000)/1000;
+      const ammountht19=+ Math.trunc((+ammountttc19- +tvaammount19)*1000)/1000
+      this.ammountttc=ammountttc
+      this.ammounttc19=ammountttc19
+      this.chiffreaffaireht=ammountht
+      this.chiffreaffaireht19=ammountht19
+      this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.tclammount19=+ Math.trunc((ammountttc19*taux2)*1000)/1000;
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
+      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution19=+ Math.trunc((+ammountht19*+taux3)*1000)/1000;
       this.fspammount=montantcontribution
+      this.fspammount19=montantcontribution19
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tvacollecte=tvaammount
       this.totaltclammount=Math.trunc((this.tclammount+this.tclammount19)*1000)/1000
       this.totalfspammount=Math.trunc((this.fspammount+this.fspammount19)*1000)/1000
-      this.ammountttc=ammountttc
-      this.chiffreaffaireht=ammountht
       this.standardtvacollecteform.patchValue({
         tvaammount: tvaammount, 
         chiffreaffaireht: ammountht
@@ -1863,24 +1878,30 @@ calculateResultForm23()
   }
   calculateResultForm44()
   {
-  
     const chiffreaffaireht=+this.standardtvacollecte19form.get('chiffreaffaireht').value
-    this.chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-    this.ammountttc=+this.standardtvacollecteform.get('ammountttc').value
+    const chiffreaffaireht07=+this.standardtvacollecteform.get('chiffreaffaireht').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
-   
+    
     const tvaammount=+ Math.trunc((+chiffreaffaireht*+taux)*1000)/1000;
+    const tvaammount07=+ Math.trunc((+chiffreaffaireht*+taux4)*1000)/1000;
       const ammountttc=+ Math.trunc((+tvaammount+ +chiffreaffaireht)*1000)/1000
-      const tclapayer=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      const ammountttc07=+ Math.trunc((+tvaammount07+ +chiffreaffaireht07)*1000)/1000
       const montantcontribution=+ Math.trunc((+chiffreaffaireht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+chiffreaffaireht07*+taux3)*1000)/1000;
       this.chiffreaffaireht19=chiffreaffaireht
-      this.ammounttc19=ammountttc
-      this.tclammount19=tclapayer
+      this.chiffreaffaireht=chiffreaffaireht07
+      this.fspammount=montantcontribution07
       this.fspammount19=montantcontribution
-      this.totaltclammount=Math.trunc((this.tclammount+this.tclammount19)*1000)/1000
-      this.totalfspammount=Math.trunc((this.fspammount+this.fspammount19)*1000)/1000
+      this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
+      this.tclammount=+ Math.trunc((+ammountttc07*+taux2)*1000)/1000;
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
+
       this.tvacollecte19=tvaammount
       this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
@@ -1903,25 +1924,29 @@ calculateResultForm23()
   {
   
     const ammountttc=+this.standardtvacollecte19form.get('ammountttc').value
-    this.chiffreaffaireht=+this.standardtvacollecteform.get('chiffreaffaireht').value
-    this.ammountttc=+this.standardtvacollecteform.get('ammountttc').value
-
-
+    const ammountttc07=+this.standardtvacollecteform.get('ammountttc').value
     const taux=0.19
+    const taux4=this.tauxtva
     const taux2=+this.standardtclform.get('taux').value
     const taux3=+this.standardfspform.get('taux').value
     const tvaammount=+ Math.trunc(((+ammountttc*+taux)/(1+ +taux))*1000)/1000;
+    const tvaammount07=+ Math.trunc(((+ammountttc07*+taux4)/(1+ +taux4))*1000)/1000;
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
-      this.tclammount19=+ Math.trunc((+ammountttc*+taux2)*1000)/1000;
-      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
-      this.fspammount19=montantcontribution
-      this.totaltclammount=Math.trunc((this.tclammount+this.tclammount19)*1000)/1000
-      this.totalfspammount=Math.trunc((this.fspammount+this.fspammount19)*1000)/1000
-      this.tvacollecte19=tvaammount
-      this.ammounttc19=ammountttc
+      const ammountht07=+ Math.trunc((+ammountttc07- +tvaammount07)*1000)/1000
+
       this.chiffreaffaireht19=ammountht
-      console.log(this.chiffreaffaireht)
-console.log(this.chiffreaffaireht19)
+      this.chiffreaffaireht=ammountht07
+      this.tclammount=+ Math.trunc((ammountttc07*taux2)*1000)/1000;
+      this.tclammount19=+ Math.trunc((ammountttc*taux2)*1000)/1000;
+      this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
+      const montantcontribution=+ Math.trunc((+ammountht*+taux3)*1000)/1000;
+      const montantcontribution07=+ Math.trunc((+ammountht07*+taux3)*1000)/1000;
+      this.ammounttc19=ammountttc
+      this.ammountttc=ammountttc07
+      this.fspammount19=montantcontribution
+      this.fspammount=montantcontribution07
+      this.totalfspammount=+this.fspammount+ +this.fspammount19
+      this.tvacollecte19=tvaammount
       this.standardtvacollecte19form.patchValue({
         tvaammount: tvaammount, 
         chiffreaffaireht: ammountht
