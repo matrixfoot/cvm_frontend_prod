@@ -1632,6 +1632,7 @@ calculateResultForm1()
           chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
           montantcontribution:this.totalfspammount
         });
+        this.standardfspform.updateValueAndValidity();
   }
   calculateResultForm38()
   {
@@ -1646,9 +1647,9 @@ calculateResultForm1()
       const ammountht=+ Math.trunc((+ammountttc- +tvaammount)*1000)/1000
       const ammountht19=+ Math.trunc((+ammountttc19- +tvaammount19)*1000)/1000
       this.ammountttc=ammountttc
-      this.ammountttc=ammountttc19
+      this.ammounttc19=ammountttc19
       this.chiffreaffaireht=ammountht
-      this.chiffreaffaireht=ammountht19
+      this.chiffreaffaireht19=ammountht19
       this.tclammount=+ Math.trunc((ammountttc*taux2)*1000)/1000;
       this.tclammount19=+ Math.trunc((ammountttc19*taux2)*1000)/1000;
       this.totaltclammount= Math.trunc((+this.tclammount+ +this.tclammount19)*1000)/1000
@@ -1674,6 +1675,8 @@ calculateResultForm1()
           chiffreaffaireht:+this.chiffreaffaireht+ +this.chiffreaffaireht19,
           montantcontribution:+this.totalfspammount
         });
+        this.standardfspform.updateValueAndValidity();
+
   }
   calculateResultForm44()
   {
