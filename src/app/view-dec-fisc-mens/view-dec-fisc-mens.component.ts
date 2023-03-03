@@ -24,6 +24,7 @@ import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { interval, Subscription } from 'rxjs';
 import { Sort } from '../_helpers/sort';
 import { CommunService } from '../services/commun';
+import { CarouselService } from '../services/settings';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -61,6 +62,9 @@ maincontainer=false;
   statusadmin: string[];
   totaltime: number;
   showbuttons= false;
+  settingsSub: Subscription;
+  settings: any [];
+  tarifs: any [];
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -127,7 +131,7 @@ public decfiscmens=new Decfiscmens;
 
     private token: TokenStorageService,private commun: CommunService,
     private excelService: ExcelService,
-    private userservice: UserService,
+    private userservice: UserService,private settservice: CarouselService,
     ){} 
   ngOnInit() {
     this.loading = true;
@@ -150,10 +154,22 @@ public decfiscmens=new Decfiscmens;
         this.errormsg=error.message;
       }
     );
+    this.settservice.getCarouselalldata()
+    this.settingsSub = this.settservice.carousels$.subscribe(
+      (settings) => {
+        this.settings = settings;
+        this.tarifs=this.settings.filter(p => p.tarifs.length>0)
+        console.log(this.tarifs)
+        },
+      (error) => {
+        this.loading = false;
+        this.errormsg=error.message;
+      }
+    );
     
   }
     this.route.params.subscribe(
-      (params: Params) => {
+      (params: Params) => { 
         this.dec.getDecfiscmensreqById(params.id).then(
           (decfiscmens: Decfiscmens) => {
             this.allstatuts=[]
@@ -161,10 +177,10 @@ public decfiscmens=new Decfiscmens;
             this.loading = false;
             this.decfiscmens = decfiscmens;
             this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
-            this.totaltime = +this.allstatuts.reduce((acc,curr)=>{
-              acc += +(curr.duree || 0);
+            this.totaltime = Math.floor(+this.allstatuts.reduce((acc,curr)=>{
+              acc +=  +(curr.duree || 0);
               return acc;
-            },0);
+            },0)/60);
             this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
             if(this.decfiscmens.affecte)
             {

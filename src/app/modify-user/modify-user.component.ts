@@ -30,7 +30,7 @@ export class ModifyUserComponent implements OnInit {
   public option2Value:any;
   public option3Value:any;
   public submitted=false;
-  fiscalmatPattern = "^[1-9]{7}$";
+  fiscalmatPattern = "^[0-9]{7}$";
   fiscalmatletterPattern="^[A-Z]{1}$";
   fiscalmatnumbersPattern="^[0-9]{3}$";
   codepostalPattern: "^[a-zA-Z0-9]+{4}$"

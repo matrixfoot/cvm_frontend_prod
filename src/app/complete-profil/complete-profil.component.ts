@@ -35,7 +35,7 @@ export class CompleteProfilComponent implements OnInit {
   public option1Value:any;
   public option2Value:any;
   public option3Value:any;
-  fiscalmatPattern = "^[1-9]{7}$";
+  fiscalmatPattern = "^[0-9]{7}$";
   fiscalmatletterPattern="^[A-Z]{1}$";
   fiscalmatnumbersPattern="^[0-9]{3}$";
   errormsg:string;

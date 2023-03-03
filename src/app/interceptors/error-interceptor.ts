@@ -48,7 +48,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              html: error.error,
+              html: error.error.error,
             })};
           return throwError(errorMsg);
         })
