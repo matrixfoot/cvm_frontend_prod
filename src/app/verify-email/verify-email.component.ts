@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { AlertService } from '../_helpers/alert.service';
 import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 enum EmailStatus {
     Verifying,
@@ -32,7 +33,10 @@ export class VerifyEmailComponent implements OnInit {
         this.emailStatus= EmailStatus.Verifying;
         this.route.params.subscribe(
             (params:Params)=>{
-                this.token=params.token
+             this.accountService.getUserById(params.token).then(
+                (user: User) => {
+                  this.token = user.accessToken;
+                });
             }
         )
 
