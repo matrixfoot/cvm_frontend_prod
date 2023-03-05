@@ -66,7 +66,6 @@ this.lastname= user.Lastname;
         console.log(this.Auth.getUser())
     this.userservice.disconnectUser(this.Auth.getUser().userId,this.Auth.getUser()) 
     this.Auth.signOut();
-    this.router.navigate(['login']);  
 this.reloadPage()
       }
       else{

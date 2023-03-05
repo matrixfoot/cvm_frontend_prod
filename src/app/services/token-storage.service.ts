@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import { User } from '../models/user.model';
 const TOKEN_KEY = 'x-access-token';
 const USER_KEY = 'user';
 
@@ -12,11 +13,16 @@ export class TokenStorageService {
   saved=false
   constructor(private router: Router,private userservice: UserService,) { }
   signOut(): void {
-    console.log(this.saved)
-    this.userservice.disconnectUser(this.getUser().userId,this.getUser())
-    console.log(this.getUser().connected)
-    window.localStorage.clear();
-    this.saved=true
+    this.userservice.getUserById(this.getUser().userId).then(
+      (user:User)=>
+      {
+        this.userservice.disconnectUser(this.getUser().userId,user)
+        window.localStorage.clear();
+        this.router.navigate(['login']);  
+        this.saved=true
+      }
+    )
+    
     
   }
   public saveToken(token: string): void {
