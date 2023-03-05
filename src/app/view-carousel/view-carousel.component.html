@@ -28,7 +28,7 @@
         <h4>Prix:<b>  {{ carousel.tarifs[0].prix }}</b></h4>
       </div>
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-carousel', carousel._id)">Modifier actualité</button>
-      <button type="button" class="btn btn-danger"(click)="onDelete()">supprimer Actualié</button>
+      <button type="button" class="btn btn-danger"*ngIf="currentUser.role=='admin'"(click)="onDelete()">supprimer Actualié</button>
 
     </div>
     

@@ -2732,6 +2732,9 @@ this.DecfiscmensService.create(decfiscmens).then(
 )
 
 }
+actionMethod(event: any) {
+  event.target.disabled = true;
+}
   ngOnDestroy(){
     if(this.isLoggedIn)
     {
