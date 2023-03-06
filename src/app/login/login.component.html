@@ -10,50 +10,26 @@
   <div class="container-fluid">
     <div id="loader" *ngIf="loading"></div>
     <div class="container-fluid" *ngIf="!loading && !isLoggedIn">
+      <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" [formGroup]="loginForm" 
       
-      <form [formGroup]="loginForm" 
-      
-      (ngSubmit)="loginform.valid && onSubmit()"novalidate>
-        <div class="row">
-          <h2 style="text-align:center">Connectez vous avec vos réseaux sociaux ou manuellement</h2>
-          <div class="vl">
-            <span class="vl-innertext">OU</span>
-          </div>
-    
-          <div class="col">
-            <a href="#" class="fb btn" style="min-width: max-content;">
-              <i class="fa fa-facebook fa-fw"></i> Connectez vous avec  Facebook
-             </a>
-            <a href="#" class="twitter btn" style="min-width: max-content;">
-              <i class="fa fa-twitter fa-fw"></i> Connectez vous avec Twitter
-            </a>
-            <a href="#" class="google btn" style="min-width: max-content;"><i class="fa fa-google fa-fw">
-              </i> Connectez vous avec  Google+
-            </a>
-          </div>
-    
-          <div class="col">
-            <div class="hide-md-lg">
-              <p>Ou Connectez vous manuellement:</p>
-            </div>
-   
-            <input type="email" class="formcontrol" formControlName="email" placeholder="Email" required>
-            
-            <input type="password" formControlName="password" placeholder="Mot De Passe" required>
-            <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
-            <p style="color: red;">{{ errorMessage }}</p>
-          </div>
-        </div>
-      </form>
-    
-      
+        (ngSubmit)="loginform.valid && onSubmit()"novalidate>
+        <span id="reauth-email" class="reauth-email"></span>
+        <input type="email" id="inputEmail" class="form-control"formControlName="email" placeholder="Adresse Email" required autofocus>
+        <input type="password" id="inputPassword" class="form-control"formControlName="password" placeholder="Mot de passe" required>
+        <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
+        </form>
+    </div><!-- /card-container -->
     <div class="bottom-container">
       <div class="row">
         <div class="col">
-          <a routerLink="signup" routerLinkActive="active" style="color:white" class="btn">Inscrivez Vous</a>
+          <a routerLink="signup" routerLinkActive="active" style="color:white; cursor: pointer;" class="btn">Inscrivez Vous</a>
         </div>
         <div class="col">
-          <a  routerLink="forgot-password" routerLinkActive="active"style="color:white" class="btn">Mot de Passe Oublié?</a>
+          <a  routerLink="forgot-password" routerLinkActive="active"style="color:white;cursor: pointer" class="btn">Mot de Passe Oublié?</a>
         </div>
       </div>
     </div>
