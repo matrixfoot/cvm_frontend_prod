@@ -16,6 +16,7 @@ export class TokenStorageService {
     this.userservice.getUserById(this.getUser().userId).then(
       (user:User)=>
       {
+        user.connected=false
         this.userservice.disconnectUser(this.getUser().userId,user)
         window.localStorage.clear();
         this.router.navigate(['login']);  
