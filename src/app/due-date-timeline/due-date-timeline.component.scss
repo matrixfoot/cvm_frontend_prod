@@ -11,30 +11,19 @@
   border-top: 16px solid #3498db;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
-  margin-top: 200px;
   }
 table {
-  position: absolute;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   border: 1px solid #ddd;
-  z-index: 2;
   background-color: transparent;
   table-layout:fixed;
-  margin-top: 90px;
+  background-image: url("../../assets/cachet\ macompta.png");
+  background-size:100% 100%;
 
 }
-#diagonaltext
-{
-  position: absolute;
-  rotate: -60deg;
-  opacity: 0.2;
-  font-size:80px;
-  margin-top:130px;
-  z-index: 1;
-  color: red;
-}
+
 
 .container-fluid{
   margin-top: 20px;

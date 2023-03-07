@@ -259,15 +259,15 @@
                         <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
                         <td>
                           <span *ngIf="dossenc.statutadmin">
-                            <ng-container *ngFor="let statut of dossenc.statutadmin">
-                              <td  style="display: block;">{{statut.statut}}</td>
+                            <ng-container *ngFor="let statut of dossenc.statutadmin; let j=index">
+                              <td  *ngIf="j==dossenc.statutadmin.length-1"style="display: block;">{{statut.statut}}</td>
                             </ng-container>
                           </span>  
                         </td>
                         <td>
                           <span *ngIf="dossenc.statutcollab">
-                            <ng-container *ngFor="let statut of dossenc.statutcollab">
-                              {{statut.statutcoll}}
+                            <ng-container *ngFor="let statut of dossenc.statutcollab; let k=index">
+                              <td *ngIf="k==dossenc.statutcollab.length-1">{{statut.statutcoll}}</td>
                             </ng-container>
                           </span>     
                         </td> 
@@ -950,18 +950,18 @@
                       <td>{{nomfisc}}</td>
                       <td>
                         <span *ngIf="decfiscmens.statutadmin">
-                          <ng-container *ngFor="let statut of decfiscmens.statutadmin">
-                            <td  style="display: block;">{{statut.statut}}</td>
+                          <ng-container *ngFor="let statut of decfiscmens.statutadmin; let j=index">
+                            <td  *ngIf="j==decfiscmens.statutadmin.length-1"style="display: block;">{{statut.statut}}</td>
                           </ng-container>
                         </span>  
                       </td>
                       <td>
                         <span *ngIf="decfiscmens.statutcollab">
-                          <ng-container *ngFor="let statut of decfiscmens.statutcollab">
-                            {{statut.statutcoll}}
+                          <ng-container *ngFor="let statut of decfiscmens.statutcollab; let k=index">
+                            <td *ngIf="k==decfiscmens.statutcollab.length-1">{{statut.statutcoll}}</td>
                           </ng-container>
                         </span>     
-                      </td> 
+                      </td>  
                       <td>{{decfiscmens.created}}</td>
                       
                       
@@ -1035,18 +1035,18 @@
                       <td>{{nomfisc}}</td>
                       <td>
                         <span *ngIf="decfiscmens.statutadmin">
-                          <ng-container *ngFor="let statut of decfiscmens.statutadmin">
-                            <td  style="display: block;">{{statut.statut}}</td>
+                          <ng-container *ngFor="let statut of decfiscmens.statutadmin; let j=index">
+                            <td  *ngIf="j==decfiscmens.statutadmin.length-1"style="display: block;">{{statut.statut}}</td>
                           </ng-container>
                         </span>  
                       </td>
                       <td>
                         <span *ngIf="decfiscmens.statutcollab">
-                          <ng-container *ngFor="let statut of decfiscmens.statutcollab">
-                            {{statut.statutcoll}}
+                          <ng-container *ngFor="let statut of decfiscmens.statutcollab; let k=index">
+                            <td *ngIf="k==decfiscmens.statutcollab.length-1">{{statut.statutcoll}}</td>
                           </ng-container>
                         </span>     
-                      </td> 
+                      </td>  
                       <td>{{decfiscmens.created}}</td>
                       <td>{{decfiscmens.updated}}</td>
                       <td><span>{{filterusers2(decfiscmens.affecte)}}{{prenomaffecte}}</span> <span> {{filterusers2(decfiscmens.affecte)}}{{nomaffecte}}</span></td>

@@ -59,17 +59,10 @@
     </ng-template>
     <div class="col-lg-12" *ngIf="!loading">
       <div class="team-member" *ngIf="usertype=='Client'">
-        <h2>Liste des Déclarations</h2>
-        <hr>        
-        <div class="users-grid" style="overflow-x:auto;">
-  
-          
-          
+        <div class="users-grid" style="overflow-x:auto;"> 
           <table class="table table-striped">
             <thead>
             <tr>
-        
-              
               <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="_id" ></i></th>
               <th scope="col">Nature <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="nature"  ></i></th>
               <th scope="col">Mois <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="mois"  ></i></th>
@@ -77,10 +70,7 @@
               <th scope="col">Prenom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId"  ></i></th>
               <th scope="col">Nom <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="userId" ></i></th>
               <th scope="col">Statut <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="statut" ></i></th>
-              <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>
-              
-              
-              
+              <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="decfiscmenss" data-order="desc" data-name="created" ></i></th>  
             </tr>
             </thead>
             <tbody>
@@ -95,8 +85,8 @@
               <td>{{nom}}</td>
               <td>
                 <span *ngIf="decfiscmens.statutadmin.length>0">
-                  <ng-container *ngFor="let statut of decfiscmens.statutadmin">
-                    <td  style="display: block;">{{statut.statut}}</td>
+                  <ng-container *ngFor="let statut of decfiscmens.statutadmin; let j = index">
+                    <td  *ngIf="j==decfiscmens.statutadmin.length-1"style="display: block;">{{statut.statut}}</td>
                   </ng-container>
                 </span>  
               </td>
