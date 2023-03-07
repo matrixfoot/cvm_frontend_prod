@@ -151,6 +151,8 @@
                     <tr>
                       <th scope="col">Prenom</th>
                       <th scope="col">Nom</th>
+                      <th scope="col">Mois</th>
+                      <th scope="col">Annee</th>
                       <th scope="col">Type</th>
                       <th scope="col">Date de creation<i class="fa fa-sort" aria-hidden="true" [appSort]="dossnonaffecte" data-order="desc" data-name="created" ></i></th>
                       <th scope="col">date de modification</th>     
@@ -165,6 +167,8 @@
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
                         <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                        <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.mois}}</span></td>
+                    <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.annee}}</span></td>
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
                         <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>
@@ -235,6 +239,8 @@
                     <tr>
                       <th scope="col">Prenom</th>
                       <th scope="col">Nom</th>
+                      <th scope="col">Mois</th>
+                      <th scope="col">Annee</th>
                       <th scope="col">Type</th>
                       <th scope="col">Statut Admin</th>
                       <th scope="col">Statut Collaborateur</th>
@@ -254,6 +260,8 @@
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'">{{filterusers2(dossenc.userId)}}{{nomfisc}}</span>
                         <span *ngIf="dossenc.nature==='déclaration comptable'">{{filterusers(dossenc.userId)}}{{nom}}</span>
                         <span *ngIf="!dossenc.nature">{{dossenc.lastname}}</span></td>
+                        <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.mois}}</span></td>
+                        <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.annee}}</span></td>
                       <td><span *ngIf="dossenc.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{dossenc.nature}}</span>
                         <span *ngIf="dossenc.type==='candidature'">{{dossenc.type}}</span>
                         <span *ngIf="dossenc.type==='réclamation'">{{dossenc.type}}</span></td>

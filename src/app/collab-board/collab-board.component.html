@@ -16,6 +16,8 @@
                 
                 <th scope="col">Prenom</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Mois</th>
+                <th scope="col">Annee</th>
                 <th scope="col">Type</th>
                 <th scope="col">Statut Admin</th>
                 <th scope="col">Statut Collaborateur</th>
@@ -36,6 +38,8 @@
                   <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencour.userId)}}{{nomfisc}}</span>
                     <span *ngIf="sorteddossencour.nature==='déclaration comptable'">{{filterusers(sorteddossencour.userId)}}{{nom}}</span>
                     <span *ngIf="!sorteddossencour.nature">{{sorteddossencour.lastname}}</span></td>
+                    <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencour.mois}}</span></td>
+                    <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencour.annee}}</span></td>    
                   <td><span *ngIf="sorteddossencour.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencour.nature}}</span>
                     <span *ngIf="sorteddossencour.type==='candidature'">{{sorteddossencour.type}}</span>
                     <span *ngIf="sorteddossencour.type==='réclamation'">{{sorteddossencour.type}}</span></td>
@@ -76,6 +80,8 @@
                     <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'">{{filterusers2(sorteddossencours.userId)}}{{nomfisc}}</span>
                       <span *ngIf="sorteddossencours.nature==='déclaration comptable'">{{filterusers(sorteddossencours.userId)}}{{nom}}</span>
                       <span *ngIf="!sorteddossencours.nature">{{sorteddossencours.lastname}}</span></td>
+                      <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.mois}}</span></td>
+                    <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.annee}}</span></td>
                     <td><span *ngIf="sorteddossencours.nature==='Déclaration Mensuelle'||'déclaration comptable'">{{sorteddossencours.nature}}</span>
                       <span *ngIf="sorteddossencours.type==='candidature'">{{sorteddossencours.type}}</span>
                       <span *ngIf="sorteddossencours.type==='réclamation'">{{sorteddossencours.type}}</span></td>
