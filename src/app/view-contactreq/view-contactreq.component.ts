@@ -162,7 +162,9 @@ async decideadmin()
     { 
       Swal.fire({
         title: 'Veuillez choisir entre les alternatives suivantes!',
-        
+        input: 'text',
+        inputLabel: 'motif(facultatif)',
+        inputValue: '',
         icon: 'info',
         showDenyButton: true,
         showCancelButton: true,
@@ -178,7 +180,7 @@ async decideadmin()
           //@ts-ignore
           ({
             statut:'supervisé',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })
@@ -207,7 +209,7 @@ async decideadmin()
           //@ts-ignore
           ({
             statut:'à rectifier',
-            motif:'',
+            motif:result.value,
             datefin:Date.now(),
             duree:this.countdown,     
           })

@@ -61,10 +61,7 @@ this.lastname= user.Lastname;
       confirmButtonText: 'Se Déconnecter',
       cancelButtonText: 'Annuler',
     }).then((result) => {
-      if (result.value) {
-        console.log(this.Auth.getUser().userId)
-        console.log(this.Auth.getUser())
-    this.userservice.disconnectUser(this.Auth.getUser().userId,this.Auth.getUser()) 
+      if (result.value) {   
     this.Auth.signOut();
 this.reloadPage()
       }
