@@ -446,14 +446,6 @@ export class ModifyDecFiscMensComponent extends ComponentCanDeactivate implement
             (decfiscmens: Decfiscmens) => {
               
               this.decfiscmens = decfiscmens;
-              if(!this.decfiscmens.dateouverturedossier&&this.user.role=='admin'||!this.decfiscmens.dateouverturedossier&&this.user.role=='supervisor')
-              {
-                this.option204Value=Date.now()
-              }
-              else
-              {
-                this.option204Value=this.decfiscmens.dateouverturedossier
-              }
               this.tokenStorage.saved=false;
               this.nature=this.decfiscmens.nature
 
@@ -2946,14 +2938,7 @@ onSend() {
   decfiscmens.mois=this.option171Value
   decfiscmens.statutcollab=this.decfiscmens.statutcollab
   decfiscmens.affecte=this.decfiscmens.affecte
-  decfiscmens.statutcollab.push
-        //@ts-ignore
-        ({
-          statutclient:'déposé par le client',
-          motifclient:'',
-          datefin:Date.now(),
-          duree:'',     
-        })
+ 
   decfiscmens.affecte=''
   if (this.option48Value) 
   {
@@ -3287,26 +3272,38 @@ decfiscmens.impottype6.chiffreaffairettc=this.standardtclform.get('chiffreaffair
 decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
-
-this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
-(data:any) => {
-this.tokenStorage.saved=true;
-this.loading = false;
-Swal.fire({
-  position: 'center',
-  icon: 'success',
-  title: 'déclaration modifiée avec succès!vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
-  showConfirmButton: false,
-  timer: 6000 
-});
-this.router.navigate(['user-board']);
-},
-(error) => {
-this.loading = false;
-this.alertService.error('');
-window.scrollTo(0, 0);
-}
+this.commun.getcurrenttime().then(
+  (data:any) => {
+    decfiscmens.statutcollab.push
+    //@ts-ignore
+    ({
+      statutclient:'déposé par le client',
+      motifclient:'',
+      datefin:data,
+      duree:'',     
+    })
+    this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+    (data:any) => {
+    this.tokenStorage.saved=true;
+    this.loading = false;
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'déclaration modifiée avec succès!vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+      showConfirmButton: false,
+      timer: 6000 
+    });
+    this.router.navigate(['user-board']);
+    },
+    (error) => {
+    this.loading = false;
+    this.alertService.error('');
+    window.scrollTo(0, 0);
+    }
+    )
+    }
 )
+
 
      
    
@@ -3435,14 +3432,7 @@ onSubmitmodification() {
     decfiscmens.mois=this.option171Value
     decfiscmens.statutcollab=this.decfiscmens.statutcollab
     decfiscmens.affecte=this.decfiscmens.affecte
-    decfiscmens.statutcollab.push
-          //@ts-ignore
-          ({
-            statutclient:'modifié par le client',
-            motifclient:'',
-            datefin:Date.now(),
-            duree:'',     
-          })
+   
     decfiscmens.affecte=''
     if (this.option48Value) 
     {
@@ -3772,26 +3762,38 @@ if(this.option53Value)
   decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
-
-this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
-(data:any) => {
-  this.tokenStorage.saved=true;
-  this.loading = false;
-  Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'déclaration modifiée avec succès! vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
-    showConfirmButton: false,
-    timer: 6000 
-  });
-  this.router.navigate(['modify-decfiscmens/'+data.data._id])
-},
-(error) => {
-  this.loading = false;
-  this.alertService.error('');
-  window.scrollTo(0, 0);
-}
+this.commun.getcurrenttime().then(
+  (data:any) => {
+    decfiscmens.statutcollab.push
+    //@ts-ignore
+    ({
+      statutclient:'modifié par le client',
+      motifclient:'',
+      datefin:data,
+      duree:'',     
+    })
+    this.dec.completedecfiscmensreqById(this.decfiscmens._id,decfiscmens).then(
+    (data:any) => {
+      this.tokenStorage.saved=true;
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'déclaration modifiée avec succès! vous pouvez toujours modifier/compléter votre déclaration à travers votre tableau de bord',
+        showConfirmButton: false,
+        timer: 6000 
+      });
+      this.router.navigate(['modify-decfiscmens/'+data.data._id])
+    },
+    (error) => {
+      this.loading = false;
+      this.alertService.error('');
+      window.scrollTo(0, 0);
+    }
+    )
+  }
 )
+
   }
       
 displayStyle = "none";
@@ -3967,70 +3969,10 @@ createammount2(): FormGroup {
   });
 }
 finadmin(i:number) {
-  let ammounts1 = this.decfiscmensFormadmin.get('ammounts1') as FormArray;
-  
-  if (ammounts1.controls[i].value.fintraitement == true)
-  { 
-    ammounts1.controls[i].patchValue({ datefin: Date.now() });
-    ammounts1.controls[i].patchValue({ duree: (Date.now()- this.option204Value)/1000});
-  } 
-  else 
-  {
-    Swal.fire({
-      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'supprimer',
-      cancelButtonText: 'Annuler',
-    }).then((result) => {
-      if (result.value) {
-        ammounts1.controls[i].patchValue({ datefin: '' });
-    ammounts1.controls[i].patchValue({ duree: ''});
-      }
-      else
-      {
-        ammounts1.controls[i].value.fintraitement == true
-      }
-    }).catch(() => {
-      Swal.fire('opération non aboutie!');
-    });
-    
-  }
+
 }
 fincollab(i:number) {
-  let ammounts2 = this.decfiscmensFormcollab.get('ammounts2') as FormArray;
-  
-  if (ammounts2.controls[i].value.fintraitement == true)
-  { 
-    ammounts2.controls[i].patchValue({ datefin: Date.now() });
-    ammounts2.controls[i].patchValue({ duree: (Date.now()-this.option204Value)/(1000)});
-  } 
-  else 
-  {
-    Swal.fire({
-      title: 'Vous êtes sur le point de modifier la date de la fin du traitement, voulez vous continuer?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'supprimer',
-      cancelButtonText: 'Annuler',
-    }).then((result) => {
-      if (result.value) {
-        ammounts2.controls[i].patchValue({ datefin: '' });
-    ammounts2.controls[i].patchValue({ duree: ''});
-      }
-      else
-      {
-        ammounts2.controls[i].value.fintraitement == true
-      }
-    }).catch(() => {
-      Swal.fire('opération non aboutie!');
-    });
-    
-  }
+
 }
 addammount(): void {
   this.ammounts = this.autreform.get('ammounts') as FormArray;
