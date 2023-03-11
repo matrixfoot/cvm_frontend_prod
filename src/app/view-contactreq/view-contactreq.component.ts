@@ -11,6 +11,7 @@ import { DeccomptabiliteService } from '../services/dec-comptabilite';
 import { interval, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Sort } from '../_helpers/sort';
+import { CommunService } from '../services/commun';
 
 
 @Component({
@@ -37,7 +38,7 @@ public contact: Contact;
   selected: any;
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private cont: ContactService,
+    private cont: ContactService,private commun: CommunService,
     private token: TokenStorageService,private userservice: UserService,private deccompt:DeccomptabiliteService){}
 
   
@@ -109,43 +110,48 @@ public contact: Contact;
   contactreq.statutadmin=this.contact.statutadmin
   contactreq.statutcollab=this.contact.statutcollab
   contactreq.affecte =this.optionValue;
-  contactreq.statutadmin.push
-  //@ts-ignore
-  ({
-    statut:'affecté',
-    motif:'',
-    datefin:Date.now(),
-    duree:this.countdown,     
-  })
-  contactreq.statutcollab.push
-  //@ts-ignore
-  ({
-    statutcoll:'en cours de traitement',
-    motifcoll:'',
-    datefin:Date.now(),
-    duree:'',     
-  })
-  this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-    (data:any) => {
-      this.loading = false;
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'réclamation affectée avec succès',
-        showConfirmButton: false,
-        timer: 3000
-      });
-      this.router.navigate(['admin-board']);
-    },
-    (error) => {
-      this.loading = false;
-      
-      window.scrollTo(0, 0);
-      
-    
-      
+  this.commun.getcurrenttime().then(
+    async (data:any) => {
+      contactreq.statutadmin.push
+      //@ts-ignore
+      ({
+        statut:'affecté',
+        motif:'',
+        datefin:data,
+        duree:this.countdown,     
+      })
+      contactreq.statutcollab.push
+      //@ts-ignore
+      ({
+        statutcoll:'en cours de traitement',
+        motifcoll:'',
+        datefin:data,
+        duree:'',     
+      })
+      this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+        (data:any) => {
+          this.loading = false;
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'réclamation affectée avec succès',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          this.router.navigate(['admin-board']);
+        },
+        (error) => {
+          this.loading = false;
+          
+          window.scrollTo(0, 0);
+          
+        
+          
+        }
+      );
     }
-  );
+  )
+
 }
 async decideadmin()
   {
@@ -154,277 +160,282 @@ async decideadmin()
     
                   contactreq.statutadmin=this.contact.statutadmin
                   contactreq.statutcollab=this.contact.statutcollab
+                  this.commun.getcurrenttime().then(
+                    async (data:any) => {
                    //@ts-ignore
-  if(this.contact.statutadmin.length>0)
-  {
-    //@ts-ignore
-    if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de supervision')
-    { 
-      Swal.fire({
-        title: 'Veuillez choisir entre les alternatives suivantes!',
-        input: 'text',
-        inputLabel: 'motif(facultatif)',
-        inputValue: '',
-        icon: 'info',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#555',
-        confirmButtonText: 'marquer comme supervisé',
-        cancelButtonText: 'Annuler',
-        denyButtonText: 'à rectifier',
-        
-        }).then((result) => {
-        if (result.isConfirmed) {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'supervisé',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          );        
-        }
-        else if (result.isDenied)
-        {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'à rectifier',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          contactreq.statutcollab.push
-          //@ts-ignore
-          ({
-            statutcoll:'en cours de traitement',
-            motifcoll:'',
-            datefin:Date.now(),
-            duree:'',     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          ); 
-        }
-        
-        }).catch(() => {
-        Swal.fire('opération non aboutie!');
-        });
-    }
-    //@ts-ignore
-    if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de validation')
-    { 
-      await Swal.fire({
-        title: 'Veuillez choisir entre les alternatives suivantes!',
-        input: 'text',
-        inputLabel: 'motif(facultatif)',
-        inputValue: '',
-        icon: 'info',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#555',
-        confirmButtonText: 'marquer comme validé',
-        cancelButtonText: 'Annuler',
-        denyButtonText: 'à rectifier',
-        
-      }).then((result) => {
-        if (result.isConfirmed) 
-        {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'validé',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          );        
-        }
-        else if (result.isDenied)
-        {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'à rectifier',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          contactreq.statutcollab.push
-          //@ts-ignore
-          ({
-            statutcoll:'en cours de traitement',
-            motifcoll:'',
-            datefin:Date.now(),
-            duree:'',     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'déclaration modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          ); 
-        }
-        
-        }).catch(() => {
-        Swal.fire('opération non aboutie!');
-        });
-    }
-    //@ts-ignore
-    if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de clôture')
-    { 
-      Swal.fire({
-        title: 'Veuillez choisir entre les alternatives suivantes!',
-        
-        input: 'text',
-        inputLabel: 'motif(facultatif)',
-        inputValue: '',
-        icon: 'info',
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#555',
-        confirmButtonText: 'marquer comme clôturé',
-        cancelButtonText: 'Annuler',
-        denyButtonText: 'à rectifier',
-        
-        }).then((result) => {
-        if (result.isConfirmed) {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'clôturé',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          );        
-        }
-        else if (result.isDenied)
-        {
-          contactreq.statutadmin.push
-          //@ts-ignore
-          ({
-            statut:'à rectifier',
-            motif:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          contactreq.statutcollab.push
-          //@ts-ignore
-          ({
-            statutcoll:'en cours de traitement',
-            motifcoll:'',
-            datefin:Date.now(),
-            duree:'',     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation modifiée avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['admin-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          ); 
-        }
-        
-        }).catch(() => {
-        Swal.fire('opération non aboutie!');
-        });
-    }
-    
-  }
+                   if(this.contact.statutadmin.length>0)
+                   {
+                     //@ts-ignore
+                     if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de supervision')
+                     { 
+                       Swal.fire({
+                         title: 'Veuillez choisir entre les alternatives suivantes!',
+                         input: 'text',
+                         inputLabel: 'motif(facultatif)',
+                         inputValue: '',
+                         icon: 'info',
+                         showDenyButton: true,
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#555',
+                         confirmButtonText: 'marquer comme supervisé',
+                         cancelButtonText: 'Annuler',
+                         denyButtonText: 'à rectifier',
+                         
+                         }).then((result) => {
+                         if (result.isConfirmed) {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'supervisé',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           );        
+                         }
+                         else if (result.isDenied)
+                         {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'à rectifier',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           contactreq.statutcollab.push
+                           //@ts-ignore
+                           ({
+                             statutcoll:'en cours de traitement',
+                             motifcoll:'',
+                             datefin:data,
+                             duree:'',     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           ); 
+                         }
+                         
+                         }).catch(() => {
+                         Swal.fire('opération non aboutie!');
+                         });
+                     }
+                     //@ts-ignore
+                     if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de validation')
+                     { 
+                       await Swal.fire({
+                         title: 'Veuillez choisir entre les alternatives suivantes!',
+                         input: 'text',
+                         inputLabel: 'motif(facultatif)',
+                         inputValue: '',
+                         icon: 'info',
+                         showDenyButton: true,
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#555',
+                         confirmButtonText: 'marquer comme validé',
+                         cancelButtonText: 'Annuler',
+                         denyButtonText: 'à rectifier',
+                         
+                       }).then((result) => {
+                         if (result.isConfirmed) 
+                         {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'validé',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           );        
+                         }
+                         else if (result.isDenied)
+                         {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'à rectifier',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           contactreq.statutcollab.push
+                           //@ts-ignore
+                           ({
+                             statutcoll:'en cours de traitement',
+                             motifcoll:'',
+                             datefin:data,
+                             duree:'',     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'déclaration modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           ); 
+                         }
+                         
+                         }).catch(() => {
+                         Swal.fire('opération non aboutie!');
+                         });
+                     }
+                     //@ts-ignore
+                     if(this.contact.statutadmin[this.contact.statutadmin.length-1].statut=='en cours de clôture')
+                     { 
+                       Swal.fire({
+                         title: 'Veuillez choisir entre les alternatives suivantes!',
+                         
+                         input: 'text',
+                         inputLabel: 'motif(facultatif)',
+                         inputValue: '',
+                         icon: 'info',
+                         showDenyButton: true,
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#555',
+                         confirmButtonText: 'marquer comme clôturé',
+                         cancelButtonText: 'Annuler',
+                         denyButtonText: 'à rectifier',
+                         
+                         }).then((result) => {
+                         if (result.isConfirmed) {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'clôturé',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           );        
+                         }
+                         else if (result.isDenied)
+                         {
+                           contactreq.statutadmin.push
+                           //@ts-ignore
+                           ({
+                             statut:'à rectifier',
+                             motif:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           contactreq.statutcollab.push
+                           //@ts-ignore
+                           ({
+                             statutcoll:'en cours de traitement',
+                             motifcoll:'',
+                             datefin:data,
+                             duree:'',     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation modifiée avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['admin-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           ); 
+                         }
+                         
+                         }).catch(() => {
+                         Swal.fire('opération non aboutie!');
+                         });
+                     }
+                     
+                   }
+                    }
+                  )
+
    
   }
   async traite()
@@ -434,64 +445,69 @@ async decideadmin()
     
                   contactreq.statutadmin=this.contact.statutadmin
                   contactreq.statutcollab=this.contact.statutcollab
+                  this.commun.getcurrenttime().then(
+                    async (data:any) => {
                    //@ts-ignore
-  if(this.contact.statutcollab.length>0)
-  {
-    //@ts-ignore
-    if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll!='traité')
-    { 
-      await Swal.fire({
-        title: 'Veuillez choisir entre les alternatives suivantes!',
-        input: 'text',
-        inputLabel: 'motif(facultatif)',
-        inputValue: '',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#555',
-        confirmButtonText: 'marquer comme traité',
-        cancelButtonText: 'Annuler',
-        
-      }).then((result) => {
-        if (result.isConfirmed) 
-        {
-          contactreq.statutcollab.push
-          //@ts-ignore
-          ({
-            statutcoll:'traité',
-            motifcoll:result.value,
-            datefin:Date.now(),
-            duree:this.countdown,     
-          })
-          this.cont.modifycontactreqById(this.contact._id,contactreq).then(
-            (data:any) => {
-              this.loading = false;
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'réclamation traité avec succès',
-                showConfirmButton: false,
-                timer: 3000
-              });
-              this.router.navigate(['collab-board']);
-            },
-            (error) => {
-              this.loading = false;
-              
-              window.scrollTo(0, 0);  
-            }
-          );
-        }
-     
-      
-    }
-      )
-  }
-    else
-    {
-      this.router.navigate(['collab-board']);
-    }
-  }
+                   if(this.contact.statutcollab.length>0)
+                   {
+                     //@ts-ignore
+                     if(this.contact.statutcollab[this.contact.statutcollab.length-1].statutcoll!='traité')
+                     { 
+                       await Swal.fire({
+                         title: 'Veuillez choisir entre les alternatives suivantes!',
+                         input: 'text',
+                         inputLabel: 'motif(facultatif)',
+                         inputValue: '',
+                         icon: 'info',
+                         showCancelButton: true,
+                         confirmButtonColor: '#3085d6',
+                         cancelButtonColor: '#555',
+                         confirmButtonText: 'marquer comme traité',
+                         cancelButtonText: 'Annuler',
+                         
+                       }).then((result) => {
+                         if (result.isConfirmed) 
+                         {
+                           contactreq.statutcollab.push
+                           //@ts-ignore
+                           ({
+                             statutcoll:'traité',
+                             motifcoll:result.value,
+                             datefin:data,
+                             duree:this.countdown,     
+                           })
+                           this.cont.modifycontactreqById(this.contact._id,contactreq).then(
+                             (data:any) => {
+                               this.loading = false;
+                               Swal.fire({
+                                 position: 'center',
+                                 icon: 'success',
+                                 title: 'réclamation traité avec succès',
+                                 showConfirmButton: false,
+                                 timer: 3000
+                               });
+                               this.router.navigate(['collab-board']);
+                             },
+                             (error) => {
+                               this.loading = false;
+                               
+                               window.scrollTo(0, 0);  
+                             }
+                           );
+                         }
+                      
+                       
+                     }
+                       )
+                   }
+                     else
+                     {
+                       this.router.navigate(['collab-board']);
+                     }
+                   }
+                    }
+                  )
+
    
   }
   update(e){
