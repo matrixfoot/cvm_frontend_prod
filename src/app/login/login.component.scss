@@ -18,6 +18,8 @@
   min-height: 500px;
   padding: 20px;
   overflow-x: hidden;
+  margin-top: -30px;
+
 }
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -85,7 +87,6 @@ body {
     float: left;
     width: 50%;
     margin: auto;
-    padding: 0 50px;
     margin-top: 6px;
   }
   
@@ -183,12 +184,12 @@ body, html {
 }
 
 .card-container.card {
-  max-width: 350px;
+  max-width: 500px;
   padding: 40px 40px;
 }
 
 .btn {
-  font-weight: 700;
+  font-size: medium;
   height: 36px;
   -moz-user-select: none;
   -webkit-user-select: none;

@@ -21,18 +21,19 @@
         <input type="email" id="inputEmail" class="form-control"formControlName="email" placeholder="Adresse Email" required autofocus>
         <input type="password" id="inputPassword" class="form-control"formControlName="password" placeholder="Mot de passe" required>
         <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
+        <div class="bottom-container">
+          <div class="row">
+            <div class="col">
+              <a routerLink="signup" routerLinkActive="active" style="color:white; cursor: pointer;" class="btn">Inscrivez Vous</a>
+            </div>
+            <div class="col">
+              <a  routerLink="forgot-password" routerLinkActive="active"style="color:white;cursor: pointer" class="btn">Mot de Passe Oublié?</a>
+            </div>
+          </div>
+        </div>
         </form>
     </div><!-- /card-container -->
-    <div class="bottom-container">
-      <div class="row">
-        <div class="col">
-          <a routerLink="signup" routerLinkActive="active" style="color:white; cursor: pointer;" class="btn">Inscrivez Vous</a>
-        </div>
-        <div class="col">
-          <a  routerLink="forgot-password" routerLinkActive="active"style="color:white;cursor: pointer" class="btn">Mot de Passe Oublié?</a>
-        </div>
-      </div>
-    </div>
+   
     
   </div>
   <div class="alert alert-success" *ngIf="isLoggedIn" routerLink="forgot-password">
