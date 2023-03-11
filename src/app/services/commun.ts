@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+const API_URL_test = 'http://localhost:3003/api/commun/';
+const API_URL_cloud= 'http://196.203.16.222:3000/api/commun/'
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 @Injectable({
   providedIn: 'root'
 })
 export class CommunService {
-
+  constructor(private http: HttpClient) { }
+public time:any
     statuscollab:string[]=['traité']
     statusadmin:string[]=['en cours de supervision','supervisé','en cours de validation','validé','en cours de clôture','clôturé','à rectifié']
     nature: any[]=["Personne Physique","Personne Morale"];
@@ -15,7 +21,7 @@ export class CommunService {
     "Ingénieurs-conseil","Topographes","Syndic des copropriétaires","Autre"];
     sousactivites: any[]=["Avocat","Avocat à la cour d'appel","Avocat à la cour de cassation","Médecin","Médecin spécialiste","Médecin dentiste","Médecin vétérinaire"];
     specialites: any[]=["Chirurgie générale",
-    "Chirurgie pédiatrique",
+    "Chirurgie pédiatrique",  
     "Chirurgie carcinologique",
     "Chirurgie cardio-vasculaire",
     "Chirurgie vasculaire périphérique",
@@ -124,7 +130,18 @@ export class CommunService {
     activitesliberales: string[]=["Médecin","Avocat","Consultant","Expert","Infirmier","Masseur","Physiothérapeute","Ergothérapeute","Psychomotricien",
     "Diététicien","Orthophoniste","Orthoptiste","Sage-femmes","Architectes","Dessinateurs","Géomètres","Notaire","Huissiers notaire (de justice)", "Interprètes",
     "Ingénieurs-conseil","Topographes","Autre"];
-  constructor() {
+    getcurrenttime() {
+      return new Promise((resolve, reject) => {
+        
 
-  }
+        this.http.get(API_URL_cloud +'/currenttime').subscribe(
+          (response) => {
+            resolve(response);
+          },
+          (error) => {
+            reject(error); 
+          }
+        );
+      });
+    }
 }

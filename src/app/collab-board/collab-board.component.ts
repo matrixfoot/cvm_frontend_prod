@@ -17,6 +17,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import {ExcelService} from '../services/excel.service';
 import { Sort } from '../_helpers/sort';
 import { TokenStorageService } from '../services/token-storage.service';
+import { CommunService } from '../services/commun';
 @Component({
   selector: 'app-collab-board',
   templateUrl: './collab-board.component.html',
@@ -115,7 +116,7 @@ export class CollabBoardComponent implements OnInit {
               private UserService: UserService,
               private cond:CondidateService,
               private cont:ContactService,
-              private dec:DecfiscmensService,
+              private dec:DecfiscmensService,private commun: CommunService,
               private deccompt:DeccomptabiliteService,
               private router: Router, private Auth: TokenStorageService,
               private excelService:ExcelService) { }
@@ -207,8 +208,10 @@ export class CollabBoardComponent implements OnInit {
                   (decfiscmens: Decfiscmens) => {
                     
                     this.decfiscmens = decfiscmens;
-  //@ts-ignore
-  if(this.decfiscmens.statutcollab.length>0)
+                    this.commun.getcurrenttime().then(
+                      (data:any) => {
+//@ts-ignore
+if(this.decfiscmens.statutcollab.length>0)
 {
   //@ts-ignore
   if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll!='en cours de traitement')
@@ -218,7 +221,7 @@ export class CollabBoardComponent implements OnInit {
     ({
       statutcoll:'en cours de traitement',
       motifcoll:'',
-      datefin:Date.now(),
+      datefin:data,
     })
     this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
       (data:any) => {
@@ -243,7 +246,7 @@ export class CollabBoardComponent implements OnInit {
     ({
       statutcoll:'en cours de traitement',
       motifcoll:'',
-      datefin:Date.now(),
+      datefin:data,
     })
     this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
       (data:any) => {
@@ -255,7 +258,10 @@ export class CollabBoardComponent implements OnInit {
         window.scrollTo(0, 0);     
   }
   );
- }                   
+ } 
+                      }
+                    )
+                    
 }
 )
 }
