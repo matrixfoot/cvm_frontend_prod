@@ -2242,7 +2242,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
     this.loading = false;
 
   }
-  onSubmit() {
+  onSubmit(event: any) {
     this.loading = true;
     const decfiscmens:Decfiscmens = new Decfiscmens();
     decfiscmens.impottype1={ type: '', traitementetsalaire: { salairebrut:'', salaireimposable: '', retenuealasource: '',contributionsociale: '', }, 
@@ -2368,7 +2368,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
         title: 'veuillez indiquer le mois et l\'année de la déclaration',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2385,7 +2385,7 @@ if (salairesnonsoumistfp>salairesbrutsrs)
         title: 'veuillez confirmer l\'impot retenue à la source',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2514,7 +2514,7 @@ if(this.option49Value)
         title: 'veuillez confirmer l\'impot TFP ',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2539,7 +2539,7 @@ if(this.option50Value)
         title: 'veuillez confirmer l\'impot FOPROLOS ',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2561,7 +2561,7 @@ if(this.option51Value)
         title: 'veuillez confirmer l\'impot TVA ',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2661,7 +2661,7 @@ if(this.option172Value)
     title: 'veuillez confirmer l\'impot FSSP ',
     icon: 'error',
     confirmButtonColor: '#3085d6',
-  }).then((result) => {this.loading=false
+  }).then((result) => {this.loading=false,  event.target.disabled = false
   }).catch(() => {
     Swal.fire('opération non aboutie!')
   }))
@@ -2681,7 +2681,7 @@ if(this.option52Value)
         title: 'veuillez confirmer l\'impot Droit De Timbre ',
         icon: 'error',
         confirmButtonColor: '#3085d6',
-      }).then((result) => {this.loading=false
+      }).then((result) => {this.loading=false,  event.target.disabled = false
       }).catch(() => {
         Swal.fire('opération non aboutie!')
       }))
@@ -2700,7 +2700,7 @@ if(this.option53Value)
     title: 'veuillez confirmer l\'impot TCL ',
     icon: 'error',
     confirmButtonColor: '#3085d6',
-  }).then((result) => {this.loading=false
+  }).then((result) => {this.loading=false,  event.target.disabled = false
   }).catch(() => {
     Swal.fire('opération non aboutie!')
   }))
@@ -2711,7 +2711,7 @@ if(this.option53Value)
   decfiscmens.impottype6.tclpayer=this.standardtclform.get('tclapayer').value
 } 
 }
-
+event.target.disabled = true; 
 this.DecfiscmensService.create(decfiscmens).then(
   (data:any) => {
     this.token.saved=true;
@@ -2732,9 +2732,7 @@ this.DecfiscmensService.create(decfiscmens).then(
 )
 
 }
-actionMethod(event: any) {
-  event.target.disabled = true;
-}
+
   ngOnDestroy(){
     if(this.isLoggedIn)
     {

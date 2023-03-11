@@ -101,7 +101,7 @@
   <tr><th colspan="4">الاسم واللقب أوالاسم الاجتماعي: </th><th colspan="2"><span *ngIf="decfiscmens.firstname">{{ decfiscmens.firstname }} </span> <span *ngIf="decfiscmens.lastname">{{ decfiscmens.lastname }}</span> <span *ngIf="decfiscmens.raisonsociale">{{ decfiscmens.raisonsociale }}</span> </th></tr>
   <tr><th colspan="4">العنوان أو المقر الاجتماعي :</th><th colspan="2">{{ decfiscmens.adresse }}</th></tr>
   <tr><th colspan="4">الترقيم البريدي</th><th colspan="2">{{ decfiscmens.codepostal }}</th></tr>
-  <tr><th colspan="2">النشـــــــــاط:</th><th colspan="2">{{ decfiscmens.activite }}</th><th colspan="2">تاريخ توقيف النشاط</th><th colspan="2">{{ decfiscmens.datearretactivite }}</th></tr>   
+  <tr><th colspan="2">النشـــــــــاط:</th><th colspan="2"><span *ngIf="decfiscmens.activite!='Médecin'">{{ decfiscmens.activite }}</span><span *ngIf="decfiscmens.activite=='Médecin'">{{ decfiscmens.sousactivite }}</span></th><th colspan="2">تاريخ توقيف النشاط</th><th colspan="2">{{ decfiscmens.datearretactivite }}</th></tr>   
   <tr>
     <th colspan="11" style="font-size: 20px;min-width:50px">نوع الأداء أو المعلوم المدفوع على أساس هذا التصريح : ضع علامة (x) في الخانة المناسبة</th>
   </tr>

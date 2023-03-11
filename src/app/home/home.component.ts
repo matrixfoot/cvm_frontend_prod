@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Carouselmodel } from '../models/settings';
 import { CarouselService } from '../services/settings';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
+import { TokenStorageService } from '../services/token-storage.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +21,19 @@ export class HomeComponent implements OnInit {
   noWrapSlides = false;
   showIndicator = true;
   actualites: Carouselmodel[];
+  loading: boolean;
+  isLoggedIn: boolean;
+  currentuser: User;
   constructor(
-    private carousel:CarouselService,private router: Router
+    private carousel:CarouselService,private router: Router,private tokenStorage:TokenStorageService,
+
   ) {}
  
   ngOnInit() {
+    this.isLoggedIn = !!this.tokenStorage.getToken();
+    if (this.isLoggedIn) {
+      this.currentuser = this.tokenStorage.getUser();
+    }
     this.carouselsSub = this.carousel.carousels$.subscribe(
       (carousels) => {
         this.carousels = carousels; 
@@ -44,7 +54,19 @@ export class HomeComponent implements OnInit {
     this.carousel.getCarouseldataById(id);
     this.router.navigate([link + '/' + id]); 
   }
-  
+  voirdetail(link, id)
+  {
+    if (this.isLoggedIn) 
+    {
+      this.router.navigate([link + '/' + id]); 
+    }
+    else 
+    {
+      this.router.navigate(['login'])
+      this.loading=false
+    }
+    
+  }
   reloadPage (){
     let window= document.getElementById('id01')    
   }
