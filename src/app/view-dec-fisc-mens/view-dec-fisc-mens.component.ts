@@ -67,6 +67,7 @@ maincontainer=false;
   tarifs: any [];
   tarifclient: any [];
   prixminute: any;
+  totalhonoraire: any;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -320,6 +321,7 @@ if(item.tarifs[0].impot==user.regimefiscalimpot||item.tarifs[0].impot=='')
 {
  console.log('5')
 this.prixminute=item.tarifs[0].prix
+this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
 }
 }
 }
@@ -334,6 +336,7 @@ else if(item.tarifs[0].type=='Tarif de base'&&new Date(item.tarifs[0].debut)<=ne
    console.log('0')
 
  this.prixminute=item.tarifs[0].prix
+ this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
 }
         }
         )
@@ -344,7 +347,7 @@ else if(item.tarifs[0].type=='Tarif de base'&&new Date(item.tarifs[0].debut)<=ne
       }
     );
    }
-
+this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
  }
             }
             if(this.decfiscmens.statutcollab.length>0)

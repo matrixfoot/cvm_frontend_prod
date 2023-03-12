@@ -49,6 +49,18 @@
          </div>
           </td>
       </tr>
+      <tr id="resultrow2"*ngIf="totalhonoraire">
+        <td  colspan="3">
+            <div class="col-6">
+                 <p>Total honoraires</p>
+            </div>
+        </td>
+        <td style="text-align: center;">
+          <div class="col-6"*ngIf="totalhonoraire">
+            <p>{{totalhonoraire}} <span *ngIf="totalhonoraire">dinars</span></p>
+       </div>
+        </td>
+    </tr>
         </tbody> 
     </table>
 </div>  
