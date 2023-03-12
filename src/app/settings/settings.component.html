@@ -47,7 +47,6 @@
   
         
         <th scope="col">Type tarif</th>
-        <th scope="col">Annee</th>
         <th scope="col">Date début</th>
         <th scope="col">Date fin</th>
         <th scope="col">Nature utilisateur</th>
@@ -62,7 +61,6 @@
       <tbody>
       <tr *ngFor="let carousel of tarifs">
         <td>{{carousel.tarifs[0].type}}</td>
-        <td>{{carousel.tarifs[0].annee}}</td>
         <td>{{carousel.tarifs[0].debut}}</td>
         <td>{{carousel.tarifs[0].fin}}</td>
         <td>{{carousel.tarifs[0].nature}}</td>
@@ -187,12 +185,7 @@
                   </select>
               </div>
           </div>
-             <div class="col-6">
-                 <div class="form-group">
-                     <label>Annee</label>
-                     <input type="text" class="form-control" formControlName="annee" placeholder="annee"/>
-                   </div>
-             </div>
+           
              <div class="col-6">
               <div class="form-group">
                   <label>Date Début</label>

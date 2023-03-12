@@ -33,6 +33,7 @@ export class Userdeleted {
     created:Date;
     acceptTerms:Boolean;
     droitcompta:string
+    prixspecialminute:string
     rolesuperviseur:string
     connected: Boolean;
   resetToken: Boolean;

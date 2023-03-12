@@ -24,8 +24,8 @@
 </select>
 </div>
   <div title="indiquer votre civilite"class="input-container">
+    <label for="fiscalmat">Civilité:</label>    
       <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
-     
 <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
   <option hidden >Modifier Votre Civilité</option>
   <option value="Monsieur">Monsieur</option>
@@ -35,21 +35,25 @@
   </div>
 
   <div title="indiquer votre nom"class="input-container">
+    <label for="fiscalmat">Nom:</label>    
       <i class="fa fa-user icon"></i>
       <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
     </div>
 
     <div title="indiquer votre prenom"class="input-container">
+      <label for="fiscalmat">Prénom:</label>    
       <i class="fa fa-user icon"></i>
       <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
     </div> 
 
     <div title="indiquer votre raisonsociale"class="input-container">
+      <label for="fiscalmat">Raison sociale:</label>    
       <i class="fa fa-fort-awesome icon"></i>
       <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
     </div>  
 
     <div title="indiquer votre fonction"class="input-container">
+      <label for="fiscalmat">Fonction:</label>    
       <i class="fa fa-fort-awesome icon" ></i>
     <input class="input-field" type="text" [(ngModel)]="codeValue" id="fonction" formControlName="fonction" name="fonction" list="fonctions" />
 <datalist id="fonctions">
@@ -62,12 +66,15 @@
 
 
   <div title="indiquer votre nomsociete"class="input-container">
+    <label for="fiscalmat">Nom société:</label>    
       <i class="fa fa-fort-awesome icon"></i>
       <input class="input-field" type="text" placeholder="Modifier Nom Societe" id="nomsociete" formControlName="nomsociete">
     </div>
 
 
   <div title="indiquer votre secteur"class="input-container">
+    <label for="fiscalmat">Secteur:</label>    
+
       <i class="fa fa-fort-awesome icon" ></i> 
      
 
@@ -77,11 +84,13 @@
 </datalist>
   </div>
   <div title="indiquer votre clientcode"class="input-container">
+    <label for="fiscalmat">Code client:</label>    
     <i class="fa fa-user icon"></i>
     <input class="input-field" type="text" placeholder="code client" id="clientcode" formControlName="clientcode">
   </div>
 
   <div title="indiquer votre role"class="input-container">
+    <label for="fiscalmat">Role:</label>    
     <i class="fa fa-fort-awesome icon" ></i> 
    
 
@@ -89,6 +98,11 @@
 <datalist id="roles">
 <option *ngFor="let user of users" [value]="user.role" >{{user.role}}</option>
 </datalist>
+</div>
+<div title="indiquer votre role"class="input-container">
+  <label for="fiscalmat">Tarif spécial:</label>    
+  <i class="fa fa-fort-awesome icon" ></i> 
+  <input class="input-field" type="text" placeholder="tarif spécial" id="tarif" formControlName="tarif">
 </div>
 <div title="attribuer acces aux utilisateurs"class="input-container">
   <label for="fiscalmat"> Droit à la comptabilité:</label>
@@ -109,6 +123,7 @@
     </select>
 </div>
 <div class="email-container">
+  <label for="fiscalmat">Email:</label>    
   <div class="input-container">
     <i class="fa fa-envelope icon"></i>
     <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" required>
@@ -119,6 +134,7 @@
   </div>
 </div>
 <div class="mobile-container">
+  <label for="fiscalmat">Mobile:</label>    
   <div class="input-container">
     <i class="fa fa-phone icon"></i>
     <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" required>

@@ -65,6 +65,8 @@ maincontainer=false;
   settingsSub: Subscription;
   settings: any [];
   tarifs: any [];
+  tarifclient: any [];
+  prixminute: any;
   incomingfile(event) 
     {
     this.file= event.target.files[0]; 
@@ -137,6 +139,7 @@ public decfiscmens=new Decfiscmens;
     this.loading = true;
     this.statusadmin=this.commun.statusadmin
     this.currentUser = this.token.getUser();
+    console.log(this.currentUser)
   if(this.currentUser.role==='admin'||this.currentUser.role==='supervisor')
   {
     this.interval$.subscribe(value => this.countdown=value), this.countdown=0
@@ -153,20 +156,7 @@ public decfiscmens=new Decfiscmens;
         this.loading = false;
         this.errormsg=error.message;
       }
-    );
-    this.settservice.getCarouselalldata
-    this.settingsSub = this.settservice.carousels$.subscribe(
-      (settings) => {
-        this.settings = settings;
-        this.tarifs=this.settings.filter(p => p.tarifs.length>0)
-        console.log(this.tarifs)
-        },
-      (error) => {
-        this.loading = false;
-        this.errormsg=error.message;
-      }
-    );
-    
+    );  
   }
     this.route.params.subscribe(
       (params: Params) => { 
@@ -272,9 +262,7 @@ public decfiscmens=new Decfiscmens;
             this.totaldeclaration=this.preptotaldeclaration
             this.minimumperceptionammount=0.000 
           }
-            }     
-              }
-            )
+            }
             console.log(this.decfiscmens)
             this.activite=this.decfiscmens.activite
             this.sousactivite=this.decfiscmens.sousactivite
@@ -293,6 +281,70 @@ public decfiscmens=new Decfiscmens;
  if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
  {
    this.showgenerate=true
+   if(user.prixspecialminute)
+   {
+    this.prixminute=user.prixspecialminute
+   }
+   else
+   {
+    this.settservice.getCarouselalldata()
+    this.settingsSub = this.settservice.carousels$.subscribe(
+      (settings) => {
+        this.settings = settings; 
+        this.tarifs=this.settings.filter(p => p.tarifs.length>0)
+this.tarifs.forEach(async (item, index) => {
+//@ts-ignore
+if(item.tarifs[0].type=='Tarif spécial'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
+//@ts-ignore
+&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
+{
+ console.log('0')
+//@ts-ignore
+ if(item.tarifs[0].nature==user.nature||item.tarifs[0].nature=='')
+{
+console.log('1')
+//@ts-ignore
+if(item.tarifs[0].natureactivite==user.natureactivite||item.tarifs[0].natureactivite=='')
+{
+ console.log('2')
+//@ts-ignore
+if(item.tarifs[0].activite==user.activite||item.tarifs[0].activite=='')
+{
+ console.log('3')
+//@ts-ignore
+if(item.tarifs[0].sousactivite==user.sousactivite||item.tarifs[0].sousactivite=='')
+{
+ console.log('4')
+//@ts-ignore
+if(item.tarifs[0].impot==user.regimefiscalimpot||item.tarifs[0].impot=='')
+{
+ console.log('5')
+this.prixminute=item.tarifs[0].prix
+}
+}
+}
+}
+ }
+}
+//@ts-ignore
+else if(item.tarifs[0].type=='Tarif de base'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
+//@ts-ignore
+&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
+{
+   console.log('0')
+
+ this.prixminute=item.tarifs[0].prix
+}
+        }
+        )
+       },
+      (error) => {
+        this.loading = false;
+        this.errormsg=error.message;
+      }
+    );
+   }
+
  }
             }
             if(this.decfiscmens.statutcollab.length>0)
@@ -456,7 +508,10 @@ console.log(this.preptotaltvaammount)
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
 console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
-console.log(this.honoraireretenue)
+console.log(this.honoraireretenue)     
+              }
+            )
+   
 
           }
         );

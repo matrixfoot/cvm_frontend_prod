@@ -10,6 +10,7 @@ import { MustMatch } from '../_helpers/must-match.validator';
 import { CarouselService } from '../services/settings';
 import { Carouselmodel } from '../models/settings';
 import { AlertService } from '../_helpers/alert.service';
+import { CommunService } from '../services/commun';
 @Component({
   selector: 'app-modify-carousel',
   templateUrl: './modify-carousel.component.html',
@@ -23,24 +24,33 @@ export class ModifyCarouselComponent implements OnInit {
   public carousel: Carouselmodel;
   public imagePreview: string;
   fileUploaded = false; 
-
+  public type: any[]=["Tarif de base","Tarif spécial"];
   private usersSub: Subscription;
   public loading = false;
   errormsg:string;
+  nature: any[];
+  natureactivite: any[];
+  activite: any[];
+  sousactivite: any[];
+  regimeimpot: any[];
   constructor(private formBuilder: FormBuilder,
    
     private userservice: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private caro: CarouselService,
-    private auth: AuthService,
+    private auth: AuthService,private commun: CommunService,
     private tokenStorage: TokenStorageService,
     private alertService: AlertService) {}
 
 
  ngOnInit() {
   this.loading = true;
-    
+  this.nature=this.commun.nature
+    this.natureactivite=this.commun.natureactivite
+    this.activite=this.commun.activites
+    this.sousactivite=this.commun.sousactivites
+    this.regimeimpot=this.commun.regimeimpot  
   
   this.route.params.subscribe(
     (params) => {
@@ -61,9 +71,7 @@ export class ModifyCarouselComponent implements OnInit {
                 //@ts-ignore
   
               type: [carousel.tarifs[0].type],
-                //@ts-ignore
   
-              annee: [carousel.tarifs[0].annee],
                 //@ts-ignore
   
               debut: [carousel.tarifs[0].debut],
@@ -130,8 +138,7 @@ onSubmit() {
 {
  //@ts-ignore
  carousel.tarifs[0].type =this.carouselform.get('type').value;
- //@ts-ignore
-carousel.tarifs[0].annee =this.carouselform.get('annee').value;
+
  //@ts-ignore
 
 carousel.tarifs[0].debut =this.carouselform.get('debut').value;
@@ -172,8 +179,16 @@ carousel.tarifs[0].prix =this.carouselform.get('prix').value;
       
     
       
-    }
+    } 
   );
+}
+sort()
+{
+  this.nature.sort()
+  this.natureactivite.sort()
+  this.activite.sort()
+  this.sousactivite.sort()
+  this.regimeimpot.sort()
 }
 onImagePick(event: Event) {
   const file = (event.target as HTMLInputElement).files[0];

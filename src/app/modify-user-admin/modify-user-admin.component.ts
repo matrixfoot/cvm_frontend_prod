@@ -46,6 +46,7 @@ export class ModifyUserAdminComponent implements OnInit {
             this.userForm = this.formBuilder.group({
               
               role: [this.user.role, Validators.required],
+              tarif: [this.user.prixspecialminute, Validators.required],
               droitcompta: [this.user.droitcompta, Validators.required],
               rolesuperviseur: [this.user.rolesuperviseur, Validators.required],
               firstname: [this.user.firstname, Validators.required],
@@ -93,6 +94,7 @@ export class ModifyUserAdminComponent implements OnInit {
     const user = new User();
     user.userId = this.user._id;
     user.role = this.userForm.get('role').value;
+    user.prixspecialminute = this.userForm.get('tarif').value;
     user.droitcompta = this.userForm.get('droitcompta').value;
     user.rolesuperviseur = this.userForm.get('rolesuperviseur').value;
     user.email = this.userForm.get('email').value;
