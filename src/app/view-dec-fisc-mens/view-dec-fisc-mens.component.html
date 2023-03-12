@@ -37,19 +37,16 @@
             </td>
             <td style="text-align: center;">{{totaltime}} <span *ngIf="totaltime!=0">minutes</span></td>
         </tr>
-        <tr id="resultrow2"*ngIf="currentUser.role=='admin'">
-          <td>
+        <tr id="resultrow2"*ngIf="prixminute">
+          <td  colspan="3">
               <div class="col-6">
                    <p>Coût par minute</p>
               </div>
           </td>
           <td style="text-align: center;">
-            <select #cricket [(ngModel)]="option1Value">
-              <option value="default"> </option>
-              <option *ngFor="let sett of tarifs" [value]="sett._id">
-                  {{sett.tarifs[0].type}} {{sett.tarifs[0].prix}}
-              </option>
-            </select>
+            <div class="col-6"*ngIf="prixminute">
+              <p>{{prixminute}} <span *ngIf="prixminute">dinars</span></p>
+         </div>
           </td>
       </tr>
         </tbody> 

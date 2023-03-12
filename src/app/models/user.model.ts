@@ -18,6 +18,7 @@ export class User {
   civilite:string;
   nature:string;
 droitcompta:string
+prixspecialminute:string
 rolesuperviseur:string
   ficheUrl:string;
   natureactivite:string;
