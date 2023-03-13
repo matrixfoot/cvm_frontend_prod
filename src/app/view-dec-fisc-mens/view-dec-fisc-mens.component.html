@@ -136,7 +136,7 @@
   <th style="text-align: center;"><span *ngIf="type4">X</span></th>
   <th></th>
   <th style="text-align: center;"><span *ngIf="type2">X</span></th>
-  <th style="text-align: center;"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  <th style="text-align: center;"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">X</span></th>
   <th></th>
@@ -529,13 +529,13 @@
 <tr id="row1"><th colspan="5">الزيتون</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">منتجات الصيد البحري</th><th colspan="2"></th><td colspan="2">1%</td><th colspan="2"></th></tr>
 <tr id="row1"><th colspan="5">14- معلوم الإقامة بالنزل السياحية</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">15- معلوم لفائدة صندوق دعم الصحة العمومية </th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+<tr id="row1"><th colspan="5">15- معلوم لفائدة صندوق دعم الصحة العمومية </th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
   activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
-  ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td colspan="2">1%</td><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.chiffreaffaireht  | number:'1.3-3'| removeComma}}</span></th><td colspan="2">1%</td><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.montantcontribution  | number:'1.3-3'| removeComma}}</span></th></tr>
 <tr id="row1"><th colspan="5">16- المعلوم على السكر</th><th colspan="2"></th><th colspan="2">0,100 د/كغ</th><th colspan="2"></th></tr>
-<tr id="row1"><th colspan="5">المجموع</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+<tr id="row1"><th colspan="5">المجموع</th><th colspan="2"></th><th colspan="2"></th><th colspan="2"><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
   activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
   ||activite==='Sage-femmes'">{{ totalfspammount | number:'1.3-3'| removeComma}}</span></th></tr>
   <br>
@@ -659,7 +659,7 @@
   <tr id="row1"><th colspan="6">المساهمة في صندوق النهوض بالمسكن  لفائدة الأجراء</th><th><span *ngIf="type4">{{totalfoprolosammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">المعلوم على الاستهلاك </th><th></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">الأداء على القيمة المضافة </th><th><span *ngIf="type2">{{totaltvaammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
-  <tr id="row1"><th colspan="6">معاليم أخرى على رقم المعاملات </th><th><span *ngIf="activite==='Médecin'||activite==='Expert'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
+  <tr id="row1"><th colspan="6">معاليم أخرى على رقم المعاملات </th><th><span *ngIf="activite==='Médecin'||activite==='Infirmier'||activite==='Masseur'||activite==='Physiothérapeute'||
     activite==='Ergothérapeute'||activite==='Psychomotricien'||activite==='Diététicien'||activite==='Orthophoniste'||activite==='Orthoptiste'
     ||activite==='Sage-femmes'">{{ decfiscmens.impottype7.montantcontribution  | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
   <tr id="row1"><th colspan="6">معاليم الطابع الجبائي </th><th><span *ngIf="type5">{{totaltimbreammount | number:'1.3-3'| removeComma}}</span></th><th></th><th></th><th></th><th></th></tr>
