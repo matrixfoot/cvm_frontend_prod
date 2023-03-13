@@ -13,7 +13,6 @@
         <h4>Dernière modification  le(heure GMT):<b>  {{ user.updated }}</b></h4>
         <h4>Vérifié le(heure GMT):<b>  {{ user.verified }}</b></h4>
         <h4 *ngIf="user.desactive">Statut du compte:<b *ngIf="user.desactive.statut===false">Compte actif</b><b *ngIf="user.desactive.statut===true">Compte Inactif</b></h4>
-        
         <h4 *ngIf="user.desactive">date du statut(heure GMT):<b>  {{ user.desactive.date }}</b></h4>
         <h4>Mot de passe regénéré le(heure GMT):<b>  {{ user.passwordReset}}</b></h4>
         <h4>Nature utilisateur:<b>  {{ user.nature }}</b></h4>
@@ -40,6 +39,27 @@
         <h4>Adresse D'activité:<b>  {{ user.adresseactivite}}</b></h4>
         <h4>Code Postal:<b>  {{ user.codepostal }}</b></h4>
       </div>
+      <!-- comunicate with user -->
+  <div class="input-container" id="Check2">
+    <label for="myCheck1">Afficher le formulaire de communication avec le client</label>
+    <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+  </div>
+  <div id="bodycontainer2">
+    <div class="container-fluid"> 
+      <form [formGroup]="contactform"(ngSubmit)="onSubmit()"style="text-align: center;">
+          <div class="form-group">
+              <label for="email">Adresse Email</label>
+              <input type="email" class="form-control" formControlName="email"id="email" placeholder=" Entrez Votre Email">
+          </div>
+            <div class="form-group">
+              <label for ="description"> Description</label>
+               <textarea  class="form-control" id="description" formControlName="description"placeholder="Rédiger Votre Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>Envoyer Message au client</button>
+            <button type="reset" class="btn btn-default submit"(click)="onReset()">Réinitialiser</button>   
+      </form>
+  </div>
+  </div>
       <div class="container-fluid">
       <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
       <button type="button" class="btn btn-danger"*ngIf="currentUser.role=='admin'"(click)="onDelete()">supprimer utilisateur</button>
@@ -47,9 +67,10 @@
       <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin'"(click)="ondeletetemporar()">Supprimer Temporairement utilisateur</button>
     </div>
       <div class="container-fluid"*ngIf="user.desactive">
-      
       <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && user.desactive.statut===false"(click)="onDesactivate()">Désactiver utilisateur</button>
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && !user.standby"(click)="onstandby()">Mettre utilisateur en Standby</button>
       <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.desactive.statut===true"(click)="onactivate()">Activer utilisateur</button>
+      <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.standby"(click)="onliberate()">Libérer utilisateur</button>
     </div>
     </div>
     

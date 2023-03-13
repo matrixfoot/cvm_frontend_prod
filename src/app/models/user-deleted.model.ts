@@ -43,5 +43,6 @@ export class Userdeleted {
   numeronote:string[]
   desactive:{statut: string, date:Date};
   deleted:Date;
-      
+  standby: Boolean;
+    
     }

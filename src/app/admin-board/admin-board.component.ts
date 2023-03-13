@@ -221,109 +221,116 @@ export class AdminBoardComponent implements OnInit {
                   (decfiscmens: Decfiscmens) => {
                     
                     this.decfiscmens = decfiscmens;
-                    this.commun.getcurrenttime().then(
-                      (data:any) => {
-                        if(this.decfiscmens.statutcollab.length>0)
-                        {
-                                              //@ts-ignore
-                        if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'
-                                              //@ts-ignore
-                        ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier'
-                                              //@ts-ignore
-                        ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='clôturé'
-                        //@ts-ignore
-                        ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='en cours de supervision'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut!='supervisé')
-                                              {
-                                                
-                                                this.decfiscmens.statutadmin.push
-                                                //@ts-ignore
-                                                ({
-                                                  statut:'en cours de supervision',
-                                                  motif:'',
-                                                  datefin:data,
-                                                })                      
-                                                this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
-                                                  (data:any) => {
-                                                    this.router.navigate([link + '/' + id]); 
-                                                  },
-                                                  (error) => {
-                                                    this.loading = false;
+                    this.UserService.getUserById(this.decfiscmens.userId).then(
+                      (user:User)=>{
+                        if(user.standby)
+                        return('l\'utilisateur est en Standby, veuillez le libérer pour commencer le traitement')
+                        this.commun.getcurrenttime().then(
+                          (data:any) => {
+                            if(this.decfiscmens.statutcollab.length>0)
+                            {
+                                                  //@ts-ignore
+                            if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='affecté'
+                                                  //@ts-ignore
+                            ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='à rectifier'
+                                                  //@ts-ignore
+                            ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='clôturé'
+                            //@ts-ignore
+                            ||this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-2].statut=='en cours de supervision'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut!='supervisé')
+                                                  {
                                                     
-                                                    window.scrollTo(0, 0);     
-                                              }
-                                              );
-                                              }
-                                                                      //@ts-ignore
-                        
-                                              if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='supervisé')
-                                              {
-                                                
-                                                this.decfiscmens.statutadmin.push
-                                                //@ts-ignore
-                                                ({
-                                                  statut:'en cours de validation',
-                                                  motif:'',
-                                                  datefin:data,
-                                                })                      
-                                                this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
-                                                  (data:any) => {
-                                                    this.router.navigate([link + '/' + id]); 
-                                                  },
-                                                  (error) => {
-                                                    this.loading = false;
+                                                    this.decfiscmens.statutadmin.push
+                                                    //@ts-ignore
+                                                    ({
+                                                      statut:'en cours de supervision',
+                                                      motif:'',
+                                                      datefin:data,
+                                                    })                      
+                                                    this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                                                      (data:any) => {
+                                                        this.router.navigate([link + '/' + id]); 
+                                                      },
+                                                      (error) => {
+                                                        this.loading = false;
+                                                        
+                                                        window.scrollTo(0, 0);     
+                                                  }
+                                                  );
+                                                  }
+                                                                          //@ts-ignore
+                            
+                                                  if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='supervisé')
+                                                  {
                                                     
-                                                    window.scrollTo(0, 0);     
-                                              }
-                                              );
-                                              }
-                                                                      //@ts-ignore
-                                              if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='validé')
-                                              {
-                                                
-                                                this.decfiscmens.statutadmin.push
-                                                //@ts-ignore
-                                                ({
-                                                  statut:'en cours de clôture',
-                                                  motif:'',
-                                                  datefin:data,
-                                                })                      
-                                                this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
-                                                  (data:any) => {
-                                                    this.router.navigate([link + '/' + id]); 
-                                                  },
-                                                  (error) => {
-                                                    this.loading = false;
+                                                    this.decfiscmens.statutadmin.push
+                                                    //@ts-ignore
+                                                    ({
+                                                      statut:'en cours de validation',
+                                                      motif:'',
+                                                      datefin:data,
+                                                    })                      
+                                                    this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                                                      (data:any) => {
+                                                        this.router.navigate([link + '/' + id]); 
+                                                      },
+                                                      (error) => {
+                                                        this.loading = false;
+                                                        
+                                                        window.scrollTo(0, 0);     
+                                                  }
+                                                  );
+                                                  }
+                                                                          //@ts-ignore
+                                                  if(this.decfiscmens.statutcollab[this.decfiscmens.statutcollab.length-1].statutcoll=='traité'&&this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='validé')
+                                                  {
                                                     
-                                                    window.scrollTo(0, 0);     
-                                              }
-                                              );
-                                              }
-                                              
-                        }
-                                           
-                        
-                          if(!this.decfiscmens.dateouverturedossier)
-                        {
-                          
-                          this.decfiscmens.dateouverturedossier=data
-                        
-                          this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
-                            (data:any) => {
-                              this.router.navigate([link + '/' + id]); 
-                            },
-                            (error) => {
-                              this.loading = false;
+                                                    this.decfiscmens.statutadmin.push
+                                                    //@ts-ignore
+                                                    ({
+                                                      statut:'en cours de clôture',
+                                                      motif:'',
+                                                      datefin:data,
+                                                    })                      
+                                                    this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                                                      (data:any) => {
+                                                        this.router.navigate([link + '/' + id]); 
+                                                      },
+                                                      (error) => {
+                                                        this.loading = false;
+                                                        
+                                                        window.scrollTo(0, 0);     
+                                                  }
+                                                  );
+                                                  }
+                                                  
+                            }
+                                               
+                            
+                              if(!this.decfiscmens.dateouverturedossier)
+                            {
                               
-                              window.scrollTo(0, 0);     
-                        }
-                        );
-                        }
-                        else 
-                        {
-                          this.router.navigate([link + '/' + id]); 
-                        } 
+                              this.decfiscmens.dateouverturedossier=data
+                            
+                              this.dec.modifydecfiscmensreqById(this.decfiscmens._id,this.decfiscmens).then(
+                                (data:any) => {
+                                  this.router.navigate([link + '/' + id]); 
+                                },
+                                (error) => {
+                                  this.loading = false;
+                                  
+                                  window.scrollTo(0, 0);     
+                            }
+                            );
+                            }
+                            else 
+                            {
+                              this.router.navigate([link + '/' + id]); 
+                            } 
+                          }
+                        )
                       }
                     )
+           
                    
 }
 )
