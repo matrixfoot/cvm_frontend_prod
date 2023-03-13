@@ -18,6 +18,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import {ExcelService} from '../services/excel.service';
 import { Sort } from '../_helpers/sort';
 import { CommunService } from '../services/commun';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-board',
   templateUrl: './admin-board.component.html',
@@ -224,7 +225,14 @@ export class AdminBoardComponent implements OnInit {
                     this.UserService.getUserById(this.decfiscmens.userId).then(
                       (user:User)=>{
                         if(user.standby)
-                        return('l\'utilisateur est en Standby, veuillez le libérer pour commencer le traitement')
+                        return (
+                          Swal.fire({
+                          title: 'utilisateur en Standby, veuillez le libérer',
+                          icon: 'error',
+                          confirmButtonColor: '#3085d6',
+                        }).then((result) => {}).catch(() => {
+                          Swal.fire('opération non aboutie!')
+                        }))                        
                         this.commun.getcurrenttime().then(
                           (data:any) => {
                             if(this.decfiscmens.statutcollab.length>0)
