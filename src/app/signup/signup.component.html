@@ -127,9 +127,13 @@
       <div class="error-container">
         <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
           <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
+          <div *ngIf="f.mobile.errors.pattern">Veuillez saisir un numéro mobile valide</div>
+
       </div>
       <div *ngIf="submitted && f.indicatif.errors" class="invalid-feedback">
         <div *ngIf="f.indicatif.errors.required">Indicatif Mobile Obligatoire </div>
+        <div *ngIf="f.indicatif.errors.pattern">Veuillez saisir un indicatif valide</div>
+
     </div>
        
        
@@ -151,6 +155,8 @@
     <div *ngIf="submitted && f.confirmmobile.errors" class="invalid-feedback">
       <div *ngIf="f.confirmmobile.errors.required">Numéro Mobile Obligatoire</div>
       <div *ngIf="f.confirmmobile.errors.mustMatch">Les numéros mobiles ne sont pas identiques</div>
+      <div *ngIf="f.confirmmobile.errors.pattern">Veuillez saisir un numéro mobile valide</div>
+
   </div>
       <div class="input-container">
         <label for="usertype"> Confirmer N° Mobile Utilisateur:</label>

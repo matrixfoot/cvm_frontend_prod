@@ -167,103 +167,6 @@ public decfiscmens=new Decfiscmens;
             const sort = new Sort();
             this.loading = false;
             this.decfiscmens = decfiscmens;
-            this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
-            this.totaltime = Math.floor(+this.allstatuts.reduce((acc,curr)=>{
-              acc +=  +(curr.duree || 0);
-              return acc;
-            },0)/60);
-            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
-            if(this.decfiscmens.affecte)
-            {
-              this.optionValue=this.decfiscmens.affecte
-            }
-            this.userservice.getUserById(this.decfiscmens.userId).then(
-              (user: User) => {
-                console.log(user)
-                if(!user)
-                {
-                  if (user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
-  {
-   console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=20.000
-  }  
-  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=10.000
-
-  }
-  else if (user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=10.000
-  }  
-  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=5.000
-
-  }
-              if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
-                &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
-              {
-                console.log('here')
-                this.prepminimumperceptionammount=0.000
-              }
-              if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
-              
-              {
-                this.totaldeclaration=this.prepminimumperceptionammount
-                this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
-              } 
-              else 
-              {
-                this.totaldeclaration=this.preptotaldeclaration
-                this.minimumperceptionammount=0.000
-              
-              }                
-            }
-            if (user)
-            {
-              if (user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
-  {
-   console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=20.000
-  }  
-  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=10.000
-
-  }
-  else if (user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=10.000
-  }  
-  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
-  {
-    console.log(this.date1,this.currentdate) 
-   this.prepminimumperceptionammount=5.000
-
-  }
-          if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
-            &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
-          {
-            console.log('here')
-            this.prepminimumperceptionammount=0.000
-          }
-          if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0) 
-          {
-            this.totaldeclaration=this.prepminimumperceptionammount
-            this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
-          } 
-          else 
-          {
-            this.totaldeclaration=this.preptotaldeclaration
-            this.minimumperceptionammount=0.000 
-          }
-            }
             console.log(this.decfiscmens)
             this.activite=this.decfiscmens.activite
             this.sousactivite=this.decfiscmens.sousactivite
@@ -276,94 +179,12 @@ public decfiscmens=new Decfiscmens;
             this.type4=this.decfiscmens.impottype4.type
             this.type5=this.decfiscmens.impottype5.type
             this.type6=this.decfiscmens.impottype6.type
-            if(this.decfiscmens.statutadmin.length>0)
-            {
- //@ts-ignore
- if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
- {
-   this.showgenerate=true
-   if(user.prixspecialminute)
-   {
-    this.prixminute=user.prixspecialminute
-   }
-   else
-   {
-    this.settservice.getCarouselalldata()
-    this.settingsSub = this.settservice.carousels$.subscribe(
-      (settings) => {
-        this.settings = settings; 
-        this.tarifs=this.settings.filter(p => p.tarifs.length>0)
-this.tarifs.forEach(async (item, index) => {
-//@ts-ignore
-if(item.tarifs[0].type=='Tarif spécial'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
-//@ts-ignore
-&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
-{
- console.log('0')
-//@ts-ignore
- if(item.tarifs[0].nature==user.nature||item.tarifs[0].nature=='')
-{
-console.log('1')
-//@ts-ignore
-if(item.tarifs[0].natureactivite==user.natureactivite||item.tarifs[0].natureactivite=='')
-{
- console.log('2')
-//@ts-ignore
-if(item.tarifs[0].activite==user.activite||item.tarifs[0].activite=='')
-{
- console.log('3')
-//@ts-ignore
-if(item.tarifs[0].sousactivite==user.sousactivite||item.tarifs[0].sousactivite=='')
-{
- console.log('4')
-//@ts-ignore
-if(item.tarifs[0].impot==user.regimefiscalimpot||item.tarifs[0].impot=='')
-{
- console.log('5')
-this.prixminute=item.tarifs[0].prix
-this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
-}
-}
-}
-}
- }
-}
-//@ts-ignore
-else if(item.tarifs[0].type=='Tarif de base'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
-//@ts-ignore
-&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
-{
-   console.log('0')
-
- this.prixminute=item.tarifs[0].prix
- this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
-}
-        }
-        )
-       },
-      (error) => {
-        this.loading = false;
-        this.errormsg=error.message;
-      }
-    );
-   }
-this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
- }
-            }
-            if(this.decfiscmens.statutcollab.length>0)
-            {
- //@ts-ignore
- if(this.decfiscmens.statutcollab.find(e => e.statutclient==='déposé par le client'))
- {
-   this.showbuttons=true
- }
-            }
             if(this.activite=='Médecin'||this.activite=='Infirmier'||this.activite=='Masseur'||this.activite=='Physiothérapeute'||
             this.activite=='Ergothérapeute'||this.activite=='Psychomotricien'||this.activite=='Diététicien'||this.activite=='Orthophoniste'||this.activite=='Orthoptiste'
             ||this.activite=='Sage-femmes' )
             {
               this.type7=this.decfiscmens.impottype7.type 
-            }
+            }          
             
 
             if (+this.decfiscmens.impottype1.honoraire1.montantbrut!==0 ||+this.decfiscmens.impottype1.honoraire3.montantbrut!==0 )
@@ -511,7 +332,188 @@ console.log(this.preptotaltvaammount)
 this.preptotaldeclaration=+this.totalretenueammount+ +this.totaltfpammount+ +this.totalfoprolosammount+ +this.totaltvaammount+ +this.totaltimbreammount+ +this.totaltclammount
 + +this.totalfspammount
 console.log(this.totalretenueammount,this.totaltfpammount,this.totalfoprolosammount,this.totaltvaammount,this.totaltimbreammount,this.totaltclammount)
-console.log(this.honoraireretenue)     
+console.log(this.honoraireretenue) 
+            this.allstatuts=this.allstatuts.concat(this.decfiscmens.statutadmin,this.decfiscmens.statutcollab)
+            this.totaltime = Math.floor(+this.allstatuts.reduce((acc,curr)=>{
+              acc +=  +(curr.duree || 0);
+              return acc;
+            },0)/60);
+            this.sortedallstatuts=this.allstatuts.sort(sort.startSort('datefin','asc',''));
+            if(this.decfiscmens.affecte)
+            {
+              this.optionValue=this.decfiscmens.affecte
+            }
+            this.userservice.getUserById(this.decfiscmens.userId).then(
+              (user: User) => {
+                console.log(user)
+                if(!user)
+                {
+                  if (user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
+  {
+   console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=5.000
+
+  }
+              if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+                &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+              {
+                console.log('here')
+                this.prepminimumperceptionammount=0.000
+              }
+              if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0)
+              
+              {
+                this.totaldeclaration=this.prepminimumperceptionammount
+                this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+              } 
+              else 
+              {
+                this.totaldeclaration=this.preptotaldeclaration
+                this.minimumperceptionammount=0.000
+              
+              }                
+            }
+            if (user)
+            {
+              if (user.regimefiscalimpot==='Réel'&&this.currentdate>=this.date1)  
+  {
+   console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=20.000
+  }  
+  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.currentdate>=this.date1) 
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=10.000
+
+  }
+  else if (user.regimefiscalimpot==='Réel'&&this.date1>=this.currentdate)  
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=10.000
+  }  
+  else if (user.regimefiscalimpot==='Forfait D\'assiette'&&this.date1>=this.currentdate) 
+  {
+    console.log(this.date1,this.currentdate) 
+   this.prepminimumperceptionammount=5.000
+
+  }
+          if(this.totalreporttvaammount!=0&&+this.totalretenueammount==0&&+this.totaltfpammount==0&&+this.totalfoprolosammount==0
+            &&+this.totaltimbreammount==0&&+this.totaltclammount==0&&+this.totalfspammount==0)
+          {
+            console.log('here')
+            this.prepminimumperceptionammount=0.000
+          }
+          if (this.preptotaldeclaration- this.prepminimumperceptionammount <= 0) 
+          {
+            this.totaldeclaration=this.prepminimumperceptionammount
+            this.minimumperceptionammount=this.prepminimumperceptionammount-this.preptotaldeclaration
+          } 
+          else 
+          {
+            this.totaldeclaration=this.preptotaldeclaration
+            this.minimumperceptionammount=0.000 
+          }
+            }
+        
+            if(this.decfiscmens.statutadmin.length>0)
+            {
+ //@ts-ignore
+ if(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].statut=='clôturé')
+ {
+   this.showgenerate=true
+   if(user.prixspecialminute)
+   {
+    this.prixminute=user.prixspecialminute
+   }
+   else
+   {
+    this.settservice.getCarouselalldata()
+    this.settingsSub = this.settservice.carousels$.subscribe(
+      (settings) => {
+        this.settings = settings; 
+        this.tarifs=this.settings.filter(p => p.tarifs.length>0)
+this.tarifs.forEach(async (item, index) => {
+//@ts-ignore
+if(item.tarifs[0].type=='Tarif spécial'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
+//@ts-ignore
+&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
+{
+ console.log('0')
+//@ts-ignore
+ if(item.tarifs[0].nature==user.nature||item.tarifs[0].nature=='')
+{
+console.log('1')
+//@ts-ignore
+if(item.tarifs[0].natureactivite==user.natureactivite||item.tarifs[0].natureactivite=='')
+{
+ console.log('2')
+//@ts-ignore
+if(item.tarifs[0].activite==user.activite||item.tarifs[0].activite=='')
+{
+ console.log('3')
+//@ts-ignore
+if(item.tarifs[0].sousactivite==user.sousactivite||item.tarifs[0].sousactivite=='')
+{
+ console.log('4')
+//@ts-ignore
+if(item.tarifs[0].impot==user.regimefiscalimpot||item.tarifs[0].impot=='')
+{
+ console.log('5')
+this.prixminute=item.tarifs[0].prix
+this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
+}
+}
+}
+}
+ }
+}
+//@ts-ignore
+else if(item.tarifs[0].type=='Tarif de base'&&new Date(item.tarifs[0].debut)<=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin)
+//@ts-ignore
+&&new Date(item.tarifs[0].fin)>=new Date(this.decfiscmens.statutadmin[this.decfiscmens.statutadmin.length-1].datefin))
+{
+   console.log('0')
+
+ this.prixminute=item.tarifs[0].prix
+ this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
+}
+        }
+        )
+       },
+      (error) => {
+        this.loading = false;
+        this.errormsg=error.message;
+      }
+    );
+   }
+this.totalhonoraire= Math.floor(+this.totaltime * +this.prixminute) 
+ }
+            }
+            if(this.decfiscmens.statutcollab.length>0)
+            {
+ //@ts-ignore
+ if(this.decfiscmens.statutcollab.find(e => e.statutclient==='déposé par le client'))
+ {
+   this.showbuttons=true
+ }
+            }
+    
               }
             )
    

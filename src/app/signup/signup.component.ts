@@ -20,8 +20,8 @@ export class SignupComponent implements OnInit {
   isSuccessful = false;
   isSignUpFailed = false;
   submitted = false;
-  
-
+  fiscalmatPattern = "^[0-9]{8}$" 
+  indicatifPattern = "^[0-9]$" 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
@@ -36,9 +36,9 @@ export class SignupComponent implements OnInit {
       confirmpassword: [null, Validators.required],
       firstname: [null, Validators.required],
       confirmemail: [null, Validators.required],
-      indicatif: ["216",[Validators.required]],
-      mobile: [null, Validators.required],
-      confirmmobile: [null, Validators.required],
+      indicatif: ["216",[Validators.pattern(this.indicatifPattern),Validators.required]],
+      mobile: [null,[Validators.pattern(this.fiscalmatPattern),Validators.required]],
+      confirmmobile: [null,[Validators.pattern(this.fiscalmatPattern),Validators.required]],
       usertype: [null, Validators.required],
       lastname: [null, Validators.required],
       fonction: [null],
