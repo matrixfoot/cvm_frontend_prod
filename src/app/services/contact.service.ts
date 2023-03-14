@@ -125,7 +125,19 @@ export class ContactService {
           );
         });
       }
-    
+      comunicatewithuser(contact: Contact) {
+        return new Promise((resolve, reject) => {
+          
+          this.http.post(API_URL_cloud+'comunicatewithuser', contact).subscribe(
+            (response) => {
+              resolve(response);
+            },
+            (error) => {
+              reject(error);
+            }
+          );
+        });
+      }
      
     
       modify(id: string, contactreq: Contact, image: File | string) {

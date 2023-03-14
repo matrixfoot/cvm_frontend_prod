@@ -48,7 +48,7 @@ resetToken: Boolean;
 passwordReset:Boolean;
 updated: Date;
 connected: Boolean;
-
+standby: Boolean;
 desactive:{statut: string, date:Date};
 restaured:Date;
     
