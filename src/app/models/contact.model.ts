@@ -2,6 +2,7 @@ export class Contact {
     type:string;
     userId: string;
     email: string;
+    emailenvoyea: string;
     _id:string;
     ficheUrl: string;
     firstname:string;

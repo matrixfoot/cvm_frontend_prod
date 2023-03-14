@@ -41,7 +41,8 @@ export class ViewUserComponent implements OnInit {
             this.loading = false;
             this.user = user;
             this.contactform = this.formBuilder.group({
-              email: [this.user.email,],
+              email: ['macompta@macompta.com.tn'],
+              emailenvoyea: [this.user.email,],
               description: ['',],
             });   
           }
@@ -55,6 +56,7 @@ export class ViewUserComponent implements OnInit {
 
     const contact = new Contact();
     contact.email = this.contactform.get('email').value;
+    contact.emailenvoyea = this.contactform.get('emailenvoyea').value;
     contact.description = this.contactform.get('description').value;
     this.cont.comunicatewithuser(contact).then(
         (data:any) => {
@@ -78,6 +80,10 @@ export class ViewUserComponent implements OnInit {
     var checkbox:any = document.getElementById("myCheck2");
     var text2 = document.getElementById("bodycontainer2");
     if (checkbox.checked == true){
+      this.contactform.patchValue({
+        emailenvoyea:this.user.email,
+        email:'macompta@macompta.com.tn'
+      })
       text2.style.display = "block";
     } else {
       Swal.fire({
