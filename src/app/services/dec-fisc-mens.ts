@@ -4,7 +4,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { Decfiscmens } from '../models/dec-fisc-mens';
 const API_URL_test = 'http://localhost:3003/api/decfiscmens/';
-const API_URL_cloud= 'http://196.203.16.222:3000/api/decfiscmens/'
+const API_URL_cloud= 'https://macompta.com.tn:3000/api/decfiscmens/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
