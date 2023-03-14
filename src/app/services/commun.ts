@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-const API_URL_test = 'http://localhost:3003/api/commun/';
-const API_URL_cloud= 'http://196.203.16.222:3000/api/commun/'
+const API_URL_test = 'http://localhost:3002/api/commun/';
+const API_URL_cloud= 'https://macompta.com.tn:3001/api/commun/'
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
